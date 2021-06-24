@@ -192,7 +192,7 @@
                     <div>
                         <ul>
                             <li><button class="login" style="margin-top: 30px;">로그인</button></li>
-                            <li><button class="join" onclick="location.href='${ pageContext.servletContext.contextPath }/views/common/regist.jsp'">회원가입</button></li>
+                            <li><button class="join" onclick="location.href='${ pageContext.servletContext.contextPath }/user/regist'">회원가입</button></li>
                         </ul>
                     </div>
                     <p style="text-align: center; margin-top: 10px;">
