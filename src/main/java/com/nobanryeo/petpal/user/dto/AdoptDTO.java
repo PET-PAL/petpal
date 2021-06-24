@@ -4,4 +4,5 @@ public class AdoptDTO {
  
 	private int boardCode;
 	
+	
 }
