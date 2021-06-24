@@ -84,10 +84,12 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="favicon.ico">
-
+		
+		 <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+		
         <!--Google Font link-->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
+	
 
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
@@ -150,7 +152,8 @@
                     <table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
 						<tr>
 							<td>아이디</td>
-							<td><input type="text" id="userId" placeholder="아이디를 입력하세요"></td>
+							<td><input type="text" id="userId" placeholder="아이디를 입력하세요" name="id"></td>
+							<td><button id="chkId">중복확인</button></td>
 						</tr>
 						<tr>
 							<td>이름</td>
@@ -319,10 +322,17 @@
                 <div style="margin: 0px auto; text-align: center; margin-bottom: 50px; margin-top: 10px;"><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/common/login.jsp'">회원가입</button></div>
                 
                 </div>
-                
-                
-                
             </section>
+
+<!-- 아이디 중복 검사 -->          
+            
+$(#chkId).on('click', function(){)
+            
+            
+            
+            
+            
+            
 
             <!-- 푸터 -->
             <jsp:include page="../user/common/footer.jsp"/>
