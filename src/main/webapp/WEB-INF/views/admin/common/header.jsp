@@ -82,7 +82,10 @@
                             <i class="fa fa-bars"></i>
                         </button>
                     
-                     <p style="color: #19A985; font-weight: 800; font-size: 35px; margin-top: 25px; margin-left: -45px">PET-PAL</p>
+                     <div style="color: #19A985; font-weight: 800; font-size: 35px; margin-top: 25px; margin-left: -45px"
+                          onclick="location.href='adminMainPage'">
+                     PET-PAL
+                     </div>
                         
 
                     </div>
@@ -91,19 +94,19 @@
                     <!-- navbar menu -->
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-right">
-                           <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/adminList.jsp">관리자 관리</a></li>                    
-                            <li class="dropdown"><a href="#" class="dropdown-category" id="dropdownPaymentMenu" data-toggle="dropdown">결제 관리 <i class="caret"></i></a> 
+                           <li><a href="adminList">관리자 관리</a></li>                    
+                            <li class="dropdown"><a href="paymentManageList" class="dropdown-category" id="dropdownPaymentMenu" data-toggle="dropdown">결제 관리 <i class="caret"></i></a> 
                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownPaymentMenu" style="width:130px;" > 
-                                  <li style="text-align:center;"><a class="dropdown-item" aria-current="true" href="${ pageContext.servletContext.contextPath }/views/admin/main/paymentManageList.jsp">광고 결제 관리</a></li> 
-                                  <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/admin/main/taxManageList.jsp">세금계산서 관리</a></li> 
+                                  <li style="text-align:center;"><a class="dropdown-item" aria-current="true" href="paymentManageList">광고 결제 관리</a></li> 
+                                  <li><a class="dropdown-item" href="taxManageList">세금계산서 관리</a></li> 
                                </ul> 
                             </li>
 
-                            <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/blackList.jsp">블랙리스트 관리</a></li>
-                            <li class="dropdown"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/adApproveList.jsp" class="dropdown-category" id="dropdownAskMenu" data-toggle="dropdown"> 광고 <i class="caret"></i></a> 
+                            <li><a href="blackList">블랙리스트 관리</a></li>
+                            <li class="dropdown"><a href="adApproveList" class="dropdown-category" id="dropdownAskMenu" data-toggle="dropdown"> 광고 <i class="caret"></i></a> 
                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownADMenu" style="width:130px;" > 
-                                  <li><a class="dropdown-item" aria-current="true"  href="${ pageContext.servletContext.contextPath }/views/admin/main/adApproveList.jsp">광고 심사</a></li> 
-                                  <li><a class="dropdown-item"  href="${ pageContext.servletContext.contextPath }/views/admin/main/adList.jsp">광고 관리</a></li> 
+                                  <li><a class="dropdown-item" aria-current="true"  href="adApproveList">광고 심사</a></li> 
+                                  <li><a class="dropdown-item"  href="adList">광고 관리</a></li> 
 
                                </ul> 
                             </li>

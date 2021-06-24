@@ -34,9 +34,9 @@
 		      text-align:center;
 		      color:#25213b">
 		      <ul class="nav nav-pills nav-stacked">
-		        <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/adApproveList.jsp">광고 심사</a></li>
+		        <li><a href="adApproveList">광고 심사</a></li>
 		        <hr>
-		        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/adList.jsp">광고 관리</a></li>
+		        <li class="active1"><a href="adList">광고 관리</a></li>
 		      </ul>
 		    </nav>
 		    <!-- sidebar end -->
@@ -87,7 +87,7 @@
                                 </thead>
                                 <tbody>
                                 <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/admin/main/adDetail.jsp'">
+                                  <tr onclick="location.href='adDetail'">
                                     <th scope="row">1</th>
                                     <td>김신청(adid1)</td>
                                     <td>경치 좋은 강아지 카페</td>
@@ -105,7 +105,7 @@
                          <div role="tabpanel" class="tab-pane" id="before">
                             <table class="table table-hover" style="text-align:center;">	
                                 <thead>
-                                 <tr>
+                                 <tr onclick="location.href='adDetail'">
                                     <th scope="col">광고 코드</th>
                                     <th scope="col">광고 신청자</th>
                                     <th scope="col">광고 제목</th>
@@ -117,7 +117,7 @@
                                 </thead>
                                 <tbody>
                                 <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr>
+                                  <tr onclick="location.href='adDetail'">
                                     <th scope="row">1</th>
                                     <td>김신청(adid1)</td>
                                     <td>경치 좋은 강아지 카페</td>
@@ -149,7 +149,7 @@
                                 </thead>
                                 <tbody>
                                 <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr>
+                                  <tr onclick="location.href='adDetail'">
                                     <th scope="row">1</th>
                                     <td>김신청(adid1)</td>
                                     <td>경치 좋은 강아지 카페</td>
@@ -177,7 +177,7 @@
                                 </thead>
                                 <tbody>
                                 <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr>
+                                  <tr onclick="location.href='adDetail'">
                                     <th scope="row">1</th>
                                     <td>김신청(adid1)</td>
                                     <td>경치 좋은 강아지 카페</td>
@@ -209,7 +209,7 @@
                                 </thead>
                                 <tbody>
                                 <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr>
+                                  <tr onclick="location.href='adDetail'">
                                     <th scope="row">1</th>
                                     <td>김신청(adid1)</td>
                                     <td>경치 좋은 강아지 카페</td>

@@ -30,9 +30,9 @@
 		      text-align:center;
 		      color:#25213b">
 		      <ul class="nav nav-pills nav-stacked">
-		        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/adApproveList.jsp">광고 심사</a></li>
+		        <li class="active1"><a href="adApproveList">광고 심사</a></li>
 		        <hr>
-		        <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/adList.jsp">광고 관리</a></li>
+		        <li><a href="adList">광고 관리</a></li>
 		      </ul>
 		    </nav>
 		    <!-- sidebar end -->
@@ -80,7 +80,7 @@
                                 </thead>
                                 <tbody>
                                 <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/admin/main/adApproveDetail.jsp'">
+                                  <tr onclick="location.href='adApproveDetail'">
                                     <th scope="row">1</th>
                                     <td>김신청(adid1)</td>
                                     <td>경치 좋은 강아지 카페</td>
@@ -108,7 +108,7 @@
                                 </thead>
                                 <tbody>
                                 <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/admin/main/adApproveDetail.jsp'">
+                                  <tr onclick="location.href='adApproveDetail'">
                                     <th scope="row">1</th>
                                     <td>김신청(adid1)</td>
                                     <td>경치 좋은 강아지 카페</td>
@@ -136,7 +136,7 @@
                                 </thead>
                                 <tbody>
                                 <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/admin/main/adApproveDetail.jsp'">
+                                  <tr onclick="location.href='adApproveDetail'">
                                     <th scope="row">1</th>
                                     <td>김신청(adid1)</td>
                                     <td>경치 좋은 강아지 카페</td>
@@ -164,7 +164,7 @@
                                 </thead>
                                 <tbody>
                                 <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/admin/main/adApproveDetail.jsp'">
+                                  <tr onclick="location.href='adApproveDetail'">
                                     <th scope="row">1</th>
                                     <td>김신청(adid1)</td>
                                     <td>경치 좋은 강아지 카페</td>
