@@ -125,7 +125,7 @@
            	<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
 					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/point/select" style="color: #979797;">자유게시판</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp" style="color: #979797;">자유게시판</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/coupon/select" style="color: #979797;">무료나눔</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
@@ -140,9 +140,9 @@
 			        	<thead>
 			                <tr style="background-color: #F1FAF8;">
 			                	<th style="border-radius: 21px 0px 0px 0px; width: 20px;"></th>
-			                    <th style="text-align: center; width:40%;"><b>제목</b></th>
-			                    <th style="text-align: center;"><b>작성자</b></th>
-	                            <th style="text-align: center;"><b>조회수</b></th>
+			                    <th style="text-align: center; width:30%;"><b>제목</b></th>
+			                    <th style="text-align: center; width: 20%;"><b>작성자</b></th>
+	                            <th style="text-align: center; width: 20%;"><b>조회수</b></th>
 			                    <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>작성일자</b></th>
 			                </tr>
 			            </thead>

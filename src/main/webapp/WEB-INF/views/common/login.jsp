@@ -230,8 +230,7 @@
                     <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 50px;">
                         회원님의 아이디는 <b>petpal123</b>입니다.
                     </p>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
-                    </div>
+                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
                 </div>
             </div>
 

@@ -113,7 +113,7 @@
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
 					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/point/select" style="color: #979797;">자유게시판</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp" style="color: #979797;">자유게시판</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/coupon/select" style="color: #979797;">무료나눔</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
@@ -138,13 +138,13 @@
 							<textarea id="summernote"></textarea>
 	  						<script>
 						    	$('#summernote').summernote({
-						    		placeholder: '광고 문의 작성란입니다.',
+						    		placeholder: '용품리뷰를 남겨주세요',
 						        	tabsize: 2,
 						        	height: 500
 						    	});
 						    </script>
 			        </div>
-			        <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite">광고 문의 작성</button></div>
+			        <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp'" class="reviewWrite">리뷰 작성</button></div>
 				</form>
             </section>
 

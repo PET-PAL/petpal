@@ -53,6 +53,9 @@
             .blink {
                 animation: blink-effect 1s step-end infinite;
             }
+			.filtering {
+				cursor: pointer;
+			}
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -140,7 +143,7 @@
 			        	<thead>
 			                <tr style="background-color: #F1FAF8;">
 			                	<th style="border-radius: 21px 0px 0px 0px; width: 20px;"></th>
-			                	<th style="text-align: center;"><b>카테고리</b></th>
+			                	<th class="filtering" onclick="filtering();" style="text-align: center;"><b>카테고리</b><img src="${ pageContext.servletContext.contextPath }/resources/images/filter.png" style="width:15px; margin-left:10px;"></th>
 			                    <th style="text-align: center; width:40%;"><b>제목</b></th>
 			                    <th style="text-align: center;"><b>작성자</b></th>
 	                            <th style="text-align: center;"><b>조회수</b></th>
@@ -148,7 +151,7 @@
 			                </tr>
 			            </thead>
 			            <tbody>
-			                <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/freeBoardDetail.jsp'">
+			                <tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/freeBoardDetail.jsp'">
 			                	<td></td>
 			                	<td style="text-align: center;">일반</td>
 			                    <td style="text-align: center;">우리집 강아지 보세요</td>
@@ -156,7 +159,7 @@
 			                    <td style="text-align: center;">367</td>
 			                    <td style="text-align: center;">2021-06-17</td>
 			                </tr>
-			                <tr onclick="location.href=''">
+			                <tr class="general" onclick="location.href=''">
 			                	<td class="blink" style="color:red; text-align: left; margin-left: 5px; font-weight: 600; font-size: 1.2em;">AD</td>
 			                    <td style="text-align: center;">일반</td>
 			                    <td style="text-align: center;">강아지 카페 갔다왔는데 최고네요!</td>
@@ -164,7 +167,7 @@
 			                    <td style="text-align: center;">36</td>
 			                    <td style="text-align: center;">2021-06-17</td>
 			                </tr>
-			                <tr onclick="location.href=''">
+			                <tr class="question" onclick="location.href=''">
 			                	<td></td>
 			                	<td style="text-align: center;">질문</td>
 			                    <td style="text-align: center;">초보 집사인데 어떻게 해야 하나요?</td>
@@ -184,6 +187,29 @@
 					</div>
 	            </div>
             </section>
+            
+            
+            <script>
+            	<!-- 카테고리 필터링 -->
+	            var filterNo = 0;
+				function filtering() {
+					
+					filterNo++;
+					
+					if(filterNo > 2) {
+						filterNo = 1;
+					}
+					
+					if(filterNo == 1) {
+						$(".question").hide();
+						$(".general").show();
+					} else {
+						$(".general").hide();
+						$(".question").show();
+					}
+					
+				}
+            </script>
             
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>

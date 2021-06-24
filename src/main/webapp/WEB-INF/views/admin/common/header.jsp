@@ -43,6 +43,7 @@
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+   		<script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
     </head>
 <body>
 

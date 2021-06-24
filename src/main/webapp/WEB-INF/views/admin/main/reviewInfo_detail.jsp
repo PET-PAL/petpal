@@ -13,7 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-	<jsp:include page="${ pageContext.servletContext.contextPath }/views/admin/common/header.jsp"></jsp:include> 
+	<%-- <jsp:include page="${ pageContext.servletContext.contextPath }/views/admin/common/header.jsp"></jsp:include>  --%>
 
     
 	 <section id="product" class="product">
@@ -107,7 +107,7 @@
     	</div>
 		<script src="${ pageContext.servletContext.contextPath }/resources/js/clickevent.js"></script>
       <script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
-	  <jsp:include page="${ pageContext.servletContext.contextPath }/views/admin/common/footer.jsp"></jsp:include> 
+	  <%-- <jsp:include page="${ pageContext.servletContext.contextPath }/views/admin/common/footer.jsp"></jsp:include>  --%>
 	
 	</body>
 </html>

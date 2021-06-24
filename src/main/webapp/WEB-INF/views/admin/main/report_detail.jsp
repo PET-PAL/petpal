@@ -71,8 +71,8 @@
 		                            </table>
 			           	
 				           	 </div>	                       
-								<div class="col-md-3 col-md-offset-4"  style="float:right;">
-		                            <button type="button" class="btn btn-outline-success text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px;">신고글 보기</button>
+								<div class="col-md-3"  style="float:left;">
+		                            <button type="button" class="btn btn-outline-success text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px; width:200px; margin-top:100px">신고글 보기</button>
 					            </div>
 								<div class="col-md-3 col-md-offset-4"  style="float:right;margin-top: 100px;">
 					               	<button type="submit" class="btn btn-danger btn-sm" style="border-radius:10px;margin-left:65px">신고 승인</button>

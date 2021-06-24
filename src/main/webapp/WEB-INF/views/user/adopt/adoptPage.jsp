@@ -77,8 +77,8 @@
             <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
 
-            <section id="borad" class="borad" style="width: 80%; margin: 0px auto;  margin-bottom: 40px;">
-                <div style="color: #45B99C; font-size: 25px; font-weight: 600;">실종신고
+            <section id="borad" class="borad" style="width: 80%; margin: 0px auto;  margin-bottom: 40px; margin-bottom: 40px;">
+                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 200px;">입양홍보
                 <button 
                 style="color: white; background-color: #FFA800; border-color: white; border: 1px solid; 
                 border-radius:10px; width:180px; margin-left:30px;">
@@ -90,9 +90,19 @@
                 	입양 완료
                 </button>
                 </div>
-                <hr style="border-color: rgb(175, 175, 175);">
+                <hr style="border-color: rgb(175, 175, 175); width: 80%;">
             </section> <!--End off Home Sections-->
-
+			<div style="width: 370px; position: relative; left: 60%;">
+		            <form style="margin-bottom: 40px;">
+						<input type="search" placeholder="지역 키워드를 입력해주세요" aria-label="Search"
+						style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;">
+						<span>
+						<button type="submit" style="background-color: white; height: 40px; width: 50px; float: right; border: solid 1px; border-color: black; border-radius: 5px;">
+							검색
+						</button>
+						</span>
+					</form>
+					</div>
             <section id="boradtable" class="boradtable">
                  <!-- Wrapper for slides -->
                          <div class="carousel-inner" role="listbox">
@@ -223,28 +233,8 @@
             
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
-
-            <footer>
-                <section id="business" class="business bg-grey roomy-70" style="background-color: #F1FAF8; padding-top: 80px; padding-bottom: 20px">
-                
-                    <div class="container">
-                <p>
-                    <b>고객행복센터 7777-7777</b>
-                    오전 9시 - 새벽 3시
-                </p>
-                <address>
-                    (주) petpal company<br>
-                    주소 : 서울특별시 서초구 강남대로 441 5층 503호<br>
-                    대표이사 : 유승제<br>
-                    전화번호 : 02-7777-7777<br>
-                    이메일 : petpal@petpal.com<br>
-                </address>
-                
-            </div>
-            </section>
-            </footer>
         </div>
-            
+         <jsp:include page="../common/footer.jsp"/>    
 
         <!-- JS includes -->
 

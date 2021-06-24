@@ -4,7 +4,6 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>세금계산서 관리</title>
 <style>
 .table>tr>td{
 	text-align: center;
@@ -26,6 +25,28 @@ select { width: 150px; /* 원하는 너비설정 */
  -moz-appearance: none; 
  appearance: none; 
  float:left;}
+  .search {
+    position: relative;
+    text-align: center;
+    width: 300px;
+    margin: 0 auto;
+}
+input {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #bbb;
+    margin: 10px 0;
+    padding: 10px 12px;
+    font-family: fontAwesome;
+    background-color: #F1FAF8;
+}
+.fa-search {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    margin: 0;
+    
+}
 </style>
 </head>
 <body>
@@ -65,7 +86,7 @@ select { width: 150px; /* 원하는 너비설정 */
                                     </ul>
 							<div class="container-fluid" style="margin-top: 15px;">
 							 <div class="container-fluid" style="float:left;">
-												<select class="ui search dropdown" style="font-size:15px; text-align:center !important;">
+												<select class="ui search dropdown" style="font-size:15px; text-align:center !important; width:150px;">
 												  <option value ="0" selected>월별 조회</option>
 												  <option value="1">1월</option>
 												  <option value="2">2월</option>
@@ -83,10 +104,10 @@ select { width: 150px; /* 원하는 너비설정 */
 												</select>
 												</div>	
 								    <form class="d-flex" style="float:right;">
-								      <input class="form-control me-2" type="search" placeholder="유저명으로 검색하시오." aria-label="Search"
-								      style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px">
-								      <button class="btn btn-outline-success" type="submit" 
-								      style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" ><p style="padding-bottom:20px;">Search</p></button>
+									     <div class="search">
+										      <input type="text" placeholder="유저명으로 검색해주세요.">
+										      <i class="fas fa-search fa-2x"></i>
+									   	</div>
 								    </form>
 								</div>
                                     <!-- Tab panes -->

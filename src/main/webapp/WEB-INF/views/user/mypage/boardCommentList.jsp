@@ -157,7 +157,7 @@
 			                        </tr>
 			                    </thead>
 			                    <tbody>
-			                        <tr onclick="location.href=''">
+			                        <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp'">
 			                            <td style="text-align: center;">용품리뷰</td>
 			                            <td>강아지 옷 리뷰</td>
 			                            <td style="text-align: center;">2021-06-17</td>

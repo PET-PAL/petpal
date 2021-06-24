@@ -4,10 +4,32 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>신고 페이지</title>
 <style>
 .table>tr>td{
 	text-align: center;
+}
+
+ .search {
+    position: relative;
+    text-align: center;
+    width: 300px;
+    margin: 0 auto;
+}
+input {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #bbb;
+    margin: 10px 0;
+    padding: 10px 12px;
+    font-family: fontAwesome;
+    background-color: #F1FAF8;
+}
+.fa-search {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    margin: 0;
+    
 }
 </style>
 </head>
@@ -46,14 +68,15 @@
                                         <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">용품리뷰</a></li>
                                         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">무료 나눔</a></li>
                                         <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">자유게시판</a></li>
+                                        <li role="presentation"><a href="#comment" aria-controls="comment" role="tab" data-toggle="tab">댓글</a></li>
                                     	<p style="float:right;">총 신고글 : 00개</p>
                                     </ul>
 							<div class="container-fluid" style="margin-top: 15px;">
-								    <form class="d-flex">
-								      <input class="form-control me-2" type="search" placeholder="유저명 or 제목으로 검색하시오." aria-label="Search"
-								      style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px">
-								      <button class="btn btn-outline-success" type="submit" 
-								      style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" ><p style="margin-bottom:5px;">Search</p></button>
+								    <form class="d-flex" style="float:left;">
+									     <div class="search">
+									      <input type="text" placeholder="유저명 or 글제목으로 검색해주세요.">
+									      <i class="fas fa-search fa-2x"></i>
+									   	</div>
 								    </form>
 								</div>
                                     <!-- Tab panes -->
@@ -246,6 +269,48 @@
 																<td>유유유</td>
 																<td>게시글 신고입니다</td>
 																<td>2021.06.08</td>
+																<td>2021.06.18</td>
+																<td>처리전</td>
+															</tr>
+												
+														</tbody>
+													
+													</table>
+													<div class="text-center">
+														<ul class="pagination">
+															<li><a href="#">1</a></li>
+															<li><a href="#">2</a></li>
+															<li><a href="#">3</a></li>
+															<li><a href="#">4</a></li>
+														</ul>
+													</div>			
+                                         </div>
+                                        <div role="tabpanel" class="tab-pane" id="comment">
+                                        <table class="table table-hover" style="text-align:center;">
+												<thead>
+													<tr>
+														<th style="text-align:center;">글쓴이(유저아이디)</th>
+														<th style="text-align:center;">글 내용</th>
+														<th style="text-align:center;">신고일자</th>
+														<th style="text-align:center;">진행상황</th>
+													</tr>
+												</thead>
+														<tbody>
+															<tr>
+																<td>황주디</td>
+																<td>난리난리난리나</td>
+																<td>2021.06.18</td>
+																<td>처리전</td>
+															</tr>
+															<tr>
+																<td>손손</td>
+																<td>쓸모옶는 댓글1</td>
+																<td>2021.06.18</td>
+																<td>처리전</td>
+															</tr>
+															<tr>
+																<td>유유유</td>
+																<td>신고당할 만한 댓글이다~</td>
 																<td>2021.06.18</td>
 																<td>처리전</td>
 															</tr>

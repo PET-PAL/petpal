@@ -224,14 +224,15 @@
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
 							<td>
-							업나라<button style="float:right;">쪽지보내기</button>
+							업나라<button onclick="location.href='#directMessage'" style="float:right;">쪽지보내기</button>
 							</td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성일자</b></td>
 							<td>2021-06-17</td>
 						</tr>
 					</tbody></table>
+					<p style="font-size: 30px; text-align: center; margin-bottom: 50px; margin-left: 8px;">나눔 완료된 물품입니다.</p>
 					<img src="/petpal_front/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px;">나눔 완료/나눔 중인 무료나눔 내용</p>
+					<p style="margin-bottom: 50px; margin-left: 8px;">나눔 중인 무료나눔 내용</p>
 		        </div>
             </section>
             
@@ -250,6 +251,34 @@
                     </div>
                 </div>
             </div>
+            
+                 <!-- 쪽지 팝업창 -->
+            <div id="directMessage" class="overlay">
+                <div class="popup">
+                    <a href="#none" class="close">&times;</a>
+                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : 킘유진(kimyu)</p>
+                    <div class="findpwd-content" id="contStep02" style="display: block;">
+                        <!-- 신고 내용 입력 -->
+                        <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+                    </div>
+                </div>
+            </div>
+            
+             <!-- 전송 완료 팝업창 -->
+            <div id="completeMessage" class="overlay">
+                <div class="popup">
+                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+                     	쪽지 전송에 성공하였습니다.<br>
+                    </p>
+                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+                     	보낸 쪽지는 마이페이지에서 확인 가능합니다.
+                    </p>
+                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                    </div>
+                </div>
+            </div>
+            
             
              <!-- 신고 완료 팝업창 -->
             <div id="completeReport" class="overlay">

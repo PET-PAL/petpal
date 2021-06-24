@@ -65,9 +65,9 @@
                     <!-- navbar menu -->
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="#home">실종신고/목격제보</a></li>                    
-                            <li><a href="#features">입양게시판</a></li>
-                            <li><a href="#business">정보공유</a></li>
+                            <li><a href="${ pageContext.servletContext.contextPath }/views/user/missing/missingPage.jsp">실종신고/목격제보</a></li>                    
+                            <li><a href="${ pageContext.servletContext.contextPath }/views/user/adopt/adoptPage.jsp">입양게시판</a></li>
+                            <li><a href="${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp">정보공유</a></li>
                             <li><a href="#" class="dropdown-category" id="dropdownADMenu" data-toggle="dropdown"> 커뮤니티 <i class="caret"></i></a> 
                             	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownAskMenu" style="width:130px;" > 
 		                            <li><a class="dropdown-item" aria-current="true" href="${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp">자유 게시판</a></li> 

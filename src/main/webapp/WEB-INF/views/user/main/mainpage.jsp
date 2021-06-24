@@ -29,45 +29,15 @@
 			    padding-bottom: 190px !important;
 			    width:100% !important;
             }
+            .port_img > img {
+            	cursor: pointer;
+            }
+            .icon-chevron-right::before, .icon-chevron-left::before {
+            	content: none !important;
+            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -109,7 +79,7 @@
                                         </div>
 
                                         <div class="home_btns m-top-40">
-                                            <a href="" class="btn btn-primary m-top-20">펫팔 둘러보기</a>
+                                            <a href="#test" class="btn btn-primary m-top-20">펫팔 둘러보기</a>
                                         </div>
                                     </div><!-- End off slid item -->
                                     <div class="slid_item">
@@ -120,19 +90,15 @@
                                         </div>
 
                                         <div class="home_btns m-top-40">
-                                            <a href="" class="btn btn-primary m-top-20">펫팔 둘러보기</a>
+                                            <a href="#test" class="btn btn-primary m-top-20">펫팔 둘러보기</a>
                                         </div>
                                     </div><!-- End off slid item -->
                                 </div>
                             </div>
-
                         </div>
-
-
                     </div><!--End off row-->
                 </div><!--End off container -->
             </section> <!--End off Home Sections-->
-
 
 
             <!--Featured Section-->
@@ -142,37 +108,25 @@
                         <div class="main_features fix roomy-70">
                             <div class="col-md-4">
                                 <div class="features_item sm-m-top-30">
-                                    <div class="f_item_icon">
-                                        <i class="fa fa-thumbs-o-up"></i>
-                                    </div>
                                     <div class="f_item_text">
-                                        <h3>Best Quality Design</h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque eleifend
-                                            in sit amet mattis volutpat rhoncus.</p>
+                                        <h3><b style="font-size: 2rem; color: #00a885;">1. </b>Information platform</h3>
+                                        <p>초보 반려인이나 반려동물을 입양할지 고민하고 있는 사람들에게 반려동물이 피해야 할 음식부터, 예방주사, 의료 관련 지식 등 여러 분야에 걸친 필수 지식들을 보여준다.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="features_item sm-m-top-30">
-                                    <div class="f_item_icon">
-                                        <i class="fa fa-tablet"></i>
-                                    </div>
                                     <div class="f_item_text">
-                                        <h3>Responsive Design</h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque eleifend
-                                            in sit amet mattis volutpat rhoncus.</p>
+                                        <h3><b style="font-size: 2rem; color: #00a885;">2. </b>Social community</h3>
+                                        <p>반려동물을 기르는 사람들 간의 친목을 도모하고 그 가운데에서 소소한 정보 나눔을 할 수 있다.</p>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-md-4">
                                 <div class="features_item sm-m-top-30">
-                                    <div class="f_item_icon">
-                                        <i class="fa fa-sliders"></i>
-                                    </div>
                                     <div class="f_item_text">
-                                        <h3>Easy to Customize</h3>
-                                        <p>Lorem ipsum dolor sit amet consectetur adipiscing elit pellentesque eleifend
-                                            in sit amet mattis volutpat rhoncus.</p>
+                                        <h3><b style="font-size: 2rem; color: #00a885;">3. </b>Helping abandoned, missing animals platform</h3>
+                                        <p>반려동물 커뮤니티라는 특성을 통해 유기, 실종 동물의 입양 및 찾는데 도움을 줄 수있다.</p>
                                     </div>
                                 </div>
                             </div>
@@ -185,225 +139,61 @@
            
 
             <!--product section-->
-            <section id="product" class="product">
+            <section id="test" class="product">
                 <div class="container">
                     <div class="main_product roomy-80">
                         <div class="head_title text-center fix">
-                            <h2 class="text-uppercase">What Client Say</h2>
-                            <h5>Clean and Modern design is our best specialist</h5>
+                            <h2 class="text-uppercase">PET-PAL</h2>
+                            <h5>펫팔 한눈에 보기</h5>
                         </div>
-
-                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                            <!-- Indicators -->
-                            <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-                            </ol>
-
-                            <!-- Wrapper for slides -->
-                            <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img2.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img2.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img3.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img3.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img4.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img4.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
+                        <!-- Wrapper for slides -->
+                        <div class="container">
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <div class="port_item xs-m-top-30">
+                                        <div class="port_img">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/missing/missingPage.jsp'">
+                                        </div>
+                                        <div class="port_caption m-top-20">
+                                            <h5>실종신고 / 목격제보</h5>
+                                            <h6>- 실종신고, 목격제보</h6>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="item">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img2.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img2.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img3.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img3.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img4.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img4.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="col-sm-3">
+                                    <div class="port_item xs-m-top-30">
+                                        <div class="port_img">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img2.jpg" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/adopt/adoptPage.jsp'">
+                                        </div>
+                                        <div class="port_caption m-top-20">
+                                            <h5>입양게시판</h5>
+                                            <h6>- 입양홍보, 입양하기</h6>
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="item">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img2.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img2.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img3.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img3.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img4.jpg" alt="" />
-                                                        <div class="port_overlay text-center">
-                                                            <a href="${ pageContext.servletContext.contextPath }/resources/images/work-img4.jpg" class="popup-img">+</a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="port_caption m-top-20">
-                                                        <h5>Your Work Title</h5>
-                                                        <h6>- Graphic Design</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                <div class="col-sm-3">
+                                    <div class="port_item xs-m-top-30">
+                                        <div class="port_img">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img3.jpg" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp'">
+                                        </div>
+                                        <div class="port_caption m-top-20">
+                                            <h5>정보공유</h5>
+                                            <h6>- 일반 정보, 펫 프랜들리 플레이스</h6>
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="col-sm-3">
+                                    <div class="port_item xs-m-top-30">
+                                        <div class="port_img">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img4.jpg" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp'">
+                                        </div>
+                                        <div class="port_caption m-top-20">
+                                            <h5>커뮤니티</h5>
+                                            <h6>- 자유게시판, 무료나눔, 용품리뷰</h6>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-
-                            <!-- Controls -->
-                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-                                <i class="fa fa-angle-left" aria-hidden="true"></i>
-                                <span class="sr-only">Previous</span>
-                            </a>
-
-                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-                                <i class="fa fa-angle-right" aria-hidden="true"></i>
-                                <span class="sr-only">Next</span>
-                            </a>
                         </div>
                     </div><!-- End off row -->
                 </div><!-- End off container -->
@@ -457,8 +247,8 @@
                               <div class="footer-links" style="margin-left: 20px;">
                                 <h4>Useful Links</h4>
                                 <ul>
-                                  <li><a href="">이용약관</a></li>
-                                  <li><a href="">개인정보처리방침</a></li>
+                                  <li><a href="${ pageContext.servletContext.contextPath }/views/user/main/usefulLinks.jsp">이용약관</a></li>
+                                  <li><a href="${ pageContext.servletContext.contextPath }/views/user/main/usefulLinks.jsp">개인정보처리방침</a></li>
                                 </ul>
                               </div>
               

@@ -62,42 +62,7 @@
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
 
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -119,8 +84,7 @@
         <div class="culmn">
             <!--Home page style-->
 
-
-            <jsp:include page="../common/userHeader.jsp"/>
+           <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 40px;">
@@ -154,7 +118,7 @@
 			                            <td onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="text-align: center;">2021-06-11</td>
 			                            <td style="text-align: center; color: red;">광고신청</td>
 			                        </tr>
-			                        <tr">
+			                        <tr>
 			                            <td onclick="location.href=''" style="text-align: center;">비마이펫</td>
 			                            <td onclick="location.href=''" style="text-align: center;">2주</td>
 			                            <td onclick="location.href=''" style="text-align: center;">2021-06-05</td>
@@ -205,7 +169,7 @@
 			                            <td style="text-align: center;">501</td>
 			                            <td style="text-align: center;">2021-06-30</td>
 			                            <td style="text-align: center;">75,150원</td>
-			                            <td style="text-align: center; color: red;">추가결제 대기중<button></button></td>
+			                            <td class="class" style="text-align: center; color: red;">추가결제 대기중<button></button></td>
 			                        </tr>
 			                        <tr class="morepay">
 			                            <td style="text-align: center;">주디주디주디</td>
@@ -250,6 +214,7 @@
 					}
 				)};
 				
+				/* 결제 상태 필터링 */
 				var filterNo = 0;
 				function filtering() {
 					
@@ -267,8 +232,7 @@
 						$(".completepay").show();
 					}
 					
-				}
-				
+				}				
 			</script>
 
             

@@ -4,11 +4,31 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>검토 페이지</title>
 <style>
 .table>tr>td{
 	text-align: center;
 }
+.search {
+    position: relative;
+    text-align: center;
+    width: 300px;
+    margin: 0 auto;
+}
+input {
+    width: 100%;
+    border-radius: 20px;
+    border: 1px solid #bbb;
+    margin: 10px 0;
+    padding: 10px 12px;
+    font-family: fontAwesome;
+    background-color: #F1FAF8;
+}
+.fa-search {
+    position: absolute;
+    right: 15px;
+    top: 10px;
+    margin: 0;
+    }
 </style>
 </head>
 <body>
@@ -30,12 +50,12 @@
                                         <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">프렌들리 플레이스</a></li>
                                     </ul>
 							<div class="container-fluid" style="margin-top: 15px;">
-								    <form class="d-flex">
-								      <input class="form-control me-2" type="search" placeholder="유저명 or 제목으로 검색하시오." aria-label="Search"
-								      style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px">
-								      <button class="btn btn-outline-success" type="submit" 
-								      style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" >Search</button>
-								    </form>
+								<form class="d-flex" style="float:left;">
+								     <div class="search">
+									      <input type="text" placeholder="유저명 or 글제목으로 검색해주세요.">
+									      <i class="fas fa-search fa-2x"></i>
+								   	</div>
+								</form>
 								</div>
                                     <!-- Tab panes -->
                                     <div class="tab-content" style="padding:0px;">

@@ -43,51 +43,114 @@
                 border-radius: 10px;
                 margin-left: 2%;
             }
+            span > button {
+            	background-color: #45B99C; 
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid;
+                height: 30px; 
+                font-size: 16px; 
+                font-weight: 500;
+                border-radius: 10px;
+                margin-top: 3px;
+            }
             .sendmessage > input::placeholder {
                 color:#45B99C;
             }
             td > img, span > img{
             	cursor: pointer !important;
             }
+            .overlay {
+  				position: fixed;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: rgba(0, 0, 0, 0.7);
+				transition: opacity 500ms;
+				visibility: hidden;
+				opacity: 0;
+				z-index: 900;
+				height: 150% !important;
+			}
+			.overlay:target {
+				visibility: visible;
+				opacity: 1;
+			}
+			.popup {
+				position: fixed;
+				width: 60%;
+				padding: 10px;
+				max-width: 500px;
+				border-radius: 10px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: rgba(255, 255, 255, .9);
+				-webkit-transition: opacity .5s, visibility 0s linear .5s;
+				transition: opacity .5s, visibility 0s linear .5s;
+				z-index: 1;
+			}
+			.popup:target {
+				visibility: visible;
+				opacity: 1;
+				-webkit-transition-delay: 0s;
+				transition-delay: 0s;
+			}
+			.popup-close {
+				position: absolute;
+				padding: 10px;
+				max-width: 500px;
+				border-radius: 10px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: rgba(255, 255, 255, .9);
+			}
+			.popup .close {
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				padding: 5px;
+				color: #000;
+				transition: color .3s;
+				font-size: 2em;
+				line-height: .6em;
+			}
+			.popup .close:hover {
+				color: #007a5c;
+			}
+            .btn_submit, .certification {
+                background-color: #45B99C; 
+                height: 35px;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid; 
+                font-size: 16px; 
+                font-weight: 500;
+                border-radius: 10px;
+            }
+            .findpwd-content > div {
+                margin: 0px auto;
+            }
+            td > button {
+            	float: right;
+    			border-radius: 5px;
+    			border: 1px solid;
+    			color: #45B99C;
+    			background: white;
+            }
+            td > button:hover {
+            	float: right;
+    			border-radius: 5px;
+    			background-color: #45B99C;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid;
+            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -115,13 +178,14 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float: left">커뮤니티</div>
+                <span style="margin-left: 30px;"><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewModify.jsp'">수정하기</button></span>
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp'" style="width:50px; float: right; cursor: pointer !important;">
             </section>
 
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
 					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/point/select" style="color: #979797;">자유게시판</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp" style="color: #979797;">자유게시판</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/coupon/select" style="color: #979797;">무료나눔</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
@@ -134,20 +198,22 @@
 				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
-							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
-							<td>강아지 옷 리뷰</td>
-							<td style="text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
-							<td style="border-radius: 0px 21px 0px 0px;">367<span><img onclick="location.href=''" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;"></span></td>
+							<td style="width:15%; text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
+							<td style="width:45%;">강아지 옷 리뷰</td>
+							<td style="width:15%; text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
+							<td style="border-radius: 0px 21px 0px 0px;">367<span><img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;"></span></td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
-							<td>킘유진</td>
+							<td>킘유진<button onclick="location.href='#directMessage'">쪽지보내기</button></td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성 일자</b></td>
 							<td>2021-06-17</td>
 						</tr>
 					</table>
 					<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px;">저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!</p>
+					<p style="margin-bottom: 50px; margin-left: 8px;">저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!
+					저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!
+					</p>
 		        </div>
 		        
 				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>
@@ -158,19 +224,19 @@
 				                <td style="text-align: center;">킘유진</td>
 				                <td>감사합니다.</td>
 				                <td style="text-align: center;">2021-06-17</td>
-				                <td><img onclick="location.href=''" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+				                <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
 				            </tr>
 				            <tr>
 				                <td style="text-align: center;">업나라</td>
 				                <td>좋은 글 감사합니다! 더 궁금한 점이 있는데 쪽지 드려도 될까요~?</td>
 				                <td style="text-align: center;">2021-06-17</td>
-				                <td><img onclick="location.href=''" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+				                <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
 				            </tr>
 				            <tr>
 				                <td style="text-align: center;">손성훙</td>
 				                <td>정보 감사합니다.</td>
 				                <td style="text-align: center;">2021-06-17</td>
-				                <td><img onclick="location.href=''" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+				                <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
 				            </tr>
 				        </tbody>
 				    </table>
@@ -181,6 +247,82 @@
                 <input type="text" id="messagecontent" placeholder="  message">
                 <button class="sendmessagecontent">댓글 작성</button>
             </section>
+            
+            
+            <!-- 게시글 신고 팝업창 -->
+            <div id="reportPost" class="overlay">
+                <div class="popup">
+                    <a href="#none" class="close">&times;</a>
+                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
+                    <div class="findpwd-content" id="contStep02" style="display: block;">
+                        <div class="cont-step_preface">
+                            <hr style="border:0.5px solid #A8A8A8;">
+                        </div>
+                        <!-- 신고 내용 입력 -->
+                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 댓글 신고 팝업창 -->
+            <div id="reportComment" class="overlay">
+                <div class="popup">
+                    <a href="#none" class="close">&times;</a>
+                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
+                    <div class="findpwd-content" id="contStep02" style="display: block;">
+                        <div class="cont-step_preface">
+                            <hr style="border:0.5px solid #A8A8A8;">
+                        </div>
+                        <!-- 신고 내용 입력 -->
+                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+                    </div>
+                </div>
+            </div>
+            
+             <!-- 신고 완료 팝업창 -->
+            <div id="completeReport" class="overlay">
+                <div class="popup">
+                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+                     	신고가 정상적으로 접수되었습니다.<br>
+                    </p>
+                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
+                     	신고 내역에서 확인 가능합니다.
+                    </p>
+                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                </div>
+            </div>
+            
+            
+            
+            <!-- 쪽지 팝업창 -->
+            <div id="directMessage" class="overlay">
+                <div class="popup">
+                    <a href="#none" class="close">&times;</a>
+                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : 킘유진(kimyu)</p>
+                    <div class="findpwd-content" id="contStep02" style="display: block;">
+                        <!-- 쪽지 내용 입력 -->
+                        <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 전송 완료 팝업창 -->
+            <div id="completeMessage" class="overlay">
+                <div class="popup">
+                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+                     	쪽지 전송에 성공하였습니다.<br>
+                    </p>
+                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+                     	보낸 쪽지는 마이페이지에서 확인 가능합니다.
+                    </p>
+                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                    </div>
+                </div>
+            </div>
 
             
             <!-- 오른쪽 배너 -->

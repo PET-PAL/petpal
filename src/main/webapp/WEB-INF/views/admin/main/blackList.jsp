@@ -92,7 +92,7 @@ select option{
 														<td>2021.05.21</td>
 														<td>2021.05.30</td>
 														<td>3</td>
-														<td><button type="button" class="send_btn">신고 하기</button></td>
+														<td><button type="button" class="send_btn">유저 차단하기</button></td>
 													</tr>
 													<tr>
 														<td>업나라(nara1)</td>
