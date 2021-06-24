@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.user.dto;
 
+
 public class UserInfoDTO { 
 	
 	private int code; //유저코드

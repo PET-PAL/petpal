@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nobanryeo.petpal.user.mypage.dao.UserMapper">
+	
+	<resultMap id="userResultSet" type="UserInfoDTO">
+		<id column="USER_CODE" property="code" />
+		<result column="USER_ID" property="id" />
+		<result column="USER_PWD" property="pwd" />
+		<result column="USER_NAME" property="name" />
+		<result column="USER_NIKNAME" property="nikname" />
+		<result column="USER_PHONE" property="phone" />
+		<result column="USER_EMAIL" property="email" />
+		<result column="EMAIL_YN" property="emailYn" />
+		<result column="REPLY_YN" property="replyYn" />
+		<result column="WITHDRAW_YN" property="withdrawYn" />
+		<result column="REPORT_COUNT" property="reportCount" />
+		<result column="PERMISSON_SET" property="permisson" />
+	</resultMap>
+	
+	<select id="selectUserIdcheck" resultType="string">
+       SELECT
+              COUNT(*)
+         FROM USER_TABLE
+        WHERE USER_ID = #{ id }
+	</select>
+
+
+ </mapper>
