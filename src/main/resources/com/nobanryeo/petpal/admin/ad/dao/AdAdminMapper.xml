@@ -40,20 +40,24 @@
 		<!-- 추가적인 속성만 넣으면 됨 -->
 		<result property="companyName" column="COMPANY_NAME"/>
 		<result property="companyPhone" column="COMPANY_PHONE"/>
+		<result property="companyEmail" column="COMPANY_EMAIL"/>
 		<result property="adTypeCode" column="AD_TYPE_CODE"/>
 	</resultMap>
 	
-	  <select id="selectAdApproveDetail" resultMap="adApproveDetail" parameterType="adAdminDTO">
+	  <select id="selectAdApproveDetail" resultMap="adApproveDetail" parameterType="int">
 	    SELECT 
 			  	A.AD_CODE
+			  , A.AD_TITLE
 			  ,	A.COMPANY_NAME
-			  ,	A.USER_ID
+			  ,	B.USER_ID
 			  ,	A.COMPANY_NUMBER
 			  ,	A.PICTURE_CODE
 			  ,	A.COMPANY_PHONE
 			  , A.COMPANY_EMAIL
 			  , A.AD_TYPE_CODE
-		   FROM AD_APPLY_TABLE A 
+		   FROM AD_APPLY_TABLE A
+		   JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
+		  WHERE A.AD_CODE = #{adCode}
 	  </select>
 
 

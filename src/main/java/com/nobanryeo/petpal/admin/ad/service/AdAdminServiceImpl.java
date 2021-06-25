@@ -21,16 +21,18 @@ public class AdAdminServiceImpl implements AdAdminService  {
 		this.adAdminMapper = adAdminMapper;
 	}
 
-
 	@Override
 	public List<AdAdminDTO> selectAdApproveList() {
 		return adAdminMapper.selectAdApproveList();
 	}
-
-
+	
 	@Override
-	public List<AdAdminDTO> selectAdApproveDetail() {
-		return adAdminMapper.selectAdApproveDetail();
+	public List<AdAdminDTO> selectAdApproveDetail(int adCode) {
+		return adAdminMapper.selectAdApproveDetail(adCode);
 	}
+
+
+	
+	
 	
 }

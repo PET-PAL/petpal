@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import com.nobanryeo.petpal.admin.ad.service.AdAdminService;
 import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
@@ -34,10 +35,10 @@ public class AdAdminController {
 	}
 	
 	// 광고심사 디테일
-	@RequestMapping("adApproveDetail/{ adCode }")
-	public String adApproveDetailReturning(Model model, @PathVariable("adCode") int adCode) {
+	@RequestMapping("adApproveDetail/{adCode}")
+	public String adApproveDetailReturning(Model model, @PathVariable int adCode) {
 		
-		List<AdAdminDTO> selectAdApproveDetail = adAdminService.selectAdApproveDetail();
+		List<AdAdminDTO> selectAdApproveDetail = adAdminService.selectAdApproveDetail(adCode);
 		
 		model.addAttribute("adApproveDetail", selectAdApproveDetail);
 		

@@ -8,6 +8,6 @@ public interface AdAdminMapper {
 
 	List<AdAdminDTO> selectAdApproveList();
 
-	List<AdAdminDTO> selectAdApproveDetail();
+	List<AdAdminDTO> selectAdApproveDetail(int adCode);
 	
 }
