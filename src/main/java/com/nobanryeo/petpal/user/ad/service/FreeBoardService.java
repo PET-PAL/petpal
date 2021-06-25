@@ -2,9 +2,9 @@ package com.nobanryeo.petpal.user.ad.service;
 
 import java.util.List;
 
-import com.nobanryeo.petpal.user.dto.BoardPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.BoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 
 public interface FreeBoardService {
 
@@ -12,8 +12,8 @@ public interface FreeBoardService {
 
 	public FreeBoardDTO selectFreeBoardDetail(FreeBoardDTO freeBoard);
 
-	public BoardPictureManageDTO selectFreeBoardDetailPicture(FreeBoardDTO freeBoard);
+	public List<BoardReplyDTO> selectFreeBoardReply(FreeBoardReplyDTO reply);
 
-	public List<BoardReplyDTO> selectFreeBoardReply(FreeBoardDTO reply);
+	public int insertFreeBoardReply(FreeBoardReplyDTO reply);
 	
 }

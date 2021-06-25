@@ -2,9 +2,9 @@ package com.nobanryeo.petpal.user.ad.dao;
 
 import java.util.List;
 
-import com.nobanryeo.petpal.user.dto.BoardPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.BoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 
 public interface FreeBoardMapper {
 
@@ -12,8 +12,8 @@ public interface FreeBoardMapper {
 
 	FreeBoardDTO selectFreeBoardDetail(FreeBoardDTO freeBoard);
 
-	BoardPictureManageDTO selectFreeBoardDetailPicture(FreeBoardDTO freeBoard);
+	List<BoardReplyDTO> selectFreeBoardReply(FreeBoardReplyDTO reply);
 
-	List<BoardReplyDTO> selectFreeBoardReply(FreeBoardDTO freeBoard);
+	int insertFreeBoardReply(FreeBoardReplyDTO reply);
 
 }
