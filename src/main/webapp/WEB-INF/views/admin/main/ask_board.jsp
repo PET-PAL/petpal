@@ -44,9 +44,9 @@ input {
       color:#25213B">
       
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/report.jsp">신고 게시판</a></li>
+        <li><a href="reportList">신고 게시판</a></li>
         <hr>
-        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/ask_board.jsp">문의 게시판</a></li>
+        <li  class="active1"><a href="askList">문의 게시판</a></li>
       </ul>
     </nav>
     <!-- sidebar end -->
@@ -85,7 +85,7 @@ input {
 														
 												</thead>
 												<tbody>
-													<tr>
+													<tr onclick="location.href='askDetail'">
 														<td>황주디</td>
 														<td>문의합니다</td>
 														<td>2021.06.08</td>

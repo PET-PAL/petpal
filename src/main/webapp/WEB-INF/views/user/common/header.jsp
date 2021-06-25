@@ -77,6 +77,7 @@
 	                        </li>
                             <li><a href="${ pageContext.servletContext.contextPath }/views/user/mypage/mypage.jsp">마이페이지</a></li>
                             <li><a href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
+
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>

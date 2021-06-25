@@ -102,19 +102,19 @@
                             <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/blackList.jsp">블랙리스트 관리</a></li>
                             <li class="dropdown"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/adApproveList.jsp" class="dropdown-category" id="dropdownAskMenu" data-toggle="dropdown"> 광고 <i class="caret"></i></a> 
                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownADMenu" style="width:130px;" > 
-                                  <li><a class="dropdown-item" aria-current="true"  href="${ pageContext.servletContext.contextPath }/views/admin/main/adApproveList.jsp">광고 심사</a></li> 
-                                  <li><a class="dropdown-item"  href="${ pageContext.servletContext.contextPath }/views/admin/main/adList.jsp">광고 관리</a></li> 
+                                  <li><a class="dropdown-item" aria-current="true"  href="adApproveList">광고 심사</a></li> 
+                                  <li><a class="dropdown-item"  href="adList">광고 관리</a></li> 
 
                                </ul> 
                             </li>
-                             <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/reviewInfo.jsp"> 검토 게시판 </a></li>
+                             <li><a href="reviewList"> 검토 게시판 </a></li>
                              <li class="dropdown"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/report.jsp" class="dropdown-category" id="dropdownAskMenu" data-toggle="dropdown"> 신고/문의 게시판 <i class="caret"></i></a> 
                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownAskMenu" style="width:130px;" > 
-                                  <li><a class="dropdown-item" aria-current="true" href="${ pageContext.servletContext.contextPath }/views/admin/main/report.jsp">신고 게시판</a></li> 
-                                  <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/admin/main/ask_board.jsp">문의 게시판</a></li> 
+                                  <li><a class="dropdown-item" aria-current="true" href="reportList">신고 게시판</a></li> 
+                                  <li><a class="dropdown-item" href="askList">문의 게시판</a></li> 
                                </ul> 
                             </li>
-                            <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/newsletterList.jsp">뉴스레터</a></li>
+                            <li><a href="newsLetterList">뉴스레터</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
 

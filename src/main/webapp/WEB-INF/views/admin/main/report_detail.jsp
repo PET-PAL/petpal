@@ -23,9 +23,9 @@
       text-align:center;
       color:#25213b">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/report.jsp">신고 게시판</a></li>
+        <li class="active1"><a href="reportList">신고 게시판</a></li>
         <hr>
-        <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/ask_board.jsp">문의 게시판</a></li>
+        <li><a href="askList">문의 게시판</a></li>
       </ul>
     </nav>
     <!-- sidebar end -->
@@ -37,12 +37,9 @@
 					 <div class="col-md-25">
                                     <!-- Nav tabs -->
                            <ul class="nav nav-tabs" role="tablist">
-                               <li role="presentation"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
-                               <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">용품리뷰</a></li>
-                               <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">무료 나눔</a></li>
-                               <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">자유게시판</a></li>
-                           </ul>
-                               <a href="${ pageContext.servletContext.contextPath }/views/admin/main/report.jsp"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+                                <li role="presentation" style="font-weight:800; margin-bottom:12px; font-size:25px; color:black">신고 상세 페이지</li>
+                             </ul>
+                               <a href="reportList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
                                			style="width:40px;height:42px; margin-right:30px; margin-top:-50px; float:right;"></a>
                             <div class="tab-content" style="padding-top: 15px;">
                                 <div role="tabpanel" class="tab-pane active" id="profile">	
