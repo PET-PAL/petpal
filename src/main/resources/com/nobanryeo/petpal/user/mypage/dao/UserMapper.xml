@@ -25,6 +25,20 @@
          FROM USER_TABLE
         WHERE USER_ID = #{ id }
 	</select>
+	
+	<select id="selectUserNickcheck" resultType="string">
+       SELECT
+              COUNT(*)
+         FROM USER_TABLE
+        WHERE USER_NIKNAME = #{ nikname }	
+	</select>
+	
+	<select id="selectUserEmailcheck" resultType="string">
+       SELECT
+              COUNT(*)
+         FROM USER_TABLE
+        WHERE USER_EMAIL = #{ email }	
+	</select>
 
 
  </mapper>
