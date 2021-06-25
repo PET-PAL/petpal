@@ -1,22 +1,45 @@
 package com.nobanryeo.petpal.admin.ad.controller;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.nobanryeo.petpal.admin.ad.service.AdAdminService;
+import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
 
 @Controller
 @RequestMapping("/*")   
 public class AdAdminController {
 	
+	private AdAdminService adAdminService;
+
+	@Autowired
+	public AdAdminController(AdAdminService adAdminService) {
+		this.adAdminService = adAdminService;
+	}
+	
 	// 광고심사 리스트
 	@RequestMapping("adApproveList")
-	public String adApproveListReturning() {
+	public String adApproveListReturning(Model model) {
+		
+		List<AdAdminDTO> selectAdApproveList = adAdminService.selectAdApproveList();
+		
+		model.addAttribute("adApproveList", selectAdApproveList);
 		
 		return "admin/main/adApproveList";
 	}
 	
 	// 광고심사 디테일
-	@RequestMapping("adApproveDetail")
-	public String adApproveDetailReturning() {
+	@RequestMapping("adApproveDetail/{ adCode }")
+	public String adApproveDetailReturning(Model model, @PathVariable("adCode") int adCode) {
+		
+		List<AdAdminDTO> selectAdApproveDetail = adAdminService.selectAdApproveDetail();
+		
+		model.addAttribute("adApproveDetail", selectAdApproveDetail);
 		
 		return "admin/main/adApproveDetail";
 	}
@@ -77,6 +100,10 @@ public class AdAdminController {
        
        return "admin/main/newsletterList";
     }
+    
+    
+    
+    
 	
 }
 

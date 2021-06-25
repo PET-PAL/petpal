@@ -47,18 +47,19 @@
                         <div class="container" style="padding-top:15px;">
                         
                         	<!-- 광고 상세 정보 테이블 -->
+                        	<c:set var="adDetail" items="${ requestScope.adApproveDetail }">
                             <table id="table" class="table" style="text-align:left;">
                                  <tr>
                                     <th style="border: none; width: 150px;">기업명</th>
-                                    <td style="border: none;">반려나라</td>
+                                    <td style="border: none;"><c:out value="${adDetail.companyName}"/></td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">신청자 아이디</th>
-                                    <td style="border: none;"></td>
+                                    <td style="border: none;"><c:out value="${adDetail.user.id}"/></td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">사업자 번호</th>
-                                    <td style="border: none;"></td>
+                                    <td style="border: none;"><c:out value="${adDetail.companyNumber}"/></td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">사업자 등록증</th>
@@ -66,19 +67,19 @@
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">사업자 전화번호</th>
-                                    <td style="border: none;"></td>
+                                    <td style="border: none;"><c:out value="${adDetail.companyPhone}"/></td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">사업자 이메일</th>
-                                    <td style="border: none;"></td>
+                                    <td style="border: none;"><c:out value="${adDetail.companyEmail}"/></td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 종류</th>
-                                    <td style="border: none;"></td>
+                                    <td style="border: none;"><c:out value="${adDetail.adTypeCode}"/></td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 주수</th>
-                                    <td style="border: none;"></td>
+                                    <td style="border: none;"><c:out value="${adDetail.adTypeCode}"/></td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 내용</th>
@@ -86,6 +87,7 @@
                                  </tr>
                                  
                             </table>
+                            </c:set>
                         	<br>
                         	<br>
                         	<br>
