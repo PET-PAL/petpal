@@ -8,7 +8,7 @@
 			<footer id="contact" class="footer" >
                 <!--<div class="action-lage"></div>-->
 
-                <div class="main_footer fix bg-mega text-center p-top-40 p-bottom-30 m-top-40" style="background-color: #F1FAF8;">
+                <div class="main_footer fix bg-mega text-center p-top-40 p-bottom-30 m-top-100" style="background-color: #F1FAF8;">
                     <div class="col-md-12">
                         <p class="wow fadeInRight" data-wow-duration="1s">
                             Made with by 

@@ -1,5 +1,9 @@
 package com.nobanryeo.petpal.admin.ad.service;
 
-public class AdService {
+import org.springframework.stereotype.Service;
 
+public interface AdService {
+
+	
+	
 }

@@ -44,7 +44,7 @@
                         <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" style="font-weight:800; margin-bottom:12px; font-size:25px; color:black">광고 신청 상세보기(광고제목)</li>
                              </ul>
-                               <a href="${ pageContext.servletContext.contextPath }/views/admin/main/adList.jsp"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+                               <a href="adList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
                                			style="width:40px;height:42px; margin-right:30px; margin-top:-50px; float:right;"></a>
 
 
