@@ -128,7 +128,7 @@
            	<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
 					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }views/user/community/freeBoardList.jsp" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">자유게시판</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">자유게시판</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/coupon/select" style="color: #979797;">무료나눔</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
@@ -151,7 +151,7 @@
 			                </tr>
 			            </thead>
 			            <tbody>
-			                <tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/freeBoardDetail.jsp'">
+			                <tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail'">
 			                	<td></td>
 			                	<td style="text-align: center;">일반</td>
 			                    <td style="text-align: center;">우리집 강아지 보세요</td>

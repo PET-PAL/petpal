@@ -70,7 +70,7 @@
                             <li><a href="${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp">정보공유</a></li>
                             <li><a href="#" class="dropdown-category" id="dropdownADMenu" data-toggle="dropdown"> 커뮤니티 <i class="caret"></i></a> 
                             	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownAskMenu" style="width:130px;" > 
-		                            <li><a class="dropdown-item" aria-current="true" href="${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp">자유 게시판</a></li> 
+		                            <li><a class="dropdown-item" aria-current="true" href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list">자유 게시판</a></li> 
 		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/.jsp">무료나눔</a></li> 
 		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp">용품리뷰</a></li> 
 	                            </ul> 
