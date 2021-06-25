@@ -65,8 +65,8 @@
                     <!-- navbar menu -->
                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-right">
-                            <li><a href="${ pageContext.servletContext.contextPath }/views/user/missing/missingPage.jsp">실종신고/목격제보</a></li>                    
-                            <li><a href="${ pageContext.servletContext.contextPath }/views/user/adopt/adoptPage.jsp">입양게시판</a></li>
+                            <li><a href="${ pageContext.servletContext.contextPath }/user/missing">실종신고/목격제보</a></li>                    
+                            <li><a href="${ pageContext.servletContext.contextPath }/user/adopt">입양게시판</a></li>
                             <li><a href="${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp">정보공유</a></li>
                             <li><a href="#" class="dropdown-category" id="dropdownADMenu" data-toggle="dropdown"> 커뮤니티 <i class="caret"></i></a> 
                             	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownAskMenu" style="width:130px;" > 
