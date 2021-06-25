@@ -70,6 +70,6 @@ public class FreeBoardController {
 			System.out.println("댓글 등록 실패");
 		}
 				
-		return "redirect:/user/community/freeBoardDetail";
+		return "redirect:/user/select/freeboard/detail?boardCode="+code;
 	}
 }
