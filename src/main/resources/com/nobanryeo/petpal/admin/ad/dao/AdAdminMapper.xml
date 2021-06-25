@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nobanryeo.petpal.admin.ad.dao.AdAdminMapper">
+	
+	 <!-- AdAdminDTO의 필드와 각 컬럼을 1:1매핑시켜줌 -->
+	 <!-- 유저코드에 대한 유저이름 가져옴 -->
+	 <resultMap id="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
+	  	<id property="adCode" column="AD_CODE"/>
+	  	<!-- <result property="userCode" column="USER_CODE"/> -->
+	  	<result property="adTitle" column="AD_TITLE"/>
+	  	<result property="companyNumber" column="COMPANY_NUMBER"/>
+	  	<result property="applyDate" column="APPLY_DATE"/>
+	  	<result property="stateCode" column="STATE_CODE"/>
+	  	<!-- 하나의 유저코드는 하나의 유저명만 가질 수 있음 -->	  
+	  	<association property="user" javaType="com.nobanryeo.petpal.user.dto.UserInfoDTO">
+	  		<id property="code" column="USER_CODE"/>
+			<result property="name" column="USER_NAME"/>
+			<result property="id" column="USER_ID"/>
+		</association>
+	  </resultMap>
+	  
+	  <select id="selectAdApproveList" resultMap="adAdmin" parameterType="AdAdminDTO">
+        SELECT 
+			  	A.AD_CODE
+			  ,	A.USER_CODE
+			  ,	B.USER_NAME
+			  ,	B.USER_ID
+			  ,	A.AD_TITLE
+			  ,	A.COMPANY_NUMBER
+			  ,	A.APPLY_DATE
+			  ,	A.STATE_CODE
+		   FROM AD_APPLY_TABLE A 
+           JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
+	  </select>
+
+	
+	<resultMap id="adApproveDetail" extends="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
+		<!-- 추가적인 속성만 넣으면 됨 -->
+		<result property="companyName" column="COMPANY_NAME"/>
+		<result property="companyPhone" column="COMPANY_PHONE"/>
+		<result property="adTypeCode" column="AD_TYPE_CODE"/>
+	</resultMap>
+	
+	  <select id="selectAdApproveDetail" resultMap="adApproveDetail" parameterType="adAdminDTO">
+	    SELECT 
+			  	A.AD_CODE
+			  ,	A.COMPANY_NAME
+			  ,	A.USER_ID
+			  ,	A.COMPANY_NUMBER
+			  ,	A.PICTURE_CODE
+			  ,	A.COMPANY_PHONE
+			  , A.COMPANY_EMAIL
+			  , A.AD_TYPE_CODE
+		   FROM AD_APPLY_TABLE A 
+	  </select>
+
+
+
+</mapper>

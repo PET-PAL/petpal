@@ -79,16 +79,28 @@
                                  </tr>
                                 </thead>
                                 <tbody>
-                                <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr onclick="location.href='adApproveDetail'">
-                                    <th scope="row">1</th>
-                                    <td>김신청(adid1)</td>
-                                    <td>경치 좋은 강아지 카페</td>
-                                    <td>120-30-12940</td>
-                                    <td>2021-06-17</td>
-                                    <td>대기/승인/거절</td>
+                                <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
+                                  <tr onclick="location.href='adApproveDetail/${ adApprove.adCode }'"> <!-- 어느 adApproveDetail로 들어갈지 수정 필요 -->
+                                    <th scope="row">${ adApprove.adCode }</th>
+                                    <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+                                    <td>${ adApprove.adTitle }</td>
+                                    <td>${ adApprove.companyNumber }</td>
+                                    <td>${ adApprove.applyDate }</td>
+                                    <td>
+                                    	<c:choose>
+                                    		<c:when test="${ adApprove.stateCode eq 1}">
+                                    			대기
+                                    		</c:when>
+                                    		<c:when test="${ adApprove.stateCode eq 2}">
+                                    			승인
+                                    		</c:when>
+                                    		<c:when test="${ adApprove.stateCode eq 3}">
+                                    			거절
+                                    		</c:when>
+                                    	</c:choose>
+                                    </td>
                                   </tr>
-                                 <%-- </c:forEach> --%>
+                                 </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -107,16 +119,24 @@
                                  </tr>
                                 </thead>
                                 <tbody>
-                                <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr onclick="location.href='adApproveDetail'">
-                                    <th scope="row">1</th>
-                                    <td>김신청(adid1)</td>
-                                    <td>경치 좋은 강아지 카페</td>
-                                    <td>120-30-12940</td>
-                                    <td>2021-06-17</td>
-                                    <td>대기</td>
+                                <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
+                                  <tr onclick="location.href='adApproveDetail'"> <!-- 어느 adApproveDetail로 들어갈지 수정 필요 -->
+                                  <c:if test="${ adApprove.stateCode eq 1 }">
+                                    <th scope="row">${ adApprove.adCode }</th>
+                                    <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+                                    <td>${ adApprove.adTitle }</td>
+                                    <td>${ adApprove.companyNumber }</td>
+                                    <td>${ adApprove.applyDate }</td>
+                                    <td>
+                                    	<c:choose>
+                                    		<c:when test="${ adApprove.stateCode eq 1}">
+                                    			대기
+                                    		</c:when>
+                                    	</c:choose>
+                                    </td>
+                                    </c:if>
                                   </tr>
-                                 <%-- </c:forEach> --%>
+                                 </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -135,16 +155,24 @@
                                  </tr>
                                 </thead>
                                 <tbody>
-                                <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr onclick="location.href='adApproveDetail'">
-                                    <th scope="row">1</th>
-                                    <td>김신청(adid1)</td>
-                                    <td>경치 좋은 강아지 카페</td>
-                                    <td>120-30-12940</td>
-                                    <td>2021-06-17</td>
-                                    <td>승인</td>
+                               <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
+                                  <tr onclick="location.href='adApproveDetail'"> <!-- 어느 adApproveDetail로 들어갈지 수정 필요 -->
+                                  <c:if test="${ adApprove.stateCode eq 2 }">
+                                    <th scope="row">${ adApprove.adCode }</th>
+                                    <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+                                    <td>${ adApprove.adTitle }</td>
+                                    <td>${ adApprove.companyNumber }</td>
+                                    <td>${ adApprove.applyDate }</td>
+                                    <td>
+                                    	<c:choose>
+                                    		<c:when test="${ adApprove.stateCode eq 2}">
+                                    			승인
+                                    		</c:when>
+                                    	</c:choose>
+                                    </td>
+                                    </c:if>
                                   </tr>
-                                 <%-- </c:forEach> --%>
+                                 </c:forEach>
                                 </tbody>
                             </table>
                         </div>
@@ -163,16 +191,24 @@
                                  </tr>
                                 </thead>
                                 <tbody>
-                                <%-- <c:forEach var="adApprove" items="${ requestScope.adApproveList }"> --%>
-                                  <tr onclick="location.href='adApproveDetail'">
-                                    <th scope="row">1</th>
-                                    <td>김신청(adid1)</td>
-                                    <td>경치 좋은 강아지 카페</td>
-                                    <td>120-30-12940</td>
-                                    <td>2021-06-17</td>
-                                    <td>거절</td>
+                               <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
+                                  <tr onclick="location.href='adApproveDetail'"> <!-- 어느 adApproveDetail로 들어갈지 수정 필요 -->
+                                  <c:if test="${ adApprove.stateCode eq 3 }">
+                                    <th scope="row">${ adApprove.adCode }</th>
+                                    <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+                                    <td>${ adApprove.adTitle }</td>
+                                    <td>${ adApprove.companyNumber }</td>
+                                    <td>${ adApprove.applyDate }</td>
+                                    <td>
+                                    	<c:choose>
+                                    		<c:when test="${ adApprove.stateCode eq 3}">
+                                    			거절
+                                    		</c:when>
+                                    	</c:choose>
+                                    </td>
+                                    </c:if>
                                   </tr>
-                                 <%-- </c:forEach> --%>
+                                 </c:forEach>
                                 </tbody>
                             </table>
                         </div>
