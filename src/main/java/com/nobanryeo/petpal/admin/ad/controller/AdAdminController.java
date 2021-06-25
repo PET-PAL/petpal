@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 @RequestMapping("/*")   
-public class AdController {
+public class AdAdminController {
 	
 	// 광고심사 리스트
 	@RequestMapping("adApproveList")
