@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -159,7 +160,9 @@
                 font-weight: 500;
                 border-radius: 10px;
             }
-			
+			img {
+				cursor: pointer;
+			}
         </style>
         
        
@@ -239,7 +242,7 @@
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
 					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">자유게시판</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">자유게시판</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/coupon/select" style="color: #979797;">무료나눔</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
@@ -251,7 +254,7 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left;">커뮤니티</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp'" style="width:50px; float: right;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/list'" style="width:50px; float: right;">
             </section> <!--End off Home Sections-->
 
             <section id="menutable" class="menutable">
@@ -259,9 +262,9 @@
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tbody><tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
-							<td>우리집 강아지 보세요</td>
+							<td><c:out value="${ requestScope.freeBoardDetail.boardTitle }"/></td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
-							<td style="border-radius: 0px 21px 0px 0px;">204
+							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="${ requestScope.freeBoardDetail.boardViews }"/>
 							<span>
 							<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;">
 							</span>
@@ -269,15 +272,13 @@
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
-							<td>
-							킘유진
-							</td>
+							<td><c:out value="${ requestScope.freeBoardDetail.userNickName }"/></td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성일자</b></td>
-							<td>2021-06-17</td>
+							<td><c:out value="${ requestScope.freeBoardDetail.boardPostDate }"/></td>
 						</tr>
 					</tbody></table>
 					<img src="/petpal_front/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px;">자유게시판 내용</p>
+					<p style="margin-bottom: 50px; margin-left: 8px;"><c:out value="${ requestScope.freeBoardDetail.boardContent }"/></p>
 		        </div>
             
              <div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>

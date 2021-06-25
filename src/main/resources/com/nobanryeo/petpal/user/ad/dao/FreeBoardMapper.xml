@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nobanryeo.petpal.user.ad.dao.FreeBoardMapper">
+
+	<resultMap id="freeBoardResultSet" type="FreeBoardDTO">
+		<id column="BOARD_CODE" property="boardCode"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
+		<result column="BOARD_VIEWS" property="boardViews"/>
+		<result column="BOARD_POST_DATE" property="boardPostDate"/>
+		<result column="BOARD_DELETE_YN" property="boardDeleteYn"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="USER_NIKNAME" property="userNickName"/>
+		<result column="CATEGORY" property="category"/>
+	</resultMap>
+	
+	<select id="selectFreeBoardList" parameterType="FreeBoardDTO" resultMap="freeBoardResultSet">
+        SELECT
+               A.BOARD_TITLE
+             , A.BOARD_VIEWS
+             , A.BOARD_POST_DATE
+             , B.USER_NIKNAME
+             , A.CATEGORY
+             , A.BOARD_CODE
+          FROM FREE_BOARD A
+          JOIN USER_TABLE B ON (B.USER_CODE = A.USER_CODE)
+         WHERE BOARD_DELETE_YN = 'N'
+	</select>
+	
+	<select id="selectFreeBoardDetail" parameterType="FreeBoardDTO" resultMap="freeBoardResultSet">
+        SELECT
+               A.BOARD_TITLE
+             , A.BOARD_VIEWS
+             , A.BOARD_POST_DATE
+             , B.USER_NIKNAME
+             , A.BOARD_CONTENT
+          FROM FREE_BOARD A
+          JOIN USER_TABLE B ON (B.USER_CODE = A.USER_CODE)
+         WHERE BOARD_DELETE_YN = 'N'
+           AND BOARD_CODE = #{ boardCode }
+	</select>
+
+	
+</mapper>
