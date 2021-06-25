@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -151,7 +152,7 @@
 			                </tr>
 			            </thead>
 			            <tbody>
-			                <tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail'">
+			                <%-- <tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail'">
 			                	<td></td>
 			                	<td style="text-align: center;">일반</td>
 			                    <td style="text-align: center;">우리집 강아지 보세요</td>
@@ -174,7 +175,29 @@
 			                    <td style="text-align: center;">손성훙</td>
 			                    <td style="text-align: center;">173</td>
 			                    <td style="text-align: center;">2021-06-17</td>
-			                </tr>
+			                </tr> --%>
+			                <c:forEach var="arr" items="${ freeBoardList }">
+			                	<c:if test="${ arr.category eq '일반' }">
+					                <tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?boardCode=${ arr.boardCode }'">
+					                	<td></td>
+					                	<td style="text-align: center;"><c:out value="${ arr.category }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.boardTitle }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.userNickName }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.boardViews }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.boardPostDate }"/></td>
+					                </tr>
+				                </c:if>
+				                <c:if test="${ arr.category eq '질문' }">
+					                <tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?boardCode=${ arr.boardCode }'">
+					                	<td></td>
+					                	<td style="text-align: center;"><c:out value="${ arr.category }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.boardTitle }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.userNickName }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.boardViews }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.boardPostDate }"/></td>
+					                </tr>
+				                </c:if>
+			                </c:forEach>
 			            </tbody>
 			        </table>
 			        <div class="text-center">

@@ -2,7 +2,7 @@ package com.nobanryeo.petpal.user.dto;
 
 import java.sql.Date;
 
-public class FreeboardDTO {
+public class FreeBoardDTO {
 
 	private int boardCode;
 	private String boardTitle;
@@ -11,11 +11,13 @@ public class FreeboardDTO {
 	private Date boardPostDate;
 	private String boardDeleteYn;
 	private int userCode;
+	private String userNickName;
+	private String category;
 	
-	public FreeboardDTO() {}
+	public FreeBoardDTO() {}
 
-	public FreeboardDTO(int boardCode, String boardTitle, String boardContent, int boardViews, Date boardPostDate,
-			String boardDeleteYn, int userCode) {
+	public FreeBoardDTO(int boardCode, String boardTitle, String boardContent, int boardViews, Date boardPostDate,
+			String boardDeleteYn, int userCode, String userNickName, String category) {
 		super();
 		this.boardCode = boardCode;
 		this.boardTitle = boardTitle;
@@ -24,6 +26,8 @@ public class FreeboardDTO {
 		this.boardPostDate = boardPostDate;
 		this.boardDeleteYn = boardDeleteYn;
 		this.userCode = userCode;
+		this.userNickName = userNickName;
+		this.category = category;
 	}
 
 	public int getBoardCode() {
@@ -82,11 +86,27 @@ public class FreeboardDTO {
 		this.userCode = userCode;
 	}
 
+	public String getUserNickName() {
+		return userNickName;
+	}
+
+	public void setUserNickName(String userNickName) {
+		this.userNickName = userNickName;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	@Override
 	public String toString() {
-		return "FreeboardDTO [boardCode=" + boardCode + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
+		return "FreeBoardDTO [boardCode=" + boardCode + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
 				+ ", boardViews=" + boardViews + ", boardPostDate=" + boardPostDate + ", boardDeleteYn=" + boardDeleteYn
-				+ ", userCode=" + userCode + "]";
+				+ ", userCode=" + userCode + ", userNickName=" + userNickName + ", category=" + category + "]";
 	}
 	
 }
