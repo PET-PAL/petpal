@@ -135,16 +135,16 @@
 								<tr>
 									<td>품종</td>
 									<td>
-										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="반려동물 관련 장소" checked> 고양이</label>
-										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="반려동물 관련 물품(장소 이외)" > 강아지</label>
+										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="c" checked> 고양이</label>
+										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="d" > 강아지</label>
 										<input type="text" id="ownerName" style="width: 130px; background: #F1FAF8;"placeholder=" 예시) 닥스훈트"  >								
 									</td>
 								</tr>	
 																<tr>
 									<td>성별</td>
 									<td>
-										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="반려동물 관련 장소" checked> 암컷</label>
-										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="반려동물 관련 물품(장소 이외)" > 수컷</label>								
+										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="F" checked> 암컷</label>
+										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="M" > 수컷</label>								
 									</td>
 								</tr>
 								<tr>
@@ -157,7 +157,7 @@
 								</tr>
 								<tr>
 									<td>소개</td>
-									<td><textarea rows="3" id="textArea" class="input-xlarge" style="background: #F1FAF8;"
+									<td><textarea rows="3" id="textArea" MaxLength="100"class="input-xlarge" style="background: #F1FAF8;"
 									placeholder=" 예시) 소심하지만 사람을 좋아하는 아이입니다. 부디 이 아이의 평생 가족을 찾을 수 있게 해주세요. 현재 곰팡이 질환을 앓고 있어요 지금 치료중이지만 피부가 약해진 아이니 꼭 유의해주셔야해요 &#13;&#10;입양신청때 제가 더 필요로 하는 서류가 있어서 모두 충족시킬 수 있는 책임감 있으신 분을 찾고있어요!"
 									></textarea></td>
 									
@@ -183,7 +183,7 @@
 								</tr>
 									
 						</table>
-                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail2.jsp'">다음으로</button></div>
+                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt'">등록하기</button></div>
 	                	</div>
             </section>
 

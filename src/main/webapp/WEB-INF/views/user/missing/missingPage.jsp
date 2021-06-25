@@ -225,7 +225,7 @@
 					</div>
             </section>
             <div style="position: fixed; top: 310px; left: 200px;">
-	            <button style="border: 0px; background-color: red; width: 50px; height: 200px; border-radius: 10px;">
+	            <button style="border: 0px; background-color: red; width: 50px; height: 200px; border-radius: 10px;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/write'" >
 	            <h4 style="writing-mode: vertical-rl; color: white; font-weight: bold;" align="center">실종 알리기</h4>
 	            </button>
 			</div>
