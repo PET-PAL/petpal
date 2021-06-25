@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.ad.dao.FreeBoardMapper;
+import com.nobanryeo.petpal.user.dto.BoardPictureManageDTO;
+import com.nobanryeo.petpal.user.dto.BoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 
 @Service
@@ -34,6 +36,23 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		FreeBoardDTO selectFreeBoardDetail = freeBoardMapper.selectFreeBoardDetail(freeBoard);
 		
 		return selectFreeBoardDetail;
+	}
+
+	@Override
+	public BoardPictureManageDTO selectFreeBoardDetailPicture(FreeBoardDTO freeBoard) {
+
+		BoardPictureManageDTO picture = freeBoardMapper.selectFreeBoardDetailPicture(freeBoard);
+		
+		return picture;
+	}
+
+	@Override
+	public List<BoardReplyDTO> selectFreeBoardReply(FreeBoardDTO freeBoard) {
+
+		List<BoardReplyDTO> replyList = new ArrayList<>();
+		replyList = freeBoardMapper.selectFreeBoardReply(freeBoard);
+		
+		return replyList;
 	}
 
 }
