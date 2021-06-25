@@ -78,7 +78,7 @@
             <!--Home Sections-->
 
             <section id="borad" class="borad" style="width: 80%; margin: 0px auto;  margin-bottom: 40px; margin-bottom: 40px;">
-                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 200px;">입양홍보
+                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 5%;">입양홍보
                 <button 
                 style="color: white; background-color: #FFA800; border-color: white; border: 1px solid; 
                 border-radius:10px; width:180px; margin-left:30px;">
@@ -90,7 +90,7 @@
                 	입양 완료
                 </button>
                 </div>
-                <hr style="border-color: rgb(175, 175, 175); width: 80%;">
+                <hr style="border-color: rgb(175, 175, 175); width: 90%;">
             </section> <!--End off Home Sections-->
 			<div style="width: 370px; position: relative; left: 60%;">
 		            <form style="margin-bottom: 40px;">
@@ -226,7 +226,7 @@
             </section>
             
             <div style="position: fixed; top: 310px; left: 200px;">
-	            <button style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
+	            <button onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/terms'" style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
 	            <h4 style="writing-mode: vertical-rl; color: white; font-weight: bold;" align="center">글 작성하기</h4>
 	            </button>
 			</div>

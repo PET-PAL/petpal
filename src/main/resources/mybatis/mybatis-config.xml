@@ -4,9 +4,12 @@
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
  <configuration>
  	<typeAliases>
+ 		<typeAlias alias="UserInfoDTO" type="com.nobanryeo.petpal.user.dto.UserInfoDTO"/>
+ 	
  		<typeAlias alias="FreeBoardDTO" type="com.nobanryeo.petpal.user.dto.FreeBoardDTO"/>
  		<typeAlias alias="BoardPictureManagerDTO" type="com.nobanryeo.petpal.user.dto.BoardPictureManagerDTO"/>
  		<typeAlias alias="BoardReplyDTO" type="com.nobanryeo.petpal.user.dto.BoardReplyDTO"/>
+ 		
  	</typeAliases>
  
  

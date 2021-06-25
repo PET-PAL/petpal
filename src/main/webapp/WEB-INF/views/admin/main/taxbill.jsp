@@ -78,13 +78,7 @@
 		 	<p role="presentation" style="font-weight:800; font-size:25px; color:black; margin-top:10px;">세금계산서 상세보기</p>
                         </div>	
 					 <div class="col-md-25">
-                                    <!-- Nav tabs -->
-                              <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
-                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">납부전</a></li>
-                                        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">납부 완료</a></li>
-                                    </ul>
-							 <a href="${ pageContext.servletContext.contextPath }/views/admin/main/taxManageList.jsp"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+							 <a href="taxManageList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
 							                               			style="width:50px;height:52px; margin-top:-60px; float:right;"></a>
 
 <table width='778' cellpadding='0' cellspacing='0' align='center'>

@@ -127,9 +127,10 @@
             <section id="menutable" class="menutable">
             
 						<div style="width: 55%;  margin: 0px auto;  margin-bottom: 50px; ">
-						<div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left; ">입양 홍보글 작성을 위한 약관동의
-		                <hr style="border: 1px solid #000000; width: 1066px;height: 0px;left: 177.5px;">
+						<div style="color: #19A985; font-size: 25px; font-weight: 600; float:left; ">입양 홍보글 작성을 위한 약관동의
 		                </div>
+		                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="width:50px; float: right; margin-bottom:20px; maring-right:-10px;">
+		                <hr style="border: 1px solid #000000; width: 1066px;height: 0px;left: 177.5px;">
 		                
 		                <textarea readonly rows="3" id="textArea" class="input-xlarge" style="width: 1066px;height: 700px; resize: none;"
 									placeholder="**목적**
@@ -174,14 +175,27 @@
 									></textarea>
 		                
 		                <br>
-		                <div class="custom-control custom-checkbox">
-						  <input type="checkbox" class="custom-control-input" id="customCheck1">
-						  <label class="custom-control-label" >위의 약관사항을 모두 읽었으며 이에 따른 방침에 모두 동의합니다</label>
+		                <div class="custom-control custom-checkbox text-center">
+		                <label class="custom-control-label" style="margin-left:3px; margin-top:10px; font-size:18px;">
+						  <input type="checkbox" name="pointCheck1" value ="1" class="custom-control-input" id="pointCheck1" style="zoom: 1.5; margin-top:10px; margin-left:50px;" required/>
+						  위의 약관사항을 모두 읽었으며 이에 따른 방침에 모두 동의합니다.
+						</label>
 						</div>
-                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail2.jsp'">다음으로</button></div>
-	                	</div>
+						<button onclick="checkbox();" style="margin-top:10px; margin-left: 50%; text-align: center; margin-bottom: 50px; font-weight:bold;">다음으로</button>
+                    	
             </section>
-
+            <script>
+            function checkbox(){
+		        if ($("#pointCheck1").prop("checked")) {
+		        	location.href='${ pageContext.servletContext.contextPath }/user/adopt/write';
+		        }else{
+		        	alert("약관에 동의해주셔야합니다.");
+		        	$("pointCheck1").focus();
+		        	return false;
+		                
+		        }
+		    }
+			</script>
             
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>

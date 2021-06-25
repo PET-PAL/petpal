@@ -62,9 +62,9 @@ input {
       text-align:center;
       color:#25213b">
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/paymentManageList.jsp">광고 결제 관리</a></li>
+        <li><a href="paymentManageList">광고 결제 관리</a></li>
         <hr>
-        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/taxManageList.jsp">세금계산서 관리</a></li>
+        <li class="active1"><a href="taxManageList">세금계산서 관리</a></li>
       </ul>
     </nav>
     <!-- sidebar end -->
@@ -131,7 +131,7 @@ input {
 														<td>2021.06.11</td>
 														<td>납부 전</td>
 														<td>250000</td>
-														<td><a href="${ pageContext.servletContext.contextPath }/views/admin/main/taxbill.jsp">view more</a></td>
+														<td><a href="taxbill">view more</a></td>
 													</tr>
 													<tr>
 														<td>손불독 (bulls1)</td>

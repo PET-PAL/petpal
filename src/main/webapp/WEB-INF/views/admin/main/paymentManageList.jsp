@@ -66,9 +66,9 @@ select { width: 150px; /* 원하는 너비설정 */
       text-align:center;
       color:#25213b">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/paymentManageList.jsp">광고 결제 관리</a></li>
+        <li class="active1"><a href="paymentManageList">광고 결제 관리</a></li>
         <hr>
-        <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/taxManageList.jsp">세금계산서 관리</a></li>
+        <li><a href="taxManageList">세금계산서 관리</a></li>
       </ul>
     </nav>
     <!-- sidebar end -->
@@ -130,7 +130,7 @@ select { width: 150px; /* 원하는 너비설정 */
 													</tr>
 												</thead>
 												<tbody>
-													<tr>
+													<tr onclick="location.href='paymentDetail'">
 														<td>황주디 (judy1)</td>
 														<td>광고(선)</td>
 														<td>2021.06.11</td>
@@ -181,7 +181,7 @@ select { width: 150px; /* 원하는 너비설정 */
 													</tr>
 												</thead>
 														<tbody>
-															<tr>
+															<tr onclick="location.href='paymentDetail'">
 																<td>황주디 (judy1)</td>
 																<td>광고(선)</td>
 																<td>2021.06.11</td>
@@ -218,7 +218,7 @@ select { width: 150px; /* 원하는 너비설정 */
 													</tr>
 												</thead>
 														<tbody>
-															<tr>
+															<tr onclick="location.href='paymentDetail'">
 																<td>업나라 (naranara)</td>
 																<td>광고(후)</td>
 																<td>2021.05.11</td>
@@ -249,7 +249,7 @@ select { width: 150px; /* 원하는 너비설정 */
 													</tr>
 												</thead>
 														<tbody>
-															<tr>
+															<tr onclick="location.href='paymentDetail'">
 																<td>뉴진 (newjean2)</td>
 																<td>광고(후)</td>
 																<td>2021.04.11</td>
@@ -280,7 +280,7 @@ select { width: 150px; /* 원하는 너비설정 */
 													</tr>
 												</thead>
 														<tbody>
-															<tr>
+															<tr onclick="location.href='paymentDetail'">
 																<td>업나라 (naranara)</td>
 																<td>광고(전)</td>
 																<td>2021.05.11</td>
