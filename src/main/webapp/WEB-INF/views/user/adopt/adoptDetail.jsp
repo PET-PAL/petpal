@@ -139,45 +139,30 @@
             .findpwd-content > div {
                 margin: 0px auto;
             }
+            .fas{
+            margin-top:300px;
+            color: #45B99C;
+            }
+            .bg-img-none {
+    background-image: none !important;
+}
+.bg-none {
+    background: none !important;
+}
         </style>
+
         <meta charset="utf-8">
         <title>PET-PAL</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="favicon.ico">
 
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+       	<script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
+       	
+       <!-- 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+       	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+       	 -->
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -196,24 +181,69 @@
         </div><!--End off Preloader -->
 
 
+            <jsp:include page="../common/userHeader.jsp"/>
         <div class="culmn">
             <!--Home page style-->
-            <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
-			<section>
-				<%-- <div class="port_img" style="float: left;">
-                   <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                </div> --%>
-                <div class="imgCollage" style="display: flow-root;"> 
-                		<span style="width: 30%"><img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" /></span> 
-                		<span style="width: 30%"><img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" /></span> 
-                </div>
-                <div class="imgCollage" style="display: flow-root;"> 
-                		<span style="width: 30%"><img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" /></span> 
-                		<span style="width: 30%"><img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" /></span>
-                </div>
-			</section>
-			
+ 		<section id="product" class="product">
+                <div class="container">
+                
+                
+              
+                
+                        <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item active">
+                                            <div class="col-md-6 col-md-offset-3">
+                                                    <div class="port_img">
+                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
+                                                    </div>
+                                            </div>
+                                </div>
+                                <div class="item">
+                                            <div class="col-md-6 col-md-offset-3">
+                                                    <div class="port_img">
+                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
+                                                    </div>
+                                            </div>
+                                </div>
+                                <div class="item">
+                                            <div class="col-md-6 col-md-offset-3">
+                                                    <div class="port_img">
+                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
+                                                    </div>
+                                            </div>
+                                </div>
+                                <div class="item">
+                                    
+                                            <div class="col-md-6 col-md-offset-3">
+                                                    <div class="port_img">
+                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
+                                                    </div>
+                                            </div>
+                                </div>
+                                </div> 
+                                <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" style="background-image:none !important;">
+                                <i class="fas fa-arrow-circle-left fa-3x" style="margin-right:-100px;"></i>
+                                <span class="sr-only">Previous</span>
+                            </a>
+
+                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" style="background-image:none !important;">
+                           		<i class="fas fa-arrow-circle-right fa-3x" style="margin-left:-100px;"></i>
+                                <span class="sr-only">Next</span>
+                            </a>
+                                </div>
+                                </div>
+                                </section>
+                                
             <section id="boradtable" class="boradtable">
             <div class="carousel-inner" role="listbox">
                 <div class="item active">
@@ -476,24 +506,11 @@
             
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
+            
             <jsp:include page="../common/footer.jsp"/>
             
 
         <!-- JS includes -->
 
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/bootstrap.min.js"></script>
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/owl.carousel.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.magnific-popup.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.easing.1.3.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.collapse.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/bootsnav.js"></script>
-
-
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/plugins.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
+  
 </html>
