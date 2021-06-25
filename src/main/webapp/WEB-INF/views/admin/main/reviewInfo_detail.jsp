@@ -13,8 +13,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
-	<%-- <jsp:include page="${ pageContext.servletContext.contextPath }/views/admin/common/header.jsp"></jsp:include>  --%>
-
+<jsp:include page="../../admin/common/header.jsp"></jsp:include> 
     
 	 <section id="product" class="product">
 
@@ -25,7 +24,7 @@
                              <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" style="font-weight:800; margin-bottom:12px; font-size:30px; color:black">정보공유 상세 페이지</li>
                              </ul>
-                               <a href="${ pageContext.servletContext.contextPath }/views/admin/main/reviewInfo.jsp"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+                               <a href="reviewList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
                                			style="width:40px;height:42px; margin-right:30px; margin-top:-50px; float:right;"></a>
                             <div class="tab-content" style="padding-top: 15px;">
                                 <div role="tabpanel" class="tab-pane active" id="profile">	
@@ -107,7 +106,6 @@
     	</div>
 		<script src="${ pageContext.servletContext.contextPath }/resources/js/clickevent.js"></script>
       <script src="${ pageContext.servletContext.contextPath }/resources/js/modal.js"></script>
-	  <%-- <jsp:include page="${ pageContext.servletContext.contextPath }/views/admin/common/footer.jsp"></jsp:include>  --%>
-	
+	<jsp:include page="../../admin/common/footer.jsp"></jsp:include> 	
 	</body>
 </html>

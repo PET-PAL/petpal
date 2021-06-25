@@ -34,9 +34,9 @@
 		      text-align:center;
 		      color:#25213b">
 		      <ul class="nav nav-pills nav-stacked">
-		        <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/adApproveList.jsp">광고 심사</a></li>
+		        <li><a href="adApproveList">광고 심사</a></li>
 		        <hr>
-		        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/adList.jsp">광고 관리</a></li>
+		        <li class="active1"><a href="adList">광고 관리</a></li>
 		      </ul>
 		    </nav>
 		    <!-- sidebar end -->

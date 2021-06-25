@@ -72,7 +72,7 @@ input {
 														
 												</thead>
 												<tbody>
-													<tr>
+													<tr onclick="location.href='reviewDetail'">
 														<td>황주디</td>
 														<td>강쥐 귀 냄새 왜날까? </td>
 														<td>정보 공유</td>
@@ -116,7 +116,7 @@ input {
 													</tr>
 												</thead>
 														<tbody>
-															<tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/admin/main/reviewInfo_detail.jsp'">
+															<tr onclick="location.href='reviewDetail'">
 																<td>황주디</td>
 																<td>강쥐 귀 냄새 왜날까? </td>
 																<td>2021.06.18</td>
@@ -153,7 +153,7 @@ input {
 													</tr>
 												</thead>
 												<tbody>
-													<tr onclick="location.href=''">
+													<tr onclick="location.href='reviewDetail'">
 														<td>업나라</td>
 														<td>고양이 병원 잘하는 곳</td>
 														<td>2021.06.18</td>

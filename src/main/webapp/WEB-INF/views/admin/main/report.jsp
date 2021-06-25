@@ -45,9 +45,9 @@ input {
       text-align:center;
       color:#25213b">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/report.jsp">신고 게시판</a></li>
+        <li class="active1"><a href="reportList">신고 게시판</a></li>
         <hr>
-        <li><a href="${ pageContext.servletContext.contextPath }/views/admin/main/ask_board.jsp">문의 게시판</a></li>
+        <li><a href="askList">문의 게시판</a></li>
       </ul>
     </nav>
     <!-- sidebar end -->
@@ -94,7 +94,7 @@ input {
 														
 												</thead>
 												<tbody>
-													<tr>
+													<tr onclick="location.href='reportDetail'">
 														<td>황주디</td>
 														<td>신고합니다</td>
 														<td>용품리뷰</td>
@@ -152,7 +152,7 @@ input {
 													</tr>
 												</thead>
 														<tbody>
-															<tr>
+															<tr onclick="location.href='reportDetail'">
 																<td>황주디</td>
 																<td>신고합니다</td>
 																<td>2021.06.08</td>
@@ -205,7 +205,7 @@ input {
 													</tr>
 												</thead>
 														<tbody>
-															<tr>
+															<tr onclick="location.href='reportDetail'">
 																<td>손손</td>
 																<td>게시글 신고입니다</td>
 																<td>2021.06.08</td>
@@ -251,7 +251,7 @@ input {
 													</tr>
 												</thead>
 														<tbody>
-															<tr>
+															<tr onclick="location.href='reportDetail'">
 																<td>황주디</td>
 																<td>신고합니다</td>
 																<td>2021.06.08</td>
@@ -296,7 +296,7 @@ input {
 													</tr>
 												</thead>
 														<tbody>
-															<tr>
+															<tr onclick="location.href='reportDetail'">
 																<td>황주디</td>
 																<td>난리난리난리나</td>
 																<td>2021.06.18</td>

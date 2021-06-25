@@ -201,7 +201,7 @@
                     </p>
                 </div>
                 <div>
-                	<a href="${ pageContext.servletContext.contextPath }/views/admin/main/manager_main.jsp"><img src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png" style="width: 30px; height: 30px; float: right; margin-right: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
+                	<a href="admin_login"><img src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png" style="width: 30px; height: 30px; float: right; margin-right: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
                 </div>
             </section>
 
