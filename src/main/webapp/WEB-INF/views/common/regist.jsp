@@ -121,7 +121,76 @@
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
 
-    <body data-spy="scroll" data-target=".navbar-collapse">
+<body data-spy="scroll" data-target=".navbar-collapse">
+	
+	<script>
+		function duplicationCheck(){
+			
+			var idCheck = document.getElementById("userId");
+			
+			var userId = $('#userId').val();
+			console.log(userId);
+			if(userId == ''){
+				alert('아이디를 입력해주세요.');
+				idCheck.value = "";
+	            idCheck.focus();
+				return;
+			}
+			
+			/* userId 유효성 검사 */
+			var idRegExp = /^[a-zA-z0-9]{4,12}$/; //4~12자의 영문 대소문자와 숫자
+			
+	        if (!idRegExp.test(userId)) {
+	        	
+	            alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
+	            idCheck.value = "";
+	            idCheck.focus();
+	            return false;
+	            
+	        } else {
+			$.ajax({
+				url:"${pageContext.servletContext.contextPath}/user/registIdChk",
+				type:"post",
+				data:{userId:userId},
+				success:function(data){
+					
+					console.log(data);
+					
+					status = $("#hiddenMessage").css("display");
+					console.log(status);
+					
+					if (data == "fail"){
+
+						if(status == "none"){
+							$("#hiddenMessage").css("display", "");
+						}
+						
+						$("#checkMessage").html("사용할 수 없는 아이디입니다.");
+						idCheck.value = "";
+			            idCheck.focus();
+						return;
+
+					} else if(data == "success") {
+						
+						if(status == "none"){
+							$("#hiddenMessage").css("display", "");
+						}
+						
+					    $("#checkMessage").html("사용할 수 있는 아이디입니다.");
+					    $("#idCheck").attr("value","success");
+					    console.log(idCheck);
+					   
+					    return;
+					}
+				}, error:function(data){
+					console.log(data);
+				}
+			});
+			return false;
+	        }
+
+		}	
+	</script>
 
 
         <!-- Preloader -->
@@ -136,24 +205,27 @@
             </div>
         </div><!--End off Preloader -->
 
-
-        <div class="culmn">
-            <!--Home page style-->
-
-
             <jsp:include page="../user/common/userHeader.jsp"/>
             <!--Home Sections-->
 
-
-            <section id="loginconfirm" class="login">
-                <div class="loginForm" style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 50px; margin-bottom: 50px; box-shadow: 3px 3px 3px 3px rgb(204, 204, 204);">
-                    <h2 style="text-align: center; color: gray; margin-top: 30px;">회원가입</h2><br>
-
+     <section id="loginconfirm" class="login">
+           <div class="loginForm" style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 50px; margin-bottom: 50px; box-shadow: 3px 3px 3px 3px rgb(204, 204, 204);">
+              <h2 style="text-align: center; color: gray; margin-top: 30px;">회원가입</h2><br>
+				<form action="${ pageContext.servletContext.contextPath }/user/regist" method="post" id="regist">
                     <table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
 						<tr>
 							<td>아이디</td>
-							<td><input type="text" id="userId" placeholder="아이디를 입력하세요" name="id"></td>
-							<td><button id="chkId">중복확인</button></td>
+							<td><input type="text" id="userId" placeholder="영문 대소문자와 숫자 4~12자리" name="userId"></td>
+							<td>
+							<input type="hidden" id="idCheck" name="idCheck" value="fail">
+							<button onclick="return duplicationCheck()" type="button">중복확인</button>
+							</td>
+						</tr>
+						<tr id="hiddenMessage" style="display: none;">
+						<td></td>
+						<td>
+							<p id="checkMessage" style="font-size : 20px; color: red;"/>
+						</td>
 						</tr>
 						<tr>
 							<td>이름</td>
@@ -183,8 +255,9 @@
 						</tr>
 	                    <tr>
 	                    	<td>이메일 수신 여부</td>
-	                    	<td><label name="receiveEmail" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="checkbox" id="newsletter" style="width: 15px;"> 뉴스레터 받기</label>
-	                    		<label name="receiveEmail" style="font-size: 15px; font-weight: normal;"><input type="checkbox" id="notion" style="width: 15px;"> 댓글 알림 받기</label>
+	                    	<td>
+	                    	<label name="receiveEmail" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="checkbox" id="newsletter" style="width: 15px;"> 뉴스레터 받기</label>
+	                    	<label name="receiveEmail" style="font-size: 15px; font-weight: normal;"><input type="checkbox" id="notion" style="width: 15px;"> 댓글 알림 받기</label>
 	                    	</td>
 	                    </tr>	
 	                    <tr style="height: 150px;">
@@ -319,23 +392,86 @@
 	                    </tr>
 					</table>
 					
-                <div style="margin: 0px auto; text-align: center; margin-bottom: 50px; margin-top: 10px;"><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/common/login.jsp'">회원가입</button></div>
-                
+                <div style="margin: 0px auto; text-align: center; margin-bottom: 50px; margin-top: 10px;">
+	                <button type="submit" id=btnSubmit>회원가입</button>
                 </div>
-            </section>
+	           	</form>
+     		</section>
+                
 
-<!-- 아이디 중복 검사 -->          
-            
-$(#chkId).on('click', function(){)
-            
-            
-            
-            
-            
-            
+<!-- 회원가입 유효성 검사: 알럿창 -->
+<script>
+	$("#btnSubmit").click(function(){
+		validate();
+	});
+	
+	/* window.onload = function(){	    
+	    var $item = document.getElementById("duplicationCheck");
+		  // 요소의 data-value 속성에 hello world를 설정한다.
+		  $item.setAttribute("checkResult", "fail");
+		  // 요소의 value 속성에 test를 설정한다.
+	}; */
+	
+	function validate(){
+		
+		var userId = document.getElementById("userId");
+		var userNick = document.getElementById("userNickName");
+		var userPwd1 = document.getElementById("userPwd");
+		var userPwd2 = document.getElementById("userPwdCheck");
+		var userPhone = document.getElementById("userPhone");
+		var userEmail = document.getElementById("userEmail");
+		var idCheck = document.getElementById("idCheck");
+		
+		function checkExistData(value, dataName) {
+	        if (value == "") {
+	            alert(dataName + " 입력해주세요!");
+	            return false;
+	        }
+	        return true;
+	    }
+
+		/* userId 중복체크 확인 */
+		if(idCheck.value != "success"){
+			alert("아이디 중복체크를 완료해주세요.");
+			userId.focus();
+			return false;
+		}
+		
+		/* userId 유효성 검사 */
+		/* var idRegExp = /^[a-zA-z0-9]{4,12}$/; //4~12자의 영문 대소문자와 숫자
+		
+        if (!idRegExp.test(id)) {
+            alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
+            form.userId.value = "";
+            form.userId.focus();
+            return false;
+        }
+        return true; */ //확인이 완료되었을 때
+
+
+		
+		
+		
+		
+		
+	}
+</script>
 
             <!-- 푸터 -->
-            <jsp:include page="../user/common/footer.jsp"/>
+<jsp:include page="../user/common/footer.jsp"/>
+</body>
             
-        </div>
 </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
