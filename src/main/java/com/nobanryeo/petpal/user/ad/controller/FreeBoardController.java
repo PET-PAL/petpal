@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.nobanryeo.petpal.user.ad.service.FreeBoardService;
+import com.nobanryeo.petpal.user.dto.BoardPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 
 @Controller
@@ -36,9 +37,11 @@ public class FreeBoardController {
 	public String SelectFreeBoardDetail(Model model, HttpServletRequest request) {
 		
 		FreeBoardDTO freeBoard = new FreeBoardDTO();
+		BoardPictureManageDTO picture = new BoardPictureManageDTO();
 		freeBoard.setBoardCode(Integer.parseInt(request.getParameter("boardCode")));
 		
 		model.addAttribute("freeBoardDetail", freeBoardService.selectFreeBoardDetail(freeBoard));
+		model.addAttribute("freeBoardDetailPicture", freeBoardService.selectFreeBoardDetailPicture(picture));
 		
 		return "user/community/freeBoardDetail";
 	}
