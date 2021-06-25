@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -85,41 +86,15 @@ input {
 														
 												</thead>
 												<tbody>
+												<c:forEach items="${askList}" var="board">
 													<tr onclick="location.href='askDetail'">
-														<td>황주디</td>
-														<td>문의합니다</td>
-														<td>2021.06.08</td>
+														<td>${board.userCode }</td>
+														<td>${board.boardTitle }</td>
+														<td>${board.postDate }</td>
 														<td>-</td>
-														<td>처리전</td>
+														<td>${board.stateCode }</td>
 													</tr>
-													<tr>
-														<td>쏜쏜</td>
-														<td>문의합니다</td>
-														<td>2021.06.08</td>
-														<td>-</td>
-														<td>처리전</td>
-													</tr>
-													<tr>
-														<td>킘킘킘</td>
-														<td>문의합니다</td>
-														<td>2021.06.08</td>
-														<td>2021.06.18</td>
-														<td>처리완료</td>
-													</tr>
-													<tr>
-														<td>황주디</td>
-														<td>신고합니다</td>
-														<td>2021.06.08</td>
-														<td>-</td>
-														<td>처리전</td>
-													</tr>
-													<tr>
-														<td>업나라</td>
-														<td>신고합니다</td>
-														<td>2021.06.08</td>
-														<td>2021.06.18</td>
-														<td>처리완료</td>
-													</tr>
+												</c:forEach>
 												</tbody>
 											</table>
 													<div class="text-center">
