@@ -113,50 +113,7 @@ public class AdAdminController {
 	}
 	
 	
-	
-	
-	
-	@RequestMapping("reviewList")
-    public String reviewList() {
-       
-       return "admin/main/reviewInfo";
-    }
-    
-    @RequestMapping("reviewDetail")
-    public String reviewDetail() {
-       
-       return "admin/main/reviewInfo_detail";
-    }
-    
-    @RequestMapping("reportList")
-    public String reportList() {
-       
-       return "admin/main/report";
-    }
-    
-    @RequestMapping("reportDetail")
-    public String reportDetail() {
-       
-       return "admin/main/report_detail";
-    }
-    
 
-    
-    @RequestMapping("askDetail")
-    public String askDetail() {
-       
-       return "admin/main/ask_board_detail";
-    }
-    
-    @RequestMapping("newsLetterList")
-    public String newsLetterList() {
-       
-       return "admin/main/newsletterList";
-    }
-    
-    
-    
-    
 	
 }
 
