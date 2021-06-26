@@ -55,11 +55,77 @@
 			  ,	A.COMPANY_PHONE
 			  , A.COMPANY_EMAIL
 			  , A.AD_TYPE_CODE
+			  , A.STATE_CODE
 		   FROM AD_APPLY_TABLE A
 		   JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
 		  WHERE A.AD_CODE = #{adCode}
 	  </select>
+	  
+	  <resultMap id="adDecision" extends="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
+		<!-- 추가적인 속성만 넣으면 됨 -->
+	   <association property="decisionCode" javaType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
+	   	 <id property="decisionCode" column="DECISION_CODE"/>
+	     <result property="decisionDate" column="DECISION_DATE"/>
+   	     <result property="decisionReason" column="DECISION_REASON"/>
+       </association>
+	</resultMap>
+	 
+	 <!-- 광고 심사 사유 조회 -->
+	 <select id="selectAdApproveDecision" resultMap="adDecision" parameterType="int">
+   	   SELECT 
+              A.AD_TITLE
+            , A.AD_CODE
+            , A.STATE_CODE
+            , B.DECISION_CODE
+            , B.DECISION_DATE
+            , B.DECISION_REASON
+            , C.USER_CODE
+            , C.USER_NAME
+            , C.USER_ID
+         FROM AD_APPLY_TABLE A
+         JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+         JOIN USER_TABLE C ON C.USER_CODE = B.USER_CODE
+        WHERE A.AD_CODE = #{ adCode }
+	 </select>
+	  
+	  
+	  <!-- 광고 심사 인서트 -->
+	  <insert id="insertAdApprove" parameterType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
+	    INSERT 
+	      INTO DECISION_TABLE
+	    (
+	      DECISION_CODE
+	    , DECISION_REASON
+	    , DECISION_DATE
+	    , STATE_CODE
+	    , USER_CODE
+	    )
+        VALUES
+        (
+          DECISION_CODE_SEQ.NEXTVAL
+        , #{ decisionReason }
+        , SYSDATE
+        , #{ stateCode }
+        , 7
+        )
+	  </insert>	
+	  
+	  <!-- 광고 신청 내역 테이블에 심사 결과 업데이트 -->
+	  <update id="updateAdApprove" parameterType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
+		<selectKey keyProperty="decision.decisionCode" order="BEFORE" resultType="_int">
+			SELECT
+			       DECISION_CODE_SEQ.CURRVAL
+			  FROM DUAL
+		</selectKey>
+		UPDATE AD_APPLY_TABLE 
+		   SET 
+			   DECISION_CODE = #{ decision.decisionCode }
+		     , STATE_CODE = #{ stateCode }
+	     WHERE AD_CODE = #{ adCode }
+	 </update>
+	 
+	 
 
-
-
+	 
+	 
 </mapper>
