@@ -20,10 +20,36 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+	/**
+	 * ID 중복체크 서비스impl 
+	 * true or false를 service로 반환
+	 */
 	@Override
 	public boolean checkId(UserInfoDTO userInfo) {
 		System.out.println("서비스까지 왔습니다 : " + userInfo.getId());
 		return mapper.selectUserIdcheck(userInfo).equals("0")? true:false;
+	}
+
+
+	/**
+	 * Nick 중복체크 서비스impl
+	 * true or false를 service로 반환
+	 */
+	@Override
+	public boolean checkNick(UserInfoDTO userInfo) {
+		System.out.println("서비스까지 왔습니다 : " + userInfo.getNikname());
+		return mapper.selectUserNickcheck(userInfo).equals("0")? true:false;
+	}
+
+
+	/**
+	 * Email 중복체크 서비스impl
+	 * true or false를 service로 반환
+	 */
+	@Override
+	public boolean checkEmail(UserInfoDTO userInfo) {
+		System.out.println("서비스까지 왔습니다 : " + userInfo.getEmail());
+		return mapper.selectUserEmailcheck(userInfo).equals("0")? true:false;
 	}
 
 	
