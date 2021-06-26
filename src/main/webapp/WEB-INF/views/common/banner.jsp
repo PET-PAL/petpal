@@ -25,7 +25,7 @@
                     <li style="text-align: center;">광고 문의</li>
                     <li><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/images/adqna.png" style="width: 100px; height: 100px;"></a></li>
                     <li style="text-align: center;">불편 문의</li>
-                    <li><a href="${ pageContext.servletContext.contextPath }/views/user/banner/adSubmit1.jsp"><img src="${ pageContext.servletContext.contextPath }/resources/images/clipboard.png" style="width: 100px; height: 100px;"></a></li>
+                    <li><a href="${ pageContext.servletContext.contextPath }/user/select/adsubmit"><img src="${ pageContext.servletContext.contextPath }/resources/images/clipboard.png" style="width: 100px; height: 100px;"></a></li>
                     <li style="text-align: center; margin-bottom: 20px;">광고 신청</li>
                 </ul>
      </div>
