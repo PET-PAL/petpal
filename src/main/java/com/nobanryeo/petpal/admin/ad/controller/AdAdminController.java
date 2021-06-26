@@ -83,11 +83,7 @@ public class AdAdminController {
        return "admin/main/report_detail";
     }
     
-    @RequestMapping("askList")
-    public String askList() {
-       
-       return "admin/main/ask_board";
-    }
+
     
     @RequestMapping("askDetail")
     public String askDetail() {
