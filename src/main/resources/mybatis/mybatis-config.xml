@@ -7,8 +7,9 @@
  		<typeAlias alias="UserInfoDTO" type="com.nobanryeo.petpal.user.dto.UserInfoDTO"/>
  	
  		<typeAlias alias="FreeBoardDTO" type="com.nobanryeo.petpal.user.dto.FreeBoardDTO"/>
- 		<typeAlias alias="BoardPictureManageDTO" type="com.nobanryeo.petpal.user.dto.BoardPictureManageDTO"/>
+ 		<!-- <typeAlias alias="BoardPictureManageDTO" type="com.nobanryeo.petpal.user.dto.BoardPictureManageDTO"/> -->
  		<typeAlias alias="BoardReplyDTO" type="com.nobanryeo.petpal.user.dto.BoardReplyDTO"/>
+ 		<typeAlias alias="AdoptPictureManageDTO" type="com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO"/>
  		
  		<typeAlias alias="AdAdminDTO" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO"/>
  		

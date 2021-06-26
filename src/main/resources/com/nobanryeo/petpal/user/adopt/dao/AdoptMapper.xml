@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+  <mapper namespace="com.nobanryeo.petpal.user.adopt.dao.AdoptMapper">
+  	<resultMap type="AdoptPictureManageDTO" id="AdoptResultSet">
+  		<result column="BOARD_CODE" property="boardCode"/>
+  		<result column="ADOPT_BREED" property="adoptBreed"/>
+  		<result column="ADOPT_GENDER" property="adoptGender"/>
+  		<result column="ADOPT_DELETE_YN" property="deleteYN"/>
+  		<result column="STATE_CODE" property="stateCode"/>
+  		<result column="USER_LOCATION" property="userAddress"/>
+  		<result column="DOG_OR_CAT" property="dogOrcat"/>
+  		<result column="USER_CODE" property="userCode"/>
+  		<result column="PICTURE_CODE" property="pictureCode"/>
+  		<result column="PICTURE_URL" property="pictureURL"/>
+  		<result column="PICTURE_DELETE_YN" property="pictureDeleteYN"/>
+  		<result column="PICTURE_NAME" property="pictureName"/>
+  		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
+  	</resultMap>
+  	
+  	<select id="selectAdoptList" parameterType="AdoptPictureManageDTO" resultMap="AdoptResultSet">
+  		SELECT
+		       A.BOARD_CODE
+		     , A.ADOPT_BREED
+		     , A.ADOPT_GENDER
+		     , A.STATE_CODE
+		     , A.USER_LOCATION
+		     , A.USER_CODE
+		     , P.PICTURE_URL
+		     , P.PICTURE_NAME
+		     , P.PICTURE_NEW_NAME
+		  FROM ADOPT_BOARD A
+		  JOIN ADOPT_PICTURE_MANAGE M ON (A.BOARD_CODE = M.BOARD_CODE)
+		  JOIN PICTURE_TABLE P ON (M.PICTURE_CODE = P.PICTURE_CODE)
+		 WHERE P.PICTURE_DELETE_YN='N'
+		   AND A.ADOPT_DELETE_YN='N'
+  	</select>
+  </mapper>
