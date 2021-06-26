@@ -156,6 +156,12 @@
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
+<script>
+	const message = '${ requestScope.message }';
+	if(message != null && message != '') {
+		alert(message);
+	}
+</script>
 
 
         <!-- Preloader -->
@@ -180,21 +186,24 @@
 
 
             <section id="loginconfirm" class="login">
+              <form action="${ pageContext.servletContext.contextPath }/user/login" method="post">
                 <div class="loginForm" style="width: 50%; height: 530px; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 50px; margin-bottom: 50px; box-shadow: 3px 3px 3px 3px rgb(204, 204, 204);">
                     <h2 style="text-align: center; color: gray; margin-top: 30px;">로그인</h2><br>
 
-                    <input type="text" id="userId" placeholder="  아이디 입력"><br>
-                    <input type="password" id="userPwd" placeholder="  비밀번호 입력"><br>
+                    <input type="text" id="userId" name="userId" placeholder="  아이디 입력"><br>
+                    <input type="password" id="userPwd" name="userPwd" placeholder="  비밀번호 입력"><br>
+              
                     <div style="left: 20%;">
                         <label style="margin-left: 21%; font-weight: normal;"><input type="checkbox" id="storeId"> 아이디 저장</label>
                     </div>
                     <hr style="width: 80%; border-color: rgb(175, 175, 175);">
-                    <div>
-                        <ul>
-                            <li><button class="login" style="margin-top: 30px;">로그인</button></li>
-                            <li><button class="join" onclick="location.href='${ pageContext.servletContext.contextPath }/user/regist'">회원가입</button></li>
-                        </ul>
-                    </div>
+						<button type="submit" class="login" style="margin-top: 30px; margin-left: 35%; background-color: #19A985; color: white; width: 300px; height: 50px; border: 0px; border-radius: 10px; font-size: 20px;">
+						로그인
+						</button>
+						<br>
+					</div>
+				</form>
+            </section>
                     <p style="text-align: center; margin-top: 10px;">
                         <a href="#findId" style="color: rgb(175, 175, 175); padding-right: 100px;">아이디 찾기</a>
                         <a href="#findPwd" style="color: rgb(175, 175, 175);">비밀번호 찾기</a>
@@ -203,7 +212,10 @@
                 <div>
                 	<a href="admin_login"><img src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png" style="width: 30px; height: 30px; float: right; margin-right: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
                 </div>
-            </section>
+            
+						<button class="join" onclick="location.href='${ pageContext.servletContext.contextPath }/user/regist'" style="margin-top: 15px; margin-left: 42.5%; background-color: #19A985; color: white; width: 300px; height: 50px; border: 0px; border-radius: 10px; font-size: 20px;">
+						회원가입
+						</button>
 
             <!-- 아이디찾기 팝업창 -->
             <div id="findId" class="overlay">
@@ -279,4 +291,5 @@
             <jsp:include page="../user/common/footer.jsp"/>
             
         </div>
+     </body>
 </html>

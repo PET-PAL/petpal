@@ -26,6 +26,24 @@
 		<result column="USER_NIKNAME" property="userNickName"/>
 		<result column="USER_CODE" property="userCode"/>
 	</resultMap>
+	
+	<resultMap id="messageResultSet" type="MessageTableDTO">
+		<id column="MESSAGE_CODE" property="messageCode"/>
+		<result column="MESSAGE_CONTENT" property="messageContent"/>
+		<result column="MESSAGE_DATE" property="messageDate"/>
+		<result column="USER_CODE1" property="userCode1"/>
+		<result column="USER_CODE" property="userCode"/>
+	</resultMap>
+	
+	<resultMap id="reportResultSet" type="FreeBoardReportDTO">
+		<id column="REPORT_CODE" property="reportCode"/>
+		<result column="REPORT_TITLE" property="reportTitle"/>
+		<result column="REPORT_CONTENT" property="reportContent"/>
+		<result column="REPORT_DATE" property="reportDate"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="BOARD_CODE" property="boardCode"/>
+	</resultMap>
 
 	
 	
@@ -40,7 +58,14 @@
           FROM FREE_BOARD A
           JOIN USER_TABLE B ON (B.USER_CODE = A.USER_CODE)
          WHERE BOARD_DELETE_YN = 'N'
+         ORDER BY A.BOARD_CODE DESC
 	</select>
+	
+	<update id="updateFreeBoardViews" parameterType="FreeBoardDTO">
+		UPDATE FREE_BOARD
+		   SET BOARD_VIEWS = BOARD_VIEWS + 1
+		 WHERE BOARD_CODE = #{ boardCode }
+	</update>
 	
 	<select id="selectFreeBoardDetail" parameterType="FreeBoardDTO" resultMap="freeBoardResultSet">
         SELECT
@@ -50,6 +75,7 @@
              , B.USER_NIKNAME
              , A.BOARD_CONTENT
              , A.BOARD_CODE
+             , A.USER_CODE
           FROM FREE_BOARD A
           JOIN USER_TABLE B ON (B.USER_CODE = A.USER_CODE)
          WHERE A.BOARD_DELETE_YN = 'N'
@@ -68,6 +94,7 @@
           JOIN FREE_BOARD C ON(C.BOARD_CODE = B.BOARD_CODE)
           JOIN USER_TABLE D ON(D.USER_CODE = B.USER_CODE)
          WHERE B.BOARD_CODE = #{ boardCode }
+         ORDER BY A.REPLY_CODE DESC
 	</select>
 	
 	<insert id="insertFreeBoardReply" parameterType="FreeBoardReplyDTO">
@@ -89,5 +116,39 @@
           FROM DUAL
 	</insert>
 
+	<insert id="insertFreeBoardMessage" parameterType="MessageTableDTO">
+		INSERT
+		  INTO MESSAGE_TABLE
+		VALUES ( MESSAGE_CODE_SEQ.NEXTVAL
+		       , #{ messageContent }
+		       , SYSDATE
+		       , #{ userCode1 }
+		       , #{ userCode }
+		       )
+	</insert>
+	
+	<insert id="insertFreeBoardReport" parameterType="FreeBoardReportDTO">
+		<selectKey keyProperty="reportTitle" order="BEFORE" resultType="string">
+			SELECT
+			       BOARD_TITLE
+			  FROM FREE_BOARD
+			 WHERE BOARD_CODE = #{ boardCode }
+		</selectKey>
+			INSERT ALL
+			  INTO REPORT_MANAGE
+			VALUES ( REPORT_MANAGE_SEQ.NEXTVAL
+			       , #{ reportTitle }
+			       , #{ reportContent }
+			       , SYSDATE
+			       , NULL
+			       , #{ userCode }
+			       )
+			  INTO FREE_BOARD_REPORT
+		    VALUES ( #{ boardCode }
+		           , REPORT_MANAGE_SEQ.CURRVAL
+		           )
+            SELECT *
+              FROM DUAL
+	</insert>
 	
 </mapper>

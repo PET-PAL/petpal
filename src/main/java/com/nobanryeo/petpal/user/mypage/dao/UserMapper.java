@@ -23,4 +23,45 @@ public interface UserMapper {
 	 * @return Count(*) "1"(false) or "0"(true)
 	 */
 	String selectUserEmailcheck(UserInfoDTO userInfo);
+
+	/**
+	 * insert User
+	 * @param userInfo
+	 * @return
+	 */
+	int insertUser(UserInfoDTO userInfo);
+
+	/**
+	 * select User
+	 * @param userInfo
+	 * @return
+	 */
+	UserInfoDTO selectUser(UserInfoDTO userInfo);
+
+	/**
+	 * 유저가 입력한 비밀번호와 저장되어 있는 비밀번호 매치
+	 * @param userInfo
+	 * @return 
+	 */
+	String selectUserPassword(UserInfoDTO userInfo);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

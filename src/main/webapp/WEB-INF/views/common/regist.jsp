@@ -159,11 +159,11 @@
 						</tr>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" id="userName" placeholder="이름을 입력하세요" required></td>
+							<td><input type="text" name="userName" id="userName" placeholder="이름을 입력하세요" required></td>
 						</tr>
 						<tr>
 							<td>닉네임</td>
-							<td><input type="text" id="userNickName" name="userNickName" placeholder="닉네임을 입력하세요" required value="홍구리"></td>
+							<td><input type="text" id="userNickName" name="userNickName" placeholder="닉네임을 입력하세요" required></td>
 	                        <td>
 	                        <input type="hidden" id="nameCheck" name="nameCheck" value="fail">
 	                        <button onclick="return duplicationNickCheck()" type="button">중복확인</button>
@@ -177,19 +177,19 @@
 						</tr>
 						<tr>
 							<td>비밀번호</td>
-							<td><input type="password" name="userPwd" id="userPwd" placeholder="비밀번호를 입력하세요" required value="1q2w3e"></td>
+							<td><input type="password" name="userPwd" id="userPwd" placeholder="비밀번호를 입력하세요" required></td>
 						</tr>
 						<tr>
 							<td>비밀번호 확인</td>
-							<td><input type="password" name="userPwdCheck" id="userPwdCheck" placeholder="비밀번호를 확인해 주세요" required value="1q2w3e"></td>
+							<td><input type="password" name="userPwdCheck" id="userPwdCheck" placeholder="비밀번호를 확인해 주세요" required></td>
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input type="text" id="userPhone" name="userPhone" placeholder="전화번호 입력하세요" required value="123"></td>
+							<td><input type="text" id="userPhone" name="userPhone" placeholder="전화번호 입력하세요" required></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="text" id="userEmail" name="userEmail" placeholder="이메일 입력하세요" required value="petpal@gmail.com"></td>
+							<td><input type="text" id="userEmail" name="userEmail" placeholder="이메일 입력하세요" required></td>
 	                        <td>
 	                        <input type="hidden" id="emailCheck" name="emailCheck" value="fail">
 	                        <button onclick="return duplicationEmailCheck()" type="button">중복확인</button>
@@ -202,10 +202,21 @@
 						</td>
 						</tr>
 	                    <tr>
-	                    	<td>이메일 수신 여부</td>
+	                    	<td>뉴스레터 이메일 수신 동의</td>
 	                    	<td>
-	                    	<label name="receiveEmail" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="checkbox" id="newsletter" style="width: 15px;"> 뉴스레터 받기</label>
-	                    	<label name="receiveEmail" style="font-size: 15px; font-weight: normal;"><input type="checkbox" id="notion" style="width: 15px;"> 댓글 알림 받기</label>
+	                    	<label name="newsletter" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="newsletter" name="newsletter" style="width: 15px;" value="Y" checked> 동의</label>
+	                    	<label name="newsletter" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="newsletter" name="newsletter" style="width: 15px;" value="N"> 거절</label>
+	                    	</td>
+	                    </tr>	
+	                    <tr>
+	                    	<td>댓글알림 이메일 수신 동의</td>
+	                    	<td>
+	                    	<label name="notion" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="notion" name="notion" style="width: 15px;" value="Y" checked> 동의</label>
+	                    	<label name="notion" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="notion" name="notion" style="width: 15px;" value="N"> 거절</label>
 	                    	</td>
 	                    </tr>	
 	                    <tr style="height: 150px;">
@@ -286,7 +297,7 @@
 회사는 회원이 사이트의 서비스 제공으로부터 기대되는 이익을 얻지 못하였거나 서비스 자료에 대한 취사선택 또는 이용으로 발생하는 손해 등에 대해서는 책임이 면제됩니다. 회사는 본 사이트의 서비스 기반 및 타 통신업자가 제공하는 전기통신서비스의 장애로 인한 경우에는 책임이 면제되며 본 사이트의 서비스 기반과 관련되어 발생한 손해에 대해서는 사이트의 이용약관에 준합니다 회사는 회원이 저장, 게시 또는 전송한 자료와 관련하여 일체의 책임을 지지 않습니다. 회사는 회원의 귀책사유로 인하여 서비스 이용의 장애가 발생한 경우에는 책임지지 아니합니다. 회사는 회원 상호간 또는 회원과 제3자 상호간, 기타 회원의 본 서비스 내외를 불문한 일체의 활동(데이터 전송, 기타 커뮤니티 활동 포함)에 대하여 책임을 지지 않습니다. 회사는 회원이 게시 또는 전송한 자료 및 본 사이트로 회원이 제공받을 수 있는 모든 자료들의 진위, 신뢰도, 정확성 등 그 내용에 대해서는 책임지지 아니합니다. 회사는 회원 상호간 또는 회원과 제3자 상호간에 서비스를 매개로 하여 물품거래 등을 한 경우에 그로부터 발생하는 일체의 손해에 대하여 책임지지 아니합니다. 회사는 귀책사유 없이 회원간 또는 회원과 제3자간에 발생한 일체의 분쟁에 대하여 책임지지 아니합니다. 회사는 서버 등 설비의 관리, 점검, 보수, 교체 과정 또는 소프트웨어의 운용 과정에서 고의 또는 고의에 준하는 중대한 과실 없이 발생할 수 있는 시스템의 장애, 제3자의 공격으로 인한 시스템의 장애, 국내외의 저명한 연구기관이나 보안관련 업체에 의해 대응방법이 개발되지 아니한 컴퓨터 바이러스 등의 유포나 기타 운영자가 통제할 수 없는 불가항력적 사유로 인한 회원의 손해에 대하여 책임지지 않습니다.
 부칙 이 약관은 2017. 07. 03일부터 시행합니다.
 							</textarea></td>
-	                    	<td style="vertical-align:bottom;"><label name="termsOfService" style="font-size: 15px; font-weight: normal; padding-left: 20px;"><input type="checkbox" id="agree" style="width: 15px;"> 약관동의</label></td>
+	                    	<td style="vertical-align:bottom;"><label name="termsOfService" style="font-size: 15px; font-weight: normal; padding-left: 20px;"><input type="checkbox" id="agree" style="width: 15px;" required> 약관동의</label></td>
 	                    </tr>
 	                    <tr>
 	                    	<td>개인정보처리방침</td>
@@ -336,12 +347,12 @@
 **11. 개인정보 처리방침 변경**
 이 개인정보 처리방침은 2018. 7. 3.부터 적용됩니다.
 							</textarea></td>
-	                    	<td style="vertical-align:bottom;"><label name="privacyPolicy" style="font-size: 15px; font-weight: normal; padding-left: 20px;"><input type="checkbox" id="agree" style="width: 15px;"> 약관동의</label></td>
+	                    	<td style="vertical-align:bottom;"><label name="privacyPolicy" style="font-size: 15px; font-weight: normal; padding-left: 20px;"><input type="checkbox" id="agree" style="width: 15px;" required> 약관동의</label></td>
 	                    </tr>
 					</table>
 					
                 <div style="margin: 0px auto; text-align: center; margin-bottom: 50px; margin-top: 10px;">
-	                <p><input type="submit" id=btnSubmit value="회원가입"></p>
+	                <p><input type="submit" id=btnSubmit  value="회원가입"></p>
                 </div>
 	           	</form>
      		</section>
@@ -570,10 +581,6 @@
 			
 		}
 	</script>
-
-
-
-
 <!-- 중복체크 없는 값들 유효성 검사 스크립트 -->
 <script>
 
@@ -651,14 +658,9 @@
 	  	if(!phoneRegExp.test(phone)){
 	  		alert("전화번호가 올바르지 않습니다.\n전화번호는 01?-[4자리 숫자]-[4자리 숫자] 형식으로 작성하셔야 합니다.\n 예시) 010-[4자리숫자]-[4자리숫자]")
 	  	}
-	  	
-	  	
-
-
-
-
 	}
 </script>
+
 
             <!-- 푸터 -->
 <jsp:include page="../user/common/footer.jsp"/>

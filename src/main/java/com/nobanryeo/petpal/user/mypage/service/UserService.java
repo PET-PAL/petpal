@@ -2,6 +2,7 @@ package com.nobanryeo.petpal.user.mypage.service;
 
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
+
 public interface UserService {
 
 	/**
@@ -24,6 +25,20 @@ public interface UserService {
 	 * @return true or false
 	 */
 	boolean checkEmail(UserInfoDTO userInfo);
+
+	/**
+	 * User insert 서비스
+	 * @param userInfo
+	 * @return 실패0 성공1
+	 */
+	boolean insertUser(UserInfoDTO userInfo);
+
+	/**
+	 * User select 로그인
+	 * @param userInfo
+	 * @return 실패"0" 성공"1"
+	 */
+	UserInfoDTO selectUser(UserInfoDTO userInfo);
 
 	
 	

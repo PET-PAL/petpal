@@ -10,9 +10,12 @@ public class MainController {
 	
 	@GetMapping(value={"/","main"})
 	public String main() {
-	
-	return "user/main/mainpage";
 		
+		//return "admin/main/manager_main";
+
+		return "user/main/mainpage";
+
+
 	}
 	
 	

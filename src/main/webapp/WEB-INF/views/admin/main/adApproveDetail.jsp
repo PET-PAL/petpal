@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%--  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
        <head>
@@ -30,16 +30,13 @@
              <section>
            		<!-- 큰 컨테이너 시작 -->
                 <div class="container" style="padding-bottom:5%">
-             			<!-- 제목 -->
-                       <!--  <div class="head_title text-left fix">
-                            <h2 class="text-uppercase">대기중 광고 상세보기(광고제목)</h2>
-                            <br>
-                        </div> -->
-                        
+                
+                        <c:forEach var="adDetail" items="${ requestScope.adApproveDetail }">
                          <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" style="font-weight:800; margin-bottom:12px; font-size:25px; color:black">대기중 광고 상세보기(광고제목)</li>
+                                <li role="presentation" style="font-weight:800; margin-bottom:12px; font-size:25px; color:black">${adDetail.adTitle}</li>
                              </ul>
-                               <a href="adApproveList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+                             </c:forEach>
+                               <a href="../adApproveList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
                                			style="width:40px;height:42px; margin-right:30px; margin-top:-50px; float:right;"></a>
 
 
@@ -47,19 +44,19 @@
                         <div class="container" style="padding-top:15px;">
                         
                         	<!-- 광고 상세 정보 테이블 -->
-                        	<c:set var="adDetail" items="${ requestScope.adApproveDetail }">
+                            <c:forEach var="adDetail" items="${ requestScope.adApproveDetail }">
                             <table id="table" class="table" style="text-align:left;">
                                  <tr>
                                     <th style="border: none; width: 150px;">기업명</th>
-                                    <td style="border: none;"><c:out value="${adDetail.companyName}"/></td>
+                                    <td style="border: none;">${adDetail.companyName}</td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">신청자 아이디</th>
-                                    <td style="border: none;"><c:out value="${adDetail.user.id}"/></td>
+                                    <td style="border: none;">${adDetail.user.id}</td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">사업자 번호</th>
-                                    <td style="border: none;"><c:out value="${adDetail.companyNumber}"/></td>
+                                    <td style="border: none;">${adDetail.companyNumber}</td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">사업자 등록증</th>
@@ -67,19 +64,34 @@
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">사업자 전화번호</th>
-                                    <td style="border: none;"><c:out value="${adDetail.companyPhone}"/></td>
+                                    <td style="border: none;">${adDetail.companyPhone}</td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">사업자 이메일</th>
-                                    <td style="border: none;"><c:out value="${adDetail.companyEmail}"/></td>
+                                    <td style="border: none;">${adDetail.companyEmail}</td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 종류</th>
-                                    <td style="border: none;"><c:out value="${adDetail.adTypeCode}"/></td>
+                                    <td style="border: none;">
+                                    	<c:choose>
+		                                    <c:when test="${adDetail.adTypeCode eq 1}">
+		                                    	장소 외
+		                                    </c:when>
+		                                    <c:when test="${adDetail.adTypeCode eq 3}">
+		                                    	장소 외
+		                                    </c:when>
+		                                    <c:when test="${adDetail.adTypeCode eq 2}">
+		                                    	장소
+		                                    </c:when>
+		                                    <c:when test="${adDetail.adTypeCode eq 4}">
+		                                    	장소
+		                                    </c:when>
+                                    	</c:choose>
+                                    </td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 주수</th>
-                                    <td style="border: none;"><c:out value="${adDetail.adTypeCode}"/></td>
+                                    <td style="border: none;">${adDetail.adTypeCode}</td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 내용</th>
@@ -87,69 +99,69 @@
                                  </tr>
                                  
                             </table>
-                            </c:set>
+                            </c:forEach>
                         	<br>
                         	<br>
                         	<br>
                          <hr>
                          
                   <!-- 광고 심사 -->
-                   <div class="head_title">
-                       <p style="font-weight:800; margin-top:20px; font-size:25px; color:black">관리자 심사</p>
-                   </div>   
-                   <!-- 심사상태 : 대기일 때 -->   
+                  <!-- 심사상태 : 대기일 때 -->   
+                   <c:forEach var="adDetail" items="${ requestScope.adApproveDetail }">
+                   	<c:if test="${ adDetail.stateCode eq 1}" > 
+	                   <div class="head_title">
+	                       <p style="font-weight:800; margin-top:20px; font-size:25px; color:black">관리자 심사</p>
+	                   </div>   
                    <!--관리자 심사 폼 시작 -->
-                   <%-- <test="${ requestScope.~ eq ~}" >  --%>
-                   <form action="">
-	               <!-- 광고 심사 사유 입력 -->
-                   <div class="form-group mt-3">
-                        <textarea class="form-control" name="message" rows="5" placeholder="광고 심사 사유를 입력해주세요(필수)" required="" style="margin-bottom:3%;"></textarea>
-                   </div>   	
-	                  <!--  <div class="col-lg-12">
-		                	<div class="col-lg-7"></div>
-		                	<div class="col-lg-2"><input type="submit" class="btn btn-outline-danger" name="Button" onclick="approve()" value="광고 승인" style="border-radius:10px; float:right; margin-right:10px; background: white; border:1px solid red; color:red;"></div>
-		                	<div class="col-lg-2"><input type="submit" class="btn btn-outline-success" name="Button" onclick="decline()" value="광고 거절"  style="border-radius:10px; margin-right: 20px; float:right; background: white; border:1px solid green; color:green;"></div>
-		               </div> -->
-	               </form>
-	               <!-- </> -->
-	               <!-- 관리자 심사 폼 종료 -->
-	               
-	               <div class="container">
-                                    <div class="row">
-                                       <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-                                     <button class="btn btn-outline-danger" type="button"  style="border-radius:10px; float:right; margin-right:10px; background: white; border:1px solid red; color:red;">광고 거절</button>
-                                   <button class="btn btn-outline-success" type="button" style="border-radius:10px; margin-right: 20px; float:right; background: white; border:1px solid green; color:green;">광고 승인</button>
-                                 </div>
-                              </div>
-                           </div>   
-                    
-                    <hr>
+	                 <form action="adApproveInsert/${adDetail.adCode}" method="post">
+		               <!-- 광고 심사 사유 입력 -->
+	                   <div class="form-group mt-3">
+	                        <textarea name="decisionReason" class="form-control" rows="5" placeholder="광고 심사 사유를 입력해주세요(필수)" required="" style="margin-bottom:3%;"></textarea>
+	                   </div>   	
+		        
+	                  <div class="container">
+                         <div class="row">
+                             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                                 <input type="submit" name="state" value="광고 거절"  class="btn btn-outline-danger" type="button"  style="border-radius:10px; float:right; margin-right:10px; background: white; border:1px solid red; color:red;"/>
+                                 <input type="submit" name="state" value="광고 승인" class="btn btn-outline-success" type="button" style="border-radius:10px; margin-right: 20px; float:right; background: white; border:1px solid green; color:green;"/>
+                             </div>
+                           </div>
+                       </div>   
+                      </form>
+	                </c:if>
+                    </c:forEach>
                     
                    <!-- 심사상태 : 승인 or 거절일 때 --> 
                    <!-- 관리자 심사 폼 시작 -->
-                   <%-- <test="${ requestScope.~ eq ~}" >  --%>
+                  <c:forEach var="decision" items="${ requestScope.adApproveDecision }">
+                   	<c:if test="${ decision.stateCode ne 1}" > 
                      <div class="head_title">
                        <p style="font-weight:800; margin-top:20px; font-size:25px; color:black">심사 결과</p>
-                   </div>   
-	                 <table table id="table" class="table" style="text-align:left;">
-                        <tr>
-                          <th style="border: none; width: 150px;">관리자 심사 결과</th>
-                          <td style="border: none;">승인/거절</td>
-                        </tr>
-                        <tr>
-                          <th style="border: none; width: 150px;">심사 관리자</th>
-                          <td style="border: none;"></td>
-                        </tr>
-                        <tr>
-                          <th style="border: none; width: 150px;">심사 일자</th>
-                          <td style="border: none;"></td>
-                        </tr>
-                        <tr>
-                          <th style="border: none; width: 150px;">심사 사유</th>
-                          <td style="border: none;"><textarea class="form-control" name="message" rows="5" value="" readonly style="margin-bottom:3%; background-color:white;"></textarea></td>
-                        </tr>
-                   </table>
-	               <!-- </> -->
+	                   </div>   
+		                 <table id="table" class="table" style="text-align:left;">
+	                        <tr>
+	                          <th style="border: none; width: 150px;">관리자 심사 결과</th>
+	                          <td style="border: none;">${ decision.stateCode }</td><!-- 승인/거절 분기처리 해주기 --> 
+	                        </tr>
+	                        <tr>
+	                          <th style="border: none; width: 150px;">심사 관리자</th>
+	                          <td style="border: none;">${ decision.name }(${ decision.id })</td>
+	                        </tr>
+	                        <tr>
+	                          <th style="border: none; width: 150px;">심사 일자</th>
+	                          <td style="border: none;">${ decision.stateCode }</td>
+	                        </tr>
+	                        <tr>
+	                          <th style="border: none; width: 150px;">심사 사유</th>
+	                          <td style="border: none;">
+	                          <textarea class="form-control" name="message" rows="5" readonly style="margin-bottom:3%; background-color:white;">
+	                          ${ decision.decisionReason }
+	                          </textarea>
+	                          </td>
+	                        </tr>
+	                   </table>
+	              	 </c:if>
+	               </c:forEach>
 	               <!-- 관리자 심사 폼 종료 -->
                     
                     

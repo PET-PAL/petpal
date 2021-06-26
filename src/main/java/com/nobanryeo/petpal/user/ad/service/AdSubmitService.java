@@ -1,5 +1,5 @@
 package com.nobanryeo.petpal.user.ad.service;
 
-public class AdService {
+public class AdSubmitService {
 
 }
