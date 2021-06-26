@@ -80,7 +80,7 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
-                                  <tr onclick="location.href='adApproveDetail/${ adApprove.adCode }'"> <!-- 어느 adApproveDetail로 들어갈지 수정 필요 -->
+                                  <tr onclick="location.href='adApproveDetail/${ adApprove.adCode }'"> 
                                     <th scope="row">${ adApprove.adCode }</th>
                                     <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
                                     <td>${ adApprove.adTitle }</td>
@@ -120,7 +120,7 @@
                                 </thead>
                                 <tbody>
                                 <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
-                                  <tr onclick="location.href='adApproveDetail'"> <!-- 어느 adApproveDetail로 들어갈지 수정 필요 -->
+                                 <tr onclick="location.href='adApproveDetail/${ adApprove.adCode }'">  
                                   <c:if test="${ adApprove.stateCode eq 1 }">
                                     <th scope="row">${ adApprove.adCode }</th>
                                     <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
@@ -156,7 +156,7 @@
                                 </thead>
                                 <tbody>
                                <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
-                                  <tr onclick="location.href='adApproveDetail'"> <!-- 어느 adApproveDetail로 들어갈지 수정 필요 -->
+                                 <tr onclick="location.href='adApproveDetail/${ adApprove.adCode }'">  
                                   <c:if test="${ adApprove.stateCode eq 2 }">
                                     <th scope="row">${ adApprove.adCode }</th>
                                     <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
@@ -192,7 +192,7 @@
                                 </thead>
                                 <tbody>
                                <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
-                                  <tr onclick="location.href='adApproveDetail'"> <!-- 어느 adApproveDetail로 들어갈지 수정 필요 -->
+                                <tr onclick="location.href='adApproveDetail/${ adApprove.adCode }'"> 
                                   <c:if test="${ adApprove.stateCode eq 3 }">
                                     <th scope="row">${ adApprove.adCode }</th>
                                     <td>${ adApprove.user.name }(${ adApprove.user.id })</td>

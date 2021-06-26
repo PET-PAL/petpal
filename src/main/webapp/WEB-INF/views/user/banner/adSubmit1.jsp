@@ -111,16 +111,18 @@
             </section>
             
             <section id="accountmanagement" class="accountmanagement">
-                <div style="width: 70%; height: 630px; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
+                <div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
 					<table style="width: 90%; height: 83%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
 						<tr>
-							<td style="width: 20%">광고 안내사항</td>
+							<td style="width: 25%">광고 안내사항</td>
 							<td><textarea class="form-control" style="height: 90%">
 (주)펫팔 (이하 "회사")이 운영하는 웹사이트(이하 "사이트")가 운영하는 광고에 대한 안내사항(개정 2021.06.23)
 회사는 모든 웹사이트 광고를 네이티브 광고로 운영한다. 네이티브 광고란 Native와 Advertising의 합성어로 모바일 웹 또는 앱의 콘텐츠와 서비스 내에 자연스럽게 결합되어 있는 광고 포맷이다.
 이는 전통적인 직사각형 배너광고와는 달리 콘텐츠를 기반으로 하며 사이트와 융합된 자연스러운 노출을 지향하는 것으로 웹사이트의 커뮤니티 게시글에 맞게 고유한 방식으로 기획 및 제작한 광고로 들어간다.
 펫팔의 네이티브 광고는 모든 게시판에 랜덤한 방식으로 게시된다.
 							</textarea></td>
+							<td style="width:140px; padding-left: 20px"><label name="admit4" style="font-size: 15px; font-weight: normal;">
+							<input type="checkbox" name='admit' value='admit0' style="width: 15px;">  약관 동의</label></td>
 						</tr>
 						<tr style="height:300px;">
 							<td>광고 약관</td>
@@ -243,10 +245,10 @@ o. 본 약관의 비밀유지의무, 양도금지의무를 위반한 경우
 							<input type="checkbox" name='admit' value='admit2' style="width: 15px;"> 약관 동의</label></td>
 						</tr>
 					</table>
-					<div style="margin: 0px auto; text-align: center;"><label name="admitAll" style="font-size: 15px; font-weight: normal;">
+					<div style="margin: 0px auto; text-align: center; margin-bottom: 10px;"><label name="admitAll" style="font-size: 15px; font-weight: normal;">
 					<input type="checkbox" name='admit' value='selectall' onclick='selectAll(this)' style="width: 15px;">전체 약관 동의하기</label></div>
-                    <div style="margin: 0px auto; text-align: center;">
-                    <button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/banner/adSubmit2.jsp'">다음으로</button></div>
+                    <div style="margin: 0px auto; text-align: center; margin-bottom:30px;">
+                    <button onsubmit="return admit_check()" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adsubmit2'">다음으로</button></div>
 				</div>
             </section>
 
@@ -270,6 +272,22 @@ o. 본 약관의 비밀유지의무, 양도금지의무를 위반한 경우
 		    checkbox.checked = selectAll.checked;
 		  })
 		}
+        
+        function admit_check() {
+/* 	        var admdit = document.getElementsByName('admit');
+	        console.log(admit.length);
+	        var cnt = $("input[name=admit]:checkbox:checked").length;
+	        
+	        if(cnt < 3) {
+	        	alert('약관에 모두 동의하지 않으면 광고 신청이 불가합니다.')
+	        	return false;
+	        } */
+	        
+/* 	        if(!$("input:checked[Name='admit']").is(":checked")){
+	        	alert('약관에 모두 동의하지 않으면 광고 신청이 불가합니다.');
+	        	return false;
+	        } */
+        }
         </script>
         
 

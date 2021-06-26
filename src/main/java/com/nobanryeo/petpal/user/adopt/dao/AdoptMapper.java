@@ -1,5 +1,11 @@
 package com.nobanryeo.petpal.user.adopt.dao;
 
-public class AdoptMapper {
+import java.util.List;
 
+import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
+
+public interface AdoptMapper {
+
+	List<AdoptPictureManageDTO> selectAdoptList();
+	
 }
