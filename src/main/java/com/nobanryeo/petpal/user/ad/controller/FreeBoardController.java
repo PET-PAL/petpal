@@ -42,34 +42,20 @@ public class FreeBoardController {
 		return "user/community/freeBoardList";
 	}
 	
-	/**
-	 * 자유게시판 상세 내용 조회
-	 * 게시글 내용, 사진, 댓글
-	 */
-	@GetMapping("select/freeboard/detail")
-	public String selectFreeBoardDetail(Model model, HttpServletRequest request) {
-		
-		FreeBoardDTO freeBoard = new FreeBoardDTO();
-		FreeBoardReplyDTO reply = new FreeBoardReplyDTO();
-		freeBoard.setBoardCode(Integer.parseInt(request.getParameter("boardCode")));
-		reply.setBoardCode(Integer.parseInt(request.getParameter("boardCode")));
-		
-		model.addAttribute("freeBoardDetail", freeBoardService.selectFreeBoardDetail(freeBoard));
-		model.addAttribute("freeBoardReply",freeBoardService.selectFreeBoardReply(reply));
-		
-		return "user/community/freeBoardDetail";
-	}
-	
-	@PostMapping("insert/freeboard/reply")
-	public String insertFreeBoardReply(@ModelAttribute FreeBoardReplyDTO reply, Model model,@RequestParam int code) {
-		reply.setBoardCode(code);
-		
-		if(freeBoardService.insertFreeBoardReply(reply) > 0) {
-			System.out.println("댓글 등록 성공");
-		} else {
-			System.out.println("댓글 등록 실패");
-		}
-				
-		return "redirect:/user/community/freeBoardDetail";
-	}
+	   /**
+	    * 자유게시판 상세 내용 조회
+	    * 게시글 내용, 사진, 댓글
+	    */
+	   @GetMapping("select/freeboard/detail")
+	   public String selectFreeBoardDetail(Model model, @RequestParam int boardCode) {
+	      
+	      // 조회수 카운트
+//	      freeBoardService.updateFreeBoardViews(boardCode);
+	      
+	      // 상세 내용 조회      
+//	      model.addAttribute("freeBoardDetail", freeBoardService.selectFreeBoardDetail(boardCode));
+//	      model.addAttribute("freeBoardReply",freeBoardService.selectFreeBoardReply(boardCode));
+	      
+	      return "user/community/freeBoardDetail";
+	   }
 }

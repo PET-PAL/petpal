@@ -9,10 +9,11 @@
  		<typeAlias alias="FreeBoardDTO" type="com.nobanryeo.petpal.user.dto.FreeBoardDTO"/>
  		<typeAlias alias="FreeBoardReplyDTO" type="com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO"/>
  		
- 		<typeAlias alias="BoardPictureManageDTO" type="com.nobanryeo.petpal.user.dto.BoardPictureManageDTO"/>
  		<typeAlias alias="BoardReplyDTO" type="com.nobanryeo.petpal.user.dto.BoardReplyDTO"/>
+ 		<typeAlias alias="AdoptPictureManageDTO" type="com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO"/>
 
  		<typeAlias alias="AskDTO" type="com.nobanryeo.petpal.admin.ask.dto.AskDTO"/>
+
  		
  		<typeAlias alias="AdAdminDTO" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO"/>
  		<typeAlias alias="DecisionDTO" type="com.nobanryeo.petpal.admin.dto.DecisionDTO"/>
