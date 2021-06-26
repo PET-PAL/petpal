@@ -54,7 +54,7 @@
                         <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-menu">
                             <i class="fa fa-bars"></i>
                         </button>
-                        <a class="navbar-brand" href="${ pageContext.servletContext.contextPath }/views/user/main/mainpage.jsp">
+                        <a class="navbar-brand" href="${ pageContext.servletContext.contextPath }">
                             <!-- <img src="assets/images/logo.png" class="logo" alt=""> -->
                             <p style="color: #19A985; font-weight: 800; font-size: 35px; margin-top: 5px;">PET-PAL</p>
                         </a>
@@ -76,7 +76,7 @@
 	                            </ul> 
 	                        </li>
                             <li><a href="${ pageContext.servletContext.contextPath }/views/user/mypage/mypage.jsp">마이페이지</a></li>
-                            <li><a href="${ pageContext.servletContext.contextPath }/views/common/login.jsp">로그인</a></li>
+                            <li><a href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
                         </ul>
                     </div><!-- /.navbar-collapse -->
                 </div>

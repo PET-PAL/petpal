@@ -10,8 +10,8 @@ public class UserInfoDTO {
 	private String nikname; //닉네임
 	private String pwd; //비밀번호
 	private String email; //이메일
-	private String emailYn; //이메일송신동의여부
 	private String replyYn; //댓글알림여부
+	private String emailYn; //이메일송신동의여부
 	private String withdrawYn; //탈퇴여부
 	private int reportCount; //신고횟수
 	private int permisson; //권한
