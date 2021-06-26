@@ -224,6 +224,25 @@
 						</ul>
 					</div>
             </section>
+                    
+		     <script>
+		     	$(document).ready(function(){
+		     		console.log("adoptPage select script");
+		     		$.ajax({
+		     			url:"user/adopt",
+		     			type:"GET",
+		     			dataType:"gson",
+		     			success:function(data,status,xhr){
+		     				console.log(JSON.parse(data.adoptList));
+		     				
+		     				const adoptList = JSON.parse(data.adoptList);
+		     				
+		     			},error:function(xhr,statu,error){
+		     				console.log(error);
+		     			}
+		     		})
+		     	})
+		     </script>
             
             <div style="position: fixed; top: 310px; left: 200px;">
 	            <button onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/terms'" style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
@@ -234,6 +253,7 @@
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
         </div>
+
          <jsp:include page="../common/footer.jsp"/>    
 
         <!-- JS includes -->
