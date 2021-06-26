@@ -5,6 +5,7 @@ import java.util.List;
 import com.nobanryeo.petpal.user.dto.BoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 
 public interface FreeBoardService {
@@ -20,5 +21,7 @@ public interface FreeBoardService {
 	public void updateFreeBoardViews(int boardCode);
 
 	public int insertFreeBoardMessage(MessageTableDTO message);
+
+	public int insertFreeBoardReport(FreeBoardReportDTO report);
 	
 }

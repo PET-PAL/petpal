@@ -10,6 +10,7 @@ import com.nobanryeo.petpal.user.ad.dao.FreeBoardMapper;
 import com.nobanryeo.petpal.user.dto.BoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 
 @Service
@@ -64,6 +65,12 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public int insertFreeBoardMessage(MessageTableDTO message) {
 
 		return freeBoardMapper.insertFreeBoardMessage(message);
+	}
+
+	@Override
+	public int insertFreeBoardReport(FreeBoardReportDTO report) {
+		
+		return freeBoardMapper.insertFreeBoardReport(report);
 	}
 
 }

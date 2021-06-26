@@ -34,6 +34,16 @@
 		<result column="USER_CODE1" property="userCode1"/>
 		<result column="USER_CODE" property="userCode"/>
 	</resultMap>
+	
+	<resultMap id="reportResultSet" type="FreeBoardReportDTO">
+		<id column="REPORT_CODE" property="reportCode"/>
+		<result column="REPORT_TITLE" property="reportTitle"/>
+		<result column="REPORT_CONTENT" property="reportContent"/>
+		<result column="REPORT_DATE" property="reportDate"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="BOARD_CODE" property="boardCode"/>
+	</resultMap>
 
 	
 	
@@ -115,6 +125,30 @@
 		       , #{ userCode1 }
 		       , #{ userCode }
 		       )
+	</insert>
+	
+	<insert id="insertFreeBoardReport" parameterType="FreeBoardReportDTO">
+		<selectKey keyProperty="reportTitle" order="BEFORE" resultType="string">
+			SELECT
+			       BOARD_TITLE
+			  FROM FREE_BOARD
+			 WHERE BOARD_CODE = #{ boardCode }
+		</selectKey>
+			INSERT ALL
+			  INTO REPORT_MANAGE
+			VALUES ( REPORT_MANAGE_SEQ.NEXTVAL
+			       , #{ reportTitle }
+			       , #{ reportContent }
+			       , SYSDATE
+			       , NULL
+			       , #{ userCode }
+			       )
+			  INTO FREE_BOARD_REPORT
+		    VALUES ( #{ boardCode }
+		           , REPORT_MANAGE_SEQ.CURRVAL
+		           )
+            SELECT *
+              FROM DUAL
 	</insert>
 	
 </mapper>

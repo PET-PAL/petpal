@@ -37,7 +37,7 @@
                 border-radius: 10px;
                 margin-left: 20px;
 			}
-			.findpwd-content > div {
+			.findpwd-content > div, .findpwd-content > form > div {
                 margin: 0px auto;
             }
 			 div > img {
@@ -315,8 +315,9 @@
                         </div>
                         <!-- 신고 내용 입력 -->
                         <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/report" method="post">
-                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        <div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="reportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                        <input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
                         </form>
                     </div>
                 </div>
@@ -332,8 +333,10 @@
                             <hr style="border:0.5px solid #A8A8A8;">
                         </div>
                         <!-- 신고 내용 입력 -->
-                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+                        <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/reportReply" method="post">
+                        	<div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                        	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+                        </form>
                     </div>
                 </div>
             </div>
