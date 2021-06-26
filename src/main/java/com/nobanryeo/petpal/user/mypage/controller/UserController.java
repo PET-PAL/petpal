@@ -1,10 +1,6 @@
 package com.nobanryeo.petpal.user.mypage.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -46,6 +42,13 @@ public class UserController {
 	}
 
 
+	/**
+	 * ID 중복확인 컨트롤러
+	 * @param userInfo
+	 * @param requestm
+	 * @param userId
+	 * @return success or fail
+	 */
 	@PostMapping(value = "registIdChk", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String registIdChk(@ModelAttribute UserInfoDTO userInfo, HttpServletRequest requestm, @RequestParam("userId") String userId) {
@@ -71,6 +74,59 @@ public class UserController {
 		return gson.toJson(result);
 		
 	}
+	
+	@PostMapping(value = "registNickChk", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String registNickChk(@ModelAttribute UserInfoDTO userInfo, HttpServletRequest requestm, @RequestParam("userNickName") String userNickName) {
+
+		// 닉네임 중복체크
+		
+		System.out.println("userNickName : " + userNickName);
+		
+		userInfo.setNikname(userNickName);
+		
+		boolean notOverNick = userService.checkNick(userInfo);
+		System.out.println("notOverNick : " + notOverNick);
+		
+		String result = "";
+		if(notOverNick == true) {
+			result = "success";
+		} else {
+			result = "fail";
+		}
+		
+		Gson gson = new GsonBuilder().create();
+		
+		return gson.toJson(result);
+		
+	}
+	
+	@PostMapping(value = "registEmailChk", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String registEmailChk(@ModelAttribute UserInfoDTO userInfo, HttpServletRequest requestm, @RequestParam("userEmail") String userEmail) {
+		
+		// 이메일 중복체크
+		System.out.println("userEmail : " + userEmail);
+		
+		userInfo.setEmail(userEmail);
+		
+		boolean notOverEmail = userService.checkEmail(userInfo);
+		System.out.println("notOverEmail : " + notOverEmail);
+		
+		String result = "";
+		if(notOverEmail == true) {
+			result = "success";
+		} else {
+			result = "fail";
+		}
+		
+		Gson gson = new GsonBuilder().create();
+		
+		return gson.toJson(result);
+		
+	}
+	
+	
 
 }
 

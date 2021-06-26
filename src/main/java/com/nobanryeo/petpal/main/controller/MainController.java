@@ -12,8 +12,8 @@ public class MainController {
 	public String main() {
 		
 		return "admin/main/manager_main";
-		
-		//return "admin/main/adApproveList";
+
+		//return "user/main/mainpage";
 
 			
 	}
