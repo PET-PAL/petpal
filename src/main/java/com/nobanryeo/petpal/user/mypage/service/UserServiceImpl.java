@@ -68,10 +68,8 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public UserInfoDTO selectUser(UserInfoDTO userInfo) {
 		
-		String result = "";
-		
 		if(!passwordEncoder.matches(userInfo.getPwd(), mapper.selectUserPassword(userInfo))) {
-			
+			return null;
 		}
 		
 		return mapper.selectUser(userInfo);

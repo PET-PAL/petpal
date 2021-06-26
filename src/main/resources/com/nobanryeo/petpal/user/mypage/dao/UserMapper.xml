@@ -75,15 +75,13 @@
              , A.PERMISSON_SET
           FROM USER_TABLE A 
          WHERE A.USER_ID = #{ id }
-          <![CDATA[AND A.REPORT_COUNT < 3]]>
 	</select>
 	
-	<select id="selectUserPassword">
+	<select id="selectUserPassword" resultType="string" parameterType="UserInfoDTO">
         SELECT 
                A.USER_PWD 
           FROM USER_TABLE A 
          WHERE A.USER_ID = #{ id } 
-  <![CDATA[AND A.REPORT_COUNT < 3]]>	
 	</select>
 
  </mapper>

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -63,24 +64,43 @@
                     <!-- End Header Navigation -->
 
                     <!-- navbar menu -->
-                    <div class="collapse navbar-collapse" id="navbar-menu">
+                    <c:if test="${ empty sessionScope.loginUser }">
+                     <div class="collapse navbar-collapse" id="navbar-menu">
                         <ul class="nav navbar-nav navbar-right">
                             <li><a href="${ pageContext.servletContext.contextPath }/user/missing">실종신고/목격제보</a></li>                    
                             <li><a href="${ pageContext.servletContext.contextPath }/user/adopt">입양게시판</a></li>
                             <li><a href="${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp">정보공유</a></li>
                             <li><a href="#" class="dropdown-category" id="dropdownADMenu" data-toggle="dropdown"> 커뮤니티 <i class="caret"></i></a> 
                             	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownAskMenu" style="width:130px;" > 
-		                            <li><a class="dropdown-item" aria-current="true" href="${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp">자유 게시판</a></li> 
-		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/community/.jsp">무료나눔</a></li> 
+		                            <li><a class="dropdown-item" aria-current="true" href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list">자유 게시판</a></li> 
+		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/.jsp">무료나눔</a></li> 
 		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp">용품리뷰</a></li> 
 	                            </ul> 
 	                        </li>
                             <li><a href="${ pageContext.servletContext.contextPath }/views/user/mypage/mypage.jsp">마이페이지</a></li>
                             <li><a href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
                         </ul>
-                    </div><!-- /.navbar-collapse -->
+                    </div>
+                    </c:if>
+                    <c:if test="${ !empty sessionScope.loginUser }">
+                     <div class="collapse navbar-collapse" id="navbar-menu">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li><a href="${ pageContext.servletContext.contextPath }/user/missing">실종신고/목격제보</a></li>                    
+                            <li><a href="${ pageContext.servletContext.contextPath }/user/adopt">입양게시판</a></li>
+                            <li><a href="${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp">정보공유</a></li>
+                            <li><a href="#" class="dropdown-category" id="dropdownADMenu" data-toggle="dropdown"> 커뮤니티 <i class="caret"></i></a> 
+                            	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownAskMenu" style="width:130px;" > 
+		                            <li><a class="dropdown-item" aria-current="true" href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list">자유 게시판</a></li> 
+		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/.jsp">무료나눔</a></li> 
+		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp">용품리뷰</a></li> 
+	                            </ul> 
+	                        </li>
+                            <li><a href="${ pageContext.servletContext.contextPath }/views/user/mypage/mypage.jsp">마이페이지</a></li>
+                            <li><a href="${ pageContext.servletContext.contextPath }/user/logout">로그아웃</a></li>
+                        </ul>
+                    </div>
+                    </c:if>
                 </div>
-
             </nav>
             
             <section id="home" class="home bg-black fix" style="padding-top: 0%; background-color: white; background:white; padding-bottom: 10%">
