@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.FieldNamingPolicy;
@@ -29,17 +30,23 @@ public class AdoptController {
 		this.adoptList = adoptService.selectAdoptList();
 	}
 	
+
+	
 	@GetMapping("adopt")
+	@ResponseBody
 	public ModelAndView selectAdoptMain(ModelAndView mv, HttpServletResponse response) {
 		
 		
-		System.out.println("controller: "+adoptList);
 		response.setContentType("application/json; charset=utf-8");
+		System.out.println("controller: "+adoptList);
 		
-		Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.IDENTITY).serializeNulls().disableHtmlEscaping().create();
+		Gson gson = new GsonBuilder().setPrettyPrinting()
+				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+				.serializeNulls().disableHtmlEscaping().create();
 	
-		mv.addObject("adoptList",gson.toJson(adoptList));
+		mv.addObject("adoptList", gson.toJson(adoptList));
 		mv.setViewName("jsonView");
+		
 		return mv;
 	}
 	
