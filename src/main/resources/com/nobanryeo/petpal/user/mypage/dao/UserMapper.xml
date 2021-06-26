@@ -41,22 +41,49 @@
 	</select>
 
 	<insert id="insertUser" parameterType="UserInfoDTO">
-	INSERT 
-       INTO USER_TABLE
-       VALUES(
-         USER_CODE_SEQ.NEXTVAL
-       , #{ id }
-       , #{ name }
-       , #{ nikname }
-       , #{ pwd }
-       , #{ phone }
-       , #{ email }
-       , #{ emailYn }
-       , #{ replyYn }
-       , DEFAULT
-       , DEFAULT
-       , 1
-       )
+	    INSERT 
+           INTO USER_TABLE
+           VALUES(
+             USER_CODE_SEQ.NEXTVAL
+           , #{ id }
+           , #{ name }
+           , #{ nikname }
+           , #{ pwd }
+           , #{ phone }
+           , #{ email }
+           , #{ emailYn }
+           , #{ replyYn }
+           , DEFAULT
+           , DEFAULT
+           , 1
+           )
 	</insert>
+	
+	<select id="selectUser" resultMap="userResultSet" parameterType="UserInfoDTO">
+        SELECT 
+               A.USER_CODE
+             , A.USER_ID
+             , A.USER_NAME
+             , A.USER_NIKNAME
+             , A.USER_PWD
+             , A.USER_PHONE
+             , A.USER_EMAIL
+             , A.EMAIL_YN
+             , A.REPLY_YN
+             , A.WITHDRAW_YN
+             , A.REPORT_COUNT
+             , A.PERMISSON_SET
+          FROM USER_TABLE A 
+         WHERE A.USER_ID = #{ id }
+          <![CDATA[AND A.REPORT_COUNT < 3]]>
+	</select>
+	
+	<select id="selectUserPassword">
+        SELECT 
+               A.USER_PWD 
+          FROM USER_TABLE A 
+         WHERE A.USER_ID = #{ id } 
+  <![CDATA[AND A.REPORT_COUNT < 3]]>	
+	</select>
 
  </mapper>

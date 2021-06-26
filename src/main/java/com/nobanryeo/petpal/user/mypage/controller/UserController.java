@@ -198,8 +198,10 @@ public class UserController {
 		System.out.println("입력된 아이디 : " + userId);
 		System.out.println("입력된 비밀번호 : " + userPwd);
 		
+		UserInfoDTO loginUser = userService.selectUser(userInfo);
 		
-		return "";
+		
+		return "redirect:/";
 	}
 	
 

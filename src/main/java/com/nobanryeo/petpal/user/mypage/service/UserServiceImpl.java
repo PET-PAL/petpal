@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 import com.nobanryeo.petpal.user.mypage.dao.UserMapper;
+import com.nobanryeo.petpal.user.mypage.exception.LoginFailedException;
 
 @Service
 public class UserServiceImpl implements UserService{
@@ -60,14 +61,20 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public boolean insertUser(UserInfoDTO userInfo) {
 		System.out.println("서비스까지 왔습니다 : " + userInfo);
-		return mapper.insertUser(userInfo) > 0? true:false;
+		return mapper.insertUser(userInfo) > 0 ? true:false;
 	}
 
 
 	@Override
-	public Object loginUser(UserInfoDTO userInfo) {
-		// TODO Auto-generated method stub
-		return null;
+	public UserInfoDTO selectUser(UserInfoDTO userInfo) {
+		
+		String result = "";
+		
+		if(!passwordEncoder.matches(userInfo.getPwd(), mapper.selectUserPassword(userInfo))) {
+			
+		}
+		
+		return mapper.selectUser(userInfo);
 	}
 
 	
