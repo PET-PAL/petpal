@@ -20,6 +20,7 @@
 		</association>
 	  </resultMap>
 	  
+	  <!-- 광고 심사 리스트 -->
 	  <select id="selectAdApproveList" resultMap="adAdmin" parameterType="AdAdminDTO">
         SELECT 
 			  	A.AD_CODE
@@ -34,7 +35,6 @@
            JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
 	  </select>
 
-	
 	<resultMap id="adApproveDetail" extends="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
 		<!-- 추가적인 속성만 넣으면 됨 -->
 		<result property="companyName" column="COMPANY_NAME"/>
@@ -43,6 +43,7 @@
 		<result property="adTypeCode" column="AD_TYPE_CODE"/>
 	</resultMap>
 	
+	  <!-- 광고 심사 디테일 -->
 	  <select id="selectAdApproveDetail" resultMap="adApproveDetail" parameterType="int">
 	    SELECT 
 			  	A.AD_CODE

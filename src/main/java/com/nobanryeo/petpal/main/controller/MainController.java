@@ -13,7 +13,8 @@ public class MainController {
 		
 		return "admin/main/manager_main";
 		
-//		return "user/main/mainpage";
+		//return "admin/main/adApproveList";
+
 			
 	}
 	
