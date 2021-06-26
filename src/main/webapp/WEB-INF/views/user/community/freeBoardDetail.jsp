@@ -14,16 +14,6 @@
                 margin: 0px auto;
                 display: block;
             }
-              td > button {
-                background-color: #45B99C; 
-                height: 35px;
-                color: white;
-                border-color: #45B99C; 
-                border: 1px solid; 
-                font-size: 16px; 
-                font-weight: 500;
-                border-radius: 10px;
-            }
             div > button {
                 background-color: #45B99C; 
                 height: 35px;
@@ -47,6 +37,9 @@
                 border-radius: 10px;
                 margin-left: 20px;
 			}
+			.findpwd-content > div {
+                margin: 0px auto;
+            }
 			 div > img {
                 margin-bottom: 20px;
                 text-align: center;
@@ -63,7 +56,7 @@
             }
             .menutable > div > img {
                 margin-bottom: 20px;
-            width: 20%;
+            	width: 20%;
                 margin: 0px auto;
                 display: block;
             }
@@ -163,48 +156,27 @@
 			img {
 				cursor: pointer;
 			}
+			td > button {
+            	float: right;
+    			border-radius: 5px;
+    			border: 1px solid;
+    			color: #45B99C;
+    			background: white;
+            }
+            td > button:hover {
+            	float: right;
+    			border-radius: 5px;
+    			background-color: #45B99C;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid;
+            }
         </style>
         
        
 		
         <meta charset="utf-8">
         <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         
         <!-- summerNote -->
     	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -234,10 +206,6 @@
 
             <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
-            
-             <!-- <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 40px;">
-                <div style="color: #45B99C; font-size: 25px; font-weight: 600; float: left">커뮤니티</div>
-            </section> -->
 
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
@@ -272,7 +240,7 @@
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
-							<td><c:out value="${ requestScope.freeBoardDetail.userNickName }"/></td>
+							<td><c:out value="${ requestScope.freeBoardDetail.userNickName }"/><button onclick="location.href='#directMessage'">쪽지보내기</button></td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성일자</b></td>
 							<td><c:out value="${ requestScope.freeBoardDetail.boardPostDate }"/></td>
 						</tr>
@@ -285,7 +253,7 @@
             <div style="margin-bottom: 40px;">
                <table class="table" style="margin-bottom: 50px; width: 70%; margin: 0px auto;">
                    <tbody>
-                        <tr>
+                        <%-- <tr>
                             <td style="text-align: center;">킘유진</td>
                             <td>감사합니다.</td>
                             <td style="text-align: center;">2021-06-17</td>
@@ -302,27 +270,62 @@
                             <td>정보 감사합니다.</td>
                             <td style="text-align: center;">2021-06-17</td>
                             <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-                        </tr>
+                        </tr> --%>
+                        <c:forEach var="arr" items="${ freeBoardReply }">
+                        	<c:if test="${ arr.replyDeleteYN eq 'N' }">
+	                        	<tr>
+	                            	<td><c:out value="${ arr.userNickName }"/></td>
+	                            	<td><c:out value="${ arr.replyContent }"/></td>
+	                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+	                            	<td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+	                        	</tr>
+                        	</c:if>
+                        	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
+	                        	<tr>
+	                            	<td><c:out value="${ arr.userNickName }"/></td>
+	                            	<td>삭제된 댓글입니다.</td>
+	                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+	                        	</tr>
+                        	</c:if>
+                        </c:forEach>
                     </tbody>
                 </table>
              </div>
             </section>
             
-            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
-                <input type="text" id="messagecontent" placeholder="  message">
-                <button class="sendmessagecontent">댓글 작성</button>
-            </section>
+            <form action="${ pageContext.servletContext.contextPath }/user/insert/freeboard/reply" method="post">
+	            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
+	                <input type="text" id="replyContent" name="replyContent" placeholder="  message">
+	                <input type="hidden" value="1" name="userCode">
+	                <input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
+	                <button type="submit" class="sendmessagecontent">댓글 작성</button>
+	            </section>
+            </form>
             
 
             
-            <!-- 오른쪽 배너 -->
-            <jsp:include page="../../common/banner.jsp"/>
 
 			<!-- 게시글 신고 팝업창 -->
             <div id="reportPost" class="overlay">
                 <div class="popup">
                     <a href="#none" class="close">&times;</a>
                     <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
+                    <div class="findpwd-content" id="contStep02" style="display: block;">
+                        <div class="cont-step_preface">
+                            <hr style="border:0.5px solid #A8A8A8;">
+                        </div>
+                        <!-- 신고 내용 입력 -->
+                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 댓글 신고 팝업창 -->
+            <div id="reportComment" class="overlay">
+                <div class="popup">
+                    <a href="#none" class="close">&times;</a>
+                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
                     <div class="findpwd-content" id="contStep02" style="display: block;">
                         <div class="cont-step_preface">
                             <hr style="border:0.5px solid #A8A8A8;">
@@ -344,11 +347,41 @@
                      	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
                      	신고 내역에서 확인 가능합니다.
                     </p>
+                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                </div>
+            </div>
+            
+            
+            
+            <!-- 쪽지 팝업창 -->
+            <div id="directMessage" class="overlay">
+                <div class="popup">
+                    <a href="#none" class="close">&times;</a>
+                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.freeBoardDetail.userNickName }"/></p>
+                    <div class="findpwd-content" id="contStep02" style="display: block;">
+                        <!-- 쪽지 내용 입력 -->
+                        <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 전송 완료 팝업창 -->
+            <div id="completeMessage" class="overlay">
+                <div class="popup">
+                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+                     	쪽지 전송에 성공하였습니다.<br>
+                    </p>
+                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+                     	보낸 쪽지는 마이페이지에서 확인 가능합니다.
+                    </p>
                         <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
                     </div>
                 </div>
             </div>
 			
+            <!-- 오른쪽 배너 -->
+            <jsp:include page="../../common/banner.jsp"/>
 			
             <!-- 푸터 -->
             <jsp:include page="../common/footer.jsp"/>

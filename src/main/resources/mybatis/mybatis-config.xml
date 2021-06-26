@@ -9,9 +9,12 @@
  		<typeAlias alias="FreeBoardDTO" type="com.nobanryeo.petpal.user.dto.FreeBoardDTO"/>
  		<typeAlias alias="BoardPictureManageDTO" type="com.nobanryeo.petpal.user.dto.BoardPictureManageDTO"/>
  		<typeAlias alias="BoardReplyDTO" type="com.nobanryeo.petpal.user.dto.BoardReplyDTO"/>
+
  		<typeAlias alias="AskDTO" type="com.nobanryeo.petpal.admin.ask.dto.AskDTO"/>
  		
  		<typeAlias alias="AdAdminDTO" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO"/>
+ 		
+ 		<typeAlias alias="FreeBoardReplyDTO" type="com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO"/>
  		
  	</typeAliases>
  
