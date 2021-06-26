@@ -122,76 +122,6 @@
     </head>
 
 <body data-spy="scroll" data-target=".navbar-collapse">
-	
-	<script>
-		function duplicationCheck(){
-			
-			var idCheck = document.getElementById("userId");
-			
-			var userId = $('#userId').val();
-			console.log(userId);
-			if(userId == ''){
-				alert('아이디를 입력해주세요.');
-				idCheck.value = "";
-	            idCheck.focus();
-				return;
-			}
-			
-			/* userId 유효성 검사 */
-			var idRegExp = /^[a-zA-z0-9]{4,12}$/; //4~12자의 영문 대소문자와 숫자
-			
-	        if (!idRegExp.test(userId)) {
-	        	
-	            alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
-	            idCheck.value = "";
-	            idCheck.focus();
-	            return false;
-	            
-	        } else {
-			$.ajax({
-				url:"${pageContext.servletContext.contextPath}/user/registIdChk",
-				type:"post",
-				data:{userId:userId},
-				success:function(data){
-					
-					console.log(data);
-					
-					status = $("#hiddenMessage").css("display");
-					console.log(status);
-					
-					if (data == "fail"){
-
-						if(status == "none"){
-							$("#hiddenMessage").css("display", "");
-						}
-						
-						$("#checkMessage").html("사용할 수 없는 아이디입니다.");
-						idCheck.value = "";
-			            idCheck.focus();
-						return;
-
-					} else if(data == "success") {
-						
-						if(status == "none"){
-							$("#hiddenMessage").css("display", "");
-						}
-						
-					    $("#checkMessage").html("사용할 수 있는 아이디입니다.");
-					    $("#idCheck").attr("value","success");
-					    console.log(idCheck);
-					   
-					    return;
-					}
-				}, error:function(data){
-					console.log(data);
-				}
-			});
-			return false;
-	        }
-
-		}	
-	</script>
-
 
         <!-- Preloader -->
         <div id="loading">
@@ -211,11 +141,11 @@
      <section id="loginconfirm" class="login">
            <div class="loginForm" style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 50px; margin-bottom: 50px; box-shadow: 3px 3px 3px 3px rgb(204, 204, 204);">
               <h2 style="text-align: center; color: gray; margin-top: 30px;">회원가입</h2><br>
-				<form action="${ pageContext.servletContext.contextPath }/user/regist" method="post" id="regist">
+				<form action="${ pageContext.servletContext.contextPath }/user/regist" method="post" id="regist" name="form" onsubmit="return validate();">
                     <table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
 						<tr>
 							<td>아이디</td>
-							<td><input type="text" id="userId" placeholder="영문 대소문자와 숫자 4~12자리" name="userId"></td>
+							<td><input type="text" id="userId" placeholder="영문 대소문자와 숫자 4~12자리" name="userId" required></td>
 							<td>
 							<input type="hidden" id="idCheck" name="idCheck" value="fail">
 							<button onclick="return duplicationCheck()" type="button">중복확인</button>
@@ -229,29 +159,47 @@
 						</tr>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" id="userName" placeholder="이름을 입력하세요"></td>
+							<td><input type="text" id="userName" placeholder="이름을 입력하세요" required></td>
 						</tr>
 						<tr>
 							<td>닉네임</td>
-							<td><input type="text" id="userNickName" placeholder="닉네임을 입력하세요"></td>
-	                        <td><button>중복확인</button></td>
+							<td><input type="text" id="userNickName" name="userNickName" placeholder="닉네임을 입력하세요" required value="홍구리"></td>
+	                        <td>
+	                        <input type="hidden" id="nameCheck" name="nameCheck" value="fail">
+	                        <button onclick="return duplicationNickCheck()" type="button">중복확인</button>
+	                        </td>
+						</tr>
+						<tr id="hiddenNickMessage" style="display: none;">
+						<td></td>
+						<td>
+							<p id="checkNickMessage" style="font-size : 20px; color: red;"/>
+						</td>
 						</tr>
 						<tr>
 							<td>비밀번호</td>
-							<td><input type="password" id="userPwd" placeholder="비밀번호를 입력하세요"></td>
+							<td><input type="password" name="userPwd" id="userPwd" placeholder="비밀번호를 입력하세요" required value="1q2w3e"></td>
 						</tr>
 						<tr>
 							<td>비밀번호 확인</td>
-							<td><input type="password" id="userPwdCheck" placeholder="비밀번호를 확인해 주세요"></td>
+							<td><input type="password" name="userPwdCheck" id="userPwdCheck" placeholder="비밀번호를 확인해 주세요" required value="1q2w3e"></td>
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input type="text" id="userPhone" placeholder="전화번호 입력하세요"></td>
+							<td><input type="text" id="userPhone" name="userPhone" placeholder="전화번호 입력하세요" required value="123"></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="text" id="userEmail" placeholder="이메일 입력하세요"></td>
-	                        <td><button>중복확인</button></td>
+							<td><input type="text" id="userEmail" name="userEmail" placeholder="이메일 입력하세요" required value="petpal@gmail.com"></td>
+	                        <td>
+	                        <input type="hidden" id="emailCheck" name="emailCheck" value="fail">
+	                        <button onclick="return duplicationEmailCheck()" type="button">중복확인</button>
+	                        </td>
+						</tr>
+	                    <tr id="hiddenEmailMessage" style="display: none;">
+						<td></td>
+						<td>
+							<p id="checkEmailMessage" style="font-size : 20px; color: red;"/>
+						</td>
 						</tr>
 	                    <tr>
 	                    	<td>이메일 수신 여부</td>
@@ -393,67 +341,322 @@
 					</table>
 					
                 <div style="margin: 0px auto; text-align: center; margin-bottom: 50px; margin-top: 10px;">
-	                <button type="submit" id=btnSubmit>회원가입</button>
+	                <p><input type="submit" id=btnSubmit value="회원가입"></p>
                 </div>
 	           	</form>
      		</section>
                 
 
 <!-- 회원가입 유효성 검사: 알럿창 -->
+<!-- 아이디 중복 스크립트 -->
+	<script>
+		function duplicationCheck(){
+			
+			var idCheck = document.getElementById("userId");
+			
+			var userId = $('#userId').val();
+			console.log(userId);
+			if(userId == ''){
+				alert('아이디를 입력해주세요.');
+				$("#hiddenMessage").css("display", "none");
+				idCheck.value = "";
+	            idCheck.focus();
+				return;
+			}
+			
+			/* userId 유효성 검사 */
+			var idRegExp = /^[a-zA-z0-9]{4,12}$/; //4~12자의 영문 대소문자와 숫자
+			
+	        if (!idRegExp.test(userId)) {
+	        	
+	            alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
+	            $("#hiddenMessage").css("display", "none");
+	            idCheck.value = "";
+	            idCheck.focus();
+	            return false;
+	            
+	        } else {
+			$.ajax({
+				url:"${pageContext.servletContext.contextPath}/user/registIdChk",
+				type:"post",
+				data:{userId:userId},
+				success:function(data){
+					
+					console.log(data);
+					
+					status = $("#hiddenMessage").css("display");
+					console.log(status);
+					
+					if (data == "fail"){
+
+						if(status == "none" ){
+							$("#hiddenMessage").css("display", "");
+						}
+						
+						$("#checkMessage").html("사용할 수 없는 아이디입니다.");
+						idCheck.value = "";
+			            idCheck.focus();
+						return;
+
+					} else if(data == "success") {
+						
+						if(status == "none"){
+							$("#hiddenMessage").css("display", "");
+						}
+						
+					    $("#checkMessage").html("사용 가능합니다.");
+					    $("#idCheck").attr("value","success");
+					    console.log(idCheck);
+					   
+					    return;
+					}
+				}, error:function(data){
+					console.log(data);
+				}
+			});
+			return false;
+	        }
+
+		}	
+	</script>
+
+<!-- 닉네임 중복 스크립트 -->
+	<script>
+		function duplicationNickCheck(){
+			
+			var nameCheck = document.getElementById("userNickName");
+			var userNickName = $('#userNickName').val();
+			
+			console.log(userNickName);
+			
+			//공백체크
+			if(userNickName == ''){
+				alert('닉네임을 입력해주세요.');
+				$("#hiddenNickMessage").css("display", "none");
+				nameCheck.value = "";
+				nameCheck.focus();
+				return false;
+			}
+			
+			//유효성체크
+			var nickRegExp = /^[a-zA-z0-9가-힣]{2,12}$/; //2~12자의 영문 대소문자와 숫자
+			
+	        if (!nickRegExp.test(userNickName)) {
+	        	
+	            alert("닉네임에는 특수문자를 포함할 수 없습니다.\n한글, 영어 대소문자, 숫자를 사용한 2~12자리로 입력해야합니다!");
+	            $("#hiddenNickMessage").css("display", "none");
+	            nameCheck.value = "";
+	            nameCheck.focus();
+	            return false;
+	        } else {
+	        	//중복체크
+	        	$.ajax({
+					url:"${pageContext.servletContext.contextPath}/user/registNickChk",
+					type:"post",
+					data:{userNickName:userNickName},
+					success:function(data){
+						
+						console.log(data);
+						
+						status = $("#hiddenNickMessage").css("display");
+						console.log(status);
+						
+						if (data == "fail"){
+
+							if(status == "none"){
+								$("#hiddenNickMessage").css("display", "");
+							}
+							
+							$("#checkNickMessage").html("사용할 수 없는 아이디입니다.");
+							nameCheck.value = "";
+							nameCheck.focus();
+							return;
+
+						} else if(data == "success") {
+							
+							if(status == "none"){
+								$("#hiddenNickMessage").css("display", "");
+							}
+							
+						    $("#checkNickMessage").html("사용 가능합니다.");
+						    $("#nameCheck").attr("value","success");
+						    console.log(nameCheck);
+						   
+						    return;
+						}
+					}, error:function(data){
+						console.log(data);
+					}
+				});
+				return false;
+	        }
+			
+			
+			
+		}
+	</script>
+
+<!-- 이메일 중복 스크립트 -->
+	<script>
+		function duplicationEmailCheck(){
+			
+			var emailCheck = document.getElementById("userEmail");
+			var userEmail = $('#userEmail').val();
+			
+			console.log(userEmail);
+			
+			//공백체크
+			if(userEmail == ''){
+				$("#hiddenEmailMessage").css("display", "none");
+				alert('이메일을 입력해주세요.');
+				return false;
+			}
+			
+			//유효성체크
+			var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+			//
+			
+	        if (!emailRegExp.test(userEmail)) {
+	        	
+	            alert("올바른 이메일 형식이 아닙니다!\n예시) petpal@gmail.com");
+	            $("#hiddenEmailMessage").css("display", "none");
+	            emailCheck.value = "";
+	            emailCheck.focus();
+	            return false;
+	        } else {
+	        	//중복체크
+	        	$.ajax({
+					url:"${pageContext.servletContext.contextPath}/user/registEmailChk",
+					type:"post",
+					data:{userEmail:userEmail},
+					success:function(data){
+						
+						console.log(data);
+						
+						status = $("#hiddenEmailMessage").css("display");
+						console.log(status);
+						
+						if (data == "fail"){
+
+							if(status == "none"){
+								$("#hiddenEmailMessage").css("display", "");
+							}
+							
+							$("#checkEmailMessage").html("사용할 수 없는 이메일입니다.");
+							emailCheck.value = "";
+							emailCheck.focus();
+							return;
+
+						} else if(data == "success") {
+							
+							if(status == "none"){
+								$("#hiddenEmailMessage").css("display", "");
+							}
+							
+						    $("#checkEmailMessage").html("사용 가능합니다.");
+						    $("#emailCheck").attr("value","success");
+						    console.log(emailCheck);
+						   
+						    return;
+						}
+					}, error:function(data){
+						console.log(data);
+					}
+				});
+				return false;
+	        }
+			
+			
+			
+		}
+	</script>
+
+
+
+
+<!-- 중복체크 없는 값들 유효성 검사 스크립트 -->
 <script>
-	$("#btnSubmit").click(function(){
-		validate();
-	});
-	
-	/* window.onload = function(){	    
-	    var $item = document.getElementById("duplicationCheck");
-		  // 요소의 data-value 속성에 hello world를 설정한다.
-		  $item.setAttribute("checkResult", "fail");
-		  // 요소의 value 속성에 test를 설정한다.
-	}; */
-	
+
 	function validate(){
 		
-		var userId = document.getElementById("userId");
-		var userNick = document.getElementById("userNickName");
-		var userPwd1 = document.getElementById("userPwd");
-		var userPwd2 = document.getElementById("userPwdCheck");
-		var userPhone = document.getElementById("userPhone");
-		var userEmail = document.getElementById("userEmail");
-		var idCheck = document.getElementById("idCheck");
-		
-		function checkExistData(value, dataName) {
-	        if (value == "") {
-	            alert(dataName + " 입력해주세요!");
-	            return false;
-	        }
-	        return true;
-	    }
-
 		/* userId 중복체크 확인 */
+		var idCheck = document.getElementById("idCheck");
 		if(idCheck.value != "success"){
 			alert("아이디 중복체크를 완료해주세요.");
 			userId.focus();
 			return false;
 		}
 		
-		/* userId 유효성 검사 */
-		/* var idRegExp = /^[a-zA-z0-9]{4,12}$/; //4~12자의 영문 대소문자와 숫자
+		/* userNickName 중복체크 확인 */
+		var nickCheck = document.getElementById("nameCheck");
+		if(nickCheck.value != "success"){
+			alert("닉네임 중복체크를 완료해주세요.");
+			userNickName.focus();
+			return false;
+		}
 		
-        if (!idRegExp.test(id)) {
-            alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
-            form.userId.value = "";
-            form.userId.focus();
+		/* userEmail 중복체크 확인 */
+		var nickCheck = document.getElementById("emailCheck");
+		if(nickCheck.value != "success"){
+			alert("이메일 중복체크를 완료해주세요.");
+			userEmail.focus();
+			return false;
+		}
+
+	   /* userPwd 유효성 검사 */	
+	  	var password1RegExp = /^[a-zA-z0-9]{4,12}$/;
+	  	var pwd = $('#userPwd').val();
+	  	var pwdCheck = $('#userPwdCheck').val();
+	  	var id = $('#userId').val();
+	  	
+	  	//비밀번호가 영대소문자 4~12가 아닐때
+		if (!password1RegExp.test(pwd)) {
+	        alert("비밀번호는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
+	        console.log("userPwd 유효성체크");
+	        userPwd.focus();
+	        userPwd.value = "";
+	        return false;
+	    }
+		
+		//비밀번호가 비밀번호확인과 일치하지 않을때
+		if (pwd != pwdCheck) {
+		    alert("비밀번호가 일치하지 않습니다!");
+		    userPwdCheck.focus();
+		    userPwdCheck.value = "";
+		    return false;
+		}
+		
+		//아이디와 비밀번호가 같을 때..
+        if (id == pwd) {
+            alert("아이디와 비밀번호가 일치합니다. 아이디 또는 비밀번호를 변경해주세요!");
+            userPwd.value = "";
+            userPwdCheck.value = "";
+            userPwd.focus();
             return false;
         }
-        return true; */ //확인이 완료되었을 때
+		
+		/* userName 유효성 검사 */
+        var nameRegExp = /^[가-힣]{2,4}$/;
+	  	var name = $('#userName').val();
+		
+	  	if (!nameRegExp.test(name)) {
+            alert("이름이 올바르지 않습니다.\n이름은 2글자에서 4글자 형식의 한글이어야 합니다.\n예외적 이름이신 분들은 홈페이지 아래의 전화번호로 연락부탁드립니다.");
+            return false;
+        }
+        
+	  	/* userPhone 유효성 검사 */
+	  	var phoneRegExp = /^01[016789]-[0-9]{3,4}-[0-9]{4}$/;
+	  	var phone = $('#userPhone').val();
+	  	
+	  	if(!phoneRegExp.test(phone)){
+	  		alert("전화번호가 올바르지 않습니다.\n전화번호는 01?-[4자리 숫자]-[4자리 숫자] 형식으로 작성하셔야 합니다.\n 예시) 010-[4자리숫자]-[4자리숫자]")
+	  	}
+	  	
+	  	
 
 
-		
-		
-		
-		
-		
+
+
 	}
 </script>
 
