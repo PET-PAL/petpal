@@ -52,6 +52,24 @@ public class UserServiceImpl implements UserService{
 		return mapper.selectUserEmailcheck(userInfo).equals("0")? true:false;
 	}
 
+
+	/**
+	 * insert작업
+	 * 성공 > 0, 실패=0
+	 */
+	@Override
+	public boolean insertUser(UserInfoDTO userInfo) {
+		System.out.println("서비스까지 왔습니다 : " + userInfo);
+		return mapper.insertUser(userInfo) > 0? true:false;
+	}
+
+
+	@Override
+	public Object loginUser(UserInfoDTO userInfo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 
 }

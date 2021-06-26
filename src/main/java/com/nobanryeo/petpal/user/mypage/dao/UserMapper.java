@@ -23,4 +23,11 @@ public interface UserMapper {
 	 * @return Count(*) "1"(false) or "0"(true)
 	 */
 	String selectUserEmailcheck(UserInfoDTO userInfo);
+
+	/**
+	 * insert User
+	 * @param userInfo
+	 * @return
+	 */
+	int insertUser(UserInfoDTO userInfo);
 }

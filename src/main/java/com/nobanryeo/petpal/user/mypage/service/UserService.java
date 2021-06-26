@@ -25,6 +25,15 @@ public interface UserService {
 	 */
 	boolean checkEmail(UserInfoDTO userInfo);
 
+	/**
+	 * User insert 서비스
+	 * @param userInfo
+	 * @return 실패0 성공1
+	 */
+	boolean insertUser(UserInfoDTO userInfo);
+
+	Object loginUser(UserInfoDTO userInfo);
+
 	
 	
 

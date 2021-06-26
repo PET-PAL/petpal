@@ -40,5 +40,23 @@
         WHERE USER_EMAIL = #{ email }	
 	</select>
 
+	<insert id="insertUser" parameterType="UserInfoDTO">
+	INSERT 
+       INTO USER_TABLE
+       VALUES(
+         USER_CODE_SEQ.NEXTVAL
+       , #{ id }
+       , #{ name }
+       , #{ nikname }
+       , #{ pwd }
+       , #{ phone }
+       , #{ email }
+       , #{ emailYn }
+       , #{ replyYn }
+       , DEFAULT
+       , DEFAULT
+       , 1
+       )
+	</insert>
 
  </mapper>
