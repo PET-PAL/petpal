@@ -28,4 +28,10 @@ public class AskController {
        model.addAttribute("askList", askList);
        return "admin/main/ask_board";
     }
+    
+    @RequestMapping("askDetail")
+    public String askDetail() {
+       
+       return "admin/main/ask_board_detail";
+    }
 }
