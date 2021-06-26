@@ -27,16 +27,19 @@ public class AdAdminController {
 	@RequestMapping("adApproveList")
 	public String adApproveListReturning(Model model) {
 		
+		// 서비스로 비즈니스 로직 실행 및 결과값을 받음
 		List<AdAdminDTO> selectAdApproveList = adAdminService.selectAdApproveList();
 		
+		// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
 		model.addAttribute("adApproveList", selectAdApproveList);
 		
+		// 전달할 페이지 설정
 		return "admin/main/adApproveList";
 	}
 	
 	// 광고심사 디테일
 	@RequestMapping("adApproveDetail/{adCode}")
-	public String adApproveDetailReturning(Model model, @PathVariable int adCode) {
+	public String adApproveDetailReturning(Model model, @PathVariable("adCode") int adCode) {
 		
 		List<AdAdminDTO> selectAdApproveDetail = adAdminService.selectAdApproveDetail(adCode);
 		

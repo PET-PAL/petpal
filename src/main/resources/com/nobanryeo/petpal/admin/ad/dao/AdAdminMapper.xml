@@ -5,14 +5,13 @@
 <mapper namespace="com.nobanryeo.petpal.admin.ad.dao.AdAdminMapper">
 	
 	 <!-- AdAdminDTO의 필드와 각 컬럼을 1:1매핑시켜줌 -->
-	 <!-- 유저코드에 대한 유저이름 가져옴 -->
 	 <resultMap id="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
 	  	<id property="adCode" column="AD_CODE"/>
-	  	<!-- <result property="userCode" column="USER_CODE"/> -->
 	  	<result property="adTitle" column="AD_TITLE"/>
 	  	<result property="companyNumber" column="COMPANY_NUMBER"/>
 	  	<result property="applyDate" column="APPLY_DATE"/>
 	  	<result property="stateCode" column="STATE_CODE"/>
+	  	<!-- 유저코드에 대한 유저이름 가져옴 (유저코드가 매개) -->
 	  	<!-- 하나의 유저코드는 하나의 유저명만 가질 수 있음 -->	  
 	  	<association property="user" javaType="com.nobanryeo.petpal.user.dto.UserInfoDTO">
 	  		<id property="code" column="USER_CODE"/>
