@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nobanryeo.petpal.user.ad.dao.UserAdMapper">
+
+	<resultMap id="adResultSet" type="AdDTO">
+		<id column="AD_CODE" property="adCode"/>
+		<result column="COMPANY_NAME" property="companyName"/>
+		<result column="APPLY_DATE" property="applyDate"/>
+		<result column="COMPANY_NUMBER" property="companyNumber"/>
+		<result column="COMPANY_PHONE" property="companyPhone"/>
+		<result column="COMPANY_EMAIL" property="companyEmail"/>
+		<result column="AD_CONTENT" property="adContent"/>
+		<result column="POST_YN" property="postYn"/>
+		<result column="REFUND_YN" property="refundYn"/>
+		<result column="PAY_DATE_2ND" property="payDate2nd"/>
+		<result column="PICTURE_CODE" property="pictureCode"/>
+		<result column="PAY_DATE_1ST" property="payDate1st"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="AD_TYPE_CODE" property="adTypeCode"/>
+		<result column="AD_TITLE" property="adTitle"/>
+		<result column="PAY_METHOD" property="payMethod"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
+		<result column="CANCEL_APPLY_DATE" property="cancelApplyDate"/>
+		<result column="POST_START_DATE" property="postStartDate"/>
+		<result column="POST_END_DATE" property="postEndDate"/>
+		<result column="STATE_CODE" property="stateCode"/>
+		<result column="CLICK_DATE" property="clickDate"/>
+		<result column="AD_TYPE_NAME" property="adTypeName"/>
+		<result column="AD_PRICE" property="adPrice"/>
+		<result column="AD_WEEK" property="adWeek"/>
+	</resultMap>
+	
+	
+	
+	
+	<select id="selectAdList" parameterType="AdDTO" resultMap="adResultSet">
+		SELECT
+		       A.COMPANY_NAME
+		     , B.AD_WEEK
+		     , A.APPLY_DATE
+		  FROM AD_APPLY_TABLE A
+		  JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
+		 WHERE A.USER_CODE = #{ userCode }
+		 ORDER BY A.APPLY_DATE DESC
+	</select>
+	
+	
+</mapper>
