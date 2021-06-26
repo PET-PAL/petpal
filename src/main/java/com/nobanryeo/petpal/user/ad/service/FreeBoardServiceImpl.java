@@ -10,6 +10,7 @@ import com.nobanryeo.petpal.user.ad.dao.FreeBoardMapper;
 import com.nobanryeo.petpal.user.dto.BoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -31,18 +32,18 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 
 	@Override
-	public FreeBoardDTO selectFreeBoardDetail(FreeBoardDTO freeBoard) {
+	public FreeBoardDTO selectFreeBoardDetail(int boardCode) {
 
-		FreeBoardDTO selectFreeBoardDetail = freeBoardMapper.selectFreeBoardDetail(freeBoard);
+		FreeBoardDTO selectFreeBoardDetail = freeBoardMapper.selectFreeBoardDetail(boardCode);
 		
 		return selectFreeBoardDetail;
 	}
 
 	@Override
-	public List<BoardReplyDTO> selectFreeBoardReply(FreeBoardReplyDTO reply) {
+	public List<BoardReplyDTO> selectFreeBoardReply(int boardCode) {
 		
 		List<BoardReplyDTO> replyList = new ArrayList<>();
-		replyList = freeBoardMapper.selectFreeBoardReply(reply);
+		replyList = freeBoardMapper.selectFreeBoardReply(boardCode);
 		
 		return replyList;
 	}
@@ -51,6 +52,18 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public int insertFreeBoardReply(FreeBoardReplyDTO reply) {
 
 		return freeBoardMapper.insertFreeBoardReply(reply);
+	}
+
+	@Override
+	public void updateFreeBoardViews(int boardCode) {
+
+		freeBoardMapper.updateFreeBoardViews(boardCode);
+	}
+
+	@Override
+	public int insertFreeBoardMessage(MessageTableDTO message) {
+
+		return freeBoardMapper.insertFreeBoardMessage(message);
 	}
 
 }
