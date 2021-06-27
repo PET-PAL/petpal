@@ -26,8 +26,11 @@
 		     , A.ADOPT_BREED
 		     , A.ADOPT_GENDER
 		     , A.STATE_CODE
+		     , A.ADOPT_DELETE_YN
 		     , A.USER_LOCATION
 		     , A.USER_CODE
+		     , P.PICTURE_DELETE_YN
+		     , P.PICTURE_CODE
 		     , P.PICTURE_URL
 		     , P.PICTURE_NAME
 		     , P.PICTURE_NEW_NAME

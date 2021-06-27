@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.adopt.dao.AdoptMapper;
+import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
 
 @Service
@@ -29,6 +30,11 @@ public class AdoptServiceImpl implements AdoptService {
 		}
 		
 		return selectAdoptList;
+	}
+
+	@Override
+	public boolean registAdopt(AdoptDTO adopt) {
+		return false;
 	}
 
 }

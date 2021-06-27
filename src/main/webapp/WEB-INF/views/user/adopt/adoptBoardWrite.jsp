@@ -56,6 +56,15 @@
 			textarea::placeholder {
 			  color: #A5A5A5;
 			}
+			
+			.box-file-input label{
+			  display:inline-block;
+			  background:#45B99C;
+			  color:#fff;
+			  padding:0px 15px;
+			  line-height:35px;
+			  cursor:pointer;
+			}
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -95,6 +104,7 @@
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    	
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -125,7 +135,7 @@
                 
             </section> <!--End off Home Sections-->
             <section id="menutable" class="menutable">
-            
+	            		<form action="${ pageContext.servletContext.contextPath }/user/write" method="post" enctype="multipart/form-data">
 						<div style="width: 55%;  margin: 0px auto;  margin-bottom: 50px; ">
 		                	<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px; ">
 		                	<div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left; ">동물의 정보는 어떻게 되나요?
@@ -135,36 +145,44 @@
 								<tr>
 									<td>품종</td>
 									<td>
-										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="c" checked> 고양이</label>
-										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="d" > 강아지</label>
+										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="breed" value="C" checked> 고양이</label>
+										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="breed" value="D" > 강아지</label>
 										<input type="text" id="ownerName" style="width: 130px; background: #F1FAF8;"placeholder=" 예시) 닥스훈트"  >								
 									</td>
 								</tr>	
 																<tr>
 									<td>성별</td>
 									<td>
-										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="F" checked> 암컷</label>
-										<label name="adradio" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" value="M" > 수컷</label>								
+										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="gender" value="F" checked> 암컷</label>
+										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="gender" value="M" > 수컷</label>								
 									</td>
 								</tr>
 								<tr>
 									<td>나이</td>
-									<td><input type="text" id="ownerName" style="width: 80px; background: #F1FAF8;" >  살</td>
+									<td><input type="text" name="age" id="ownerName" style="width: 80px; background: #F1FAF8;" >  살</td>
 								</tr>
 								<tr>
 									<td>몸무게</td>
-									<td><input type="text" id="ownerName" style="width: 80px; background: #F1FAF8;"  >  KG</td>
+									<td><input type="text" name="weight" id="ownerName" style="width: 80px; background: #F1FAF8;"  >  KG</td>
+								</tr>
+								<tr>
+									<td>사는곳</td>
+									<td><input type="text" name="address" id="ownerName" style="width: 180px; background: #F1FAF8;" placeholder="예시) 서울시 강남구" ></td>
 								</tr>
 								<tr>
 									<td>소개</td>
-									<td><textarea rows="3" id="textArea" MaxLength="100"class="input-xlarge" style="background: #F1FAF8;"
+									<td><textarea rows="3" name="introduce" id="textArea" class="input-xlarge" style="background: #F1FAF8;"
 									placeholder=" 예시) 소심하지만 사람을 좋아하는 아이입니다. 부디 이 아이의 평생 가족을 찾을 수 있게 해주세요. 현재 곰팡이 질환을 앓고 있어요 지금 치료중이지만 피부가 약해진 아이니 꼭 유의해주셔야해요 &#13;&#10;입양신청때 제가 더 필요로 하는 서류가 있어서 모두 충족시킬 수 있는 책임감 있으신 분을 찾고있어요!"
 									></textarea></td>
 									
 								</tr>
 								<tr>
 									<td>사진</td>
-									<td><button style="width: 100px; height: 30px;">사진첨부</button></td>
+									<td><div class="mb-3" style="border-color: none;">
+										  <input type="file" name="picture" id="ownerName" style="width: 300px; background: #F1FAF8;" >
+										  
+										</div>
+									</td>
 								</tr>
 								
 								</table>
@@ -183,13 +201,29 @@
 								</tr>
 									
 						</table>
-                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt'">등록하기</button></div>
+                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button type="submit" id="registAdopt">글올리기</button></div>
 	                	</div>
+	                	</form>
             </section>
 
             
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
+            
+            <script>
+            	$('#registAdopt').click(function(){
+            		$.ajax({
+            			url:"user/adopt",
+            			success:function(data,status,xhr){
+            				console.table(data);
+            			},error:function(xhr,status,error){
+            				console.log(error);
+            			}
+            		})
+            	})
+            
+            	
+            </script>
 
             <!-- 푸터 -->
             <jsp:include page="../common/footer.jsp"/>

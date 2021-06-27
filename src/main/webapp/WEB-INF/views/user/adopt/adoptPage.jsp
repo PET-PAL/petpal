@@ -109,7 +109,7 @@
                              <div class="item active">
                                  <div class="container">
                                      <div class="row">
-                                         <div class="col-sm-3">
+                                         <div class="col-sm-3" id="adoptlist">
                                              <div class="port_item xs-m-top-30">
                                                  <div class="port_img" style="position: relative;">
                                                  	<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">대기중</p>
@@ -224,25 +224,7 @@
 						</ul>
 					</div>
             </section>
-                    
-		     <script>
-		     	$(document).ready(function(){
-		     		console.log("adoptPage select script");
-		     		$.ajax({
-		     			url:"user/adopt",
-		     			type:"GET",
-		     			dataType:"gson",
-		     			success:function(data,status,xhr){
-		     				console.log(JSON.parse(data.adoptList));
-		     				
-		     				const adoptList = JSON.parse(data.adoptList);
-		     				
-		     			},error:function(xhr,statu,error){
-		     				console.log(error);
-		     			}
-		     		})
-		     	})
-		     </script>
+             
             
             <div style="position: fixed; top: 310px; left: 200px;">
 	            <button onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/terms'" style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
@@ -255,22 +237,36 @@
         </div>
 
          <jsp:include page="../common/footer.jsp"/>    
-
-        <!-- JS includes -->
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/bootstrap.min.js"></script>
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/owl.carousel.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.magnific-popup.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.easing.1.3.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.collapse.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/bootsnav.js"></script>
-
-
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/plugins.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
+<script>
+              $(document).ready(function(){
+                 console.log("adoptPage select script");
+                 const result = ${adoptList};
+                 console.log(result[0]['adoptBreed']);
+                 
+                 var aa=''
+              })
+           </script>
+               
+		     <script>
+		     	$(document).ready(function(){
+		     		console.log("adoptPage select script");
+		     		$.ajax({
+		     			url:"/user/adopt",
+		     			success:function(data,status,xhr){
+		     				const result = ${adoptList};
+		     				console.table(result);
+		                    console.log(result[0]['adoptBreed']);
+		                    
+		                    
+		                
+		     		/* 		console.log(JSON.parse(data.adoptList).response.body.items.item[0]);
+		     				
+		     				const adoptList = JSON.parse(data.adoptList); */
+		     				
+		     			},error:function(xhr,statu,error){
+		     				console.log(error);
+		     			}
+		     		})
+		     	})
+		     </script>
 </html>
