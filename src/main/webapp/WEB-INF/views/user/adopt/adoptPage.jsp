@@ -237,33 +237,31 @@
         </div>
 
          <jsp:include page="../common/footer.jsp"/>    
-
-	<script src="https://code.jquery.com/jquery-3.6.0.slim.min.js"></script>
+<script>
+              $(document).ready(function(){
+                 console.log("adoptPage select script");
+                 const result = ${adoptList};
+                 console.log(result[0]['adoptBreed']);
+                 
+                 var aa=''
+              })
+           </script>
                
 		     <script>
 		     	$(document).ready(function(){
 		     		console.log("adoptPage select script");
 		     		$.ajax({
 		     			url:"/user/adopt",
-		     			type:"GET",
-		     			dataType:"gson",
 		     			success:function(data,status,xhr){
+		     				const result = ${adoptList};
+		     				console.table(result);
+		                    console.log(result[0]['adoptBreed']);
+		                    
+		                    
+		                
+		     		/* 		console.log(JSON.parse(data.adoptList).response.body.items.item[0]);
 		     				
-		     				console.log(JSON.parse(data.adoptList));
-		     				
-		     				const adoptList = JSON.parse(data.adoptList);
-		     				$.each(adoptList).response.body.items.item,function(i,item){
-		     					var aa='<div class="port_item xs-m-top-30">'+
-                                '<div class="port_img" style="position: relative;">'+
-                             	'<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'
-                             	+'대기중'+'<img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="">'+
-                             '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">'+
-                                 '<h4>'+'<a>'+adoptList.adoptBreed+'/'+adoptList.adoptGender+'/'+'커피색'+'</a>'+'</h4>'+'<h6>'+adoptList.userAddress+'</h6>'+'</div>'+'<div>';
-                                 $(#adoptlist).append(aa);
-                                 
-                               
-		     					
-		     				};
+		     				const adoptList = JSON.parse(data.adoptList); */
 		     				
 		     			},error:function(xhr,statu,error){
 		     				console.log(error);
