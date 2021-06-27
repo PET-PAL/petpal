@@ -24,8 +24,12 @@ public interface AdAdminService {
 
 	// 광고 심사 사유 입력
 	boolean insertAdApprove(Map param);
+	//boolean insertAdApprove(String decisionReason, int stateCode, int adCode);
 
 	// 광고 심사 결과 업데이트
 	boolean updateAdApprove(Map param);
+
+	//boolean updateAdApprove(String decisionReason, int stateCode, int adCode);
+
 	
 }

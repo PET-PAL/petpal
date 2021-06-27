@@ -133,29 +133,36 @@
                     
                    <!-- 심사상태 : 승인 or 거절일 때 --> 
                    <!-- 관리자 심사 폼 시작 -->
-                  <c:forEach var="decision" items="${ requestScope.adApproveDecision }">
-                   	<c:if test="${ decision.stateCode ne 1}" > 
+                  <c:forEach var="result" items="${ requestScope.adApproveDecision }">
+                   	<c:if test="${ result.stateCode ne 1}" > 
                      <div class="head_title">
                        <p style="font-weight:800; margin-top:20px; font-size:25px; color:black">심사 결과</p>
 	                   </div>   
 		                 <table id="table" class="table" style="text-align:left;">
 	                        <tr>
 	                          <th style="border: none; width: 150px;">관리자 심사 결과</th>
-	                          <td style="border: none;">${ decision.stateCode }</td><!-- 승인/거절 분기처리 해주기 --> 
+	                          <td style="border: none;">
+	                           <c:if test="${ result.stateCode eq 2}" > 
+	                          	승인
+	                           </c:if>
+	                           <c:if test="${ result.stateCode eq 3}" > 
+	                          	거절
+	                           </c:if>
+	                          </td>
 	                        </tr>
 	                        <tr>
 	                          <th style="border: none; width: 150px;">심사 관리자</th>
-	                          <td style="border: none;">${ decision.name }(${ decision.id })</td>
+	                          <td style="border: none;">${ result.user.name }(${ result.user.id })</td>
 	                        </tr>
 	                        <tr>
 	                          <th style="border: none; width: 150px;">심사 일자</th>
-	                          <td style="border: none;">${ decision.stateCode }</td>
+	                          <td style="border: none;">${ result.decision.decisionDate }</td>
 	                        </tr>
 	                        <tr>
 	                          <th style="border: none; width: 150px;">심사 사유</th>
 	                          <td style="border: none;">
 	                          <textarea class="form-control" name="message" rows="5" readonly style="margin-bottom:3%; background-color:white;">
-	                          ${ decision.decisionReason }
+	                         ${ result.decision.decisionReason }
 	                          </textarea>
 	                          </td>
 	                        </tr>

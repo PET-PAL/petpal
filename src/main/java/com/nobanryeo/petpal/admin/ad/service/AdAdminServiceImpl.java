@@ -60,6 +60,16 @@ public class AdAdminServiceImpl implements AdAdminService  {
 	}
 
 //	@Override
+//	public boolean insertAdApprove(String decisionReason, int stateCode, int adCode) {
+//		return adAdminMapper.insertAdApprove(decisionReason, stateCode, adCode) > 0 ? true : false;
+//	}
+
+//	@Override
+//	public boolean updateAdApprove(String decisionReason, int stateCode, int adCode) {
+//		return adAdminMapper.updateAdApprove(decisionReason, stateCode, adCode) > 0 ? true : false;
+//	}
+
+//	@Override
 //	public boolean insertAdApprove(int adCode) {
 //		return adAdminMapper.insertAdApprove(adCode) > 0 ? true : false;
 //	}

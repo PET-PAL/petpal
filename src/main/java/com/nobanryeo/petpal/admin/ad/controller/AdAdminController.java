@@ -51,12 +51,13 @@ public class AdAdminController {
 		
 		model.addAttribute("adApproveDetail", selectAdApproveDetail);
 		
+		
 		// 심사 사유 조회
 		List<AdAdminDTO> selectAdApproveDecision = adAdminService.selectAdApproveDecision(adCode);
 				
 		model.addAttribute("adApproveDecision", selectAdApproveDecision);
 		
-		System.out.println("심사 사유 : " + model.getAttribute("adApproveDecision"));
+		System.out.println("심사 사유1 : " + model.getAttribute("adApproveDecision"));
 		
 		return "admin/main/adApproveDetail";
 		
@@ -85,6 +86,8 @@ public class AdAdminController {
 		if(! adAdminService.insertAdApprove(param)) {
 			System.out.println("심사 사유 입력 실패");
 		}
+		
+		System.out.println("광고 심사 인서트 : " + adAdminService.insertAdApprove(param));
 		
 		System.out.println("심사 사유 입력 성공");
 		

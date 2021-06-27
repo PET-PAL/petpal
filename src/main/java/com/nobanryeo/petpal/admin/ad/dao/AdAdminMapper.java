@@ -18,7 +18,12 @@ public interface AdAdminMapper {
 	//int insertAdApprove(int adCode, int stateCode, String decisionReason);
 
 	int insertAdApprove(Map param);
+	
+	//int insertAdApprove(String decisionReason, int stateCode, int adCode);
 
 	int updateAdApprove(Map param);
+
+	//int updateAdApprove(String decisionReason, int stateCode, int adCode);
+
 	
 }

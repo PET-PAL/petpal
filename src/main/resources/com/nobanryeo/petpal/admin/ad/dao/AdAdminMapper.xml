@@ -63,7 +63,7 @@
 	  
 	  <resultMap id="adDecision" extends="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
 		<!-- 추가적인 속성만 넣으면 됨 -->
-	   <association property="decisionCode" javaType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
+	   <association property="decision" javaType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
 	   	 <id property="decisionCode" column="DECISION_CODE"/>
 	     <result property="decisionDate" column="DECISION_DATE"/>
    	     <result property="decisionReason" column="DECISION_REASON"/>
@@ -112,14 +112,14 @@
 	  
 	  <!-- 광고 신청 내역 테이블에 심사 결과 업데이트 -->
 	  <update id="updateAdApprove" parameterType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
-		<selectKey keyProperty="decision.decisionCode" order="BEFORE" resultType="_int">
+		<selectKey keyProperty="decisionCode" order="BEFORE" resultType="_int">
 			SELECT
 			       DECISION_CODE_SEQ.CURRVAL
 			  FROM DUAL
 		</selectKey>
 		UPDATE AD_APPLY_TABLE 
 		   SET 
-			   DECISION_CODE = #{ decision.decisionCode }
+			   DECISION_CODE = #{ decisionCode }
 		     , STATE_CODE = #{ stateCode }
 	     WHERE AD_CODE = #{ adCode }
 	 </update>
