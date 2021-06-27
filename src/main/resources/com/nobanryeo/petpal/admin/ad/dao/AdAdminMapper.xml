@@ -20,19 +20,32 @@
 		</association>
 	  </resultMap>
 	  
+	  <!-- 총 광고 심사 갯수 조회 -->
+	  <select id="selectAdApply" resultType="int">
+		SELECT COUNT(*) FROM AD_APPLY_TABLE
+	  </select>
+	  
 	  <!-- 광고 심사 리스트 -->
 	  <select id="selectAdApproveList" resultMap="adAdmin" parameterType="AdAdminDTO">
-        SELECT 
-			  	A.AD_CODE
-			  ,	A.USER_CODE
-			  ,	B.USER_NAME
-			  ,	B.USER_ID
-			  ,	A.AD_TITLE
-			  ,	A.COMPANY_NUMBER
-			  ,	A.APPLY_DATE
-			  ,	A.STATE_CODE
-		   FROM AD_APPLY_TABLE A 
-           JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
+		SELECT * 
+		  FROM (
+			    SELECT ROWNUM RN, C.* 
+			      FROM (
+			    	     SELECT 
+			                  	 A.AD_CODE
+			                   , A.USER_CODE
+			                   , B.USER_NAME
+			                   , B.USER_ID
+			                   , A.AD_TITLE
+			                   , A.COMPANY_NUMBER
+			                   , A.APPLY_DATE
+			                   , A.STATE_CODE
+			    	       FROM AD_APPLY_TABLE A 
+		                   JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
+		               ORDER BY A.AD_CODE ASC
+						) C
+				  )
+			WHERE RN BETWEEN #{start} AND #{end}
 	  </select>
 
 	<resultMap id="adApproveDetail" extends="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
@@ -63,7 +76,7 @@
 	  
 	  <resultMap id="adDecision" extends="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
 		<!-- 추가적인 속성만 넣으면 됨 -->
-	   <association property="decisionCode" javaType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
+	   <association property="decision" javaType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
 	   	 <id property="decisionCode" column="DECISION_CODE"/>
 	     <result property="decisionDate" column="DECISION_DATE"/>
    	     <result property="decisionReason" column="DECISION_REASON"/>
@@ -112,14 +125,14 @@
 	  
 	  <!-- 광고 신청 내역 테이블에 심사 결과 업데이트 -->
 	  <update id="updateAdApprove" parameterType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
-		<selectKey keyProperty="decision.decisionCode" order="BEFORE" resultType="_int">
+		<selectKey keyProperty="decisionCode" order="BEFORE" resultType="_int">
 			SELECT
 			       DECISION_CODE_SEQ.CURRVAL
 			  FROM DUAL
 		</selectKey>
 		UPDATE AD_APPLY_TABLE 
 		   SET 
-			   DECISION_CODE = #{ decision.decisionCode }
+			   DECISION_CODE = #{ decisionCode }
 		     , STATE_CODE = #{ stateCode }
 	     WHERE AD_CODE = #{ adCode }
 	 </update>
