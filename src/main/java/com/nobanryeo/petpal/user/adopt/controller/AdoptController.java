@@ -8,6 +8,7 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Controller;
@@ -18,6 +19,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -28,8 +31,9 @@ import com.google.gson.GsonBuilder;
 import com.nobanryeo.petpal.user.adopt.service.AdoptService;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
+import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
-@Controller
+@RestController
 @RequestMapping("/user/*")
 public class AdoptController {
 
@@ -87,11 +91,16 @@ public class AdoptController {
 	public void putAdoptInfo() {}
 	
 	@PostMapping("adopt/write")
-	public String putAdoptInfo(@ModelAttribute AdoptDTO adopt, HttpServletRequest request,@RequestParam(name="picture",required=true) MultipartFile picture, RedirectAttributes rttr) {
+	public String putAdoptInfo(@ModelAttribute AdoptDTO adopt, HttpServletRequest request,@RequestParam(name="picture",required=true) MultipartFile picture, RedirectAttributes rttr, HttpSession session) {
 		System.out.println("controller adopt: "+adopt);
 		System.out.println("controller picture: "+picture);
 		
-String root = request.getSession().getServletContext().getRealPath("resources");
+		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		
+		adopt.setUserCode(userCode);
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		System.out.println("root in controller: "+ root);
 		
 		String filePath = root + "\\uploadFiles";
 		
@@ -126,14 +135,15 @@ String root = request.getSession().getServletContext().getRealPath("resources");
 //		if(test) {
 //			throw new MemberRegistException("당신은 우리와 함께 할 수 없습니다.");
 //		}
+		int result = adoptService.registAdopt(adopt);
 		
-		if(!adoptService.registAdopt(adopt)) {
+		if(result>0) {
 			
-			new File(filePath + "\\" + changeName + ext).delete();
+			rttr.addFlashAttribute("message", "입양글 등록에 성공하셨습니다.");
+		}else {
+		new File(filePath + "\\" + changeName + ext).delete();
 //			throw new MemberRegistException("당신은 우리와 함께 할 수 없습니다.");
 		}
-		
-		rttr.addFlashAttribute("message", "입양글 등록에 성공하셨습니다.");
 		
 		return "redirect:/user/adopt";
 	}

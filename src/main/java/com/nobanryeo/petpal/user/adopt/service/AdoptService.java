@@ -10,5 +10,6 @@ public interface AdoptService {
 
 	List<AdoptPictureManageDTO> selectAdoptList();
 
-	boolean registAdopt(AdoptDTO adopt);
+	int registAdopt(AdoptDTO adopt);
+
 }

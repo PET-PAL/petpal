@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 import com.nobanryeo.petpal.user.mypage.dao.UserMapper;
-import com.nobanryeo.petpal.user.mypage.exception.LoginFailedException;
 
 @Service
 public class UserServiceImpl implements UserService{

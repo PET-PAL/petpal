@@ -33,8 +33,12 @@ public class AdoptServiceImpl implements AdoptService {
 	}
 
 	@Override
-	public boolean registAdopt(AdoptDTO adopt) {
-		return false;
+	public int registAdopt(AdoptDTO adopt) {
+		
+		
+		return 0;
 	}
+
+	
 
 }

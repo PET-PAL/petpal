@@ -178,9 +178,9 @@
 								</tr>
 								<tr>
 									<td>사진</td>
-									<td><div class="mb-3" style="border-color: none;">
-										  <input type="file" name="picture" id="ownerName" style="width: 300px; background: #F1FAF8;" >
-										  
+									<td>
+										<div class="mb-3" style="border-color: none;">
+										  <input type="file" name="picture" id="ownerName" multiple="multiple" style="width: 300px; background: #F1FAF8;" >
 										</div>
 									</td>
 								</tr>
