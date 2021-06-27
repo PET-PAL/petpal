@@ -14,7 +14,17 @@
 		<result column="STATE_CODE" property="stateCode" />
 		<result column="USER_CODE" property="userCode" />
 	</resultMap>
-	
+<resultMap id="askDetailSet" type="AskDetailDTO">
+		<id column="BOARD_CODE" property="boardCode" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NAME" property="userName" />
+		<result column="BOARD_TITLE" property="boardTitle" />
+		<result column="BOARD_POST_DATE" property="postDate" />
+		<result column="BOARD_CONTENT" property="boardContent" />
+		<result column="ADMIN_REPLY_CONTENT" property="replyContent" />
+		
+	</resultMap>
+		
 	
 	<select id="selectList" resultMap="askResultSet" parameterType="AskDTO">
 		        SELECT 
@@ -27,6 +37,19 @@
 		    STATE_CODE,
 		    USER_CODE
 		FROM QUESTION_BOARD
+	</select>
+		<select id="selectListDetail" resultMap="askDetailSet" parameterType="AskDetailDTO">
+			SELECT
+		A.BOARD_CODE,
+	    B.USER_ID,
+	    B.USER_NAME,
+	    A.BOARD_TITLE,
+	    A.BOARD_POST_DATE,
+	    A.BOARD_CONTENT,
+	    A.ADMIN_REPLY_CONTENT
+	    FROM QUESTION_BOARD A
+	    JOIN USER_TABLE B ON(A.USER_CODE = B.USER_CODE)
+	    WHERE A.BOARD_CODE =#{boardCode}
 	</select>
 	
 </mapper>

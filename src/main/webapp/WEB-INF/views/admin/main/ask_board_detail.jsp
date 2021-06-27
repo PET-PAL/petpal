@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,24 +49,30 @@
 		                                 <table class="table">
 		                                 <tr>
 		                                    <th scope="col-md-3" style="border: none; width: 150px;">문의한 아이디</th>
-		                                    <td style="border: none;">judy123</td>
+		                                    <td style="border: none;">${requestScope.askDetail.userId}</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">문의한 유저 이름</th>
-		                                    <td style="border: none;"></td>
+		                                    <td style="border: none;">${requestScope.askDetail.userName}</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">문의 글제목</th>
-		                                    <tdstyle="border: none;"></td>
+		                                    <td style="border: none;">${requestScope.askDetail.boardTitle}</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">문의 일자</th>
-		                                    <td style="border: none;"></td>
+		                                    <td style="border: none;">${requestScope.askDetail.postDate}</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col">문의 내용</th>
-		                                    <td>아님 우리포맷 싫다 그럼 업체가 작성해서 주면 관리자가 검토 후 글을 올리는거지아님 우리포맷 싫다 그럼 업체가 작성해서 주면 관리자가 검토 후 글을 올리는거지아님 우리포맷 싫다 그럼 업체가 작성해서 주면 관리자가 검토 후 글을 올리는거지</td>
+		                                    <td>${requestScope.askDetail.boardContent}</td>
 		                                 </tr>
+		                                 <c:if test="${!empty requestScope.askDetail.replyContent }">
+		                                 <tr>
+		                                    <th scope="col">답변 내용</th>
+		                                    <td>${requestScope.askDetail.replyContent}</td>
+		                                 </tr>
+		                                 </c:if>
 		                            </table>
 			           	
 				           	 </div>	                       
@@ -88,7 +96,7 @@
                         <textarea class="form-control" name="message" rows="5" placeholder="문의에대한 댓글을 입력해주세요." required="" style="margin-bottom:3%;"></textarea>
 		               </div>
 		               <div class="form-group col-sm-3"  style="float:right;">
-		               	<button type="submit" class="btn btn-primary btn-sm" style="border-radius:10px;"]>문의 댓글 등록</button>
+		               	<button type="submit" class="btn btn-primary btn-sm" style="border-radius:10px;">문의 댓글 등록</button>
 		               </div>
                    </div>   	
 	               </form>
