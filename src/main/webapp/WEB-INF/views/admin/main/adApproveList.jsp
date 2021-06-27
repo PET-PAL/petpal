@@ -9,12 +9,26 @@
        text-align: center;
        }
        
+	   #outter {
+		display: block;
+		width: 60%;
+		margin: auto;
+	   }
        </style>
+       
+     <script>
+		function selChange() {
+			var sel = document.getElementById('cntPerPage').value;
+			location.href="adApproveListP?nowPage=${paging.nowPage}&cntPerPage="+sel;
+		}
+	 </script>
+	
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
 
         <div class="culmn">
+        
            
             
             <!-- 헤더  시작 -->
@@ -30,7 +44,7 @@
 		      text-align:center;
 		      color:#25213b">
 		      <ul class="nav nav-pills nav-stacked">
-		        <li class="active1"><a href="adApproveList">광고 심사</a></li>
+		        <li class="active1"><a href="adApproveListP">광고 심사</a></li>
 		        <hr>
 		        <li><a href="adList">광고 관리</a></li>
 		      </ul>
@@ -47,7 +61,7 @@
                         </div>
                         
                         <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+                                        <li role="presentation" class="active"><a href="#all" onclick="location.href='adApproveList/4" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
                                         <li role="presentation"><a href="#wait" aria-controls="profile" role="tab" data-toggle="tab">대기</a></li>
                                         <li role="presentation"><a href="#ok" aria-controls="messages" role="tab" data-toggle="tab">승인</a></li>
                                         <li role="presentation"><a href="#no" aria-controls="messages" role="tab" data-toggle="tab">거절</a></li>
@@ -103,7 +117,7 @@
                                  </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
+                                <c:forEach var="adApprove" items="${ requestScope.adApproveListP }">
                                   <tr onclick="location.href='adApproveDetail/${ adApprove.adCode }'"> 
                                     <th scope="row">${ adApprove.adCode }</th>
                                     <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
@@ -127,6 +141,42 @@
                                  </c:forEach>
                                 </tbody>
                             </table>
+                            
+                            
+                            
+                            <div style="display: block; text-align: center;">	
+				                              <div style="float: right;">
+						<select id="cntPerPage" name="sel" onchange="selChange()">
+							<option value="5"
+								<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
+							<option value="10"
+								<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
+							<option value="15"
+								<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
+							<option value="20"
+								<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
+						</select>
+					</div> <!-- 옵션선택 끝 -->
+                            
+                            
+                            	
+								<c:if test="${paging.startPage != 1 }">
+									<a href="adApproveListP?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+								</c:if>
+								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+									<c:choose>
+										<c:when test="${p == paging.nowPage }">
+											<b>${p }</b>
+										</c:when>
+										<c:when test="${p != paging.nowPage }">
+											<a href="adApproveListP?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${paging.endPage != paging.lastPage}">
+									<a href="adApproveListP?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+								</c:if>
+							</div>
                         </div>
                         
                         <!-- 대기 클릭시 -->
@@ -215,6 +265,7 @@
                                  </tr>
                                 </thead>
                                 <tbody>
+                              <%--  <c:if test="${requestScope.sCode eq 3}"> --%>
                                <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
                                 <tr onclick="location.href='adApproveDetail/${ adApprove.adCode }'"> 
                                   <c:if test="${ adApprove.stateCode eq 3 }">
@@ -233,6 +284,7 @@
                                     </c:if>
                                   </tr>
                                  </c:forEach>
+                  
                                 </tbody>
                             </table>
                         </div>
@@ -249,6 +301,10 @@
                 </div><!-- End off container -->
                 </div>
             </section><!-- End off Product section -->
+           
+           
+          
+            
 
 			<!-- 푸터 시작 -->
             <footer>

@@ -4,10 +4,14 @@ import java.util.List;
 import java.util.Map;
 
 import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
+import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
 
 public interface AdAdminMapper {
 
-	List<AdAdminDTO> selectAdApproveList();
+	int selectAdApply();
+	
+	List<AdAdminDTO> selectAdApproveList(AdminPageInfoDTO paging);
+	//List<AdAdminDTO> selectAdApproveList();
 
 	List<AdAdminDTO> selectAdApproveDetail(int adCode);
 
@@ -22,6 +26,8 @@ public interface AdAdminMapper {
 	//int insertAdApprove(String decisionReason, int stateCode, int adCode);
 
 	int updateAdApprove(Map param);
+
+
 
 	//int updateAdApprove(String decisionReason, int stateCode, int adCode);
 

@@ -20,19 +20,32 @@
 		</association>
 	  </resultMap>
 	  
+	  <!-- 총 광고 심사 갯수 조회 -->
+	  <select id="selectAdApply" resultType="int">
+		SELECT COUNT(*) FROM AD_APPLY_TABLE
+	  </select>
+	  
 	  <!-- 광고 심사 리스트 -->
 	  <select id="selectAdApproveList" resultMap="adAdmin" parameterType="AdAdminDTO">
-        SELECT 
-			  	A.AD_CODE
-			  ,	A.USER_CODE
-			  ,	B.USER_NAME
-			  ,	B.USER_ID
-			  ,	A.AD_TITLE
-			  ,	A.COMPANY_NUMBER
-			  ,	A.APPLY_DATE
-			  ,	A.STATE_CODE
-		   FROM AD_APPLY_TABLE A 
-           JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
+		SELECT * 
+		  FROM (
+			    SELECT ROWNUM RN, C.* 
+			      FROM (
+			    	     SELECT 
+			                  	 A.AD_CODE
+			                   , A.USER_CODE
+			                   , B.USER_NAME
+			                   , B.USER_ID
+			                   , A.AD_TITLE
+			                   , A.COMPANY_NUMBER
+			                   , A.APPLY_DATE
+			                   , A.STATE_CODE
+			    	       FROM AD_APPLY_TABLE A 
+		                   JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
+		               ORDER BY A.AD_CODE ASC
+						) C
+				  )
+			WHERE RN BETWEEN #{start} AND #{end}
 	  </select>
 
 	<resultMap id="adApproveDetail" extends="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nobanryeo.petpal.admin.ad.service.AdAdminService;
 import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
+import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
 
 /**
  * @author Haein Kim
@@ -34,14 +35,37 @@ public class AdAdminController {
 	}
 	
 	/* 광고심사 리스트 */
-	@RequestMapping("adApproveList")
-	public String adApproveListReturning(Model model) {
+	@RequestMapping(value="adApproveListP")
+	public String adApproveListReturning(Model model, AdminPageInfoDTO paging,
+			  @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+		
+		int total = adAdminService.selectAdApply();
+		
+		System.out.println("광고 심사 총 갯수 : " + total);
+		
+		System.out.println("현재페이지 : " + nowPage);
+		System.out.println("페이지 당 갯수 : " + cntPerPage);
+		
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		
+		paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		
+		model.addAttribute("paging", paging);
+		//model.addAttribute("viewAll", boardService.selectBoard(vo));
 		
 		// 서비스로 비즈니스 로직 실행 및 결과값을 받음
-		List<AdAdminDTO> selectAdApproveList = adAdminService.selectAdApproveList();
+		List<AdAdminDTO> selectAdApproveList = adAdminService.selectAdApproveList(paging);
 		
 		// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
-		model.addAttribute("adApproveList", selectAdApproveList);
+		model.addAttribute("adApproveListP", selectAdApproveList);
 		
 		// 전달할 페이지 설정
 		return "admin/main/adApproveList";
