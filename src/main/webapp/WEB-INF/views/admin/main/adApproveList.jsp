@@ -54,13 +54,37 @@
                                    		<p style="float:right;">총 광고 신청 : 00개</p>
                                     </ul>
 							<div class="container-fluid" style="margin-top: 15px;">
-								    <form class="d-flex">
-								      <input class="form-control me-2" type="search" placeholder="광고코드  or 광고제목으로 검색하시오." aria-label="Search"
-								      style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px">
-									  <button class="btn btn-outline-success" type="submit" 
-								      style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" >Search</button>
-								    </form>
-								</div>
+								    
+								<!-- 검색폼 시작 -->					    
+								<form action="adApproveList/search" method="post" class="d-flex">	
+									<c:choose>
+									    <c:when test="${ !empty requestScope.searchValue }">
+					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
+					   					    <!-- select 박스 -->
+					   					    <!-- ~를 선택했을 때 value를 넘겨줌 -->
+												<option value="category" <c:if test="${requestScope.searchCondition eq 'category'}">selected</c:if>>카테고리</option>
+												<option value="adCode" <c:if test="${requestScope.searchCondition eq 'adCode'}">selected</c:if>>광고코드</option>
+												<option value="adTitle" <c:if test="${requestScope.searchCondition eq 'adTitle'}">selected</c:if>>광고제목</option>
+											</select>
+											<!-- input 값도 넘겨줌 -->
+									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
+									    </c:when>
+									    <c:otherwise>
+										    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
+												<option value="category">카테고리</option>
+												<option value="adCode">광고코드</option>
+												<option value="adTitle">광고제목</option>
+											</select>
+									        <input id="searchValue" name="searchValue" placeholder="검색어를 입력하세요" 
+									        aria-label="Search"  class="form-control me-2" type="search" 
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:80px;">
+									    </c:otherwise>
+									</c:choose>
+									<button class="btn btn-outline-success" type="submit" 
+									style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" >Search</button>
+								</form>
+						
+						</div>
                         
 						
                         <!-- 광고 심사 표 시작 -->

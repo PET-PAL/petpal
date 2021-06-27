@@ -96,7 +96,7 @@ public class AdAdminController {
 		}
 		System.out.println("심사 결과 업데이트 성공");
 		
-		//심사사유 조회는 전체 심사 디테일 조회에서 해와야 하는 것 아닌가?
+		//심사사유 조회는 전체 심사 디테일 조회에서 해와야 하는 것 아닌가? (맞음)
 		
 		return "redirect:/adApproveDetail/{adCode}";
 	}
