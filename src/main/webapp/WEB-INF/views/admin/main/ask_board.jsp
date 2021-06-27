@@ -87,7 +87,7 @@ input {
 												</thead>
 												<tbody>
 												<c:forEach items="${askList}" var="board">
-													<tr onclick="location.href='askDetail'">
+													<tr onclick="location.href='askDetail?boardCode=${ board.boardCode }'">
 														<td>${board.userCode }</td>
 														<td>${board.boardTitle }</td>
 														<td>${board.postDate }</td>
