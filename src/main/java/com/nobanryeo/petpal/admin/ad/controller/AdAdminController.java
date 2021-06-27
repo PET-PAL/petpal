@@ -17,6 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nobanryeo.petpal.admin.ad.service.AdAdminService;
 import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
 
+/**
+ * @author Haein Kim
+ * date : 210625 ~
+ */
+
 @Controller
 @RequestMapping("/*")   
 public class AdAdminController {
@@ -28,7 +33,7 @@ public class AdAdminController {
 		this.adAdminService = adAdminService;
 	}
 	
-	// 광고심사 리스트
+	/* 광고심사 리스트 */
 	@RequestMapping("adApproveList")
 	public String adApproveListReturning(Model model) {
 		
@@ -42,7 +47,15 @@ public class AdAdminController {
 		return "admin/main/adApproveList";
 	}
 	
-	// 광고심사 디테일
+//	/* 광고심사 검색 */
+//    @RequestMapping(value="adApproveList/search", method=RequestMethod.POST)
+//    public String adApproveInsert(Model model) {
+//    	
+//    	
+//    	return "admin/main/adApproveList";
+//    }
+	
+	/* 광고심사 디테일 */
 	@RequestMapping("adApproveDetail/{adCode}")
 	public String adApproveDetailReturning(Model model, @PathVariable("adCode") int adCode) {
 		
@@ -63,7 +76,7 @@ public class AdAdminController {
 		
 	}
 	
-	// 광고심사 심사 입력
+	/* 광고심사 심사 입력 */
 	@RequestMapping(value="adApproveDetail/adApproveInsert/{adCode}", method=RequestMethod.POST)
 	public String adApproveInsert(Model model, 
 								 HttpServletRequest req,
@@ -101,14 +114,14 @@ public class AdAdminController {
 		return "redirect:/adApproveDetail/{adCode}";
 	}
 	
-	// 광고관리 리스트
+	/* 광고관리 리스트 */
 	@RequestMapping("adList")
 	public String adListReturning() {
 		
 		return "admin/main/adList";
 	}
 	
-	// 광고관리 디테일
+	/* 광고관리 디테일 */
 	@RequestMapping("adDetail")
 	public String adDetailReturning() {
 		

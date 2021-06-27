@@ -113,7 +113,7 @@
 	                       <p style="font-weight:800; margin-top:20px; font-size:25px; color:black">관리자 심사</p>
 	                   </div>   
                    <!--관리자 심사 폼 시작 -->
-	                 <form action="adApproveInsert/${adDetail.adCode}" method="post">
+	                 <form action="adApproveInsert/${adDetail.adCode}" method="post" enctype="multipart/form-data">
 		               <!-- 광고 심사 사유 입력 -->
 	                   <div class="form-group mt-3">
 	                        <textarea name="decisionReason" class="form-control" rows="5" placeholder="광고 심사 사유를 입력해주세요(필수)" required="" style="margin-bottom:3%;"></textarea>
