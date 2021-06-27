@@ -242,6 +242,7 @@ li>img {
 	<div>
 		<a href="admin_login"><img
 			src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png"
+			onclick="location.href='${ pageContext.servletContext.contextPath }/adminMainPage'"
 			style="width: 30px; height: 30px; float: right; margin-right: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
 	</div>
 
