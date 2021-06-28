@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -137,12 +138,31 @@
 			                            <td onclick="location.href=''" style="text-align: center;">2021-06-01</td>
 			                            <td style="text-align: center; color: #45B99C;">광고승인<button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/mypage/jsp'"></button></td>
 			                        </tr> --%>
+			                        <jsp:useBean id="now" class="java.util.Date" />
+									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 			                        <c:forEach var="arr" items="${ adList }">
 			                        	<tr>
-			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
-			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="text-align: center;"><c:out value="${ arr.adWeek }"/></td>
-			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="text-align: center;"><c:out value="${ arr.applyDate }"/></td>
-			                          		<td style="text-align: center; color: red;">광고신청</td>
+			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
+			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.adWeek }"/></td>
+			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.applyDate }"/></td>
+			                            	<c:if test="${ arr.postYn eq 'N' && arr.stateCode eq '1' }">
+			                          			<td style="text-align: center; color: red;">광고신청</td>
+			                          		</c:if>
+			                          		<c:if test="${ arr.postYn eq 'N' && arr.stateCode eq '2' }">
+			                          			<td style="text-align: center; color: #45B99C;">광고승인<button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/mypage/jsp'"></button></td>
+			                          		</c:if>
+			                          		<c:if test="${ arr.postYn eq 'Y' && today >= arr.postStartDate && today <= arr.postEndDate }">
+			                          			<td style="text-align: center; color: blue;">광고중</td>
+			                          		</c:if>
+			                          		<c:if test="${ today > arr.postEndDate }">
+			                          			<td style="text-align: center; color: yellow;">광고만료</td>
+			                          		</c:if>
+			                          		<c:if test="${ arr.stateCode eq '3' }">
+			                          			<td style="text-align: center; color: lightgray;">승인거절</td>
+			                          		</c:if>
+			                          		<c:if test="${ arr.stateCode eq '4' }">
+			                          			<td style="text-align: center; color: lightgray;">취소광고</td>
+			                          		</c:if>
 			                        	</tr>
 			                        </c:forEach>
 			                    </tbody>
@@ -172,7 +192,7 @@
 			                        </tr>
 			                    </thead>
 			                    <tbody>
-			                        <tr class="morepay">
+			                        <!-- <tr class="morepay">
 			                            <td style="text-align: center;">주디주디주디</td>
 			                            <td style="text-align: center;">1주</td>
 			                            <td style="text-align: center;">501</td>
@@ -195,7 +215,35 @@
 			                            <td style="text-align: center;">2021-06-10</td>
 			                            <td style="text-align: center;">110,250원</td>
 										<td style="text-align: center; color: #45B99C;">결제 완료</td>
-			                        </tr>
+			                        </tr> -->
+			                        <c:forEach var="arr" items="${ adList }">
+			                        	<c:forEach var="arr2" items="${ adPaymentList }">
+				                        	<c:if test="${ today > arr.postEndDate && empty arr.payDate2nd }">
+				                        		<c:if test="${ arr.adCode == arr2.adCode }">
+							                        <tr class="morepay">
+							                            <td style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr.adWeek }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr2.clickCount }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr.postEndDate }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr2.morePayAmount }"/>원</td>
+							                            <td class="class" style="text-align: center; color: red;">추가결제 대기중<button></button></td>
+						                            </tr>
+					                            </c:if>
+				                            </c:if>
+				                            <c:if test="${ today > arr.postEndDate && !empty arr.payDate2nd }">
+				                            	<c:if test="${ arr.adCode == arr2.adCode }">
+							                        <tr class="completepay">
+							                            <td style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr.adWeek }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr2.clickCount }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr.postEndDate }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr2.morePayAmount }"/>원</td>
+							                            <td style="text-align: center; color: #45B99C;">결제 완료</td>
+						                            </tr>
+					                            </c:if>
+				                            </c:if>
+			                        	</c:forEach>
+			                        </c:forEach>
 			                    </tbody>
 			                </table>
 			                <div class="text-center">

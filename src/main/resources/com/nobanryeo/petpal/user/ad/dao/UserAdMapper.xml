@@ -30,6 +30,8 @@
 		<result column="AD_TYPE_NAME" property="adTypeName"/>
 		<result column="AD_PRICE" property="adPrice"/>
 		<result column="AD_WEEK" property="adWeek"/>
+		<result column="CLICK_COUNT" property="clickCount"/>
+		<result column="MORE_PAY_AMOUNT" property="morePayAmount"/>
 	</resultMap>
 	
 	
@@ -40,6 +42,12 @@
 		       A.COMPANY_NAME
 		     , B.AD_WEEK
 		     , A.APPLY_DATE
+		     , A.POST_YN
+		     , A.STATE_CODE
+		     , A.POST_END_DATE
+		     , A.POST_START_DATE
+		     , A.PAY_DATE_2ND
+		     , A.AD_CODE
 		  FROM AD_APPLY_TABLE A
 		  JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
 		 WHERE A.USER_CODE = #{ userCode }
@@ -47,15 +55,31 @@
 	</select>
 	
 	<select id="selectAdPaymentList" parameterType="AdDTO" resultMap="adResultSet">
-		SELECT
-		       A.COMPANY_NAME
+		SELECT AD_CODE
+             , COUNT(*) CLICK_COUNT
+             , COUNT(*)*150 MORE_PAY_AMOUNT
+          FROM AD_CLICK_COUNT
+         GROUP BY AD_CODE
+	</select>
+	
+	<select id="selectAdApplyDetail" parameterType="AdDTO" resultMap="adResultSet">
+		SELECT B.AD_TYPE_CODE
+		     , B.AD_TYPE_NAME
+		     , B.AD_PRICE
 		     , B.AD_WEEK
-		     , A.APPLY_DATE
+		     , A.COMPANY_NAME
+		     , A.COMPANY_NUMBER
+		     , A.COMPANY_PHONE
+		     , A.COMPANY_EMAIL
+		     , A.AD_CODE
+		     , A.AD_TITLE
+		     , A.AD_CONTENT
+		     , A.STATE_CODE
 		     , A.POST_END_DATE
 		  FROM AD_APPLY_TABLE A
 		  JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
 		 WHERE A.USER_CODE = #{ userCode }
-		 ORDER BY A.APPLY_DATE DESC
+		   AND A.AD_CODE = #{ adCode }
 	</select>
 	
 	
