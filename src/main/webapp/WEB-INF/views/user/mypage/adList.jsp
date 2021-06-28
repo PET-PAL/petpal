@@ -95,7 +95,7 @@
             <section id="list" class="list" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div class="tab">
 					<span class="tab_btn active" data-toggle="tab" href="#menu0" >광고 신청 내역</span>
-					<span class="tab_btn" data-toggle="tab" href="#menu1">광고 결제 관리</span>
+					<span class="tab_btn" data-toggle="tab" href="#menu1">만료광고 결제 관리</span>
 				</div>
             </section>
 

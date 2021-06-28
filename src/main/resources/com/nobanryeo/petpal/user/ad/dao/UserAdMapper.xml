@@ -46,5 +46,17 @@
 		 ORDER BY A.APPLY_DATE DESC
 	</select>
 	
+	<select id="selectAdPaymentList" parameterType="AdDTO" resultMap="adResultSet">
+		SELECT
+		       A.COMPANY_NAME
+		     , B.AD_WEEK
+		     , A.APPLY_DATE
+		     , A.POST_END_DATE
+		  FROM AD_APPLY_TABLE A
+		  JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
+		 WHERE A.USER_CODE = #{ userCode }
+		 ORDER BY A.APPLY_DATE DESC
+	</select>
+	
 	
 </mapper>

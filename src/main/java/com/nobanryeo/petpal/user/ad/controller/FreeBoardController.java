@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.nobanryeo.petpal.user.ad.service.FreeBoardService;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
+import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 /**
  * @author WEENARA
@@ -62,10 +64,11 @@ public class FreeBoardController {
     * 자유게시판 댓글 작성
     */
    @PostMapping("insert/freeboard/reply")
-   public String insertFreeBoardReply(@ModelAttribute FreeBoardReplyDTO reply, Model model, @RequestParam int code) {
+   public String insertFreeBoardReply(@ModelAttribute FreeBoardReplyDTO reply, Model model, @RequestParam int code, @SessionAttribute UserInfoDTO loginUser) {
       
       reply.setBoardCode(code);
-      reply.setUserCode(1);       // 세션 연결해야됨
+      reply.setUserCode(loginUser.getCode());
+      System.out.println(reply);
       
       if(freeBoardService.insertFreeBoardReply(reply) > 0) {
          System.out.println("댓글 등록 성공");
@@ -80,10 +83,9 @@ public class FreeBoardController {
     * 쪽지 작성
     */
    @PostMapping("insert/freeboard/message")
-   public String insertFreeBoardMessage(@ModelAttribute MessageTableDTO message, Model model, @RequestParam int code) {
+   public String insertFreeBoardMessage(@ModelAttribute MessageTableDTO message, Model model, @RequestParam int code, @SessionAttribute UserInfoDTO loginUser) {
       
-      // 세션 열결해야됨
-      message.setUserCode(1);
+      message.setUserCode(loginUser.getCode());
       System.out.println(message);
       
       if(freeBoardService.insertFreeBoardMessage(message) > 0) {
@@ -99,9 +101,9 @@ public class FreeBoardController {
     * 자유게시판 신고 작성
     */
    @PostMapping("insert/freeboard/report")
-   public String insertFreeBoardReport(@ModelAttribute FreeBoardReportDTO report, Model model, @RequestParam int code) {
+   public String insertFreeBoardReport(@ModelAttribute FreeBoardReportDTO report, Model model, @RequestParam int code, @SessionAttribute UserInfoDTO loginUser) {
       
-      report.setUserCode(1);      // 세션 열결 해야함
+      report.setUserCode(loginUser.getCode());
       report.setBoardCode(code);
       
       System.out.println(report);
@@ -119,9 +121,9 @@ public class FreeBoardController {
     * 자유게시판 댓글 신고 작성
     */
    @PostMapping("insert/freeboard/reportReply")
-   public String insertFreeBoardReportReply(@ModelAttribute FreeBoardReportDTO report, Model model, @RequestParam int code) {
+   public String insertFreeBoardReportReply(@ModelAttribute FreeBoardReportDTO report, Model model, @RequestParam int code, @SessionAttribute UserInfoDTO loginUser) {
       
-      report.setUserCode(1);      // 세션 열결 해야함
+      report.setUserCode(loginUser.getCode());
       report.setBoardCode(code);
       
       System.out.println(report);
