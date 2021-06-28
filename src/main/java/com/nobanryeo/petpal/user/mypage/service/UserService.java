@@ -1,7 +1,6 @@
 package com.nobanryeo.petpal.user.mypage.service;
 
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
-import com.nobanryeo.petpal.user.mypage.exception.LoginFailedException;
 
 
 public interface UserService {
