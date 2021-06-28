@@ -6,15 +6,27 @@ public class AskDTO {
 	private int boardCode;
 	private String boardTitle;
 	private String boardContent;
-	private String questionType;
+	private int questionType;
 	private java.util.Date postDate;
-	private String reply;
-	private int stateCode;
-	private int userCode;
+	private String userId;
+	private String state;
 	
 	
 	public AskDTO() {
 		
+	}
+
+
+	public AskDTO(int boardCode, String boardTitle, String boardContent, int questionType, Date postDate, String userId,
+			String state) {
+		super();
+		this.boardCode = boardCode;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.questionType = questionType;
+		this.postDate = postDate;
+		this.userId = userId;
+		this.state = state;
 	}
 
 
@@ -48,12 +60,12 @@ public class AskDTO {
 	}
 
 
-	public String getQuestionType() {
+	public int getQuestionType() {
 		return questionType;
 	}
 
 
-	public void setQuestionType(String questionType) {
+	public void setQuestionType(int questionType) {
 		this.questionType = questionType;
 	}
 
@@ -68,57 +80,35 @@ public class AskDTO {
 	}
 
 
-	public String getReply() {
-		return reply;
+	public String getUserId() {
+		return userId;
 	}
 
 
-	public void setReply(String reply) {
-		this.reply = reply;
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 
 
-	public int getStateCode() {
-		return stateCode;
+	public String getState() {
+		return state;
 	}
 
 
-	public void setStateCode(int stateCode) {
-		this.stateCode = stateCode;
-	}
-
-
-	public int getUserCode() {
-		return userCode;
-	}
-
-
-	public void setUserCode(int userCode) {
-		this.userCode = userCode;
-	}
-
-
-	public AskDTO(int boardCode, String boardTitle, String boardContent, String questionType, Date postDate,
-			String reply, int stateCode, int userCode) {
-		super();
-		this.boardCode = boardCode;
-		this.boardTitle = boardTitle;
-		this.boardContent = boardContent;
-		this.questionType = questionType;
-		this.postDate = postDate;
-		this.reply = reply;
-		this.stateCode = stateCode;
-		this.userCode = userCode;
+	public void setState(String state) {
+		this.state = state;
 	}
 
 
 	@Override
 	public String toString() {
 		return "AskDTO [boardCode=" + boardCode + ", boardTitle=" + boardTitle + ", boardContent=" + boardContent
-				+ ", questionType=" + questionType + ", postDate=" + postDate + ", reply=" + reply + ", stateCode="
-				+ stateCode + ", userCode=" + userCode + "]";
+				+ ", questionType=" + questionType + ", postDate=" + postDate + ", userId=" + userId + ", state="
+				+ state + "]";
 	}
-	
+
+
+
 	
 	
 	

@@ -58,13 +58,9 @@ public class UserController {
 	 */
 	@PostMapping(value = "registIdChk", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String registIdChk(@ModelAttribute UserInfoDTO userInfo, @RequestParam("userId") String userId) {
+	public String registIdChk(@ModelAttribute UserInfoDTO userInfo) {
 
 		// 아이디 중복체크
-		
-		System.out.println("userId : " + userId);
-		
-		userInfo.setId(userId);
 		
 		boolean notOverId = userService.checkId(userInfo);
 		System.out.println("notOverId : " + notOverId);
@@ -90,13 +86,7 @@ public class UserController {
 	 */
 	@PostMapping(value = "registNickChk", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String registNickChk(@ModelAttribute UserInfoDTO userInfo, @RequestParam("userNickName") String userNickName) {
-
-		// 닉네임 중복체크
-		
-		System.out.println("userNickName : " + userNickName);
-		
-		userInfo.setNikname(userNickName);
+	public String registNickChk(@ModelAttribute UserInfoDTO userInfo) {
 		
 		boolean notOverNick = userService.checkNick(userInfo);
 		System.out.println("notOverNick : " + notOverNick);
@@ -122,12 +112,7 @@ public class UserController {
 	 */
 	@PostMapping(value = "registEmailChk", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String registEmailChk(@ModelAttribute UserInfoDTO userInfo, @RequestParam("userEmail") String userEmail) {
-		
-		// 이메일 중복체크
-		System.out.println("userEmail : " + userEmail);
-		
-		userInfo.setEmail(userEmail);
+	public String registEmailChk(@ModelAttribute UserInfoDTO userInfo) {
 		
 		boolean notOverEmail = userService.checkEmail(userInfo);
 		System.out.println("notOverEmail : " + notOverEmail);
@@ -154,49 +139,36 @@ public class UserController {
 	 * @return 
 	 */
 	@PostMapping("regist") 
-	 public String registInsert(@ModelAttribute UserInfoDTO userInfo, HttpServletRequest request, RedirectAttributes rttr) {
+	 public String registInsert(@ModelAttribute UserInfoDTO userInfo, RedirectAttributes rttr) {
 	 
 		System.out.println(userInfo);
 		
-		String userId = request.getParameter("userId");
-		String userName = request.getParameter("userName");
-		String userNickName = request.getParameter("userNickName");
-		String userPwd = request.getParameter("userPwd");
-		String userPhone = request.getParameter("userPhone");
-		String userEmail = request.getParameter("userEmail");
-		String newsletter = request.getParameter("newsletter");
-		String notion = request.getParameter("notion");
-		
-
-		userInfo.setId(userId);
-		userInfo.setName(userName);
-		userInfo.setNikname(userNickName);
-		userInfo.setPwd(userPwd);
+		//비밀번호 암호화 작업
 		userInfo.setPwd(encoder.encode(userInfo.getPwd()));
-		userInfo.setPhone(userPhone);
-		userInfo.setEmail(userEmail);
-		userInfo.setEmailYn(newsletter);
-		userInfo.setReplyYn(notion);
-		
-		
-		System.out.println(userInfo);
 		
 		boolean insertUser = userService.insertUser(userInfo);
 		
 		System.out.println("유저 insert 결과 : " + insertUser);
 			
+		
 		if(insertUser == true) {
-			rttr.addFlashAttribute("message", "회원가입에 성공하셨습니다!\n로그인 후, 펫팔의 더 다양한 기능을 이용해보세요!");
+			rttr.addFlashAttribute("message", "회원가입에 성공하셨습니다! 로그인 후, 펫팔의 더 다양한 기능을 이용해보세요!");
 		}
 		
-		return "redirect:/user/login"; 
+		return "redirect:login"; 
 	 
 	 }
 
+	/**
+	 * 로그인을 위한 컨트롤러
+	 * @param userInfo
+	 * @param request
+	 * @param mv
+	 * @return
+	 */
 	@PostMapping("login")
 	public ModelAndView userLogin(@ModelAttribute UserInfoDTO userInfo, 
-			HttpServletRequest request, RedirectAttributes rttr, HttpServletResponse response
-			, ModelAndView mv) {
+			HttpServletRequest request, ModelAndView mv) {
 		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
@@ -242,6 +214,12 @@ public class UserController {
 		return mv;
 	}
 	
+	/**
+	 * 로그아웃을 위한 세션파기
+	 * @param session
+	 * @param mv
+	 * @return
+	 */
 	@GetMapping("logout")
 	public ModelAndView userLogout(HttpSession session, ModelAndView mv) {
 		session.invalidate();
@@ -249,6 +227,36 @@ public class UserController {
 		return mv;
 	}
 	
+	/**
+	 * 아이디 찾기 컨트롤러
+	 * @param userInfo
+	 * @return
+	 */
+	@PostMapping(value = "findId", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public String findUserId(@ModelAttribute UserInfoDTO userInfo) {
+		
+		System.out.println("입력된 email : " + userInfo.getEmail());
+		
+		String findId = userService.findIdService(userInfo.getEmail());
+		
+		System.out.println("찾은 Id : " + findId);
+		
+		
+		Gson gson = new GsonBuilder().create();
+		
+		return gson.toJson(findId);
+	}
+	
+	@PostMapping(value = "findPwd", produces = "application/json; charset=UTF-8")
+	@ResponseBody
+	public void findUserPwd(@ModelAttribute UserInfoDTO userInfo, HttpServletResponse response) throws Exception {
+		System.out.println("입력된 email : " + userInfo.getEmail());
+		System.out.println("입력된 id : " + userInfo.getId());
+		userService.findPwd(response, userInfo);
+		
+		
+	}
 	
 
 }

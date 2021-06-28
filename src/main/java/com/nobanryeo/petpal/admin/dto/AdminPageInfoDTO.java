@@ -11,19 +11,25 @@ public class AdminPageInfoDTO {
 	private int start;      //SQL쿼리에 쓸 start
 	private int end;        //SQL쿼리에 쓸 end
 	private int cntPage = 5;
+	private String category;
 	
 	public AdminPageInfoDTO() {
 		super();
 	}
 
-	public AdminPageInfoDTO(int total, int nowPage, int cntPerPage) {
+	public AdminPageInfoDTO(int total, int nowPage, int cntPerPage, String category) {
 	   setNowPage(nowPage);
 	   setCntPerPage(cntPerPage);
 	   setTotal(total);
+	   setCategory(category);
 	   calcLastPage(getTotal(), getCntPerPage());
 	   calcStartEndPage(getNowPage(), cntPage);
 	   calcStartEnd(getNowPage(), getCntPerPage());
 	}
+	
+	public AdminPageInfoDTO(String category) {
+		   setCategory(category);
+		}
 	
     // 제일 마지막 페이지 계산
     public void calcLastPage(int total, int cntPerPage) {
@@ -120,12 +126,23 @@ public class AdminPageInfoDTO {
 	public void setCntPage(int cntPage) {
 		this.cntPage = cntPage;
 	}
+	
+	public String getCategory() {
+		return category;
+	}
+	
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+
+	
 
 	@Override
 	public String toString() {
 		return "AdminPageInfoDTO [nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage + ", total="
 				+ total + ", cntPerPage=" + cntPerPage + ", lastPage=" + lastPage + ", start=" + start + ", end=" + end
-				+ ", cntPage=" + cntPage + "]";
+				+ ", cntPage=" + cntPage + ", category=" + category + "]";
 	}
 	
 	 

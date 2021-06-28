@@ -35,12 +35,18 @@ public class AdAdminController {
 	}
 	
 	/* 광고심사 리스트 */
-	@RequestMapping(value="adApproveListP")
+	@RequestMapping(value="adApproveList")
 	public String adApproveListReturning(Model model, AdminPageInfoDTO paging,
 			  @RequestParam(value="nowPage", required=false)String nowPage
-			, @RequestParam(value="cntPerPage", required=false)String cntPerPage) {
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
+			, @RequestParam(value="category", required=false)String category) {
 		
-		int total = adAdminService.selectAdApply();
+		AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
+		System.out.println("cat 출력 : " + cat);
+		
+		int total = adAdminService.selectAdApply(cat);
+		
+		System.out.println("category : " + category);
 		
 		System.out.println("광고 심사 총 갯수 : " + total);
 		
@@ -56,16 +62,18 @@ public class AdAdminController {
 			cntPerPage = "5";
 		}
 		
-		paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+		paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category);
 		
 		model.addAttribute("paging", paging);
-		//model.addAttribute("viewAll", boardService.selectBoard(vo));
 		
 		// 서비스로 비즈니스 로직 실행 및 결과값을 받음
 		List<AdAdminDTO> selectAdApproveList = adAdminService.selectAdApproveList(paging);
 		
+		
 		// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
-		model.addAttribute("adApproveListP", selectAdApproveList);
+		model.addAttribute("adApproveList", selectAdApproveList);
+		model.addAttribute("category", category);
+		model.addAttribute("total", total);
 		
 		// 전달할 페이지 설정
 		return "admin/main/adApproveList";

@@ -29,4 +29,20 @@ public class UserAdServiceImpl implements UserAdService {
 		return adList;
 	}
 
+	@Override
+	public List<AdDTO> selectAdPaymentList(AdDTO adDTO) {
+
+		List<AdDTO> adPaymentList = new ArrayList<>();
+		
+		adPaymentList = adMapper.selectAdPaymentList(adDTO);
+		
+		return adPaymentList;
+	}
+
+	@Override
+	public AdDTO selectAdApplyDetail(AdDTO adDTO) {
+		
+		return adMapper.selectAdApplyDetail(adDTO);
+	}
+
 }

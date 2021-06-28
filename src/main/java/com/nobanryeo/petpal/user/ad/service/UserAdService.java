@@ -8,4 +8,9 @@ public interface UserAdService {
 
 	public List<AdDTO> selectAdList(AdDTO adDTO);
 
+	public List<AdDTO> selectAdPaymentList(AdDTO adDTO);
+
+	public AdDTO selectAdApplyDetail(AdDTO adDTO);
+	
+
 }

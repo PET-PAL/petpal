@@ -27,8 +27,8 @@ public class AdAdminServiceImpl implements AdAdminService  {
 
 	// 광고 심사 총 갯수 조회
 	@Override
-	public int selectAdApply() {
-		return adAdminMapper.selectAdApply();
+	public int selectAdApply(AdminPageInfoDTO cat) {
+		return adAdminMapper.selectAdApply(cat);
 	}
 	
 	// 광고 심사 리스트 조회
@@ -42,6 +42,12 @@ public class AdAdminServiceImpl implements AdAdminService  {
 		// TODO Auto-generated method stub
 		return adAdminMapper.selectAdApproveList(paging);
 	}
+	
+//	@Override
+//	public List<AdAdminDTO> selectAdApproveList(AdminPageInfoDTO paging, String category) {
+//		// TODO Auto-generated method stub
+//		return adAdminMapper.selectAdApproveList(paging, category);
+//	}
 	
 	// 광고 심사 디테일 조회
 	@Override
@@ -71,6 +77,7 @@ public class AdAdminServiceImpl implements AdAdminService  {
 	public boolean updateAdApprove(Map param) {
 		return adAdminMapper.updateAdApprove(param) > 0 ? true : false;
 	}
+
 
 	
 

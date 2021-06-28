@@ -1,5 +1,7 @@
 package com.nobanryeo.petpal.user.mypage.service;
 
+import javax.servlet.http.HttpServletResponse;
+
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 
@@ -41,7 +43,22 @@ public interface UserService {
 	 */
 	UserInfoDTO selectUser(UserInfoDTO userInfo);
 
-	
+	/**
+	 * User Id 찾기
+	 * @param email
+	 * @return
+	 */
+	String findIdService(String email);
+
+	/**
+	 * User pwd 찾기
+	 * @param userInfo
+	 * @return
+	 */
+	void findPwd(HttpServletResponse response, UserInfoDTO userInfo) throws Exception;
+
+	void sendEmail(UserInfoDTO userInfo, String div) throws Exception;
+
 	
 
 	
