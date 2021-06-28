@@ -342,7 +342,7 @@ li>img {
 				</div>
 				<!-- 아이디 입력 -->
 				<div style="text-align: center; margin-top: 10px; width: 80%;">
-					<input type="text" placeholder="아이디를 입력하세요" name="id" id="id"
+					<input type="text" placeholder="아이디를 입력하세요" name="id" id="pwdId"
 						style="height: 40px; width: 100%; border-radius: 10px; border: 1px solid; margin-bottom: 20px;">
 				<!-- 이메일 입력 -->
 					<input type="text" placeholder="이메일을 입력하세요" name="email" id="pwdEmail"
@@ -378,8 +378,14 @@ $(function(){
 	$("#findpwd").click(function(){
 		
 		console.log("비밀번호 찾기 펑션 들어옴");
+		var emailCheck = document.getElementById("pwdEmail");
+		var idCheck = document.getElementById("pwdId");
+		
+		var email = $('#pwdEmail').val();
+		var id = $('#pwdId').val();
+		
 		//공백체크
-		if($("#pwdEmail").val() == ''){
+		if(email == ''){
 			
 			$("#idCheck").css("display", "block");
 			console.log("이메일 안적힘");
@@ -387,7 +393,7 @@ $(function(){
 			
 		}
 		
-		if($("#id").val() == ''){
+		if(id == ''){
 			$("#idCheck").css("display", "block");
 			console.log("아이디 안적힘");
 			idCheck.focus();
@@ -399,13 +405,13 @@ $(function(){
 			type:"post",
 			data:
 				{
-				id : $("#id").val();
-				email : $("#pwdEmail").val();
+				id : id,
+				email : email
 				},
 			success:function(result){
 					alert(result);
 				},
-			})
+			});
 		});
 	});
 })
