@@ -391,28 +391,23 @@ $(function(){
 			console.log("이메일 안적힘");
 			emailCheck.focus();
 			
-		}
-		
-		if(id == ''){
+		} else if(id == ''){
 			$("#idCheck").css("display", "block");
 			console.log("아이디 안적힘");
 			idCheck.focus();
-		}
-		
-		else{
+		} else{
 			$.ajax({
-			url:"${pageContext.servletContext.contextPath}/user/findPwd",
-			type:"post",
-			data:
-				{
-				id : id,
-				email : email
+				url : "${pageContext.servletContext.contextPath}/user/findPwd",
+				type : "POST",
+				data : {
+					id : id,
+					email : email
 				},
-			success:function(result){
+				success : function(result) {
 					alert(result);
 				},
-			});
-		});
+			})
+		}
 	});
 })
 	</script>

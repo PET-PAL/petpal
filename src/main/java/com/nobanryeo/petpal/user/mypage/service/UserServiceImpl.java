@@ -106,12 +106,12 @@ public class UserServiceImpl implements UserService{
 		
 		// 아이디가 없으면
 		if(mapper.selectUser(userInfo.getId()) == null) {
-			out.print("아이디가 없습니다.");
+			out.print("조회하시는 아이디와 일치하는 아이디가 존재하지 않습니다.");
 			out.close();
 		}
 		// 가입에 사용한 이메일이 아니면
 		else if(!userInfo.getEmail().equals(user.getEmail())) {
-			out.print("잘못된 이메일 입니다.");
+			out.print("조회하시는 아이디와 일치하는 아이디가 존재하지 않습니다.");
 			out.close();
 		}else {
 			// 임시 비밀번호 생성
@@ -154,7 +154,7 @@ public class UserServiceImpl implements UserService{
 			subject = "펫팔 임시 비밀번호 입니다.";
 			msg += "<div align='center' style='border:1px solid black; font-family:verdana'>";
 			msg += "<h3 style='color: blue;'>";
-			msg += userInfo.getId() + " 님의 임시 비밀번호 입니다. 비밀번호를 변경하여 사용하세요.</h3>";
+			msg += userInfo.getId() + " 님의 임시 비밀번호 입니다. 로그인 후, 반드시 비밀번호를 변경하여 사용하세요.</h3>";
 			msg += "<p>임시 비밀번호 : ";
 			msg += userInfo.getPwd() + "</p></div>";
 		}
