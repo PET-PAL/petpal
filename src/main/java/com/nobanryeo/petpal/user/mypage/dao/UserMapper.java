@@ -34,18 +34,29 @@ public interface UserMapper {
 
 	/**
 	 * 유저가 입력한 비밀번호와 저장되어 있는 비밀번호 매치
-	 * @param userInfo
+	 * @param id
 	 * @return 
 	 */
-	String selectUserPassword(UserInfoDTO userInfo);	
+	String selectUserPassword(String id);	
 	
 	
 	/**
 	 * select User
-	 * @param userInfo
+	 * @param id
 	 * @return
 	 */
-	UserInfoDTO selectUser(UserInfoDTO userInfo);
+	UserInfoDTO selectUser(String id);
+
+	/**
+	 * select Id
+	 * @param email
+	 * @return
+	 */
+	String selectUserId(String email);
+	
+	int modifyPwd(UserInfoDTO userInfo);
+
+	
 
 }
 

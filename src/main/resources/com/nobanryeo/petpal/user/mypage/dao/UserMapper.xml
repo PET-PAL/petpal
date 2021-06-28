@@ -83,5 +83,29 @@
           FROM USER_TABLE A 
          WHERE A.USER_ID = #{ id } 
 	</select>
+	
+	<select id="selectUserId" resultType="string" parameterType="UserInfoDTO">
+        SELECT 
+               A.USER_ID
+          FROM USER_TABLE A 
+         WHERE A.USER_EMAIL = #{ email } 
+	</select>
+	
+	<update id="modifyPwd" parameterType="UserInfoDTO">
+		UPDATE USER_TABLE 
+           SET USER_PWD = #{ pwd } 
+         WHERE USER_ID  = #{ id }
+	</update>
 
  </mapper>
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
