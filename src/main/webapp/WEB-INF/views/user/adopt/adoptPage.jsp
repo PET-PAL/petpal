@@ -246,7 +246,7 @@
 		     				const adoptList = JSON.parse(data.adoptList); */
 		     				
 		     			},error:function(xhr,status,error){
-		     				alert("에러 발행~삐뽀~");
+		     				alert("에러 발생~삐뽀~");
 		     				console.log(error);
 		     			}
 		     		});
