@@ -122,7 +122,9 @@
             </div> 
 
             <!--헤더와 바디 사이 공간 유지 -->
-            <div id="loading">
+           
+           <!-- 로딩이미지 -->
+           <!--  <div id="loading">
             <div id="loading-center">
                 <div id="loading-center-absolute">
                     <div class="object" id="object_one"></div>
@@ -131,7 +133,7 @@
                     <div class="object" id="object_four"></div>
                 </div>
             </div>
-        </div>
+        </div> -->
 
 </body>
 </html>

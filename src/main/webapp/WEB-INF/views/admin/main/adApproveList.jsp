@@ -261,12 +261,12 @@
 											<b>${p }</b>
 										</c:when>
 										<c:when test="${p != paging.nowPage }">
-											<a href="adApproveList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+											<a href="adApproveList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
 										</c:when>
 									</c:choose>
 								</c:forEach>
 								<c:if test="${paging.endPage != paging.lastPage}">
-									<a href="adApproveList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+									<a href="adApproveList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
 								</c:if>
 								
 								
