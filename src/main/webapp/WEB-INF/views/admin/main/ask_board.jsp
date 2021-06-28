@@ -55,32 +55,60 @@ input {
 
 		<div class="container">		
 				<div class="row">
+				<div class="head_title text-left fix">
+            	<p role="presentation" style="font-weight:800; font-size:25px; color:black; margin-top:10px;"> 문의 게시판</p>
+         </div>	
+				
+				
 					 <div class="col-md-20">
 					 		
                                     <!-- Nav tabs -->
                   
                                     <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" style="font-weight:800; margin-bottom:12px; font-size:25px; color:black">문의 게시판</li>
-                                    	<p style="float:right; padding-top: 20px;">총 문의글 : 00개</p>
+                                        <li role="presentation" class="active"><a href="askList?nowPage=${paging.nowPage}" onclick="location.href='adApproveList/4" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+                                        <li role="presentation"><a href="askList?nowPage=${paging.nowPage}" aria-controls="messages" role="tab" data-toggle="tab">일반문의</a></li>
+                                        <li role="presentation"><a href="askList?nowPage=${paging.nowPage}" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
+                                    	<p style="float:right; padding-top: 20px;">총 문의글 : ${requestScope.total}개</p>
                                     </ul>
 							<div class="container-fluid" style="margin-top: 15px;">
-						        <form class="d-flex" style="float:left;">
-								     <div class="search">
-									      <input type="text" placeholder="유유저명 or 글제목으로 검색해주세요.">
-									      <i class="fas fa-search fa-2x"></i>
-								   	</div>
+						        <form action="adApproveList/search" method="post" class="d-flex">	
+									<c:choose>
+									    <c:when test="${ !empty requestScope.searchValue }">
+					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
+					   					    <!-- select 박스 -->
+					   					    <!-- ~를 선택했을 때 value를 넘겨줌 -->
+												<option value="userId" <c:if test="${requestScope.searchCondition eq 'category'}">selected</c:if>>유저아이디</option>
+												<option value="boardTitle" <c:if test="${requestScope.searchCondition eq 'adCode'}">selected</c:if>>글 제목</option>
+											</select>
+											<!-- input 값도 넘겨줌 -->
+									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
+									    </c:when>
+									    <c:otherwise>
+										    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
+												<option value="userId" >유저아이디</option>
+												<option value="boardTitle">글 제목</option>
+											</select>
+									        <input id="searchValue" name="searchValue" placeholder="검색어를 입력하세요" 
+									        aria-label="Search"  class="form-control me-2" type="search" 
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:80px;">
+									    </c:otherwise>
+									</c:choose>
+									<button class="btn btn-outline-success" type="submit" 
+									style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" >Search</button>
 								</form>
 							</div>
+							
                                     <!-- Tab panes -->
                                     <div class="tab-content" style="padding:0px;">
-                                        <div role="tabpanel" class="tab-pane active" id="home">								              	
+                                        <div role="tabpanel" class="tab-pane active" id="all">								              	
 											<table class="table table-hover" style="text-align:center;">
 												<thead>
 													<tr>
+														<th style="text-align:center;">게시글 코드</th>
 														<th style="text-align:center;">글쓴이(유저아이디)</th>
 														<th style="text-align:center;">글 제목</th>
 														<th style="text-align:center;">문의 일자</th>
-														<th style="text-align:center;">답변 일자</th>
+														<th style="text-align:center;">질문 분류</th>
 														<th style="text-align:center;">진행상황</th>
 													</tr>
 														
@@ -88,32 +116,71 @@ input {
 												<tbody>
 												<c:forEach items="${askList}" var="board">
 													<tr onclick="location.href='askDetail?boardCode=${ board.boardCode }'">
-														<td>${board.userCode }</td>
+														<td>${board.boardCode }</td>
+														<td>${board.userId }</td>
 														<td>${board.boardTitle }</td>
 														<td>${board.postDate }</td>
-														<td>-</td>
-														<td>${board.stateCode }</td>
+														<c:if test="${board.questionType eq 1 }">
+						                                    <td>일반문의</td>
+						                                 </c:if>
+						                                 <c:if test="${board.questionType eq 2 }">
+						                                    <td>광고문의</td>
+						                                 </c:if>
+														<td>${board.state }</td>
 													</tr>
 												</c:forEach>
 												</tbody>
 											</table>
-													<div class="text-center">
-														<ul class="pagination">
-															<li><a href="#">1</a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-														</ul>
-													</div>			
-                                      			</div>		
+											<div style="display: block; text-align: center;">	
+				                              <div style="float: right;">
+						<select id="cntPerPage" name="sel" onchange="selChange()">
+							<option value="5"
+								<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
+							<option value="10"
+								<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
+							<option value="15"
+								<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
+							<option value="20"
+								<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
+						</select>
+					</div> <!-- 옵션선택 끝 -->
+                            
+                            
+                            	<ul class="pagination">
+								<c:if test="${paging.startPage != 1 }">
+									<li><a href="askList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+								</c:if>
+								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+									<c:choose>
+										<c:when test="${p == paging.nowPage }">
+											<li><a>${p }</a></li>
+										</c:when>
+										<c:when test="${p != paging.nowPage }">
+											<li><a href="askList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${paging.endPage != paging.lastPage}">
+									<li><a href="askList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+								</c:if>
+								</ul>
+							</div>
+                        </div>
+                   </div>		
                                         	</div>
                                    		</div>
                     </div>
-       		  </div>		
+       		  		
     </section><!-- End off Product section -->
 	
 
 	<jsp:include page="../../admin/common/footer.jsp"></jsp:include> 
 
 </body>
+ <script>
+		function selChange() {
+			var sel = document.getElementById('cntPerPage').value;
+			location.href="askList?nowPage=${paging.nowPage}&cntPerPage="+sel;
+		}
+	 </script>
 </html>

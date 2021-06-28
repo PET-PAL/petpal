@@ -50,5 +50,3 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/js/plugins.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
 
-</body>
-</html>

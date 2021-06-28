@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.nobanryeo.petpal.user.adopt.dao.AdoptMapper;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
+import com.nobanryeo.petpal.user.dto.PictureDTO;
 
 @Service
 public class AdoptServiceImpl implements AdoptService {
@@ -25,16 +26,18 @@ public class AdoptServiceImpl implements AdoptService {
 		
 		List<AdoptPictureManageDTO> selectAdoptList = new ArrayList<>();
 		selectAdoptList = adoptMapper.selectAdoptList();
-		for(AdoptPictureManageDTO adoptPicture: selectAdoptList) {
-			System.out.println(adoptPicture);
-		}
+	
 		
 		return selectAdoptList;
 	}
 
 	@Override
-	public boolean registAdopt(AdoptDTO adopt) {
-		return false;
+	public int registAdopt(AdoptDTO adopt, List<PictureDTO> pictureList) {
+
+		int result = adoptMapper.registerAdopt(adopt, pictureList);
+		return result;
 	}
+
+
 
 }

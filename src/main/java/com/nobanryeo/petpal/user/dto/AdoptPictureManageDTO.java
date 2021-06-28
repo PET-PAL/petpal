@@ -7,10 +7,10 @@ public class AdoptPictureManageDTO {
 	private String adoptBreed;
 	private String adoptGender;
 	private String deleteYN;
-	private int stateCode;
+	private String stateName;
 	private String dogOrcat;
 	private String userAddress;
-	private int userCode;
+	private String userCode;
 	private int pictureCode;
 	private String pictureURL;
 	private String pictureDeleteYN;
@@ -19,15 +19,15 @@ public class AdoptPictureManageDTO {
 	
 	public AdoptPictureManageDTO() {}
 
-	public AdoptPictureManageDTO(int boardCode, String adoptBreed, String adoptGender, String deleteYN, int stateCode,
-			String dogOrcat, String userAddress, int userCode, int pictureCode, String pictureURL,
+	public AdoptPictureManageDTO(int boardCode, String adoptBreed, String adoptGender, String deleteYN,
+			String stateName, String dogOrcat, String userAddress, String userCode, int pictureCode, String pictureURL,
 			String pictureDeleteYN, String pictureName, String pictureNewName) {
 		super();
 		this.boardCode = boardCode;
 		this.adoptBreed = adoptBreed;
 		this.adoptGender = adoptGender;
 		this.deleteYN = deleteYN;
-		this.stateCode = stateCode;
+		this.stateName = stateName;
 		this.dogOrcat = dogOrcat;
 		this.userAddress = userAddress;
 		this.userCode = userCode;
@@ -70,12 +70,12 @@ public class AdoptPictureManageDTO {
 		this.deleteYN = deleteYN;
 	}
 
-	public int getStateCode() {
-		return stateCode;
+	public String getStateName() {
+		return stateName;
 	}
 
-	public void setStateCode(int stateCode) {
-		this.stateCode = stateCode;
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
 	}
 
 	public String getDogOrcat() {
@@ -94,11 +94,11 @@ public class AdoptPictureManageDTO {
 		this.userAddress = userAddress;
 	}
 
-	public int getUserCode() {
+	public String getUserCode() {
 		return userCode;
 	}
 
-	public void setUserCode(int userCode) {
+	public void setUserCode(String userCode) {
 		this.userCode = userCode;
 	}
 
@@ -145,13 +145,12 @@ public class AdoptPictureManageDTO {
 	@Override
 	public String toString() {
 		return "AdoptPictureManageDTO [boardCode=" + boardCode + ", adoptBreed=" + adoptBreed + ", adoptGender="
-				+ adoptGender + ", deleteYN=" + deleteYN + ", stateCode=" + stateCode + ", dogOrcat=" + dogOrcat
+				+ adoptGender + ", deleteYN=" + deleteYN + ", stateName=" + stateName + ", dogOrcat=" + dogOrcat
 				+ ", userAddress=" + userAddress + ", userCode=" + userCode + ", pictureCode=" + pictureCode
-				+ ", pictureURL=" + pictureURL + ", pictureDeleteYN=" + pictureDeleteYN + ", pictureName="
-				+ pictureName + ", pictureNewName=" + pictureNewName + "]";
+				+ ", pictureURL=" + pictureURL + ", pictureDeleteYN=" + pictureDeleteYN + ", pictureName=" + pictureName
+				+ ", pictureNewName=" + pictureNewName + "]";
 	}
 
-	
 	
 	
 }

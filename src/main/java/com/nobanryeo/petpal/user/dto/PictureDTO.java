@@ -9,20 +9,18 @@ public class PictureDTO {
 	private String pictureURL;
 	private Date pictureUploadDate;
 	private String pictureDeleteYN;
-	private String pictureName1;
 	private String pictureNewName;
 	
 	public PictureDTO() {}
 
 	public PictureDTO(int pictureCode, String pictureName, String pictureURL, Date pictureUploadDate,
-			String pictureDeleteYN, String pictureName1, String pictureNewName) {
+			String pictureDeleteYN, String pictureNewName) {
 		super();
 		this.pictureCode = pictureCode;
 		this.pictureName = pictureName;
 		this.pictureURL = pictureURL;
 		this.pictureUploadDate = pictureUploadDate;
 		this.pictureDeleteYN = pictureDeleteYN;
-		this.pictureName1 = pictureName1;
 		this.pictureNewName = pictureNewName;
 	}
 
@@ -66,14 +64,6 @@ public class PictureDTO {
 		this.pictureDeleteYN = pictureDeleteYN;
 	}
 
-	public String getPictureName1() {
-		return pictureName1;
-	}
-
-	public void setPictureName1(String pictureName1) {
-		this.pictureName1 = pictureName1;
-	}
-
 	public String getPictureNewName() {
 		return pictureNewName;
 	}
@@ -86,10 +76,8 @@ public class PictureDTO {
 	public String toString() {
 		return "PictureDTO [pictureCode=" + pictureCode + ", pictureName=" + pictureName + ", pictureURL=" + pictureURL
 				+ ", pictureUploadDate=" + pictureUploadDate + ", pictureDeleteYN=" + pictureDeleteYN
-				+ ", pictureName1=" + pictureName1 + ", pictureNewName=" + pictureNewName + "]";
+				+ ", pictureNewName=" + pictureNewName + "]";
 	}
-	
-	
 
 	
 }

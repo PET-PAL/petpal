@@ -35,9 +35,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public FreeBoardDTO selectFreeBoardDetail(int boardCode) {
 
-		FreeBoardDTO selectFreeBoardDetail = freeBoardMapper.selectFreeBoardDetail(boardCode);
-		
-		return selectFreeBoardDetail;
+		return freeBoardMapper.selectFreeBoardDetail(boardCode);
 	}
 
 	@Override

@@ -1,5 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+    <jsp:useBean id="now" class="java.util.Date" />
+	<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 <!DOCTYPE html>
 <html>
     <head>
@@ -94,7 +98,7 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left;">광고 내역</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="width:50px; float: right;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ requestScope.adApplyDetail.adCode }'" style="width:50px; float: right;">
             </section> <!--End off Home Sections-->
 
             <section id="menutable" class="menutable">
@@ -102,18 +106,23 @@
 					<table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
-							<td style="border-radius: 0px 21px 0px 0px">신상신상</td>
+							<td style="border-radius: 0px 21px 0px 0px"><c:out value="${ requestScope.adApplyDetail.adTitle }"/></td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>기업 / 상호명</b></td>
-							<td>(주)나라컴퍼니</td>
+							<td><c:out value="${ requestScope.adApplyDetail.companyName }"/></td>
 						</tr>
 					</table>
 					<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px; text-align: center;">**기업의 신상품!! 한번도 안써본 사람은 있어도 한번만 써본 사람은 없다!! 한번 사용해보세요~!</p>
+					<p style="margin-bottom: 50px; margin-left: 8px; text-align: center;"><c:out value="${ requestScope.adApplyDetail.adContent }"/></p>
 		        </div>
 		        <div style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
-		        <button style="float: right; margin-right: 10px;">광고 취소</button>
+		        	<c:if test="${ requestScope.adApplyDetail.stateCode ne '4' && !(today > requestScope.adApplyDetail.postEndDate) && !(requestScope.adApplyDetail.stateCode eq '3') }">
+		        		<button style="float: right; margin-right: 10px;">광고 취소</button>
+		        	</c:if>
+		        	<c:if test="${ requestScope.adApplyDetail.stateCode eq '4' || today > requestScope.adApplyDetail.postEndDate || requestScope.adApplyDetail.stateCode eq '3' }">
+		        		<button style="float: right; margin-right: 10px; background:lightgray" disabled>취소 불가</button>
+		        	</c:if>
 		        </div>
             </section>
 
