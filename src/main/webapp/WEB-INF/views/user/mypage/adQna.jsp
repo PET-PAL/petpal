@@ -1,11 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
-    <!-- include libraries(jQuery, bootstrap) -->
-
-
         <style>
             .menutable > div > img {
                 margin-bottom: 20px;
@@ -46,42 +44,6 @@
 		
         <meta charset="utf-8">
         <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         
         <!-- summerNote -->
     	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
@@ -117,7 +79,7 @@
             </section> <!--End off Home Sections-->
 
             <section id="menutable" class="menutable">
-				<form method="post">
+				<form action="${ pageContext.servletContext.contextPath }/user/insert/adQnA" method="post">
 					<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 30px;">
 						<table class="table" style="border-collapse: separate;">
 							<tr>
@@ -126,7 +88,7 @@
 							</tr>
 							<tr>
 								<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
-								<td>킘유진</td>
+								<td><c:out value="${ requestScope.writeAdQnA }"/></td>
 							</tr>
 						</table>
 	  						 <textarea id="summernote"></textarea>
@@ -138,7 +100,7 @@
 						      });
 						    </script>
 			        </div>
-					<div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="adQnaWrite">광고 문의 작성</button></div>
+					<div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button type="submit" class="adQnaWrite">광고 문의 작성</button></div>
 				</form>
             </section>
             

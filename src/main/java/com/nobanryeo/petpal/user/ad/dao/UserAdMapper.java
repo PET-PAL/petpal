@@ -8,4 +8,8 @@ public interface UserAdMapper {
 
 	List<AdDTO> selectAdList(AdDTO adDTO);
 
+	List<AdDTO> selectAdPaymentList(AdDTO adDTO);
+
+	AdDTO selectAdApplyDetail(AdDTO adDTO);
+
 }
