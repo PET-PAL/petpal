@@ -2,6 +2,7 @@ package com.nobanryeo.petpal.user.adopt.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.aspectj.lang.annotation.Pointcut;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,34 +35,43 @@ import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
-@RestController
+@Controller
 @RequestMapping("/user/*")
 public class AdoptController {
 
 	private final AdoptService adoptService; 
-	private final List<AdoptPictureManageDTO> adoptList;
 	
-	public AdoptController(AdoptService adoptService, List<AdoptPictureManageDTO> adoptList) {
+	@Autowired
+	public AdoptController(AdoptService adoptService) {
 		this.adoptService = adoptService;
-		this.adoptList = adoptService.selectAdoptList();
 	}
 	
-
-	
 	@GetMapping("adopt")
-//	@ResponseBody
+	public String introAdopt() {
+		List<AdoptPictureManageDTO> adoptList = new ArrayList<>();
+		adoptList=adoptService.selectAdoptList();
+//		
+		System.out.println("adoptList in controller: "+adoptService.selectAdoptList());
+		return "user/adopt/adoptPage";
+	}
+	
+	@GetMapping("adoptData")
+	@ResponseBody
 	public ModelAndView selectAdoptMain(ModelAndView mv, HttpServletResponse response) {
 		
-		
 		response.setContentType("application/json; charset=utf-8");
+		List<AdoptPictureManageDTO> adoptList = new ArrayList<>();
+		adoptList=adoptService.selectAdoptList();
+////		
+//		System.out.println("adoptList in controller: "+adoptService.selectAdoptList());
 		System.out.println("controller: "+adoptList);
 		
 		Gson gson = new GsonBuilder().setPrettyPrinting()
 				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
 				.serializeNulls().disableHtmlEscaping().create();
 	
-		mv.addObject("adoptList", gson.toJson(adoptList));
-		mv.setViewName("user/adopt/adoptPage");
+		mv.addObject("adoptList", gson.toJson(adoptService.selectAdoptList()));
+		mv.setViewName("jsonView");
 		
 		return mv;
 	}

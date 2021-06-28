@@ -215,7 +215,8 @@
             		$.ajax({
             			url:"user/adopt",
             			success:function(data,status,xhr){
-            				console.table(data);
+            				console.table(data.Stringify(data1));
+            				alert("입양게시글 등록에 성공하셨습니다!")
             			},error:function(xhr,status,error){
             				console.log(error);
             			}

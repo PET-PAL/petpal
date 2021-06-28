@@ -25,9 +25,7 @@ public class AdoptServiceImpl implements AdoptService {
 		
 		List<AdoptPictureManageDTO> selectAdoptList = new ArrayList<>();
 		selectAdoptList = adoptMapper.selectAdoptList();
-		for(AdoptPictureManageDTO adoptPicture: selectAdoptList) {
-			System.out.println(adoptPicture);
-		}
+	
 		
 		return selectAdoptList;
 	}

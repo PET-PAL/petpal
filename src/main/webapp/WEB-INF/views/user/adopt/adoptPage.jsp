@@ -50,6 +50,7 @@
 
         <!--Theme Responsive css-->
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
@@ -72,7 +73,6 @@
 
         <div class="culmn">
             <!--Home page style-->
-
 
             <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
@@ -109,7 +109,7 @@
                              <div class="item active">
                                  <div class="container">
                                      <div class="row">
-                                         <div class="col-sm-3" id="adoptlist">
+                                         <div class="col-sm-3" id="adoptlistList">
                                              <div class="port_item xs-m-top-30">
                                                  <div class="port_img" style="position: relative;">
                                                  	<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">대기중</p>
@@ -223,6 +223,32 @@
 							<li><a href="#">></a></li>
 						</ul>
 					</div>
+					
+					            
+   <script>
+		     	$(document).ready(function(){
+		     		console.log("adoptPage select script");
+		     		
+		     		$.ajax({
+		     			url:"user/adoptData",
+		     			success:function(data,status,xhr){
+		     				console.log("suc");
+		     				/* console.table(adoptList);
+		                    console.log(result[0]['adoptBreed']);
+		                     */
+		                    
+		                
+		     		/* 		console.log(JSON.parse(data.adoptList).response.body.items.item[0]);
+		     				
+		     				const adoptList = JSON.parse(data.adoptList); */
+		     				
+		     			},error:function(xhr,status,error){
+		     				alert("에러 발행~삐뽀~");
+		     				console.log(error);
+		     			}
+		     		});
+		     	});
+		     </script>  
             </section>
              
             
@@ -231,42 +257,23 @@
 	            <h4 style="writing-mode: vertical-rl; color: white; font-weight: bold;" align="center">글 작성하기</h4>
 	            </button>
 			</div>
-            
+
+        </div>
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
-        </div>
-
          <jsp:include page="../common/footer.jsp"/>    
-<script>
+<!-- 		<script>
               $(document).ready(function(){
                  console.log("adoptPage select script");
                  const result = ${adoptList};
+                 console.table(result);
                  console.log(result[0]['adoptBreed']);
                  
-                 var aa=''
+                 var aa='<h4>'+'result[0]['adoptBreed']'+'</h4>';
+                 
               })
-           </script>
-               
-		     <script>
-		     	$(document).ready(function(){
-		     		console.log("adoptPage select script");
-		     		$.ajax({
-		     			url:"/user/adopt",
-		     			success:function(data,status,xhr){
-		     				const result = ${adoptList};
-		     				console.table(result);
-		                    console.log(result[0]['adoptBreed']);
-		                    
-		                    
-		                
-		     		/* 		console.log(JSON.parse(data.adoptList).response.body.items.item[0]);
-		     				
-		     				const adoptList = JSON.parse(data.adoptList); */
-		     				
-		     			},error:function(xhr,statu,error){
-		     				console.log(error);
-		     			}
-		     		})
-		     	})
-		     </script>
+           </script> -->
+
+
+</body>
 </html>
