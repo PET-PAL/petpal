@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.nobanryeo.petpal.user.adopt.dao.AdoptMapper;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
+import com.nobanryeo.petpal.user.dto.PictureDTO;
 
 @Service
 public class AdoptServiceImpl implements AdoptService {
@@ -31,12 +32,12 @@ public class AdoptServiceImpl implements AdoptService {
 	}
 
 	@Override
-	public int registAdopt(AdoptDTO adopt) {
-		
-		
-		return 0;
+	public int registAdopt(AdoptDTO adopt, List<PictureDTO> pictureList) {
+
+		int result = adoptMapper.registerAdopt(adopt, pictureList);
+		return result;
 	}
 
-	
+
 
 }

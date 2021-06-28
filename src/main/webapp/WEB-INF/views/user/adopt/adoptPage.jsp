@@ -230,9 +230,12 @@
 		     		console.log("adoptPage select script");
 		     		
 		     		$.ajax({
-		     			url:"user/adoptData",
+		     			url:"/petpal/user/adoptData",
 		     			success:function(data,status,xhr){
-		     				console.log("suc");
+		     				const adoptList = JSON.parse(data.adoptList);
+		     				console.table(adoptList);
+		     				console.log(adoptList);
+		     			
 		     				/* console.table(adoptList);
 		                    console.log(result[0]['adoptBreed']);
 		                     */
