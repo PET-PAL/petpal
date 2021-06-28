@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.admin.ad.dao.AdAdminMapper;
 import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
+import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
 
 @Service
 public class AdAdminServiceImpl implements AdAdminService  {
@@ -24,10 +25,22 @@ public class AdAdminServiceImpl implements AdAdminService  {
 		this.adAdminMapper = adAdminMapper;
 	}
 
-	// 광고 심사 리스트 조회
+	// 광고 심사 총 갯수 조회
 	@Override
-	public List<AdAdminDTO> selectAdApproveList() {
-		return adAdminMapper.selectAdApproveList();
+	public int selectAdApply() {
+		return adAdminMapper.selectAdApply();
+	}
+	
+	// 광고 심사 리스트 조회
+//	@Override
+//	public List<AdAdminDTO> selectAdApproveList() {
+//		return adAdminMapper.selectAdApproveList();
+//	}
+	
+	@Override
+	public List<AdAdminDTO> selectAdApproveList(AdminPageInfoDTO paging) {
+		// TODO Auto-generated method stub
+		return adAdminMapper.selectAdApproveList(paging);
 	}
 	
 	// 광고 심사 디테일 조회
@@ -58,6 +71,20 @@ public class AdAdminServiceImpl implements AdAdminService  {
 	public boolean updateAdApprove(Map param) {
 		return adAdminMapper.updateAdApprove(param) > 0 ? true : false;
 	}
+
+	
+
+	
+
+//	@Override
+//	public boolean insertAdApprove(String decisionReason, int stateCode, int adCode) {
+//		return adAdminMapper.insertAdApprove(decisionReason, stateCode, adCode) > 0 ? true : false;
+//	}
+
+//	@Override
+//	public boolean updateAdApprove(String decisionReason, int stateCode, int adCode) {
+//		return adAdminMapper.updateAdApprove(decisionReason, stateCode, adCode) > 0 ? true : false;
+//	}
 
 //	@Override
 //	public boolean insertAdApprove(int adCode) {

@@ -1,4 +1,4 @@
-package com.nobanryeo.petpal.admin.ask.dto;
+package com.nobanryeo.petpal.admin.dto;
 
 import java.util.Date;
 

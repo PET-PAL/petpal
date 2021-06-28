@@ -31,6 +31,15 @@ public interface UserMapper {
 	 */
 	int insertUser(UserInfoDTO userInfo);
 
+
+	/**
+	 * 유저가 입력한 비밀번호와 저장되어 있는 비밀번호 매치
+	 * @param userInfo
+	 * @return 
+	 */
+	String selectUserPassword(UserInfoDTO userInfo);	
+	
+	
 	/**
 	 * select User
 	 * @param userInfo
@@ -38,12 +47,6 @@ public interface UserMapper {
 	 */
 	UserInfoDTO selectUser(UserInfoDTO userInfo);
 
-	/**
-	 * 유저가 입력한 비밀번호와 저장되어 있는 비밀번호 매치
-	 * @param userInfo
-	 * @return 
-	 */
-	String selectUserPassword(UserInfoDTO userInfo);
 }
 
 

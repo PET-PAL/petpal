@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -112,7 +113,7 @@
 			                        </tr>
 			                    </thead>
 			                    <tbody>
-			                        <tr>
+			                        <%-- <tr>
 			                            <td onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="text-align: center;">(주)나라컴퍼니</td>
 			                            <td onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="text-align: center;">1주</td>
 			                            <td onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="text-align: center;">2021-06-11</td>
@@ -135,7 +136,15 @@
 			                            <td onclick="location.href=''" style="text-align: center;">2주</td>
 			                            <td onclick="location.href=''" style="text-align: center;">2021-06-01</td>
 			                            <td style="text-align: center; color: #45B99C;">광고승인<button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/mypage/jsp'"></button></td>
-			                        </tr>
+			                        </tr> --%>
+			                        <c:forEach var="arr" items="${ adList }">
+			                        	<tr>
+			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
+			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="text-align: center;"><c:out value="${ arr.adWeek }"/></td>
+			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="text-align: center;"><c:out value="${ arr.applyDate }"/></td>
+			                          		<td style="text-align: center; color: red;">광고신청</td>
+			                        	</tr>
+			                        </c:forEach>
 			                    </tbody>
 			                </table>
 			                <div class="text-center">

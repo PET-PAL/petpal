@@ -25,7 +25,6 @@ public class AdDTO {
 	private Date postStartDate;
 	private Date postEndDate;
 	private int stateCode;
-	private String refundAccount;
 	private Date clickDate;
 	private String adTypeName;
 	private int adPrice;
@@ -36,8 +35,8 @@ public class AdDTO {
 	public AdDTO(int adCode, String companyName, Date applyDate, String companyNumber, String companyPhone,
 			String companyEmail, String adContent, String postYn, String refundYn, Date payDate2nd, int pictureCode,
 			Date payDate1st, int userCode, int adTypeCode, String adTitle, String payMethod, int decisionCode,
-			Date cancelApplyDate, Date postStartDate, Date postEndDate, int stateCode, String refundAccount,
-			Date clickDate, String adTypeName, int adPrice, int adWeek) {
+			Date cancelApplyDate, Date postStartDate, Date postEndDate, int stateCode, Date clickDate,
+			String adTypeName, int adPrice, int adWeek) {
 		super();
 		this.adCode = adCode;
 		this.companyName = companyName;
@@ -60,7 +59,6 @@ public class AdDTO {
 		this.postStartDate = postStartDate;
 		this.postEndDate = postEndDate;
 		this.stateCode = stateCode;
-		this.refundAccount = refundAccount;
 		this.clickDate = clickDate;
 		this.adTypeName = adTypeName;
 		this.adPrice = adPrice;
@@ -235,14 +233,6 @@ public class AdDTO {
 		this.stateCode = stateCode;
 	}
 
-	public String getRefundAccount() {
-		return refundAccount;
-	}
-
-	public void setRefundAccount(String refundAccount) {
-		this.refundAccount = refundAccount;
-	}
-
 	public Date getClickDate() {
 		return clickDate;
 	}
@@ -284,8 +274,8 @@ public class AdDTO {
 				+ ", userCode=" + userCode + ", adTypeCode=" + adTypeCode + ", adTitle=" + adTitle + ", payMethod="
 				+ payMethod + ", decisionCode=" + decisionCode + ", cancelApplyDate=" + cancelApplyDate
 				+ ", postStartDate=" + postStartDate + ", postEndDate=" + postEndDate + ", stateCode=" + stateCode
-				+ ", refundAccount=" + refundAccount + ", clickDate=" + clickDate + ", adTypeName=" + adTypeName
-				+ ", adPrice=" + adPrice + ", adWeek=" + adWeek + "]";
+				+ ", clickDate=" + clickDate + ", adTypeName=" + adTypeName + ", adPrice=" + adPrice + ", adWeek="
+				+ adWeek + "]";
 	}
 	
 }

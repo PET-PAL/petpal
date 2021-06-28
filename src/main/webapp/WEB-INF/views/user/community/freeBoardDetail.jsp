@@ -285,6 +285,7 @@
 	                            	<td><c:out value="${ arr.userNickName }"/></td>
 	                            	<td>삭제된 댓글입니다.</td>
 	                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+	                            	<td></td>
 	                        	</tr>
                         	</c:if>
                         </c:forEach>

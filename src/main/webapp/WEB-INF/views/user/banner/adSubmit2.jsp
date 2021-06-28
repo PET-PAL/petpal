@@ -112,52 +112,32 @@
 
             <jsp:include page="../common/userHeader.jsp"/>
 
-            <section id="account" class="account" style="width: 80%; margin: 0px auto;  margin-bottom: 40px;">
+            <section id="account" class="account" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600;">광고 신청</div>
             </section>
             
 			<section id="account" class="account" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
-                <div style="font-size: 20px; font-weight: 600; float: left; margin-left: 10px;">광고 기본정보 입력</div>
-                <br>
+                <div style="font-size: 20px; font-weight: 600; float: left; margin-left: 10px; margin-top: 20px;">광고 기본정보 입력</div>
+                <img src="/petpal_front/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adsubmit'" style="width:50px; float: right;">
+                <br><br>
                 <hr style="border-color: rgb(175, 175, 175);">
-                <img src="/petpal_front/resources/images/back.png" onclick="location.href='/petpal_front/views/user/banner/adSubmit1.jsp'" style="width:50px; float: right;">
             </section>
 
             <section id="accountmanagement" class="accountmanagement">
-                <div style="width: 70%; height: 550px; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
+                <div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
 					<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
 						<tr>
 							<td>광고 대상</td>
 							<td>
-							 <div class="col-lg-6">
-		                         <label for="type" class="col-lg-5" style="font-weight: normal;">
-		                         <input class="radio-inline" type="radio" name="type" id="type" style="margin-bottom:6%; margin-right:10%">
-									장소
-								</label>
-		                      </div>
-		                      <div class="col-lg-6">
-		                      	<label for="type" class="col-lg-6" style="font-weight: normal;">
-		                      	<input class="radio-inline" type="radio" name="type" id="type" style="margin-bottom:6%; margin-right:10%">
-							  	장소 이외
-							  	</label>
-		                      </div>
+								<label style="font-size: 15px; font-weight: normal; width:30%"><input name="adradio" type="radio" value="장소"> 장소</label>
+								<label style="font-size: 15px; font-weight: normal;"><input name="adradio" type="radio" value="장소 이외"> 장소 이외</label>
 							</td>
 						</tr>
 						<tr>
 							<td>광고 기간</td>
 							<td>
-							 <div class="col-lg-6">
-		                         <label for="period" class="col-lg-5" style="font-weight: normal;">
-		                         <input class="radio-inline" type="radio" name="period" id="period" style="margin-bottom:6%; margin-right:10%">
-									1주
-								</label>
-		                      </div>
-		                      <div class="col-lg-6">
-		                      	<label for="period" class="col-lg-6" style="font-weight: normal;">
-		                      	<input class="radio-inline" type="radio" name="period" id="period" style="margin-bottom:6%; margin-right:10%">
-							  		2주
-							  	</label>
-		                      </div>
+								<label style="font-size: 15px; font-weight: normal; width:30%"><input name="adDate" type="radio" value="1주"> 1주</label>
+								<label style="font-size: 15px; font-weight: normal;"><input name="adDate" type="radio" value="2주"> 2주</label>								
 							</td>
 						</tr>
 						<tr>
@@ -181,7 +161,7 @@
 							<td><input type="text" id="userEmail" placeholder="사업자 이메일을 입력하세요"></td>
 						</tr>
 					</table>
-                    <div style="margin: 0px auto; text-align: center;">
+                    <div style="margin: 0px auto; text-align: center; margin-bottom: 30px;">
                     <button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/banner/adSubmit3.jsp'">다음으로</button></div>
 				</div>
             </section>

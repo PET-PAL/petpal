@@ -10,16 +10,17 @@
  		<typeAlias alias="FreeBoardReplyDTO" type="com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO"/>
  		<typeAlias alias="MessageTableDTO" type="com.nobanryeo.petpal.user.dto.MessageTableDTO"/>
  		<typeAlias alias="FreeBoardReportDTO" type="com.nobanryeo.petpal.user.dto.FreeBoardReportDTO"/>
+ 		<typeAlias alias="AdDTO" type="com.nobanryeo.petpal.user.dto.AdDTO"/>
  		
  		<typeAlias alias="BoardReplyDTO" type="com.nobanryeo.petpal.user.dto.BoardReplyDTO"/>
  		<typeAlias alias="AdoptPictureManageDTO" type="com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO"/>
 
- 		<typeAlias alias="AskDTO" type="com.nobanryeo.petpal.admin.ask.dto.AskDTO"/>
-
+ 		<typeAlias alias="AskDTO" type="com.nobanryeo.petpal.admin.dto.AskDTO"/>
+		<typeAlias alias="AskDetailDTO" type="com.nobanryeo.petpal.admin.dto.AskDetailDTO"/>
  		
  		<typeAlias alias="AdAdminDTO" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO"/>
  		<typeAlias alias="DecisionDTO" type="com.nobanryeo.petpal.admin.dto.DecisionDTO"/>
- 		
+ 		<typeAlias alias="AdminPageInfoDTO" type="com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO"/>
  		
  	</typeAliases>
  

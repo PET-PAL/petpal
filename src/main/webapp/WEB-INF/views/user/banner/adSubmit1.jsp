@@ -100,7 +100,7 @@
 
             <jsp:include page="../common/userHeader.jsp"/>
 
-            <section id="account" class="account" style="width: 80%; margin: 0px auto;  margin-bottom: 40px;">
+            <section id="account" class="account" style="width: 70%; margin: 0px auto;  margin-bottom: 40px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600;">광고 신청</div>
             </section>
             
@@ -122,7 +122,7 @@
 펫팔의 네이티브 광고는 모든 게시판에 랜덤한 방식으로 게시된다.
 							</textarea></td>
 							<td style="width:140px; padding-left: 20px"><label name="admit4" style="font-size: 15px; font-weight: normal;">
-							<input type="checkbox" name='admit' value='admit0' style="width: 15px;">  약관 동의</label></td>
+							<input type="checkbox" name='admit' id='admit0' style="width: 15px;">  약관 동의</label></td>
 						</tr>
 						<tr style="height:300px;">
 							<td>광고 약관</td>
@@ -223,7 +223,7 @@ o. 본 약관의 비밀유지의무, 양도금지의무를 위반한 경우
 ② 회사는 이용자의 별도 파기 요청이 있기 전까지 업무수행을 위하여 전달받은 이용자의 개인정보를 보관하고, 이용자의 개인정보를 본 약관상의 업무수행만을 위하여 사용하여야 한다.
 							</textarea></td>
 							<td style="width:140px; padding-left: 20px"><label name="admit4" style="font-size: 15px; font-weight: normal;">
-							<input type="checkbox" name='admit' value='admit1' style="width: 15px;">  약관 동의</label></td>
+							<input type="checkbox" name='admit' id='admit1' style="width: 15px;">  약관 동의</label></td>
 						</tr>
 						<tr>
 							<td style="width: 20%">기업정보의 수집·이용·제공</td>
@@ -242,13 +242,13 @@ o. 본 약관의 비밀유지의무, 양도금지의무를 위반한 경우
 -  귀하의 개인 및 기업정보의 수집·이용·제공에 관한 동의는 거부하실 수 있으며, 다만 동의하지 않으시는 경우 본 광고 참여가 불가합니다.
 							</textarea></td>
 							<td style="width:140px; padding-left: 20px"><label name="admit4" style="font-size: 15px; font-weight: normal;">
-							<input type="checkbox" name='admit' value='admit2' style="width: 15px;"> 약관 동의</label></td>
+							<input type="checkbox" name='admit' id='admit2' style="width: 15px;"> 약관 동의</label></td>
 						</tr>
 					</table>
 					<div style="margin: 0px auto; text-align: center; margin-bottom: 10px;"><label name="admitAll" style="font-size: 15px; font-weight: normal;">
 					<input type="checkbox" name='admit' value='selectall' onclick='selectAll(this)' style="width: 15px;">전체 약관 동의하기</label></div>
                     <div style="margin: 0px auto; text-align: center; margin-bottom:30px;">
-                    <button onsubmit="return admit_check()" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adsubmit2'">다음으로</button></div>
+                    <button onclick="admit_check()" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adsubmit2'">다음으로</button></div>
 				</div>
             </section>
 
@@ -268,25 +268,26 @@ o. 본 약관의 비밀유지의무, 양도금지의무를 위반한 경우
 		  const checkboxes 
 		       = document.getElementsByName('admit');
 		  
-		  checkboxes.forEach((checkbox) => {
+		  checkboxes.forEach((checkbox) =>  {
 		    checkbox.checked = selectAll.checked;
 		  })
 		}
         
+        <!-- 이용약관 유효성 -->
         function admit_check() {
-/* 	        var admdit = document.getElementsByName('admit');
-	        console.log(admit.length);
-	        var cnt = $("input[name=admit]:checkbox:checked").length;
-	        
-	        if(cnt < 3) {
-	        	alert('약관에 모두 동의하지 않으면 광고 신청이 불가합니다.')
-	        	return false;
-	        } */
-	        
-/* 	        if(!$("input:checked[Name='admit']").is(":checked")){
-	        	alert('약관에 모두 동의하지 않으면 광고 신청이 불가합니다.');
-	        	return false;
-	        } */
+
+        	if (!$("input:checked[id='admit0']").is(":checked")){ 
+        		alert("약관에 모두 동의하지 않으면 광고 신청이 불가합니다.");
+        		return false;
+        	} else if (!$("input:checked[id='admit1']").is(":checked")){ 
+        		alert("약관에 모두 동의하지 않으면 광고 신청이 불가합니다.");
+        		return false;
+        	} else if (!$("input:checked[id='admit2']").is(":checked")){ 
+        		alert("약관에 모두 동의하지 않으면 광고 신청이 불가합니다.");
+        		return false;
+        	} else {
+        		return location.href='${ pageContext.servletContext.contextPath }/user/select/adsubmit2';
+        	}
         }
         </script>
         

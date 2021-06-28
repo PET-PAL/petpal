@@ -152,7 +152,9 @@
                                 <div class="col-sm-3">
                                     <div class="port_item xs-m-top-30">
                                         <div class="port_img">
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/missing/missingPage.jsp'">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/lost_dog.png"
+                                            style="width: 290px; height: 250px;"
+                                             onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/missing/missingPage.jsp'">
                                         </div>
                                         <div class="port_caption m-top-20">
                                             <h5>실종신고 / 목격제보</h5>
@@ -163,7 +165,9 @@
                                 <div class="col-sm-3">
                                     <div class="port_item xs-m-top-30">
                                         <div class="port_img">
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img2.jpg" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/adopt/adoptPage.jsp'">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/adoptMe.jpg"
+                                            style="width: 290px; height: 250px;"
+                                             onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/adopt/adoptPage.jsp'">
                                         </div>
                                         <div class="port_caption m-top-20">
                                             <h5>입양게시판</h5>
@@ -174,7 +178,9 @@
                                 <div class="col-sm-3">
                                     <div class="port_item xs-m-top-30">
                                         <div class="port_img">
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img3.jpg" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp'">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/source.png"
+                                            style="width: 290px; height: 250px;"
+                                             onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp'">
                                         </div>
                                         <div class="port_caption m-top-20">
                                             <h5>정보공유</h5>
@@ -185,7 +191,9 @@
                                 <div class="col-sm-3">
                                     <div class="port_item xs-m-top-30">
                                         <div class="port_img">
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img4.jpg" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp'">
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/pcat.png" 
+                                            style="width: 290px; height: 250px;"
+                                            onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp'">
                                         </div>
                                         <div class="port_caption m-top-20">
                                             <h5>커뮤니티</h5>

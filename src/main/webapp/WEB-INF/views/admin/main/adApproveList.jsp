@@ -9,12 +9,26 @@
        text-align: center;
        }
        
+	   #outter {
+		display: block;
+		width: 60%;
+		margin: auto;
+	   }
        </style>
+       
+     <script>
+		function selChange() {
+			var sel = document.getElementById('cntPerPage').value;
+			location.href="adApproveListP?nowPage=${paging.nowPage}&cntPerPage="+sel;
+		}
+	 </script>
+	
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
 
         <div class="culmn">
+        
            
             
             <!-- 헤더  시작 -->
@@ -30,7 +44,7 @@
 		      text-align:center;
 		      color:#25213b">
 		      <ul class="nav nav-pills nav-stacked">
-		        <li class="active1"><a href="adApproveList">광고 심사</a></li>
+		        <li class="active1"><a href="adApproveListP">광고 심사</a></li>
 		        <hr>
 		        <li><a href="adList">광고 관리</a></li>
 		      </ul>
@@ -47,20 +61,44 @@
                         </div>
                         
                         <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+                                        <li role="presentation" class="active"><a href="#all" onclick="location.href='adApproveList/4" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
                                         <li role="presentation"><a href="#wait" aria-controls="profile" role="tab" data-toggle="tab">대기</a></li>
                                         <li role="presentation"><a href="#ok" aria-controls="messages" role="tab" data-toggle="tab">승인</a></li>
                                         <li role="presentation"><a href="#no" aria-controls="messages" role="tab" data-toggle="tab">거절</a></li>
                                    		<p style="float:right;">총 광고 신청 : 00개</p>
                                     </ul>
 							<div class="container-fluid" style="margin-top: 15px;">
-								    <form class="d-flex">
-								      <input class="form-control me-2" type="search" placeholder="광고코드  or 광고제목으로 검색하시오." aria-label="Search"
-								      style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px">
-									  <button class="btn btn-outline-success" type="submit" 
-								      style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" >Search</button>
-								    </form>
-								</div>
+								    
+								<!-- 검색폼 시작 -->					    
+								<form action="adApproveList/search" method="post" class="d-flex">	
+									<c:choose>
+									    <c:when test="${ !empty requestScope.searchValue }">
+					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
+					   					    <!-- select 박스 -->
+					   					    <!-- ~를 선택했을 때 value를 넘겨줌 -->
+												<option value="category" <c:if test="${requestScope.searchCondition eq 'category'}">selected</c:if>>카테고리</option>
+												<option value="adCode" <c:if test="${requestScope.searchCondition eq 'adCode'}">selected</c:if>>광고코드</option>
+												<option value="adTitle" <c:if test="${requestScope.searchCondition eq 'adTitle'}">selected</c:if>>광고제목</option>
+											</select>
+											<!-- input 값도 넘겨줌 -->
+									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
+									    </c:when>
+									    <c:otherwise>
+										    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
+												<option value="category">카테고리</option>
+												<option value="adCode">광고코드</option>
+												<option value="adTitle">광고제목</option>
+											</select>
+									        <input id="searchValue" name="searchValue" placeholder="검색어를 입력하세요" 
+									        aria-label="Search"  class="form-control me-2" type="search" 
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:80px;">
+									    </c:otherwise>
+									</c:choose>
+									<button class="btn btn-outline-success" type="submit" 
+									style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" >Search</button>
+								</form>
+						
+						</div>
                         
 						
                         <!-- 광고 심사 표 시작 -->
@@ -79,7 +117,7 @@
                                  </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
+                                <c:forEach var="adApprove" items="${ requestScope.adApproveListP }">
                                   <tr onclick="location.href='adApproveDetail/${ adApprove.adCode }'"> 
                                     <th scope="row">${ adApprove.adCode }</th>
                                     <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
@@ -103,6 +141,42 @@
                                  </c:forEach>
                                 </tbody>
                             </table>
+                            
+                            
+                            
+                            <div style="display: block; text-align: center;">	
+				                              <div style="float: right;">
+						<select id="cntPerPage" name="sel" onchange="selChange()">
+							<option value="5"
+								<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
+							<option value="10"
+								<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
+							<option value="15"
+								<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
+							<option value="20"
+								<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
+						</select>
+					</div> <!-- 옵션선택 끝 -->
+                            
+                            
+                            	
+								<c:if test="${paging.startPage != 1 }">
+									<a href="adApproveListP?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a>
+								</c:if>
+								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+									<c:choose>
+										<c:when test="${p == paging.nowPage }">
+											<b>${p }</b>
+										</c:when>
+										<c:when test="${p != paging.nowPage }">
+											<a href="adApproveListP?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${paging.endPage != paging.lastPage}">
+									<a href="adApproveListP?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a>
+								</c:if>
+							</div>
                         </div>
                         
                         <!-- 대기 클릭시 -->
@@ -191,6 +265,7 @@
                                  </tr>
                                 </thead>
                                 <tbody>
+                              <%--  <c:if test="${requestScope.sCode eq 3}"> --%>
                                <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
                                 <tr onclick="location.href='adApproveDetail/${ adApprove.adCode }'"> 
                                   <c:if test="${ adApprove.stateCode eq 3 }">
@@ -209,6 +284,7 @@
                                     </c:if>
                                   </tr>
                                  </c:forEach>
+                  
                                 </tbody>
                             </table>
                         </div>
@@ -225,6 +301,10 @@
                 </div><!-- End off container -->
                 </div>
             </section><!-- End off Product section -->
+           
+           
+          
+            
 
 			<!-- 푸터 시작 -->
             <footer>

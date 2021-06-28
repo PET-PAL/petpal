@@ -62,6 +62,8 @@ public class AdAdminDTO {
 		this.decisionCode = decisionCode;
 	}
 
+
+	
 	public int getAdCode() {
 		return adCode;
 	}
