@@ -79,13 +79,14 @@ public class AdAdminController {
 		return "admin/main/adApproveList";
 	}
 	
-//	/* 광고심사 검색 */
-//    @RequestMapping(value="adApproveList/search", method=RequestMethod.POST)
-//    public String adApproveInsert(Model model) {
-//    	
-//    	
-//    	return "admin/main/adApproveList";
-//    }
+	/* 광고심사 검색 */
+    @RequestMapping(value="adApproveList/search", method=RequestMethod.POST)
+    public String adApproveInsert(Model model) {
+    	
+    	System.out.println("");
+    	
+    	return "admin/main/adApproveList";
+    }
 	
 	/* 광고심사 디테일 */
 	@RequestMapping("adApproveDetail/{adCode}")
