@@ -35,9 +35,23 @@ public class AskServiceImpl implements AskService{
 
 
 	@Override
-	public int selectListCount() {
+	public int selectListCount(AdminPageInfoDTO cat) {
 		// TODO Auto-generated method stub
-		return mapper.selectListCount();
+		return mapper.selectListCount(cat);
+	}
+
+
+	@Override
+	public int selectSearchCount(AdminPageInfoDTO cat) {
+		// TODO Auto-generated method stub
+		return mapper.selectSearchCount(cat);
+	}
+
+
+	@Override
+	public List<AskDTO> selectSearchAsk(AdminPageInfoDTO paging) {
+		// TODO Auto-generated method stub
+		return mapper.selectSearchAsk(paging);
 	}
 
 }
