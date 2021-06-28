@@ -95,7 +95,7 @@
                             <li><a href="blackList">블랙리스트 관리</a></li>
                             <li class="dropdown"><a href="adApproveList" class="dropdown-category" id="dropdownAskMenu" data-toggle="dropdown"> 광고 <i class="caret"></i></a> 
                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownADMenu" style="width:130px;" > 
-                                  <li><a class="dropdown-item" aria-current="true"  href="adApproveListP">광고 심사</a></li> 
+                                  <li><a class="dropdown-item" aria-current="true"  href="adApproveList">광고 심사</a></li> 
                                   <li><a class="dropdown-item"  href="adList">광고 관리</a></li> 
 
                                </ul> 
