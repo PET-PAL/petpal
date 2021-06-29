@@ -10,6 +10,8 @@ public interface AdoptMapper {
 
 	List<AdoptPictureManageDTO> selectAdoptList();
 
-	int registerAdopt(AdoptDTO adopt, List<PictureDTO> pictureList);
+	int registerAdopt(AdoptDTO adopt);
+
+	int registPicture(PictureDTO picture);
 	
 }

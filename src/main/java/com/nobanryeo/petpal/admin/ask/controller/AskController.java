@@ -40,7 +40,7 @@ public class AskController {
     	
     	int total = askService.selectListCount();
     	
-		paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+//		paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		model.addAttribute("paging", paging);
 		model.addAttribute("total",total);
     	

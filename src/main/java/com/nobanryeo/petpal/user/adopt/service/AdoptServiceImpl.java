@@ -34,7 +34,20 @@ public class AdoptServiceImpl implements AdoptService {
 	@Override
 	public int registAdopt(AdoptDTO adopt, List<PictureDTO> pictureList) {
 
-		int result = adoptMapper.registerAdopt(adopt, pictureList);
+		int adoptResult = adoptMapper.registerAdopt(adopt);
+		System.out.println("adoptResult in service:"+ adoptResult);
+		
+		int pictureResult = 0;
+		for(PictureDTO picture:pictureList) {
+			pictureResult += adoptMapper.registPicture(picture);
+		}
+		System.out.println("pictureResult in service:"+ pictureResult);
+		
+		
+		int result = 0;
+		if(adoptResult>0 && pictureResult == pictureList.size()) {
+			result = 1;
+		}
 		return result;
 	}
 

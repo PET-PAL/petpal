@@ -166,6 +166,10 @@
 									<td><input type="text" name="adoptWeight" id="ownerName" style="width: 80px; background: #F1FAF8;"  >  KG</td>
 								</tr>
 								<tr>
+									<td>색상</td>
+									<td><input type="text" name="adoptColor" id="ownerName" style="width: 80px; background: #F1FAF8;"  >  </td>
+								</tr>
+								<tr>
 									<td>사는곳</td>
 									<td><input type="text" name="address" id="ownerName" style="width: 180px; background: #F1FAF8;" placeholder="예시) 서울시 강남구" ></td>
 								</tr>

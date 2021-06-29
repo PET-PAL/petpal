@@ -18,6 +18,7 @@ public class AdoptDTO {
 	private Date boardDate;
 	private int userCode;
 	private String dogOrcat;
+	private String address;
 	
 	
 	public AdoptDTO() {}
@@ -25,7 +26,7 @@ public class AdoptDTO {
 
 	public AdoptDTO(int boardCode, String adoptBreed, String adoptGender, int adoptAge, int adoptWeight,
 			String adoptColor, String adoptIntroduce, String adoptPhone, String adoptCaution, String deleteYN,
-			int stateCode, Date boardDate, int userCode, String dogOrcat) {
+			int stateCode, Date boardDate, int userCode, String dogOrcat, String address) {
 		super();
 		this.boardCode = boardCode;
 		this.adoptBreed = adoptBreed;
@@ -41,6 +42,7 @@ public class AdoptDTO {
 		this.boardDate = boardDate;
 		this.userCode = userCode;
 		this.dogOrcat = dogOrcat;
+		this.address = address;
 	}
 
 
@@ -184,16 +186,25 @@ public class AdoptDTO {
 	}
 
 
+	public String getAddress() {
+		return address;
+	}
+
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+
 	@Override
 	public String toString() {
 		return "AdoptDTO [boardCode=" + boardCode + ", adoptBreed=" + adoptBreed + ", adoptGender=" + adoptGender
 				+ ", adoptAge=" + adoptAge + ", adoptWeight=" + adoptWeight + ", adoptColor=" + adoptColor
 				+ ", adoptIntroduce=" + adoptIntroduce + ", adoptPhone=" + adoptPhone + ", adoptCaution=" + adoptCaution
 				+ ", deleteYN=" + deleteYN + ", stateCode=" + stateCode + ", boardDate=" + boardDate + ", userCode="
-				+ userCode + ", dogOrcat=" + dogOrcat + "]";
+				+ userCode + ", dogOrcat=" + dogOrcat + ", address=" + address + "]";
 	}
-	
-	
 
+	
 
 }

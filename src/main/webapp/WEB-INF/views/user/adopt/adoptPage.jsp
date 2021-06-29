@@ -112,6 +112,7 @@
                                          <div class="col-sm-3" id="adoptlistList">
                                              <div class="port_item xs-m-top-30">
                                                  <div class="port_img" style="position: relative;">
+                                                 	<input type="hidden" id="boardCode" value="3"/>
                                                  	<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">대기중</p>
                                                  	<!-- <p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">완료</p> -->
                                                      <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
@@ -135,28 +136,8 @@
                                                  </div>
                                              </div>
                                          </div>
-                                         <div class="col-sm-3">
-                                             <div class="port_item xs-m-top-30">
-                                                 <div class="port_img">
-                                                     <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                 </div>
-                                                 <div class="port_caption m-top-20" align="center">
-                                                     <h4>코리안숏헤어/수컷/턱시도</h4>
-                                                     <h6>서울특별시 강남구 xx동</h6>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                         <div class="col-sm-3">
-                                             <div class="port_item xs-m-top-30">
-                                                 <div class="port_img">
-                                                     <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                 </div>
-                                                 <div class="port_caption m-top-20" align="center">
-                                                     <h4>코리안숏헤어/수컷/치즈태비</h4>
-                                                     <h6>서울특별시 강남구 xx동</h6>
-                                                 </div>
-                                             </div>
-                                         </div>
+                                       
+                                         
                                      </div>
                                  </div>
                              </div>
@@ -246,11 +227,18 @@
 		     				const adoptList = JSON.parse(data.adoptList); */
 		     				
 		     			},error:function(xhr,status,error){
-		     				alert("에러 발행~삐뽀~");
+		     				alert("에러 발생~삐뽀~");
 		     				console.log(error);
 		     			}
 		     		});
-		     	});
+		     	}); 
+		     	
+		     	
+				$("#adoptlistList > div").click(function(){
+					const no = $(this).find("#boardCode").val();
+					console.log(no);
+					location.href = "${ pageContext.servletContext.contextPath }/user/adopt/detail?no="+ no;
+				});
 		     </script>  
             </section>
              

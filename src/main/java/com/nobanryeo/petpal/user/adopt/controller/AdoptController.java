@@ -115,7 +115,7 @@ public class AdoptController {
 //		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
 		
 		//세선값 넣기
-		adopt.setUserCode(5);
+		adopt.setUserCode(4);
 		System.out.println("controller adopt: "+adopt);
 		System.out.println("controller picture: "+picture);
 		
@@ -151,8 +151,8 @@ public class AdoptController {
 		}
 		System.out.println(files);
 		/* 파일을 저장한다,*/
+		List<PictureDTO> pictureList = new ArrayList<>();
 		try {
-			
 			for(int i =0; i<picture.size();i++) {
 				
 				Map<String,String> file= files.get(i);
@@ -165,6 +165,9 @@ public class AdoptController {
 				pictureDTO.setPictureName(file.get("originFileName"));
 				pictureDTO.setPictureDeleteYN("N");
 				pictureDTO.setPictureURL(file.get("filePath"));
+				pictureDTO.setPictureNewName(file.get("saveName"));
+				
+				pictureList.add(pictureDTO);
 			}
 			mv.addObject("message", "파일업로드 성공!!!");
 		}catch(Exception e) {
@@ -182,14 +185,6 @@ public class AdoptController {
 		
 		}
 		
-		PictureDTO pictureDTO = new PictureDTO();
-		pictureDTO.setPictureDeleteYN("N");
-		//pictureDTO.setPictureName(f);
-		
-		List<PictureDTO> pictureList = new ArrayList<>();
-	
-		
-	
 		/* Exception 핸들러 동작 확인 */
 //		boolean test = true;
 //		if(test) {
@@ -205,5 +200,11 @@ public class AdoptController {
 		}
 		mv.setViewName("jsonView");
 		return mv;
+	}
+	
+	
+	@GetMapping("adopt/detail")
+	public String selectAdoptDetail() {
+		return "user/adopt/adoptDetail";
 	}
 }
