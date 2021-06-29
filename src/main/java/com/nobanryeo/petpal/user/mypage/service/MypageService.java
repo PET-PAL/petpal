@@ -1,5 +1,9 @@
 package com.nobanryeo.petpal.user.mypage.service;
 
-public class MypageService {
+import com.nobanryeo.petpal.user.dto.UserInfoDTO;
+
+public interface MypageService {
+
+	boolean updateUserInfo(UserInfoDTO userInfo);
 
 }
