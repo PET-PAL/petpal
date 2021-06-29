@@ -14,6 +14,8 @@ public interface UserAdService {
 	public AdDTO selectAdApplyDetail(AdDTO adDTO);
 
 	public int insertAdQnA(AdQnADTO adQnA);
+
+	public int insertAdSubmit(AdDTO adDTO);
 	
 
 }

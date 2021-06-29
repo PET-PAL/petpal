@@ -107,4 +107,46 @@
 	 	       )
 	</insert>
 	
+	<insert id="insertAdSubmit" parameterType="AdDTO">
+		INSERT ALL
+		  INTO PICTURE_TABLE
+		VALUES ( PIC_CODE_SEQ.NEXTVAL
+		       , PICTURE_NAME
+			   , PICTURE_URL
+               , PICTURE_UPLOAD_DATE
+               , PICTURE_DELETE_YN
+               , PICTURE_NEW_NAME
+               , PICTURE_UTIL_PATH
+		       )
+		  INTO AD_APPLY_TABLE
+		VALUES ( AD_CODE_SEQ.NEXTVAL
+		       , #{ companyName }
+		       , SYSDATE
+		       , #{ companyNumber }
+		       , #{ companyPhone }
+		       , #{ companyEmail }
+		       , #{ adContent }
+		       , 'N'
+		       , 'N'
+		       , NULL
+		       , PIC_CODE_SEQ.CURRVAL
+		       , NULL
+		       , #{ userCode }
+		       , #{ adTypeCode }
+		       , #{ adTitle }
+		       , NULL
+		       , NULL
+		       , NULL
+		       , NULL
+		       , NULL
+		       , 1
+		       , #{ leaderName }
+		       , #{ companyLocation }
+		       , #{ industry }
+		       , #{ industryDetail }
+		       )
+		SELECT *
+		  FROM DUAL
+	</insert>
+	
 </mapper>

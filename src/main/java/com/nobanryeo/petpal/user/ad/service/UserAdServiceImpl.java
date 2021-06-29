@@ -52,4 +52,10 @@ public class UserAdServiceImpl implements UserAdService {
 		return adMapper.insertAdQnA(adQnA);
 	}
 
+	@Override
+	public int insertAdSubmit(AdDTO adDTO) {
+
+		return adMapper.insertAdSubmit(adDTO);
+	}
+
 }
