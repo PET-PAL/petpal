@@ -54,7 +54,21 @@ public interface UserMapper {
 	 */
 	String selectUserId(String email);
 	
+	/**
+	 * 비밀번호 변경
+	 * @param userInfo
+	 * @return
+	 */
 	int modifyPwd(UserInfoDTO userInfo);
+
+	/**
+	 * 닉네임 변경
+	 * @param userInfo
+	 * @return 결과여부 0 1
+	 */
+	int updateNick(UserInfoDTO userInfo);
+
+	int updateEmail(UserInfoDTO userInfo);
 
 	
 

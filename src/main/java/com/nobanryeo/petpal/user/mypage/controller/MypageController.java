@@ -1,5 +1,9 @@
 package com.nobanryeo.petpal.user.mypage.controller;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -8,6 +12,8 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -122,6 +128,46 @@ public class MypageController {
 		
 		return gson.toJson(result);
 		
+	}
+	
+	@PostMapping("updateNick")
+	public String updateNick(@ModelAttribute UserInfoDTO userInfo, RedirectAttributes rttr, HttpServletRequest request) {
+		System.out.println("변경을 시도하는 아이디 : " + userInfo.getId());
+		System.out.println("변경할 닉네임 : " + userInfo.getNikname());
+		
+		int result = userService.updateNick(userInfo);
+		UserInfoDTO loginUser = userService.selectNewUserInfo(userInfo);
+		
+		if(result > 0) {
+			rttr.addFlashAttribute("message", "닉네임 변경에 성공했습니다.");
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", loginUser);
+		} else {
+			rttr.addFlashAttribute("message", "닉네임 변경에 실패했습니다.");
+		}
+		
+		return "redirect:/mypage/account";
+	}
+	
+	@PostMapping("updateEmail")
+	public String updateEmail(@ModelAttribute UserInfoDTO userInfo, RedirectAttributes rttr, HttpServletRequest request) {
+		System.out.println("변경을 시도하는 아이디 : " + userInfo.getId());
+		System.out.println("변경할 이메일 : " + userInfo.getEmail());
+		
+		int result = userService.updateEmail(userInfo);
+		UserInfoDTO loginUser = userService.selectNewUserInfo(userInfo);
+		
+		if(result > 0) {
+			rttr.addFlashAttribute("message", "이메일 변경에 성공했습니다.");
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", loginUser);
+		} else {
+			rttr.addFlashAttribute("message", "이메일 변경에 실패했습니다.");
+		}
+		
+		return "redirect:/mypage/account";
 	}
 	
 	

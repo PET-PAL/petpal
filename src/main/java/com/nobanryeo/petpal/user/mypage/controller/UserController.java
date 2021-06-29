@@ -163,8 +163,8 @@ public class UserController {
 	 * @return
 	 */
 	@PostMapping("login")
-	public ModelAndView userLogin(@ModelAttribute UserInfoDTO userInfo, 
-			HttpServletRequest request, ModelAndView mv) {
+	public String userLogin(@ModelAttribute UserInfoDTO userInfo, 
+			HttpServletRequest request, RedirectAttributes rttr) {
 		
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
@@ -182,32 +182,24 @@ public class UserController {
 		
 		if(loginUser == null) {
 			System.out.println("정보 불일치 조건문에 들어왔습니다.");
-			
-			request.setAttribute("message", "아이디와 비밀번호가 일치하지 않습니다.");
-//			mv.addObject("failMessage", "아이디와 비밀번호가 일치하지 않습니다.");
-			mv.setViewName("common/login");
+			rttr.addFlashAttribute("message", "아이디와 비밀번호가 일치하지 않습니다.");
+			return "redirect:/user/login";
 	
 		} else {
 			
 			if(loginUser != null && loginUser.getReportCount() >= 3) {
-				
 				System.out.println("차단유저 조건문에 들어왔습니다.");
-				
-				mv.addObject("message", "이용약관에 의한 경고 횟수 초과로 인하여 차단 된 사용자입니다.\n문의사항은 고객센터(02-7777-7777)로 문의바랍니다.");
-				mv.setViewName("common/login");
-				
-				
+				rttr.addFlashAttribute("message", "이용약관에 의한 경고 횟수 초과로 인하여 차단 된 사용자입니다. 문의사항은 고객센터(02-7777-7777)로 문의바랍니다.");
+				return "redirect:/user/login";
 			} else {
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", loginUser);
 				
-				mv.setViewName("redirect:/");
-				
+				return "redirect:/";
 				
 			}
 		}
-		return mv;
 	}
 	
 	/**
@@ -244,6 +236,12 @@ public class UserController {
 		return gson.toJson(findId);
 	}
 	
+	/**
+	 * 임시비밀번호 발급 컨트롤러
+	 * @param userInfo
+	 * @param response
+	 * @throws Exception
+	 */
 	@PostMapping(value = "findPwd", produces = "application/json; charset=UTF-8")
 	public void findUserPwd(@ModelAttribute UserInfoDTO userInfo, HttpServletResponse response) throws Exception {
 		System.out.println("입력된 email : " + userInfo.getEmail());
