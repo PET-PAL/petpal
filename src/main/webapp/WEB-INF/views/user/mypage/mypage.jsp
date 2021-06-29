@@ -112,19 +112,19 @@
 
                 <div>
                     <ul>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/account'" class="message" style="margin-top: 30px;">계정 관리</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/message'" class="account">쪽지 확인</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/boardCommentList'" class="borad">내가 쓴 게시글, 댓글</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/qnaReportList'" class="qna">문의, 신고 내역</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/mypage/account'" class="message" style="margin-top: 30px;">계정 관리</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/mypage/message'" class="account">쪽지 확인</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/mypage/boardCommentList'" class="borad">내가 쓴 게시글, 댓글</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/mypage/qnaReportList'" class="qna">문의, 신고 내역</button></li>
                         <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/list'" class="advertising">광고 내역</button></li>
-                        <li style="margin-bottom: 50px; margin-top: 10px;"><a href="" class="logout" style="color: gray;">로그아웃</a></li>
+                        <li style="margin-bottom: 50px; margin-top: 10px;"><a href="${ pageContext.servletContext.contextPath }/user/logout" class="logout" style="color: gray;">로그아웃</a></li>
                     </ul>
                     
                 </div>
                 
             </section> <!--End off Home Sections-->
             
-                <c:if test="${ sessionScope.userInfo.permisson == 2 || sessionScope.userInfo.permisson == 3 }">
+                <c:if test="${ sessionScope.userInfo.permisson eq 2 || sessionScope.userInfo.permisson eq 3 }">
                 <div>
                 	<a href="${ pageContext.servletContext.contextPath }/views/admin/main/manager_main.jsp"><img src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png" style="width: 30px; height: 30px; margin-left: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
                 </div>

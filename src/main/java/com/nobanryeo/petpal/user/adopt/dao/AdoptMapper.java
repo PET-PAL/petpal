@@ -13,5 +13,10 @@ public interface AdoptMapper {
 	int registerAdopt(AdoptDTO adopt);
 
 	int registPicture(PictureDTO picture);
+
+	int selectBoardCode();
+	
+	int registSubTable(PictureDTO picture);
+
 	
 }

@@ -3,6 +3,10 @@
   PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-config.dtd">
  <configuration>
+  	<settings>
+ 		<setting name="jdbcTypeForNull" value="NULL"/>
+ 	</settings>
+ 
  	<typeAliases>
  		<typeAlias alias="UserInfoDTO" type="com.nobanryeo.petpal.user.dto.UserInfoDTO"/>
  	
@@ -28,8 +32,5 @@
  		<typeAlias alias="AdminPageInfoDTO" type="com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO"/>
  		<typeAlias alias="SearchCriteria" type="com.nobanryeo.petpal.admin.dto.SearchCriteria"/>
  		
- 		
  	</typeAliases>
- 
- 
  </configuration>

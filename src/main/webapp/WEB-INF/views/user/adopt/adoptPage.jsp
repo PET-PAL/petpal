@@ -108,22 +108,9 @@
                          <div class="carousel-inner" role="listbox">
                              <div class="item active">
                                  <div class="container">
-                                     <div class="row">
-                                         <div class="col-sm-3" id="adoptlistList">
-                                             <div class="port_item xs-m-top-30">
-                                                 <div class="port_img" style="position: relative;">
-                                                 	<input type="hidden" id="boardCode" value="3"/>
-                                                 	<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">대기중</p>
-                                                 	<!-- <p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">완료</p> -->
-                                                     <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                 </div>
-                                                 <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-                                                     <h4><a href="${ pageContext.servletContext.contextPath }/views/user/adopt/adoptDetail.jsp">차이니즈 크레스티드/수컷/커피색</a></h4>
-                                                     <h6>서울특별시 강남구 xx동</h6>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                         <div class="col-sm-3">
+                                     <div class="row" id="adoptlistList">
+                                         
+                                      <%--    <div class="col-sm-3">
                                              <div class="port_item xs-m-top-30">
                                                  <div class="port_img">
                                                  	<!-- <p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">대기중</p> -->
@@ -135,65 +122,14 @@
                                                      <h6>서울특별시 xx구 xx동</h6>
                                                  </div>
                                              </div>
-                                         </div>
+                                         </div> --%>
                                        
                                          
                                      </div>
                                  </div>
                              </div>
                           </div>
-                          <div class="carousel-inner" role="listbox">
-                             <div class="item active">
-                                 <div class="container">
-                                     <div class="row">
-                                         <div class="col-sm-3">
-                                             <div class="port_item xs-m-top-30">
-                                                 <div class="port_img">
-                                                     <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                 </div>
-                                                 <div class="port_caption m-top-20" align="center">
-                                                     <h4>차이니즈 크레스티드/수컷/커피색</h4>
-                                                     <h6>서울특별시 강남구 xx동</h6>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                         <div class="col-sm-3">
-                                             <div class="port_item xs-m-top-30">
-                                                 <div class="port_img">
-                                                     <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                 </div>
-                                                 <div class="port_caption m-top-20" align="center">
-                                                     <h4>초코푸들/암컷/갈색</h4>
-                                                     <h6>서울특별시 xx구 xx동</h6>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                         <div class="col-sm-3">
-                                             <div class="port_item xs-m-top-30">
-                                                 <div class="port_img">
-                                                     <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                 </div>
-                                                 <div class="port_caption m-top-20" align="center">
-                                                     <h4>코리안숏헤어/수컷/턱시도</h4>
-                                                     <h6>서울특별시 강남구 xx동</h6>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                         <div class="col-sm-3">
-                                             <div class="port_item xs-m-top-30">
-                                                 <div class="port_img">
-                                                     <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                 </div>
-                                                 <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-                                                     <h4>코리안숏헤어/수컷/치즈태비</h4>
-                                                     <h6>서울특별시 강남구 xx동</h6>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-                                 </div>
-                             </div>
-                          </div>
+                          
                     <div class="text-center">
 						<ul class="pagination">
 							<li><a href="#"><</a></li>
@@ -215,16 +151,42 @@
 		     			success:function(data,status,xhr){
 		     				const adoptList = JSON.parse(data.adoptList);
 		     				console.table(adoptList);
-		     				console.log(adoptList);
-		     			
-		     				/* console.table(adoptList);
-		                    console.log(result[0]['adoptBreed']);
-		                     */
-		                    
-		                
-		     		/* 		console.log(JSON.parse(data.adoptList).response.body.items.item[0]);
+		     				output='';
 		     				
-		     				const adoptList = JSON.parse(data.adoptList); */
+		     				$.each(adoptList,function(){
+			     				var statusName = this.stateName;
+			     				var gender = this.adoptGender;
+			     				console.log(statusName);
+			     				
+		     					output += '<div class="col-sm-3">';
+		     					output += '<div class="port_item xs-m-top-30">';
+		     					output += '<div class="port_img" style="position: relative;">';
+		     					output += '<input type="hidden" id="boardCode" value=this.boardCode/>';
+		     					if(statusName == '대기'){
+		     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
+		     					}
+		     					if(statusName == '승인'){
+		     						output+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
+		     					}
+		     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
+		     					output += '</div>';
+		     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+		     					if(gender == 'M'){
+		     						output += '<h4>'+this.adoptBreed+'/수컷/'+this.adoptColor+'</h4>';
+		     					}
+		     					if(gender == 'F'){
+		     						output += '<h4>'+this.adoptBreed+'/암컷/'+this.adoptColor+'</h4>';
+		     					}
+		     					output += '<h6>'+this.userAddress+'</h6>';
+		     					output += '</div>';
+		     					output += '</div>';
+		     					output += '</div>';
+                                    
+                             
+		     				});
+		     				
+		     				$('#adoptlistList').append(output);
+		                
 		     				
 		     			},error:function(xhr,status,error){
 		     				alert("에러 발생~삐뽀~");
