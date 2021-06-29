@@ -8,8 +8,9 @@ import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
 
 public interface AdAdminMapper {
 
-	int selectAdApply();
+	int selectAdApply(AdminPageInfoDTO cat);
 	
+	//List<AdAdminDTO> selectAdApproveList(AdminPageInfoDTO paging, String category);
 	List<AdAdminDTO> selectAdApproveList(AdminPageInfoDTO paging);
 	//List<AdAdminDTO> selectAdApproveList();
 
@@ -26,6 +27,7 @@ public interface AdAdminMapper {
 	//int insertAdApprove(String decisionReason, int stateCode, int adCode);
 
 	int updateAdApprove(Map param);
+
 
 
 

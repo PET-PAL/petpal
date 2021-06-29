@@ -10,9 +10,8 @@
 		<result column="BOARD_CONTENT" property="boardContent" />
 		<result column="QUESTION_TYPE" property="questionType" />
 		<result column="BOARD_POST_DATE" property="postDate" />
-		<result column="ADMIN_REPLY_CONTENT" property="reply" />
-		<result column="STATE_CODE" property="stateCode" />
-		<result column="USER_CODE" property="userCode" />
+		<result column="USER_ID" property="userId" />
+		<result column="STATE_NAME" property="state" />
 	</resultMap>
 <resultMap id="askDetailSet" type="AskDetailDTO">
 		<id column="BOARD_CODE" property="boardCode" />
@@ -24,19 +23,44 @@
 		<result column="ADMIN_REPLY_CONTENT" property="replyContent" />
 		
 	</resultMap>
-		
+	<select id="selectListCount" resultType="int">
+	   SELECT COUNT(*) FROM QUESTION_BOARD
+	
+	</select>	
 	
 	<select id="selectList" resultMap="askResultSet" parameterType="AskDTO">
-		        SELECT 
-		    BOARD_CODE,
-		    BOARD_TITLE,
-		    BOARD_CONTENT,
-		    QUESTION_TYPE,
-		    BOARD_POST_DATE,
-		    ADMIN_REPLY_CONTENT,
-		    STATE_CODE,
-		    USER_CODE
-		FROM QUESTION_BOARD
+			SELECT
+            A.RNUM,
+            A.BOARD_CODE,
+            A.BOARD_TITLE,
+		    A.BOARD_CONTENT,
+		    A.QUESTION_TYPE,
+		    A.BOARD_POST_DATE,
+		    A.STATE_NAME,
+		    A.USER_ID
+            FROM (SELECT ROWNUM RNUM,
+                                B.BOARD_CODE,
+                                B.BOARD_TITLE,
+                                B.BOARD_CONTENT,
+                                B.QUESTION_TYPE,
+                                B.BOARD_POST_DATE,
+                                B.STATE_NAME,
+                                B.USER_ID
+                                FROM (SELECT 
+                                            C.BOARD_CODE,
+                                		    C.BOARD_TITLE,
+                                            C.BOARD_CONTENT,
+                                            C.QUESTION_TYPE,
+                                            C.BOARD_POST_DATE,
+                                            D.STATE_NAME,
+                                            E.USER_ID
+                                            FROM QUESTION_BOARD C
+                                            JOIN STATE_TABLE D ON(C.STATE_CODE = D.STATE_CODE)
+                                            JOIN USER_TABLE E ON(C.USER_CODE = E.USER_CODE)
+                                            ORDER BY C.BOARD_CODE DESC
+                                    )B
+                        )A
+                        WHERE A.RNUM BETWEEN #{start} AND #{end}
 	</select>
 		<select id="selectListDetail" resultMap="askDetailSet" parameterType="AskDetailDTO">
 			SELECT

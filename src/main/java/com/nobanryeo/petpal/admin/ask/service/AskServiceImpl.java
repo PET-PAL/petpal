@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.admin.ask.dao.AskMapper;
+import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
 import com.nobanryeo.petpal.admin.dto.AskDTO;
 import com.nobanryeo.petpal.admin.dto.AskDetailDTO;
 @Service
@@ -19,10 +20,10 @@ public class AskServiceImpl implements AskService{
 	
 	
 	@Override
-	public List<AskDTO> selectAsk() {
+	public List<AskDTO> selectAsk(AdminPageInfoDTO paging) {
 		// TODO Auto-generated method stub
 		
-		return mapper.selectList();
+		return mapper.selectList(paging);
 	}
 
 
@@ -30,6 +31,13 @@ public class AskServiceImpl implements AskService{
 	public AskDetailDTO selectListDetail(int boardCode) {
 		// TODO Auto-generated method stub
 		return mapper.selectListDetail(boardCode);
+	}
+
+
+	@Override
+	public int selectListCount() {
+		// TODO Auto-generated method stub
+		return mapper.selectListCount();
 	}
 
 }

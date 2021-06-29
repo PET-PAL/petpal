@@ -145,7 +145,7 @@
                     <table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
 						<tr>
 							<td>아이디</td>
-							<td><input type="text" id="userId" placeholder="영문 대소문자와 숫자 4~12자리" name="userId" required></td>
+							<td><input type="text" id="id" placeholder="영문 대소문자와 숫자 4~12자리" name="id" required></td>
 							<td>
 							<input type="hidden" id="idCheck" name="idCheck" value="fail">
 							<button onclick="return duplicationCheck()" type="button">중복확인</button>
@@ -159,11 +159,11 @@
 						</tr>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" name="userName" id="userName" placeholder="이름을 입력하세요" required></td>
+							<td><input type="text" name="name" id="name" placeholder="이름을 입력하세요" required></td>
 						</tr>
 						<tr>
 							<td>닉네임</td>
-							<td><input type="text" id="userNickName" name="userNickName" placeholder="닉네임을 입력하세요" required></td>
+							<td><input type="text" id="nikname" name="nikname" placeholder="닉네임을 입력하세요" required></td>
 	                        <td>
 	                        <input type="hidden" id="nameCheck" name="nameCheck" value="fail">
 	                        <button onclick="return duplicationNickCheck()" type="button">중복확인</button>
@@ -177,7 +177,7 @@
 						</tr>
 						<tr>
 							<td>비밀번호</td>
-							<td><input type="password" name="userPwd" id="userPwd" placeholder="비밀번호를 입력하세요" required></td>
+							<td><input type="password" name="pwd" id="userPwd" placeholder="비밀번호를 입력하세요" required></td>
 						</tr>
 						<tr>
 							<td>비밀번호 확인</td>
@@ -185,11 +185,11 @@
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input type="text" id="userPhone" name="userPhone" placeholder="전화번호 입력하세요" required></td>
+							<td><input type="text" id="phone" name="phone" placeholder="전화번호 입력하세요" required></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="text" id="userEmail" name="userEmail" placeholder="이메일 입력하세요" required></td>
+							<td><input type="text" id="email" name="email" placeholder="이메일 입력하세요" required></td>
 	                        <td>
 	                        <input type="hidden" id="emailCheck" name="emailCheck" value="fail">
 	                        <button onclick="return duplicationEmailCheck()" type="button">중복확인</button>
@@ -204,19 +204,19 @@
 	                    <tr>
 	                    	<td>뉴스레터 이메일 수신 동의</td>
 	                    	<td>
-	                    	<label name="newsletter" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
-	                    	<input type="radio" id="newsletter" name="newsletter" style="width: 15px;" value="Y" checked> 동의</label>
-	                    	<label name="newsletter" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
-	                    	<input type="radio" id="newsletter" name="newsletter" style="width: 15px;" value="N"> 거절</label>
+	                    	<label name="emailYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="Y" checked> 동의</label>
+	                    	<label name="emailYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="N"> 거절</label>
 	                    	</td>
 	                    </tr>	
 	                    <tr>
 	                    	<td>댓글알림 이메일 수신 동의</td>
 	                    	<td>
-	                    	<label name="notion" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
-	                    	<input type="radio" id="notion" name="notion" style="width: 15px;" value="Y" checked> 동의</label>
-	                    	<label name="notion" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
-	                    	<input type="radio" id="notion" name="notion" style="width: 15px;" value="N"> 거절</label>
+	                    	<label name="replyYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="replyYn" name="replyYn" style="width: 15px;" value="Y" checked> 동의</label>
+	                    	<label name="replyYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="replyYn" name="replyYn" style="width: 15px;" value="N"> 거절</label>
 	                    	</td>
 	                    </tr>	
 	                    <tr style="height: 150px;">
@@ -363,11 +363,11 @@
 	<script>
 		function duplicationCheck(){
 			
-			var idCheck = document.getElementById("userId");
+			var idCheck = document.getElementById("id");
 			
-			var userId = $('#userId').val();
-			console.log(userId);
-			if(userId == ''){
+			var id = $('#id').val();
+			console.log(id);
+			if(id == ''){
 				alert('아이디를 입력해주세요.');
 				$("#hiddenMessage").css("display", "none");
 				idCheck.value = "";
@@ -375,10 +375,10 @@
 				return;
 			}
 			
-			/* userId 유효성 검사 */
+			/* id 유효성 검사 */
 			var idRegExp = /^[a-zA-z0-9]{4,12}$/; //4~12자의 영문 대소문자와 숫자
 			
-	        if (!idRegExp.test(userId)) {
+	        if (!idRegExp.test(id)) {
 	        	
 	            alert("아이디는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
 	            $("#hiddenMessage").css("display", "none");
@@ -390,7 +390,7 @@
 			$.ajax({
 				url:"${pageContext.servletContext.contextPath}/user/registIdChk",
 				type:"post",
-				data:{userId:userId},
+				data:{id:id},
 				success:function(data){
 					
 					console.log(data);
@@ -435,13 +435,13 @@
 	<script>
 		function duplicationNickCheck(){
 			
-			var nameCheck = document.getElementById("userNickName");
-			var userNickName = $('#userNickName').val();
+			var nameCheck = document.getElementById("nikname");
+			var nikname = $('#nikname').val();
 			
-			console.log(userNickName);
+			console.log(nikname);
 			
 			//공백체크
-			if(userNickName == ''){
+			if(nikname == ''){
 				alert('닉네임을 입력해주세요.');
 				$("#hiddenNickMessage").css("display", "none");
 				nameCheck.value = "";
@@ -452,7 +452,7 @@
 			//유효성체크
 			var nickRegExp = /^[a-zA-z0-9가-힣]{2,12}$/; //2~12자의 영문 대소문자와 숫자
 			
-	        if (!nickRegExp.test(userNickName)) {
+	        if (!nickRegExp.test(nikname)) {
 	        	
 	            alert("닉네임에는 특수문자를 포함할 수 없습니다.\n한글, 영어 대소문자, 숫자를 사용한 2~12자리로 입력해야합니다!");
 	            $("#hiddenNickMessage").css("display", "none");
@@ -464,7 +464,7 @@
 	        	$.ajax({
 					url:"${pageContext.servletContext.contextPath}/user/registNickChk",
 					type:"post",
-					data:{userNickName:userNickName},
+					data:{nikname:nikname},
 					success:function(data){
 						
 						console.log(data);
@@ -478,7 +478,7 @@
 								$("#hiddenNickMessage").css("display", "");
 							}
 							
-							$("#checkNickMessage").html("사용할 수 없는 아이디입니다.");
+							$("#checkNickMessage").html("사용할 수 없는 닉네임입니다.");
 							nameCheck.value = "";
 							nameCheck.focus();
 							return;
@@ -511,13 +511,13 @@
 	<script>
 		function duplicationEmailCheck(){
 			
-			var emailCheck = document.getElementById("userEmail");
-			var userEmail = $('#userEmail').val();
+			var emailCheck = document.getElementById("email");
+			var email = $('#email').val();
 			
-			console.log(userEmail);
+			console.log(email);
 			
 			//공백체크
-			if(userEmail == ''){
+			if(email == ''){
 				$("#hiddenEmailMessage").css("display", "none");
 				alert('이메일을 입력해주세요.');
 				return false;
@@ -527,7 +527,7 @@
 			var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
 			//
 			
-	        if (!emailRegExp.test(userEmail)) {
+	        if (!emailRegExp.test(email)) {
 	        	
 	            alert("올바른 이메일 형식이 아닙니다!\n예시) petpal@gmail.com");
 	            $("#hiddenEmailMessage").css("display", "none");
@@ -539,7 +539,7 @@
 	        	$.ajax({
 					url:"${pageContext.servletContext.contextPath}/user/registEmailChk",
 					type:"post",
-					data:{userEmail:userEmail},
+					data:{email:email},
 					success:function(data){
 						
 						console.log(data);
@@ -586,27 +586,27 @@
 
 	function validate(){
 		
-		/* userId 중복체크 확인 */
+		/* id 중복체크 확인 */
 		var idCheck = document.getElementById("idCheck");
 		if(idCheck.value != "success"){
 			alert("아이디 중복체크를 완료해주세요.");
-			userId.focus();
+			id.focus();
 			return false;
 		}
 		
-		/* userNickName 중복체크 확인 */
+		/* nikname 중복체크 확인 */
 		var nickCheck = document.getElementById("nameCheck");
 		if(nickCheck.value != "success"){
 			alert("닉네임 중복체크를 완료해주세요.");
-			userNickName.focus();
+			nikname.focus();
 			return false;
 		}
 		
-		/* userEmail 중복체크 확인 */
+		/* email 중복체크 확인 */
 		var nickCheck = document.getElementById("emailCheck");
 		if(nickCheck.value != "success"){
 			alert("이메일 중복체크를 완료해주세요.");
-			userEmail.focus();
+			email.focus();
 			return false;
 		}
 
@@ -614,7 +614,7 @@
 	  	var password1RegExp = /^[a-zA-z0-9]{4,12}$/;
 	  	var pwd = $('#userPwd').val();
 	  	var pwdCheck = $('#userPwdCheck').val();
-	  	var id = $('#userId').val();
+	  	var id = $('#id').val();
 	  	
 	  	//비밀번호가 영대소문자 4~12가 아닐때
 		if (!password1RegExp.test(pwd)) {
@@ -642,18 +642,18 @@
             return false;
         }
 		
-		/* userName 유효성 검사 */
+		/* name 유효성 검사 */
         var nameRegExp = /^[가-힣]{2,4}$/;
-	  	var name = $('#userName').val();
+	  	var name = $('#name').val();
 		
 	  	if (!nameRegExp.test(name)) {
             alert("이름이 올바르지 않습니다.\n이름은 2글자에서 4글자 형식의 한글이어야 합니다.\n예외적 이름이신 분들은 홈페이지 아래의 전화번호로 연락부탁드립니다.");
             return false;
         }
         
-	  	/* userPhone 유효성 검사 */
+	  	/* phone 유효성 검사 */
 	  	var phoneRegExp = /^01[016789]-[0-9]{3,4}-[0-9]{4}$/;
-	  	var phone = $('#userPhone').val();
+	  	var phone = $('#phone').val();
 	  	
 	  	if(!phoneRegExp.test(phone)){
 	  		alert("전화번호가 올바르지 않습니다.\n전화번호는 01?-[4자리 숫자]-[4자리 숫자] 형식으로 작성하셔야 합니다.\n 예시) 010-[4자리숫자]-[4자리숫자]")

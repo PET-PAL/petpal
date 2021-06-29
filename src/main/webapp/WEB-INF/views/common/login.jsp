@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -182,10 +183,24 @@ li>img {
 
 <body data-spy="scroll" data-target=".navbar-collapse">
 <script>
+	/* window.onload = function(){
 	const message = '${ requestScope.message }';
 	if(message != null && message != '') {
 		alert(message);
-	} 
+	}  */
+	
+	window.onload = function() {
+		console.log("window onload!");
+		
+		//회원가입시 메세지 띄우기
+		const message = '${ requestScope.message }';
+		console.log(message);
+		if(message != null && message != '') {
+			alert(message);
+		}
+		
+	}
+
 </script>
 
 
@@ -212,8 +227,7 @@ li>img {
 
 
 		<section id="loginconfirm" class="login">
-			<form action="${ pageContext.servletContext.contextPath }/user/login"
-				method="post">
+			<form action="${ pageContext.servletContext.contextPath }/user/login" method="post">
 				<div class="loginForm"
 					style="width: 50%; height: 530px; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 50px; margin-bottom: 50px; box-shadow: 3px 3px 3px 3px rgb(204, 204, 204);">
 					<h2 style="text-align: center; color: gray; margin-top: 30px;">로그인</h2>
@@ -254,103 +268,160 @@ li>img {
 	<!-- 아이디찾기 팝업창 -->
 	<div id="findId" class="overlay">
 		<div class="popup">
-			<a href="#none" class="close">&times;</a>
 			<p
-				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">아이디
-				찾기</p>
+				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">아이디 찾기 <label style="float: right;" onclick="location.href=''">X</label></p>
 			<div class="cont-step cont-step_02" id="contStep02"
 				style="display: block;">
 				<div class="cont-step_preface">
 					<hr style="border: 0.5px solid #A8A8A8;">
 				</div>
 				<!-- 이메일 입력 -->
-				<div style="text-align: center; margin-top: 30px;">
-					<input type="text" placeholder="이메일을 입력하세요"
-						style="height: 40px; width: 70%; border-radius: 10px; border: 1px solid;">
+				<div style="text-align: center; margin-top: 30px; display: block;" id="emailState">
+				<label style="color: red; display: none;" id="emailCheck">이메일이 입력되지 않았습니다.</label>
+					<input type="text" placeholder="이메일을 입력하세요" name="email" id="email"
+						style="height: 40px; width: 70%; border-radius: 10px; border: 1px solid;"><br><br>
+					<button class="btn_submit" type="button" onclick="return findId()">아이디 찾기</button>
 				</div>
-
-				<div style="text-align: center; margin-top: 30px;">
-					<button class="btn_submit" onclick="location.href='#findIDID'">아이디
-						찾기</button>
+				<div id="findIDID" style="text-align: center; margin-top: 30px; display: none;">
+				<p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 50px;" id="result"/>
 				</div>
-
+				</div>
+				<script>
+				function findId(){
+					var emailCheck = document.getElementById("email");
+					var email = $('#email').val();
+					
+					//공백체크
+					if(email == ''){
+						
+						$("#emailCheck").css("display", "block");
+						console.log("이메일 안적힘");
+						emailCheck.focus();
+						return false;
+						
+					} else{
+						$.ajax({
+						url:"${pageContext.servletContext.contextPath}/user/findId",
+						type:"post",
+						data:{email:email},
+						success:function(data){
+							
+							console.log(data);
+							
+							if(data != null){
+								$("#emailState").css("display", "none");
+								$("#findIDID").css("display", "");
+								$("#result").html("찾으시는 아이디는 " + data + " 입니다.");
+							} else{
+								$("#emailState").css("display", "none");
+								$("#findIDID").css("display", "block");
+								$("#result").html("찾으시는 아이디가 존재하지 않습니다.");
+							}
+							
+							return;
+								
+							}, error:function(data){
+								alert("오류가 발생했습니다.");
+							}
+						});
+						return false;
+					}
+				}
+				</script>
 			</div>
 		</div>
-	</div>
-
-
-	<!-- 찾은 아이디 팝업창 -->
-	<div id="findIDID" class="overlay">
-		<div class="popup">
-			<p
-				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 50px;">
-				회원님의 아이디는 <b>petpal123</b>입니다.
-			</p>
-			<div style="text-align: center; margin-top: 30px;">
-				<button class="btn_submit" onclick="location.href='#none'">확인</button>
-			</div>
-		</div>
-	</div>
-
-
 
 	<!-- 비밀번호찾기 팝업창 -->
 	<div id="findPwd" class="overlay">
 		<div class="popup">
-			<a href="#none" class="close">&times;</a>
 			<p
-				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">비밀번호
-				찾기</p>
+				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">비밀번호 찾기<label style="float: right;" onclick="location.href=''">X</label></p>
 			<div class="findpwd-content" id="contStep02" style="display: block;">
 				<div class="cont-step_preface">
 					<hr style="border: 0.5px solid #A8A8A8;">
 				</div>
-				<!-- 이메일 입력 -->
-				<div style="text-align: center; margin-top: 30px; width: 80%;">
-					<input type="text" placeholder="이메일을 입력하세요"
-						style="height: 40px; width: 100%; border-radius: 10px; border: 1px solid;">
-				</div>
 				<!-- 아이디 입력 -->
 				<div style="text-align: center; margin-top: 10px; width: 80%;">
-					<input type="text" placeholder="아이디를 입력하세요"
+					<input type="text" placeholder="아이디를 입력하세요" name="id" id="pwdId"
+						style="height: 40px; width: 100%; border-radius: 10px; border: 1px solid; margin-bottom: 20px;">
+				<!-- 이메일 입력 -->
+					<input type="text" placeholder="이메일을 입력하세요" name="email" id="pwdEmail"
 						style="height: 40px; width: 100%; border-radius: 10px; border: 1px solid;">
+					<label style="color: red; display: none;" id="idCheck">아이디와 이메일 모두 입력해주세요.</label>
+					<button class="btn_submit" id="findpwd" type="button" style="margin-top: 30px;">비밀번호 찾기</button>
 				</div>
 				<!-- 인증번호 입력 -->
-				<div style="text-align: center; margin-top: 10px; width: 80%;">
+				<!-- <div style="text-align: center; margin-top: 10px; width: 80%;">
 					<input type="text" placeholder="인증번호를 입력하세요"
 						style="height: 40px; width: 50%; float: left; border-radius: 10px; border: 1px solid;">
 					<span> 01:00 </span>
 					<button class="certification">인증번호 받기</button>
+				</div> -->
+				<!-- 찾은 비밀번호 팝업창 -->
+				<div id="findPwdPwd" class="overlay">
+					<div class="popup">
+						<p
+							style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 50px;">
+							입력하신 이메일로 임시 비밀번호가 발송되었습니다.
+						</p>
+						<div style="text-align: center; margin-top: 30px;">
+							<button class="btn_submit" onclick="location.href=''">확인</button>
+						</div>
+					</div>
 				</div>
-				<br>
-				<div style="text-align: center; margin-top: 30px;">
-					<button class="btn_submit" onclick="location.href='#findPwdPwd'">비밀번호
-						찾기</button>
-				</div>
-
 			</div>
 		</div>
 	</div>
+<script>
+$(function(){
+		
+	$("#findpwd").click(function(){
+		
+		console.log("비밀번호 찾기 펑션 들어옴");
+		var emailCheck = document.getElementById("pwdEmail");
+		var idCheck = document.getElementById("pwdId");
+		
+		var email = $('#pwdEmail').val();
+		var id = $('#pwdId').val();
+		
+		//공백체크
+		if(email == ''){
+			
+			$("#idCheck").css("display", "block");
+			console.log("이메일 안적힘");
+			emailCheck.focus();
+			
+		}
+		
+		if(id == ''){
+			$("#idCheck").css("display", "block");
+			console.log("아이디 안적힘");
+			idCheck.focus();
+		}
+		
+		else{
+			$.ajax({
+			url:"${pageContext.servletContext.contextPath}/user/findPwd",
+			type:"post",
+			data:
+				{
+				id : id,
+				email : email
+				},
+			success:function(result){
+					alert(result);
+				},
+			});
+		});
+	});
+})
+	</script>
 
-
-	<!-- 찾은 비밀번호 팝업창 -->
-	<div id="findPwdPwd" class="overlay">
-		<div class="popup">
-			<p
-				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 50px;">
-				회원님의 비밀번호는 <b>1234</b>입니다.
-			</p>
-			<div style="text-align: center; margin-top: 30px;">
-				<button class="btn_submit" onclick="location.href='#none'">확인</button>
-			</div>
-		</div>
-	</div>
 
 
 
 	<!-- 푸터 -->
 	<jsp:include page="../user/common/footer.jsp" />
 
-	</div>
 </body>
 </html>

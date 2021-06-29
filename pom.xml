@@ -206,12 +206,34 @@
 		    <artifactId>spring-test</artifactId>
 		    <version>4.2.9.RELEASE</version>
 		</dependency>
-	<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
-	<dependency>
-	    <groupId>org.springframework.security</groupId>
-	    <artifactId>spring-security-core</artifactId>
-	    <version>5.3.4.RELEASE</version>
-	</dependency>
+		<!-- https://mvnrepository.com/artifact/org.springframework.security/spring-security-core -->
+		<dependency>
+		    <groupId>org.springframework.security</groupId>
+		    <artifactId>spring-security-core</artifactId>
+		    <version>5.3.4.RELEASE</version>
+		</dependency>
+	
+		<!-- 이메일 인증: https://mvnrepository.com/artifact/javax.mail/mail -->
+		<!-- <dependency>
+			<groupId>javax.mail</groupId>
+			<artifactId>mail</artifactId>
+			<version>1.4.7</version>
+		</dependency> -->
+		
+		<!-- https://mvnrepository.com/artifact/org.springframework/spring-context-support -->
+		<!-- <dependency>
+		    <groupId>org.springframework</groupId>
+		    <artifactId>spring-context-support</artifactId>
+		    <version>5.2.9.RELEASE</version>
+		</dependency> -->
+		
+		<!-- 메일 api -->
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-email</artifactId>
+			<version>1.2</version>
+		</dependency>
+
 	
 	</dependencies>
     <build>
