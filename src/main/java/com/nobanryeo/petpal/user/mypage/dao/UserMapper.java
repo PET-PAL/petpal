@@ -68,6 +68,8 @@ public interface UserMapper {
 	 */
 	int updateNick(UserInfoDTO userInfo);
 
+	int updateEmail(UserInfoDTO userInfo);
+
 	
 
 }

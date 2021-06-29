@@ -131,26 +131,43 @@ public class MypageController {
 	}
 	
 	@PostMapping("updateNick")
-	public ModelAndView updateNick(@ModelAttribute UserInfoDTO userInfo, ModelAndView mv, RedirectAttributes rttr, HttpServletRequest request) {
+	public String updateNick(@ModelAttribute UserInfoDTO userInfo, RedirectAttributes rttr, HttpServletRequest request) {
 		System.out.println("변경을 시도하는 아이디 : " + userInfo.getId());
 		System.out.println("변경할 닉네임 : " + userInfo.getNikname());
 		
 		int result = userService.updateNick(userInfo);
 		UserInfoDTO loginUser = userService.selectNewUserInfo(userInfo);
 		
-		
 		if(result > 0) {
 			rttr.addFlashAttribute("message", "닉네임 변경에 성공했습니다.");
-			mv.setViewName("redirect:/mypage/account");
 			
 			HttpSession session = request.getSession();
 			session.setAttribute("loginUser", loginUser);
 		} else {
-			mv.addObject("message", "닉네임 변경에 실패했습니다.");
-			mv.setViewName("redirect:/mypage/account");
+			rttr.addFlashAttribute("message", "닉네임 변경에 실패했습니다.");
 		}
 		
-		return mv;
+		return "redirect:/mypage/account";
+	}
+	
+	@PostMapping("updateEmail")
+	public String updateEmail(@ModelAttribute UserInfoDTO userInfo, RedirectAttributes rttr, HttpServletRequest request) {
+		System.out.println("변경을 시도하는 아이디 : " + userInfo.getId());
+		System.out.println("변경할 이메일 : " + userInfo.getEmail());
+		
+		int result = userService.updateEmail(userInfo);
+		UserInfoDTO loginUser = userService.selectNewUserInfo(userInfo);
+		
+		if(result > 0) {
+			rttr.addFlashAttribute("message", "이메일 변경에 성공했습니다.");
+			
+			HttpSession session = request.getSession();
+			session.setAttribute("loginUser", loginUser);
+		} else {
+			rttr.addFlashAttribute("message", "이메일 변경에 실패했습니다.");
+		}
+		
+		return "redirect:/mypage/account";
 	}
 	
 	

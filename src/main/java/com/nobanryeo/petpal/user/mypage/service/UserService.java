@@ -73,6 +73,8 @@ public interface UserService {
 
 	UserInfoDTO selectNewUserInfo(UserInfoDTO userInfo);
 
+	int updateEmail(UserInfoDTO userInfo);
+
 	
 
 	

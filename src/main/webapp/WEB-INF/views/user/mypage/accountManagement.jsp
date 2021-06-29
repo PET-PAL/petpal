@@ -210,12 +210,6 @@
 	                        <button onclick="location.href='#nickNameChk'" type="button">중복확인</button>
 	                        </td>
 						</tr>
-						<!-- <tr id="hiddenNickMessage"style="display: none;">
-						<td></td>
-						<td>
-							<p id="checkNickMessage" style="font-size : 20px; color: red;"/>
-						</td>
-						</tr> -->
 						<tr>
 							<td>비밀번호</td>
 							<td><input type="password" name="pwd"  id="userPwd" placeholder="변경할 비밀번호를 입력하세요"></td>
@@ -230,18 +224,11 @@
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="text" id="email" name="email" value="${ sessionScope.loginUser.email }" placeholder="변경할 이메일 입력하세요"></td>
+							<td><input type="text" value="${ sessionScope.loginUser.email }" disabled></td>
 	                        <td>
 	                        <input type="hidden" id="emailCheck" name="emailCheck" value="fail">
-	                        <!-- <button onclick="location.href='#nickNameChk'" type="button">중복확인</button> -->
-	                        <!-- onclick="return duplicationEmailCheck()" -->
+	                        <button onclick="location.href='#emailChk'" type="button">중복확인</button>
 	                        </td>
-						</tr>
-	                    <tr id="hiddenEmailMessage" style="display: none;">
-						<td></td>
-						<td>
-							<p id="checkEmailMessage" style="font-size : 20px; color: red;"/>
-						</td>
 						</tr>
 	                    <tr>
 	                    	<td>뉴스레터 이메일 수신 동의</td>
@@ -310,7 +297,7 @@
 						</div>
 					</div>
 				</div>
-	<!-- 닉네임 중복 팝업창 -->
+<!-- 닉네임 중복 팝업창 -->
 	<div id="nickNameChk" class="overlay">
 		<div class="popup">
 			<p
@@ -321,7 +308,7 @@
 					<hr style="border: 0.5px solid #A8A8A8;">
 				</div>
 				<!-- 닉네임 입력 -->
-				<form action="${ pageContext.servletContext.contextPath }/mypage/updateNick" method="post" id="updateNick" name="form" onsubmit="return nicknameValidate();">
+				<form action="${ pageContext.servletContext.contextPath }/mypage/updateNick" method="post" id="updateNick" name="form">
 				<div style="text-align: center; margin-top: 30px; display: block;" align="center">
 					<input type="text" name="id" value="${ sessionScope.loginUser.id }" style="display: none;">
 					<input type="text" placeholder="닉네임을 입력하세요" name="nikname" id="nickname"
@@ -421,10 +408,32 @@ function duplicationNickCheck(){
     }
 	
 }
-
-
 </script>
 
+<!-- 이메일 중복 팝업창 -->
+	<div id="emailChk" class="overlay">
+		<div class="popup">
+			<p
+				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">이메일 변경하기 <label style="float: right;" onclick="location.href=''">X</label></p>
+			<div class="cont-step cont-step_02" id="contStep02"
+				style="display: block;">
+				<div class="cont-step_preface">
+					<hr style="border: 0.5px solid #A8A8A8;">
+				</div>
+				<!-- 이메일 입력 -->
+				<form action="${ pageContext.servletContext.contextPath }/mypage/updateEmail" method="post" name="form">
+				<div style="text-align: center; margin-top: 30px; display: block;" align="center">
+					<input type="text" name="id" value="${ sessionScope.loginUser.id }" style="display: none;">
+					<input type="text" placeholder="이메일을 입력하세요" name="email" id="email"
+						style="height: 40px; width: 70%; border-radius: 10px; border: 1px solid;"><br><br>
+					<button class="btn_submit" type="button" onclick="return duplicationEmailCheck()">중복확인</button>
+					<button class="btn_submit" type="submit" style="display: none;" id="updateEmail">변경하기</button>
+				<p style="color: red; display: none;" id="hiddenEmailMessage"/>
+				</div>
+				</form>
+				</div>
+			</div>
+		</div>
 <!-- 이메일 중복 테스트 -->
 <script type="text/javascript">
 function duplicationEmailCheck(){
@@ -470,7 +479,11 @@ function duplicationEmailCheck(){
 						$("#hiddenEmailMessage").css("display", "");
 					}
 					
-					$("#checkEmailMessage").html("사용할 수 없는 이메일입니다.");
+					if(($("#updateEmail").css("display") == "block")){
+						$("#updateEmail").css("display", "none");
+					}
+					
+					$("#hiddenEmailMessage").html("사용할 수 없는 이메일입니다.");
 					emailCheck.value = "";
 					emailCheck.focus();
 					return;
@@ -481,7 +494,11 @@ function duplicationEmailCheck(){
 						$("#hiddenEmailMessage").css("display", "");
 					}
 					
-				    $("#checkEmailMessage").html("사용 가능합니다.");
+					if(($("#updateEmail").css("display") == "none")){
+						$("#updateEmail").css("display", "block");
+					}
+					
+				    $("#hiddenEmailMessage").html("사용 가능합니다.");
 				    $("#emailCheck").attr("value","success");
 				    console.log(emailCheck);
 				   

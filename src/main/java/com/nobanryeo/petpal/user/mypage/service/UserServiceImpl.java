@@ -205,6 +205,17 @@ public class UserServiceImpl implements UserService{
 		
 		return mapper.selectUser(userInfo.getId());
 	}
+
+
+	@Override
+	public int updateEmail(UserInfoDTO userInfo) {
+		
+		int result = mapper.updateEmail(userInfo);
+		
+		System.out.println("닉네임 업데이트 성공 여부 : " + result);
+		
+		return result;
+	}
 	
 	
 	

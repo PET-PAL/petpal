@@ -102,6 +102,12 @@
            SET USER_NIKNAME = #{ nikname } 
          WHERE USER_ID  = #{ id }
 	</update>
+	
+	<update id="updateEmail" parameterType="UserInfoDTO">
+		UPDATE USER_TABLE 
+           SET USER_EMAIL = #{ email } 
+         WHERE USER_ID  = #{ id }
+	</update>
 
  </mapper>
 
