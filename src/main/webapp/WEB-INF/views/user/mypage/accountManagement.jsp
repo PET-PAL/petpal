@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -139,6 +140,7 @@
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -175,24 +177,34 @@
             </section>
 
             <section id="accountmanagement" class="accountmanagement">
-                <div style="width: 70%; height: 600px; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
+                <div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
+                <form action="${ pageContext.servletContext.contextPath }/mypage/updateUserInfo" method="post" id="modifyUserInfo" name="form" onsubmit="return validate();">
 					<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
 						<tr>
 							<td>아이디</td>
-							<td><input type="text" value="${ sessionScope.loginUser.id }" disabled></td>
+							<td><input type="text" name="id" value="${ sessionScope.loginUser.id }" disabled></td>
 						</tr>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" value="${ sessionScope.loginUser.name }" disabled></td>
+							<td><input type="text" name="name" value="${ sessionScope.loginUser.name }" disabled></td>
 						</tr>
 						<tr>
 							<td>닉네임</td>
-							<td><input type="text" value="${ sessionScope.loginUser.nikname }" id="userNickName" placeholder="변경할 닉네임을 입력하세요"></td>
-	                        <td><button>중복확인</button></td>
+							<td><input type="text" id="nikname" name="nikname" value="${ sessionScope.loginUser.nikname }" id="nikname" placeholder="변경할 닉네임을 입력하세요" disabled></td>
+	                        <td>
+	                        <input type="hidden" id="nameCheck" name="nameCheck" value="fail">
+	                        <button onclick="location.href='#nickNameChk'" type="button">중복확인</button>
+	                        </td>
 						</tr>
+						<!-- <tr id="hiddenNickMessage"style="display: none;">
+						<td></td>
+						<td>
+							<p id="checkNickMessage" style="font-size : 20px; color: red;"/>
+						</td>
+						</tr> -->
 						<tr>
 							<td>비밀번호</td>
-							<td><input type="password"  id="userPwd" placeholder="변경할 비밀번호를 입력하세요"></td>
+							<td><input type="password" name="pwd"  id="userPwd" placeholder="변경할 비밀번호를 입력하세요"></td>
 						</tr>
 						<tr>
 							<td>비밀번호 확인</td>
@@ -200,33 +212,70 @@
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input type="text" value="${ sessionScope.loginUser.phone }" id="userPhone" placeholder="변경할 전화번호 입력하세요"></td>
+							<td><input type="text" name="phone" value="${ sessionScope.loginUser.phone }" id="userPhone" placeholder="변경할 전화번호 입력하세요"></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="text" id="userEmail" value="${ sessionScope.loginUser.email }" placeholder="변경할 이메일 입력하세요"></td>
-	                        <td><button>중복확인</button></td>
+							<td><input type="text" id="email" name="email" value="${ sessionScope.loginUser.email }" placeholder="변경할 이메일 입력하세요"></td>
+	                        <td>
+	                        <input type="hidden" id="emailCheck" name="emailCheck" value="fail">
+	                        <!-- <button onclick="location.href='#nickNameChk'" type="button">중복확인</button> -->
+	                        <!-- onclick="return duplicationEmailCheck()" -->
+	                        </td>
+						</tr>
+	                    <tr id="hiddenEmailMessage" style="display: none;">
+						<td></td>
+						<td>
+							<p id="checkEmailMessage" style="font-size : 20px; color: red;"/>
+						</td>
 						</tr>
 	                    <tr>
 	                    	<td>뉴스레터 이메일 수신 동의</td>
 	                    	<td>
 	                    	<label name="emailYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
-	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="Y" checked> 동의</label>
+	                    	<c:if test="${sessionScope.loginUser.emailYn eq 'Y'}">
+		                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="Y" checked> 동의
+	                    	</c:if>
+	                   		<c:if test="${sessionScope.loginUser.emailYn eq 'N'}">
+	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="Y"> 동의
+	                   		</c:if>	
+	                    	</label>
+	                    	
 	                    	<label name="emailYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
-	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="N"> 거절</label>
+	                    	<c:if test="${sessionScope.loginUser.emailYn eq 'N'}">
+	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="N" checked> 거절
+	                    	</c:if>
+	                    	<c:if test="${sessionScope.loginUser.emailYn eq 'Y'}">
+	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="N"> 거절
+	                    	</c:if>
+	                    	</label> 
 	                    	</td>
-	                    </tr>	
-	                    <tr>
+	                    	</tr>	
+	                    	<tr>
 	                    	<td>댓글알림 이메일 수신 동의</td>
 	                    	<td>
 	                    	<label name="replyYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
-	                    	<input type="radio" id="replyYn" name="replyYn" style="width: 15px;" value="Y" checked> 동의</label>
+	                    	<c:if test="${sessionScope.loginUser.replyYn eq 'Y'}">
+		                    	<input type="radio" id="replyYn" name="replyYn" style="width: 15px;" value="Y" checked> 동의
+	                    	</c:if>
+	                   		<c:if test="${sessionScope.loginUser.replyYn eq 'N'}">
+	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="Y"> 동의
+	                   		</c:if>	
+	                    	</label>
+	                    	
 	                    	<label name="replyYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
-	                    	<input type="radio" id="replyYn" name="replyYn" style="width: 15px;" value="N"> 거절</label>
+	                    	<c:if test="${sessionScope.loginUser.replyYn eq 'N'}">
+	                    	<input type="radio" id=replyYn name="replyYn" style="width: 15px;" value="N" checked> 거절
+	                    	</c:if>
+	                    	<c:if test="${sessionScope.loginUser.replyYn eq 'Y'}">
+	                    	<input type="radio" id="replyYn" name="replyYn" style="width: 15px;" value="N"> 거절
+	                    	</c:if>
+	                    	</label> 
 	                    	</td>
 	                    </tr>	
 					</table>
-                    <div style="margin: 0px auto; text-align: center;"><button>수정하기</button></div>
+                    <div style="margin: 0px auto; margin-bottom: 2%; text-align: center;"><button type="submit" id=btnSubmit>수정하기</button></div>
+					</form>
 				</div>
             </section>
             
@@ -247,7 +296,171 @@
 						</div>
 					</div>
 				</div>
+	<!-- 닉네임 중복 팝업창 -->
+	<div id="nickNameChk" class="overlay">
+		<div class="popup">
+			<p
+				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">닉네임 변경하기 <label style="float: right;" onclick="location.href=''">X</label></p>
+			<div class="cont-step cont-step_02" id="contStep02"
+				style="display: block;">
+				<div class="cont-step_preface">
+					<hr style="border: 0.5px solid #A8A8A8;">
+				</div>
+				<!-- 이메일 입력 -->
+				<div style="text-align: center; margin-top: 30px; display: block;" id="hiddenNickMessage">
+				<p style="color: red; display: none;" id="nickCheck"/>
+					<input type="text" placeholder="닉네임을 입력하세요" name="nikname" id="nikname"
+						style="height: 40px; width: 70%; border-radius: 10px; border: 1px solid;"><br><br>
+					<button class="btn_submit" type="button" onclick="return duplicationNickCheck()">중복확인</button>
+				</div>
+				<div id="findIDID" style="text-align: center; margin-top: 30px; display: none;">
+				<p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 50px;" id="result"/>
+				</div>
+				</div>
+			</div>
+		</div>
+<!-- 닉네임 중복 테스트 -->
+<script type="text/javascript">
+function duplicationNickCheck(){
+	var nameCheck = document.getElementById("nikname");
+	var nikname = $('#nikname').val();
+	
+	console.log(nikname);
+	
+	//공백체크
+	if(nikname == ''){
+		alert('변경 할 닉네임을 입력해주세요.');
+		$("#hiddenNickMessage").css("display", "none");
+		nameCheck.value = "";
+		nameCheck.focus();
+		return false;
+	}
+	
+	//유효성체크
+	var nickRegExp = /^[a-zA-z0-9가-힣]{2,12}$/; //2~12자의 영문 대소문자와 숫자
+	
+	if (!nickRegExp.test(nikname)) {
+    	
+        alert("닉네임에는 특수문자를 포함할 수 없습니다.\n한글, 영어 대소문자, 숫자를 사용한 2~12자리로 입력해야합니다!");
+        $("#hiddenNickMessage").css("display", "none");
+        nameCheck.value = "";
+        nameCheck.focus();
+        return false;
+    } else {
+    	//중복체크
+    	$.ajax({
+			url:"${pageContext.servletContext.contextPath}/mypage/updateNickChk",
+			type:"post",
+			data:{nikname:nikname},
+			success:function(data){
+				
+				console.log(data);
+				
+				status = $("#hiddenNickMessage").css("display");
+				console.log(status);
+				
+				if (data == "fail"){
 
+					if(status == "none"){
+						$("#hiddenNickMessage").css("display", "");
+					}
+					
+					$("#checkNickMessage").html("사용할 수 없는 닉네임입니다.");
+					nameCheck.value = "";
+					nameCheck.focus();
+					return;
+
+				} else if(data == "success") {
+					
+					if(status == "none"){
+						$("#hiddenNickMessage").css("display", "");
+					}
+					
+				    $("#checkNickMessage").html("사용 가능합니다.");
+				    $("#nameCheck").attr("value","success");
+				    console.log(nameCheck);
+				   
+				    return;
+				}
+			}, error:function(data){
+				console.log(data);
+			}
+		});
+		return false;
+    }
+	
+}
+</script>
+<!-- 이메일 중복 테스트 -->
+<script type="text/javascript">
+function duplicationEmailCheck(){
+	
+	var emailCheck = document.getElementById("email");
+	var email = $('#email').val();
+	
+	console.log(email);
+	
+	//공백체크
+	if(email == ''){
+		$("#hiddenEmailMessage").css("display", "none");
+		alert('이메일을 입력해주세요.');
+		return false;
+	}
+	
+	//유효성체크
+	var emailRegExp = /^[A-Za-z0-9_]+[A-Za-z0-9]*[@]{1}[A-Za-z0-9]+[A-Za-z0-9]*[.]{1}[A-Za-z]{1,3}$/;
+	
+	if (!emailRegExp.test(email)) {
+    	
+        alert("올바른 이메일 형식이 아닙니다!\n예시) petpal@gmail.com");
+        $("#hiddenEmailMessage").css("display", "none");
+        emailCheck.value = "";
+        emailCheck.focus();
+        return false;
+    } else {
+    	//중복체크
+    	$.ajax({
+			url:"${pageContext.servletContext.contextPath}/mypage/updateEmailChk",
+			type:"post",
+			data:{email:email},
+			success:function(data){
+				
+				console.log(data);
+				
+				status = $("#hiddenEmailMessage").css("display");
+				console.log(status);
+				
+				if (data == "fail"){
+
+					if(status == "none"){
+						$("#hiddenEmailMessage").css("display", "");
+					}
+					
+					$("#checkEmailMessage").html("사용할 수 없는 이메일입니다.");
+					emailCheck.value = "";
+					emailCheck.focus();
+					return;
+
+				} else if(data == "success") {
+					
+					if(status == "none"){
+						$("#hiddenEmailMessage").css("display", "");
+					}
+					
+				    $("#checkEmailMessage").html("사용 가능합니다.");
+				    $("#emailCheck").attr("value","success");
+				    console.log(emailCheck);
+				   
+				    return;
+				}
+			}, error:function(data){
+				console.log(data);
+			}
+		});
+		return false;
+    }
+}
+</script>
             
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
@@ -257,3 +470,14 @@
         </div>
         
 </html>
+
+
+
+
+
+
+
+
+
+
+
