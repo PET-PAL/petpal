@@ -67,6 +67,25 @@
 				  )
 			WHERE RN BETWEEN #{start} AND #{end}
 	  </select>
+	  
+	  <!-- 총 광고 심사 검색 갯수 조회 -->
+	  <select id="searchAdApply" resultType="int" parameterType="SearchCriteria">
+		SELECT COUNT(*) 
+		  FROM AD_APPLY_TABLE A
+		  JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
+	   <where>
+		<if test='condition == "adCode"'>
+		 WHERE A.AD_CODE LIKE '%' || '#{ value }' || '%'
+		</if>
+		<if test='condition == "adTitle"'>
+		 WHERE A.AD_TITLE LIKE '%' || '#{ value }' || '%'
+		</if>
+		<if test='category == "name"'>
+		 WHERE B.USER_NAME LIKE '%'|| '#{ value }' || '%'
+		</if>
+	    </where>		
+	  </select>
+	  
 
 	<resultMap id="adApproveDetail" extends="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
 		<!-- 추가적인 속성만 넣으면 됨 -->

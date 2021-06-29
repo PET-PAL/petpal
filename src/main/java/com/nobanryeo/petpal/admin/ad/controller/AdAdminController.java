@@ -79,13 +79,29 @@ public class AdAdminController {
 		return "admin/main/adApproveList";
 	}
 	
-//	/* 광고심사 검색 */
-//    @RequestMapping(value="adApproveList/search", method=RequestMethod.POST)
-//    public String adApproveInsert(Model model) {
-//    	
-//    	
-//    	return "admin/main/adApproveList";
-//    }
+	/* 광고심사 검색 */
+    @RequestMapping(value="adApproveList/search", method=RequestMethod.GET)
+    public String adApproveInsert(Model model, HttpServletRequest req) {
+    	
+    	Map<String, String> param = new HashMap<String, String>();
+    	
+		param.put("condition", req.getParameter("searchCondition"));
+		param.put("value", req.getParameter("searchValue"));
+		param.put("category", req.getParameter("category"));
+		
+		// 검색 조건
+		System.out.println("검색 조건 : " + param.get("condition"));
+		// 검색값
+		System.out.println("검색값 : " + param.get("value"));
+		// 카테고리
+		System.out.println("카테고리 : " + param.get("category"));
+		
+    	// 검색조건, 검색값, 카테고리에 따른 전체 광고 개수
+		int total = adAdminService.searchAdApply(param);
+		
+		
+    	return "admin/main/adApproveList";
+    }
 	
 	/* 광고심사 디테일 */
 	@RequestMapping("adApproveDetail/{adCode}")
