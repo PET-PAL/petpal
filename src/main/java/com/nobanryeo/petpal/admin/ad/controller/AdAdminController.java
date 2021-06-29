@@ -24,7 +24,7 @@ import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
  */
 
 @Controller
-@RequestMapping("/*")   
+@RequestMapping("/admin/*")   
 public class AdAdminController {
 	
 	private AdAdminService adAdminService;
