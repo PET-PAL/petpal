@@ -11,11 +11,12 @@ public class PictureDTO {
 	private String pictureDeleteYN;
 	private String pictureNewName;
 	private int boardCode;
+	private String pictureUtilPath;
 	
 	public PictureDTO() {}
 
 	public PictureDTO(int pictureCode, String pictureName, String pictureURL, Date pictureUploadDate,
-			String pictureDeleteYN, String pictureNewName, int boardCode) {
+			String pictureDeleteYN, String pictureNewName, int boardCode, String pictureUtilPath) {
 		super();
 		this.pictureCode = pictureCode;
 		this.pictureName = pictureName;
@@ -24,6 +25,7 @@ public class PictureDTO {
 		this.pictureDeleteYN = pictureDeleteYN;
 		this.pictureNewName = pictureNewName;
 		this.boardCode = boardCode;
+		this.pictureUtilPath = pictureUtilPath;
 	}
 
 	public int getPictureCode() {
@@ -82,11 +84,20 @@ public class PictureDTO {
 		this.boardCode = boardCode;
 	}
 
+	public String getPictureUtilPath() {
+		return pictureUtilPath;
+	}
+
+	public void setPictureUtilPath(String pictureUtilPath) {
+		this.pictureUtilPath = pictureUtilPath;
+	}
+
 	@Override
 	public String toString() {
 		return "PictureDTO [pictureCode=" + pictureCode + ", pictureName=" + pictureName + ", pictureURL=" + pictureURL
 				+ ", pictureUploadDate=" + pictureUploadDate + ", pictureDeleteYN=" + pictureDeleteYN
-				+ ", pictureNewName=" + pictureNewName + ", boardCode=" + boardCode + "]";
+				+ ", pictureNewName=" + pictureNewName + ", boardCode=" + boardCode + ", pictureUtilPath="
+				+ pictureUtilPath + "]";
 	}
 
 

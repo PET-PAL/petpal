@@ -39,6 +39,11 @@ import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
+/**
+ * @author judyh
+ *
+ */
+
 @Controller
 @RequestMapping("/user/*")
 public class AdoptController {
@@ -60,6 +65,11 @@ public class AdoptController {
 		return "user/adopt/adoptPage";
 	}
 	
+	/**
+	 * @param mv
+	 * @param response
+	 * @return JSON 방법으로 adoptList 호출
+	 */
 	@GetMapping("adoptData")
 	@ResponseBody
 	public ModelAndView selectAdoptMain(ModelAndView mv, HttpServletResponse response) {
@@ -80,37 +90,37 @@ public class AdoptController {
 		
 		return mv;
 	}
-//	@GetMapping(value="adopt",produces = "application/json; charset=UTF-8")
-//	@ResponseBody
-//	public String selectAdoptMain() {
-//		
-//		
-//		response.setContentType("application/json; charset=utf-8");
-//		System.out.println("controller: "+adoptList);
-//		
-//		Gson gson = new GsonBuilder().setPrettyPrinting()
-//				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
-//				.serializeNulls().disableHtmlEscaping().create();
-//		
-//	mv.addObject("adoptList", gson.toJson(adoptList));
-//	mv.setViewName("jsonView");
-//		
-//		return gson.toJson(adoptList);
-//	}
-	
+
+	/**
+	 * @return terms page 호출
+	 */
 	@GetMapping("adopt/terms")
 	public String termsAdopt() {
 		return "user/adopt/terms";
 	}
 	
+	/**
+	 * @return write page 호출
+	 */
 	@GetMapping("adopt/write")
 	public String writeAdoptInfo() {
 		return "user/adopt/adoptBoardWrite";
 	}
 	
-	@PostMapping("adopt/write1")
+
+	/**
+	 * 입양글과 사진 insert method
+	 * @param adopt
+	 * @param mv
+	 * @param request
+	 * @param picture
+	 * @param rttr
+	 * @param session
+	 * @return insert result
+	 */
+	@PostMapping("adopt/write")
 	@ResponseBody
-	public ModelAndView putAdoptInfo(@ModelAttribute AdoptDTO adopt,ModelAndView mv, HttpServletRequest request,@RequestParam(name="picture",required=true) List<MultipartFile> picture, RedirectAttributes rttr, HttpSession session) {
+	public String putAdoptInfo(@ModelAttribute AdoptDTO adopt,Model model, HttpServletRequest request,@RequestParam(name="picture",required=true) List<MultipartFile> picture, RedirectAttributes rttr, HttpSession session) {
 		
 //		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
 		
@@ -145,6 +155,7 @@ public class AdoptController {
 			file.put("originFileName", originFileName);
 			file.put("saveName", saveName);
 			file.put("filePath", filePath);
+			file.put("utilPath", "resources\\uploadFiles\\"+saveName);
 			
 			files.add(file);
 			
@@ -166,10 +177,11 @@ public class AdoptController {
 				pictureDTO.setPictureDeleteYN("N");
 				pictureDTO.setPictureURL(file.get("filePath"));
 				pictureDTO.setPictureNewName(file.get("saveName"));
+				pictureDTO.setPictureUtilPath(file.get("utilPath"));
 				
 				pictureList.add(pictureDTO);
 			}
-			mv.addObject("message", "파일업로드 성공!!!");
+			model.addAttribute("message", "파일업로드 성공!!!");
 		}catch(Exception e) {
 			e.printStackTrace();
 			
@@ -181,7 +193,7 @@ public class AdoptController {
 
 		}
 		
-			mv.addObject("message", "파일업로드 실패!!");
+			model.addAttribute("message", "파일업로드 실패!!");
 		
 		}
 		
@@ -198,8 +210,8 @@ public class AdoptController {
 		}else {
 			rttr.addFlashAttribute("message", "입양글 등록에 실패하셨습니다.");
 		}
-		mv.setViewName("jsonView");
-		return mv;
+		
+		return "redirect:/user/adopt";
 	}
 	
 	
@@ -207,4 +219,6 @@ public class AdoptController {
 	public String selectAdoptDetail() {
 		return "user/adopt/adoptDetail";
 	}
+	
+	
 }

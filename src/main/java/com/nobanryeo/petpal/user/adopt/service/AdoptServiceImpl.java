@@ -37,14 +37,18 @@ public class AdoptServiceImpl implements AdoptService {
 		int adoptResult = adoptMapper.registerAdopt(adopt);
 		System.out.println("adoptResult in service:"+ adoptResult);
 		
+		int boardCodeValue = adoptMapper.selectBoardCode();
+		
+		
 //		int boardCode = adopt.getBoardCode()
 		int pictureResult = 0;
 		for(PictureDTO picture:pictureList) {
+			picture.setBoardCode(boardCodeValue);
 			pictureResult += adoptMapper.registPicture(picture);
 			
 			System.out.println("pictureResult in service:"+ pictureResult);
 			
-			int subresult = adoptMapper.registSubTable();
+			int subresult = adoptMapper.registSubTable(picture);
 			System.out.println("subresult: "+subresult);
 		}
 		

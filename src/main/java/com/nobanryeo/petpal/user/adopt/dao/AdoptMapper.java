@@ -14,6 +14,9 @@ public interface AdoptMapper {
 
 	int registPicture(PictureDTO picture);
 
-	int registSubTable();
+	int selectBoardCode();
+	
+	int registSubTable(PictureDTO picture);
+
 	
 }

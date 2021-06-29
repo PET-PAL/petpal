@@ -6,6 +6,7 @@ public class AdoptPictureManageDTO {
 	private int boardCode;
 	private String adoptBreed;
 	private String adoptGender;
+	private String adoptColor;
 	private String deleteYN;
 	private String stateName;
 	private String dogOrcat;
@@ -16,16 +17,19 @@ public class AdoptPictureManageDTO {
 	private String pictureDeleteYN;
 	private String pictureName;
 	private String pictureNewName;
+	private String pictureUtilPath;
 	
 	public AdoptPictureManageDTO() {}
 
-	public AdoptPictureManageDTO(int boardCode, String adoptBreed, String adoptGender, String deleteYN,
-			String stateName, String dogOrcat, String userAddress, String userCode, int pictureCode, String pictureURL,
-			String pictureDeleteYN, String pictureName, String pictureNewName) {
+	public AdoptPictureManageDTO(int boardCode, String adoptBreed, String adoptGender, String adoptColor,
+			String deleteYN, String stateName, String dogOrcat, String userAddress, String userCode, int pictureCode,
+			String pictureURL, String pictureDeleteYN, String pictureName, String pictureNewName,
+			String pictureUtilPath) {
 		super();
 		this.boardCode = boardCode;
 		this.adoptBreed = adoptBreed;
 		this.adoptGender = adoptGender;
+		this.adoptColor = adoptColor;
 		this.deleteYN = deleteYN;
 		this.stateName = stateName;
 		this.dogOrcat = dogOrcat;
@@ -36,6 +40,7 @@ public class AdoptPictureManageDTO {
 		this.pictureDeleteYN = pictureDeleteYN;
 		this.pictureName = pictureName;
 		this.pictureNewName = pictureNewName;
+		this.pictureUtilPath = pictureUtilPath;
 	}
 
 	public int getBoardCode() {
@@ -60,6 +65,14 @@ public class AdoptPictureManageDTO {
 
 	public void setAdoptGender(String adoptGender) {
 		this.adoptGender = adoptGender;
+	}
+
+	public String getAdoptColor() {
+		return adoptColor;
+	}
+
+	public void setAdoptColor(String adoptColor) {
+		this.adoptColor = adoptColor;
 	}
 
 	public String getDeleteYN() {
@@ -142,15 +155,24 @@ public class AdoptPictureManageDTO {
 		this.pictureNewName = pictureNewName;
 	}
 
+	public String getPictureUtilPath() {
+		return pictureUtilPath;
+	}
+
+	public void setPictureUtilPath(String pictureUtilPath) {
+		this.pictureUtilPath = pictureUtilPath;
+	}
+
 	@Override
 	public String toString() {
 		return "AdoptPictureManageDTO [boardCode=" + boardCode + ", adoptBreed=" + adoptBreed + ", adoptGender="
-				+ adoptGender + ", deleteYN=" + deleteYN + ", stateName=" + stateName + ", dogOrcat=" + dogOrcat
-				+ ", userAddress=" + userAddress + ", userCode=" + userCode + ", pictureCode=" + pictureCode
-				+ ", pictureURL=" + pictureURL + ", pictureDeleteYN=" + pictureDeleteYN + ", pictureName=" + pictureName
-				+ ", pictureNewName=" + pictureNewName + "]";
+				+ adoptGender + ", adoptColor=" + adoptColor + ", deleteYN=" + deleteYN + ", stateName=" + stateName
+				+ ", dogOrcat=" + dogOrcat + ", userAddress=" + userAddress + ", userCode=" + userCode
+				+ ", pictureCode=" + pictureCode + ", pictureURL=" + pictureURL + ", pictureDeleteYN=" + pictureDeleteYN
+				+ ", pictureName=" + pictureName + ", pictureNewName=" + pictureNewName + ", pictureUtilPath="
+				+ pictureUtilPath + "]";
 	}
 
 	
-	
+
 }
