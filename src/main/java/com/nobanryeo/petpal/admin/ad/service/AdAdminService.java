@@ -12,9 +12,7 @@ public interface AdAdminService {
 	int selectAdApply(AdminPageInfoDTO cat);
 	
 	// 광고 심사 리스트 조회
-	//List<AdAdminDTO> selectAdApproveList();
 	List<AdAdminDTO> selectAdApproveList(AdminPageInfoDTO paging);
-	//List<AdAdminDTO> selectAdApproveList(AdminPageInfoDTO paging, String category);
 	
 	// 광고 심사 디테일 조회
 	List<AdAdminDTO> selectAdApproveDetail(int adCode);
@@ -22,24 +20,16 @@ public interface AdAdminService {
 	// 광고 심사 사유 조회
 	List<AdAdminDTO> selectAdApproveDecision(int adCode);
 
-	//boolean insertAdApprove(int adCode);
-
-	//boolean insertAdApprove(int adCode, int stateCode);
-
-	//boolean insertAdApprove(int adCode, int stateCode, String decisionReason);
-
 	// 광고 심사 사유 입력
 	boolean insertAdApprove(Map param);
-	//boolean insertAdApprove(String decisionReason, int stateCode, int adCode);
 
 	// 광고 심사 결과 업데이트
 	boolean updateAdApprove(Map param);
-
-
-
 	
+	// 광고 심사 검색 총 갯수 조회
+	int searchAdApply(Map<String, String> param);
 
-	//boolean updateAdApprove(String decisionReason, int stateCode, int adCode);
+
 
 	
 }

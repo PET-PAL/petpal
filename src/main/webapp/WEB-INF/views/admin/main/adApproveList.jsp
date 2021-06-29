@@ -92,28 +92,31 @@
 							<div class="container-fluid" style="margin-top: 15px;">
 								    
 								<!-- 검색폼 시작 -->					    
-								<form action="adApproveList/search" method="post" class="d-flex">	
+								<form action="adApproveList/search" method="get" class="d-flex">
+								<input type="hidden" name="category" value="${ requestScope.category }">	
 									<c:choose>
 									    <c:when test="${ !empty requestScope.searchValue }">
 					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
 					   					    <!-- select 박스 -->
 					   					    <!-- ~를 선택했을 때 value를 넘겨줌 -->
-												<option value="category" <c:if test="${requestScope.searchCondition eq 'category'}">selected</c:if>>카테고리</option>
+												<option value="menu" <c:if test="${requestScope.searchCondition eq 'menu'}">selected</c:if>>카테고리</option>
 												<option value="adCode" <c:if test="${requestScope.searchCondition eq 'adCode'}">selected</c:if>>광고코드</option>
 												<option value="adTitle" <c:if test="${requestScope.searchCondition eq 'adTitle'}">selected</c:if>>광고제목</option>
+												<option value="name" <c:if test="${requestScope.searchCondition eq 'name'}">selected</c:if>>광고제목</option>
 											</select>
 											<!-- input 값도 넘겨줌 -->
 									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
 									    </c:when>
 									    <c:otherwise>
-										    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
-												<option value="category">카테고리</option>
+										    <select id="searchCondition" name="searchCondition" style="margin-left: -560px; margin-top: 10px;">
+												<option value="menu">카테고리</option>
 												<option value="adCode">광고코드</option>
 												<option value="adTitle">광고제목</option>
+												<option value="name">신청자이름</option>
 											</select>
 									        <input id="searchValue" name="searchValue" placeholder="검색어를 입력하세요" 
 									        aria-label="Search"  class="form-control me-2" type="search" 
-									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:80px;">
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:90px;">
 									    </c:otherwise>
 									</c:choose>
 									<button class="btn btn-outline-success" type="submit" 
