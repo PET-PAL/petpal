@@ -17,4 +17,6 @@ public interface UserAdMapper {
 
 	int insertAdSubmit(AdDTO adDTO);
 
+	int insertAdSubmit2(AdDTO adDTO);
+
 }

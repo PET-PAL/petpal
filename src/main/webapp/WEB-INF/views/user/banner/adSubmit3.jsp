@@ -94,7 +94,7 @@
             </section>
             
             <section id="menutable" class="menutable">
-            	<form action="${ pageContext.servletContext.contextPath }/user/insert/adsubmit3" method="post">
+            	<form action="${ pageContext.servletContext.contextPath }/user/insert/adsubmit3" method="post" enctype="multipart/form-data">
 					<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 20px;">
 						<table class="table" style="margin-bottom: 50px; border-collapse: separate; margin-bottom:0px;">
 							<tr>
@@ -126,20 +126,22 @@
 						  		var form_data = new FormData();
 							        	form_data.append('file', file);
 							        	$.ajax({
-							          	data: form_data,
-							          	type: "POST",
-							          	url: '${pageContext.servletContext.contextPath}/user/insert/imgTest',
-							          	cache: false,
-							          	contentType: false,
-							          	enctype: 'multipart/form-data',
-							          	processData: false,
-							          	success: function(data) {
-							          		data.url;	
-							          	}
+								          	data: form_data,
+								          	type: "POST",
+								          	url: '${pageContext.servletContext.contextPath}/user/insert/imgTest',
+								          	cache: false,
+								          	contentType: false,
+								          	enctype: 'multipart/form-data',
+								          	processData: false,
+								          	success: function(data) {
+								          		data.url;
+								          		$("#pictureName").val(data.pictureName);
+								          		$("#pictureUrl").val(data.pictureUrl);
+								          		$("#pictureNewName").val(data.pictureNewName);
+								          		$("#pictureUtilPath").val(data.pictureUtilPath);
+								          	}
 						       		 });
-						      }
-					      
-					      
+						      }  
 					    </script>
 		        	</div>
                     <input type="hidden" value="${ requestScope.insertAdSubmit2.adTypeCode }" name="adTypeCode"/>
@@ -152,7 +154,12 @@
                     <input type="hidden" value="${ requestScope.insertAdSubmit2.companyEmail }" name="companyEmail"/>
                     <input type="hidden" value="${ requestScope.insertAdSubmit2.industry }" name="industry"/>
                     <input type="hidden" value="${ requestScope.insertAdSubmit2.industryDetail }" name="industryDetail"/>
-                    <div style="margin: 0px auto; margin-top: 10px; margin-bottom: 15px; text-align: center;"><button>등록하기</button></div>
+                    <input type="hidden" value="${ requestScope.insertAdSubmit2.adTypeCode }" name="adTypeCode"/>
+                    <input type="hidden" id="pictureName" name="pictureName"/>
+                    <input type="hidden" id="pictureUrl" name="pictureUrl"/>
+                    <input type="hidden" id="pictureNewName" name="pictureNewName"/>
+                    <input type="hidden" id="pictureUtilPath" name="pictureUtilPath"/>
+                    <div style="margin: 0px auto; margin-top: 10px; margin-bottom: 15px; text-align: center;"><button type="submit">등록하기</button></div>
             	</form>
             </section> 
             

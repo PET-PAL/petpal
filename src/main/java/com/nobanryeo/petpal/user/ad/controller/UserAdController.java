@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -140,6 +142,17 @@ public class UserAdController {
 	public String insertAdSubmit2(@ModelAttribute AdDTO adDTO, Model model, @SessionAttribute UserInfoDTO loginUser) {
 		
 		adDTO.setUserCode(loginUser.getCode());
+		
+		// adTypeCode 넣어주기
+		if(adDTO.getAdTypeName().equals("그 외") && adDTO.getAdWeek() == 1) {
+			adDTO.setAdTypeCode(1);
+		} else if(adDTO.getAdTypeName().equals("그 외") && adDTO.getAdWeek() == 2) {
+			adDTO.setAdTypeCode(3);
+		} else if(adDTO.getAdTypeName().equals("장소") && adDTO.getAdWeek() == 1) {
+			adDTO.setAdTypeCode(2);
+		} else if(adDTO.getAdTypeName().equals("장소") && adDTO.getAdWeek() == 2) {			
+			adDTO.setAdTypeCode(4);
+		}
 
 		model.addAttribute("insertAdSubmit2", adDTO);
 		
@@ -147,59 +160,69 @@ public class UserAdController {
 	}
 	
 	/**
-	 * 광고신청 세번째 페이지 광고 내용 insert
+	 * 광고신청 세번째 페이지 광고 이미지 업로드
 	 */
 	@PostMapping(value="insert/imgTest", produces ="application/json")
 	@ResponseBody
-	public String insertAdSubmit3(@ModelAttribute AdDTO adDTO, Model model, @SessionAttribute UserInfoDTO loginUser, @RequestParam("file") MultipartFile multipartFile) {
+	public String insertAdSubmitFile(@ModelAttribute AdDTO adDTO, Model model, @SessionAttribute UserInfoDTO loginUser, @RequestParam("file") MultipartFile multipartFile, HttpServletRequest request) {
 		
 		JsonObject jsonObject = new JsonObject();
 		  
-		String fileRoot = "C:\\summernote_image\\"; //저장될 외부 파일 경로 String
+		String fileRoot = request.getSession().getServletContext().getRealPath("resources");	// 저장될 파일 경로
+		String filePath = fileRoot + "\\uploadFiles";
 		String pictureName = multipartFile.getOriginalFilename(); //오리지날 파일명 String
 		String extension = pictureName.substring(pictureName.lastIndexOf("."));
 		//파일 확장자
 		
-		String pictureNewName = UUID.randomUUID() + extension; //저장될 파일 명
+		String pictureNewName = UUID.randomUUID().toString().replace("-", "") + extension; //저장될 파일 명
 		
-		File pictureUrl = new File(fileRoot + pictureNewName);
+		File pictureUrl = new File(filePath + pictureNewName);
 		
 		try { 
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, pictureUrl); //파일 저장
 			jsonObject.addProperty("url", "/summernoteImage/"+pictureNewName);
 			jsonObject.addProperty("responseCode", "success");
+			
+			jsonObject.addProperty("pictureName", pictureName);
+			jsonObject.addProperty("pictureUrl", filePath);
+			jsonObject.addProperty("pictureNewName", pictureNewName);
+			jsonObject.addProperty("pictureUtilPath", "resources\\uploadFiles\\" + pictureNewName);
+			
 		
-		} catch (IOException e) { FileUtils.deleteQuietly(pictureUrl); //저장된 파일 삭제
-			jsonObject.addProperty("responseCode", "error"); e.printStackTrace();
+		} catch (IOException e) { 
+			FileUtils.deleteQuietly(pictureUrl); //저장된 파일 삭제
+			jsonObject.addProperty("responseCode", "error");
+			e.printStackTrace();
 		}
 		
-		
-		
-//		
-//		
-//		adDTO.setUserCode(loginUser.getCode());
-//		
-//		if(adDTO.getAdTypeName().equals("그 외") && adDTO.getAdWeek() == 1) {
-//			adDTO.setAdTypeCode(1);
-//		} else if(adDTO.getAdTypeName().equals("그 외") && adDTO.getAdWeek() == 2) {
-//			adDTO.setAdTypeCode(3);
-//		} else if(adDTO.getAdTypeName().equals("장소") && adDTO.getAdWeek() == 1) {
-//			adDTO.setAdTypeCode(2);
-//		} else if(adDTO.getAdTypeName().equals("장소") && adDTO.getAdWeek() == 2) {			
-//			adDTO.setAdTypeCode(4);
-//		}
-//		
-//		System.out.println(adDTO);		
-//		
-//		if(adService.insertAdSubmit(adDTO) > 0) {
-//			System.out.println("광고신청 성공");
-//		} else {
-//			System.out.println("광고신청 실패");
-//		}
-		
-		
 		return jsonObject.toString();
+	}
+	
+	/**
+	 * 광고신청 세번째 페이지 광고 내용 insert
+	 */
+	@PostMapping("insert/adsubmit3")
+	public String insertAdSubmit3(@ModelAttribute AdDTO adDTO, Model model, @SessionAttribute UserInfoDTO loginUser) {
+		
+		System.out.println(adDTO);		
+		
+		adDTO.setUserCode(loginUser.getCode());
+		
+		System.out.println(adDTO);		
+		
+		if(adService.insertAdSubmit(adDTO) > 0) {
+			System.out.println("광고신청1 성공");
+		} else {
+			System.out.println("광고신청1 실패");
+		}
+		if(adService.insertAdSubmit2(adDTO) > 0) {
+			System.out.println("광고신청2 성공");
+		} else {
+			System.out.println("광고신청2 실패");
+		}
+		
+		return "redirect:/";
 	}
 	
 	

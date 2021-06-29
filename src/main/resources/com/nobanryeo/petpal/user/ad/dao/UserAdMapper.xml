@@ -32,6 +32,16 @@
 		<result column="AD_WEEK" property="adWeek"/>
 		<result column="CLICK_COUNT" property="clickCount"/>
 		<result column="MORE_PAY_AMOUNT" property="morePayAmount"/>
+		<result column="LEADER_NAME" property="leaderName"/>
+		<result column="COMPANY_LOCATION" property="companyLocation"/>
+		<result column="INDUSTRY" property="industry"/>
+		<result column="INDUSTRY_DETAIL" property="industryDetail"/>
+		<result column="PICTURE_NAME" property="pictureName"/>
+		<result column="PICTURE_URL" property="pictureUrl"/>
+		<result column="PICTURE_UPLOAD_DATE" property="pictureUploadDate"/>
+		<result column="PICTURE_DELETE_YN" property="pictureDeleteYn"/>
+		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
+		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
 	</resultMap>
 	
 	<resultMap id="adQnAResultSet" type="AdQnADTO">
@@ -108,16 +118,20 @@
 	</insert>
 	
 	<insert id="insertAdSubmit" parameterType="AdDTO">
-		INSERT ALL
+		INSERT
 		  INTO PICTURE_TABLE
 		VALUES ( PIC_CODE_SEQ.NEXTVAL
-		       , PICTURE_NAME
-			   , PICTURE_URL
-               , PICTURE_UPLOAD_DATE
-               , PICTURE_DELETE_YN
-               , PICTURE_NEW_NAME
-               , PICTURE_UTIL_PATH
+		       , #{ pictureName }
+			   , #{ pictureUrl }
+               , SYSDATE
+               , 'N'
+               , #{ pictureNewName }
+               , #{ pictureUtilPath }
 		       )
+	</insert>
+	
+	<insert id="insertAdSubmit2" parameterType="AdDTO">
+		INSERT
 		  INTO AD_APPLY_TABLE
 		VALUES ( AD_CODE_SEQ.NEXTVAL
 		       , #{ companyName }
@@ -145,8 +159,6 @@
 		       , #{ industry }
 		       , #{ industryDetail }
 		       )
-		SELECT *
-		  FROM DUAL
 	</insert>
 	
 </mapper>
