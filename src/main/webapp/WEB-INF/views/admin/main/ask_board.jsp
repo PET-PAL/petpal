@@ -45,9 +45,9 @@ input {
       color:#25213B">
       
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="reportList">신고 게시판</a></li>
+        <li><a href="${pageContext.servletContext.contextPath }/admin/reportList">신고 게시판</a></li>
         <hr>
-        <li  class="active1"><a href="askList">문의 게시판</a></li>
+        <li  class="active1"><a href="${pageContext.servletContext.contextPath }/admin/askList">문의 게시판</a></li>
       </ul>
     </nav>
     <!-- sidebar end -->
@@ -66,24 +66,24 @@ input {
                   					
                                     <ul class="nav nav-tabs" role="tablist">
                                         <c:if test="${ empty category  }">
-			                        		<li role="presentation" class="active"><a onclick="location.href='askList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
-			                                <li role="presentation"><a onclick="location.href='askList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">일반문의</a></li>
-			                                <li role="presentation"><a onclick="location.href='askList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
+			                        		<li role="presentation" class="active"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+			                                <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">일반문의</a></li>
+			                                <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
 		                                 </c:if>
 		                                 <c:if test="${ category eq 1 }">
-			                                <li role="presentation"><a onclick="location.href='askList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
-			                                <li role="presentation" class="active"><a onclick="location.href='askList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">일반문의</a></li>
-			                                <li role="presentation"><a onclick="location.href='askList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
+			                                <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+			                                <li role="presentation" class="active"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">일반문의</a></li>
+			                                <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
 		                                 </c:if>
 		                                 <c:if test="${ category eq 2 }">
-			                                <li role="presentation"><a onclick="location.href='askList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
-			                                <li role="presentation"><a onclick="location.href='askList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">일반문의</a></li>
-			                                <li role="presentation" class="active"><a onclick="location.href='askList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
+			                                <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+			                                <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">일반문의</a></li>
+			                                <li role="presentation" class="active"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
 		                                 </c:if>
                                     	<p style="float:right; padding-top: 20px;">총 문의글 : ${requestScope.total}개</p>
                                     </ul>
 							<div class="container-fluid" style="margin-top: 15px;">
-						        <form action="askList/search" method="get" class="d-flex">	
+						        <form action="${pageContext.servletContext.contextPath }/admin/askList" method="get" class="d-flex">	
 						        <input type="hidden" name="cntPerPage" value="${ paging.cntPerPage }"/>
 						        <input type="hidden" name="nowPage" value="${ paging.nowPage }"/>
 						        <input type="hidden" name="category" value="${ requestScope.category }"/>
@@ -132,7 +132,7 @@ input {
 												</thead>
 												<tbody>
 												<c:forEach items="${askList}" var="board">
-													<tr onclick="location.href='askDetail?boardCode=${ board.boardCode }'">
+													<tr onclick="location.href='${pageContext.servletContext.contextPath }/admin/askDetail?boardCode=${ board.boardCode }'">
 														<td>${board.boardCode }</td>
 														<td>${board.userId }</td>
 														<td>${board.boardTitle }</td>
@@ -150,7 +150,10 @@ input {
 											</table>
 											<div style="display: block; text-align: center;">	
 				                              <div style="float: right;">
-						<select id="cntPerPage" name="sel" onchange="selChange()">
+				        <c:choose>
+                        <c:when test="${ !empty requestScope.searchValue }">
+						<select id="cntPerPage" name="sel" onchange="selChangeSearch()">
+						
 							<option value="5"
 								<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
 							<option value="10"
@@ -160,12 +163,27 @@ input {
 							<option value="20"
 								<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
 						</select>
+						</c:when>
+						<c:otherwise>
+						<select id="cntPerPage" name="sel" onchange="selChange()">
+						
+							<option value="5"
+								<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
+							<option value="10"
+								<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
+							<option value="15"
+								<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
+							<option value="20"
+								<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
+						</select>
+						</c:otherwise>
+						</c:choose>
 					</div> <!-- 옵션선택 끝 -->
                             	<c:choose>
                             	<c:when test="${ !empty requestScope.searchValue }">
                             	<ul class="pagination">
 								<c:if test="${paging.startPage != 1 }">
-									<li><a href="search?category=${category}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									<li><a href="${pageContext.servletContext.contextPath }/admin/askList?category=${category}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
 								</c:if>
 								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 									<c:choose>
@@ -173,12 +191,12 @@ input {
 											<li><a>${p }</a></li>
 										</c:when>
 										<c:when test="${p != paging.nowPage }">
-											<li><a href="search?category=${category}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											<li><a href="${pageContext.servletContext.contextPath }/admin/askList?category=${category}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
 										</c:when>
 									</c:choose>
 								</c:forEach>
 								<c:if test="${paging.endPage != paging.lastPage}">
-									<li><a href="search?category=${category}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									<li><a href="${pageContext.servletContext.contextPath }/admin/askList?category=${category}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 								</c:if>
 								</ul>
 								</c:when>
@@ -186,7 +204,7 @@ input {
 								<c:otherwise>
 								<ul class="pagination">
 								<c:if test="${paging.startPage != 1 }">
-									<li><a href="askList?category=${category}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									<li><a href="${pageContext.servletContext.contextPath }/admin/askList?category=${category}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
 								</c:if>
 								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 									<c:choose>
@@ -194,12 +212,12 @@ input {
 											<li><a>${p }</a></li>
 										</c:when>
 										<c:when test="${p != paging.nowPage }">
-											<li><a href="askList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											<li><a href="${pageContext.servletContext.contextPath }/admin/askList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
 										</c:when>
 									</c:choose>
 								</c:forEach>
 								<c:if test="${paging.endPage != paging.lastPage}">
-									<li><a href="askList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									<li><a href="${pageContext.servletContext.contextPath }/admin/askList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 								</c:if>
 								</ul>
 								</c:otherwise>
@@ -220,7 +238,11 @@ input {
  <script>
 		function selChange() {
 			var sel = document.getElementById('cntPerPage').value;
-			location.href="askList?nowPage=${paging.nowPage}&cntPerPage="+sel;
+			location.href="${pageContext.servletContext.contextPath }/admin/askList?nowPage=${paging.nowPage}&category=${category}&cntPerPage="+sel;
+		}
+		function selChangeSearch() {
+			var sel = document.getElementById('cntPerPage').value;
+			location.href="${pageContext.servletContext.contextPath }/admin/askList?nowPage=${paging.nowPage}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&category=${category}&cntPerPage="+sel;
 		}
 	 </script>
 </html>

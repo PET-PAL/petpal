@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -15,7 +17,7 @@ import com.nobanryeo.petpal.admin.dto.AskDTO;
 import com.nobanryeo.petpal.admin.ask.service.AskService;
 import com.nobanryeo.petpal.admin.dto.AskDetailDTO;
 @Controller
-@RequestMapping("/*") 
+@RequestMapping("/admin/*") 
 public class AskController {
    private final AskService askService;
    
@@ -24,37 +26,8 @@ public class AskController {
       this.askService = askService;
    }
    
-    @RequestMapping("askList")
-    public String askList(Model model , AdminPageInfoDTO paging,
-            @RequestParam(value="nowPage", required=false)String nowPage
-           , @RequestParam(value="cntPerPage", required=false)String cntPerPage
-           , @RequestParam(value="category", required=false)String category) {
-       if (nowPage == null && cntPerPage == null) {
-         nowPage = "1";
-         cntPerPage = "5";
-      } else if (nowPage == null) {
-         nowPage = "1";
-      } else if (cntPerPage == null) { 
-         cntPerPage = "5";
-      }
-       //글 카운트 
-       AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
-       int total = askService.selectListCount(cat);
-       
-      paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category);
-      model.addAttribute("paging", paging);
-      model.addAttribute("total",total);
-      model.addAttribute("category", category);
-       
-       List<AskDTO> askList = askService.selectAsk(paging);
-       System.out.println(askList);
-       model.addAttribute("askList", askList);
-       
-       
-       return "admin/main/ask_board";
-    }
     
-    @RequestMapping(value ="askList/search")
+   @RequestMapping("askList")
     public String searchAskList(Model model , AdminPageInfoDTO paging,
           @RequestParam(value="nowPage", required=false)String nowPage
          , @RequestParam(value="cntPerPage", required=false)String cntPerPage
@@ -70,9 +43,21 @@ public class AskController {
       } else if (cntPerPage == null) { 
          cntPerPage = "5";
       }
-       if(category == null) {
-          category = "0";
-       }
+       
+       
+       if(searchValue == null) {
+    	   AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
+           int total = askService.selectListCount(cat);
+           
+          paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category);
+          model.addAttribute("paging", paging);
+          model.addAttribute("total",total);
+          model.addAttribute("category", category);
+           
+           List<AskDTO> askList = askService.selectAsk(paging);
+           System.out.println(askList);
+           model.addAttribute("askList", askList);
+       }else {
        System.out.println("카테고리 : "+category);
        //글 카운트 
        AdminPageInfoDTO cat = new AdminPageInfoDTO(category,searchCondition,searchValue);
@@ -89,17 +74,17 @@ public class AskController {
        List<AskDTO> askList = askService.selectSearchAsk(paging);
        System.out.println(askList);
        model.addAttribute("askList", askList);
-       
+       }
        return "admin/main/ask_board";
     }
     
     
-    @RequestMapping("askDetail")
-    public String askDetail(Model model,HttpServletRequest request) {
-       int boardCode = Integer.parseInt(request.getParameter("boardCode"));
-       AskDetailDTO askDetail = askService.selectListDetail(boardCode);
-       System.out.println(askDetail);
-       model.addAttribute("askDetail",askDetail);
-       return "admin/main/ask_board_detail";
-    }
+   // @RequestMapping("askDetail")
+   // public String askDetail(Model model,HttpServletRequest request) {
+   //    int boardCode = Integer.parseInt(request.getParameter("boardCode"));
+   //    AskDetailDTO askDetail = askService.selectListDetail(boardCode);
+   //    System.out.println(askDetail);
+   //    model.addAttribute("askDetail",askDetail);
+   //    return "admin/main/ask_board_detail";
+   // }
 }
