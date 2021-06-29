@@ -94,12 +94,7 @@
 	  </insert>
 	  
 	  <insert id="registPicture" parameterType="PictureDTO">
-	  <selectKey keyProperty="boardCode" order="BEFORE" resultType="_int">
-	  	SELECT
-	  	      ADOPT_BOARD_SEQ.CURRVAL
-	  	  FROM ADOPT_BOARD
-	  </selectKey>	
-	   INSERT ALL
+	   INSERT 
 	  	 INTO PICTURE_TABLE
 	  	VALUES
 	  	(
@@ -110,14 +105,26 @@
 	  	, 'N'
 	  	, #{pictureNewName}
 	  	)
+  	</insert>
+  	
+  	<insert id="registSubTable">
+	  <selectKey keyColumn="BOARD_CODE,PICTURE_CODE" keyProperty="boardCode,pictureCode" order="BEFORE" resultType="map">
+	  	SELECT
+	  	      ADOPT_BOARD_SEQ.CURRVAL as boardCode, PIC_CODE_SEQ.CURRVAL as pictureCode
+	  	  FROM DUAL
+	  </selectKey>
+	  	
+	  INSERT
 	  	INTO ADOPT_PICTURE_MANAGE
+	  	(
+	  	  BOARD_CODE
+	  	, PICTURE_CODE
+	  	)
 	  	VALUES
 	  	(
 	  	#{boardCode}
-	  	,PIC_CODE.SEQ.CURRVAL
+	   ,#{pictureCode}
 	  	)
-	  	SELECT * FROM DUAL
+	  	</insert>
 	  
-  	</insert>
-  	
   </mapper>

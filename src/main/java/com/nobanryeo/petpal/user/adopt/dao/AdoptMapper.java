@@ -13,5 +13,7 @@ public interface AdoptMapper {
 	int registerAdopt(AdoptDTO adopt);
 
 	int registPicture(PictureDTO picture);
+
+	int registSubTable();
 	
 }
