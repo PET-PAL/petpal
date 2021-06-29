@@ -244,6 +244,12 @@ public class UserController {
 		return gson.toJson(findId);
 	}
 	
+	/**
+	 * 임시비밀번호 발급 컨트롤러
+	 * @param userInfo
+	 * @param response
+	 * @throws Exception
+	 */
 	@PostMapping(value = "findPwd", produces = "application/json; charset=UTF-8")
 	public void findUserPwd(@ModelAttribute UserInfoDTO userInfo, HttpServletResponse response) throws Exception {
 		System.out.println("입력된 email : " + userInfo.getEmail());

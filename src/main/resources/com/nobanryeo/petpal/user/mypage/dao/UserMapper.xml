@@ -96,6 +96,12 @@
            SET USER_PWD = #{ pwd } 
          WHERE USER_ID  = #{ id }
 	</update>
+	
+	<update id="updateNick" parameterType="UserInfoDTO">
+		UPDATE USER_TABLE 
+           SET USER_NIKNAME = #{ nikname } 
+         WHERE USER_ID  = #{ id }
+	</update>
 
  </mapper>
 

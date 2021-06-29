@@ -57,7 +57,21 @@ public interface UserService {
 	 */
 	void findPwd(HttpServletResponse response, UserInfoDTO userInfo) throws Exception;
 
+	/**
+	 * Email 발송
+	 * @param userInfo
+	 * @param div
+	 * @throws Exception
+	 */
 	void sendEmail(UserInfoDTO userInfo, String div) throws Exception;
+
+	/**
+	 * 닉네임 변경
+	 * @param userInfo
+	 */
+	int updateNick(UserInfoDTO userInfo);
+
+	UserInfoDTO selectNewUserInfo(UserInfoDTO userInfo);
 
 	
 

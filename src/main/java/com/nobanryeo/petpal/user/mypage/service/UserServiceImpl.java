@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService{
 			
 			System.out.println("변경 된 비밀번호 : " + pwd);
 			// 비밀번호 변경
-			userInfo.setPwd(pwd); //ehlrsbmkfstv
+			userInfo.setPwd(pwd);
 			// 비밀번호 변경 메일 발송
 			sendEmail(userInfo, "findPwd");
 			
@@ -181,6 +181,29 @@ public class UserServiceImpl implements UserService{
 		} catch (Exception e) {
 			System.out.println("메일발송 실패 : " + e);
 		}
+	}
+
+
+	/**
+	 * 닉네임 업데이트
+	 */
+	@Override
+	public int updateNick(UserInfoDTO userInfo) {
+		
+		
+		int result = mapper.updateNick(userInfo);
+		
+		System.out.println("닉네임 업데이트 성공 여부 : " + result);
+		
+		return result;
+		
+	}
+
+
+	@Override
+	public UserInfoDTO selectNewUserInfo(UserInfoDTO userInfo) {
+		
+		return mapper.selectUser(userInfo.getId());
 	}
 	
 	
