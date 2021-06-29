@@ -175,24 +175,24 @@
             </section>
 
             <section id="accountmanagement" class="accountmanagement">
-                <div style="width: 70%; height: 550px; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
+                <div style="width: 70%; height: 600px; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
 					<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
 						<tr>
 							<td>아이디</td>
-							<td><input type="text" value="petpal123" disabled></td>
+							<td><input type="text" value="${ sessionScope.loginUser.id }" disabled></td>
 						</tr>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" value="홍길동" disabled></td>
+							<td><input type="text" value="${ sessionScope.loginUser.name }" disabled></td>
 						</tr>
 						<tr>
 							<td>닉네임</td>
-							<td><input type="text" id="userNickName" placeholder="변경할 닉네임을 입력하세요"></td>
+							<td><input type="text" value="${ sessionScope.loginUser.nikname }" id="userNickName" placeholder="변경할 닉네임을 입력하세요"></td>
 	                        <td><button>중복확인</button></td>
 						</tr>
 						<tr>
 							<td>비밀번호</td>
-							<td><input type="password" id="userPwd" placeholder="변경할 비밀번호를 입력하세요"></td>
+							<td><input type="password"  id="userPwd" placeholder="변경할 비밀번호를 입력하세요"></td>
 						</tr>
 						<tr>
 							<td>비밀번호 확인</td>
@@ -200,17 +200,29 @@
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input type="text" id="userPhone" placeholder="변경할 전화번호 입력하세요"></td>
+							<td><input type="text" value="${ sessionScope.loginUser.phone }" id="userPhone" placeholder="변경할 전화번호 입력하세요"></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="text" id="userEmail" placeholder="변경할 이메일 입력하세요"></td>
+							<td><input type="text" id="userEmail" value="${ sessionScope.loginUser.email }" placeholder="변경할 이메일 입력하세요"></td>
 	                        <td><button>중복확인</button></td>
 						</tr>
 	                    <tr>
-	                    	<td>이메일 수신 여부</td>
-	                    	<td><label name="receiveEmail" style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="checkbox" id="newsletter" style="width: 15px;"> 뉴스레터 받기</label>
-	                    		<label name="receiveEmail" style="font-size: 15px; font-weight: normal;"><input type="checkbox" id="notion" style="width: 15px;"> 댓글 알림 받기</label>
+	                    	<td>뉴스레터 이메일 수신 동의</td>
+	                    	<td>
+	                    	<label name="emailYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="Y" checked> 동의</label>
+	                    	<label name="emailYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="N"> 거절</label>
+	                    	</td>
+	                    </tr>	
+	                    <tr>
+	                    	<td>댓글알림 이메일 수신 동의</td>
+	                    	<td>
+	                    	<label name="replyYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="replyYn" name="replyYn" style="width: 15px;" value="Y" checked> 동의</label>
+	                    	<label name="replyYn" style="font-size: 15px; font-weight: normal; padding-right: 30px;">
+	                    	<input type="radio" id="replyYn" name="replyYn" style="width: 15px;" value="N"> 거절</label>
 	                    	</td>
 	                    </tr>	
 					</table>

@@ -254,10 +254,12 @@ li>img {
 		</p>
 	</div>
 	<div>
+	<c:if test="${ sessionScope.userInfo.permisson == 2 || sessionScope.userInfo.permisson == 3 }">
 		<a href="admin_login"><img
 			src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png"
 			onclick="location.href='${ pageContext.servletContext.contextPath }/adminMainPage'"
 			style="width: 30px; height: 30px; float: right; margin-right: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
+	</c:if>
 	</div>
 
 	<button class="join"

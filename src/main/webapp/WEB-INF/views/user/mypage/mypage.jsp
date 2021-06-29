@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -100,22 +101,22 @@
                     마이페이지
                 </div>
                 <div>
-                    <img src="../../../resources/images/ccat.png" style="width: 100px; height: 100;">
-                    <img src="../../../resources/images/pcat.png" style="width: 100px; height: 100;">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png" style="width: 100px; height: 100;">
+                    <img src="${ pageContext.servletContext.contextPath }/resources/images/pcat.png" style="width: 100px; height: 100;">
                 </div>
 
-                <div>
-                    닉네임 : 프로펫팔러<br>
-                    이메일 : petal@petpal.com
+                <div style="font-size: 15px;">
+                    닉네임 :<c:out value="${ sessionScope.loginUser.nikname }" /><br>
+                    이메일 :<c:out value="${ sessionScope.loginUser.email }" />
                 </div>
 
                 <div>
                     <ul>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/accountManagement.jsp'" class="message" style="margin-top: 30px;">계정 관리</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/message.jsp'" class="account">쪽지 확인</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/boardCommentList.jsp'" class="borad">내가 쓴 게시글, 댓글</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/qnaReportList.jsp'" class="qna">문의, 신고 내역</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adList.jsp'" class="advertising">광고 내역</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/account'" class="message" style="margin-top: 30px;">계정 관리</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/message'" class="account">쪽지 확인</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/boardCommentList'" class="borad">내가 쓴 게시글, 댓글</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/qnaReportList'" class="qna">문의, 신고 내역</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/adList'" class="advertising">광고 내역</button></li>
                         <li style="margin-bottom: 50px; margin-top: 10px;"><a href="" class="logout" style="color: gray;">로그아웃</a></li>
                     </ul>
                     
@@ -123,10 +124,11 @@
                 
             </section> <!--End off Home Sections-->
             
-                          
+                <c:if test="${ sessionScope.userInfo.permisson == 2 || sessionScope.userInfo.permisson == 3 }">
                 <div>
                 	<a href="${ pageContext.servletContext.contextPath }/views/admin/main/manager_main.jsp"><img src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png" style="width: 30px; height: 30px; margin-left: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
                 </div>
+                </c:if>          
 
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
