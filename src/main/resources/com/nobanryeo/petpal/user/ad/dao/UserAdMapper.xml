@@ -34,6 +34,17 @@
 		<result column="MORE_PAY_AMOUNT" property="morePayAmount"/>
 	</resultMap>
 	
+	<resultMap id="adQnAResultSet" type="AdQnADTO">
+		<id column="BOARD_CODE" property="boardCode"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
+		<result column="QUESTION_TYPE" property="questionType"/>
+		<result column="BOARD_POST_DATE" property="boardPostDate"/>
+		<result column="ADMIN_REPLY_CONTENT" property="adminReplyContent"/>
+		<result column="STATE_CODE" property="stateCode"/>
+		<result column="USER_CODE" property="userCode"/>
+	</resultMap>
+	
 	
 	
 	
@@ -82,5 +93,18 @@
 		   AND A.AD_CODE = #{ adCode }
 	</select>
 	
+	<insert id="insertAdQnA" parameterType="AdQnADTO">
+	 	INSERT
+	 	  INTO QUESTION_BOARD
+	 	VALUES ( QUESTION_BOARD_SEQ.NEXTVAL
+	 	       , #{ boardTitle }
+	 	       , #{ boardContent }
+	 	       , 2
+	 	       , SYSDATE
+	 	       , NULL
+	 	       , 1
+	 	       , #{ userCode }
+	 	       )
+	</insert>
 	
 </mapper>

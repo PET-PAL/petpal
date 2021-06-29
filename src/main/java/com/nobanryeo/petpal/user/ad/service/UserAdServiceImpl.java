@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.ad.dao.UserAdMapper;
 import com.nobanryeo.petpal.user.dto.AdDTO;
+import com.nobanryeo.petpal.user.dto.AdQnADTO;
 
 @Service
 public class UserAdServiceImpl implements UserAdService {
@@ -43,6 +44,12 @@ public class UserAdServiceImpl implements UserAdService {
 	public AdDTO selectAdApplyDetail(AdDTO adDTO) {
 		
 		return adMapper.selectAdApplyDetail(adDTO);
+	}
+
+	@Override
+	public int insertAdQnA(AdQnADTO adQnA) {
+
+		return adMapper.insertAdQnA(adQnA);
 	}
 
 }

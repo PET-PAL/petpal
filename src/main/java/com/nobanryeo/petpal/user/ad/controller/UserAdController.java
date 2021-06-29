@@ -15,6 +15,10 @@ import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
+/**
+ * @author WEENARA
+ * 사용자 광고 Controller
+ */
 @Controller
 @RequestMapping("/user/*")
 public class UserAdController {
@@ -85,8 +89,20 @@ public class UserAdController {
 		return "user/mypage/adQna";
 	}
 	
+	/**
+	 * 광고문의 작성
+	 */
 	@PostMapping("insert/adQnA")
 	public String insertAdQnA(@ModelAttribute AdQnADTO adQnA, @SessionAttribute UserInfoDTO loginUser) {
+		
+		adQnA.setUserCode(loginUser.getCode());		// 세션 연결하기~
+		System.out.println(adQnA);
+		
+		if(adService.insertAdQnA(adQnA) > 0) {
+			System.out.println("광고 문의 작성 성공");
+		} else {
+			System.out.println("광고 문의 작성 실패");
+		}
 		
 		return "redirect:/";
 	}
