@@ -254,10 +254,12 @@ li>img {
 		</p>
 	</div>
 	<div>
+	<c:if test="${ sessionScope.userInfo.permisson == 2 || sessionScope.userInfo.permisson == 3 }">
 		<a href="admin_login"><img
 			src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png"
 			onclick="location.href='${ pageContext.servletContext.contextPath }/adminMainPage'"
 			style="width: 30px; height: 30px; float: right; margin-right: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
+	</c:if>
 	</div>
 
 	<button class="join"
@@ -391,28 +393,23 @@ $(function(){
 			console.log("이메일 안적힘");
 			emailCheck.focus();
 			
-		}
-		
-		if(id == ''){
+		} else if(id == ''){
 			$("#idCheck").css("display", "block");
 			console.log("아이디 안적힘");
 			idCheck.focus();
-		}
-		
-		else{
+		} else{
 			$.ajax({
-			url:"${pageContext.servletContext.contextPath}/user/findPwd",
-			type:"post",
-			data:
-				{
-				id : id,
-				email : email
+				url : "${pageContext.servletContext.contextPath}/user/findPwd",
+				type : "POST",
+				data : {
+					id : id,
+					email : email
 				},
-			success:function(result){
+				success : function(result) {
 					alert(result);
 				},
-			});
-		});
+			})
+		}
 	});
 })
 	</script>

@@ -1,9 +1,6 @@
 package com.nobanryeo.petpal.user.mypage.controller;
 
 
-import java.util.HashMap;
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -15,7 +12,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -26,7 +22,7 @@ import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 import com.nobanryeo.petpal.user.mypage.service.UserService;
 
 @Controller
-@RequestMapping(value = "/user/*")
+@RequestMapping("/user/*")
 public class UserController {
 
 	private final UserService userService;
@@ -249,7 +245,6 @@ public class UserController {
 	}
 	
 	@PostMapping(value = "findPwd", produces = "application/json; charset=UTF-8")
-	@ResponseBody
 	public void findUserPwd(@ModelAttribute UserInfoDTO userInfo, HttpServletResponse response) throws Exception {
 		System.out.println("입력된 email : " + userInfo.getEmail());
 		System.out.println("입력된 id : " + userInfo.getId());
