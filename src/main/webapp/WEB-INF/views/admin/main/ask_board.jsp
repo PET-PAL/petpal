@@ -63,25 +63,42 @@ input {
 					 <div class="col-md-20">
 					 		
                                     <!-- Nav tabs -->
-                  
+                  					
                                     <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="askList?nowPage=${paging.nowPage}" onclick="location.href='adApproveList/4" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
-                                        <li role="presentation"><a href="askList?nowPage=${paging.nowPage}" aria-controls="messages" role="tab" data-toggle="tab">일반문의</a></li>
-                                        <li role="presentation"><a href="askList?nowPage=${paging.nowPage}" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
+                                        <c:if test="${ empty category  }">
+			                        		<li role="presentation" class="active"><a onclick="location.href='askList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+			                                <li role="presentation"><a onclick="location.href='askList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">일반문의</a></li>
+			                                <li role="presentation"><a onclick="location.href='askList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
+		                                 </c:if>
+		                                 <c:if test="${ category eq 1 }">
+			                                <li role="presentation"><a onclick="location.href='askList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+			                                <li role="presentation" class="active"><a onclick="location.href='askList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">일반문의</a></li>
+			                                <li role="presentation"><a onclick="location.href='askList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
+		                                 </c:if>
+		                                 <c:if test="${ category eq 2 }">
+			                                <li role="presentation"><a onclick="location.href='askList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+			                                <li role="presentation"><a onclick="location.href='askList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">일반문의</a></li>
+			                                <li role="presentation" class="active"><a onclick="location.href='askList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">광고문의</a></li>
+		                                 </c:if>
                                     	<p style="float:right; padding-top: 20px;">총 문의글 : ${requestScope.total}개</p>
                                     </ul>
 							<div class="container-fluid" style="margin-top: 15px;">
-						        <form action="adApproveList/search" method="post" class="d-flex">	
+						        <form action="askList/search" method="get" class="d-flex">	
+						        <input type="hidden" name="cntPerPage" value="${ paging.cntPerPage }"/>
+						        <input type="hidden" name="nowPage" value="${ paging.nowPage }"/>
+						        <input type="hidden" name="category" value="${ requestScope.category }"/>
 									<c:choose>
 									    <c:when test="${ !empty requestScope.searchValue }">
 					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
 					   					    <!-- select 박스 -->
 					   					    <!-- ~를 선택했을 때 value를 넘겨줌 -->
-												<option value="userId" <c:if test="${requestScope.searchCondition eq 'category'}">selected</c:if>>유저아이디</option>
-												<option value="boardTitle" <c:if test="${requestScope.searchCondition eq 'adCode'}">selected</c:if>>글 제목</option>
+												<option value="userId" <c:if test="${requestScope.searchCondition eq 'userId'}">selected</c:if>>유저아이디</option>
+												<option value="boardTitle" <c:if test="${requestScope.searchCondition eq 'boardTitle'}">selected</c:if>>글 제목</option>
 											</select>
 											<!-- input 값도 넘겨줌 -->
-									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
+									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }"
+									        aria-label="Search"  class="form-control me-2"
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:80px;">
 									    </c:when>
 									    <c:otherwise>
 										    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
@@ -144,11 +161,11 @@ input {
 								<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
 						</select>
 					</div> <!-- 옵션선택 끝 -->
-                            
-                            
+                            	<c:choose>
+                            	<c:when test="${ !empty requestScope.searchValue }">
                             	<ul class="pagination">
 								<c:if test="${paging.startPage != 1 }">
-									<li><a href="askList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									<li><a href="search?category=${category}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
 								</c:if>
 								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 									<c:choose>
@@ -156,14 +173,37 @@ input {
 											<li><a>${p }</a></li>
 										</c:when>
 										<c:when test="${p != paging.nowPage }">
-											<li><a href="askList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											<li><a href="search?category=${category}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
 										</c:when>
 									</c:choose>
 								</c:forEach>
 								<c:if test="${paging.endPage != paging.lastPage}">
-									<li><a href="askList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									<li><a href="search?category=${category}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 								</c:if>
 								</ul>
+								</c:when>
+								
+								<c:otherwise>
+								<ul class="pagination">
+								<c:if test="${paging.startPage != 1 }">
+									<li><a href="askList?category=${category}&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+								</c:if>
+								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+									<c:choose>
+										<c:when test="${p == paging.nowPage }">
+											<li><a>${p }</a></li>
+										</c:when>
+										<c:when test="${p != paging.nowPage }">
+											<li><a href="askList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${paging.endPage != paging.lastPage}">
+									<li><a href="askList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+								</c:if>
+								</ul>
+								</c:otherwise>
+								</c:choose>
 							</div>
                         </div>
                    </div>		

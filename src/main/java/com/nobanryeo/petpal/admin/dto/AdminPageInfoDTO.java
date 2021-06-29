@@ -12,6 +12,8 @@ public class AdminPageInfoDTO {
 	private int end;        //SQL쿼리에 쓸 end
 	private int cntPage = 5;
 	private String category;
+	private String searchCondition;
+	private String searchValue;
 	
 	public AdminPageInfoDTO() {
 		super();
@@ -30,6 +32,25 @@ public class AdminPageInfoDTO {
 	public AdminPageInfoDTO(String category) {
 		   setCategory(category);
 		}
+	
+	public AdminPageInfoDTO(String category, String searchCondition, String searchValue) {
+		   setCategory(category);
+		   setSearchCondition(searchCondition);
+		   setSearchValue(searchValue);
+		}
+	public AdminPageInfoDTO(int total, int nowPage, int cntPerPage, String category
+			,String searchCondition, String searchValue) {
+		   setNowPage(nowPage);
+		   setCntPerPage(cntPerPage);
+		   setTotal(total);
+		   setCategory(category);
+		   setSearchCondition(searchCondition);
+		   setSearchValue(searchValue);
+		   calcLastPage(getTotal(), getCntPerPage());
+		   calcStartEndPage(getNowPage(), cntPage);
+		   calcStartEnd(getNowPage(), getCntPerPage());
+		}
+	
 	
     // 제일 마지막 페이지 계산
     public void calcLastPage(int total, int cntPerPage) {
@@ -135,15 +156,34 @@ public class AdminPageInfoDTO {
 		this.category = category;
 	}
 
+	public String getSearchCondition() {
+		return searchCondition;
+	}
 
-	
+	public void setSearchCondition(String searchCondition) {
+		this.searchCondition = searchCondition;
+	}
+
+	public String getSearchValue() {
+		return searchValue;
+	}
+
+	public void setSearchValue(String searchValue) {
+		this.searchValue = searchValue;
+	}
 
 	@Override
 	public String toString() {
 		return "AdminPageInfoDTO [nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage + ", total="
 				+ total + ", cntPerPage=" + cntPerPage + ", lastPage=" + lastPage + ", start=" + start + ", end=" + end
-				+ ", cntPage=" + cntPage + ", category=" + category + "]";
+				+ ", cntPage=" + cntPage + ", category=" + category + ", searchCondition=" + searchCondition
+				+ ", searchValue=" + searchValue + "]";
 	}
+	
+
+
+	
+
 	
 	 
 	 
