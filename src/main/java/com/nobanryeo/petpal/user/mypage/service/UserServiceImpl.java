@@ -71,6 +71,8 @@ public class UserServiceImpl implements UserService{
 
 	/**
 	 *비밀번호 매치
+	 * true : 유저 셀렉트
+	 * false : return null
 	 */
 	@Override
 	public UserInfoDTO selectUser(UserInfoDTO userInfo) {
@@ -142,7 +144,7 @@ public class UserServiceImpl implements UserService{
 		String charSet = "utf-8";
 		String hostSMTP = "smtp.gmail.com"; //네이버 이용시 smtp.naver.com
 		String hostSMTPid = "final.petpal@gmail.com";
-		String hostSMTPpwd = "petpal1234";
+		String hostSMTPpwd = "petpal1234!";
 
 		// 보내는 사람 EMail, 제목, 내용
 		String fromEmail = "final.petpal@gmail.com";
