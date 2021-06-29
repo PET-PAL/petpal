@@ -185,26 +185,26 @@
 
             <section id="account" class="account" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="font-size: 20px; font-weight: 600; float: left; margin-left: 10px;">정보 수정</div>
-                <div style="float: right; margin-right: 10px;"><button onclick="location.href='#pop01'">회원탈퇴</button></div>
+                <div style="float: right; margin-right: 10px;"><button onclick="location.href='#withdrawUser'">회원탈퇴</button></div>
                 <br>
                 <hr style="border-color: rgb(175, 175, 175);">
             </section>
 
             <section id="accountmanagement" class="accountmanagement">
                 <div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
-                <form action="${ pageContext.servletContext.contextPath }/mypage/updateUserInfo" method="post" id="modifyUserInfo" name="form" onsubmit="return validate();">
+                <form action="${ pageContext.servletContext.contextPath }/mypage/updateUserInfo" method="post" id="updateUserInfo" name="form" onsubmit="return validate();">
 					<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
 						<tr>
 							<td>아이디</td>
-							<td><input type="text" name="id" value="${ sessionScope.loginUser.id }" readonly></td>
+							<td><input type="text" id="id" name="id" value="${ sessionScope.loginUser.id }" readonly></td>
 						</tr>
 						<tr>
 							<td>이름</td>
-							<td><input type="text" name="name" value="${ sessionScope.loginUser.name }" disabled></td>
+							<td><input type="text" name="name" value="${ sessionScope.loginUser.name }" readonly></td>
 						</tr>
 						<tr>
 							<td>닉네임</td>
-							<td><input type="text" id="nikname"  value="${ sessionScope.loginUser.nikname }" disabled></td>
+							<td><input type="text" name="nikname"  value="${ sessionScope.loginUser.nikname }" readonly></td>
 	                        <td>
 	                        <input type="hidden" id="nameCheck" name="nameCheck" value="fail">
 	                        <button onclick="location.href='#nickNameChk'" type="button">중복확인</button>
@@ -212,19 +212,19 @@
 						</tr>
 						<tr>
 							<td>비밀번호</td>
-							<td><input type="password" name="pwd"  id="userPwd" placeholder="변경할 비밀번호를 입력하세요"></td>
+							<td><input type="password" name="pwd"  id="userPwd" placeholder="비밀번호를 입력하세요"></td>
 						</tr>
 						<tr>
 							<td>비밀번호 확인</td>
-							<td><input type="password" id="userPwdCheck" placeholder="비밀번호를 확인해 주세요"></td>
+							<td><input type="password" id="userPwdCheck" placeholder="비밀번호 확인을 위해 재입력해주세요"></td>
 						</tr>
 						<tr>
 							<td>전화번호</td>
-							<td><input type="text" name="phone" value="${ sessionScope.loginUser.phone }" id="userPhone" placeholder="변경할 전화번호 입력하세요"></td>
+							<td><input type="text" name="phone" value="${ sessionScope.loginUser.phone }" id="phone" placeholder="변경할 전화번호 입력하세요"></td>
 						</tr>
 						<tr>
 							<td>이메일</td>
-							<td><input type="text" value="${ sessionScope.loginUser.email }" disabled></td>
+							<td><input type="text" value="${ sessionScope.loginUser.email }" readonly></td>
 	                        <td>
 	                        <input type="hidden" id="emailCheck" name="emailCheck" value="fail">
 	                        <button onclick="location.href='#emailChk'" type="button">중복확인</button>
@@ -260,7 +260,7 @@
 		                    	<input type="radio" id="replyYn" name="replyYn" style="width: 15px;" value="Y" checked> 동의
 	                    	</c:if>
 	                   		<c:if test="${sessionScope.loginUser.replyYn eq 'N'}">
-	                    	<input type="radio" id="emailYn" name="emailYn" style="width: 15px;" value="Y"> 동의
+	                    	<input type="radio" id="replyYn" name="replyYn" style="width: 15px;" value="Y"> 동의
 	                   		</c:if>	
 	                    	</label>
 	                    	
@@ -275,24 +275,31 @@
 	                    	</td>
 	                    </tr>	
 					</table>
-                    <div style="margin: 0px auto; margin-bottom: 2%; text-align: center;"><button type="submit" id=btnSubmit>수정하기</button></div>
+                    <div style="margin: 0px auto; margin-bottom: 2%; text-align: center;"><input type="submit" id=btnSubmit value="수정하기"></div>
 					</form>
 				</div>
             </section>
             
             <!-- 회원탈퇴 팝업창 -->
-				<div id="pop01" class="overlay">
+				<div id="withdrawUser" class="overlay">
 					<div class="popup">
-						<a href="#none" class="close">&times;</a>
+						<a href="" class="close">&times;</a>
 						<p style="font-size: 20px; text-align: center; padding-bottom: 10px;">회원탈퇴</p>
 						<div class="cont-step cont-step_02" id="contStep02" style="display: block;">
 							<div class="cont-step_preface">
-								<h3 align="center">정말 탈퇴하시겠습니까? </h3>
+								<h3 align="center">정말 탈퇴하시겠습니까?</h3>
 							</div>
 							<!-- 비밀번호 입력 -->
-							<div style="text-align: center; margin-top: 30px;"><input type="text" placeholder="비밀번호를 입력하세요" style="height: 40px; width: 70%;"></div>
-								
-							<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/mainpage.jsp'">탈퇴하기</button></div>
+							<form action="${ pageContext.servletContext.contextPath }/mypage/withdrawUser" method="post" id="withdrawUserForm" name="form">
+							<div style="text-align: center; margin-top: 30px; display: block;" align="center">
+								<input type="text" name="id" value="${ sessionScope.loginUser.id }" style="display: none;">
+								<input type="text" name="code" value="${ sessionScope.loginUser.code }" style="display: none;">
+								<input type="password" placeholder="비밀번호를 입력해주세요" name="pwd"
+									style="height: 40px; width: 70%; border-radius: 10px; border: 1px solid;"><br><br>
+								<button type="submit" id="withdrawUserbutton">탈퇴하기</button>
+							</div>
+							</form>
+							</div>
 
 						</div>
 					</div>
@@ -300,8 +307,9 @@
 <!-- 닉네임 중복 팝업창 -->
 	<div id="nickNameChk" class="overlay">
 		<div class="popup">
+		<a href="" class="close">&times;</a>
 			<p
-				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">닉네임 변경하기 <label style="float: right;" onclick="location.href=''">X</label></p>
+				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">닉네임 변경하기 </p>
 			<div class="cont-step cont-step_02" id="contStep02"
 				style="display: block;">
 				<div class="cont-step_preface">
@@ -312,10 +320,10 @@
 				<div style="text-align: center; margin-top: 30px; display: block;" align="center">
 					<input type="text" name="id" value="${ sessionScope.loginUser.id }" style="display: none;">
 					<input type="text" placeholder="닉네임을 입력하세요" name="nikname" id="nickname"
-						style="height: 40px; width: 70%; border-radius: 10px; border: 1px solid;"><br><br>
-					<button class="btn_submit" type="button" onclick="return duplicationNickCheck()">중복확인</button>
-					<button class="btn_submit" type="submit" style="display: none;" id="updateNickbutton">변경하기</button>
-				<p style="color: red; display: none;" id="hiddenMessage"/>
+						style="height: 40px; width: 70%; border-radius: 10px; border: 1px solid;">
+					<button type="button" onclick="return duplicationNickCheck()">중복확인</button>
+					<button type="submit" style="display: none; float: right; margin-right: 21px;" id="updateNickbutton">변경하기</button>
+					<p style="color: red; display: none; margin-top: 10px;" id="hiddenMessage"/>
 				</div>
 				</form>
 				</div>
@@ -393,7 +401,6 @@ function duplicationNickCheck(){
 					
 					
 				    $("#hiddenMessage").html("사용 가능합니다.");
-				    $("#nameCheck").attr("value","success");
 				    console.log(nameCheck);
 				    console.log(status);
 				    console.log(status2);
@@ -413,8 +420,9 @@ function duplicationNickCheck(){
 <!-- 이메일 중복 팝업창 -->
 	<div id="emailChk" class="overlay">
 		<div class="popup">
+		<a href="" class="close">&times;</a>
 			<p
-				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">이메일 변경하기 <label style="float: right;" onclick="location.href=''">X</label></p>
+				style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">이메일 변경하기</p>
 			<div class="cont-step cont-step_02" id="contStep02"
 				style="display: block;">
 				<div class="cont-step_preface">
@@ -425,10 +433,10 @@ function duplicationNickCheck(){
 				<div style="text-align: center; margin-top: 30px; display: block;" align="center">
 					<input type="text" name="id" value="${ sessionScope.loginUser.id }" style="display: none;">
 					<input type="text" placeholder="이메일을 입력하세요" name="email" id="email"
-						style="height: 40px; width: 70%; border-radius: 10px; border: 1px solid;"><br><br>
-					<button class="btn_submit" type="button" onclick="return duplicationEmailCheck()">중복확인</button>
-					<button class="btn_submit" type="submit" style="display: none;" id="updateEmail">변경하기</button>
-				<p style="color: red; display: none;" id="hiddenEmailMessage"/>
+						style="height: 40px; width: 70%; border-radius: 10px; border: 1px solid;">
+					<button type="button" onclick="return duplicationEmailCheck()">중복확인</button>
+					<button type="submit" style="display: none; float: right; margin-right: 21px;" id="updateEmail">변경하기</button>
+					<p style="color: red; display: none; margin-top: 10px;" id="hiddenEmailMessage"/>
 				</div>
 				</form>
 				</div>
@@ -491,7 +499,7 @@ function duplicationEmailCheck(){
 				} else if(data == "success") {
 					
 					if(status == "none"){
-						$("#hiddenEmailMessage").css("display", "");
+						$("#hiddenEmailMessage").css("display", "block");
 					}
 					
 					if(($("#updateEmail").css("display") == "none")){
@@ -511,6 +519,64 @@ function duplicationEmailCheck(){
 		return false;
     }
 }
+</script>
+
+<!-- 중복체크 없는 값들 유효성 검사 스크립트 -->
+<script>
+
+	function validate(){
+		
+		console.log("유효성 검사 들어왔습니다");
+		
+	   /* userPwd 유효성 검사 */	
+	  	var password1RegExp = /^[a-zA-z0-9]{4,12}$/;
+	  	var pwd = $('#userPwd').val();
+	  	var pwdCheck = $('#userPwdCheck').val();
+	  	var id = $('#id').val();
+	  	
+	  	console.log(pwd);
+	  	
+	  	if(pwd == null || pwdCheck == null || pwd == ""   || pwdCheck == "") {
+	  		alert("정보 수정을 위해 현재 비밀번호를 입력해주세요.\n새롭게 변경하셔도 됩니다.");
+	        return false;
+	      } 
+
+
+		 //비밀번호가 영대소문자 4~12가 아닐때
+		if (!password1RegExp.test(pwd)) {
+		      alert("비밀번호는 영문 대소문자와 숫자 4~12자리로 입력해야합니다!");
+		      console.log("userPwd 유효성체크");
+		      userPwd.focus();
+		      userPwd.value = "";
+		      return false;
+		  }
+			
+		//비밀번호가 비밀번호확인과 일치하지 않을때
+		if (pwd != pwdCheck) {
+		    alert("비밀번호가 일치하지 않습니다!");
+		    userPwdCheck.focus();
+		    userPwdCheck.value = "";
+		    return false;
+		}
+			
+		//아이디와 비밀번호가 같을 때..
+	      if (id == pwd) {
+	          alert("아이디와 비밀번호가 일치합니다. 아이디와 비밀번호는 같을 수 없습니다!");
+	          userPwd.value = "";
+	          userPwdCheck.value = "";
+	          userPwd.focus();
+	          return false;
+	      }
+		
+	  	/* phone 유효성 검사 */
+	  	var phoneRegExp = /^01[016789]-[0-9]{3,4}-[0-9]{4}$/;
+	  	var phone = $('#phone').val();
+	  	
+	  	if(!phoneRegExp.test(phone)){
+	  		alert("전화번호가 올바르지 않습니다.\n전화번호는 01?-[4자리 숫자]-[4자리 숫자] 형식으로 작성하셔야 합니다.\n 예시) 010-[4자리숫자]-[4자리숫자]")
+	  		return false;
+	  	}
+	}
 </script>
             
             <!-- 오른쪽 배너 -->

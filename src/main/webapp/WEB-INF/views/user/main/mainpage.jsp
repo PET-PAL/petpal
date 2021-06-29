@@ -41,7 +41,19 @@
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
-
+<script>
+	window.onload = function() {
+		console.log("window onload!");
+		
+		//회원가입시 메세지 띄우기
+		const message = '${ requestScope.message }';
+		console.log(message);
+		if(message != null && message != '') {
+			alert(message);
+		}
+		
+	}
+</script>
 
         <!-- Preloader -->
         <div id="loading">

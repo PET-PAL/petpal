@@ -200,6 +200,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+	/**
+	 * ID를 사용하여 유저정보 조회
+	 */
 	@Override
 	public UserInfoDTO selectNewUserInfo(UserInfoDTO userInfo) {
 		
@@ -207,6 +210,9 @@ public class UserServiceImpl implements UserService{
 	}
 
 
+	/**
+	 * 계정관리에서의 유저 이메일 업데이트
+	 */
 	@Override
 	public int updateEmail(UserInfoDTO userInfo) {
 		
@@ -215,6 +221,49 @@ public class UserServiceImpl implements UserService{
 		System.out.println("닉네임 업데이트 성공 여부 : " + result);
 		
 		return result;
+	}
+
+
+	/**
+	 * 계정관리에서의 유저정보 업데이트
+	 */
+	@Override
+	public boolean updateUserInfo(UserInfoDTO userInfo) {
+		return mapper.updateUserInfo(userInfo) > 0? true:false;
+	}
+
+
+	/**
+	 * 계정 탈퇴
+	 */
+	@Override
+	public String withdrawUser(UserInfoDTO userInfo) {
+		
+		String result = "";
+		
+		if(!passwordEncoder.matches(userInfo.getPwd(), mapper.selectUserPassword(userInfo.getId()))) {
+			result = "pwdFail";
+			return result;
+		} else {
+			if(mapper.updatewithdrawUser(userInfo) > 0) {
+				System.out.println("우선 탈퇴여부를 Y처리 성공했습니다.");
+				if(mapper.insertwithdrawUser(userInfo) > 0) {
+					System.out.println("탈퇴회원 테이블에 인서트 성공했습니다! 이 회원은 이제 탈퇴한 회원입니다!");
+					result = "true";
+					return result;
+				} else {
+					System.out.println("탈퇴회원 테이블에 인서트 실패했습니다....");
+					result = "fail";
+					return result;
+				}
+				
+			} else {
+				System.out.println("탈퇴여부 Y처리 실패했습니다. fail리턴합니다.");
+				result = "fail";
+				return result;
+			}
+		}
+		
 	}
 	
 	
