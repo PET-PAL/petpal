@@ -64,8 +64,14 @@ public class AdAdminServiceImpl implements AdAdminService  {
 
 	// 광고 심사 검색 총 갯수
 	@Override
-	public int searchAdApply(Map<String, String> param) {
-		return adAdminMapper.searchAdApply(param);
+	public int searchAdApply(AdminPageInfoDTO cat) {
+		return adAdminMapper.searchAdApply(cat);
+	}
+
+	// 광고 심사 검색 리스트
+	@Override
+	public List<AdAdminDTO> searchAdApproveList(AdminPageInfoDTO paging) {
+		return adAdminMapper.searchAdApproveList(paging);
 	}
 
 

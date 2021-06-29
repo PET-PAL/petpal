@@ -39,19 +39,9 @@ public class AdAdminController {
 	public String adApproveListReturning(Model model, AdminPageInfoDTO paging,
 			  @RequestParam(value="nowPage", required=false)String nowPage
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
-			, @RequestParam(value="category", required=false)String category) {
-		
-		AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
-		System.out.println("cat 출력 : " + cat);
-		
-		int total = adAdminService.selectAdApply(cat);
-		
-		System.out.println("category : " + category);
-		
-		System.out.println("광고 심사 총 갯수 : " + total);
-		
-		System.out.println("현재페이지 : " + nowPage);
-		System.out.println("페이지 당 갯수 : " + cntPerPage);
+			, @RequestParam(value="category", required=false)String category
+			, @RequestParam(value="searchCondition", required=false)String searchCondition
+            , @RequestParam(value="searchValue", required=false)String searchValue) {
 		
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
@@ -62,46 +52,73 @@ public class AdAdminController {
 			cntPerPage = "5";
 		}
 		
-		paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category);
+		// 검색 안 했을 떄
+		if(searchValue == null) {
+			
+			AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
+			
+			System.out.println("검색 안했을 때 cat 출력 : " + cat);
+			
+			// 총 개수
+			int total = adAdminService.selectAdApply(cat);
+			
+			System.out.println("총 개수 : " + total);
+			
+			// 페이징 정보
+			paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category);
+			
+			// 광고 심사 리스트
+			List<AdAdminDTO> selectAdApproveList = adAdminService.selectAdApproveList(paging);
+			
+			System.out.println("검색 안 했을 때 검색결과 : " + selectAdApproveList);
+			
+			// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
+			model.addAttribute("paging", paging);
+			model.addAttribute("adApproveList", selectAdApproveList);
+			model.addAttribute("category", category);
+			model.addAttribute("total", total);
+			
+		} else {
+			
+		// 검색했을 때
+			
+			AdminPageInfoDTO cat = new AdminPageInfoDTO(category,searchCondition,searchValue);
 		
-		model.addAttribute("paging", paging);
+			System.out.println("검색했을 때 cat 출력 : " + cat);
+			System.out.println(cat.getSearchValue());
+			
+			// 카테고리
+	        System.out.println("카테고리 : " + category);
+	        // 검색조건
+	        System.out.println("검색조건 : " + searchCondition);
+	        // 검색값
+	        System.out.println("검색값 : " + searchValue);
+			
+			// 총 개수
+			int total = adAdminService.searchAdApply(cat);
+	         
+	        System.out.println("총 개수 : " + total);
+	        
+	        paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category, searchCondition, searchValue);
+			
+			// 광고 심사 리스트
+			List<AdAdminDTO> searchAdApproveList = adAdminService.searchAdApproveList(paging);
+			
+			System.out.println("검색 했을 때 검색결과 : " + searchAdApproveList);
 		
-		// 서비스로 비즈니스 로직 실행 및 결과값을 받음
-		List<AdAdminDTO> selectAdApproveList = adAdminService.selectAdApproveList(paging);
+			// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
+			model.addAttribute("paging", paging);
+			model.addAttribute("adApproveList", searchAdApproveList);
+			model.addAttribute("category", category);
+			model.addAttribute("total", total);
 		
-		
-		// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
-		model.addAttribute("adApproveList", selectAdApproveList);
-		model.addAttribute("category", category);
-		model.addAttribute("total", total);
+		}
+
 		
 		// 전달할 페이지 설정
 		return "admin/main/adApproveList";
 	}
 	
-	/* 광고심사 검색 */
-    @RequestMapping(value="adApproveList/search", method=RequestMethod.GET)
-    public String adApproveInsert(Model model, HttpServletRequest req) {
-    	
-    	Map<String, String> param = new HashMap<String, String>();
-    	
-		param.put("condition", req.getParameter("searchCondition"));
-		param.put("value", req.getParameter("searchValue"));
-		param.put("category", req.getParameter("category"));
-		
-		// 검색 조건
-		System.out.println("검색 조건 : " + param.get("condition"));
-		// 검색값
-		System.out.println("검색값 : " + param.get("value"));
-		// 카테고리
-		System.out.println("카테고리 : " + param.get("category"));
-		
-    	// 검색조건, 검색값, 카테고리에 따른 전체 광고 개수
-		int total = adAdminService.searchAdApply(param);
-		
-		
-    	return "admin/main/adApproveList";
-    }
 	
 	/* 광고심사 디테일 */
 	@RequestMapping("adApproveDetail/{adCode}")
@@ -111,7 +128,6 @@ public class AdAdminController {
 		List<AdAdminDTO> selectAdApproveDetail = adAdminService.selectAdApproveDetail(adCode);
 		
 		model.addAttribute("adApproveDetail", selectAdApproveDetail);
-		
 		
 		// 심사 사유 조회
 		List<AdAdminDTO> selectAdApproveDecision = adAdminService.selectAdApproveDecision(adCode);

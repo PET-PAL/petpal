@@ -92,8 +92,10 @@
 							<div class="container-fluid" style="margin-top: 15px;">
 								    
 								<!-- 검색폼 시작 -->					    
-								<form action="adApproveList/search" method="get" class="d-flex">
-								<input type="hidden" name="category" value="${ requestScope.category }">	
+								<form action="adApproveList" method="get" class="d-flex">
+								  	<input type="hidden" name="cntPerPage" value="${ paging.cntPerPage }"/>
+							        <input type="hidden" name="nowPage" value="${ paging.nowPage }"/>
+							        <input type="hidden" name="category" value="${ requestScope.category }"/>
 									<c:choose>
 									    <c:when test="${ !empty requestScope.searchValue }">
 					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
@@ -137,7 +139,7 @@
                                     <th style="text-align:center;">광고 신청자</th>
                                     <th style="text-align:center;">광고 제목</th>
                                     <th style="text-align:center;">사업자번호</th>
-                                    <th style="text-align:center;">신청 일자</th>
+                                    <th style="text-align:center;" class="filtering" onclick="qnaFiltering();" style="text-align: center;">신청 일자<img src="${ pageContext.servletContext.contextPath }/resources/images/filter.png" style="width:15px; margin-left:10px;"></th>
                                     <th style="text-align:center;">심사 상태</th>
                                  </tr>
                                 </thead>

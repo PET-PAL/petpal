@@ -35,4 +35,10 @@ public class MypageController {
 	public String adList() {
 		return "user/mypage/adList";
 	}
+	
+	@GetMapping("adminMain")
+	public String adminMain() {
+		return "admin/main/manager_main";
+	}
+	
 }

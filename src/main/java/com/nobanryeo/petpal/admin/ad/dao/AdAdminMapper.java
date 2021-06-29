@@ -20,7 +20,9 @@ public interface AdAdminMapper {
 
 	int updateAdApprove(Map param);
 
-	int searchAdApply(Map<String, String> param);
+	int searchAdApply(AdminPageInfoDTO cat);
+
+	List<AdAdminDTO> searchAdApproveList(AdminPageInfoDTO paging);
 
 
 
