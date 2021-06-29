@@ -250,11 +250,13 @@
                     <div class="container">
                         <div class="row">
                         	<div style="width: 600px;">
-                	<h2 style="background-color: orange; width: 130px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
+                	<h2 style="background-color: orange; width: 130px; border-radius: 8px; float:left; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
                 	대기중
                 	</h2>
-                	<button>수정하기</button>
-                	<button>삭제하기</button>
+                	<div style="float:right;margin-right: -600px;">
+	                	<button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;">수정하기</button>
+	                	<button class="btn btn-light" style="width:100px; color: red;border:none; background-color:white;">삭제하기</button>
+                	</div>
                 	<!-- 상태 값에 따른 c:if 처리 -->
                 	<!-- <h2 style="background-color: #FF6230; width: 130px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
                 	완료
@@ -265,7 +267,7 @@
                 </div>
                 <div>
                 	<ul style="font-size: large;">
-                		<li>작성자 : 
+                		<li style="margin-bottom: 30px;">작성자 : 
                 		<b>QlQlfl</b>
                 		<img src="${ pageContext.servletContext.contextPath }/resources/images/message icon.png" alt="" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;"/>
                 		<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;">
