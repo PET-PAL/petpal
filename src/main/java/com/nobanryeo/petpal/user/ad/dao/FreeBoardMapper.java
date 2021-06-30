@@ -26,4 +26,6 @@ public interface FreeBoardMapper {
 
 	int insertFreeBoardReplyReport(FreeBoardReplyDTO replyReport);
 
+	FreeBoardDTO writeFreeBoard(int userCode);
+
 }

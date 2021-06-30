@@ -77,4 +77,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return freeBoardMapper.insertFreeBoardReplyReport(replyReport);
 	}
 
+	@Override
+	public FreeBoardDTO writeFreeBoard(int userCode) {
+		return freeBoardMapper.writeFreeBoard(userCode);
+	}
+
 }

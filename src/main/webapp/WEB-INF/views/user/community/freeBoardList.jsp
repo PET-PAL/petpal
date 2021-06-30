@@ -123,7 +123,7 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left;">커뮤니티</div>
-                <button onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/list'">게시물 작성</button>
+                <button onclick="location.href='${ pageContext.servletContext.contextPath }/user/insert/freeboard'">게시물 작성</button>
             </section>
 
            	<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
