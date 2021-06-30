@@ -1,6 +1,7 @@
 package com.nobanryeo.petpal.admin.ask.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
 import com.nobanryeo.petpal.admin.dto.AskDTO;
@@ -15,4 +16,6 @@ public interface AskService {
 	int selectSearchCount(AdminPageInfoDTO cat);
 
 	List<AskDTO> selectSearchAsk(AdminPageInfoDTO paging);
+	boolean updateReply(Map param);
+
 }

@@ -178,4 +178,11 @@
 	    WHERE A.BOARD_CODE =#{boardCode}
 	</select>
 	
+	<update id="updateReply" parameterType="AskDetailDTO">
+		UPDATE QUESTION_BOARD 
+		   SET 
+			   ADMIN_REPLY_CONTENT = #{ message }
+	     WHERE BOARD_CODE = #{ boardCode }
+	 </update>
+	
 </mapper>

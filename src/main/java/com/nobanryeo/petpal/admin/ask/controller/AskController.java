@@ -1,6 +1,8 @@
 package com.nobanryeo.petpal.admin.ask.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -93,10 +95,23 @@ public class AskController {
     }
     
     @RequestMapping("updateAskReply")
-    public String updateReply(Model model,@RequestParam(value="boardCode", required=false)String boardCode,@RequestParam(value="message", required=false)String message) {
-       System.out.println(message+","+boardCode);
-       model.addAttribute("boardCode",boardCode);
+    public String updateReply(Model model,@RequestParam(value="boardCode", required=false)String boardString,@RequestParam(value="message", required=false)String message) {
+       System.out.println(message+","+boardString);
+       int boardCode = Integer.parseInt(boardString);
+       Map param = new HashMap();
+       
+       param.put("boardCode", boardCode);
+       param.put("message", message);
+       
+       if(!askService.updateReply(param)) {
+    	   System.out.println("업데이트 실패");
+       }else {
+    	   System.out.println("업데이트 성공");
+       }
 
+       
+       model.addAttribute("boardCode",boardCode);
+       
        return "redirect:/admin/askDetail?boardCode={boardCode}";
     }
 }
