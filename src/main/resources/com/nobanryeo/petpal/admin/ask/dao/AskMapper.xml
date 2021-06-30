@@ -151,9 +151,16 @@
 												</if>
 										   </where>
                                             
-                                            ORDER BY C.BOARD_CODE DESC
+                                            <if test='sortValue == 1'>
+												ORDER BY D.STATE_NAME DESC ,C.BOARD_CODE DESC
+											</if>
+											<if test='sortValue == 2'>
+												ORDER BY D.STATE_NAME ASC ,C.BOARD_CODE DESC
+											</if>
                                             
                                     )B
+                                    
+                                    
                         )A
                         WHERE A.RNUM BETWEEN #{start} AND #{end}
 	</select>
@@ -170,5 +177,12 @@
 	    JOIN USER_TABLE B ON(A.USER_CODE = B.USER_CODE)
 	    WHERE A.BOARD_CODE =#{boardCode}
 	</select>
+	
+	<update id="updateReply" parameterType="AskDetailDTO">
+		UPDATE QUESTION_BOARD 
+		   SET 
+			   ADMIN_REPLY_CONTENT = #{ message }
+	     WHERE BOARD_CODE = #{ boardCode }
+	 </update>
 	
 </mapper>
