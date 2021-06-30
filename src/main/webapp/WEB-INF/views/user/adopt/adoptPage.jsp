@@ -182,7 +182,7 @@
 		     	}); 
 		     	
 		     	
-				$('#adoptlistList').click(function(){
+				$('#adoptlistList1.div').click(function(){
 					const no = $(this).children().children().children().children().siblings('#boardCode')[0].value;
 					console.log(no);
 					location.href = "${ pageContext.servletContext.contextPath }/user/adopt/detail?no="+ no;
