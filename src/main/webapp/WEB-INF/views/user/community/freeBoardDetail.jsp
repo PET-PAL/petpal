@@ -277,7 +277,9 @@
 	                            	<td><c:out value="${ arr.userNickName }"/></td>
 	                            	<td><c:out value="${ arr.replyContent }"/></td>
 	                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
-	                            	<td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+	                            	<input type="hidden" value="${ arr.replyCode }" name="replyCode" id="replyCode"/>
+	                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" id="userCode1"/>
+	                            	<td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px" id="replyReport"></td>
 	                        	</tr>
                         	</c:if>
                         	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
@@ -335,8 +337,21 @@
                         </div>
                         <!-- 신고 내용 입력 -->
                         <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/reportReply" method="post">
-                        	<div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                        	<div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="replyReportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
                         	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+                        	<input type="hidden" name="replyCode" id="inputReplyCode">
+                        	<input type="hidden" name="userCode1" id="inputuserCode1">
+                        	<input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
+                        	<script>
+								$( document ).ready( function() {
+									$( '#replyReport' ).click( function() {
+										var replyCode = parseInt($( '#replyCode' ).val());
+										var userCode1 = parseInt($( '#replyCode' ).val());
+										$('#inputReplyCode').val() = replyCode;
+										$('#inputuserCode1').val() = userCode1;
+									} );
+								} );
+							</script>
                         </form>
                     </div>
                 </div>

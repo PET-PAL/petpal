@@ -12,11 +12,17 @@ public class FreeBoardReplyDTO {
 	private int boardCode;
 	private String userNickName;
 	private int userCode;
+	private int userCode1;
+	private String replyReportTitle;
+	private String replyReportContent;
+	private Date replyReportDate;
+	private int decisionCode;
 	
 	public FreeBoardReplyDTO() {}
 
 	public FreeBoardReplyDTO(int replyCode, String replyContent, Date replyDate, String replyDeleteYN, String reportYN,
-			int boardCode, String userNickName, int userCode) {
+			int boardCode, String userNickName, int userCode, int userCode1, String replyReportTitle,
+			String replyReportContent, Date replyReportDate, int decisionCode) {
 		super();
 		this.replyCode = replyCode;
 		this.replyContent = replyContent;
@@ -26,6 +32,11 @@ public class FreeBoardReplyDTO {
 		this.boardCode = boardCode;
 		this.userNickName = userNickName;
 		this.userCode = userCode;
+		this.userCode1 = userCode1;
+		this.replyReportTitle = replyReportTitle;
+		this.replyReportContent = replyReportContent;
+		this.replyReportDate = replyReportDate;
+		this.decisionCode = decisionCode;
 	}
 
 	public int getReplyCode() {
@@ -92,11 +103,53 @@ public class FreeBoardReplyDTO {
 		this.userCode = userCode;
 	}
 
+	public int getUserCode1() {
+		return userCode1;
+	}
+
+	public void setUserCode1(int userCode1) {
+		this.userCode1 = userCode1;
+	}
+
+	public String getReplyReportTitle() {
+		return replyReportTitle;
+	}
+
+	public void setReplyReportTitle(String replyReportTitle) {
+		this.replyReportTitle = replyReportTitle;
+	}
+
+	public String getReplyReportContent() {
+		return replyReportContent;
+	}
+
+	public void setReplyReportContent(String replyReportContent) {
+		this.replyReportContent = replyReportContent;
+	}
+
+	public Date getReplyReportDate() {
+		return replyReportDate;
+	}
+
+	public void setReplyReportDate(Date replyReportDate) {
+		this.replyReportDate = replyReportDate;
+	}
+
+	public int getDecisionCode() {
+		return decisionCode;
+	}
+
+	public void setDecisionCode(int decisionCode) {
+		this.decisionCode = decisionCode;
+	}
+
 	@Override
 	public String toString() {
 		return "FreeBoardReplyDTO [replyCode=" + replyCode + ", replyContent=" + replyContent + ", replyDate="
 				+ replyDate + ", replyDeleteYN=" + replyDeleteYN + ", reportYN=" + reportYN + ", boardCode=" + boardCode
-				+ ", userNickName=" + userNickName + ", userCode=" + userCode + "]";
+				+ ", userNickName=" + userNickName + ", userCode=" + userCode + ", userCode1=" + userCode1
+				+ ", replyReportTitle=" + replyReportTitle + ", replyReportContent=" + replyReportContent
+				+ ", replyReportDate=" + replyReportDate + ", decisionCode=" + decisionCode + "]";
 	}
-	
+
 }

@@ -24,4 +24,6 @@ public interface FreeBoardMapper {
 
 	int insertFreeBoardReport(FreeBoardReportDTO report);
 
+	int insertFreeBoardReplyReport(FreeBoardReplyDTO replyReport);
+
 }

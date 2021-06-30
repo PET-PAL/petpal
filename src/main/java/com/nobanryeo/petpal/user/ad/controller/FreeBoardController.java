@@ -121,14 +121,16 @@ public class FreeBoardController {
     * 자유게시판 댓글 신고 작성
     */
    @PostMapping("insert/freeboard/reportReply")
-   public String insertFreeBoardReportReply(@ModelAttribute FreeBoardReportDTO report, Model model, @RequestParam int code, @SessionAttribute UserInfoDTO loginUser) {
+   public String insertFreeBoardReportReply(@ModelAttribute FreeBoardReplyDTO replyReport, Model model, @RequestParam int code, @RequestParam int replyCode, @RequestParam int userCode1, @SessionAttribute UserInfoDTO loginUser) {
       
-      report.setUserCode(loginUser.getCode());
-      report.setBoardCode(code);
+	  replyReport.setUserCode(loginUser.getCode());
+	  replyReport.setReplyCode(replyCode);
+	  replyReport.setBoardCode(code);
+	  replyReport.setUserCode1(userCode1);
       
-      System.out.println(report);
+      System.out.println(replyReport);
       
-      if(freeBoardService.insertFreeBoardReport(report) > 0) {
+      if(freeBoardService.insertFreeBoardReplyReport(replyReport) > 0) {
          System.out.println("신고 성공");
       } else {
          System.out.println("신고 실패");

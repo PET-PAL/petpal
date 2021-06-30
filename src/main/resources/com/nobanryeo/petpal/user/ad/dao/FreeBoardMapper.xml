@@ -25,6 +25,11 @@
 		<result column="BOARD_CODE" property="boardCode"/>
 		<result column="USER_NIKNAME" property="userNickName"/>
 		<result column="USER_CODE" property="userCode"/>
+		<result column="USER_CODE1" property="userCode1"/>
+		<result column="REPLY_REPORT_TITLE" property="replyReportTitle"/>
+		<result column="REPLY_REPORT_CONTENT" property="replyReportContent"/>
+		<result column="REPLY_REPORT_DATE" property="replyReportDate"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
 	</resultMap>
 	
 	<resultMap id="messageResultSet" type="MessageTableDTO">
@@ -89,6 +94,8 @@
              , A.REPLY_DATE
              , A.REPLY_DELETE_YN
              , B.BOARD_CODE
+             , A.REPLY_CODE
+             , D.USER_CODE
           FROM REPLY_MANAGE A
           JOIN FREE_BOARD_REPLY B ON(B.REPLY_CODE = A.REPLY_CODE)
           JOIN FREE_BOARD C ON(C.BOARD_CODE = B.BOARD_CODE)
@@ -149,6 +156,25 @@
 		           )
             SELECT *
               FROM DUAL
+	</insert>
+	
+	<insert id="insertFreeBoardReplyReport" parameterType="FreeBoardReplyDTO">
+		<selectKey keyProperty="replyReportTitle" order="BEFORE" resultType="string">
+			SELECT
+			       REPLY_CONTENT
+			  FROM REPLY_MANAGE
+			 WHERE REPLY_CODE = #{ replyCode }
+		</selectKey>
+			INSERT 
+			  INTO REPLY_REPORT_TABLE
+			VALUES ( #{ userCode1 }
+			       , #{ replyCode }
+			       , #{ userCode }
+			       , #{ replyReportTitle }
+			       , #{ replyReportContent }
+			       , SYSDATE
+			       , null
+			       )
 	</insert>
 	
 </mapper>
