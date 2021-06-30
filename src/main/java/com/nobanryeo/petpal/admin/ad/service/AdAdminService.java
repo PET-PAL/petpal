@@ -27,7 +27,10 @@ public interface AdAdminService {
 	boolean updateAdApprove(Map param);
 	
 	// 광고 심사 검색 총 갯수 조회
-	int searchAdApply(Map<String, String> param);
+	int searchAdApply(AdminPageInfoDTO cat);
+
+	// 광고 심사 검색 리스트 조회
+	List<AdAdminDTO> searchAdApproveList(AdminPageInfoDTO paging);
 
 
 
