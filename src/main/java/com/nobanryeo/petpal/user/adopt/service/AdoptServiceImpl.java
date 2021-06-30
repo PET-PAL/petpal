@@ -60,6 +60,31 @@ public class AdoptServiceImpl implements AdoptService {
 		return result;
 	}
 
+	@Override
+	public int selectBoardCode() {
+		int boardCode = adoptMapper.selectBoardCode();
+		return boardCode;
+	}
+
+	@Override
+	public AdoptDTO selectAdoptDetail(int boardCode) {
+
+		AdoptDTO selectAdoptdetail = new AdoptDTO();
+		selectAdoptdetail = adoptMapper.selectAdoptDetail(boardCode);
+		
+		return selectAdoptdetail;
+	}
+
+	@Override
+	public List<PictureDTO> selectPictureList(int boardCode) {
+
+		List<PictureDTO> selectPictureList = new ArrayList<>();
+		selectPictureList = adoptMapper.selectPictureList(boardCode);
+		
+		return selectPictureList;
+	}
+
+
 
 
 }

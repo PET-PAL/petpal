@@ -18,5 +18,9 @@ public interface AdoptMapper {
 	
 	int registSubTable(PictureDTO picture);
 
+	AdoptDTO selectAdoptDetail(int boardCode);
+
+	List<PictureDTO> selectPictureList(int boardCode);
+
 	
 }
