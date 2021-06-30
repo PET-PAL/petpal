@@ -181,7 +181,8 @@ public class UserAdController {
 		try { 
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, pictureUrl); //파일 저장
-			jsonObject.addProperty("url", "/summernoteImage/"+pictureNewName);
+//			jsonObject.addProperty("url", filePath + "\\" + pictureNewName);
+			jsonObject.addProperty("url", "file:///C:/Users/WEENARA/git/petpal/src/main/webapp/resources/uploadFiles/3e55474907894bc2a32c402907e09d08.jpg");
 			jsonObject.addProperty("responseCode", "success");
 			
 			jsonObject.addProperty("pictureName", pictureName);

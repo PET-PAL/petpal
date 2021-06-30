@@ -59,8 +59,7 @@
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     	<script>
-    	
-    	
+    		var $j3 = jQuery.noConflict();
     	</script>
     </head>
 
@@ -109,23 +108,21 @@
   						<textarea name="adContent" id="summernote"></textarea>
   						<script>
   						
-					      $('#summernote').summernote({
-					    	  placeholder: '광고 게시물을 작성해주세요',
-					          tabsize: 2,
-					          height: 500,
-					          callbacks: {
-									onImageUpload: function(files, editor, welEditable) {
-							            for (var i = files.length - 1; i >= 0; i--) {
-							            	sendFile(files[i], this,welEditable);
-							            }
-							        }
-								}
-					      });
+  						$j3('#summernote').summernote({
+  	                        placeholder: '광고 게시물을 작성해주세요',
+  	                         tabsize: 2,
+  	                         height: 500,
+  	                         callbacks: {
+  	                           onImageUpload: function(files, editor, welEditable) {
+  	                                 sendFile(files[0], editor,welEditable);
+  	                             }
+  	                       }
+  	                     });
   					
 					      function sendFile(file, editor,welEditable) {
 						  		var form_data = new FormData();
 							        	form_data.append('file', file);
-							        	$.ajax({
+							        	$j3.ajax({
 								          	data: form_data,
 								          	type: "POST",
 								          	url: '${pageContext.servletContext.contextPath}/user/insert/imgTest',
@@ -134,11 +131,12 @@
 								          	enctype: 'multipart/form-data',
 								          	processData: false,
 								          	success: function(data) {
-								          		data.url;
-								          		$("#pictureName").val(data.pictureName);
-								          		$("#pictureUrl").val(data.pictureUrl);
-								          		$("#pictureNewName").val(data.pictureNewName);
-								          		$("#pictureUtilPath").val(data.pictureUtilPath);
+								          		$j3('#summernote').summernote('editor.insertImage','data.url');
+								          		console.log(data.url);
+								          		$j3("#pictureName").val(data.pictureName);
+								          		$j3("#pictureUrl").val(data.pictureUrl);
+								          		$j3("#pictureNewName").val(data.pictureNewName);
+								          		$j3("#pictureUtilPath").val(data.pictureUtilPath);
 								          	}
 						       		 });
 						      }  
