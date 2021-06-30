@@ -271,15 +271,16 @@
                             <td style="text-align: center;">2021-06-17</td>
                             <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
                         </tr> --%>
-                        <c:forEach var="arr" items="${ freeBoardReply }">
+                        <c:forEach var="arr" items="${ freeBoardReply }" varStatus="status">
                         	<c:if test="${ arr.replyDeleteYN eq 'N' }">
 	                        	<tr>
 	                            	<td><c:out value="${ arr.userNickName }"/></td>
 	                            	<td><c:out value="${ arr.replyContent }"/></td>
 	                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
-	                            	<input type="hidden" value="${ arr.replyCode }" name="replyCode" id="replyCode"/>
-	                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" id="userCode1"/>
-	                            	<td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px" id="replyReport"></td>
+	                            	<input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
+	                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/>
+	                            	<%-- <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px" class="replyReport"></td> --%>
+	                            	<td><img onclick="test1(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
 	                        	</tr>
                         	</c:if>
                         	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
@@ -339,23 +340,40 @@
                         <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/reportReply" method="post">
                         	<div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="replyReportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
                         	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
-                        	<input type="hidden" name="replyCode" id="inputReplyCode">
-                        	<input type="hidden" name="userCode1" id="inputuserCode1">
+                        	<input type="hidden" name="inputReplyCode" id="inputReplyCode">
+                        	<input type="hidden" name="inputuserCode1" id="inputuserCode1">
                         	<input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
-                        	<script>
-								$( document ).ready( function() {
-									$( '#replyReport' ).click( function() {
-										var replyCode = parseInt($( '#replyCode' ).val());
-										var userCode1 = parseInt($( '#replyCode' ).val());
-										$('#inputReplyCode').val() = replyCode;
-										$('#inputuserCode1').val() = userCode1;
-									} );
-								} );
-							</script>
                         </form>
                     </div>
                 </div>
             </div>
+                        	<script>
+									/* $( '.replyReport' ).click( function() {
+										var replyCode = parseInt($( '.replyCode' ).val());
+										var userCode1 = parseInt($( '.userCode1' ).val());
+										$('#inputReplyCode').val(replyCode);
+										$('#inputuserCode1').val(userCode1);
+									} ); */
+						/* 			$(document).ready( function() {
+										
+									$( '#replyReport' ).click( function() {
+										var userCode1 = $( '.userCode1' ).val()[0];
+										$('#inputuserCode1').val(userCode1);
+									} ); 
+									}); */
+									
+									function test1 (test) {
+										
+										let replyCode = test.className;
+										let userCode1 = test.title;
+										
+										document.getElementById("inputReplyCode").value = replyCode;
+										document.getElementById("inputuserCode1").value = userCode1;
+										
+										location.href = '#reportComment';
+									}
+									
+							</script>
             
              <!-- 신고 완료 팝업창 -->
             <div id="completeReport" class="overlay">
@@ -385,6 +403,7 @@
                         	<div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
                         	<input type="hidden" value="${ requestScope.freeBoardDetail.userCode }" name="userCode1">
                         	<input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
+                        	<input type="hidden" value="${ requestScope.freeBoardDetail.userNickName }" name="receiveUserNick">
                         </form>
                     </div>
                 </div>
