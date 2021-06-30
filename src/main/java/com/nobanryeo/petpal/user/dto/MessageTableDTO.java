@@ -9,16 +9,21 @@ public class MessageTableDTO {
 	private Date messageDate;
 	private int userCode1;
 	private int userCode;
+	private String sendUserNick;
+	private String receiveUserNick;
 	
 	public MessageTableDTO() {}
 
-	public MessageTableDTO(int messageCode, String messageContent, Date messageDate, int userCode1, int userCode) {
+	public MessageTableDTO(int messageCode, String messageContent, Date messageDate, int userCode1, int userCode,
+			String sendUserNick, String receiveUserNick) {
 		super();
 		this.messageCode = messageCode;
 		this.messageContent = messageContent;
 		this.messageDate = messageDate;
 		this.userCode1 = userCode1;
 		this.userCode = userCode;
+		this.sendUserNick = sendUserNick;
+		this.receiveUserNick = receiveUserNick;
 	}
 
 	public int getMessageCode() {
@@ -61,10 +66,29 @@ public class MessageTableDTO {
 		this.userCode = userCode;
 	}
 
+	public String getSendUserNick() {
+		return sendUserNick;
+	}
+
+	public void setSendUserNick(String sendUserNick) {
+		this.sendUserNick = sendUserNick;
+	}
+
+	public String getReceiveUserNick() {
+		return receiveUserNick;
+	}
+
+	public void setReceiveUserNick(String receiveUserNick) {
+		this.receiveUserNick = receiveUserNick;
+	}
+
 	@Override
 	public String toString() {
 		return "MessageTableDTO [messageCode=" + messageCode + ", messageContent=" + messageContent + ", messageDate="
-				+ messageDate + ", userCode1=" + userCode1 + ", userCode=" + userCode + "]";
+				+ messageDate + ", userCode1=" + userCode1 + ", userCode=" + userCode + ", sendUserNick=" + sendUserNick
+				+ ", receiveUserNick=" + receiveUserNick + "]";
 	}
+
+	
 	
 }

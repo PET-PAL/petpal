@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -87,7 +88,7 @@
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-	                        <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/messageDetail.jsp'">
+	                        <%-- <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/messageDetail.jsp'">
 	                            <td style="text-align: center;">킘해인</td>
 	                            <td>택배로 보내드리겠습니다.</td>
 	                            <td style="text-align: center;">2021-06-17</td>
@@ -101,7 +102,14 @@
 	                            <td style="text-align: center;">황주디</td>
 	                            <td>뎅이 너무 귀여워요~</td>
 	                            <td style="text-align: center;">2021-06-17</td>
-	                        </tr>
+	                        </tr> --%>
+	                        
+	                        <%-- <c:forEach>
+	                        	<c:if test="{}">
+	                        	</c:if>
+	                        </c:forEach> --%>
+	                        
+	                        
 	                    </tbody>
 	                </table>
 	                <div class="text-center">
