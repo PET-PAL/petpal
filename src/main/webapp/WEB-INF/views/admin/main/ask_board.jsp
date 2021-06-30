@@ -126,7 +126,15 @@ input {
 														<th style="text-align:center;">글 제목</th>
 														<th style="text-align:center;">문의 일자</th>
 														<th style="text-align:center;">질문 분류</th>
-														<th style="text-align:center;">진행상황</th>
+														<c:if test="${empty sortValue}">
+														<th onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?sortValue=1&nowPage=${paging.nowPage}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&category=${category}&cntPerPage=${paging.cntPerPage}'" style="text-align:center;">진행상황</th>
+														</c:if>
+														<c:if test="${sortValue eq 1}">
+														<th onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?sortValue=2&nowPage=${paging.nowPage}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&category=${category}&cntPerPage=${paging.cntPerPage}'" style="text-align:center;">진행상황</th>
+														</c:if>
+														<c:if test="${sortValue eq 2}">
+														<th onclick="location.href='${pageContext.servletContext.contextPath }/admin/askList?sortValue=&nowPage=${paging.nowPage}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&category=${category}&cntPerPage=${paging.cntPerPage}'" style="text-align:center;">진행상황</th>
+														</c:if>
 													</tr>
 														
 												</thead>

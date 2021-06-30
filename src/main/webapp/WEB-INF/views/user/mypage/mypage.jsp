@@ -127,7 +127,7 @@
                 <c:if test="${ sessionScope.loginUser.permisson eq 2 || sessionScope.loginUser.permisson eq 3 }">
 
                 <div>
-                	<a href="adminMain"><img src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png" style="width: 30px; height: 30px; margin-left: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
+                	<a href="${ pageContext.servletContext.contextPath }/admin/adminMain"><img src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png" style="width: 30px; height: 30px; margin-left: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
                 </div>
                 </c:if>          
 

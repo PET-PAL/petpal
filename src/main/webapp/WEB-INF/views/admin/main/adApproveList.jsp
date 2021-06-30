@@ -63,7 +63,7 @@
                         <!-- 탭 메뉴 시작 -->
                         <ul class="nav nav-tabs" role="tablist">
                         	 <c:if test="${ empty category }">
-	                        	<li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                        		<li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">대기</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">승인</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">거절</a></li>
@@ -104,7 +104,7 @@
 												<option value="menu" <c:if test="${requestScope.searchCondition eq 'menu'}">selected</c:if>>카테고리</option>
 												<option value="adCode" <c:if test="${requestScope.searchCondition eq 'adCode'}">selected</c:if>>광고코드</option>
 												<option value="adTitle" <c:if test="${requestScope.searchCondition eq 'adTitle'}">selected</c:if>>광고제목</option>
-												<option value="name" <c:if test="${requestScope.searchCondition eq 'name'}">selected</c:if>>광고제목</option>
+												<option value="name" <c:if test="${requestScope.searchCondition eq 'name'}">selected</c:if>>신청자이름</option>
 											</select>
 											<!-- input 값도 넘겨줌 -->
 									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
@@ -139,7 +139,8 @@
                                     <th style="text-align:center;">광고 신청자</th>
                                     <th style="text-align:center;">광고 제목</th>
                                     <th style="text-align:center;">사업자번호</th>
-                                    <th style="text-align:center;" class="filtering" onclick="qnaFiltering();" style="text-align: center;">신청 일자<img src="${ pageContext.servletContext.contextPath }/resources/images/filter.png" style="width:15px; margin-left:10px;"></th>
+                                    <%-- <th style="text-align:center;" class="filtering" onclick="qnaFiltering();" style="text-align: center;">신청 일자<img src="${ pageContext.servletContext.contextPath }/resources/images/filter.png" style="width:15px; margin-left:10px;"></th> --%>
+                                    <th style="text-align:center;">신청 일자</th>
                                     <th style="text-align:center;">심사 상태</th>
                                  </tr>
                                 </thead>

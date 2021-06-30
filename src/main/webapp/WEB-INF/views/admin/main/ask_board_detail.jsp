@@ -88,18 +88,22 @@
                    <!--관리자 심사 폼 시작 -->
                  <div class="col-md-12">
                          <hr>
-                   <form action="">
-	               <!-- 광고 심사 사유 입력 -->
-                   <div class="form-group">
-                   		<label for="writer" class="col-sm-2 control-label" style="font-size:20px; font-weight:bold;">관리자 답변: </label>
-	                   <div class="col-sm-10">
-                        <textarea class="form-control" name="message" rows="5" placeholder="문의에대한 댓글을 입력해주세요." required="" style="margin-bottom:3%;"></textarea>
-		               </div>
-		               <div class="form-group col-sm-3"  style="float:right;">
-		               	<button type="submit" class="btn btn-primary btn-sm" style="border-radius:10px;">문의 댓글 등록</button>
-		               </div>
-                   </div>   	
-	               </form>
+                         <c:if test="${ empty requestScope.askDetail.replyContent}">
+                         	<form action="${pageContext.servletContext.contextPath }/admin/updateAskReply" method="get">
+		                   <input type="hidden" name="boardCode" value="${ requestScope.askDetail.boardCode }"/>
+			               <!-- 광고 심사 사유 입력 -->
+		                   <div class="form-group">
+		                   		<label for="writer" class="col-sm-2 control-label" style="font-size:20px; font-weight:bold;">관리자 답변: </label>
+			                   <div class="col-sm-10">
+		                        <textarea class="form-control" id="message" name="message" rows="5" placeholder="문의에대한 댓글을 입력해주세요." required="" style="margin-bottom:3%;"></textarea>
+				               </div>
+				               <div class="form-group col-sm-3"  style="float:right;">
+				               	<button type="submit" class="btn btn-primary btn-sm" style="border-radius:10px;">문의 댓글 등록</button>
+				               </div>
+		                   </div>   	
+			               </form>
+                         </c:if>
+                   
 	               </div>
                             	</div>
                             </div>

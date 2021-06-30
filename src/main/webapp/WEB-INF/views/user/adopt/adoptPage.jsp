@@ -109,7 +109,66 @@
                              <div class="item active">
                                  <div class="container">
                                      <div class="row" id="adoptlistList">
-                                         
+                                     <script src='https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js'></script>
+                                            <script>
+										     	$(document).ready(function(){
+										     		console.log("adoptPage select script");
+										     		
+										     		$.ajax({
+										     			url:"/petpal/user/adoptData",
+										     			success:function(data,status,xhr){
+										     				const adoptList1 = JSON.parse(data.adoptList);
+										     				var adoptList = _.uniq(adoptList1, 'boardCode');
+										     			
+										     				
+										     				console.table(adoptList);
+										     				output='';
+										     				$.each(adoptList,function(){
+											     				var statusName = this.stateName;
+											     				var gender = this.adoptGender;
+											     				console.log(statusName);
+											     				
+										     					output += '<div class="col-sm-3">';
+										     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+										     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + this.boardCode +'\''+'">';
+										     					output += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
+										     					/* onclick="location.href="/petpal/user/adopt/detail?board=34""
+										     							onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?boardCode=${ arr.boardCode }'" */
+										     					console.log(output);
+										     					if(statusName == '대기'){
+										     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
+										     					}
+										     					if(statusName == '승인'){
+										     						output+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
+										     					}
+										     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
+										     					output += '</div>';
+										     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+										     					if(gender == 'M'){
+										     						output += '<h4>'+this.adoptBreed+'/수컷/'+this.adoptColor+'</h4>';
+										     					}
+										     					if(gender == 'F'){
+										     						output += '<h4>'+this.adoptBreed+'/암컷/'+this.adoptColor+'</h4>';
+										     					}
+										     					output += '<h6>'+this.userAddress+'</h6>';
+										     					output += '</div>';
+										     					output += '</div>';
+										     					output += '</div>';
+								                                    
+								                             
+										     				});
+										     				
+										     				$('#adoptlistList').append(output);
+										                
+										     				
+										     			},error:function(xhr,status,error){
+										     				alert("에러 발생~삐뽀~");
+										     				console.log(error);
+										     			}
+										     		});
+										     	}); 
+										     	
+										     </script>  
                                        
                                      </div>
                                  </div>
@@ -126,70 +185,17 @@
 							<li><a href="#">></a></li>
 						</ul>
 					</div>
-					
+					<script>
+						function moveData(){
+							var specNum = $("#boardCode").val();
+							alert(specNum);
+						}
+					</script>
 					            
-   <script>
-		     	$(document).ready(function(){
-		     		console.log("adoptPage select script");
-		     		
-		     		$.ajax({
-		     			url:"/petpal/user/adoptData",
-		     			success:function(data,status,xhr){
-		     				const adoptList = JSON.parse(data.adoptList);
-		     				console.table(adoptList);
-		     				output='';
-		     				
-		     				$.each(adoptList,function(){
-			     				var statusName = this.stateName;
-			     				var gender = this.adoptGender;
-			     				console.log(statusName);
-			     				
-		     					output += '<div class="col-sm-3">';
-		     					output += '<div class="port_item xs-m-top-30">';
-		     					output += '<div class="port_img" style="position: relative;">';
-		     					output += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
-		     					if(statusName == '대기'){
-		     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
-		     					}
-		     					if(statusName == '승인'){
-		     						output+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
-		     					}
-		     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
-		     					output += '</div>';
-		     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
-		     					if(gender == 'M'){
-		     						output += '<h4>'+this.adoptBreed+'/수컷/'+this.adoptColor+'</h4>';
-		     					}
-		     					if(gender == 'F'){
-		     						output += '<h4>'+this.adoptBreed+'/암컷/'+this.adoptColor+'</h4>';
-		     					}
-		     					output += '<h6>'+this.userAddress+'</h6>';
-		     					output += '</div>';
-		     					output += '</div>';
-		     					output += '</div>';
-                                    
-                             
-		     				});
-		     				
-		     				$('#adoptlistList').append(output);
-		                
-		     				
-		     			},error:function(xhr,status,error){
-		     				alert("에러 발생~삐뽀~");
-		     				console.log(error);
-		     			}
-		     		});
-		     	}); 
-		     	
-		     	
-				$('#adoptlistList').click(function(){
-					const no = $(this).children().children().children().children().siblings('#boardCode')[0].value;
-					console.log(no);
-					location.href = "${ pageContext.servletContext.contextPath }/user/adopt/detail?no="+ no;
-				});
-		     </script>  
+
             </section>
-             
+            
+										     					
             
             <div style="position: fixed; top: 310px; left: 200px;">
 	            <button onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/terms'" style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
@@ -201,17 +207,7 @@
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
          <jsp:include page="../common/footer.jsp"/>    
-<!-- 		<script>
-              $(document).ready(function(){
-                 console.log("adoptPage select script");
-                 const result = ${adoptList};
-                 console.table(result);
-                 console.log(result[0]['adoptBreed']);
-                 
-                 var aa='<h4>'+'result[0]['adoptBreed']'+'</h4>';
-                 
-              })
-           </script> -->
+
 
 
 </body>

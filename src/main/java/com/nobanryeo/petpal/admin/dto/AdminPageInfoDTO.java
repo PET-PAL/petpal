@@ -14,6 +14,7 @@ public class AdminPageInfoDTO {
 	private String category;
 	private String searchCondition;
 	private String searchValue;
+	private String sortValue;
 	
 	public AdminPageInfoDTO() {
 		super();
@@ -50,6 +51,32 @@ public class AdminPageInfoDTO {
 		   calcStartEndPage(getNowPage(), cntPage);
 		   calcStartEnd(getNowPage(), getCntPerPage());
 		}
+	//임시로 만듦(성훈)(sort용)
+	public AdminPageInfoDTO(int total, int nowPage, int cntPerPage, String category, String sortValue) {
+		   setNowPage(nowPage);
+		   setCntPerPage(cntPerPage);
+		   setTotal(total);
+		   setCategory(category);
+		   setSortValue(sortValue);
+		   calcLastPage(getTotal(), getCntPerPage());
+		   calcStartEndPage(getNowPage(), cntPage);
+		   calcStartEnd(getNowPage(), getCntPerPage());
+		}
+	public AdminPageInfoDTO(int total, int nowPage, int cntPerPage, String category
+			,String searchCondition, String searchValue, String sortValue) {
+		   setNowPage(nowPage);
+		   setCntPerPage(cntPerPage);
+		   setTotal(total);
+		   setCategory(category);
+		   setSearchCondition(searchCondition);
+		   setSearchValue(searchValue);
+		   setSortValue(sortValue);
+
+		   calcLastPage(getTotal(), getCntPerPage());
+		   calcStartEndPage(getNowPage(), cntPage);
+		   calcStartEnd(getNowPage(), getCntPerPage());
+		}
+	
 	
     // 제일 마지막 페이지 계산
     public void calcLastPage(int total, int cntPerPage) {
@@ -171,13 +198,22 @@ public class AdminPageInfoDTO {
 		this.searchValue = searchValue;
 	}
 
+	public String getSortValue() {
+		return sortValue;
+	}
+
+	public void setSortValue(String sortValue) {
+		this.sortValue = sortValue;
+	}
+
 	@Override
 	public String toString() {
 		return "AdminPageInfoDTO [nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage + ", total="
 				+ total + ", cntPerPage=" + cntPerPage + ", lastPage=" + lastPage + ", start=" + start + ", end=" + end
 				+ ", cntPage=" + cntPage + ", category=" + category + ", searchCondition=" + searchCondition
-				+ ", searchValue=" + searchValue + "]";
+				+ ", searchValue=" + searchValue + ", sortValue=" + sortValue + "]";
 	}
+
 	
 
 
