@@ -36,7 +36,7 @@
                                 <li role="presentation" style="font-weight:800; margin-bottom:12px; font-size:25px; color:black">${adDetail.adTitle}</li>
                              </ul>
                              </c:forEach>
-                               <a href="../adApproveList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+                               <a href="${ pageContext.servletContext.contextPath }/admin/adApproveList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
                                			style="width:40px;height:42px; margin-right:30px; margin-top:-50px; float:right;"></a>
 
 
@@ -58,10 +58,10 @@
                                     <th style="border: none; width: 150px;">사업자 번호</th>
                                     <td style="border: none;">${adDetail.companyNumber}</td>
                                  </tr>
-                                 <tr>
+                                 <!-- <tr>
                                     <th style="border: none; width: 150px;">사업자 등록증</th>
                                     <td style="border: none;"> <button class="btn text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px;">사업자 등록증 보기</button></td>
-                                 </tr>
+                                 </tr> -->
                                  <tr>
                                     <th style="border: none; width: 150px;">사업자 전화번호</th>
                                     <td style="border: none;">${adDetail.companyPhone}</td>
@@ -91,7 +91,7 @@
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 주수</th>
-                                    <td style="border: none;">${adDetail.adTypeCode}</td>
+                                    <td style="border: none;">${adDetail.adTypeCode}주</td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 내용</th>
@@ -113,7 +113,7 @@
 	                       <p style="font-weight:800; margin-top:20px; font-size:25px; color:black">관리자 심사</p>
 	                   </div>   
                    <!--관리자 심사 폼 시작 -->
-	                 <form action="adApproveInsert/${adDetail.adCode}" method="post" enctype="multipart/form-data">
+	                 <form action="${ pageContext.servletContext.contextPath }/admin/adApproveDetail/${adDetail.adCode}" method="post" enctype="multipart/form-data">
 		               <!-- 광고 심사 사유 입력 -->
 	                   <div class="form-group mt-3">
 	                        <textarea name="decisionReason" class="form-control" rows="5" placeholder="광고 심사 사유를 입력해주세요(필수)" required="" style="margin-bottom:3%;"></textarea>

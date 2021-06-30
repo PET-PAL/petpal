@@ -80,7 +80,7 @@
                                     <td><input class="check" type="checkbox" id="admin" onclick="checkClick(this)"></td>
                                     <th scope="row">1</th>
                                     <td>id1</td>
-                                    <td onclick="location.href='adminDetail'">김관리</td>
+                                    <td onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adminDetail'">김관리</td>
                                     <td>admin@gmail.com</td>
                                     <td>2021-06-17</td>
                                     <td>대표관리자</td>
@@ -89,7 +89,7 @@
                                     <td><input class="check" type="checkbox" id="admin" onclick="checkClick(this)"></td>
                                     <th scope="row">2</th>
                                     <td>id1</td>
-                                    <td onclick="location.href='adminDetail'">김관리</td>
+                                    <td onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adminDetail'">김관리</td>
                                     <td>admin@gmail.com</td>
                                     <td>2021-06-17</td>
                                     <td>대표관리자</td>
@@ -98,7 +98,7 @@
                                     <td><input class="check" type="checkbox" id="admin" onclick="checkClick(this)"></td>
                                     <th scope="row">3</th>
                                     <td>id1</td>
-                                    <td onclick="location.href='adminDetail'">김관리</td>
+                                    <td onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adminDetail'">김관리</td>
                                     <td>admin@gmail.com</td>
                                     <td>2021-06-17</td>
                                     <td>대표관리자</td>

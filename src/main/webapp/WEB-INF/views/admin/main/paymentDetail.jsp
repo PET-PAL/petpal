@@ -48,7 +48,7 @@
 		 				<p role="presentation" style="font-weight:800; font-size:25px; color:black; margin-top:10px;">광고 결제 관리</p>
                       </div>	
 					 <div class="col-md-25">
-                               <a href="paymentManageList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+                               <a href="${ pageContext.servletContext.contextPath }/admin/paymentManageList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
                                			style="width:40px;height:42px; margin-right:30px; margin-top:-50px; float:right;"></a>
                             <div class="tab-content" style="padding-top: 15px;">
                                 <div role="tabpanel" class="tab-pane active" id="profile">	
