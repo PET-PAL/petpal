@@ -33,7 +33,8 @@ public class AskController {
          , @RequestParam(value="cntPerPage", required=false)String cntPerPage
          , @RequestParam(value="category", required=false)String category
          , @RequestParam(value="searchCondition", required=false)String searchCondition
-         , @RequestParam(value="searchValue", required=false)String searchValue) {
+         , @RequestParam(value="searchValue", required=false)String searchValue
+         , @RequestParam(value="sortValue", required=false)String sortValue) {
        
        if (nowPage == null && cntPerPage == null) {
          nowPage = "1";
@@ -49,10 +50,11 @@ public class AskController {
     	   AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
            int total = askService.selectListCount(cat);
            
-          paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category);
+          paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category,sortValue);
           model.addAttribute("paging", paging);
           model.addAttribute("total",total);
           model.addAttribute("category", category);
+          model.addAttribute("sortValue",sortValue);
            
            List<AskDTO> askList = askService.selectAsk(paging);
            System.out.println(askList);
@@ -64,13 +66,14 @@ public class AskController {
        System.out.println("카테고리 2 : "+cat.getCategory());
        int total = askService.selectSearchCount(cat);
        
-      paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category,searchCondition,searchValue);
+      paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category,searchCondition,searchValue,sortValue);
       model.addAttribute("paging", paging);
       model.addAttribute("total",total);
       model.addAttribute("category", category);
       model.addAttribute("searchCondition", searchCondition);
       model.addAttribute("searchValue", searchValue);
-       
+      model.addAttribute("sortValue",sortValue);
+
        List<AskDTO> askList = askService.selectSearchAsk(paging);
        System.out.println(askList);
        model.addAttribute("askList", askList);
