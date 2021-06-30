@@ -124,9 +124,10 @@
                 
             </section> <!--End off Home Sections-->
             
-                <c:if test="${ sessionScope.userInfo.permisson eq 2 || sessionScope.userInfo.permisson eq 3 }">
+                <c:if test="${ sessionScope.loginUser.permisson eq 2 || sessionScope.loginUser.permisson eq 3 }">
+
                 <div>
-                	<a href="${ pageContext.servletContext.contextPath }/views/admin/main/manager_main.jsp"><img src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png" style="width: 30px; height: 30px; margin-left: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
+                	<a href="adminMain"><img src="${ pageContext.servletContext.contextPath }/resources/images/spanner.png" style="width: 30px; height: 30px; margin-left: 50px; margin-bottom: 50px; margin-top: -80px;"></a>
                 </div>
                 </c:if>          
 

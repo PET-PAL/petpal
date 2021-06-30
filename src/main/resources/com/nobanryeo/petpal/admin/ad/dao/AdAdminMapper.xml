@@ -68,22 +68,74 @@
 			WHERE RN BETWEEN #{start} AND #{end}
 	  </select>
 	  
-	  <!-- 총 광고 심사 검색 갯수 조회 -->
-	  <select id="searchAdApply" resultType="int" parameterType="SearchCriteria">
+	  <!-- 검색 시 총 광고 심사 검색 갯수 조회 -->
+	  <select id="searchAdApply" resultType="int" parameterType="AdminPageInfoDTO">
 		SELECT COUNT(*) 
 		  FROM AD_APPLY_TABLE A
 		  JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
 	   <where>
-		<if test='condition == "adCode"'>
-		 WHERE A.AD_CODE LIKE '%' || '#{ value }' || '%'
+		<if test='searchCondition != null and searchCondition == "adCode"'>
+		  A.AD_CODE LIKE '%' || #{ searchValue } || '%'
 		</if>
-		<if test='condition == "adTitle"'>
-		 WHERE A.AD_TITLE LIKE '%' || '#{ value }' || '%'
+		<if test='searchCondition != null and searchCondition == "adTitle"'>
+		  A.AD_TITLE LIKE '%' || #{ searchValue } || '%'
 		</if>
-		<if test='category == "name"'>
-		 WHERE B.USER_NAME LIKE '%'|| '#{ value }' || '%'
+		<if test='searchCondition != null and searchCondition == "name"'>
+		  B.USER_NAME LIKE '%'|| #{ searchValue } || '%'
 		</if>
-	    </where>		
+	    <if test='category != null and category == "1"'>
+		  AND A.STATE_CODE = 1
+		</if>
+		<if test='category != null and category == "2"'>
+		  AND A.STATE_CODE = 2
+		</if>
+		<if test='category != null and category == "3"'>
+		  AND A.STATE_CODE = 3
+		</if>		
+	   </where>
+	  </select>
+	  
+	   <!-- 광고 심사 리스트 -->
+	  <select id="searchAdApproveList" resultMap="adAdmin" parameterType="AdminPageInfoDTO">
+		SELECT * 
+		  FROM (
+			    SELECT ROWNUM RN, C.* 
+			      FROM (
+			    	     SELECT 
+			                  	 A.AD_CODE
+			                   , A.USER_CODE
+			                   , B.USER_NAME
+			                   , B.USER_ID
+			                   , A.AD_TITLE
+			                   , A.COMPANY_NUMBER
+			                   , A.APPLY_DATE
+			                   , A.STATE_CODE
+			    	       FROM AD_APPLY_TABLE A 
+		                   JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
+						   <where>
+							<if test='searchCondition == "adCode"'>
+							  A.AD_CODE LIKE '%' || #{ searchValue } || '%'
+							</if>
+							<if test='searchCondition != null and searchCondition == "adTitle"'>
+							  A.AD_TITLE LIKE '%' || #{ searchValue } || '%'
+							</if>
+							<if test='searchCondition != null and searchCondition == "name"'>
+							  B.USER_NAME LIKE '%'|| #{ searchValue } || '%'
+							</if>
+						  	 <if test='category != null and category == "1"'>
+							  AND A.STATE_CODE = 1
+							</if>
+							<if test='category != null and category == "2"'>
+							  AND A.STATE_CODE = 2
+							</if>
+							<if test='category != null and category == "3"'>
+							  AND A.STATE_CODE = 3
+							</if>		
+						   </where>
+		               ORDER BY A.AD_CODE DESC
+						) C
+				  )
+			WHERE RN BETWEEN #{start} AND #{end}
 	  </select>
 	  
 

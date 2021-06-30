@@ -95,16 +95,15 @@
                             <li><a href="blackList">블랙리스트 관리</a></li>
                             <li class="dropdown"><a href="adApproveList" class="dropdown-category" id="dropdownAskMenu" data-toggle="dropdown"> 광고 <i class="caret"></i></a> 
                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownADMenu" style="width:130px;" > 
-                                  <li><a class="dropdown-item" aria-current="true"  href="adApproveList">광고 심사</a></li> 
-                                  <li><a class="dropdown-item"  href="adList">광고 관리</a></li> 
-
+                                  <li><a class="dropdown-item" aria-current="true"  href="${ pageContext.servletContext.contextPath }/admin/adApproveList">광고 심사</a></li> 
+                                  <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/admin/adList">광고 관리</a></li> 
                                </ul> 
                             </li>
-                             <li><a href="reviewList"> 검토 게시판 </a></li>
+                             <li><a href="${pageContext.servletContext.contextPath }/admin/reviewList"> 검토 게시판 </a></li>
                              <li class="dropdown"><a href="${ pageContext.servletContext.contextPath }/views/admin/main/report.jsp" class="dropdown-category" id="dropdownAskMenu" data-toggle="dropdown"> 신고/문의 게시판 <i class="caret"></i></a> 
                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownAskMenu" style="width:130px;" > 
-                                  <li><a class="dropdown-item" aria-current="true" href="reportList">신고 게시판</a></li> 
-                                  <li><a class="dropdown-item" href="askList">문의 게시판</a></li> 
+                                  <li><a class="dropdown-item" aria-current="true" href="${pageContext.servletContext.contextPath }/admin/reportList">신고 게시판</a></li> 
+                                  <li><a class="dropdown-item" href="${pageContext.servletContext.contextPath }/admin/askList">문의 게시판</a></li> 
                                </ul> 
                             </li>
                             <li><a href="newsLetterList">뉴스레터</a></li>

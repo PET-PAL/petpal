@@ -51,7 +51,6 @@ public class AdminPageInfoDTO {
 		   calcStartEnd(getNowPage(), getCntPerPage());
 		}
 	
-	
     // 제일 마지막 페이지 계산
     public void calcLastPage(int total, int cntPerPage) {
     	setLastPage((int) Math.ceil((double)total / (double)cntPerPage));

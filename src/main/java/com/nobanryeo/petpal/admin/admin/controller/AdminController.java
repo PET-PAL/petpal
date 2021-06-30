@@ -7,8 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/*")
 public class AdminController {
 
+	// 고객페이지에서 로그인 시 스패너 타고 이동한 관리자페이지
+//	@RequestMapping("adminMain")
+//	public String adminMainReturning() {
+//		return "admin/main/manager_main";
+//	}
+	
 	// 관리자관리 리스트
-	@RequestMapping("adminList")
+	@RequestMapping("user/adminList")
 	public String adminListReturning() {
 		return "admin/main/adminList";
 	}
@@ -24,5 +30,6 @@ public class AdminController {
 	public String adminAddReturning() {
 		return "admin/main/adminAdd";
 	}
+	
 	
 }

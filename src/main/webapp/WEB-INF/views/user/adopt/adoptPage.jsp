@@ -110,9 +110,7 @@
                                  <div class="container">
                                      <div class="row" id="adoptlistList">
                                          
-                                 
                                        
-                                         
                                      </div>
                                  </div>
                              </div>
