@@ -82,12 +82,21 @@ public class AskController {
     }
     
     
-   // @RequestMapping("askDetail")
-   // public String askDetail(Model model,HttpServletRequest request) {
-   //    int boardCode = Integer.parseInt(request.getParameter("boardCode"));
-   //    AskDetailDTO askDetail = askService.selectListDetail(boardCode);
-   //    System.out.println(askDetail);
-   //    model.addAttribute("askDetail",askDetail);
-   //    return "admin/main/ask_board_detail";
-   // }
+    @RequestMapping("askDetail")
+    public String askDetail(Model model,HttpServletRequest request) {
+       int boardCode = Integer.parseInt(request.getParameter("boardCode"));
+       AskDetailDTO askDetail = askService.selectListDetail(boardCode);
+       System.out.println(askDetail);
+       model.addAttribute("askDetail",askDetail);
+
+       return "admin/main/ask_board_detail";
+    }
+    
+    @RequestMapping("updateAskReply")
+    public String updateReply(Model model,@RequestParam(value="boardCode", required=false)String boardCode,@RequestParam(value="message", required=false)String message) {
+       System.out.println(message+","+boardCode);
+       model.addAttribute("boardCode",boardCode);
+
+       return "redirect:/admin/askDetail?boardCode={boardCode}";
+    }
 }
