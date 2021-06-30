@@ -65,18 +65,33 @@ public class MypageController {
    }
    
    @PostMapping("updateUserInfo")
-   public String updateUserInfo(@ModelAttribute UserInfoDTO userInfo) {
+   public String updateUserInfo(@ModelAttribute UserInfoDTO userInfo, RedirectAttributes rttr, HttpServletRequest request) {
       System.out.println("수정 될 유저 정보 : " + userInfo);
+      System.out.println("암호화 전 비밀번호 : " + userInfo.getPwd());
       
-      if(userInfo.getPwd() != null) {
-         //비밀번호 암호화 작업
-         userInfo.setPwd(encoder.encode(userInfo.getPwd()));
+      //비밀번호 암호화 작업
+      userInfo.setPwd(encoder.encode(userInfo.getPwd()));
+      System.out.println("비밀번호 암호화 : " + userInfo.getPwd());
+      
+      
+      
+      boolean updateUserInfo = userService.updateUserInfo(userInfo);
+      System.out.println("유저정보 업데이트 결과 : " + updateUserInfo);
+      
+      if(updateUserInfo == true) {
+         
+         UserInfoDTO loginUser = userService.selectNewUserInfo(userInfo);
+         System.out.println("변경 된 유저 정보 : " + loginUser);
+         rttr.addFlashAttribute("message", "정보 수정에 성공했습니다.");
+         
+         HttpSession session = request.getSession();
+         session.setAttribute("loginUser", loginUser);
+         
+      } else {
+         rttr.addFlashAttribute("message", "정보 수정에 실패했습니다.");
       }
       
-//      boolean modifyUserInfo = mypageService.updateUserInfo(userInfo);
-      
-      
-      return "";
+      return "redirect:/mypage/account";
    }
    
    /**
@@ -130,29 +145,82 @@ public class MypageController {
       
    }
    
+   /**
+    * 닉네임 변경
+    * @param userInfo
+    * @param rttr
+    * @param request
+    * @return
+    */
    @PostMapping("updateNick")
-   public ModelAndView updateNick(@ModelAttribute UserInfoDTO userInfo, ModelAndView mv, RedirectAttributes rttr, HttpServletRequest request) {
+   public String updateNick(@ModelAttribute UserInfoDTO userInfo, RedirectAttributes rttr, HttpServletRequest request) {
       System.out.println("변경을 시도하는 아이디 : " + userInfo.getId());
       System.out.println("변경할 닉네임 : " + userInfo.getNikname());
       
       int result = userService.updateNick(userInfo);
       UserInfoDTO loginUser = userService.selectNewUserInfo(userInfo);
       
-      
       if(result > 0) {
          rttr.addFlashAttribute("message", "닉네임 변경에 성공했습니다.");
-         mv.setViewName("redirect:/mypage/account");
          
          HttpSession session = request.getSession();
          session.setAttribute("loginUser", loginUser);
       } else {
-         mv.addObject("message", "닉네임 변경에 실패했습니다.");
-         mv.setViewName("redirect:/mypage/account");
+         rttr.addFlashAttribute("message", "닉네임 변경에 실패했습니다.");
       }
       
-      return mv;
+      return "redirect:/mypage/account";
    }
    
+   /**
+    * 이메일변경
+    * @param userInfo
+    * @param rttr
+    * @param request
+    * @return
+    */
+   @PostMapping("updateEmail")
+   public String updateEmail(@ModelAttribute UserInfoDTO userInfo, RedirectAttributes rttr, HttpServletRequest request) {
+      System.out.println("변경을 시도하는 아이디 : " + userInfo.getId());
+      System.out.println("변경할 이메일 : " + userInfo.getEmail());
+      
+      int result = userService.updateEmail(userInfo);
+      UserInfoDTO loginUser = userService.selectNewUserInfo(userInfo);
+      
+      if(result > 0) {
+         rttr.addFlashAttribute("message", "이메일 변경에 성공했습니다.");
+         
+         HttpSession session = request.getSession();
+         session.setAttribute("loginUser", loginUser);
+      } else {
+         rttr.addFlashAttribute("message", "이메일 변경에 실패했습니다.");
+      }
+      
+      return "redirect:/mypage/account";
+   }
+   
+   @PostMapping("withdrawUser")
+   public String withdrawUser(@ModelAttribute UserInfoDTO userInfo, RedirectAttributes rttr, HttpSession session) {
+      
+      System.out.println("탈퇴를 위해 입력 된 비밀번호 : " + userInfo.getPwd());
+      System.out.println("탈퇴하려는 유저코드 : " + userInfo.getCode());
+      System.out.println("탈퇴하려는 아이디 : " + userInfo.getId());
+      
+      String result = userService.withdrawUser(userInfo);
+      
+      if(result == "pwdFail") {
+         rttr.addFlashAttribute("message", "비밀번호가 맞지 않습니다.");
+         return "redirect:/mypage/account";
+      } else if(result == "fail") {
+         rttr.addFlashAttribute("message", "탈퇴에 실패했습니다.");
+         return "redirect:/mypage/account";
+      } else {
+         rttr.addFlashAttribute("message", "펫팔을 떠나신다니 아쉬워요... 언젠가 다시 만날 날을 기다립니다! 사용 된 정보로의 재가입은 탈퇴날부터 3개월 이후에 가능합니다!");
+         session.invalidate();
+         return "redirect:/";
+      }
+      
+   }
    
 }
 
