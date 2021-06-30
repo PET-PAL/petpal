@@ -138,6 +138,8 @@
 								
 							</div>
                         
+                       
+
                    
                         <!-- 전체 광고(All 클릭 시) -->
                         <div class="tab-content" style="padding:0px;">
@@ -188,20 +190,28 @@
 	                                    </c:otherwise>
                                     </c:choose>
                                     </td>
+                                     <jsp:useBean id="now" class="java.util.Date" />
+									 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
+									 <fmt:formatDate value="${adApprove.postStartDate}" pattern="yyyy-MM-dd" var="startday" />
+									 <fmt:formatDate value="${adApprove.postEndDate}" pattern="yyyy-MM-dd" var="endday" />  
                                     <!-- 페이지 게시 상태에 따라 분류 -->
                                     <td>
                                     	<!-- 게시 전/게시 중/게시 종료/게시 취소 -->
                                     	<c:choose>
                                     	<%-- <fmt:formatDate var="toDay" value="${toDay}" pattern="yyyy-MM-dd" /> --%>
-                                    		<c:when test="${ adApprove.postYn eq 'N'}">
+                                    		<c:when test="${ adApprove.postYn eq 'N' and (startday > today or empty startday) and empty adApprove.cancelApplyDate }">
                                     			게시전
                                     		</c:when>
-                                    		<c:when test="${ adApprove.postYn eq 'Y'}">
+                                    		<c:when test="${ adApprove.postYn eq 'Y' and startday <= today and today <= endday}">
                                     			게시중
                                     		</c:when>
-                                    		<%-- <c:when test="${ adApprove.postYn eq 'Y'}">
-                                    			게시중
-                                    		</c:when> --%>
+                                    		<c:when test="${ adApprove.postYn eq 'N' and startday < today and empty adApprove.cancelApplyDate}">
+                                    			게시종료
+                                    		</c:when>
+                                    		<c:when test="${ not empty adApprove.cancelApplyDate }">
+                                    		         게시취소
+                                    		</c:when> 
+                                    		
                                     	</c:choose>
                                     </td>
                                     </tr>
