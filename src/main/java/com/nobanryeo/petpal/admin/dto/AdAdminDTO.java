@@ -25,6 +25,7 @@ public class AdAdminDTO {
 	private String payMethod;
 	private Date cancelApplyDate;
 	private Date postStartDate;
+	private Date postEndDate;
 	private int stateCode;
 	private UserInfoDTO user;
 	private DecisionDTO decision;
@@ -35,8 +36,9 @@ public class AdAdminDTO {
 
 	public AdAdminDTO(int adCode, String companyName, Date applyDate, String companyNumber, String companyPhone,
 			String companyEmail, String adContent, String postYn, String refundYn, Date payDate2nd, int pictureCode,
-			Date payDate1st, int userCode, int adTypeCode, String adTitle,int decisionCode,String payMethod, Date cancelApplyDate,
-			Date postStartDate, int stateCode, UserInfoDTO user, DecisionDTO decision) {
+			Date payDate1st, int decisionCode, int userCode, int adTypeCode, String adTitle, String payMethod,
+			Date cancelApplyDate, Date postStartDate, Date postEndDate, int stateCode, UserInfoDTO user,
+			DecisionDTO decision) {
 		super();
 		this.adCode = adCode;
 		this.companyName = companyName;
@@ -50,34 +52,25 @@ public class AdAdminDTO {
 		this.payDate2nd = payDate2nd;
 		this.pictureCode = pictureCode;
 		this.payDate1st = payDate1st;
+		this.decisionCode = decisionCode;
 		this.userCode = userCode;
 		this.adTypeCode = adTypeCode;
 		this.adTitle = adTitle;
 		this.payMethod = payMethod;
 		this.cancelApplyDate = cancelApplyDate;
 		this.postStartDate = postStartDate;
+		this.postEndDate = postEndDate;
 		this.stateCode = stateCode;
 		this.user = user;
 		this.decision = decision;
-		this.decisionCode = decisionCode;
 	}
 
-
-	
 	public int getAdCode() {
 		return adCode;
 	}
 
 	public void setAdCode(int adCode) {
 		this.adCode = adCode;
-	}
-	
-	public int getDecisionCode() {
-		return decisionCode;
-	}
-
-	public void setDecisionCode(int decisionCode) {
-		this.decisionCode = decisionCode;
 	}
 
 	public String getCompanyName() {
@@ -168,6 +161,14 @@ public class AdAdminDTO {
 		this.payDate1st = payDate1st;
 	}
 
+	public int getDecisionCode() {
+		return decisionCode;
+	}
+
+	public void setDecisionCode(int decisionCode) {
+		this.decisionCode = decisionCode;
+	}
+
 	public int getUserCode() {
 		return userCode;
 	}
@@ -216,6 +217,14 @@ public class AdAdminDTO {
 		this.postStartDate = postStartDate;
 	}
 
+	public Date getPostEndDate() {
+		return postEndDate;
+	}
+
+	public void setPostEndDate(Date postEndDate) {
+		this.postEndDate = postEndDate;
+	}
+
 	public int getStateCode() {
 		return stateCode;
 	}
@@ -246,10 +255,13 @@ public class AdAdminDTO {
 				+ ", companyNumber=" + companyNumber + ", companyPhone=" + companyPhone + ", companyEmail="
 				+ companyEmail + ", adContent=" + adContent + ", postYn=" + postYn + ", refundYn=" + refundYn
 				+ ", payDate2nd=" + payDate2nd + ", pictureCode=" + pictureCode + ", payDate1st=" + payDate1st
-				+ ", userCode=" + userCode + ", adTypeCode=" + adTypeCode + ", adTitle=" + adTitle + ", payMethod="
-				+ payMethod + ", cancelApplyDate=" + cancelApplyDate + ", postStartDate=" + postStartDate
-				+ ", stateCode=" + stateCode + ", user=" + user + ", decision=" + decision + "]";
+				+ ", decisionCode=" + decisionCode + ", userCode=" + userCode + ", adTypeCode=" + adTypeCode
+				+ ", adTitle=" + adTitle + ", payMethod=" + payMethod + ", cancelApplyDate=" + cancelApplyDate
+				+ ", postStartDate=" + postStartDate + ", postEndDate=" + postEndDate + ", stateCode=" + stateCode
+				+ ", user=" + user + ", decision=" + decision + "]";
 	}
+
+	
 	
 
 }

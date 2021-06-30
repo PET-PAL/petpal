@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.nobanryeo.petpal.admin.ad.dao.AdAdminMapper;
 import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
 import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
+import com.nobanryeo.petpal.admin.dto.DecisionDTO;
 
 @Service
 public class AdAdminServiceImpl implements AdAdminService  {
@@ -52,16 +53,16 @@ public class AdAdminServiceImpl implements AdAdminService  {
 
 	// 광고 심사 사유 입력
 	@Override
-	public boolean insertAdApprove(Map param) {
-		return adAdminMapper.insertAdApprove(param) > 0 ? true : false;
+	public boolean insertAdApprove(DecisionDTO decision) {
+		return adAdminMapper.insertAdApprove(decision) > 0 ? true : false;
 	}
 
 	// 광고 심사 결과 업데이트
 	@Override
-	public boolean updateAdApprove(Map param) {
-		return adAdminMapper.updateAdApprove(param) > 0 ? true : false;
+	public boolean updateAdApprove(DecisionDTO decision) {
+		return adAdminMapper.updateAdApprove(decision) > 0 ? true : false;
 	}
-
+	
 	// 광고 심사 검색 총 갯수
 	@Override
 	public int searchAdApply(AdminPageInfoDTO cat) {
@@ -72,6 +73,19 @@ public class AdAdminServiceImpl implements AdAdminService  {
 	@Override
 	public List<AdAdminDTO> searchAdApproveList(AdminPageInfoDTO paging) {
 		return adAdminMapper.searchAdApproveList(paging);
+	}
+
+	// 광고 검사 총 갯수
+	@Override
+	public int selectAdList(AdminPageInfoDTO cat) {
+		// TODO Auto-generated method stub
+		return adAdminMapper.selectAdList(cat);
+	}
+
+	// 광고 관리 리스트 
+	@Override
+	public List<AdAdminDTO> selectAdAllList(AdminPageInfoDTO paging) {
+		return adAdminMapper.selectAdAllList(paging);
 	}
 
 

@@ -8,21 +8,32 @@ public class DecisionDTO {
 	private String decisionReason;
 	private Date decisionDate;
 	private int stateCode;
-	private int code; // 유저코드
+	private int code; // 유저코드(관리자코드)
+	private int adCode; // 광고코드
 	
 	public DecisionDTO() {
 		super();
 	}
 
-	public DecisionDTO(int decisionCode, String decisionReason, Date decisionDate, int stateCode, int code) {
+	public DecisionDTO(int decisionCode, String decisionReason, Date decisionDate, int stateCode, int code,
+			int adCode) {
 		super();
 		this.decisionCode = decisionCode;
 		this.decisionReason = decisionReason;
 		this.decisionDate = decisionDate;
 		this.stateCode = stateCode;
 		this.code = code;
+		this.adCode = adCode;
 	}
 
+	public DecisionDTO(String decisionReason, int stateCode, int code, int adCode) {
+		super();
+		this.decisionReason = decisionReason;
+		this.stateCode = stateCode;
+		this.code = code;
+		this.adCode = adCode;
+	}
+	
 	public int getDecisionCode() {
 		return decisionCode;
 	}
@@ -63,12 +74,20 @@ public class DecisionDTO {
 		this.code = code;
 	}
 
+	public int getAdCode() {
+		return adCode;
+	}
+
+	public void setAdCode(int adCode) {
+		this.adCode = adCode;
+	}
 
 	@Override
 	public String toString() {
 		return "DecisionDTO [decisionCode=" + decisionCode + ", decisionReason=" + decisionReason + ", decisionDate="
-				+ decisionDate + ", stateCode=" + stateCode + ", code=" + code + "]";
+				+ decisionDate + ", stateCode=" + stateCode + ", code=" + code + ", adCode=" + adCode + "]";
 	}
+
 	
 	
 	

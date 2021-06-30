@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%--  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> --%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
        <head>
@@ -44,7 +44,7 @@
                         <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" style="font-weight:800; margin-bottom:12px; font-size:25px; color:black">광고 신청 상세보기(광고제목)</li>
                              </ul>
-                               <a href="adList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+                               <a href="${ pageContext.servletContext.contextPath }/admin/adList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
                                			style="width:40px;height:42px; margin-right:30px; margin-top:-50px; float:right;"></a>
 
 
@@ -65,10 +65,10 @@
                                     <th style="border:none">사업자 번호</th>
                                     <td style="border:none"></td>
                                  </tr>
-                                 <tr>
+                                <!--  <tr>
                                     <th style="border:none">사업자 등록증</th>
                                     <td style="border:none"> <button class="btn text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px;">사업자 등록증 보기</button></td>
-                                 </tr>
+                                 </tr> -->
                                  <tr>
                                     <th style="border:none">사업자 전화번호</th>
                                     <td style="border:none"></td>
