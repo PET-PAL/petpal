@@ -75,6 +75,10 @@ public interface UserService {
 
 	int updateEmail(UserInfoDTO userInfo);
 
+	boolean updateUserInfo(UserInfoDTO userInfo);
+
+	String withdrawUser(UserInfoDTO userInfo);
+
 	
 
 	

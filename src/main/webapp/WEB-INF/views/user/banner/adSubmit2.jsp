@@ -52,42 +52,6 @@
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -124,46 +88,60 @@
             </section>
 
             <section id="accountmanagement" class="accountmanagement">
-                <div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
-					<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
-						<tr>
-							<td>광고 대상</td>
-							<td>
-								<label style="font-size: 15px; font-weight: normal; width:30%"><input name="adradio" type="radio" value="장소"> 장소</label>
-								<label style="font-size: 15px; font-weight: normal;"><input name="adradio" type="radio" value="장소 이외"> 장소 이외</label>
-							</td>
-						</tr>
-						<tr>
-							<td>광고 기간</td>
-							<td>
-								<label style="font-size: 15px; font-weight: normal; width:30%"><input name="adDate" type="radio" value="1주"> 1주</label>
-								<label style="font-size: 15px; font-weight: normal;"><input name="adDate" type="radio" value="2주"> 2주</label>								
-							</td>
-						</tr>
-						<tr>
-							<td>기업/상호명</td>
-							<td><input type="text" id="userNickName" placeholder="기업/상호명을 입력하세요"></td>
-						</tr>
-						<tr>
-							<td>사업자 번호</td>
-							<td><input type="password" id="userPwd" placeholder="예) 120-394-93388"></td>
-						</tr>
-						<tr>
-							<td>사업자 등록증</td>
-							<td><button style="width: 210px;">사업자 등록증 첨부하기</button></td>
-						</tr>
-						<tr>
-							<td>사업자 전화번호</td>
-							<td><input type="text" id="userPhone" placeholder="사업자 전화번호를 입력하세요"></td>
-						</tr>
-						<tr>
-							<td>사업자 이메일</td>
-							<td><input type="text" id="userEmail" placeholder="사업자 이메일을 입력하세요"></td>
-						</tr>
-					</table>
-                    <div style="margin: 0px auto; text-align: center; margin-bottom: 30px;">
-                    <button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/banner/adSubmit3.jsp'">다음으로</button></div>
-				</div>
+                <form action="${ pageContext.servletContext.contextPath }/user/insert/adsubmit2" method="post">
+	                <div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
+						<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
+							<tr>
+								<td>광고 대상</td>
+								<td>
+									<label style="font-size: 15px; font-weight: normal; width:30%"><input name="adTypeName" type="radio" value="장소"> 장소</label>
+									<label style="font-size: 15px; font-weight: normal;"><input name="adTypeName" type="radio" value="그 외"> 장소 이외</label>
+								</td>
+							</tr>
+							<tr>
+								<td>광고 기간</td>
+								<td>
+									<label style="font-size: 15px; font-weight: normal; width:30%"><input name="adWeek" type="radio" value="1"> 1주</label>
+									<label style="font-size: 15px; font-weight: normal;"><input name="adWeek" type="radio" value="2"> 2주</label>								
+								</td>
+							</tr>
+							<tr>
+								<td>기업/상호명</td>
+								<td><input type="text" name="companyName" id="userNickName" placeholder="기업/상호명을 입력하세요"></td>
+							</tr>
+							<tr>
+								<td>대표자명</td>
+								<td><input type="text" name="leaderName" id="userPwd" placeholder="대표자명을 입력하세요"></td>
+							</tr>
+							<tr>
+								<td>사업자 번호</td>
+								<td><input type="text" name="companyNumber" id="userPwd" placeholder="예) 120-394-93388"></td>
+							</tr>
+							<tr>
+								<td>상호 주소</td>
+								<td><input type="text" name="companyLocation" id="userPwd" placeholder="주소를 입력하세요"></td>
+							</tr>
+							<tr>
+								<td>사업자 전화번호</td>
+								<td><input type="text" name="companyPhone" id="userPhone" placeholder="사업자 전화번호를 입력하세요"></td>
+							</tr>
+							<tr>
+								<td>사업자 이메일</td>
+								<td><input type="text" name="companyEmail" id="userEmail" placeholder="사업자 이메일을 입력하세요"></td>
+							</tr>
+							<tr>
+								<td>업태</td>
+								<td><input type="text" name="industry" id="userEmail" placeholder="업태를 입력하세요"></td>
+							</tr>
+							<tr>
+								<td>업종</td>
+								<td><input type="text" name="industryDetail" id="userEmail" placeholder="업종을 입력하세요"></td>
+							</tr>
+						</table>
+	                    <div style="margin: 0px auto; text-align: center; margin-bottom: 30px;">
+	                    <button type="submit">다음으로</button></div>
+					</div>
+				</form>
             </section>
 
             

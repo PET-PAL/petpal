@@ -31,6 +31,16 @@ public class AdDTO {
 	private int adWeek;
 	private int clickCount;
 	private int morePayAmount;
+	private String leaderName;
+	private String companyLocation;
+	private String industry;
+	private String industryDetail;
+	private String pictureName;
+	private String pictureUrl;
+	private Date pictureUploadDate;
+	private String pictureDeleteYn;
+	private String pictureNewName;
+	private String pictureUtilPath;
 	
 	public AdDTO() {}
 
@@ -38,7 +48,9 @@ public class AdDTO {
 			String companyEmail, String adContent, String postYn, String refundYn, Date payDate2nd, int pictureCode,
 			Date payDate1st, int userCode, int adTypeCode, String adTitle, String payMethod, int decisionCode,
 			Date cancelApplyDate, Date postStartDate, Date postEndDate, int stateCode, Date clickDate,
-			String adTypeName, int adPrice, int adWeek, int clickCount, int morePayAmount) {
+			String adTypeName, int adPrice, int adWeek, int clickCount, int morePayAmount, String leaderName,
+			String companyLocation, String industry, String industryDetail, String pictureName, String pictureUrl,
+			Date pictureUploadDate, String pictureDeleteYn, String pictureNewName, String pictureUtilPath) {
 		super();
 		this.adCode = adCode;
 		this.companyName = companyName;
@@ -67,6 +79,16 @@ public class AdDTO {
 		this.adWeek = adWeek;
 		this.clickCount = clickCount;
 		this.morePayAmount = morePayAmount;
+		this.leaderName = leaderName;
+		this.companyLocation = companyLocation;
+		this.industry = industry;
+		this.industryDetail = industryDetail;
+		this.pictureName = pictureName;
+		this.pictureUrl = pictureUrl;
+		this.pictureUploadDate = pictureUploadDate;
+		this.pictureDeleteYn = pictureDeleteYn;
+		this.pictureNewName = pictureNewName;
+		this.pictureUtilPath = pictureUtilPath;
 	}
 
 	public int getAdCode() {
@@ -285,6 +307,86 @@ public class AdDTO {
 		this.morePayAmount = morePayAmount;
 	}
 
+	public String getLeaderName() {
+		return leaderName;
+	}
+
+	public void setLeaderName(String leaderName) {
+		this.leaderName = leaderName;
+	}
+
+	public String getCompanyLocation() {
+		return companyLocation;
+	}
+
+	public void setCompanyLocation(String companyLocation) {
+		this.companyLocation = companyLocation;
+	}
+
+	public String getIndustry() {
+		return industry;
+	}
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+
+	public String getIndustryDetail() {
+		return industryDetail;
+	}
+
+	public void setIndustryDetail(String industryDetail) {
+		this.industryDetail = industryDetail;
+	}
+
+	public String getPictureName() {
+		return pictureName;
+	}
+
+	public void setPictureName(String pictureName) {
+		this.pictureName = pictureName;
+	}
+
+	public String getPictureUrl() {
+		return pictureUrl;
+	}
+
+	public void setPictureUrl(String pictureUrl) {
+		this.pictureUrl = pictureUrl;
+	}
+
+	public Date getPictureUploadDate() {
+		return pictureUploadDate;
+	}
+
+	public void setPictureUploadDate(Date pictureUploadDate) {
+		this.pictureUploadDate = pictureUploadDate;
+	}
+
+	public String getPictureDeleteYn() {
+		return pictureDeleteYn;
+	}
+
+	public void setPictureDeleteYn(String pictureDeleteYn) {
+		this.pictureDeleteYn = pictureDeleteYn;
+	}
+
+	public String getPictureNewName() {
+		return pictureNewName;
+	}
+
+	public void setPictureNewName(String pictureNewName) {
+		this.pictureNewName = pictureNewName;
+	}
+
+	public String getPictureUtilPath() {
+		return pictureUtilPath;
+	}
+
+	public void setPictureUtilPath(String pictureUtilPath) {
+		this.pictureUtilPath = pictureUtilPath;
+	}
+
 	@Override
 	public String toString() {
 		return "AdDTO [adCode=" + adCode + ", companyName=" + companyName + ", applyDate=" + applyDate
@@ -295,7 +397,11 @@ public class AdDTO {
 				+ payMethod + ", decisionCode=" + decisionCode + ", cancelApplyDate=" + cancelApplyDate
 				+ ", postStartDate=" + postStartDate + ", postEndDate=" + postEndDate + ", stateCode=" + stateCode
 				+ ", clickDate=" + clickDate + ", adTypeName=" + adTypeName + ", adPrice=" + adPrice + ", adWeek="
-				+ adWeek + ", clickCount=" + clickCount + ", morePayAmount=" + morePayAmount + "]";
+				+ adWeek + ", clickCount=" + clickCount + ", morePayAmount=" + morePayAmount + ", leaderName="
+				+ leaderName + ", companyLocation=" + companyLocation + ", industry=" + industry + ", industryDetail="
+				+ industryDetail + ", pictureName=" + pictureName + ", pictureUrl=" + pictureUrl
+				+ ", pictureUploadDate=" + pictureUploadDate + ", pictureDeleteYn=" + pictureDeleteYn
+				+ ", pictureNewName=" + pictureNewName + ", pictureUtilPath=" + pictureUtilPath + "]";
 	}
-	
+
 }

@@ -32,6 +32,16 @@
 		<result column="AD_WEEK" property="adWeek"/>
 		<result column="CLICK_COUNT" property="clickCount"/>
 		<result column="MORE_PAY_AMOUNT" property="morePayAmount"/>
+		<result column="LEADER_NAME" property="leaderName"/>
+		<result column="COMPANY_LOCATION" property="companyLocation"/>
+		<result column="INDUSTRY" property="industry"/>
+		<result column="INDUSTRY_DETAIL" property="industryDetail"/>
+		<result column="PICTURE_NAME" property="pictureName"/>
+		<result column="PICTURE_URL" property="pictureUrl"/>
+		<result column="PICTURE_UPLOAD_DATE" property="pictureUploadDate"/>
+		<result column="PICTURE_DELETE_YN" property="pictureDeleteYn"/>
+		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
+		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
 	</resultMap>
 	
 	<resultMap id="adQnAResultSet" type="AdQnADTO">
@@ -105,6 +115,50 @@
 	 	       , 1
 	 	       , #{ userCode }
 	 	       )
+	</insert>
+	
+	<insert id="insertAdSubmit" parameterType="AdDTO">
+		INSERT
+		  INTO PICTURE_TABLE
+		VALUES ( PIC_CODE_SEQ.NEXTVAL
+		       , #{ pictureName }
+			   , #{ pictureUrl }
+               , SYSDATE
+               , 'N'
+               , #{ pictureNewName }
+               , #{ pictureUtilPath }
+		       )
+	</insert>
+	
+	<insert id="insertAdSubmit2" parameterType="AdDTO">
+		INSERT
+		  INTO AD_APPLY_TABLE
+		VALUES ( AD_CODE_SEQ.NEXTVAL
+		       , #{ companyName }
+		       , SYSDATE
+		       , #{ companyNumber }
+		       , #{ companyPhone }
+		       , #{ companyEmail }
+		       , #{ adContent }
+		       , 'N'
+		       , 'N'
+		       , NULL
+		       , PIC_CODE_SEQ.CURRVAL
+		       , NULL
+		       , #{ userCode }
+		       , #{ adTypeCode }
+		       , #{ adTitle }
+		       , NULL
+		       , NULL
+		       , NULL
+		       , NULL
+		       , NULL
+		       , 1
+		       , #{ leaderName }
+		       , #{ companyLocation }
+		       , #{ industry }
+		       , #{ industryDetail }
+		       )
 	</insert>
 	
 </mapper>

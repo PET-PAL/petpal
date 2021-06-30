@@ -68,7 +68,23 @@ public interface UserMapper {
 	 */
 	int updateNick(UserInfoDTO userInfo);
 
+	/**
+	 * 이메일 변경
+	 * @param userInfo
+	 * @return
+	 */
 	int updateEmail(UserInfoDTO userInfo);
+
+	/**
+	 * 유저정보 변경
+	 * @param userInfo
+	 * @return
+	 */
+	int updateUserInfo(UserInfoDTO userInfo);
+
+	int updatewithdrawUser(UserInfoDTO userInfo);
+	
+	int insertwithdrawUser(UserInfoDTO userInfo);
 
 	
 
