@@ -1,42 +1,38 @@
 package com.nobanryeo.petpal.user.mypage.controller;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
-import com.nobanryeo.petpal.user.mypage.service.MypageService;
 import com.nobanryeo.petpal.user.mypage.service.UserService;
 
 @Controller
-@RequestMapping("/mypage/*")
+@RequestMapping("/user/mypage/*")
 public class MypageController {
    
-   private final MypageService mypageService;
    private final UserService userService;
    private final BCryptPasswordEncoder encoder;
    
    @Autowired 
-   public MypageController(MypageService mypageService, UserService userService, BCryptPasswordEncoder encoder) { 
-      this.mypageService = mypageService; 
+   public MypageController(UserService userService, BCryptPasswordEncoder encoder) { 
       this.userService = userService; 
       this.encoder = encoder;
    }
 
-   @GetMapping(value= {"mypage","/"})
+   @GetMapping(value= {"mypage", "/"})
    public String mypageLoad() {
       return "user/mypage/mypage";
    }
@@ -47,9 +43,13 @@ public class MypageController {
    }
    
    @GetMapping("message")
-   public String message() {
+   public String message(Model model) {
+	   
+//	  model.addAttribute("messageList", mypageService.selectMessageList());
+	   
       return "user/mypage/message";
    }
+   
    
    @GetMapping("boardCommentList")
    public String boardList() {
@@ -91,7 +91,7 @@ public class MypageController {
          rttr.addFlashAttribute("message", "정보 수정에 실패했습니다.");
       }
       
-      return "redirect:/mypage/account";
+      return "redirect:/user/mypage/account";
    }
    
    /**
@@ -169,7 +169,7 @@ public class MypageController {
          rttr.addFlashAttribute("message", "닉네임 변경에 실패했습니다.");
       }
       
-      return "redirect:/mypage/account";
+      return "redirect:/user/mypage/account";
    }
    
    /**
