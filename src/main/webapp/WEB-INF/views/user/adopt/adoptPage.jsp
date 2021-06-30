@@ -110,21 +110,7 @@
                                  <div class="container">
                                      <div class="row" id="adoptlistList">
                                          
-                                      <%--    <div class="col-sm-3">
-                                             <div class="port_item xs-m-top-30">
-                                                 <div class="port_img">
-                                                 	<!-- <p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">대기중</p> -->
-                                                 	<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">완료</p>
-                                                     <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                 </div>
-                                                 <div class="port_caption m-top-20" align="center">
-                                                     <h4>초코푸들/암컷/갈색</h4>
-                                                     <h6>서울특별시 xx구 xx동</h6>
-                                                 </div>
-                                             </div>
-                                         </div> --%>
                                        
-                                         
                                      </div>
                                  </div>
                              </div>
@@ -161,7 +147,7 @@
 		     					output += '<div class="col-sm-3">';
 		     					output += '<div class="port_item xs-m-top-30">';
 		     					output += '<div class="port_img" style="position: relative;">';
-		     					output += '<input type="hidden" id="boardCode" value=this.boardCode/>';
+		     					output += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
 		     					if(statusName == '대기'){
 		     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
 		     					}
@@ -196,8 +182,8 @@
 		     	}); 
 		     	
 		     	
-				$("#adoptlistList > div").click(function(){
-					const no = $(this).find("#boardCode").val();
+				$('#adoptlistList').click(function(){
+					const no = $(this).children().children().children().children().siblings('#boardCode')[0].value;
 					console.log(no);
 					location.href = "${ pageContext.servletContext.contextPath }/user/adopt/detail?no="+ no;
 				});
