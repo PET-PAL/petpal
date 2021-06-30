@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -187,49 +189,39 @@
             <!--Home Sections-->
  		<section id="product" class="product">
                 <div class="container">
-                
-                
-              
-                
+                	<!-- slider image 시작  -->
                         <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
-                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                                <li data-target="#carousel-example-generic" data-bs-slide-to="0" class="active" style="color:black;"></li>
+                                <li data-target="#carousel-example-generic" data-bs-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-bs-slide-to="2"></li>
+                                <li data-target="#carousel-example-generic" data-bs-slide-to="3"></li> 
                             </ol>
-
+                            
+                            <c:forEach var="image" varStatus="status" items="${pictureList}">
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
-                                <div class="item active">
-                                            <div class="col-md-6 col-md-offset-3">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                            </div>
-                                </div>
-                                <div class="item">
-                                            <div class="col-md-6 col-md-offset-3">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                            </div>
-                                </div>
-                                <div class="item">
-                                            <div class="col-md-6 col-md-offset-3">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                            </div>
-                                </div>
-                                <div class="item">
-                                    
-                                            <div class="col-md-6 col-md-offset-3">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                            </div>
-                                </div>
+								<c:if test="${status.index == '0' }" >
+	                                <div class="item active">
+                                         <div class="col-md-6 col-md-offset-3">
+                                                 <div class="port_img">
+                                                     <img src="${ pageContext.servletContext.contextPath }/${ image.pictureUtilPath}" alt="" />
+                                                 </div>
+                                         </div>
+	                                </div>
+	                              </c:if>
+	                              <c:if test="${status.index != '0' }" >
+	                                <div class="item">
+                                         <div class="col-md-6 col-md-offset-3">
+                                                 <div class="port_img">
+                                                     <img src="${ pageContext.servletContext.contextPath }/${ image.pictureUtilPath}" alt="" />
+                                                 </div>
+                                         </div>
+	                                </div>
+	                              </c:if>
+                                
+                              </c:forEach>
                                 </div> 
                                 <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" style="background-image:none !important;">
                                 <i class="fas fa-arrow-circle-left fa-3x" style="margin-right:-100px;"></i>
@@ -268,21 +260,28 @@
                 <div>
                 	<ul style="font-size: large;">
                 		<li style="margin-bottom: 30px;">작성자 : 
-                		<b>QlQlfl</b>
+                		<b><c:out value="${requestScope.adoptDetail.userNickname}"/></b>
                 		<img src="${ pageContext.servletContext.contextPath }/resources/images/message icon.png" alt="" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;"/>
                 		<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;">
                 		</li>
                 	</ul>
                 </div>
                 <div align="center" style="height: 150px;">
-                	<h1 style="font-weight: bold;">차이니즈 크레스티드 / 수컷  <br> 3살 / 14KG / 커피색</h1>
+                	<h1 style="font-weight: bold;"><c:out value="${requestScope.adoptDetail.adoptBreed}"/>
+                	/
+                	<c:if test="${requestScope.adoptDetail.adoptGender eq 'M'}">
+                	남아
+                	</c:if>
+                	<c:if test="${requestScope.adoptDetail.adoptGender eq 'F'}">
+                	여아
+                	</c:if>
+                	<br> 
+                	<c:out value="${requestScope.adoptDetail.adoptAge}"/>살 / 
+                	<c:out value="${requestScope.adoptDetail.adoptWeight}"/>KG / <c:out value="${requestScope.adoptDetail.adoptColor}"/></h1>
                 </div>
                 <div align="center">
                 <pre style="width: 1000px; white-space: pre-wrap; background-color: white; border: 0px; font-size: 20px;">
-소심하지만 사람을 좋아하는 아이입니다. 부디 이 아이의 평생 가족을 찾을 수 있게 해주세요. 
-현재 곰팡이 질환을 앓고 있어요 지금 치료중이지만 피부가 약해진 아이니 꼭 유의해주셔야해요
-						
-입양신청때 제가 더 필요로 하는 서류가 있어서 모두 충족시킬 수 있는 책임감 있으신 분을 찾고있어요!
+<c:out value="${requestScope.adoptDetail.adoptIntroduce}"/>
                 </pre>
                 </div>
                 <div align="center" style="margin-bottom: 70px;">

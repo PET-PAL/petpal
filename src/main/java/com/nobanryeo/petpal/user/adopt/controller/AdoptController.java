@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,10 +59,7 @@ public class AdoptController {
 	
 	@GetMapping("adopt")
 	public String introAdopt() {
-		List<AdoptPictureManageDTO> adoptList = new ArrayList<>();
-		adoptList=adoptService.selectAdoptList();
-//		
-		System.out.println("adoptList in controller: "+adoptList);
+
 		return "user/adopt/adoptPage";
 	}
 	
@@ -119,13 +117,14 @@ public class AdoptController {
 	 * @return insert result
 	 */
 	@PostMapping("adopt/write")
-	@ResponseBody
+//	@ResponseBody
 	public String putAdoptInfo(@ModelAttribute AdoptDTO adopt,Model model, HttpServletRequest request,@RequestParam(name="picture",required=true) List<MultipartFile> picture, RedirectAttributes rttr, HttpSession session) {
 		
-//		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
 		
 		//세선값 넣기
-		adopt.setUserCode(4);
+		
+//		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		adopt.setUserCode(5);
 		System.out.println("controller adopt: "+adopt);
 		System.out.println("controller picture: "+picture);
 		
@@ -203,7 +202,9 @@ public class AdoptController {
 //			throw new MemberRegistException("당신은 우리와 함께 할 수 없습니다.");
 //		}
 		int result = adoptService.registAdopt(adopt, pictureList);
+		
 		System.out.println("controller result : "+ result);
+		int boardCode = adoptService.selectBoardCode();
 		if(result>0) {
 			rttr.addFlashAttribute("message", "입양글 등록에 성공하셨습니다.");
 			
@@ -211,14 +212,35 @@ public class AdoptController {
 			rttr.addFlashAttribute("message", "입양글 등록에 실패하셨습니다.");
 		}
 		
-		return "redirect:/user/adopt";
+		return "redirect:/user/adopt/detail/"+boardCode;
+		
 	}
 	
 	
-	@GetMapping("adopt/detail")
-	public String selectAdoptDetail() {
+	@GetMapping("adopt/detail/{boardCode}")
+	public String selectAdoptDetail(@PathVariable("boardCode") int code, Model model) {
+		
+		AdoptDTO adoptDetail = new AdoptDTO();
+		adoptDetail=adoptService.selectAdoptDetail(code);
+		
+		
+		List<PictureDTO> pictureList = new ArrayList<>();
+		pictureList = adoptService.selectPictureList(code);
+		
+		System.out.println(adoptDetail);
+		
+		for(PictureDTO picture:pictureList) {
+			System.out.println(picture);
+		}
+		
+		model.addAttribute("adoptDetail", adoptDetail);
+		model.addAttribute("pictureList", pictureList);
+		
+		
+		
 		return "user/adopt/adoptDetail";
 	}
+	
 	
 	
 }
