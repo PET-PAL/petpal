@@ -42,14 +42,6 @@ public class MypageController {
       return "user/mypage/accountManagement";
    }
    
-   @GetMapping("message")
-   public String message(Model model) {
-	   
-//	  model.addAttribute("messageList", mypageService.selectMessageList());
-	   
-      return "user/mypage/message";
-   }
-   
    
    @GetMapping("boardCommentList")
    public String boardList() {

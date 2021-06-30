@@ -82,42 +82,49 @@
 	                <table class="table table-hover" style="margin-bottom: 50px;">
 	                    <thead>
 	                        <tr style="background-color: #F1FAF8;">
-	                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>쪽지 대상</b></th>
+	                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>보내는 사람</b></th>
+	                            <th style="text-align: center;"><b>받는 사람</b></th>
 	                            <th style="text-align: center;"><b>쪽지 내용</b></th>
 	                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>날짜</b></th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-	                        <%-- <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/messageDetail.jsp'">
-	                            <td style="text-align: center;">킘해인</td>
-	                            <td>택배로 보내드리겠습니다.</td>
-	                            <td style="text-align: center;">2021-06-17</td>
-	                        </tr>
-	                        <tr onclick="location.href=''">
-	                            <td style="text-align: center;">업나라</td>
-	                            <td>리뷰 잘봤습니다.</td>
-	                            <td style="text-align: center;">2021-06-17</td>
-	                        </tr>
-	                        <tr onclick="location.href=''">
-	                            <td style="text-align: center;">황주디</td>
-	                            <td>뎅이 너무 귀여워요~</td>
-	                            <td style="text-align: center;">2021-06-17</td>
-	                        </tr> --%>
-	                        
-	                        <%-- <c:forEach>
-	                        	<c:if test="{}">
-	                        	</c:if>
-	                        </c:forEach> --%>
-	                        
-	                        
+	                    <c:forEach items="${ msgList }" var="list">
+						<tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/messageDetail?${ list.messageCode }'">
+							<td style="display: none;">${ list.messageCode }</td>
+							<td style="text-align: center;">${ list.sendUserNick }</td>
+							<td style="text-align: center;">${ list.receiveUserNick }</td>
+							<td style="text-align: center;">${ list.messageContent }</td>
+							<td style="text-align: center;">${ list.messageDate }</td>
+						</tr>
+						</c:forEach>
 	                    </tbody>
 	                </table>
 	                <div class="text-center">
 						<ul class="pagination">
-							<li><a href="#">1</a></li>
+						<li>
+							<c:if test="${paging.startPage != 1 }">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+							</c:if>
+							<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+								<c:choose>
+									<c:when test="${p == paging.nowPage }">
+										<li><a>${p }</a></li>
+									</c:when>
+									<c:when test="${p != paging.nowPage }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${paging.endPage != paging.lastPage}">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+							</c:if>
+							</li>
+						
+							<!-- <li><a href="#">1</a></li>
 							<li><a href="#">2</a></li>
 							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
+							<li><a href="#">4</a></li> -->
 						</ul>
 					</div>
                 </div>

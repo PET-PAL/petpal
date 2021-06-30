@@ -192,7 +192,7 @@
 
             <section id="accountmanagement" class="accountmanagement">
                 <div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 35px; margin-bottom: 80px;">
-                <form action="${ pageContext.servletContext.contextPath }/mypage/updateUserInfo" method="post" id="updateUserInfo" name="form" onsubmit="return validate();">
+                <form action="${ pageContext.servletContext.contextPath }/user/mypage/updateUserInfo" method="post" id="updateUserInfo" name="form" onsubmit="return validate();">
 					<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;">
 						<tr>
 							<td>아이디</td>
@@ -316,7 +316,7 @@
 					<hr style="border: 0.5px solid #A8A8A8;">
 				</div>
 				<!-- 닉네임 입력 -->
-				<form action="${ pageContext.servletContext.contextPath }/mypage/updateNick" method="post" id="updateNick" name="form">
+				<form action="${ pageContext.servletContext.contextPath }/user/mypage/updateNick" method="post" id="updateNick" name="form">
 				<div style="text-align: center; margin-top: 30px; display: block;" align="center">
 					<input type="text" name="id" value="${ sessionScope.loginUser.id }" style="display: none;">
 					<input type="text" placeholder="닉네임을 입력하세요" name="nikname" id="nickname"
@@ -365,7 +365,7 @@ function duplicationNickCheck(){
     } else {
     	//중복체크
     	$.ajax({
-			url:"${pageContext.servletContext.contextPath}/mypage/updateNickChk",
+			url:"${pageContext.servletContext.contextPath}/user/mypage/updateNickChk",
 			type:"post",
 			data:{nikname:nikname},
 			success:function(data){
@@ -429,7 +429,7 @@ function duplicationNickCheck(){
 					<hr style="border: 0.5px solid #A8A8A8;">
 				</div>
 				<!-- 이메일 입력 -->
-				<form action="${ pageContext.servletContext.contextPath }/mypage/updateEmail" method="post" name="form">
+				<form action="${ pageContext.servletContext.contextPath }/user/mypage/updateEmail" method="post" name="form">
 				<div style="text-align: center; margin-top: 30px; display: block;" align="center">
 					<input type="text" name="id" value="${ sessionScope.loginUser.id }" style="display: none;">
 					<input type="text" placeholder="이메일을 입력하세요" name="email" id="email"
@@ -471,7 +471,7 @@ function duplicationEmailCheck(){
     } else {
     	//중복체크
     	$.ajax({
-			url:"${pageContext.servletContext.contextPath}/mypage/updateEmailChk",
+			url:"${pageContext.servletContext.contextPath}/user/mypage/updateEmailChk",
 			type:"post",
 			data:{email:email},
 			success:function(data){
