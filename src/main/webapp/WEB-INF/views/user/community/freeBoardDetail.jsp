@@ -228,27 +228,28 @@
             <section id="menutable" class="menutable">
 				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
-						<tbody><tr>
-							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
-							<td><c:out value="${ requestScope.freeBoardDetail.boardTitle }"/></td>
-							<td style="text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
-							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="${ requestScope.freeBoardDetail.boardViews }"/>
-							<span>
-							<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;">
-							</span>
-							</td>
-						</tr>
-						<tr>
-							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
-							<td><c:out value="${ requestScope.freeBoardDetail.userNickName }"/><button onclick="location.href='#directMessage'">쪽지보내기</button></td>
-							<td style="text-align: center; background-color: #F1FAF8;"><b>작성일자</b></td>
-							<td><c:out value="${ requestScope.freeBoardDetail.boardPostDate }"/></td>
-						</tr>
-					</tbody></table>
-					<c:forEach items="${ freeBoardImg }" var="arr">
-						<img src="${ pageContext.servletContext.contextPath }/${ arr.pictureUtilPath }"><br>
-					</c:forEach>
-					<p style="margin-bottom: 50px; margin-left: 8px;"><c:out value="${ requestScope.freeBoardDetail.boardContent }"/></p>
+						<tbody>
+							<tr>
+								<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
+								<td><c:out value="${ requestScope.freeBoardDetail.boardTitle }"/></td>
+								<td style="text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
+								<td style="border-radius: 0px 21px 0px 0px;"><c:out value="${ requestScope.freeBoardDetail.boardViews }"/>
+								<span>
+								<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;">
+								</span>
+								</td>
+							</tr>
+							<tr>
+								<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
+								<td><c:out value="${ requestScope.freeBoardDetail.userNickName }"/><button onclick="location.href='#directMessage'">쪽지보내기</button></td>
+								<td style="text-align: center; background-color: #F1FAF8;"><b>작성일자</b></td>
+								<td><c:out value="${ requestScope.freeBoardDetail.boardPostDate }"/></td>
+							</tr>
+						</tbody>
+					</table>
+					<div style="margin-bottom: 30px; text-align:center;">
+						<c:out value="${ requestScope.freeBoardDetail.boardContent }" escapeXml="false"/>
+					</div>
 		        </div>
             
              <div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>

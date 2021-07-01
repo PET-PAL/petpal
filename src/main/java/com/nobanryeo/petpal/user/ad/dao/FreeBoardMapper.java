@@ -31,5 +31,15 @@ public interface FreeBoardMapper {
 
 	FreeBoardDTO writeFreeBoard(int userCode);
 
+	int insertWriteFreeBoard(FreeBoardDTO freeBoard);
+
+	int insertFreeBoardImg(PictureDTO picture);
+
+	int selectBoardCode();
+	
+	int insertFreeBoardImg2(PictureDTO picture);
+
+	
+
 
 }

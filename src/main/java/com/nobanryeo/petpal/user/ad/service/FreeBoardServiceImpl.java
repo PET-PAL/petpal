@@ -92,5 +92,29 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return freeBoardMapper.writeFreeBoard(userCode);
 	}
 
+	@Override
+	public int insertWriteFreeBoard(FreeBoardDTO freeBoard) {
+
+		return freeBoardMapper.insertWriteFreeBoard(freeBoard);
+	}
+
+	@Override
+	public int insertFreeBoardImg(PictureDTO picture) {
+		
+		int boardCodeval = freeBoardMapper.selectBoardCode();
+		
+		System.out.println(boardCodeval);
+		
+		picture.setBoardCode(boardCodeval);
+		int result = freeBoardMapper.insertFreeBoardImg(picture);
+		
+		System.out.println(result);
+		
+		freeBoardMapper.insertFreeBoardImg2(picture);
+		
+		return result;
+	}
+
+
 
 }

@@ -131,7 +131,7 @@
 								          	enctype: 'multipart/form-data',
 								          	processData: false,
 								          	success: function(data) {
-								          		$j3('#summernote').summernote('editor.insertImage','data.url');
+								          		$j3('#summernote').summernote('editor.insertImage', data.url);
 								          		console.log(data.url);
 								          		$j3("#pictureName").val(data.pictureName);
 								          		$j3("#pictureUrl").val(data.pictureUrl);

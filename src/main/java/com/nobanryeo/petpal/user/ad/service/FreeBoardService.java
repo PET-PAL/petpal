@@ -31,5 +31,12 @@ public interface FreeBoardService {
 
 	public FreeBoardDTO writeFreeBoard(int userCode);
 
+	public int insertWriteFreeBoard(FreeBoardDTO freeBoard);
+
+	public int insertFreeBoardImg(PictureDTO picture);
+
+//	public int insertFreeBoardImg2(PictureDTO picture);
+
 	
 }
+

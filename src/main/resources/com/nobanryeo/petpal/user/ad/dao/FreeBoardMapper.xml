@@ -61,6 +61,7 @@
 		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
 		<result column="BOARD_CODE" property="boardCode"/>
 		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
+		<result column="USER_CODE" property="userCode"/>
 	</resultMap>
 
 	
@@ -211,5 +212,48 @@
 		  FROM USER_TABLE
 		 WHERE USER_CODE = #{ userCode }
 	</select>
+	
+	<insert id="insertWriteFreeBoard" parameterType="FreeBoardDTO">
+		INSERT
+		  INTO FREE_BOARD
+		VALUES ( FREE_BOARD_SEQ.NEXTVAL
+		       , #{ boardTitle }
+		       , #{ boardContent }
+		       , 0
+		       , SYSDATE
+		       , 'N'
+		       , #{ userCode }
+		       , #{ category }
+		       )
+	</insert>
+	<insert id="insertFreeBoardImg" parameterType="PictureDTO">
+		INSERT
+		  INTO PICTURE_TABLE
+		VALUES ( PIC_CODE_SEQ.NEXTVAL
+		       , #{ pictureName }
+			   , #{ pictureURL }
+               , SYSDATE
+               , 'N'
+               , #{ pictureNewName }
+               , #{ pictureUtilPath }
+		       )
+	</insert>
+	
+	<select id="selectBoardCode" resultType="_int">
+		SELECT FREE_BOARD_SEQ.CURRVAL
+	  	  FROM DUAL
+	</select>
+	
+	<insert id="insertFreeBoardImg2" parameterType="PictureDTO">
+		<selectKey keyProperty="pictureCode" order="BEFORE" resultType="int">
+	  		SELECT PIC_CODE_SEQ.CURRVAL
+	  	  	  FROM DUAL
+	  	</selectKey>
+		INSERT
+		  INTO FREE_PICTURE_MANAGE
+		VALUES ( #{ boardCode }
+		       , #{ pictureCode }
+		       )
+	</insert>
 	
 </mapper>
