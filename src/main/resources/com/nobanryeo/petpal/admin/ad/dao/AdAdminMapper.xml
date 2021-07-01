@@ -248,6 +248,9 @@
 		</if>
 		<if test='category == "3"'>
 		 WHERE STATE_CODE = 3
+		</if>
+		<if test='category =="4"'>
+		 WHERE STATE_CODE = 4
 		</if>		
 	  </select>
 
@@ -285,6 +288,9 @@
 						    </if>
 						    <if test='category == "3"'>
 						     	A.STATE_CODE = 3
+						    </if>
+						    <if test='category =="4"'>
+								A.STATE_CODE = 4						    
 						    </if>
 						   </where>
 		               ORDER BY A.AD_CODE DESC
