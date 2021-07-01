@@ -8,7 +8,7 @@ public class AdoptDTO {
 	private String adoptBreed;
 	private String adoptGender;
 	private int adoptAge;
-	private int adoptWeight;
+	private double adoptWeight;
 	private String adoptColor;
 	private String adoptIntroduce;
 	private String adoptPhone;
@@ -25,7 +25,7 @@ public class AdoptDTO {
 	public AdoptDTO() {}
 
 
-	public AdoptDTO(int boardCode, String adoptBreed, String adoptGender, int adoptAge, int adoptWeight,
+	public AdoptDTO(int boardCode, String adoptBreed, String adoptGender, int adoptAge, double adoptWeight,
 			String adoptColor, String adoptIntroduce, String adoptPhone, String adoptCaution, String deleteYN,
 			int stateCode, Date boardDate, int userCode, String dogOrcat, String address, String userNickname) {
 		super();
@@ -88,12 +88,12 @@ public class AdoptDTO {
 	}
 
 
-	public int getAdoptWeight() {
+	public double getAdoptWeight() {
 		return adoptWeight;
 	}
 
 
-	public void setAdoptWeight(int adoptWeight) {
+	public void setAdoptWeight(double adoptWeight) {
 		this.adoptWeight = adoptWeight;
 	}
 
