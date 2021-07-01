@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nobanryeo.petpal.user.mypage.dao.MessageMapper">
+
+	<resultMap id="messageResultSet" type="MessageTableDTO">
+		<id column="MESSAGE_CODE" property="messageCode" />
+		<result column="MESSAGE_CONTENT" property="messageContent" />
+		<result column="MESSAGE_DATE" property="messageDate" />
+		<result column="USER_CODE1" property="userCode1" />
+		<result column="USER_CODE" property="userCode" />
+		<result column="SEND_NICKNAME" property="sendUserNick" />
+		<result column="RECEIVE_NICKNAME" property="receiveUserNick" />
+	</resultMap>
+
+	<!-- 총 쪽지 수 출력 -->
+	<select id="selectMessageCount" resultType="int" parameterType="int">
+	    <!-- SELECT COUNT(*)
+	      FROM MESSAGE_TABLE
+	     WHERE USER_CODE1 = #{ userCode1 } -->
+	     SELECT COUNT(*)
+	      FROM (SELECT MAX(USER_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE)
+                FROM MESSAGE_TABLE
+                WHERE USER_CODE1 = #{ userCode1 }
+                GROUP BY USER_CODE)
+	</select> 
+	
+	<!-- 페이징 처리 후 쪽지 조회 -->
+	<select id="selectMessage" resultMap="messageResultSet" parameterType="hashmap">
+	    SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+                       MAX(MESSAGE_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_CODE
+                     , MAX(MESSAGE_CONTENT) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_CONTENT
+                     , MAX(MESSAGE_DATE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_DATE
+                     , MAX(USER_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS USER_CODE
+                     , MAX(SEND_NICKNAME) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS SEND_NICKNAME
+                  FROM MESSAGE_TABLE
+                 WHERE USER_CODE1 = #{ msgDTO.userCode1 }
+                 GROUP BY USER_CODE) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY MESSAGE_CODE
+	</select>
+	
+	
+	
+ </mapper>
+
+ 
