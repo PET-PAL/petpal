@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nobanryeo.petpal.admin.report.dao.ReportMapper">
+
+<resultMap id="ReportSet" type="ReportDTO">
+		<id column="BOARD_CODE" property="boardCode" />
+		<result column="USER_ID" property="userId" />
+		<result column="REPORT_TITLE" property="boardTitle" />
+		<result column="BOARD_POST_DATE" property="postDate" />
+		<result column="REPORT_DATE" property="reportDate" />
+		<result column="STATE_NAME" property="state" />
+	</resultMap>
+	<select id="selectReportCount" resultType="int">
+	   SELECT COUNT(*) 
+	   
+		<if test='category == "0"'>
+		FROM FREE_BOARD_REPORT
+		</if>
+	</select>
+	<select id="selectReport" resultMap="ReportSet" parameterType="ReportDTO">
+	SELECT
+        *
+        FROM( SELECT ROWNUM RNUM, G.*
+                    FROM (SELECT
+                            C.BOARD_CODE,
+                            D.USER_ID,
+                            B.REPORT_TITLE,
+                            C.BOARD_POST_DATE,
+                            B.REPORT_DATE,
+                            F.STATE_NAME
+                        FROM FREE_BOARD_REPORT A
+                        JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
+                        JOIN FREE_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
+                        JOIN USER_TABLE D ON(C.USER_CODE = D.USER_CODE)
+                        JOIN DECISION_TABLE E ON(B.DECISION_CODE = E.DECISION_CODE)
+                        JOIN STATE_TABLE F ON(E.STATE_CODE = F.STATE_CODE)
+                        )G
+                )A 
+                WHERE RNUM BETWEEN #{start} AND #{end}
+	
+	
+	
+	</select>
+	
+	
+</mapper>
