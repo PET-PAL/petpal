@@ -2,6 +2,8 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="java.util.Date"%>
+
 <!DOCTYPE html>
 <html>
        <head>
@@ -136,13 +138,11 @@
 									style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" >Search</button>
 								</form>
 								
-							</div>
+							</div><!-- 검색폼 종료 -->
+							
                         
-                       
-
-                   
-                        <!-- 전체 광고(All 클릭 시) -->
                         <div class="tab-content" style="padding:0px;">
+                        <!-- 광고 관리 표 시작 -->
                          <div role="tabpanel" class="tab-pane active" id="all">
                             <table class="table table-hover" style="text-align:center;">	
                                 <thead>
@@ -150,12 +150,33 @@
                                     <th scope="col">광고 코드</th>
                                     <th scope="col">광고 신청자</th>
                                     <th scope="col">광고 제목</th>
+                                    <c:if test="${ category ne 4 }">
                                     <th scope="col">광고 종류</th>
                                     <th scope="col">게시 기간</th>
-                                    <!-- 페이지가 All일 때-->
-                                    <%-- <test="${ requestScope.~ eq ~}" >  --%>
+                                    </c:if>
+                                    <!-- All -->
+                                    <c:if test="${ empty category }" >  
                                     <th scope="col">게시 상태</th>
-                                    <%--</> --%>
+                                    </c:if>
+                                    <!-- 게시 전 -->
+                                    <c:if test="${ category eq 1 }">
+                                    <th scope="col">1차 납부 상태</th>
+                                    </c:if>
+                                    <!-- 게시 중 -->
+                                    <c:if test="${ category eq 2 }">
+                                    <th scope="col">총 클릭 수</th>
+                                    </c:if>
+                                    <!-- 게시 종료 -->
+                                    <c:if test="${ category eq 3 }">
+                                    <th scope="col">2차 납부 상태</th>
+                                    </c:if>
+                                    <!-- 게시 취소 -->
+                                    <c:if test="${ category eq 4 }">
+                                    <th scope="col">취소신청 일자</th>
+                                    <!-- <th scope="col">취소 사유</th> -->
+                                    <th scope="col">환불 여부</th>
+                                    <th scope="col">2차 징수 여부</th>
+                                    </c:if>
                                  </tr>
                                 </thead>
                                 <tbody>
@@ -190,22 +211,38 @@
 	                                    </c:otherwise>
                                     </c:choose>
                                     </td>
-                                     <jsp:useBean id="now" class="java.util.Date" />
-									 <fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
-									 <fmt:formatDate value="${adApprove.postStartDate}" pattern="yyyy-MM-dd" var="startday" />
-									 <fmt:formatDate value="${adApprove.postEndDate}" pattern="yyyy-MM-dd" var="endday" />  
+                                    <!-- 날짜 계산 -->
+                                     <%-- <jsp:useBean id="now" class="java.util.Date"/>
+                                     <fmt:formatDate value="${now}" dateStyle="short" var="today" />
+                                     <c:out value="${now}"/> --%>
+                                     <c:set var="day" value="<%=new java.util.Date()%>" />
+                                     <c:set var="today"><fmt:formatDate value="${day}" pattern="yyyy-MM-dd" /></c:set> 
+   									 <%-- <c:out value="${ today }"/> --%>
+                                     	
+									 <fmt:parseDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
+									 <fmt:parseDate value="${adApprove.postStartDate}" pattern="yyyy-MM-dd" var="startday" />
+									 <fmt:parseDate value="${adApprove.postEndDate}" pattern="yyyy-MM-dd" var="endday" />
+									 <fmt:parseDate value="${adApprove.applyDate}" pattern="yyyy-MM-dd" var="applyday" />
+									 <fmt:parseDate value="${adApprove.payDate1st}" pattern="yyyy-MM-dd" var="pay1stday" />  
+									 
+									 <fmt:parseNumber value="${today.time / (1000*60*60*24)}" integerOnly="true" var="caltoday" />
+									 <fmt:parseNumber value="${applyday.time  / (1000*60*60*24)}" integerOnly="true" var="calapplyday" /> 
+									 <fmt:parseNumber value="${pay1stday.time  / (1000*60*60*24)}" integerOnly="true" var="calpay1stday" /> 
+
+									 
                                     <!-- 페이지 게시 상태에 따라 분류 -->
+                                    <!-- All -->
+                                    <c:if test="${ empty category }">
                                     <td>
                                     	<!-- 게시 전/게시 중/게시 종료/게시 취소 -->
                                     	<c:choose>
-                                    	<%-- <fmt:formatDate var="toDay" value="${toDay}" pattern="yyyy-MM-dd" /> --%>
-                                    		<c:when test="${ adApprove.postYn eq 'N' and (startday > today or empty startday) and empty adApprove.cancelApplyDate }">
+                                    		<c:when test="${ adApprove.postYn eq 'N' and (startday > day or empty startday) and empty adApprove.cancelApplyDate }">
                                     			게시전
                                     		</c:when>
-                                    		<c:when test="${ adApprove.postYn eq 'Y' and startday <= today and today <= endday}">
+                                    		<c:when test="${ adApprove.postYn eq 'Y' and startday <= day and day <= endday}">
                                     			게시중
                                     		</c:when>
-                                    		<c:when test="${ adApprove.postYn eq 'N' and startday < today and empty adApprove.cancelApplyDate}">
+                                    		<c:when test="${ adApprove.postYn eq 'N' and startday < day and empty adApprove.cancelApplyDate}">
                                     			게시종료
                                     		</c:when>
                                     		<c:when test="${ not empty adApprove.cancelApplyDate }">
@@ -214,6 +251,23 @@
                                     		
                                     	</c:choose>
                                     </td>
+                                    </c:if>
+                                    <!-- 게시 전 -->
+                                    <c:if test="${ category eq 1 }">
+                                    <td>
+                                    	<c:choose>
+                                    		<c:when test="${ empty adApprove.payDate1st and caltoday - calapplyday <= 3 }">
+                                    		납부전
+                                    		</c:when>
+                                    		<c:when test="${ not empty adApprove.payDate1st }">
+                                    		납부완료
+                                    		</c:when>
+                                    		<c:when test="${ empty adApprove.payDate1st and caltoday - calapplyday > 3 }">
+                                    		납기초과
+                                    		</c:when>
+                                    	</c:choose>
+                                    </td>
+                                    </c:if>
                                     </tr>
                                    </c:forEach>
                                  
@@ -223,7 +277,7 @@
                                    </table>
                                    
                                  
-                                 </div><!-- 전체 광고 끝 -->
+                                 </div><!-- 광고 관리 표 끝 -->
                                  
                          <!-- 게시 전 광고 (게시 전 클릭 시) -->
                          <div role="tabpanel" class="tab-pane" id="before">
@@ -240,33 +294,69 @@
                                  </tr>
                                 </thead>
                                 <tbody>
-                                <c:forEach var="adApprove" items="${ requestScope.adList }">
-                                  <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adDetail/${ adApprove.adCode }'">
-                                    <th scope="row">${ adApprove.adCode }</th>
-                                    <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
-                                    <td>${ adApprove.adTitle }</td>
-                                    <td>
-                                    <c:choose>
-		                                    <c:when test="${adApprove.adTypeCode eq 1}">
-		                                    	장소 외
-		                                    </c:when>
-		                                    <c:when test="${adApprove.adTypeCode eq 3}">
-		                                    	장소 외
-		                                    </c:when>
-		                                    <c:when test="${adApprove.adTypeCode eq 2}">
-		                                    	장소
-		                                    </c:when>
-		                                    <c:when test="${adApprove.adTypeCode eq 4}">
-		                                    	장소
-		                                    </c:when>
-                                    	</c:choose>
-                                    </td>
-                                    <td>${adApprove.postStartDate} ~ ${adApprove.postEndDate}</td>
-                                    <!-- 페이지가 게시전일 때-->
-                                    <%-- <test="${ requestScope.~ eq ~}" >  --%>
-                                    <td>납부 전/납부 완료/납기 초과</td>
-                                    </tr>
-                                   </c:forEach>
+                                <!-- All일 때 -->
+                                <c:if test="${ empty category }">
+	                                <c:forEach var="adApprove" items="${ requestScope.adList }">
+	                                  <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adDetail/${ adApprove.adCode }'">
+	                                    <th scope="row">${ adApprove.adCode }</th>
+	                                    <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+	                                    <td>${ adApprove.adTitle }</td>
+	                                    <td>
+	                                    <c:choose>
+			                                    <c:when test="${adApprove.adTypeCode eq 1}">
+			                                    	장소 외
+			                                    </c:when>
+			                                    <c:when test="${adApprove.adTypeCode eq 3}">
+			                                    	장소 외
+			                                    </c:when>
+			                                    <c:when test="${adApprove.adTypeCode eq 2}">
+			                                    	장소
+			                                    </c:when>
+			                                    <c:when test="${adApprove.adTypeCode eq 4}">
+			                                    	장소
+			                                    </c:when>
+	                                    	</c:choose>
+	                                    </td>
+	                                    <td>${adApprove.postStartDate} ~ ${adApprove.postEndDate}</td>
+	                                    <!-- 페이지가 게시전일 때-->
+	                                    <%-- <test="${ requestScope.~ eq ~}" >  --%>
+	                                    <td>납부 전/납부 완료/납기 초과</td>
+	                                    </tr>
+	                                   </c:forEach>
+                                   </c:if>
+                                   
+                                   <!-- 게시 전일 때 -->
+                                   <c:if test="${ category eq 1 }">
+	                                <c:forEach var="adApprove" items="${ requestScope.adList }">
+	                                  <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adDetail/${ adApprove.adCode }'">
+	                                    <th scope="row">${ adApprove.adCode }</th>
+	                                    <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+	                                    <td>${ adApprove.adTitle }</td>
+	                                    <td>
+	                                    <c:choose>
+			                                    <c:when test="${adApprove.adTypeCode eq 1}">
+			                                    	장소 외
+			                                    </c:when>
+			                                    <c:when test="${adApprove.adTypeCode eq 3}">
+			                                    	장소 외
+			                                    </c:when>
+			                                    <c:when test="${adApprove.adTypeCode eq 2}">
+			                                    	장소
+			                                    </c:when>
+			                                    <c:when test="${adApprove.adTypeCode eq 4}">
+			                                    	장소
+			                                    </c:when>
+	                                    	</c:choose>
+	                                    </td>
+	                                    <td>${adApprove.postStartDate} ~ ${adApprove.postEndDate}</td>
+	                                    <!-- 페이지가 게시전일 때-->
+	                                    <%-- <test="${ requestScope.~ eq ~}" >  --%>
+	                                    <td>납부 전/납부 완료/납기 초과</td>
+	                                    </tr>
+	                                   </c:forEach>
+                                   </c:if>
+                                   
+                                   
                                    </tbody>
                                    </table>
                                  </div><!-- 게시 전 광고 끝 -->
