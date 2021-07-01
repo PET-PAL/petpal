@@ -37,6 +37,7 @@ import com.google.gson.GsonBuilder;
 import com.nobanryeo.petpal.user.adopt.service.AdoptService;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
+import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
@@ -241,6 +242,25 @@ public class AdoptController {
 		return "user/adopt/adoptDetail";
 	}
 	
+	@GetMapping("select/reply/{boardCode}")
+	@ResponseBody
+	public ModelAndView selectreplyList(@PathVariable("boardCode") int code,ModelAndView mv, HttpServletResponse response) {
+		
+		response.setContentType("application/json; charset=utf-8");
+		List<AdoptReplyDTO> replyList = new ArrayList<>();
+		replyList=adoptService.selectReplyList(code);
+		
+//		System.out.println("adoptList in controller: "+adoptService.selectAdoptList());
+		System.out.println("controller of reply: "+replyList);
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting()
+				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+				.serializeNulls().disableHtmlEscaping().create();
 	
+		mv.addObject("replyList", gson.toJson(replyList));
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
 	
 }
