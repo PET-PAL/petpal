@@ -13,7 +13,32 @@ public interface MessageMapper {
 	 */
 	public int selectMessageCount(int code);
 	
+	/**
+	 * 쪽지 리스트
+	 * @param map
+	 * @return
+	 */
 	public List<MessageTableDTO> selectMessage(HashMap<String, Object> map);
+
+	/**
+	 * 상세 쪽지 갯수 카운트
+	 * @return
+	 */
+	public int selectMessageDtailCount(MessageTableDTO messageDTO);
+
+	/**
+	 * 상세 쪽지 리스트
+	 * @param map
+	 * @return
+	 */
+	public List<MessageTableDTO> selectDetailMessage(HashMap<String, Object> map);
+
+	/**
+	 * 쪽지 보내기
+	 * @param messageDTO
+	 * @return
+	 */
+	public int insertMessageFromMypage(MessageTableDTO messageDTO);
 	
 
 }

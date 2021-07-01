@@ -89,8 +89,15 @@
 	                    </thead>
 	                    <tbody>
 	                    <c:forEach items="${ msgList }" var="list">
-						<tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/messageDetail?${ list.sendUserNick }'">
+						<tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/message/messageDetail?userCode1=${ list.userCode1 }&userCode=${ list.userCode }'">
+						<c:choose>
+							<c:when test="${ list.receiveUserNick eq sessionScope.loginUser.nikname }">
 							<td style="text-align: center;">${ list.sendUserNick }</td>
+							</c:when>
+							<c:otherwise>
+							<td style="text-align: center;">${ list.receiveUserNick }</td>
+							</c:otherwise>
+						</c:choose>
 							<td style="text-align: center;">${ list.messageContent }</td>
 							<td style="text-align: center;">${ list.messageDate }</td>
 						</tr>
@@ -117,11 +124,6 @@
 								<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 							</c:if>
 							</li>
-						
-							<!-- <li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li> -->
 						</ul>
 					</div>
                 </div>
