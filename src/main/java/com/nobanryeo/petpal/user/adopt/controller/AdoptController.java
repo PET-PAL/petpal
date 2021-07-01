@@ -242,9 +242,9 @@ public class AdoptController {
 		return "user/adopt/adoptDetail";
 	}
 	
-	@GetMapping("select/reply/{boardCode}")
+	@GetMapping("adopt/detail/select/reply/{boardCode}")
 	@ResponseBody
-	public ModelAndView selectreplyList(@PathVariable("boardCode") int code,ModelAndView mv, HttpServletResponse response) {
+	public ModelAndView selectreplyList(@PathVariable("boardCode") int code, ModelAndView mv, HttpServletResponse response) {
 		
 		response.setContentType("application/json; charset=utf-8");
 		List<AdoptReplyDTO> replyList = new ArrayList<>();
@@ -253,13 +253,18 @@ public class AdoptController {
 //		System.out.println("adoptList in controller: "+adoptService.selectAdoptList());
 		System.out.println("controller of reply: "+replyList);
 		
-		Gson gson = new GsonBuilder().setPrettyPrinting()
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting()
 				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
 				.serializeNulls().disableHtmlEscaping().create();
 	
 		mv.addObject("replyList", gson.toJson(replyList));
 		mv.setViewName("jsonView");
 		
+		return mv;
+	}
+	
+	@PostMapping("adopt/detail/insert/reply")
+	public ModelAndView insertReply(ModelAndView mv) {
 		return mv;
 	}
 	

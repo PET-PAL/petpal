@@ -95,7 +95,7 @@
 			<div style="width: 370px; position: relative; left: 60%;">
 		            <form style="margin-bottom: 40px;">
 						<input type="search" placeholder="지역 키워드를 입력해주세요" aria-label="Search"
-						style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;">
+						style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;" autofocus/>
 						<span>
 						<button type="submit" style="background-color: white; height: 40px; width: 50px; float: right; border: solid 1px; border-color: black; border-radius: 5px;">
 							검색
@@ -145,10 +145,10 @@
 										     					output += '</div>';
 										     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
 										     					if(gender == 'M'){
-										     						output += '<h4>'+this.adoptBreed+'/수컷/'+this.adoptColor+'</h4>';
+										     						output += '<h4>'+this.adoptBreed+'/남아/'+this.adoptColor+'</h4>';
 										     					}
 										     					if(gender == 'F'){
-										     						output += '<h4>'+this.adoptBreed+'/암컷/'+this.adoptColor+'</h4>';
+										     						output += '<h4>'+this.adoptBreed+'/여아/'+this.adoptColor+'</h4>';
 										     					}
 										     					output += '<h6>'+this.userAddress+'</h6>';
 										     					output += '</div>';
