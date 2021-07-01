@@ -152,6 +152,7 @@
     background: none !important;
 }
         </style>
+        
 
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -165,6 +166,10 @@
        <!-- 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
        	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
        	 -->
+       	 <script type="text/javascript"src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       	 <script>
+          var $j3 = jQuery.noConflict();
+       </script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -324,65 +329,44 @@
                             	<table class="table" style="margin-bottom: 50px;">
 				                    <tbody id="tbody">
 				                    	
-				                        <tr>
-				                            <td style="text-align: center;">펫파파</td>
-				                            <td>좋은일을 하시다니 대단하신 거 같습니다!</td>
-				                            <td style="text-align: center;">2021-06-22</td>
-				                            <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-				                        </tr>
-				                        <tr>
-				                            <td style="text-align: center;">유기농간식</td>
-				                            <td style="width: 500px;">아이가 많이 귀엽네요</td>
-				                            <td style="text-align: center;">2021-06-23</td>
-				                             <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-				                        </tr>
-				                        <tr>
-				                            <td style="text-align: center;">삐띠딕</td>
-				                            <td>새 가족을 꼭 찾길 바랄게요!</td>
-				                            <td style="text-align: center;">2021-06-23</td>
-				                             <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-				                        </tr>
-				                        <tr>
-				                            <td style="text-align: center;">Qododor</td>
-				                            <td>아이구야 힘내세요</td>
-				                            <td style="text-align: center;">2021-06-23</td>
-				                             <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-				                        </tr>
-				                        <tr>
-				                            <td style="text-align: center;">Backgu</td>
-				                            <td>멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍</td>
-				                            <td style="text-align: center;">2021-06-23</td>
-				                             <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-				                        </tr>
-				                        <tr>
-				                        	<td style="text-align: center;"> </td>
-				                            <td>삭제 된 댓글입니다.</td>
-				                            <td style="text-align: center;"> </td>
-				                            <td></td>
-				                        </tr>
 				                    </tbody>
 				                </table>
-				                
+				               
 				                <script>
-				                    	$(document).ready(function(){
+				                $j3(document).ready(function(){
 								     		console.log("adoptPage select script");
 								     		
-								     		$.ajax({
-								     			url:"/petpal/user/select/reply/{boardCode}",
+								     		var code = '<c:out value="${requestScope.adoptDetail.boardCode}"/>';
+								     	
+								     			$j3.ajax({
+								     			url:"select/reply/"+code,
+								     			type:"GET",
 								     			success:function(data,status,xhr){
 								     				const replyList = JSON.parse(data.replyList);
-								     				
+								     				/* debugger; */
 								     				console.table(replyList);
 								     				output='';
-								     				$.each(replyList,function(){
-									     				
-								     					output += '<div class="col-sm-3">';
-								     					output += '<tr>';
-								     					output += '<td style="text-align: center;">'+this.userNickname+'</td>'
-								     					output += '<td>멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍</td>'
-								     					output += ' <td style="text-align: center;">2021-06-23</td>'
-								     					output += ' <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>'
-								     					output += '</tr>';
+								     				$j3.each(replyList,function(){
+								     					var deleteYN = this.replyDeleteYN;
+								     						
+								     					
+								     					if(deleteYN == 'N'){
+								     						output += '<tr>';
+									     					output += '<td style="text-align: center;">'+this.userNickname+'</td>';
+								     						output += '<td>'+this.replyContent+'</td>';
+								     						output += '<td style="text-align: center;">'+this.replyDate+'</td>';
+									     					output += '<td><img onclick="location.href=\'#reportComment\'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;">'+'</td>';
+									     					output += '</tr>';
+								     					}
+								     					if(deleteYN == 'Y'){
+								     						output += '<tr>';
+									     					output += '<td style="text-align: center;">'+' '+'</td>';
+								     						output += '<td>'+'삭제 된 댓글입니다.'+'</td>';
+								     						output += '<td style="text-align: center;">'+' '+'</td>';
+									     					output += '<td>'+'</td>';
+									     					output += '</tr>';
+								     					}
+								     					
 								                             
 								     				});
 								     				
@@ -394,7 +378,7 @@
 								     				console.log(error);
 								     			}
 								     		});
-								     	}); 
+				               		});
 				                    	</script>
 				                <div class="text-center">
 									<ul class="pagination">
@@ -411,15 +395,42 @@
                     </div>
                 </div>
                 
-                <form >
+                
 	             	<p style="margin-left: 280px;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
 	             	삐비디딕
 	             	</p>
 		             <section id="sendmessage" class="sendmessage" style="width: 60%;margin-left: 100px; ">
 		                <input type="text" id="messagecontent" placeholder="  댓글로 임시보호자님을 응원해주세요!" style="width: 800px; float: left;" >
-		                <button class="sendmessagecontent" style="float:right;">댓글 작성</button>
+		                <button class="sendmessagecontent" id="replySubmit" style="float:right;">댓글 작성</button>
 		            </section>
-                </form>
+		            
+		            <script>
+		            
+			            $j3("#replySubmit").click(function(){
+				     		var code = '<c:out value="${requestScope.adoptDetail.boardCode}"/>';
+			     			vare content = $j3('#messagecontent').val();
+			     			
+				     		if(content.trim()==''){
+				     			alert('댓글을 입력하신 후 다시 눌러주시기 바랍니다.');
+				     			return;
+				     		}
+				     		
+				     		var 
+				     		$j3.ajax({
+			     			url:"insert/reply",
+		    				data:{"replyContent": $j3('#messagecontent').val(),
+		    					"boardCode": code},
+		    				success: function(data,status,xhr){
+		    					alert("댓글등록 완료! ");
+		    					location.reload();
+		    				},error:function(xhr,status,error){
+			     				alert("에러 발생~삐뽀~");
+			     				console.log(error);
+			     			}
+			     		});
+           		});
+		            </script>
+                
          </section>
             <!-- 게시글 신고 팝업창 -->
             <div id="reportPost" class="overlay">
