@@ -10,5 +10,11 @@ public interface MessageService {
 	public int selectMessageCount(int code);
 	
 	public List<MessageTableDTO> selectMessage(HashMap<String, Object> map);
+
+	public int selectMessageDtailCount(MessageTableDTO messageDTO);
+
+	public List<MessageTableDTO> selectDetailMessage(HashMap<String, Object> map);
+
+	public boolean insertMessageFromMypage(MessageTableDTO messageDTO);
 	
 }

@@ -1,9 +1,62 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
     <head>
         <style>
+            .menutable > div > img {
+                margin-bottom: 20px;
+				width: 20%;
+                margin: 0px auto;
+                display: block;
+            }
+            div > button {
+                background-color: #45B99C; 
+                height: 35px;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid;
+                font-size: 16px; 
+                font-weight: 500;
+                border-radius: 10px;
+                margin-left: 20px;
+            }
+
+			section > button{
+			 background-color: #B9062F; 
+                height: 35px;
+                color: white;
+                border-color: #B9062F; 
+                border: 1px solid;
+                font-size: 16px; 
+                font-weight: 500;
+                border-radius: 10px;
+                margin-left: 20px;
+			}
+			.findpwd-content > div, .findpwd-content > form > div {
+                margin: 0px auto;
+            }
+			 div > img {
+                margin-bottom: 20px;
+                text-align: center;
+            width: 20%;
+            }
+            a > img {
+                width: 50%;
+                height: 50%;
+                margin-top: 20px;
+                margin-bottom: 10px;
+                margin-left: 15px;
+                margin-right: 15px;
+                text-align: center;
+            }
+            .menutable > div > img {
+                margin-bottom: 20px;
+            	width: 20%;
+                margin: 0px auto;
+                display: block;
+            }
             .sendmessage > input {
                 width: 87%;
                 height: 50px;
@@ -25,6 +78,95 @@
             }
             .sendmessage > input::placeholder {
                 color:#45B99C;
+            }
+            
+               .overlay {
+  				position: fixed;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: rgba(0, 0, 0, 0.7);
+				transition: opacity 500ms;
+				visibility: hidden;
+				opacity: 0;
+				z-index: 900;
+				height: 150% !important;
+			}
+			.overlay:target {
+				visibility: visible;
+				opacity: 1;
+			}
+			.popup {
+				position: fixed;
+				width: 60%;
+				padding: 10px;
+				max-width: 500px;
+				border-radius: 10px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: rgba(255, 255, 255, .9);
+				-webkit-transition: opacity .5s, visibility 0s linear .5s;
+				transition: opacity .5s, visibility 0s linear .5s;
+				z-index: 1;
+			}
+			.popup:target {
+				visibility: visible;
+				opacity: 1;
+				-webkit-transition-delay: 0s;
+				transition-delay: 0s;
+			}
+			.popup-close {
+				position: absolute;
+				padding: 10px;
+				max-width: 500px;
+				border-radius: 10px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: rgba(255, 255, 255, .9);
+			}
+			.popup .close {
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				padding: 5px;
+				color: #000;
+				transition: color .3s;
+				font-size: 2em;
+				line-height: .6em;
+			}
+			.popup .close:hover {
+				color: #007a5c;
+			}
+            .btn_submit, .certification {
+                background-color: #45B99C; 
+                height: 35px;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid; 
+                font-size: 16px; 
+                font-weight: 500;
+                border-radius: 10px;
+            }
+			img {
+				cursor: pointer;
+			}
+			td > button {
+            	float: right;
+    			border-radius: 5px;
+    			border: 1px solid;
+    			color: #45B99C;
+    			background: white;
+            }
+            td > button:hover {
+            	float: right;
+    			border-radius: 5px;
+    			background-color: #45B99C;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid;
             }
         </style>
         <meta charset="utf-8">
@@ -96,53 +238,74 @@
 
             <section id="account" class="account" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="font-size: 20px; font-weight: 600; float: left; margin-left: 10px; float:left; margin-top:20px;">쪽지 상세보기</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/message.jsp'" style="width:50px; float: right;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/message'" style="width:50px; float: right;">
                 <br><br>
                 <hr style="border-color: rgb(175, 175, 175);">
             </section>
 
             <section id="messagetable" class="messagetable">
-                <div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
-                <table class="table" style="margin-bottom: 50px;">
+                <div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px;">
+                <table class="table" style="margin-bottom: 50px;" id="messageList">
                     <thead>
                         <tr style="background-color: #F1FAF8;">
                             <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>보낸 사람</b></th>
+                            <th style="text-align: center; "><b>받는 사람</b></th>
                             <th style="text-align: center;"><b>쪽지 내용</b></th>
                             <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>날짜</b></th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td style="text-align: center;">킘해인</td>
-                            <td>택배로 보내드리겠습니다.</td>
-                            <td style="text-align: center;">2021-06-17</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;">프로 펫팔러</td>
-                            <td>직거래랑 택배 중에 어떻게 거래하시나요?</td>
-                            <td style="text-align: center;">2021-06-17</td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;">프로 펫팔러</td>
-                            <td>목줄 무료나눔글 보고 쪽지드립니다~</td>
-                            <td style="text-align: center;">2021-06-17</td>
-                        </tr>
-                    </tbody>
+                   <tbody>
+	                    <c:forEach items="${ msgList }" var="list">
+						<tr>
+							<td style="text-align: center;">${ list.sendUserNick }</td>
+							<td style="text-align: center;">${ list.receiveUserNick }</td>
+							<td style="text-align: center;">${ list.messageContent }</td>
+							<td style="text-align: center;">${ list.messageDate }</td>
+						</tr>
+						</c:forEach>
+	             </tbody>
                  </table>
                  </div>
-            </section>
+                  <div class="text-center">
+						<ul class="pagination">
+						<li>
+							<c:if test="${paging.startPage != 1 }">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+							</c:if>
+							<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+								<c:choose>
+									<c:when test="${p == paging.nowPage }">
+										<li><a>${p }</a></li>
+									</c:when>
+									<c:when test="${p != paging.nowPage }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${paging.endPage != paging.lastPage}">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+							</c:if>
+							</li>
+						</ul>
+					</div>
+                </div>
             
+            <form action="${ pageContext.servletContext.contextPath }/user/mypage/message/messageSend" method="post">
             <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto;">
-                <input type="text" id="messagecontent" placeholder="  message">
+                <input type="text" name="messageContent" placeholder="  message">
+                <input type="hidden" value="${ oneList.receiveUserNick }" name="receiveUserNick">
+                <input type="hidden" value="${ oneList.sendUserNick }" name="sendUserNick">
+                <input type="hidden" value="${ oneList.userCode1 }" name="userCode1">
+                <input type="hidden" value="${ oneList.userCode }" name="userCode">
                 <button class="sendmessagecontent">쪽지 보내기</button>
             </section>
+           </form>
 
             
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
-
+</body>
             <!-- 푸터 -->
             <jsp:include page="../common/footer.jsp"/>
-        </div>
         
 </html>

@@ -22,7 +22,8 @@
 	     SELECT COUNT(*)
 	      FROM (SELECT MAX(USER_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE)
                 FROM MESSAGE_TABLE
-                WHERE USER_CODE1 = #{ userCode1 }
+                WHERE USER_CODE1 = #{ userCode1 } 
+                   OR USER_CODE = #{ userCode1 }
                 GROUP BY USER_CODE)
 	</select> 
 	
@@ -35,16 +36,65 @@
                      , MAX(MESSAGE_CONTENT) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_CONTENT
                      , MAX(MESSAGE_DATE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_DATE
                      , MAX(USER_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS USER_CODE
+                     , MAX(USER_CODE1) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS USER_CODE1
                      , MAX(SEND_NICKNAME) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS SEND_NICKNAME
+                     , MAX(RECEIVE_NICKNAME) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS RECEIVE_NICKNAME
                   FROM MESSAGE_TABLE
                  WHERE USER_CODE1 = #{ msgDTO.userCode1 }
+                    OR USER_CODE = #{ msgDTO.userCode1 }
                  GROUP BY USER_CODE) A)
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
 		      ORDER BY MESSAGE_CODE
 	</select>
 	
+	<!-- 총 상세 쪽지 수 출력 -->
+	<select id="selectMessageDtailCount" resultType="int" parameterType="int">
+	    SELECT COUNT(*)
+	      FROM MESSAGE_TABLE
+	     WHERE (USER_CODE1 = #{ userCode1 } AND USER_CODE = #{ userCode })
+            OR (USER_CODE1 = #{ userCode } AND USER_CODE = #{ userCode1 })
+	</select> 
 	
+	<!-- 상세 쪽지 내역 조회 -->
+	<select id="selectDetailMessage" resultMap="messageResultSet" parameterType="hashmap">
+        SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+                                MESSAGE_CODE
+                              , MESSAGE_CONTENT
+                              , MESSAGE_DATE
+                              , USER_CODE1
+                              , USER_CODE
+                              , SEND_NICKNAME
+                              , RECEIVE_NICKNAME
+                  FROM MESSAGE_TABLE
+                 WHERE (USER_CODE1 = #{ msgDTO.userCode1 } AND USER_CODE = #{ msgDTO.userCode })
+                    OR (USER_CODE1 = #{ msgDTO.userCode } AND USER_CODE = #{ msgDTO.userCode1 })) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY MESSAGE_DATE DESC
+	</select>
+	
+	<insert id="insertMessageFromMypage" parameterType="MessageTableDTO">
+		INSERT
+		  INTO MESSAGE_TABLE
+		VALUES ( MESSAGE_CODE_SEQ.NEXTVAL
+		       , #{ messageContent }
+		       , SYSDATE
+		       , #{ userCode1 }
+		       , #{ userCode }
+		       , #{ sendUserNick }
+		       , #{ receiveUserNick }
+		       )
+	</insert>
 	
  </mapper>
 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
  
