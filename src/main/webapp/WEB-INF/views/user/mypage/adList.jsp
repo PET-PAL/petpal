@@ -143,7 +143,7 @@
 			                        <c:forEach var="arr" items="${ adList }">
 			                        	<tr>
 			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
-			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.adWeek }"/></td>
+			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.adWeek }"/>주</td>
 			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.applyDate }"/></td>
 			                            	<c:if test="${ arr.postYn eq 'N' && arr.stateCode eq '1' }">
 			                          			<td style="text-align: center; color: red;">광고신청</td>

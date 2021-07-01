@@ -56,7 +56,10 @@ public class FreeBoardController {
        
        // 상세 내용 조회      
        model.addAttribute("freeBoardDetail", freeBoardService.selectFreeBoardDetail(boardCode));
-       model.addAttribute("freeBoardReply",freeBoardService.selectFreeBoardReply(boardCode));
+       // 게시글 사진 조회
+       model.addAttribute("freeBoardImg", freeBoardService.selectFreeBoardImg(boardCode));
+       // 댓글 내용 조회
+       model.addAttribute("freeBoardReply", freeBoardService.selectFreeBoardReply(boardCode));
        
        return "user/community/freeBoardDetail";
     }

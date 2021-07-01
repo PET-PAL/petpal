@@ -51,6 +51,17 @@
 		<result column="USER_CODE" property="userCode"/>
 		<result column="BOARD_CODE" property="boardCode"/>
 	</resultMap>
+	
+	<resultMap id="pictureResultSet" type="PictureDTO">
+		<id column="PICTURE_CODE" property="pictureCode"/>
+		<result column="PICTURE_NAME" property="pictureName"/>
+		<result column="PICTURE_URL" property="pictureURL"/>
+		<result column="PICTURE_UPLOAD_DATE" property="pictureUploadDate"/>
+		<result column="PICTURE_DELETE_YN" property="pictureDeleteYN"/>
+		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
+		<result column="BOARD_CODE" property="boardCode"/>
+		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
+	</resultMap>
 
 	
 	
@@ -88,6 +99,13 @@
           JOIN USER_TABLE B ON (B.USER_CODE = A.USER_CODE)
          WHERE A.BOARD_DELETE_YN = 'N'
            AND A.BOARD_CODE = #{ boardCode }
+	</select>
+	
+	<select id="selectFreeBoardImg" parameterType="PictureDTO" resultMap="pictureResultSet">
+        SELECT A.PICTURE_UTIL_PATH
+          FROM PICTURE_TABLE A
+          JOIN FREE_PICTURE_MANAGE B ON(B.PICTURE_CODE = A.PICTURE_CODE)
+         WHERE B.BOARD_CODE = #{ boardCode }    
 	</select>
 	
 	<select id="selectFreeBoardReply" resultMap="boardReplyResultSet" parameterType="FreeBoardReplyDTO">

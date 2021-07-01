@@ -7,6 +7,7 @@ import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
+import com.nobanryeo.petpal.user.dto.PictureDTO;
 
 public interface FreeBoardService {
 
@@ -14,6 +15,8 @@ public interface FreeBoardService {
 
 	public FreeBoardDTO selectFreeBoardDetail(int boardCode);
 
+	public List<PictureDTO> selectFreeBoardImg(int boardCode);
+	
 	public List<BoardReplyDTO> selectFreeBoardReply(int boardCode);
 
 	public int insertFreeBoardReply(FreeBoardReplyDTO reply);
@@ -27,5 +30,6 @@ public interface FreeBoardService {
 	public int insertFreeBoardReplyReport(FreeBoardReplyDTO replyReport);
 
 	public FreeBoardDTO writeFreeBoard(int userCode);
+
 	
 }

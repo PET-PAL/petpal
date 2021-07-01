@@ -46,10 +46,10 @@ public class UserAdController {
 	 * 광고 신청 내역 조회
 	 */
 	@GetMapping("select/ad/list")
-	public String selectAdList(Model model/* , @SessionAttribute UserInfoDTO loginUser */) {
+	public String selectAdList(Model model, @SessionAttribute UserInfoDTO loginUser) {
 		
 		AdDTO adDTO = new AdDTO();
-		adDTO.setUserCode(1);			// 세션 연결하자~!
+		adDTO.setUserCode(loginUser.getCode());
 		
 		model.addAttribute("adList", adService.selectAdList(adDTO));
 		
@@ -63,10 +63,10 @@ public class UserAdController {
 	 * 광고 신청 상세 내용 조회(광고 기본 정보)
 	 */
 	@GetMapping("select/adApply/detail")
-	public String selectAdApplyDetail(Model model, @RequestParam int adCode) {
+	public String selectAdApplyDetail(Model model, @RequestParam int adCode, @SessionAttribute UserInfoDTO loginUser) {
 		
 		AdDTO adDTO = new AdDTO();
-		adDTO.setUserCode(1);			// 세션 연결하자~!
+		adDTO.setUserCode(loginUser.getCode());
 		adDTO.setAdCode(adCode);
 		
 		model.addAttribute("adApplyDetail", adService.selectAdApplyDetail(adDTO));
@@ -78,10 +78,10 @@ public class UserAdController {
 	 * 광고 신청 상세 내용 조회(상세 내용)
 	 */
 	@GetMapping("select/adApply/detail2")
-	public String selectAdApplyDetail2(Model model, @RequestParam int adCode) {
+	public String selectAdApplyDetail2(Model model, @RequestParam int adCode, @SessionAttribute UserInfoDTO loginUser) {
 		
 		AdDTO adDTO = new AdDTO();
-		adDTO.setUserCode(1);			// 세션 연결하자~!
+		adDTO.setUserCode(loginUser.getCode());
 		adDTO.setAdCode(adCode);
 		
 		model.addAttribute("adApplyDetail", adService.selectAdApplyDetail(adDTO));
@@ -176,13 +176,13 @@ public class UserAdController {
 		
 		String pictureNewName = UUID.randomUUID().toString().replace("-", "") + extension; //저장될 파일 명
 		
-		File pictureUrl = new File(filePath + pictureNewName);
+		File pictureUrl = new File(filePath + "\\" + pictureNewName);
 		
 		try { 
 			InputStream fileStream = multipartFile.getInputStream();
 			FileUtils.copyInputStreamToFile(fileStream, pictureUrl); //파일 저장
-//			jsonObject.addProperty("url", filePath + "\\" + pictureNewName);
-			jsonObject.addProperty("url", "file:///C:/Users/WEENARA/git/petpal/src/main/webapp/resources/uploadFiles/3e55474907894bc2a32c402907e09d08.jpg");
+			jsonObject.addProperty("url", filePath + "\\" + pictureNewName);
+//			jsonObject.addProperty("url", "file:///C:/Users/WEENARA/git/petpal/src/main/webapp/resources/uploadFiles/3e55474907894bc2a32c402907e09d08.jpg");
 			jsonObject.addProperty("responseCode", "success");
 			
 			jsonObject.addProperty("pictureName", pictureName);

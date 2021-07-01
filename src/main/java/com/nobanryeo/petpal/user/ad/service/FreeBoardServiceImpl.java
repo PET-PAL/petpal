@@ -12,6 +12,7 @@ import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
+import com.nobanryeo.petpal.user.dto.PictureDTO;
 
 @Service
 public class FreeBoardServiceImpl implements FreeBoardService {
@@ -36,6 +37,15 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public FreeBoardDTO selectFreeBoardDetail(int boardCode) {
 
 		return freeBoardMapper.selectFreeBoardDetail(boardCode);
+	}
+	
+	@Override
+	public List<PictureDTO> selectFreeBoardImg(int boardCode) {
+
+		List<PictureDTO> pictureList = new ArrayList<>();
+		pictureList = freeBoardMapper.selectFreeBoardImg(boardCode);
+		
+		return pictureList;
 	}
 
 	@Override
@@ -81,5 +91,6 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	public FreeBoardDTO writeFreeBoard(int userCode) {
 		return freeBoardMapper.writeFreeBoard(userCode);
 	}
+
 
 }

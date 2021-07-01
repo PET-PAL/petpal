@@ -245,7 +245,9 @@
 							<td><c:out value="${ requestScope.freeBoardDetail.boardPostDate }"/></td>
 						</tr>
 					</tbody></table>
-					<img src="/petpal_front/resources/images/ccat.png"><br>
+					<c:forEach items="${ freeBoardImg }" var="arr">
+						<img src="${ pageContext.servletContext.contextPath }/${ arr.pictureUtilPath }"><br>
+					</c:forEach>
 					<p style="margin-bottom: 50px; margin-left: 8px;"><c:out value="${ requestScope.freeBoardDetail.boardContent }"/></p>
 		        </div>
             
