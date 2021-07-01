@@ -22,6 +22,7 @@
  		
  		<typeAlias alias="AdoptDTO" type="com.nobanryeo.petpal.user.dto.AdoptDTO"/>
  		<typeAlias alias="PictureDTO" type="com.nobanryeo.petpal.user.dto.PictureDTO"/>
+ 		<typeAlias alias="AdoptReplyDTO" type="com.nobanryeo.petpal.user.dto.AdoptReplyDTO"/>
  		
  		<typeAlias alias="BoardReplyDTO" type="com.nobanryeo.petpal.user.dto.BoardReplyDTO"/>
  		<typeAlias alias="AdoptPictureManageDTO" type="com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO"/>

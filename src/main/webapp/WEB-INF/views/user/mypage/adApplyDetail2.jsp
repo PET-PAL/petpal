@@ -113,8 +113,10 @@
 							<td><c:out value="${ requestScope.adApplyDetail.companyName }"/></td>
 						</tr>
 					</table>
-					<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px; text-align: center;"><c:out value="${ requestScope.adApplyDetail.adContent }"/></p>
+					<%-- <img src="${ pageContext.servletContext.contextPath }/${ requestScope.adApplyDetail.pictureUtilPath }"><br> --%>
+					<div style="margin-bottom: 30px; text-align:center;">
+						<c:out value="${ requestScope.adApplyDetail.adContent }" escapeXml="false"/>
+					</div>
 		        </div>
 		        <div style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
 		        	<c:if test="${ requestScope.adApplyDetail.stateCode ne '4' && !(today > requestScope.adApplyDetail.postEndDate) && !(requestScope.adApplyDetail.stateCode eq '3') }">

@@ -147,7 +147,7 @@
 									<td>
 										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="dogOrcat" value="C" checked> 고양이</label>
 										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="dogOrcat" value="D" > 강아지</label>
-										<input type="text" id="ownerName" name ="adoptBreed" style="width: 130px; background: #F1FAF8;"placeholder=" 예시) 닥스훈트"  >								
+										<input type="text" id="ownerName" name ="adoptBreed" style="width: 130px; background: #F1FAF8;"placeholder=" 예시) 닥스훈트" required >								
 									</td>
 								</tr>	
 								<tr>
@@ -159,32 +159,32 @@
 								</tr>
 								<tr>
 									<td>나이</td>
-									<td><input type="text" name="adoptAge" id="ownerName" style="width: 80px; background: #F1FAF8;" >  살</td>
+									<td><input type="text" name="adoptAge" id="ownerName" style="width: 80px; background: #F1FAF8;" required>  살</td>
 								</tr>
 								<tr>
 									<td>몸무게</td>
-									<td><input type="text" name="adoptWeight" id="ownerName" style="width: 80px; background: #F1FAF8;"  >  KG</td>
+									<td><input type="text" name="adoptWeight" id="ownerName" style="width: 80px; background: #F1FAF8;" required>  KG</td>
 								</tr>
 								<tr>
 									<td>색상</td>
-									<td><input type="text" name="adoptColor" id="ownerName" style="width: 80px; background: #F1FAF8;"  >  </td>
+									<td><input type="text" name="adoptColor" id="ownerName" style="width: 80px; background: #F1FAF8;" required>  </td>
 								</tr>
 								<tr>
 									<td>사는곳</td>
-									<td><input type="text" name="address" id="ownerName" style="width: 180px; background: #F1FAF8;" placeholder="예시) 서울시 강남구" ></td>
+									<td><input type="text" name="address" id="ownerName" style="width: 180px; background: #F1FAF8;" placeholder="예시) 서울시 강남구" required></td>
 								</tr>
 								<tr>
 									<td>소개</td>
 									<td><textarea rows="3" name="adoptIntroduce" id="textArea" class="input-xlarge" style="background: #F1FAF8;"
 									placeholder=" 예시) 소심하지만 사람을 좋아하는 아이입니다. 부디 이 아이의 평생 가족을 찾을 수 있게 해주세요. 현재 곰팡이 질환을 앓고 있어요 지금 치료중이지만 피부가 약해진 아이니 꼭 유의해주셔야해요 &#13;&#10;입양신청때 제가 더 필요로 하는 서류가 있어서 모두 충족시킬 수 있는 책임감 있으신 분을 찾고있어요!"
-									></textarea></td>
+									required></textarea></td>
 									
 								</tr>
 								<tr>
 									<td>사진</td>
 									<td>
 										<div class="mb-3" style="border-color: none;">
-										  <input type="file" name="picture" id="ownerName" multiple="multiple" style="width: 300px; background: #F1FAF8;" >
+										  <input type="file" name="picture" id="file" multiple="multiple" style="width: 300px; background: #F1FAF8;" onchange="fileLimit(this)" required>
 										</div>
 									</td>
 								</tr>
@@ -197,11 +197,11 @@
 								
 								<tr>
 									<td>연락처</td>
-									<td><input type="text" name="adoptPhone" id="ownerPhone" style="width: 240px; background: #F1FAF8;" placeholder=" 예시) 010-1234-5678" ></td>
+									<td><input type="text" name="adoptPhone" id="ownerPhone" style="width: 240px; background: #F1FAF8;" placeholder=" 예시) 010-1234-5678" required></td>
 								</tr>
 								<tr>
 									<td>주의사항</td>
-									<td><input type="text" name="adoptCaution" id="ownerPhone" style="width: 330px; background: #F1FAF8;" placeholder=" 예시) 밤 8시이후는 문자로 부탁드립니다." ></td>
+									<td><input type="text" name="adoptCaution" id="ownerPhone" style="width: 330px; background: #F1FAF8;" placeholder=" 예시) 밤 8시이후는 문자로 부탁드립니다." required></td>
 								</tr>
 									
 						</table>
@@ -215,24 +215,17 @@
             <jsp:include page="../../common/banner.jsp"/>
             
             <script>
-            	/* $('#registAdopt').click(function(){
-            		$.ajax({
-            			url:"petpal/user/adopt/write1",
-            			data: $('#adoptWrite').serialize(), 
-            			type: 'POST', 
-            			contentType: "application/json; charset=utf-8", 
-            			dataType: 'json',
-
-            			success:function(data,status,xhr){
-            				console.table(data.Stringify(data1));
-            				alert("입양게시글 등록에 성공하셨습니다!")
-            			},error:function(xhr,status,error){
-            				console.log(error);
-            				alert()
-            			}
-            		})
-            	}) */
-            
+       			function fileLimit(fl){
+       				if(fl.files.length == 0){
+       					alert("0개 이상의 파일이 입력 되었습니다. 최소 한장은 넣어주세요!");
+       					fl.style.backgourndColor='red';
+       					fl.value="";
+       				};
+       				if(fl.files.length > 4){
+       					alert("4장 초과로 사진이 첨부되었습니다. 4장만 추가해주세요!");
+       					fl.reset();
+       				};
+       			};
             	
             </script>
 

@@ -152,6 +152,7 @@
     background: none !important;
 }
         </style>
+        
 
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -165,6 +166,10 @@
        <!-- 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
        	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
        	 -->
+       	 <script type="text/javascript"src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       	 <script>
+          var $j3 = jQuery.noConflict();
+       </script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -199,9 +204,9 @@
                                 <li data-target="#carousel-example-generic" data-bs-slide-to="3"></li> 
                             </ol>
                             
-                            <c:forEach var="image" varStatus="status" items="${pictureList}">
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
+                            <c:forEach var="image" varStatus="status" items="${pictureList}">
 								<c:if test="${status.index == '0' }" >
 	                                <div class="item active">
                                          <div class="col-md-6 col-md-offset-3">
@@ -242,64 +247,73 @@
                     <div class="container">
                         <div class="row">
                         	<div style="width: 600px;">
-                	<h2 style="background-color: orange; width: 130px; border-radius: 8px; float:left; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
-                	대기중
-                	</h2>
-                	<div style="float:right;margin-right: -600px;">
-	                	<button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;">수정하기</button>
-	                	<button class="btn btn-light" style="width:100px; color: red;border:none; background-color:white;">삭제하기</button>
-                	</div>
+                        	<c:if test="${requestScope.adoptDetail.stateCode eq '1'}">
+			                	<h2 style="background-color: orange; width: 130px; border-radius: 8px; float:left; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
+			                	대기중
+			                	</h2>
+			                	<div style="float:right;margin-right: -600px;">
+				                	<button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;">수정하기</button>
+				                	<button class="btn btn-light" style="width:100px; color: red;border:none; background-color:white;">삭제하기</button>
+			                	</div>
+		                	</c:if>
                 	<!-- 상태 값에 따른 c:if 처리 -->
-                	<!-- <h2 style="background-color: #FF6230; width: 130px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
-                	완료
-                	</h2> -->
-                	<!-- <button style="background-color: #A91919; width: 100px; border-radius: 8px; height: 40px; color: white; font-weight: bold; padding-top: 5px; ">
-                	신고하기
-                	</button> -->
-                </div>
-                <div>
-                	<ul style="font-size: large;">
-                		<li style="margin-bottom: 30px;">작성자 : 
-                		<b><c:out value="${requestScope.adoptDetail.userNickname}"/></b>
-                		<img src="${ pageContext.servletContext.contextPath }/resources/images/message icon.png" alt="" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;"/>
-                		<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;">
-                		</li>
-                	</ul>
-                </div>
+		                	<c:if test="${requestScope.adoptDetail.stateCode eq '2'}">
+			                	<h2 style="float:left; background-color: #FF6230; width: 130px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
+			                	완료
+			                	</h2>
+			                	<!-- <button style="background-color: #A91919; width: 100px; border-radius: 8px; height: 40px; color: white; font-weight: bold; padding-top: 5px; ">
+			                	신고하기
+			                	</button> -->
+		                	</c:if>
+               			 </div>
+               			 <div>
+		                	<ul style="font-size: large;">
+		                		<li style="margin-bottom: 30px;">&nbsp&nbsp&nbsp작성자 : 
+		                		<b><c:out value="${requestScope.adoptDetail.userNickname}"/></b>
+		                		<img src="${ pageContext.servletContext.contextPath }/resources/images/message icon.png" alt="" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;"/>
+		                		<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;">
+		                		</li>
+		                	</ul>
+		                </div>
                 <div align="center" style="height: 150px;">
                 	<h1 style="font-weight: bold;"><c:out value="${requestScope.adoptDetail.adoptBreed}"/>
-                	/
-                	<c:if test="${requestScope.adoptDetail.adoptGender eq 'M'}">
-                	남아
-                	</c:if>
-                	<c:if test="${requestScope.adoptDetail.adoptGender eq 'F'}">
-                	여아
-                	</c:if>
-                	<br> 
+	                	<c:if test="${requestScope.adoptDetail.adoptGender eq 'M'}">
+	                	남아
+	                	</c:if>
+	                	<c:if test="${requestScope.adoptDetail.adoptGender eq 'F'}">
+	                	여아
+	                	</c:if>
+                		<br> 
                 	<c:out value="${requestScope.adoptDetail.adoptAge}"/>살 / 
                 	<c:out value="${requestScope.adoptDetail.adoptWeight}"/>KG / <c:out value="${requestScope.adoptDetail.adoptColor}"/></h1>
                 </div>
                 <div align="center">
-                <pre style="width: 1000px; white-space: pre-wrap; background-color: white; border: 0px; font-size: 20px;">
+                <pre style="width: 900px; white-space: pre-wrap; background-color: white; border: 0px; font-size: 20px;">
 <c:out value="${requestScope.adoptDetail.adoptIntroduce}"/>
                 </pre>
                 </div>
                 <div align="center" style="margin-bottom: 70px;">
+                
                 <!-- 현재 로그인 되어 있는 사용자에 따라서 다르다. c:if처리 -->
                 <!-- 작성자가 입양완료 버튼을 눌렀다면 상태값이 변하고 상태값에 따라 버튼이 보이기도 하고, 보이지 않기도 한다. -->
-                	<button onclick="location.href='#agreeAction'"
-		                style="background-color: #45B99C; border: 0px; border-radius:10px; width:250px; margin-left:10px;">
-		                	<h3 style="color: white; padding-top: 10px; font-weight: bold;">입양하기</h3>
-                	</button>
-             <div align="center" style="margin-top: 20px;">
-            	<a href="${ pageContext.servletContext.contextPath }/resources/files/dog.docx" download><h3><b>강아지 입양 신청서 다운로드</b></h3></a>
-            	<br>
-            	<a href="${ pageContext.servletContext.contextPath }/resources/files/cat.docx" download><h3><b>고양이 입양 신청서 다운로드</b></h3></a>
-            </div>
-                	<!-- <button  
-		                style="background-color: #FF6230; border: 0px; border-radius:10px; width:250px; margin-left:10px;">
-		                	<h3 style="color: white; padding-top: 10px; font-weight: bold;">입양완료</h3>
-                	</button> -->
+                	<c:if test="${requestScope.adoptDetail.stateCode eq '1'}">
+	                	<button onclick="location.href='#agreeAction'"
+			                style="background-color: #45B99C; border: 0px; border-radius:10px; width:250px; margin-left:10px;">
+			                	<h3 style="color: white; padding-top: 10px; font-weight: bold;">입양하기</h3>
+	                	</button>
+                	
+			             <div align="center" style="margin-top: 20px;">
+			            	<a href="${ pageContext.servletContext.contextPath }/resources/files/dog.docx" download><h3><b>강아지 입양 신청서 다운로드</b></h3></a>
+			            	<br>
+			            	<a href="${ pageContext.servletContext.contextPath }/resources/files/cat.docx" download><h3><b>고양이 입양 신청서 다운로드</b></h3></a>
+			            </div>
+                	</c:if>
+                	<c:if test="${requestScope.adoptDetail.stateCode eq '2'}">
+	                	<button  
+			                style="background-color: #FF6230; border: 0px; border-radius:10px; width:250px; margin-left:10px;">
+			                	<h3 style="color: white; padding-top: 10px; font-weight: bold;">입양완료</h3>
+	                	</button>
+                	</c:if>
                 </div>
                         </div>
                     </div>
@@ -313,45 +327,59 @@
                     	<div class="container">
                         	<div class="row">
                             	<table class="table" style="margin-bottom: 50px;">
-				                    <tbody>
-				                        <tr>
-				                            <td style="text-align: center;">펫파파</td>
-				                            <td>좋은일을 하시다니 대단하신 거 같습니다!</td>
-				                            <td style="text-align: center;">2021-06-22</td>
-				                            <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-				                        </tr>
-				                        <tr>
-				                            <td style="text-align: center;">유기농간식</td>
-				                            <td style="width: 500px;">아이가 많이 귀엽네요</td>
-				                            <td style="text-align: center;">2021-06-23</td>
-				                             <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-				                        </tr>
-				                        <tr>
-				                            <td style="text-align: center;">삐띠딕</td>
-				                            <td>새 가족을 꼭 찾길 바랄게요!</td>
-				                            <td style="text-align: center;">2021-06-23</td>
-				                             <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-				                        </tr>
-				                        <tr>
-				                            <td style="text-align: center;">Qododor</td>
-				                            <td>아이구야 힘내세요</td>
-				                            <td style="text-align: center;">2021-06-23</td>
-				                             <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-				                        </tr>
-				                        <tr>
-				                            <td style="text-align: center;">Backgu</td>
-				                            <td>멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍</td>
-				                            <td style="text-align: center;">2021-06-23</td>
-				                             <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-				                        </tr>
-				                        <tr>
-				                        	<td style="text-align: center;"> </td>
-				                            <td>삭제 된 댓글입니다.</td>
-				                            <td style="text-align: center;"> </td>
-				                            <td></td>
-				                        </tr>
+				                    <tbody id="tbody">
+				                    	
 				                    </tbody>
 				                </table>
+				               
+				                <script>
+				                $j3(document).ready(function(){
+								     		console.log("adoptPage select script");
+								     		
+								     		var code = '<c:out value="${requestScope.adoptDetail.boardCode}"/>';
+								     	
+								     			$j3.ajax({
+								     			url:"select/reply/"+code,
+								     			type:"GET",
+								     			success:function(data,status,xhr){
+								     				const replyList = JSON.parse(data.replyList);
+								     				/* debugger; */
+								     				console.table(replyList);
+								     				output='';
+								     				$j3.each(replyList,function(){
+								     					var deleteYN = this.replyDeleteYN;
+								     						
+								     					
+								     					if(deleteYN == 'N'){
+								     						output += '<tr>';
+									     					output += '<td style="text-align: center;">'+this.userNickname+'</td>';
+								     						output += '<td>'+this.replyContent+'</td>';
+								     						output += '<td style="text-align: center;">'+this.replyDate+'</td>';
+									     					output += '<td><img onclick="location.href=\'#reportComment\'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;">'+'</td>';
+									     					output += '</tr>';
+								     					}
+								     					if(deleteYN == 'Y'){
+								     						output += '<tr>';
+									     					output += '<td style="text-align: center;">'+' '+'</td>';
+								     						output += '<td>'+'삭제 된 댓글입니다.'+'</td>';
+								     						output += '<td style="text-align: center;">'+' '+'</td>';
+									     					output += '<td>'+'</td>';
+									     					output += '</tr>';
+								     					}
+								     					
+								                             
+								     				});
+								     				
+								     				$('#tbody').append(output);
+								                
+								     				
+								     			},error:function(xhr,status,error){
+								     				alert("에러 발생~삐뽀~");
+								     				console.log(error);
+								     			}
+								     		});
+				               		});
+				                    	</script>
 				                <div class="text-center">
 									<ul class="pagination">
 										<li><a href="#"><</a></li>
@@ -366,13 +394,43 @@
                         </div>
                     </div>
                 </div>
-             	<p style="margin-left: 380px; font-weight: bold; font-size: 20px;">
-             	삐비디딕
-             	</p>
-             <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto;">
-                <input type="text" id="messagecontent" placeholder="  댓글로 임시보호자님을 응원해주세요!" >
-                <button class="sendmessagecontent">댓글 작성</button>
-            </section>
+                
+                
+	             	<p style="margin-left: 280px;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
+	             	삐비디딕
+	             	</p>
+		             <section id="sendmessage" class="sendmessage" style="width: 60%;margin-left: 100px; ">
+		                <input type="text" id="messagecontent" placeholder="  댓글로 임시보호자님을 응원해주세요!" style="width: 800px; float: left;" >
+		                <button class="sendmessagecontent" id="replySubmit" style="float:right;">댓글 작성</button>
+		            </section>
+		            
+		            <script>
+		            
+			            $j3("#replySubmit").click(function(){
+				     		var code = '<c:out value="${requestScope.adoptDetail.boardCode}"/>';
+			     			vare content = $j3('#messagecontent').val();
+			     			
+				     		if(content.trim()==''){
+				     			alert('댓글을 입력하신 후 다시 눌러주시기 바랍니다.');
+				     			return;
+				     		}
+				     		
+				     		var 
+				     		$j3.ajax({
+			     			url:"insert/reply",
+		    				data:{"replyContent": $j3('#messagecontent').val(),
+		    					"boardCode": code},
+		    				success: function(data,status,xhr){
+		    					alert("댓글등록 완료! ");
+		    					location.reload();
+		    				},error:function(xhr,status,error){
+			     				alert("에러 발생~삐뽀~");
+			     				console.log(error);
+			     			}
+			     		});
+           		});
+		            </script>
+                
          </section>
             <!-- 게시글 신고 팝업창 -->
             <div id="reportPost" class="overlay">
@@ -497,8 +555,8 @@
                     </p>
                     
                     <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
-                     	연락처 : 010-2134-2352<br><br>
-                     	연릭시 주의사항 : 밤 8시 이후에는 문자주세요
+                     	연락처 : <c:out value="${requestScope.adoptDetail.adoptPhone}"/><br><br>
+                     	연릭시 주의사항 : <c:out value="${requestScope.adoptDetail.adoptCaution}"/>
                     </p>
                     <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
                     </div>
