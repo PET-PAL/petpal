@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.user.dto;
 
+import java.sql.Date;
 
 public class AdoptPictureManageDTO {
 
@@ -12,6 +13,8 @@ public class AdoptPictureManageDTO {
 	private String dogOrcat;
 	private String userAddress;
 	private String userCode;
+	private String userNickname;
+	private Date boardDate;
 	private int pictureCode;
 	private String pictureURL;
 	private String pictureDeleteYN;
@@ -22,9 +25,9 @@ public class AdoptPictureManageDTO {
 	public AdoptPictureManageDTO() {}
 
 	public AdoptPictureManageDTO(int boardCode, String adoptBreed, String adoptGender, String adoptColor,
-			String deleteYN, String stateName, String dogOrcat, String userAddress, String userCode, int pictureCode,
-			String pictureURL, String pictureDeleteYN, String pictureName, String pictureNewName,
-			String pictureUtilPath) {
+			String deleteYN, String stateName, String dogOrcat, String userAddress, String userCode,
+			String userNickname, Date boardDate, int pictureCode, String pictureURL, String pictureDeleteYN,
+			String pictureName, String pictureNewName, String pictureUtilPath) {
 		super();
 		this.boardCode = boardCode;
 		this.adoptBreed = adoptBreed;
@@ -35,6 +38,8 @@ public class AdoptPictureManageDTO {
 		this.dogOrcat = dogOrcat;
 		this.userAddress = userAddress;
 		this.userCode = userCode;
+		this.userNickname = userNickname;
+		this.boardDate = boardDate;
 		this.pictureCode = pictureCode;
 		this.pictureURL = pictureURL;
 		this.pictureDeleteYN = pictureDeleteYN;
@@ -115,6 +120,22 @@ public class AdoptPictureManageDTO {
 		this.userCode = userCode;
 	}
 
+	public String getUserNickname() {
+		return userNickname;
+	}
+
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+
+	public Date getBoardDate() {
+		return boardDate;
+	}
+
+	public void setBoardDate(Date boardDate) {
+		this.boardDate = boardDate;
+	}
+
 	public int getPictureCode() {
 		return pictureCode;
 	}
@@ -168,11 +189,10 @@ public class AdoptPictureManageDTO {
 		return "AdoptPictureManageDTO [boardCode=" + boardCode + ", adoptBreed=" + adoptBreed + ", adoptGender="
 				+ adoptGender + ", adoptColor=" + adoptColor + ", deleteYN=" + deleteYN + ", stateName=" + stateName
 				+ ", dogOrcat=" + dogOrcat + ", userAddress=" + userAddress + ", userCode=" + userCode
-				+ ", pictureCode=" + pictureCode + ", pictureURL=" + pictureURL + ", pictureDeleteYN=" + pictureDeleteYN
-				+ ", pictureName=" + pictureName + ", pictureNewName=" + pictureNewName + ", pictureUtilPath="
-				+ pictureUtilPath + "]";
+				+ ", userNickname=" + userNickname + ", boardDate=" + boardDate + ", pictureCode=" + pictureCode
+				+ ", pictureURL=" + pictureURL + ", pictureDeleteYN=" + pictureDeleteYN + ", pictureName=" + pictureName
+				+ ", pictureNewName=" + pictureNewName + ", pictureUtilPath=" + pictureUtilPath + "]";
 	}
 
 	
-
 }

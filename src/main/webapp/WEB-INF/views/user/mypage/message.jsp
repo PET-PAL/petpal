@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -44,8 +45,8 @@
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
-
-
+	
+	
         <!-- Preloader -->
         <div id="loading">
             <div id="loading-center">
@@ -87,29 +88,40 @@
 	                        </tr>
 	                    </thead>
 	                    <tbody>
-	                        <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/messageDetail.jsp'">
-	                            <td style="text-align: center;">킘해인</td>
-	                            <td>택배로 보내드리겠습니다.</td>
-	                            <td style="text-align: center;">2021-06-17</td>
-	                        </tr>
-	                        <tr onclick="location.href=''">
-	                            <td style="text-align: center;">업나라</td>
-	                            <td>리뷰 잘봤습니다.</td>
-	                            <td style="text-align: center;">2021-06-17</td>
-	                        </tr>
-	                        <tr onclick="location.href=''">
-	                            <td style="text-align: center;">황주디</td>
-	                            <td>뎅이 너무 귀여워요~</td>
-	                            <td style="text-align: center;">2021-06-17</td>
-	                        </tr>
+	                    <c:forEach items="${ msgList }" var="list">
+						<tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/messageDetail?${ list.sendUserNick }'">
+							<td style="text-align: center;">${ list.sendUserNick }</td>
+							<td style="text-align: center;">${ list.messageContent }</td>
+							<td style="text-align: center;">${ list.messageDate }</td>
+						</tr>
+						</c:forEach>
 	                    </tbody>
 	                </table>
 	                <div class="text-center">
 						<ul class="pagination">
-							<li><a href="#">1</a></li>
+						<li>
+							<c:if test="${paging.startPage != 1 }">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+							</c:if>
+							<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+								<c:choose>
+									<c:when test="${p == paging.nowPage }">
+										<li><a>${p }</a></li>
+									</c:when>
+									<c:when test="${p != paging.nowPage }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${paging.endPage != paging.lastPage}">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+							</c:if>
+							</li>
+						
+							<!-- <li><a href="#">1</a></li>
 							<li><a href="#">2</a></li>
 							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
+							<li><a href="#">4</a></li> -->
 						</ul>
 					</div>
                 </div>

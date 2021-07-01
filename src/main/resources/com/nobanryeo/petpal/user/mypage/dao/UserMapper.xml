@@ -108,11 +108,32 @@
            SET USER_EMAIL = #{ email } 
          WHERE USER_ID  = #{ id }
 	</update>
-
+	
+	<update id="updateUserInfo" parameterType="UserInfoDTO">
+		UPDATE USER_TABLE 
+           SET EMAIL_YN = #{ emailYn }
+             , REPLY_YN = #{ replyYn }
+             , USER_PWD = #{ pwd } 
+         WHERE USER_ID  = #{ id }
+	</update>
+	
+	<update id="updatewithdrawUser" parameterType="UserInfoDTO">
+		UPDATE USER_TABLE
+		   SET WITHDRAW_YN = 'Y'
+         WHERE USER_ID  = #{ id }
+	</update>
+	
+	<insert id="insertwithdrawUser" parameterType="UserInfoDTO">
+		INSERT 
+           INTO WITHDRAW_USER_TABLE
+           VALUES(
+             SYSDATE
+           , #{ code }
+           , ADD_MONTHS(SYSDATE, 3)  
+           )
+	</insert>
  </mapper>
 
- 
- 
  
  
  

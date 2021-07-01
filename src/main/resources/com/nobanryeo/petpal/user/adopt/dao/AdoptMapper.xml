@@ -12,6 +12,8 @@
   		<result column="ADOPT_COLOR" property="adoptColor"/>
   		<result column="STATE_NAME" property="stateName"/>
   		<result column="USER_LOCATION" property="userAddress"/>
+  		<result column="USER_NIKNAME" property="userNickname"/>
+  		<result column="BOARD_DATE" property="boardDate"/>
   		<result column="DOG_OR_CAT" property="dogOrcat"/>
   		<result column="USER_CODE" property="userCode"/>
   		<result column="PICTURE_CODE" property="pictureCode"/>
@@ -21,6 +23,8 @@
   		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
   		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
   	</resultMap>
+  	
+  
   	
   	<resultMap type="AdoptDTO" id="AdoptInsertResultset">
   		<id column="BOARD_CODE" property="boardCode"/>
@@ -32,6 +36,7 @@
   		<result column="ADOPT_INTRODUCE" property="adoptIntroduce"/>
   		<result column="ADOPT_PHONE" property="adoptPhone"/>
   		<result column="ADOPT_CAUTION" property="adoptCaution"/>
+  		<result column="USER_NIKNAME" property="userNickname"/>
   		<result column="ADOPT_DELETE_YN" property="deleteYN"/>
   		<result column="STATE_CODE" property="stateCode"/>
   		<result column="BOARD_DATE" property="boardDate"/>
@@ -50,6 +55,18 @@
   		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
   	</resultMap>
 
+	<resultMap type="AdoptReplyDTO" id="replyResultset">
+		<result column="REPLY_CODE" property="replyCode"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REPLY_DATE" property="replyDate"/>
+		<result column="REPLY_DELETE_YN" property="replyDeleteYN"/>
+		<result column="REPORT_YN" property="reportYN"/>
+		<result column="USER_NIKNAME" property="userNickname"/>
+		<result column="USER_CODE" property="replyUserCode"/>
+		<result column="USER_CODE" property="boardUserCode"/>
+		<result column="BOARD_CODE" property="boardCode"/>
+	</resultMap>
+	
   	<select id="selectAdoptList" parameterType="AdoptPictureManageDTO" resultMap="AdoptResultSet">
   		SELECT
 		       A.BOARD_CODE
@@ -60,7 +77,9 @@
 		     , A.USER_LOCATION
 		     , A.ADOPT_COLOR
 		     , A.USER_CODE
+		     , U.USER_NIKNAME
 		     , A.DOG_OR_CAT
+		     , A.BOARD_DATE
 		     , P.PICTURE_DELETE_YN
 		     , P.PICTURE_CODE
 		     , P.PICTURE_URL
@@ -71,8 +90,10 @@
           JOIN STATE_TABLE S ON(S.STATE_CODE = A.STATE_CODE)
 		  JOIN ADOPT_PICTURE_MANAGE M ON (A.BOARD_CODE = M.BOARD_CODE)
 		  JOIN PICTURE_TABLE P ON (M.PICTURE_CODE = P.PICTURE_CODE)
+		  JOIN USER_TABLE U ON(U.USER_CODE = A.USER_CODE)
 		 WHERE P.PICTURE_DELETE_YN='N'
 		   AND A.ADOPT_DELETE_YN='N'
+		 ORDER BY A.BOARD_DATE DESC
   	</select>
   	
   	<insert id="registerAdopt" parameterType="AdoptDTO">
@@ -139,5 +160,60 @@
 	   ,#{pictureCode}
 	  	)
 	  	</insert>
+	  	
+	  <select id="selectAdoptDetail" parameterType="_int" resultMap="AdoptInsertResultset">
+	  	SELECT
+		      A.BOARD_CODE
+			, A.ADOPT_BREED
+			, A.ADOPT_GENDER
+			, A.ADOPT_AGE
+			, A.ADOPT_WEIGTH
+			, A.ADOPT_COLOR
+			, A.ADOPT_INTRODUCE
+			, A.ADOPT_PHONE
+			, A.ADOPT_CAUTION
+			, A.ADOPT_DELETE_YN
+			, A.STATE_CODE
+			, A.BOARD_DATE
+			, A.USER_CODE
+			, A.DOG_OR_CAT
+			, A.USER_LOCATION
+			, U.USER_NIKNAME
+		FROM ADOPT_BOARD A
+		JOIN USER_TABLE U ON (U.USER_CODE = A.USER_CODE)
+	   WHERE A.ADOPT_DELETE_YN = 'N'
+	     AND A.BOARD_CODE = #{boardCode}
+	  	
+	  </select>
+	  
+	  <select id="selectPictureList" parameterType="_int" resultMap="pictureInsertResultset">
+	  	 SELECT 
+               P.PICTURE_CODE
+              ,P.PICTURE_UTIL_PATH
+           FROM PICTURE_TABLE P
+           JOIN ADOPT_PICTURE_MANAGE M ON (P.PICTURE_CODE = M.PICTURE_CODE)
+           JOIN ADOPT_BOARD A ON (A.BOARD_CODE = M.BOARD_CODE)
+          WHERE A.BOARD_CODE = #{boardCode}
+            AND P.PICTURE_DELETE_YN = 'N'
+	  </select>
+	  
+	  <select id="selectReplyList" parameterType="_int" resultMap="replyResultset">
+	  	SELECT 
+		      R.REPLY_CODE
+		    , R.REPLY_CONTENT
+		    , R.REPLY_DATE
+		    , R.REPLY_DELETE_YN
+		    , R.REPORT_YN
+		    , R.USER_CODE as replyUser
+		    , U.USER_NIKNAME
+		    , A.BOARD_CODE
+		    , A.USER_CODE as boardUser
+		  FROM REPLY_MANAGE R
+		  JOIN ADOPT_BOARD_REPLY AB ON(R.REPLY_CODE = AB.REPLY_CODE)
+		  JOIN ADOPT_BOARD A ON (A.BOARD_CODE =  AB.BOARD_CODE)
+		  JOIN USER_TABLE U ON (U.USER_CODE = R.USER_CODE)
+		 WHERE A.BOARD_CODE = #{boardCode}
+		   AND R.REPLY_DELETE_YN = 'N'
+	  </select>
 	  
   </mapper>

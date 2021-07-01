@@ -113,7 +113,7 @@
 							<td><c:out value="${ requestScope.adApplyDetail.companyName }"/></td>
 						</tr>
 					</table>
-					<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
+					<img src="${ pageContext.servletContext.contextPath }/${ requestScope.adApplyDetail.pictureUtilPath }"><br>
 					<p style="margin-bottom: 50px; margin-left: 8px; text-align: center;"><c:out value="${ requestScope.adApplyDetail.adContent }"/></p>
 		        </div>
 		        <div style="width: 70%; margin: 0px auto; margin-bottom: 50px;">

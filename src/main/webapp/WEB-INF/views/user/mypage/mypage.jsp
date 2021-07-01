@@ -112,11 +112,11 @@
 
                 <div>
                     <ul>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/mypage/account'" class="message" style="margin-top: 30px;">계정 관리</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/mypage/message'" class="account">쪽지 확인</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/mypage/boardCommentList'" class="borad">내가 쓴 게시글, 댓글</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/mypage/qnaReportList'" class="qna">문의, 신고 내역</button></li>
-                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/mypage/adList'" class="advertising">광고 내역</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/account'" class="message" style="margin-top: 30px;">계정 관리</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/message'" class="account">쪽지 확인</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList'" class="borad">내가 쓴 게시글, 댓글</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaReportList'" class="qna">문의, 신고 내역</button></li>
+                        <li><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/list'" class="advertising">광고 내역</button></li>
                         <li style="margin-bottom: 50px; margin-top: 10px;"><a href="${ pageContext.servletContext.contextPath }/user/logout" class="logout" style="color: gray;">로그아웃</a></li>
                     </ul>
                     

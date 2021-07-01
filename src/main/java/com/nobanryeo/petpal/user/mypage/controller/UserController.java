@@ -191,6 +191,10 @@ public class UserController {
 				System.out.println("차단유저 조건문에 들어왔습니다.");
 				rttr.addFlashAttribute("message", "이용약관에 의한 경고 횟수 초과로 인하여 차단 된 사용자입니다. 문의사항은 고객센터(02-7777-7777)로 문의바랍니다.");
 				return "redirect:/user/login";
+			} else if(loginUser.getWithdrawYn().equals("Y")) {
+				System.out.println("탈퇴유저 조건문에 들어왔습니다.");
+				rttr.addFlashAttribute("message", "이미 탈퇴한 회원입니다. 문의사항은 고객센터(02-7777-7777)로 문의바랍니다.");
+				return "redirect:/user/login";
 			} else {
 				
 				HttpSession session = request.getSession();

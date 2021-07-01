@@ -8,7 +8,7 @@ public class AdoptDTO {
 	private String adoptBreed;
 	private String adoptGender;
 	private int adoptAge;
-	private int adoptWeight;
+	private double adoptWeight;
 	private String adoptColor;
 	private String adoptIntroduce;
 	private String adoptPhone;
@@ -19,14 +19,15 @@ public class AdoptDTO {
 	private int userCode;
 	private String dogOrcat;
 	private String address;
+	private String userNickname;
 	
 	
 	public AdoptDTO() {}
 
 
-	public AdoptDTO(int boardCode, String adoptBreed, String adoptGender, int adoptAge, int adoptWeight,
+	public AdoptDTO(int boardCode, String adoptBreed, String adoptGender, int adoptAge, double adoptWeight,
 			String adoptColor, String adoptIntroduce, String adoptPhone, String adoptCaution, String deleteYN,
-			int stateCode, Date boardDate, int userCode, String dogOrcat, String address) {
+			int stateCode, Date boardDate, int userCode, String dogOrcat, String address, String userNickname) {
 		super();
 		this.boardCode = boardCode;
 		this.adoptBreed = adoptBreed;
@@ -43,6 +44,7 @@ public class AdoptDTO {
 		this.userCode = userCode;
 		this.dogOrcat = dogOrcat;
 		this.address = address;
+		this.userNickname = userNickname;
 	}
 
 
@@ -86,12 +88,12 @@ public class AdoptDTO {
 	}
 
 
-	public int getAdoptWeight() {
+	public double getAdoptWeight() {
 		return adoptWeight;
 	}
 
 
-	public void setAdoptWeight(int adoptWeight) {
+	public void setAdoptWeight(double adoptWeight) {
 		this.adoptWeight = adoptWeight;
 	}
 
@@ -196,15 +198,25 @@ public class AdoptDTO {
 	}
 
 
+	public String getUserNickname() {
+		return userNickname;
+	}
+
+
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+
+
 	@Override
 	public String toString() {
 		return "AdoptDTO [boardCode=" + boardCode + ", adoptBreed=" + adoptBreed + ", adoptGender=" + adoptGender
 				+ ", adoptAge=" + adoptAge + ", adoptWeight=" + adoptWeight + ", adoptColor=" + adoptColor
 				+ ", adoptIntroduce=" + adoptIntroduce + ", adoptPhone=" + adoptPhone + ", adoptCaution=" + adoptCaution
 				+ ", deleteYN=" + deleteYN + ", stateCode=" + stateCode + ", boardDate=" + boardDate + ", userCode="
-				+ userCode + ", dogOrcat=" + dogOrcat + ", address=" + address + "]";
+				+ userCode + ", dogOrcat=" + dogOrcat + ", address=" + address + ", userNickname=" + userNickname + "]";
 	}
 
-	
+
 
 }

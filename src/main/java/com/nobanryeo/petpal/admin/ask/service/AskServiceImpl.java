@@ -1,6 +1,7 @@
 package com.nobanryeo.petpal.admin.ask.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,6 +53,13 @@ public class AskServiceImpl implements AskService{
 	public List<AskDTO> selectSearchAsk(AdminPageInfoDTO paging) {
 		// TODO Auto-generated method stub
 		return mapper.selectSearchAsk(paging);
+	}
+
+
+	@Override
+	public boolean updateReply(Map param) {
+		// TODO Auto-generated method stub
+		return mapper.updateReply(param)> 0 ? true : false;
 	}
 
 }

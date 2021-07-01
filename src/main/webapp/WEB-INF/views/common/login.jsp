@@ -183,12 +183,6 @@ li>img {
 
 <body data-spy="scroll" data-target=".navbar-collapse">
 <script>
-	/* window.onload = function(){
-	const message = '${ requestScope.message }';
-	if(message != null && message != '') {
-		alert(message);
-	}  */
-	
 	window.onload = function() {
 		console.log("window onload!");
 		
