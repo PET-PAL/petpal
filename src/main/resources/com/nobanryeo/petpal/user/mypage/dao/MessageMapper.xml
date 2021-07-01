@@ -16,19 +16,29 @@
 
 	<!-- 총 쪽지 수 출력 -->
 	<select id="selectMessageCount" resultType="int" parameterType="int">
-	    SELECT COUNT(*)
+	    <!-- SELECT COUNT(*)
 	      FROM MESSAGE_TABLE
-	     WHERE USER_CODE1 = #{ userCode1 }
+	     WHERE USER_CODE1 = #{ userCode1 } -->
+	     SELECT COUNT(*)
+	      FROM (SELECT MAX(USER_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE)
+                FROM MESSAGE_TABLE
+                WHERE USER_CODE1 = #{ userCode1 }
+                GROUP BY USER_CODE)
 	</select> 
 	
 	<!-- 페이징 처리 후 쪽지 조회 -->
 	<select id="selectMessage" resultMap="messageResultSet" parameterType="hashmap">
-		SELECT * 
+	    SELECT * 
 		  FROM (SELECT ROWNUM RN, A.* 
-		          FROM (SELECT A.* 
-						  FROM MESSAGE_TABLE A
-		                 WHERE USER_CODE1 = #{ msgDTO.userCode1 }
-		              ORDER BY A.MESSAGE_DATE) A)
+		          FROM (SELECT 
+                       MAX(MESSAGE_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_CODE
+                     , MAX(MESSAGE_CONTENT) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_CONTENT
+                     , MAX(MESSAGE_DATE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_DATE
+                     , MAX(USER_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS USER_CODE
+                     , MAX(SEND_NICKNAME) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS SEND_NICKNAME
+                  FROM MESSAGE_TABLE
+                 WHERE USER_CODE1 = #{ msgDTO.userCode1 }
+                 GROUP BY USER_CODE) A)
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
 		      ORDER BY MESSAGE_CODE
 	</select>
@@ -37,6 +47,4 @@
 	
  </mapper>
 
-
- 
  

@@ -3,6 +3,9 @@ package com.nobanryeo.petpal.user.mypage.controller;
 import java.util.HashMap;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,14 +37,12 @@ public class MessageController {
 			, PageDTO page , Model model
 			, @RequestParam(value="nowPage", required = false)String nowPage
 			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
-		
-		messageDTO.setUserCode(loginUser.getCode());
+
 		messageDTO.setUserCode1(loginUser.getCode());
 		
 		int code = loginUser.getCode();
 		
 		System.out.println("쪽지 컨트롤러 도착");
-		System.out.println("현재 조회할 로그인중인 발신자 유저코드 : " + messageDTO.getUserCode());
 		System.out.println("현재 조회할 로그인중인 수신자 유저코드 : " + messageDTO.getUserCode1());
 		
 		int total = messageService.selectMessageCount(code);

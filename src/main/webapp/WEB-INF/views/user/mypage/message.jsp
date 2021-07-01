@@ -45,8 +45,8 @@
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
-
-
+	
+	
         <!-- Preloader -->
         <div id="loading">
             <div id="loading-center">
@@ -82,18 +82,15 @@
 	                <table class="table table-hover" style="margin-bottom: 50px;">
 	                    <thead>
 	                        <tr style="background-color: #F1FAF8;">
-	                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>보내는 사람</b></th>
-	                            <th style="text-align: center;"><b>받는 사람</b></th>
+	                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>쪽지 대상</b></th>
 	                            <th style="text-align: center;"><b>쪽지 내용</b></th>
 	                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>날짜</b></th>
 	                        </tr>
 	                    </thead>
 	                    <tbody>
 	                    <c:forEach items="${ msgList }" var="list">
-						<tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/messageDetail?${ list.messageCode }'">
-							<td style="display: none;">${ list.messageCode }</td>
+						<tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/messageDetail?${ list.sendUserNick }'">
 							<td style="text-align: center;">${ list.sendUserNick }</td>
-							<td style="text-align: center;">${ list.receiveUserNick }</td>
 							<td style="text-align: center;">${ list.messageContent }</td>
 							<td style="text-align: center;">${ list.messageDate }</td>
 						</tr>
