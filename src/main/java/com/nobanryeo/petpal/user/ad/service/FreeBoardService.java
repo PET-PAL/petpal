@@ -23,5 +23,9 @@ public interface FreeBoardService {
 	public int insertFreeBoardMessage(MessageTableDTO message);
 
 	public int insertFreeBoardReport(FreeBoardReportDTO report);
+
+	public int insertFreeBoardReplyReport(FreeBoardReplyDTO replyReport);
+
+	public FreeBoardDTO writeFreeBoard(int userCode);
 	
 }

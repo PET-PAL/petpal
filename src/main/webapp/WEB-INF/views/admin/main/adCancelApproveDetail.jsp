@@ -29,6 +29,13 @@
              <section>
            		<!-- 큰 컨테이너 시작 -->
                 <div class="container" style="padding-bottom:10%">
+                
+                 <ul class="nav nav-tabs" role="tablist">
+                                <li role="presentation" style="font-weight:800; margin-bottom:12px; font-size:25px; color:black">광고 취소 상세보기(광고제목)</li>
+                             </ul>
+                               <a href="${ pageContext.servletContext.contextPath }/admin/adList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+                               			style="width:40px;height:42px; margin-right:30px; margin-top:-50px; float:right;"></a>
+                
 
                         <!-- 작은 컨테이너 시작 -->
                         

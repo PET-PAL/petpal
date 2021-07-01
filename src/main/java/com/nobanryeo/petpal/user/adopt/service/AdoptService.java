@@ -13,4 +13,10 @@ public interface AdoptService {
 
 	int registAdopt(AdoptDTO adopt, List<PictureDTO> pictureList);
 
+	int selectBoardCode();
+
+	AdoptDTO selectAdoptDetail(int boardCode);
+
+	List<PictureDTO> selectPictureList(int boardCode);
+
 }

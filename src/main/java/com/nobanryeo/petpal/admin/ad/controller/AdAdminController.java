@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,10 +14,13 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.nobanryeo.petpal.admin.ad.service.AdAdminService;
 import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
 import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
+import com.nobanryeo.petpal.admin.dto.DecisionDTO;
+import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 /**
  * @author Haein Kim
@@ -41,7 +45,7 @@ public class AdAdminController {
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
 			, @RequestParam(value="category", required=false)String category
 			, @RequestParam(value="searchCondition", required=false)String searchCondition
-            , @RequestParam(value="searchValue", required=false)String searchValue) {
+            , @RequestParam(value="searchValue", required=false)String searchValue, HttpServletRequest request) {
 		
 		if (nowPage == null && cntPerPage == null) {
 			nowPage = "1";
@@ -52,12 +56,21 @@ public class AdAdminController {
 			cntPerPage = "5";
 		}
 		
+
 		// 검색 안 했을 떄
 		if(searchValue == null) {
 			
 			AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
 			
 			System.out.println("검색 안했을 때 cat 출력 : " + cat);
+			
+			HttpSession session = request.getSession();
+			session.getAttribute("loginUser");
+		    System.out.println("세션 정보 : " + session);
+		    UserInfoDTO userInfo = (UserInfoDTO) session.getAttribute("loginUser");
+		    int code = userInfo.getCode();
+		    
+		    System.out.println("관리자 유저 코드 : " + code);
 			
 			// 총 개수
 			int total = adAdminService.selectAdApply(cat);
@@ -121,7 +134,7 @@ public class AdAdminController {
 	
 	
 	/* 광고심사 디테일 */
-	@RequestMapping("adApproveDetail/{adCode}")
+	@RequestMapping(value="adApproveDetail/{adCode}", method=RequestMethod.GET)
 	public String adApproveDetailReturning(Model model, @PathVariable("adCode") int adCode) {
 		
 		// 광고 정보 조회
@@ -141,46 +154,96 @@ public class AdAdminController {
 	}
 	
 	/* 광고심사 심사 입력 */
-	@RequestMapping(value="adApproveDetail/adApproveInsert/{adCode}", method=RequestMethod.POST)
+	@RequestMapping(value="adApproveDetail/{adCode}", method=RequestMethod.POST)
 	public String adApproveInsert(Model model, 
 								 HttpServletRequest req,
-			                     @PathVariable("adCode") int adCode) {
+			                     @PathVariable("adCode") int adCode, DecisionDTO decision) {
 		
-		Map param = new HashMap();
-		param.put("decisionReason", req.getParameter("decisionReason"));
+		HttpSession session = req.getSession();
+		session.getAttribute("loginUser");
+	    System.out.println("세션 정보 : " + session);
+	    UserInfoDTO userInfo = (UserInfoDTO) session.getAttribute("loginUser");
+	    int code = userInfo.getCode();
+	    
+	    System.out.println("관리자 유저 코드 : " + code);
+	    
+	    int stateCode = 0;
 		
-		int stateCode = 0;
-		
-		if (req.getParameter("state").equals("광고 승인")) {
-			stateCode = 2;
-		} else if (req.getParameter("state").equals("광고 거절")) {
-			stateCode = 3;
-		}
-		param.put("stateCode", stateCode);
-		param.put("adCode", adCode);
-		
+	    if (req.getParameter("state").equals("광고 승인")) {
+	    	stateCode = 2;
+	    } else if (req.getParameter("state").equals("광고 거절")) {
+	    	stateCode = 3;
+	    }
+	    
+	    decision = new DecisionDTO(req.getParameter("decisionReason"), stateCode, code, adCode);
+	    
+
 		// 심사 사유 입력
-		if(! adAdminService.insertAdApprove(param)) {
+		if(! adAdminService.insertAdApprove(decision)) {
 			System.out.println("심사 사유 입력 실패");
 		}
 		
-		System.out.println("광고 심사 인서트 : " + adAdminService.insertAdApprove(param));
+		System.out.println("광고 심사 인서트 : " + adAdminService.insertAdApprove(decision));
 		
 		System.out.println("심사 사유 입력 성공");
 		
-		if(!adAdminService.updateAdApprove(param)) {
+		if(!adAdminService.updateAdApprove(decision)) {
 			System.out.println("심사 결과 업데이트 실패");
 		}
 		System.out.println("심사 결과 업데이트 성공");
 		
 		//심사사유 조회는 전체 심사 디테일 조회에서 해와야 하는 것 아닌가? (맞음)
 		
-		return "redirect:/adApproveDetail/{adCode}";
+		return "redirect:/admin/adApproveDetail/{adCode}";
 	}
 	
 	/* 광고관리 리스트 */
 	@RequestMapping("adList")
-	public String adListReturning() {
+	public String adListReturning(Model model, AdminPageInfoDTO paging,
+			  @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
+			, @RequestParam(value="category", required=false)String category
+			, @RequestParam(value="searchCondition", required=false)String searchCondition
+            , @RequestParam(value="searchValue", required=false)String searchValue, HttpServletRequest request) {
+		
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		
+		// 검색 안 했을 떄
+	    if(searchValue == null) {
+	    	
+	    	AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
+	    	
+	    	System.out.println("검색 안했을 때 cat 출력 : " + cat);
+	    	
+	    	// 총 개수
+	    	int total = adAdminService.selectAdList(cat);
+	    	
+	    	System.out.println("총 개수 : " + total);
+	    	
+	    	// 페이징 정보
+	    	paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category);
+	    	
+	    	// 광고 심사 리스트
+	    	List<AdAdminDTO> selectAdList = adAdminService.selectAdAllList(paging);
+	    	
+	    	System.out.println("검색 안 했을 때 검색결과 : " + selectAdList);
+	    	
+	    	// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
+	    	model.addAttribute("paging", paging);
+	    	model.addAttribute("adList", selectAdList);
+	    	model.addAttribute("category", category);
+	    	model.addAttribute("total", total);
+	    	
+	    }
+		
+
 		
 		return "admin/main/adList";
 	}

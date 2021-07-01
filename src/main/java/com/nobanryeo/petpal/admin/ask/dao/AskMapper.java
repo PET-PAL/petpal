@@ -1,6 +1,7 @@
 package com.nobanryeo.petpal.admin.ask.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -14,4 +15,5 @@ public interface AskMapper {
 	AskDetailDTO selectListDetail(int boardCode);
 	int selectSearchCount(AdminPageInfoDTO cat);
 	List<AskDTO> selectSearchAsk(AdminPageInfoDTO paging);
+	int updateReply(Map param);
 }

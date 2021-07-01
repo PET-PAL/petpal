@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.nobanryeo.petpal.user.ad.service.FreeBoardService;
+import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
@@ -83,8 +84,9 @@ public class FreeBoardController {
     * 쪽지 작성
     */
    @PostMapping("insert/freeboard/message")
-   public String insertFreeBoardMessage(@ModelAttribute MessageTableDTO message, Model model, @RequestParam int code, @SessionAttribute UserInfoDTO loginUser) {
+   public String insertFreeBoardMessage(@ModelAttribute MessageTableDTO message, Model model, @RequestParam int code, @RequestParam String receiveUserNick, @SessionAttribute UserInfoDTO loginUser) {
       
+	  message.setReceiveUserNick(receiveUserNick);
       message.setUserCode(loginUser.getCode());
       System.out.println(message);
       
@@ -121,19 +123,40 @@ public class FreeBoardController {
     * 자유게시판 댓글 신고 작성
     */
    @PostMapping("insert/freeboard/reportReply")
-   public String insertFreeBoardReportReply(@ModelAttribute FreeBoardReportDTO report, Model model, @RequestParam int code, @SessionAttribute UserInfoDTO loginUser) {
+   public String insertFreeBoardReportReply(@ModelAttribute FreeBoardReplyDTO replyReport, Model model, @RequestParam int code, @RequestParam String inputReplyCode, @RequestParam String inputuserCode1, @SessionAttribute UserInfoDTO loginUser) {
       
-      report.setUserCode(loginUser.getCode());
-      report.setBoardCode(code);
+	  replyReport.setUserCode(loginUser.getCode());
+	  replyReport.setReplyCode(Integer.parseInt(inputReplyCode));
+	  replyReport.setBoardCode(code);
+	  replyReport.setUserCode1(Integer.parseInt(inputuserCode1));
       
-      System.out.println(report);
+      System.out.println(replyReport);
       
-      if(freeBoardService.insertFreeBoardReport(report) > 0) {
+      if(freeBoardService.insertFreeBoardReplyReport(replyReport) > 0) {
          System.out.println("신고 성공");
       } else {
          System.out.println("신고 실패");
       }
       
       return "redirect:/user/select/freeboard/detail?boardCode="+code;
+   }
+   
+   /**
+    * 자유게시판 글작성 페이지
+ 	*/
+   @GetMapping("insert/freeboard")
+   public String writeFreeBoard(Model model, @SessionAttribute UserInfoDTO loginUser) {
+	   
+	   model.addAttribute("writeUser", freeBoardService.writeFreeBoard(loginUser.getCode()));
+	   
+	   return "/user/community/freeBoardWrite";
+   }
+   
+   @PostMapping("insert/write/freeboard")
+   public String insertWriteFreeBoard(Model model, @ModelAttribute FreeBoardDTO freeBoard, @SessionAttribute UserInfoDTO loginUser) {
+	   
+	   System.out.println(freeBoard);
+	   
+	   return "redirect:/select/freeboard/list";
    }
 }

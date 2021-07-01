@@ -14,6 +14,10 @@ public class AskDetailDTO {
 	public AskDetailDTO() {
 		
 	}
+	
+	//public AskDetailDTO() {
+		
+	//}
 
 	public int getBoardCode() {
 		return boardCode;

@@ -5,6 +5,7 @@ import java.util.Map;
 
 import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
 import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
+import com.nobanryeo.petpal.admin.dto.DecisionDTO;
 
 public interface AdAdminMapper {
 
@@ -16,13 +17,17 @@ public interface AdAdminMapper {
 
 	List<AdAdminDTO> selectAdApproveDecision(int adCode);
 
-	int insertAdApprove(Map param);
-
-	int updateAdApprove(Map param);
+	int insertAdApprove(DecisionDTO decision);
 
 	int searchAdApply(AdminPageInfoDTO cat);
 
 	List<AdAdminDTO> searchAdApproveList(AdminPageInfoDTO paging);
+
+	int updateAdApprove(DecisionDTO decision);
+
+	int selectAdList(AdminPageInfoDTO cat);
+
+	List<AdAdminDTO> selectAdAllList(AdminPageInfoDTO paging);
 
 
 
