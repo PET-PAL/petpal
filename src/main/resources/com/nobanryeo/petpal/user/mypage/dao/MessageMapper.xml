@@ -44,7 +44,7 @@
                     OR USER_CODE = #{ msgDTO.userCode1 }
                  GROUP BY USER_CODE) A)
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
-		      ORDER BY MESSAGE_CODE
+		      ORDER BY MESSAGE_DATE DESC
 	</select>
 	
 	<!-- 총 상세 쪽지 수 출력 -->
@@ -69,7 +69,8 @@
                               , RECEIVE_NICKNAME
                   FROM MESSAGE_TABLE
                  WHERE (USER_CODE1 = #{ msgDTO.userCode1 } AND USER_CODE = #{ msgDTO.userCode })
-                    OR (USER_CODE1 = #{ msgDTO.userCode } AND USER_CODE = #{ msgDTO.userCode1 })) A)
+                    OR (USER_CODE1 = #{ msgDTO.userCode } AND USER_CODE = #{ msgDTO.userCode1 })
+              ORDER BY MESSAGE_DATE DESC) A)
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
 		      ORDER BY MESSAGE_DATE DESC
 	</select>

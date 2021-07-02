@@ -5,58 +5,6 @@
 <html>
     <head>
         <style>
-            .menutable > div > img {
-                margin-bottom: 20px;
-				width: 20%;
-                margin: 0px auto;
-                display: block;
-            }
-            div > button {
-                background-color: #45B99C; 
-                height: 35px;
-                color: white;
-                border-color: #45B99C; 
-                border: 1px solid;
-                font-size: 16px; 
-                font-weight: 500;
-                border-radius: 10px;
-                margin-left: 20px;
-            }
-
-			section > button{
-			 background-color: #B9062F; 
-                height: 35px;
-                color: white;
-                border-color: #B9062F; 
-                border: 1px solid;
-                font-size: 16px; 
-                font-weight: 500;
-                border-radius: 10px;
-                margin-left: 20px;
-			}
-			.findpwd-content > div, .findpwd-content > form > div {
-                margin: 0px auto;
-            }
-			 div > img {
-                margin-bottom: 20px;
-                text-align: center;
-            width: 20%;
-            }
-            a > img {
-                width: 50%;
-                height: 50%;
-                margin-top: 20px;
-                margin-bottom: 10px;
-                margin-left: 15px;
-                margin-right: 15px;
-                text-align: center;
-            }
-            .menutable > div > img {
-                margin-bottom: 20px;
-            	width: 20%;
-                margin: 0px auto;
-                display: block;
-            }
             .sendmessage > input {
                 width: 87%;
                 height: 50px;
@@ -97,77 +45,6 @@
 				visibility: visible;
 				opacity: 1;
 			}
-			.popup {
-				position: fixed;
-				width: 60%;
-				padding: 10px;
-				max-width: 500px;
-				border-radius: 10px;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				background: rgba(255, 255, 255, .9);
-				-webkit-transition: opacity .5s, visibility 0s linear .5s;
-				transition: opacity .5s, visibility 0s linear .5s;
-				z-index: 1;
-			}
-			.popup:target {
-				visibility: visible;
-				opacity: 1;
-				-webkit-transition-delay: 0s;
-				transition-delay: 0s;
-			}
-			.popup-close {
-				position: absolute;
-				padding: 10px;
-				max-width: 500px;
-				border-radius: 10px;
-				top: 50%;
-				left: 50%;
-				transform: translate(-50%, -50%);
-				background: rgba(255, 255, 255, .9);
-			}
-			.popup .close {
-				position: absolute;
-				right: 5px;
-				top: 5px;
-				padding: 5px;
-				color: #000;
-				transition: color .3s;
-				font-size: 2em;
-				line-height: .6em;
-			}
-			.popup .close:hover {
-				color: #007a5c;
-			}
-            .btn_submit, .certification {
-                background-color: #45B99C; 
-                height: 35px;
-                color: white;
-                border-color: #45B99C; 
-                border: 1px solid; 
-                font-size: 16px; 
-                font-weight: 500;
-                border-radius: 10px;
-            }
-			img {
-				cursor: pointer;
-			}
-			td > button {
-            	float: right;
-    			border-radius: 5px;
-    			border: 1px solid;
-    			color: #45B99C;
-    			background: white;
-            }
-            td > button:hover {
-            	float: right;
-    			border-radius: 5px;
-    			background-color: #45B99C;
-                color: white;
-                border-color: #45B99C; 
-                border: 1px solid;
-            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -292,7 +169,7 @@
             
             <form action="${ pageContext.servletContext.contextPath }/user/mypage/message/messageSend" method="post">
             <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto;">
-                <input type="text" name="messageContent" placeholder="  message">
+                <input type="text" name="messageContent" placeholder="message">
                 <input type="hidden" value="${ oneList.receiveUserNick }" name="receiveUserNick">
                 <input type="hidden" value="${ oneList.sendUserNick }" name="sendUserNick">
                 <input type="hidden" value="${ oneList.userCode1 }" name="userCode1">
