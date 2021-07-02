@@ -332,9 +332,9 @@
 			              WHERE RN BETWEEN #{start} AND #{end}
 	  </select>
 	  <select id="selectClickList" resultMap="adAdmin" parameterType="AdminPageInfoDTO" >
-	    SELECT 
+	    (SELECT 
                A.AD_CODE
-             , NVL(COUNT(*),'')
+             , COUNT(*)
           FROM AD_CLICK_COUNT A
          WHERE AD_CODE IN 
       <foreach collection="list" item="click" open="(" separator="," close=")">
