@@ -12,12 +12,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.nobanryeo.petpal.user.dto.AdQnADTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 import com.nobanryeo.petpal.user.mypage.service.UserService;
 
@@ -254,6 +256,28 @@ public class UserController {
 		
 		
 	}
+	
+	@PostMapping("question")
+	public String questionSend(@ModelAttribute AdQnADTO qnaDTO, RedirectAttributes rttr) {
+		
+		if(qnaDTO.getUserCode() == 0) {
+			System.out.println("비로그인 유저 처리로 넘어옴!");
+			rttr.addFlashAttribute("message", "문의하기 위해서는 우선 회원가입 또는 로그인이 필요합니다!");
+			return "redirect:/user/login";
+		}
+		
+		System.out.println("넘어 온 문의 정보 : " + qnaDTO);
+		
+		if(userService.insertQuestion(qnaDTO)) {
+			rttr.addFlashAttribute("message", "문의 처리 예상 기간은 문의하고 난 후, 3일 이내입니다. 펫팔을 이용해주셔서 감사합니다!");
+		} else {
+			rttr.addFlashAttribute("message", "문의하기에 실패했습니다. 지속 된 실패는 고객센터(02-7777-7777)로 문의바랍니다.");
+		}
+		
+		
+		return "redirect:/";
+	}
+	
 	
 
 }

@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.user.mypage.dao;
 
+import com.nobanryeo.petpal.user.dto.AdQnADTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 public interface UserMapper {
@@ -82,9 +83,26 @@ public interface UserMapper {
 	 */
 	int updateUserInfo(UserInfoDTO userInfo);
 
+	/**
+	 * 유저상태 탈퇴여부 Y처리
+	 * @param userInfo
+	 * @return
+	 */
 	int updatewithdrawUser(UserInfoDTO userInfo);
 	
+	/**
+	 * 탈퇴유저 처리
+	 * @param userInfo
+	 * @return
+	 */
 	int insertwithdrawUser(UserInfoDTO userInfo);
+
+	/**
+	 * 메인 화면에서의 문의하기 insert
+	 * @param qnaDTO
+	 * @return
+	 */
+	int insertQuestion(AdQnADTO qnaDTO);
 
 	
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -110,6 +111,7 @@
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -143,6 +145,7 @@
                 <div class="tab">
 					<span class="tab_btn active" data-toggle="tab" href="#menu0" >문의 내역</span>
 					<span class="tab_btn" data-toggle="tab" href="#menu1">신고 내역</span>
+					<img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/'" style="width:50px; float: right;">
 				</div>
             </section>
 
@@ -180,6 +183,11 @@
 			                        </tr>
 			                    </tbody>
 			                </table>
+			                
+			                
+			                
+			                
+			                
 			                <div class="text-center">
 								<ul class="pagination">
 									<li><a href="#">1</a></li>

@@ -43,10 +43,6 @@ public class MypageController {
    }
    
    
-   @GetMapping("qnaReportList")
-   public String qnaReportList() {
-      return "user/mypage/qnaReportList";
-   }
    @GetMapping("adList")
    public String adList() {
       return "user/mypage/adList";
