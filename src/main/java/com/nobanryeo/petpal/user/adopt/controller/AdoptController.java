@@ -11,6 +11,7 @@ import java.util.UUID;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.xml.bind.ParseConversionEvent;
 
 import org.apache.commons.fileupload.FileItem;
 import org.aspectj.lang.annotation.Pointcut;
@@ -264,7 +265,30 @@ public class AdoptController {
 	}
 	
 	@PostMapping("adopt/detail/insert/reply")
-	public ModelAndView insertReply(ModelAndView mv) {
+	@ResponseBody
+	public ModelAndView insertReply(ModelAndView mv, String replyContent, String boardCode, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		
+		response.setContentType("application/json; charset=utf-8");
+	
+		
+		AdoptReplyDTO replyDTO = new AdoptReplyDTO();
+//		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		boardCode = request.getParameter("boardCode");
+		System.out.println(boardCode);
+		replyDTO.setBoardCode((int)(Integer.parseInt(boardCode)));
+		replyDTO.setReplyContent(request.getParameter("replyContent"));
+		replyDTO.setReplyUserCode(27);
+		System.out.println("ajax 요청 도착: "+replyContent+","+ boardCode);
+		
+		int result = adoptService.insertReply(replyDTO);
+		
+		if(result>0) {
+			mv.addObject("message", "success");
+			
+		}else {
+			mv.addObject("message", "fail");
+		}
+		mv.setViewName("jsonView");
 		return mv;
 	}
 	

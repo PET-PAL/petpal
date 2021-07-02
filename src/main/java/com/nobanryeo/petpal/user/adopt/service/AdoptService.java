@@ -22,4 +22,6 @@ public interface AdoptService {
 
 	List<AdoptReplyDTO> selectReplyList(int code);
 
+	int insertReply(AdoptReplyDTO replyDTO);
+
 }
