@@ -112,6 +112,22 @@ public class AdoptServiceImpl implements AdoptService {
 		return selectReplyList;
 	}
 
+	@Override
+	public int insertReply(AdoptReplyDTO replyDTO) {
+		
+		int replyTresult = adoptMapper.insertReply(replyDTO);
+		System.out.println("ReplyResult in service:"+ replyTresult);
+		
+		int replyBoradresult = adoptMapper.insertReplyBoard(replyDTO);
+		
+		int result = 0;
+		if(replyTresult>0 && replyBoradresult>0) {
+			result =1;
+		}
+		return result;
+		
+	}
+
 
 
 

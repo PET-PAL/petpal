@@ -226,6 +226,12 @@
 		       , #{ category }
 		       )
 	</insert>
+	
+	<select id="selectBoardCode" resultType="_int">
+		SELECT FREE_BOARD_SEQ.CURRVAL
+	  	  FROM DUAL
+	</select>
+	
 	<insert id="insertFreeBoardImg" parameterType="PictureDTO">
 		INSERT
 		  INTO PICTURE_TABLE
@@ -238,11 +244,6 @@
                , #{ pictureUtilPath }
 		       )
 	</insert>
-	
-	<select id="selectBoardCode" resultType="_int">
-		SELECT FREE_BOARD_SEQ.CURRVAL
-	  	  FROM DUAL
-	</select>
 	
 	<insert id="insertFreeBoardImg2" parameterType="PictureDTO">
 		<selectKey keyProperty="pictureCode" order="BEFORE" resultType="int">

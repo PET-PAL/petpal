@@ -215,6 +215,8 @@ public class AdAdminController {
 			cntPerPage = "5";
 		}
 		
+		List<AdAdminDTO> selectAdList = null;
+		
 		// 검색 안 했을 떄
 	    if(searchValue == null) {
 	    	
@@ -231,15 +233,32 @@ public class AdAdminController {
 	    	paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category);
 	    	
 	    	// 광고 심사 리스트
-	    	List<AdAdminDTO> selectAdList = adAdminService.selectAdAllList(paging);
+	    	selectAdList = adAdminService.selectAdAllList(paging);
 	    	
 	    	System.out.println("검색 안 했을 때 검색결과 : " + selectAdList);
 	    	
-	    	// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
-	    	model.addAttribute("paging", paging);
-	    	model.addAttribute("adList", selectAdList);
-	    	model.addAttribute("category", category);
-	    	model.addAttribute("total", total);
+	    	// 게시중(category 2)일 때 클릭 수 조회
+	    	if (category != null && category.equals("2")) {
+	    		List<AdAdminDTO> selectClickAdList = adAdminService.selectClickList(selectAdList);
+	    		
+	    		System.out.println("클릭 수 : " + selectClickAdList);
+	    		
+	    		model.addAttribute("paging", paging);
+	    		model.addAttribute("adList", selectClickAdList);
+	    		model.addAttribute("category", category);
+	    		model.addAttribute("total", total);
+	    	} else {
+	    		// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
+	    		model.addAttribute("paging", paging);
+	    		model.addAttribute("adList", selectAdList);
+	    		model.addAttribute("category", category);
+	    		model.addAttribute("total", total);
+	    	}
+	    		
+	    		
+	    	
+	    	
+	    	
 	    	
 	    }
 		
