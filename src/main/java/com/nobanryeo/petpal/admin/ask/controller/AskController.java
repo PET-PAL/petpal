@@ -47,7 +47,6 @@ public class AskController {
          cntPerPage = "5";
       }
        
-       
        if(searchValue == null) {
     	   AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
            int total = askService.selectListCount(cat);
