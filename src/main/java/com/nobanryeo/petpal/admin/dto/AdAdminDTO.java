@@ -30,6 +30,7 @@ public class AdAdminDTO {
 	private UserInfoDTO user;
 	private DecisionDTO decision;
 	private int clickNum;
+	private int price2nd;
 	
 	public AdAdminDTO() {
 		super();
@@ -39,7 +40,7 @@ public class AdAdminDTO {
 			String companyEmail, String adContent, String postYn, String refundYn, Date payDate2nd, int pictureCode,
 			Date payDate1st, int decisionCode, int userCode, int adTypeCode, String adTitle, String payMethod,
 			Date cancelApplyDate, Date postStartDate, Date postEndDate, int stateCode, UserInfoDTO user,
-			DecisionDTO decision, int clickNum) {
+			DecisionDTO decision, int clickNum, int price2nd) {
 		super();
 		this.adCode = adCode;
 		this.companyName = companyName;
@@ -65,6 +66,7 @@ public class AdAdminDTO {
 		this.user = user;
 		this.decision = decision;
 		this.clickNum = clickNum;
+		this.price2nd = price2nd;
 	}
 
 	public int getAdCode() {
@@ -259,6 +261,14 @@ public class AdAdminDTO {
 		this.clickNum = clickNum;
 	}
 
+	public int getPrice2nd() {
+		return price2nd;
+	}
+
+	public void setPrice2nd(int price2nd) {
+		this.price2nd = price2nd;
+	}
+
 	@Override
 	public String toString() {
 		return "AdAdminDTO [adCode=" + adCode + ", companyName=" + companyName + ", applyDate=" + applyDate
@@ -268,9 +278,11 @@ public class AdAdminDTO {
 				+ ", decisionCode=" + decisionCode + ", userCode=" + userCode + ", adTypeCode=" + adTypeCode
 				+ ", adTitle=" + adTitle + ", payMethod=" + payMethod + ", cancelApplyDate=" + cancelApplyDate
 				+ ", postStartDate=" + postStartDate + ", postEndDate=" + postEndDate + ", stateCode=" + stateCode
-				+ ", user=" + user + ", decision=" + decision + ", clickNum=" + clickNum + "]";
+				+ ", user=" + user + ", decision=" + decision + ", clickNum=" + clickNum + ", price2nd=" + price2nd
+				+ "]";
 	}
 
+	
 	
 	
 

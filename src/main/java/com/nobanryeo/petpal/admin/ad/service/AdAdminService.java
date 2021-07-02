@@ -42,6 +42,9 @@ public interface AdAdminService {
 	// 광고 관리 게시중 클릭수 조회
 	List<AdAdminDTO> selectClickList(List<AdAdminDTO> selectAdList);
 
+	// 광고 관리 디테일 조회
+	List<AdAdminDTO> selectAdDetail(int adCode);
+
 
 
 	

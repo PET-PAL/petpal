@@ -186,6 +186,7 @@
                                     <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
                                     <td>${ adApprove.adTitle }</td>
                                     <td>
+                                    <c:if test="${ category != 4 }">
                                     <c:choose>
 		                                    <c:when test="${adApprove.adTypeCode eq 1}">
 		                                    	장소 외(1주)
@@ -200,8 +201,13 @@
 		                                    	장소(2주)
 		                                    </c:when>
                                     	</c:choose>
+                                    </c:if>
+                                    <c:if test="${ category eq 4 }">
+                                    	<c:out value="${ adApprove.cancelApplyDate }"/>
+                                    </c:if>
                                     </td>
                                     <td>
+                                    <c:if test="${ category != 4 }">
                                     <c:choose>
 	                                    <c:when test="${ empty adApprove.postStartDate }">
 	                                   	 -
@@ -210,6 +216,20 @@
 	                                    ${adApprove.postStartDate} ~ ${adApprove.postEndDate}
 	                                    </c:otherwise>
                                     </c:choose>
+                                    </c:if>
+                                    <c:if test="${ category eq 4 }">
+                                      <c:choose>
+                                   		<c:when test="${ empty adApprove.payDate1st }">
+                                    	N
+                                    	</c:when>
+                                    	<c:when test="${ adApprove.payDate1st eq adApprove.cancelApplyDate }">
+                                    	Y
+                                    	</c:when>
+                                    	<c:otherwise>
+                                    	N
+                                    	</c:otherwise>
+                                    	</c:choose>
+                                    </c:if>
                                     </td>
                                     <!-- 날짜 계산 -->
                                      <%-- <jsp:useBean id="now" class="java.util.Date"/>
@@ -223,11 +243,14 @@
 									 <fmt:parseDate value="${adApprove.postStartDate}" pattern="yyyy-MM-dd" var="startday" />
 									 <fmt:parseDate value="${adApprove.postEndDate}" pattern="yyyy-MM-dd" var="endday" />
 									 <fmt:parseDate value="${adApprove.applyDate}" pattern="yyyy-MM-dd" var="applyday" />
-									 <fmt:parseDate value="${adApprove.payDate1st}" pattern="yyyy-MM-dd" var="pay1stday" />  
+									 <fmt:parseDate value="${adApprove.payDate1st}" pattern="yyyy-MM-dd" var="pay1stday" />
+									 <fmt:parseDate value="${adApprove.cancelApplyDate}" pattern="yyyy-MM-dd" var="cancelApplyDay" />  
 									 
 									 <fmt:parseNumber value="${today.time / (1000*60*60*24)}" integerOnly="true" var="caltoday" />
 									 <fmt:parseNumber value="${applyday.time  / (1000*60*60*24)}" integerOnly="true" var="calapplyday" /> 
 									 <fmt:parseNumber value="${pay1stday.time  / (1000*60*60*24)}" integerOnly="true" var="calpay1stday" /> 
+									 <fmt:parseNumber value="${pay1stday.time  / (1000*60*60*24)}" integerOnly="true" var="calcancelapplyday" /> 
+									 <fmt:parseNumber value="${pay1stday.time  / (1000*60*60*24)}" integerOnly="true" var="calstartday" /> 
 
 									 
                                     <!-- 페이지 게시 상태에 따라 분류 -->
@@ -236,13 +259,13 @@
                                     <td>
                                     	<!-- 게시 전/게시 중/게시 종료/게시 취소 -->
                                     	<c:choose>
-                                    		<c:when test="${ adApprove.postYn eq 'N' and (startday > day or empty startday) and empty adApprove.cancelApplyDate }">
+                                    		<c:when test="${ adApprove.postYn eq 'N' and (startday > day or empty adApprove.postStartDate) and empty adApprove.cancelApplyDate }">
                                     			게시전
                                     		</c:when>
                                     		<c:when test="${ adApprove.postYn eq 'Y' and startday <= day and day <= endday}">
                                     			게시중
                                     		</c:when>
-                                    		<c:when test="${ adApprove.postYn eq 'N' and startday < day and empty adApprove.cancelApplyDate}">
+                                    		<c:when test="${ adApprove.postYn eq 'N' and startday < day and empty adApprove.cancelApplyDate }">
                                     			게시종료
                                     		</c:when>
                                     		<c:when test="${ not empty adApprove.cancelApplyDate }">
@@ -268,10 +291,41 @@
                                     	</c:choose>
                                     </td>
                                     </c:if>
+                                    
+                                     <!-- 게시 중 -->
+                                    <c:if test="${ category eq 2 }">
+                                    <td>
+                                    	<c:out value="${ adApprove.clickNum }"/>회
+                                    </td>
+                                    </c:if>
+                                    
+                                     <!-- 게시 종료 -->
+                                    <c:if test="${ category eq 3 }">
+                                    <td>
+                                    	<c:if test="${ empty adApprove.payDate2nd }">
+                                    	납부전
+                                    	</c:if>
+                                   		<c:if test="${ not empty adApprove.payDate2nd }">
+                                    	납부완료
+                                    	</c:if>
+                                    </td>
+                                    </c:if>
+                                    
+                                     <!-- 게시 취소 -->
+                                    <c:if test="${ category eq 4 }">
+                                    <td>
+                                    <c:choose>
+                                    	<c:when test="${ not empty adApprove.postStartDate and startday <= cancelApplyDay }">
+                                    	Y
+                                    	</c:when>
+                                   		<c:otherwise>
+                                    	N
+                                    	</c:otherwise>
+                                    </c:choose>
+                                    </td>
+                                    </c:if>
                                     </tr>
                                    </c:forEach>
-                                 
-                                 
                                  
                                    </tbody>
                                    </table>
@@ -359,7 +413,7 @@
                                    
                                    </tbody>
                                    </table>
-                                 </div><!-- 게시 전 광고 끝 -->
+                                 </div>
                                  
                           <!-- 게시 중 광고 (게시 중 클릭 시) -->
                          <div role="tabpanel" class="tab-pane" id="uploading">

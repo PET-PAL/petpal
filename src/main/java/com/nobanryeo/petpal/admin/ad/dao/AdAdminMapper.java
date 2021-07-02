@@ -31,6 +31,8 @@ public interface AdAdminMapper {
 
 	List<AdAdminDTO> selectClickList(List<AdAdminDTO> selectAdList);
 
+	List<AdAdminDTO> selectAdDetail(int adCode);
+
 
 
 	
