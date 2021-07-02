@@ -45,15 +45,8 @@ public class ReportController {
     		category = "0";
     	}
     	int total = 0;
-    	switch(category) {
-    	case "0":
-     	    AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
-     	   total = reportService.selectReportCount(cat);
-    		break;
-    	case "1":
-    		break;
-    	}
-    	
+    	AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
+  	    total = reportService.selectReportCount(cat);
     	paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category,sortValue);
     	model.addAttribute("paging", paging);
         model.addAttribute("total",total);

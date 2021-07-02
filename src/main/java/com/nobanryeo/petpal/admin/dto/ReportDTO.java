@@ -6,7 +6,7 @@ public class ReportDTO {
 	private int boardCode;
 	private String userId;
 	private String boardTitle;
-	private java.util.Date postDate;
+	private String reportedUser;
 	private java.util.Date reportDate;
 	private String state;
 	
@@ -38,12 +38,12 @@ public class ReportDTO {
 		this.boardTitle = boardTitle;
 	}
 
-	public java.util.Date getPostDate() {
-		return postDate;
+	public String getReportedUser() {
+		return reportedUser;
 	}
 
-	public void setPostDate(java.util.Date postDate) {
-		this.postDate = postDate;
+	public void setReportedUser(String reportedUser) {
+		this.reportedUser = reportedUser;
 	}
 
 	public java.util.Date getReportDate() {
@@ -62,21 +62,23 @@ public class ReportDTO {
 		this.state = state;
 	}
 
-	public ReportDTO(int boardCode, String userId, String boardTitle, Date postDate, Date reportDate, String state) {
+	public ReportDTO(int boardCode, String userId, String boardTitle, String reportedUser, Date reportDate,
+			String state) {
 		super();
 		this.boardCode = boardCode;
 		this.userId = userId;
 		this.boardTitle = boardTitle;
-		this.postDate = postDate;
+		this.reportedUser = reportedUser;
 		this.reportDate = reportDate;
 		this.state = state;
 	}
 
 	@Override
 	public String toString() {
-		return "ReportDTO [boardCode=" + boardCode + ", userId=" + userId + ", boardTitle=" + boardTitle + ", postDate="
-				+ postDate + ", reportDate=" + reportDate + ", state=" + state + "]";
+		return "ReportDTO [boardCode=" + boardCode + ", userId=" + userId + ", boardTitle=" + boardTitle
+				+ ", reportedUser=" + reportedUser + ", reportDate=" + reportDate + ", state=" + state + "]";
 	}
+
 	
 	
 	

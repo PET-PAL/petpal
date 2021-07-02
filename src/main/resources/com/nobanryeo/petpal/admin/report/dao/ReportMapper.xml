@@ -8,7 +8,7 @@
 		<id column="BOARD_CODE" property="boardCode" />
 		<result column="USER_ID" property="userId" />
 		<result column="REPORT_TITLE" property="boardTitle" />
-		<result column="BOARD_POST_DATE" property="postDate" />
+		<result column="REPORTED_USER" property="reportedUser" />
 		<result column="REPORT_DATE" property="reportDate" />
 		<result column="STATE_NAME" property="state" />
 	</resultMap>
@@ -17,6 +17,24 @@
 	   
 		<if test='category == "0"'>
 		FROM FREE_BOARD_REPORT
+		</if>
+		<if test='category == "1"'>
+		FROM INFO_BOARD_REPORT
+		</if>
+		<if test='category == "2"'>
+		FROM SHARE_BOARD_REPORT
+		</if>
+		<if test='category == "3"'>
+		FROM REVIEW_BOARD_REPORT
+		</if>
+		<if test='category == "4"'>
+		FROM MISSING_BOARD_REPORT
+		</if>
+		<if test='category == "5"'>
+		FROM FRIENDLY_BOARD_REPORT
+		</if>
+		<if test='category == "6"'>
+		FROM ADOPT_BOARD_REPORT
 		</if>
 	</select>
 	<select id="selectReport" resultMap="ReportSet" parameterType="ReportDTO">
@@ -27,15 +45,42 @@
                             C.BOARD_CODE,
                             D.USER_ID,
                             B.REPORT_TITLE,
-                            C.BOARD_POST_DATE,
+                            G.USER_ID AS REPORTED_USER,
                             B.REPORT_DATE,
                             F.STATE_NAME
-                        FROM FREE_BOARD_REPORT A
-                        JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
-                        JOIN FREE_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
-                        JOIN USER_TABLE D ON(C.USER_CODE = D.USER_CODE)
-                        JOIN DECISION_TABLE E ON(B.DECISION_CODE = E.DECISION_CODE)
-                        JOIN STATE_TABLE F ON(E.STATE_CODE = F.STATE_CODE)
+                            <if test='category == "0"'>
+							FROM FREE_BOARD_REPORT A
+							JOIN FREE_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
+							</if>
+							<if test='category == "1"'>
+							FROM INFO_BOARD_REPORT A
+							JOIN INFO_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
+							</if>
+							<if test='category == "2"'>
+							FROM SHARE_BOARD_REPORT A
+							JOIN SHARE_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
+							</if>
+							<if test='category == "3"'>
+							FROM REVIEW_BOARD_REPORT A
+							JOIN REVIEW_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
+							</if>
+							<if test='category == "4"'>
+							FROM MISSING_BOARD_REPORT A
+							JOIN MISSING_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
+							</if>
+							<if test='category == "5"'>
+							FROM FRIENDLY_BOARD_REPORT A
+							JOIN FRIENDLY_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
+							</if>
+							<if test='category == "6"'>
+							FROM ADOPT_BOARD_REPORT A
+							JOIN ADOPT_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
+							</if>
+	                        JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
+	                        JOIN USER_TABLE D ON(C.USER_CODE = D.USER_CODE)
+	                        JOIN DECISION_TABLE E ON(B.DECISION_CODE = E.DECISION_CODE)
+	                        JOIN STATE_TABLE F ON(E.STATE_CODE = F.STATE_CODE)
+	                        JOIN USER_TABLE G ON(C.USER_CODE = G.USER_CODE)
                         )G
                 )A 
                 WHERE RNUM BETWEEN #{start} AND #{end}
