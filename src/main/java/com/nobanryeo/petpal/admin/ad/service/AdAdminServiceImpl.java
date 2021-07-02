@@ -88,6 +88,12 @@ public class AdAdminServiceImpl implements AdAdminService  {
 		return adAdminMapper.selectAdAllList(paging);
 	}
 
+	// 광고 관리 게시 중 클릭 수 조회
+	@Override
+	public List<AdAdminDTO> selectClickList(List<AdAdminDTO> selectAdList) {
+		return adAdminMapper.selectClickList(selectAdList);
+	}
+
 
 	
 	

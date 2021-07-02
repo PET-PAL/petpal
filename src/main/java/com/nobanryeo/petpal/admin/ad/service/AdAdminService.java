@@ -39,6 +39,9 @@ public interface AdAdminService {
 	// 광고 관리 리스트 조회
 	List<AdAdminDTO> selectAdAllList(AdminPageInfoDTO paging);
 
+	// 광고 관리 게시중 클릭수 조회
+	List<AdAdminDTO> selectClickList(List<AdAdminDTO> selectAdList);
+
 
 
 	
