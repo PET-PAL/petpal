@@ -345,14 +345,27 @@
 								     				const replyList = JSON.parse(data.replyList);
 								     				/* debugger; */
 								     				console.table(replyList);
+								     				console.log(replyList.length);
 								     				output='';
+								     				if(replyList.length == 0){
+							     						output += '<tr>';
+								     					output += '<td style="text-align: center; border:none;">'+' '+'</td>';
+							     						output += '<td style="border:none;">'+'</td>';
+							     						output += '<td style="text-align: center; border:none; font-weight:bold;">'+'작성된 댓글이 없습니다. 처음으로 댓글을 작성해 보세요~ ^^ '+'</td>';
+								     					output += '<td>'+'</td>';
+								     					output += '</tr>';
+							     					}
+								     				
 								     				$j3.each(replyList,function(){
+								     					
 								     					var deleteYN = this.replyDeleteYN;
-								     						
+								     					var length = $j3(this).length;
+								     					console.log(length);
+								     					
 								     					
 								     					if(deleteYN == 'N'){
 								     						output += '<tr>';
-									     					output += '<td style="text-align: center;">'+this.userNickname+'</td>';
+									     					output += '<td class="col-md-3" style="text-align: center;">'+this.userNickname+'</td>';
 								     						output += '<td>'+this.replyContent+'</td>';
 								     						output += '<td style="text-align: center;">'+this.replyDate+'</td>';
 									     					output += '<td><img onclick="location.href=\'#reportComment\'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;">'+'</td>';
@@ -407,22 +420,31 @@
 		            <script>
 		            
 			            $j3("#replySubmit").click(function(){
-				     		var code = '<c:out value="${requestScope.adoptDetail.boardCode}"/>';
-			     			vare content = $j3('#messagecontent').val();
-			     			
+				     		var code = ${requestScope.adoptDetail.boardCode};
+			     			var content = $j3('#messagecontent').val();
+			     			console.log(code);
+			     			console.log(content);
 				     		if(content.trim()==''){
 				     			alert('댓글을 입력하신 후 다시 눌러주시기 바랍니다.');
 				     			return;
 				     		}
 				     		
-				     		var 
+				     	
 				     		$j3.ajax({
 			     			url:"insert/reply",
-		    				data:{"replyContent": $j3('#messagecontent').val(),
+			     			type:"POST",
+		    				data:{"replyContent": content,
 		    					"boardCode": code},
 		    				success: function(data,status,xhr){
+		    					if(data.message=="success"){
 		    					alert("댓글등록 완료! ");
 		    					location.reload();
+		    						
+		    					}
+		    					if(data.message=="fail"){
+		    						alert("댓글등록 실패! ");
+		    						
+		    					}
 		    				},error:function(xhr,status,error){
 			     				alert("에러 발생~삐뽀~");
 			     				console.log(error);
