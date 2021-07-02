@@ -89,6 +89,7 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 
 	@Override
 	public FreeBoardDTO writeFreeBoard(int userCode) {
+		
 		return freeBoardMapper.writeFreeBoard(userCode);
 	}
 
@@ -101,20 +102,17 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	@Override
 	public int insertFreeBoardImg(PictureDTO picture) {
 		
+		// 위에서 insert한 boardCode 가져와서 넣어주기
 		int boardCodeval = freeBoardMapper.selectBoardCode();
-		
-		System.out.println(boardCodeval);
-		
 		picture.setBoardCode(boardCodeval);
+		
+		// 이미지 insert
 		int result = freeBoardMapper.insertFreeBoardImg(picture);
 		
-		System.out.println(result);
-		
+		// 이미지 관레테이블 insert
 		freeBoardMapper.insertFreeBoardImg2(picture);
 		
 		return result;
 	}
-
-
 
 }
