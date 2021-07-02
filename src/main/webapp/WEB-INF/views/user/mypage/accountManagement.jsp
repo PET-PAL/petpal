@@ -180,7 +180,10 @@
             <jsp:include page="../common/userHeader.jsp"/>
 
             <section id="account" class="account" style="width: 70%; margin: 0px auto;  margin-bottom: 40px;">
-                <div style="color: #45B99C; font-size: 25px; font-weight: 600;">계정 관리</div>
+                <div style="color: #45B99C; font-size: 25px; font-weight: 600;">
+                	계정 관리
+            	<img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/'" style="width:50px; float: right;">
+                </div>
             </section>
 
             <section id="account" class="account" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">

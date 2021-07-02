@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nobanryeo.petpal.user.mypage.dao.QuestionMapper">
+
+	<resultMap id="QnAResultSet" type="AdQnADTO">
+		<id column="BOARD_CODE" property="boardCode"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
+		<result column="QUESTION_TYPE" property="questionType"/>
+		<result column="BOARD_POST_DATE" property="boardPostDate"/>
+		<result column="ADMIN_REPLY_CONTENT" property="adminReplyContent"/>
+		<result column="STATE_CODE" property="stateCode"/>
+		<result column="USER_CODE" property="userCode"/>
+	</resultMap>
+	
+	<select id="selectQnACount" resultType="int">
+       SELECT
+              COUNT(*)
+         FROM QUESTION_BOARD
+        WHERE USER_CODE = #{ userCode }
+	</select>
+	
+	<select id="selectQnAList" resultMap="QnAResultSet" parameterType="hashmap">
+	   SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+                                BOARD_CODE
+                               ,BOARD_TITLE
+                               ,BOARD_CONTENT
+                               ,QUESTION_TYPE
+                               ,BOARD_POST_DATE
+                               ,ADMIN_REPLY_CONTENT
+                               ,STATE_CODE
+                               ,USER_CODE
+                  FROM QUESTION_BOARD
+                 WHERE USER_CODE = #{ qnaDTO.userCode }
+              ORDER BY BOARD_POST_DATE DESC) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY BOARD_POST_DATE DESC	
+	</select>
+
+
+
+
+
+</mapper>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

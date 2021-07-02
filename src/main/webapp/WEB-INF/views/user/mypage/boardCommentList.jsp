@@ -138,8 +138,14 @@
 
             <section id="list" class="list" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div class="tab">
-					<span class="tab_btn active" data-toggle="tab" href="#menu0" >게시글 목록</span>
-					<span class="tab_btn" data-toggle="tab" href="#menu1">댓글 목록</span>
+                	<img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/'" style="width:50px; float: right;">
+					<span class="tab_btn active" data-toggle="tab" href="#menu0" >실종신고 게시판</span>
+					<span class="tab_btn" data-toggle="tab" href="#menu1">입양 게시판</span>
+					<span class="tab_btn" data-toggle="tab" href="#menu2">정보공유 게시판</span>
+					<span class="tab_btn" data-toggle="tab" href="#menu3">자유 게시판</span>
+					<span class="tab_btn" data-toggle="tab" href="#menu4">무료나눔 게시판</span>
+					<span class="tab_btn" data-toggle="tab" href="#menu5">용품리뷰 게시판</span>
+					<span class="tab_btn" data-toggle="tab" href="#menu6">댓글목록</span>
 				</div>
             </section>
 
@@ -150,28 +156,24 @@
 		                	<table class="table table-hover" style="margin-bottom: 50px;">
 			                    <thead>
 			                        <tr style="background-color: #F1FAF8;">
-			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>게시판 유형</b></th>
-			                            <th style="text-align: center;"><b>제목</b></th>
+			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>제목</b></th>
 	                                    <th style="text-align: center;"><b>날짜</b></th>
 			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>게시글 삭제</b></th>
 			                        </tr>
 			                    </thead>
 			                    <tbody>
 			                        <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp'">
-			                            <td style="text-align: center;">용품리뷰</td>
-			                            <td>강아지 옷 리뷰</td>
+			                            <td style="text-align: center;">강아지 옷 리뷰</td>
 			                            <td style="text-align: center;">2021-06-17</td>
 			                            <td style="text-align: center;"><button>삭제</button></td>
 			                        </tr>
 			                        <tr onclick="location.href=''">
-			                            <td style="text-align: center;">자유게시판</td>
-			                            <td>저희 코코 자랑~!</td>
+			                            <td style="text-align: center;">저희 코코 자랑~!</td>
 			                            <td style="text-align: center;">2021-06-17</td>
 			                            <td style="text-align: center;"><button>삭제</button></td>
 			                        </tr>
 			                        <tr onclick="location.href=''">
-			                            <td style="text-align: center;">입양게시판</td>
-			                            <td>약 3개월 시바견 임보 중</td>
+			                            <td style="text-align: center;">약 3개월 시바견 임보 중</td>
 			                            <td style="text-align: center;">2021-06-17</td>
 			                            <td class="notbutton" style="text-align: center;"><button disabled>삭제불가</button></td>
 			                        </tr>

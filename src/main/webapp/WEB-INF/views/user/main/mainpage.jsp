@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -166,7 +167,7 @@
                                         <div class="port_img">
                                             <img src="${ pageContext.servletContext.contextPath }/resources/images/lost_dog.png"
                                             style="width: 290px; height: 250px;"
-                                             onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/missing/missingPage.jsp'">
+                                             onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing'">
                                         </div>
                                         <div class="port_caption m-top-20">
                                             <h5>실종신고 / 목격제보</h5>
@@ -179,7 +180,7 @@
                                         <div class="port_img">
                                             <img src="${ pageContext.servletContext.contextPath }/resources/images/adoptMe.jpg"
                                             style="width: 290px; height: 250px;"
-                                             onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/adopt/adoptPage.jsp'">
+                                             onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt'">
                                         </div>
                                         <div class="port_caption m-top-20">
                                             <h5>입양게시판</h5>
@@ -192,7 +193,7 @@
                                         <div class="port_img">
                                             <img src="${ pageContext.servletContext.contextPath }/resources/images/source.png"
                                             style="width: 290px; height: 250px;"
-                                             onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp'">
+                                             onclick="location.href='${ pageContext.servletContext.contextPath }/user/main/shareInfo.jsp'">
                                         </div>
                                         <div class="port_caption m-top-20">
                                             <h5>정보공유</h5>
@@ -205,7 +206,7 @@
                                         <div class="port_img">
                                             <img src="${ pageContext.servletContext.contextPath }/resources/images/pcat.png" 
                                             style="width: 290px; height: 250px;"
-                                            onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp'">
+                                            onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/list'">
                                         </div>
                                         <div class="port_caption m-top-20">
                                             <h5>커뮤니티</h5>
@@ -285,25 +286,23 @@
                           <div class="form">
               
                             <h4>문의 하기</h4>
-                            <p>문의 하기 기능은 회원만 이용하실 수 있습니다.<br>문의하기를 이용하시고 싶은 분들은 회원가입 및 로그인을 먼저 해주세요</p>
+                            <p>문의 하기 기능은 회원만 이용하실 수 있습니다.<br>문의하기를 이용하시고 싶은 분들은 <b>회원가입 및 로그인</b>을 먼저 해주세요</p>
               
-                            <form action="forms/contact.php" method="post" role="form" class="php-email-form">
+                            <form action="${ pageContext.servletContext.contextPath }/user/question" method="post"name="form" class="php-email-form">
                               <div class="form-group">
-                                <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required="">
+                                <input type="text" name="boardTitle" class="form-control" id="title" placeholder="문의 제목을 적어주세요" required>
                               </div>
                               <div class="form-group mt-3">
-                                <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required="">
+                                <textarea class="form-control" name="boardContent" rows="5" placeholder="문의 내용을 적어주세요" required style="resize: none;"></textarea>
+                                <c:if test="${ empty loginUser }">
+                                <input type="hidden" name="userCode" value="0">
+                                </c:if>
+                                <c:if test="${ !empty loginUser }">
+                                <input type="hidden" name="userCode" value="${ loginUser.code }">
+                                </c:if>
                               </div>
-                              <div class="form-group mt-3">
-                  				<input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required="">
-               		 		  </div>
-                              <div class="form-group mt-3">
-                                <textarea class="form-control" name="message" rows="5" placeholder="Message" required="" style="resize: none;"></textarea>
-                              </div>
-              
-                              <div class="text-center"><button type="submit" title="Send Message" style="color: white;">Send Message</button></div>
+                              <div class="text-center"><button type="submit" style="color: white;">문의 보내기</button></div>
                             </form>
-              
                           </div>
               
                         </div>

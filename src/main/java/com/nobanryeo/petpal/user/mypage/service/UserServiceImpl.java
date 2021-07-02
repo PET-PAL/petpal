@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.nobanryeo.petpal.user.dto.AdQnADTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 import com.nobanryeo.petpal.user.mypage.dao.UserMapper;
 
@@ -264,6 +265,13 @@ public class UserServiceImpl implements UserService{
 			}
 		}
 		
+	}
+
+
+	@Override
+	public boolean insertQuestion(AdQnADTO qnaDTO) {
+		
+		return mapper.insertQuestion(qnaDTO) > 0 ? true : false;
 	}
 	
 	
