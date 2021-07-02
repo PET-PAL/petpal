@@ -41,6 +41,7 @@ public class AdDTO {
 	private String pictureDeleteYn;
 	private String pictureNewName;
 	private String pictureUtilPath;
+	private Date decisionDate;
 	
 	public AdDTO() {}
 
@@ -50,7 +51,8 @@ public class AdDTO {
 			Date cancelApplyDate, Date postStartDate, Date postEndDate, int stateCode, Date clickDate,
 			String adTypeName, int adPrice, int adWeek, int clickCount, int morePayAmount, String leaderName,
 			String companyLocation, String industry, String industryDetail, String pictureName, String pictureUrl,
-			Date pictureUploadDate, String pictureDeleteYn, String pictureNewName, String pictureUtilPath) {
+			Date pictureUploadDate, String pictureDeleteYn, String pictureNewName, String pictureUtilPath,
+			Date decisionDate) {
 		super();
 		this.adCode = adCode;
 		this.companyName = companyName;
@@ -89,6 +91,7 @@ public class AdDTO {
 		this.pictureDeleteYn = pictureDeleteYn;
 		this.pictureNewName = pictureNewName;
 		this.pictureUtilPath = pictureUtilPath;
+		this.decisionDate = decisionDate;
 	}
 
 	public int getAdCode() {
@@ -387,6 +390,14 @@ public class AdDTO {
 		this.pictureUtilPath = pictureUtilPath;
 	}
 
+	public Date getDecisionDate() {
+		return decisionDate;
+	}
+
+	public void setDecisionDate(Date decisionDate) {
+		this.decisionDate = decisionDate;
+	}
+
 	@Override
 	public String toString() {
 		return "AdDTO [adCode=" + adCode + ", companyName=" + companyName + ", applyDate=" + applyDate
@@ -401,7 +412,8 @@ public class AdDTO {
 				+ leaderName + ", companyLocation=" + companyLocation + ", industry=" + industry + ", industryDetail="
 				+ industryDetail + ", pictureName=" + pictureName + ", pictureUrl=" + pictureUrl
 				+ ", pictureUploadDate=" + pictureUploadDate + ", pictureDeleteYn=" + pictureDeleteYn
-				+ ", pictureNewName=" + pictureNewName + ", pictureUtilPath=" + pictureUtilPath + "]";
+				+ ", pictureNewName=" + pictureNewName + ", pictureUtilPath=" + pictureUtilPath + ", decisionDate="
+				+ decisionDate + "]";
 	}
 
 }

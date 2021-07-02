@@ -61,6 +61,77 @@
 			.filtering {
 				cursor: pointer;
 			}
+			.overlay {
+  				position: fixed;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: rgba(0, 0, 0, 0.7);
+				transition: opacity 500ms;
+				visibility: hidden;
+				opacity: 0;
+				z-index: 900;
+				height: 150% !important;
+			}
+			.overlay:target {
+				visibility: visible;
+				opacity: 1;
+			}
+			.popup {
+				position: fixed;
+				width: 60%;
+				padding: 10px;
+				max-width: 500px;
+				border-radius: 10px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: rgba(255, 255, 255, .9);
+				-webkit-transition: opacity .5s, visibility 0s linear .5s;
+				transition: opacity .5s, visibility 0s linear .5s;
+				z-index: 1;
+			}
+			.popup:target {
+				visibility: visible;
+				opacity: 1;
+				-webkit-transition-delay: 0s;
+				transition-delay: 0s;
+			}
+			.popup-close {
+				position: absolute;
+				padding: 10px;
+				max-width: 500px;
+				border-radius: 10px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: rgba(255, 255, 255, .9);
+			}
+			.popup .close {
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				padding: 5px;
+				color: #000;
+				transition: color .3s;
+				font-size: 2em;
+				line-height: .6em;
+			}
+			.popup .close:hover {
+				color: #007a5c;
+			}
+			.btn_submit, .certification {
+                background-color: #45B99C; 
+                height: 35px;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid; 
+                font-size: 16px; 
+                font-weight: 500;
+                border-radius: 10px;
+                width: 20%;
+            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -101,7 +172,7 @@
             <section id="list" class="list" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div class="tab">
 					<span class="tab_btn active" data-toggle="tab" href="#menu0" >광고 신청 내역</span>
-					<span class="tab_btn" data-toggle="tab" href="#menu1">만료광고 결제 관리</span>
+					<span class="tab_btn" data-toggle="tab" href="#menu1" onclick="location.href='#notice'">만료광고 결제 관리</span>
 				</div>
             </section>
 
@@ -121,7 +192,9 @@
 			                    <tbody>
 			                        <jsp:useBean id="now" class="java.util.Date" />
 									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
+									<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="isToday"/>
 			                        <c:forEach var="arr" items="${ adList }" varStatus="status">
+									<fmt:parseNumber value="${arr.decisionDate.time / (1000*60*60*24)}" integerOnly="true" var="isDecisionDate"/>
 			                        	<tr>
 			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
 			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.adWeek }"/>주</td>
@@ -129,7 +202,7 @@
 			                            	<c:if test="${ arr.postYn eq 'N' && arr.stateCode eq '1' }">
 			                          			<td style="text-align: center; color: red;">광고신청</td>
 			                          		</c:if>
-			                          		<c:if test="${ arr.postYn eq 'N' && arr.stateCode eq '2' }">
+			                          		<c:if test="${ arr.postYn eq 'N' && arr.stateCode eq '2' && isToday-isDecisionDate <= 3 }">
 			                          			<td style="text-align: center; color: #45B99C;">광고승인<button id="adPay" type="button" class="adPay${ arr.adCode }"></button></td>
 			                          			<!-- 광고 1차 선결제 카카오페이 승인 완료된 광고만 가능  -->
 			                          			<script>
@@ -158,17 +231,15 @@
 												            buyer_tel : phone,
 												            buyer_addr : companyLocation,
 												            buyer_postcode : '123-456'
-												            //m_redirect_url : 'http://www.naver.com'
 												        }, function(rsp) {
 												            if ( rsp.success ) {
 												                //[1] 서버단에서 결제정보 조회를 위해 jQuery ajax로 imp_uid 전달하기
 												                jQuery.ajax({
-												                    url: "/payments/complete", //cross-domain error가 발생하지 않도록 주의해주세요
+												                    url: "/payments/complete",
 												                    type: 'POST',
 												                    dataType: 'json',
 												                    data: {
 												                        imp_uid : rsp.imp_uid
-												                        //기타 필요한 데이터가 있으면 추가 전달
 												                    }
 												                }).done(function(data) {
 												                    //[2] 서버에서 REST API로 결제정보확인 및 서비스루틴이 정상적인 경우
@@ -183,8 +254,6 @@
 												                    } else {
 												                    	alert("결제에 실패했습니다.");
 												                    	return;
-												                        //[3] 아직 제대로 결제가 되지 않았습니다.
-												                        //[4] 결제된 금액이 요청한 금액과 달라 결제를 자동취소처리하였습니다.
 												                    }
 												                });
 												                //성공시 이동할 페이지
@@ -201,7 +270,7 @@
 										    			    		    adCode : adCode
 										    				    	},
 										    				    	success:function(data, textStatus, xhr){
-										    				    		alert("결제 성공하였습니다!!\n신청하신 광고는 결제 다음날 업로드됩니다.");
+										    				    		alert("결제 성공하였습니다!!\n신청하신 광고는 결제 다음날부터 업로드됩니다.");
 										    				    		location.replace("${pageContext.servletContext.contextPath}/user/select/ad/list")
 										    				    	},
 										    				    	error:function(xhr,status,error){
@@ -221,15 +290,17 @@
 												        
 												    });
 	    									</script>
-	    									
 			                          		</c:if>
-			                          		<c:if test="${ arr.postYn eq 'Y' && today >= arr.postStartDate && today <= arr.postEndDate }">
-			                          			<td style="text-align: center; color: blue;">광고중</td>
-			                          		</c:if>
-			                          		<c:if test="${ arr.postYn eq 'Y' && today < arr.postStartDate }">
+			                          		<c:if test="${ arr.postYn eq 'Y' && today < arr.postStartDate && arr.stateCode eq '2' }">
 			                          			<td style="text-align: center; color: orange;">결제완료 게시 대기중</td>
 			                          		</c:if>
-			                          		<c:if test="${ today > arr.postEndDate }">
+			                          		<c:if test="${ arr.postYn eq 'N' && isToday-isDecisionDate > 3 && arr.stateCode eq '2' }">
+			                          			<td style="text-align: center; color: lightgray;">납기초과</td>
+			                          		</c:if>
+			                          		<c:if test="${ arr.postYn eq 'Y' && today >= arr.postStartDate && today <= arr.postEndDate && arr.stateCode eq '2' }">
+			                          			<td style="text-align: center; color: blue;">광고중</td>
+			                          		</c:if>
+			                          		<c:if test="${ today > arr.postEndDate && arr.stateCode eq '2' && arr.postYn eq 'Y' }">
 			                          			<td style="text-align: center; color: yellow;">광고만료</td>
 			                          		</c:if>
 			                          		<c:if test="${ arr.stateCode eq '3' }">
@@ -267,41 +338,17 @@
 			                        </tr>
 			                    </thead>
 			                    <tbody>
-			                        <!-- <tr class="morepay">
-			                            <td style="text-align: center;">주디주디주디</td>
-			                            <td style="text-align: center;">1주</td>
-			                            <td style="text-align: center;">501</td>
-			                            <td style="text-align: center;">2021-06-30</td>
-			                            <td style="text-align: center;">75,150원</td>
-			                            <td class="class" style="text-align: center; color: red;">추가결제 대기중<button></button></td>
-			                        </tr>
-			                        <tr class="morepay">
-			                            <td style="text-align: center;">주디주디주디</td>
-			                            <td style="text-align: center;">2주</td>
-			                            <td style="text-align: center;">501</td>
-			                            <td style="text-align: center;">2021-06-30</td>
-			                            <td style="text-align: center;">75,150원</td>
-			                            <td style="text-align: center; color: red;">추가결제 대기중<button></button></td>
-			                        </tr>
-			                        <tr class="completepay">
-			                            <td style="text-align: center;">주디주디주디</td>
-			                            <td style="text-align: center;">2주</td>
-			                            <td style="text-align: center;">735</td>
-			                            <td style="text-align: center;">2021-06-10</td>
-			                            <td style="text-align: center;">110,250원</td>
-										<td style="text-align: center; color: #45B99C;">결제 완료</td>
-			                        </tr> -->
 			                        <c:forEach var="arr" items="${ adList }">
 			                        	<c:forEach var="arr2" items="${ adPaymentList }">
 				                        	<c:if test="${ today > arr.postEndDate && empty arr.payDate2nd }">
 				                        		<c:if test="${ arr.adCode == arr2.adCode }">
 							                        <tr class="morepay">
 							                            <td style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
-							                            <td style="text-align: center;"><c:out value="${ arr.adWeek }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr.adWeek }"/>주</td>
 							                            <td style="text-align: center;"><c:out value="${ arr2.clickCount }"/></td>
 							                            <td style="text-align: center;"><c:out value="${ arr.postEndDate }"/></td>
 							                            <td style="text-align: center;"><c:out value="${ arr2.morePayAmount }"/>원</td>
-							                            <td class="class" style="text-align: center; color: red;">추가결제 대기중<button></button></td>
+							                            <td class="class" style="text-align: center; color: red;">추가결제 대기중<button onclick="location.href='#taxBill'"></button></td>
 						                            </tr>
 					                            </c:if>
 				                            </c:if>
@@ -334,6 +381,38 @@
             	</div>
             </section>
             
+            <div id="taxBill" class="overlay">
+                <div class="popup">
+                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+                     	세금계산서<br>
+                    </p>
+                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+                     	세금계산서 내역
+                    </p>
+                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                </div>
+            </div>
+            
+            <div id="notice" class="overlay">
+                <div class="popup">
+                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+                     	광고 2차 추가결제 안내<br><br>
+                    </p>
+                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 20px;">
+                     	광고 만료 후 <b style="color: red;">7일 이내</b>에 아래의 계좌번호로 추가 금액을 입금하셔야 합니다.<br><br>
+                     	입금계좌 : 326-15622-874  카카오뱅크<br><br>
+                     	예금주 : 주식회사 펫팔
+                    </p>
+                    <p style="font-size: 10px; text-align: center; margin-top: 20px;">
+                    	추가결제금액 미입금 시 유선으로 안내연락 드리며, 그 이후에도 미입금 시 법적 조취를 취함<br>
+                    </p>
+                    <p style="font-size: 10px; text-align: center; padding-bottom: 10px;">
+                    	세금계산서는 광고만료 당월 말일부터 확인이 가능합니다.
+                    </p>
+                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                </div>
+            </div>
+            
             <script>
 				let targetLink = document.querySelectorAll('.tab span');
 				for(var i = 0; i < targetLink.length; i++) {
@@ -364,7 +443,9 @@
 						$(".completepay").show();
 					}
 					
-				}				
+				}
+				
+				
 			</script>
 
             
