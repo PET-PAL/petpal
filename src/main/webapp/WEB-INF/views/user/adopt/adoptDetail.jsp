@@ -471,35 +471,44 @@
             </div> 
             
             <!-- 댓글 신고 팝업창 -->
-            <div id="reportComment" class="overlay">
-                <div class="popup">
-                    <a href="#none" class="close">&times;</a>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
-                    <div class="findpwd-content" id="contStep02" style="display: block;">
-                        <div class="cont-step_preface">
-                            <hr style="border:0.5px solid #A8A8A8;">
-                        </div>
-                        <!-- 신고 내용 입력 -->
-                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
-                    </div>
-                </div>
-            </div> 
+             <form action="${ pageContext.servletContext.contextPath }/user/adopt/insert/report" method="POST">
+	            <div id="reportComment" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <div class="cont-step_preface">
+	                            <hr style="border:0.5px solid #A8A8A8;">
+	                        </div>
+	                        <!-- 신고 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input id="reportContent_bs" type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                    </div>
+	                </div>
+	            </div> 
             
              <!-- 신고 완료 팝업창 -->
-            <div id="completeReport" class="overlay">
-                <div class="popup">
-                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
-                     	신고가 정상적으로 접수되었습니다.<br>
-                    </p>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
-                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
-                     	신고 내역에서 확인 가능합니다.
-                    </p>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+	            <div id="completeReport" class="overlay">
+	                <div class="popup">
+	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+	                     	신고가 정상적으로 접수되었습니다.<br>
+	                    </p>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+	                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
+	                     	신고 내역에서 확인 가능합니다.
+	                    </p>
+	                    <input type="hidden" name="reportContent" id="reportContent1">
+	                    <div style="text-align: center; margin-top: 30px;"><button type = "submit" id = "btn_report_submit" class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                   		<script>
+                   		 $j3("#btn_report_submit").click(function(){
+	                   			console.log("여기오나?");
+                   				
+                   			});
+                   		</script>
                     </div>
                 </div>
-            </div> 
+            </form>
+	      </div> 
             
             <!-- 입양약관 팝업창 -->
             <div id="agreeAction" class="overlay">
