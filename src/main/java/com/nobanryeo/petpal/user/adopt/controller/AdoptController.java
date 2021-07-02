@@ -28,6 +28,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -39,6 +40,7 @@ import com.nobanryeo.petpal.user.adopt.service.AdoptService;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
@@ -243,6 +245,13 @@ public class AdoptController {
 		return "user/adopt/adoptDetail";
 	}
 	
+	/**
+	 * 해당하는 보드코드로 댓글 리스트 조회메소드
+	 * @param code
+	 * @param mv
+	 * @param response
+	 * @return
+	 */
 	@GetMapping("adopt/detail/select/reply/{boardCode}")
 	@ResponseBody
 	public ModelAndView selectreplyList(@PathVariable("boardCode") int code, ModelAndView mv, HttpServletResponse response) {
@@ -264,6 +273,16 @@ public class AdoptController {
 		return mv;
 	}
 	
+	/**
+	 * 해당하는 아이디로 특정보드코드에 댓글 등록 메소드
+	 * @param mv
+	 * @param replyContent
+	 * @param boardCode
+	 * @param request
+	 * @param response
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("adopt/detail/insert/reply")
 	@ResponseBody
 	public ModelAndView insertReply(ModelAndView mv, String replyContent, String boardCode, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
@@ -292,4 +311,15 @@ public class AdoptController {
 		return mv;
 	}
 	
+	@PostMapping("adopt/insert/report")
+	public void insertReport(Model model, HttpServletRequest request, HttpSession session, FreeBoardReportDTO boardreportDTO) {
+		
+		String reportContent = request.getParameter("reportContent");
+//		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		
+		boardreportDTO.setUserCode(26);
+		boardreportDTO.setReportContent(reportContent);
+		
+		
+	}
 }
