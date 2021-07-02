@@ -5,12 +5,15 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +25,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.FreeBoardService;
-import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
@@ -43,18 +45,31 @@ public class FreeBoardController {
     @Autowired
     public FreeBoardController(FreeBoardService freeBoardService) {
        
-       this.freeBoardService = freeBoardService;
+        this.freeBoardService = freeBoardService;
     }
     
     /**
      * 자유게시판 전체 게시글 조회
      */
     @GetMapping("select/freeboard/list")
-    public String selectFreeBoardList(Model model) {
+    public String selectFreeBoardList(Model model, HttpServletResponse response, HttpServletRequest request) {
+    	
+    	Cookie[] cookies = request.getCookies();
+    	
+    	for(Cookie cookie: cookies) {
+    		
+    		if(!(cookie.getName().equals("freeboard"))) {
+    			
+    			cookie = new Cookie("freeboard",null); 			//freeboard라는 이름의 쿠키 생성
+    			cookie.setComment("freeboard 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
+    			
+    		}
+    	}
        
-       model.addAttribute("freeBoardList", freeBoardService.selectFreeBoardList());
+        model.addAttribute("freeBoardList", freeBoardService.selectFreeBoardList());
        
-       return "user/community/freeBoardList";
+        return "user/community/freeBoardList";
     }
     
     /**
@@ -62,19 +77,27 @@ public class FreeBoardController {
      * 게시글 내용, 사진, 댓글
      */
     @GetMapping("select/freeboard/detail")
-    public String selectFreeBoardDetail(Model model, @RequestParam int boardCode) {
+    public String selectFreeBoardDetail(@CookieValue(name = "freeboard") String cookie, HttpServletResponse response, Model model, @RequestParam int boardCode) {
        
-       // 조회수 카운트
-       freeBoardService.updateFreeBoardViews(boardCode);
-       
-       // 상세 내용 조회      
-       model.addAttribute("freeBoardDetail", freeBoardService.selectFreeBoardDetail(boardCode));
-       // 게시글 사진 조회
-       model.addAttribute("freeBoardImg", freeBoardService.selectFreeBoardImg(boardCode));
-       // 댓글 내용 조회
-       model.addAttribute("freeBoardReply", freeBoardService.selectFreeBoardReply(boardCode));
-       
-       return "user/community/freeBoardDetail";
+		if(!(cookie.contains(String.valueOf(boardCode)))) {
+			
+			cookie += boardCode + "/";
+			
+			// 조회수 카운트
+			freeBoardService.updateFreeBoardViews(boardCode);
+			
+		}
+		
+		response.addCookie(new Cookie("freeboard", cookie));
+    	
+        // 상세 내용 조회      
+        model.addAttribute("freeBoardDetail", freeBoardService.selectFreeBoardDetail(boardCode));
+        // 게시글 사진 조회
+        model.addAttribute("freeBoardImg", freeBoardService.selectFreeBoardImg(boardCode));
+        // 댓글 내용 조회
+        model.addAttribute("freeBoardReply", freeBoardService.selectFreeBoardReply(boardCode));
+        
+        return "user/community/freeBoardDetail";
     }
     
     /**
@@ -83,17 +106,17 @@ public class FreeBoardController {
     @PostMapping("insert/freeboard/reply")
     public String insertFreeBoardReply(@ModelAttribute FreeBoardReplyDTO reply, Model model, @RequestParam int code, @SessionAttribute UserInfoDTO loginUser) {
        
-       reply.setBoardCode(code);
-       reply.setUserCode(loginUser.getCode());
-       System.out.println(reply);
-       
-       if(freeBoardService.insertFreeBoardReply(reply) > 0) {
-          System.out.println("댓글 등록 성공");
-       } else {
-          System.out.println("댓글 등록 실패");
-       }
-             
-       return "redirect:/user/select/freeboard/detail?boardCode="+code;
+        reply.setBoardCode(code);
+        reply.setUserCode(loginUser.getCode());
+        System.out.println(reply);
+        
+        if(freeBoardService.insertFreeBoardReply(reply) > 0) {
+           System.out.println("댓글 등록 성공");
+        } else {
+           System.out.println("댓글 등록 실패");
+        }
+              
+        return "redirect:/user/select/freeboard/detail?boardCode="+code;
     }
     
     /**
@@ -102,17 +125,17 @@ public class FreeBoardController {
     @PostMapping("insert/freeboard/message")
     public String insertFreeBoardMessage(@ModelAttribute MessageTableDTO message, Model model, @RequestParam int code, @RequestParam String receiveUserNick, @SessionAttribute UserInfoDTO loginUser) {
        
- 	  message.setReceiveUserNick(receiveUserNick);
-       message.setUserCode(loginUser.getCode());
-       System.out.println(message);
-       
-       if(freeBoardService.insertFreeBoardMessage(message) > 0) {
-          System.out.println("쪽지 전송 성공");
-       } else {
-          System.out.println("쪽지 전송 실패");
-       }
-       
-       return "redirect:/user/select/freeboard/detail?boardCode="+code;
+ 	    message.setReceiveUserNick(receiveUserNick);
+        message.setUserCode(loginUser.getCode());
+        System.out.println(message);
+        
+        if(freeBoardService.insertFreeBoardMessage(message) > 0) {
+           System.out.println("쪽지 전송 성공");
+        } else {
+           System.out.println("쪽지 전송 실패");
+        }
+        
+        return "redirect:/user/select/freeboard/detail?boardCode="+code;
     }
     
     /**
@@ -121,18 +144,18 @@ public class FreeBoardController {
     @PostMapping("insert/freeboard/report")
     public String insertFreeBoardReport(@ModelAttribute FreeBoardReportDTO report, Model model, @RequestParam int code, @SessionAttribute UserInfoDTO loginUser) {
        
-       report.setUserCode(loginUser.getCode());
-       report.setBoardCode(code);
-       
-       System.out.println(report);
-       
-       if(freeBoardService.insertFreeBoardReport(report) > 0) {
-          System.out.println("신고 성공");
-       } else {
-          System.out.println("신고 실패");
-       }
-       
-       return "redirect:/user/select/freeboard/detail?boardCode="+code;
+        report.setUserCode(loginUser.getCode());
+        report.setBoardCode(code);
+        
+        System.out.println(report);
+        
+        if(freeBoardService.insertFreeBoardReport(report) > 0) {
+           System.out.println("신고 성공");
+        } else {
+           System.out.println("신고 실패");
+        }
+        
+        return "redirect:/user/select/freeboard/detail?boardCode="+code;
     }
    
     /**
@@ -141,10 +164,10 @@ public class FreeBoardController {
     @PostMapping("insert/freeboard/reportReply")
     public String insertFreeBoardReportReply(@ModelAttribute FreeBoardReplyDTO replyReport, Model model, @RequestParam int code, @RequestParam String inputReplyCode, @RequestParam String inputuserCode1, @SessionAttribute UserInfoDTO loginUser) {
        
- 	  replyReport.setUserCode(loginUser.getCode());
- 	  replyReport.setReplyCode(Integer.parseInt(inputReplyCode));
- 	  replyReport.setBoardCode(code);
- 	  replyReport.setUserCode1(Integer.parseInt(inputuserCode1));
+ 	   replyReport.setUserCode(loginUser.getCode());
+ 	   replyReport.setReplyCode(Integer.parseInt(inputReplyCode));
+ 	   replyReport.setBoardCode(code);
+ 	   replyReport.setUserCode1(Integer.parseInt(inputuserCode1));
        
        System.out.println(replyReport);
        
@@ -232,13 +255,6 @@ public class FreeBoardController {
 		} else {
 			System.out.println("이미지 작성 실패");
 		}
-		
-		// 이미지 관리 테이블 insert
-//		if(freeBoardService.insertFreeBoardImg2(picture) > 0) {
-//			System.out.println("이미지 관리 작성 성공");
-//		} else {
-//			System.out.println("이미지 관리 작성 실패");
-//		}
 		
 		return "redirect:/user/select/freeboard/list";
 		

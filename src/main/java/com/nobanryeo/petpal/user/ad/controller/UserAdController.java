@@ -222,7 +222,7 @@ public class UserAdController {
 			System.out.println("광고신청2 실패");
 		}
 		
-		return "redirect:/";
+		return "redirect:/user/select/ad/list";
 	}
 	
 }

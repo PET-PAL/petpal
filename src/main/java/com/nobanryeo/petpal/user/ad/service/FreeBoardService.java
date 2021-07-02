@@ -35,8 +35,5 @@ public interface FreeBoardService {
 
 	public int insertFreeBoardImg(PictureDTO picture);
 
-//	public int insertFreeBoardImg2(PictureDTO picture);
-
-	
 }
 
