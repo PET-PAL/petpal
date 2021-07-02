@@ -19,6 +19,7 @@
 	  	<result property="payDate2nd" column="PAY_DATE_2ND"/>
 	  	<result property="cancelApplyDate" column="CANCEL_APPLY_DATE"/>
 	  	<result property="refundYn" column="REFUND_YN"/>
+	  	<result property="clickNum" column="COUNT(*)"/>
 	  	<!-- 유저코드에 대한 유저이름 가져옴 (유저코드가 매개) -->
 	  	<!-- 하나의 유저코드는 하나의 유저명만 가질 수 있음 -->	  
 	  	<association property="user" javaType="com.nobanryeo.petpal.user.dto.UserInfoDTO">
@@ -330,6 +331,16 @@
 				          )
 			              WHERE RN BETWEEN #{start} AND #{end}
 	  </select>
-	 
+	  <select id="selectClickList" resultMap="adAdmin" parameterType="AdminPageInfoDTO" >
+	    SELECT 
+               A.AD_CODE
+             , NVL(COUNT(*),'')
+          FROM AD_CLICK_COUNT A
+         WHERE AD_CODE IN 
+      <foreach collection="list" item="click" open="(" separator="," close=")">
+	      	#{ click.adCode }
+	      </foreach> 
+         GROUP BY A.AD_CODE 
+	  </select>
 	 
 </mapper>
