@@ -225,4 +225,24 @@ public class UserAdController {
 		return "redirect:/user/select/ad/list";
 	}
 	
+	/**
+	 * 광고 1차 선결제 (카카오페이)
+	 */
+	@PostMapping("update/first/adPayment")
+	@ResponseBody
+	public String updateFirstAdPayment(@ModelAttribute AdDTO adDTO, @SessionAttribute UserInfoDTO loginUser) {
+		
+		adDTO.setUserCode(loginUser.getCode());
+		
+		System.out.println(adDTO);
+		
+		if(adService.updateFirstAdPayment(adDTO) > 0) {
+			System.out.println("결제 정보 수정 성공");
+		} else {
+			System.out.println("결제 정보 수정 실패");			
+		}
+		
+		return "redirect:/user/select/ad/list";
+	}
+	
 }

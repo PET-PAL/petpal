@@ -64,4 +64,10 @@ public class UserAdServiceImpl implements UserAdService {
 		return adMapper.insertAdSubmit2(adDTO);
 	}
 
+	@Override
+	public int updateFirstAdPayment(AdDTO adDTO) {
+
+		return adMapper.updateFirstAdPayment(adDTO);
+	}
+
 }
