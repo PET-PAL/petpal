@@ -29,6 +29,8 @@ public interface AdAdminMapper {
 
 	List<AdAdminDTO> selectAdAllList(AdminPageInfoDTO paging);
 
+	List<AdAdminDTO> selectClickList(List<AdAdminDTO> selectAdList);
+
 
 
 	

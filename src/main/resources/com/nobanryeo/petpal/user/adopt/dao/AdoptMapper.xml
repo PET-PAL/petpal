@@ -216,4 +216,34 @@
 		   AND R.REPLY_DELETE_YN = 'N'
 	  </select>
 	  
+	  <insert id="insertReply" parameterType="AdoptReplyDTO">
+	  	INSERT
+	  	  INTO REPLY_MANAGE 
+	  	VALUES
+	  	(
+	  		REPLY_CODE_SEQ.NEXTVAL
+		  , #{replyContent}
+          , SYSDATE
+          , 'N'
+          , 'N'
+          , #{replyUserCode}
+	  	)
+	  </insert>
+	  
+	  <insert id="insertReplyBoard" parameterType="AdoptReplyDTO">
+		  <selectKey keyProperty="replyCode" order="BEFORE" resultType="int">
+		  	SELECT
+		  	      REPLY_CODE_SEQ.CURRVAL
+		  	  FROM DUAL
+		  </selectKey>
+		  INSERT
+		    INTO ADOPT_BOARD_REPLY
+		  VALUES
+		  (
+		    #{boardCode}
+		  , #{replyCode}
+		  , #{replyUserCode}
+		  )
+	  </insert>
+	  
   </mapper>

@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
@@ -149,7 +150,7 @@ public class MessageController {
 	
 	
 	@PostMapping("message/messageSend")
-	public String messageSend(@ModelAttribute MessageTableDTO messageDTO, @SessionAttribute UserInfoDTO loginUser) {
+	public String messageSend(@ModelAttribute MessageTableDTO messageDTO, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) {
 		
 		System.out.println("보내는 쪽지 내용 : " + messageDTO);
 
@@ -201,6 +202,8 @@ public class MessageController {
 			System.out.println("쪽지 보내기 성공!");
 		} else {
 			System.out.println("쪽지 보내기 실패...");
+			rttr.addFlashAttribute("message", "쪽지 전송에 실패했습니다. 관련 오류 문의는 문의게시판 이용부탁드립니다.");
+			
 		}
 		
 		return "redirect:/user/mypage/message/messageDetail?userCode1="+messageDTO.getUserCode1()+"&userCode="+messageDTO.getUserCode();

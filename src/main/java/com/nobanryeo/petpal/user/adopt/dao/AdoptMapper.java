@@ -25,5 +25,9 @@ public interface AdoptMapper {
 
 	List<AdoptReplyDTO> selectReplyList(int code);
 
+	int insertReply(AdoptReplyDTO replyDTO);
+
+	int insertReplyBoard(AdoptReplyDTO replyDTO);
+
 	
 }
