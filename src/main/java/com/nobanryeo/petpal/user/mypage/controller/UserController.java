@@ -269,7 +269,7 @@ public class UserController {
 		System.out.println("넘어 온 문의 정보 : " + qnaDTO);
 		
 		if(userService.insertQuestion(qnaDTO)) {
-			rttr.addFlashAttribute("message", "문의 처리 예상 기간은 문의하고 난 후, 3일 이내입니다. 펫팔을 이용해주셔서 감사합니다!");
+			rttr.addFlashAttribute("message", "문의 처리 예상 기간은 문의하고 난 후, 3일 이내입니다. 문의내역은 마이페이지에서 조회가 가능합니다!");
 		} else {
 			rttr.addFlashAttribute("message", "문의하기에 실패했습니다. 지속 된 실패는 고객센터(02-7777-7777)로 문의바랍니다.");
 		}

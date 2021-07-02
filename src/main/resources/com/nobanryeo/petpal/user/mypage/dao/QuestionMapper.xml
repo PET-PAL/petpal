@@ -15,10 +15,31 @@
 		<result column="USER_CODE" property="userCode"/>
 	</resultMap>
 	
-	<select id="selectQnACount">
-	
+	<select id="selectQnACount" resultType="int">
+       SELECT
+              COUNT(*)
+         FROM QUESTION_BOARD
+        WHERE USER_CODE = #{ userCode }
 	</select>
-
+	
+	<select id="selectQnAList" resultMap="QnAResultSet" parameterType="hashmap">
+	   SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+                                BOARD_CODE
+                               ,BOARD_TITLE
+                               ,BOARD_CONTENT
+                               ,QUESTION_TYPE
+                               ,BOARD_POST_DATE
+                               ,ADMIN_REPLY_CONTENT
+                               ,STATE_CODE
+                               ,USER_CODE
+                  FROM QUESTION_BOARD
+                 WHERE USER_CODE = #{ qnaDTO.userCode }
+              ORDER BY BOARD_POST_DATE DESC) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY BOARD_POST_DATE DESC	
+	</select>
 
 
 

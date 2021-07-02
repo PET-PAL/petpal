@@ -1,7 +1,11 @@
 package com.nobanryeo.petpal.user.mypage.service;
 
+import java.util.HashMap;
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
+import com.nobanryeo.petpal.user.dto.AdQnADTO;
 import com.nobanryeo.petpal.user.mypage.dao.QuestionMapper;
 
 @Service
@@ -14,9 +18,15 @@ public class QuestionServiceImpl implements QuestionService{
 	}
 
 	@Override
-	public int selectQnACount(int userCode) {
+	public int selectQnACount(int code) {
 		
-		return mapper.selectQnACount(userCode);
+		return mapper.selectQnACount(code);
+	}
+
+	@Override
+	public List<AdQnADTO> selectQnAList(HashMap<String, Object> map) {
+		
+		return mapper.selectQnAList(map);
 	}
 
 }

@@ -163,39 +163,55 @@
 			                        </tr>
 			                    </thead>
 			                    <tbody>
-			                        <tr class="generalQna" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/qnaDetail.jsp'">
-			                            <td style="text-align: center; padding-left: 15px;">회원탈퇴하고싶습니다.</td>
-			                            <td style="text-align: center;">일반문의</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-			                            <td style="text-align: center;">N</td>
-			                        </tr>
-			                        <tr class="generalQna" onclick="location.href=''">
-			                            <td style="text-align: center; padding-left: 15px;">이메일 변경</td>
-			                            <td style="text-align: center;">일반문의</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-			                            <td style="text-align: center;">N</td>
-			                        </tr>
-			                        <tr class="adQna" onclick="location.href=''">
-			                            <td style="text-align: center; padding-left: 15px;">광고 신청 문의합니다.</td>
-			                            <td style="text-align: center;">광고문의</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-			                            <td style="text-align: center;">Y</td>
-			                        </tr>
+			                     <c:forEach items="${ qnaList }" var="list">
+			                     <c:if test="${ list.questionType eq 1 }">
+			                        <tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaRepostList/qnaDetail'">
+			                     </c:if>
+			                     <c:if test="${ list.questionType eq 2 }">
+			                        <tr class="ad" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaRepostList/qnaDetail'">
+			                     </c:if>
+			                            <td style="text-align: center; padding-left: 15px;">${ list.boardTitle }</td>
+			                            <c:if test="${ list.questionType eq 1 }">
+			                            <td style="text-align: center;"><c:out value="일반문의"/></td>
+			                            </c:if>
+			                            <c:if test="${ list.questionType eq 2 }">
+			                            <td style="text-align: center;"><c:out value="광고문의"/></td>
+			                            </c:if>
+			                            <td style="text-align: center;">${ list.boardPostDate }</td>
+			                            <c:choose>
+			                            	<c:when test="${ empty list.adminReplyContent }">
+			                            	<td style="text-align: center;"><c:out value="대기중"/></td>
+			                            	</c:when>
+			                            	<c:otherwise>
+			                            	<td style="text-align: center;"><c:out value="답변완료"/></td>
+			                            	</c:otherwise>
+			                            </c:choose>
+			                     </tr>
+			                     </c:forEach>
 			                    </tbody>
 			                </table>
-			                
-			                
-			                
-			                
-			                
 			                <div class="text-center">
-								<ul class="pagination">
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-								</ul>
-							</div>
+							<ul class="pagination">
+							<li>
+								<c:if test="${paging.startPage != 1 }">
+									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/qnaReportList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+								</c:if>
+								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+									<c:choose>
+										<c:when test="${p == paging.nowPage }">
+											<li><a>${p }</a></li>
+										</c:when>
+										<c:when test="${p != paging.nowPage }">
+											<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/qnaReportList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+										</c:when>
+									</c:choose>
+								</c:forEach>
+								<c:if test="${paging.endPage != paging.lastPage}">
+									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/qnaReportList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+								</c:if>
+								</li>
+							</ul>
+						</div>
 	                	</div>
 					</div>
 					
@@ -266,12 +282,13 @@
 						filterNo = 1;
 					}
 					
+					
 					if(filterNo == 1) {
-						$(".adQna").hide();
-						$(".generalQna").show();
+						$(".nomal").hide();
+						$(".ad").show();
 					} else {
-						$(".generalQna").hide();
-						$(".adQna").show();
+						$(".ad").hide();
+						$(".nomal").show();
 					}
 					
 				}
