@@ -28,6 +28,16 @@ public class QuestionController {
 		this.questionService = questionService;
 	}
 
+	/**
+	 * 문의내역 리스트
+	 * @param qnaDTO
+	 * @param loginUser
+	 * @param page
+	 * @param model
+	 * @param nowPage
+	 * @param cntPerPage
+	 * @return
+	 */
 	@GetMapping("qnaReportList")
 	public String qnaReportList(@ModelAttribute AdQnADTO qnaDTO, @SessionAttribute UserInfoDTO loginUser
 			, PageDTO page , Model model
@@ -76,6 +86,16 @@ public class QuestionController {
 		
 	    return "user/mypage/qnaReportList";
 	}
+	
+	@GetMapping("qnaRepostList/qnaDetail")
+	public String qnaDetail() {
+		
+		return "user/mypage/qnaDetail";
+	}
+	
+	
+	
+	
 	
 	
 	
