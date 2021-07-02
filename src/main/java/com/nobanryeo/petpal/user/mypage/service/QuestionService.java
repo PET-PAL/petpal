@@ -11,4 +11,6 @@ public interface QuestionService {
 
 	List<AdQnADTO> selectQnAList(HashMap<String, Object> map);
 
+	AdQnADTO selectQnADetail(int boardCode);
+
 }

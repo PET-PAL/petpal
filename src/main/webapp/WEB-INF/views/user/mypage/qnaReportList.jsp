@@ -165,25 +165,25 @@
 			                    <tbody>
 			                     <c:forEach items="${ qnaList }" var="list">
 			                     <c:if test="${ list.questionType eq 1 }">
-			                        <tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaRepostList/qnaDetail'">
+			                        <tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaRepostList/qnaDetail?boardCode=${list.boardCode}'">
 			                     </c:if>
 			                     <c:if test="${ list.questionType eq 2 }">
-			                        <tr class="ad" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaRepostList/qnaDetail'">
+			                        <tr class="ad" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaRepostList/qnaDetail?boardCode=${list.boardCode}'">
 			                     </c:if>
-			                            <td style="text-align: center; padding-left: 15px;">${ list.boardTitle }</td>
+			                            <td style="text-align: center; padding-left: 15px;">${ list.boardTitle }</td>				
 			                            <c:if test="${ list.questionType eq 1 }">
 			                            <td style="text-align: center;"><c:out value="일반문의"/></td>
 			                            </c:if>
 			                            <c:if test="${ list.questionType eq 2 }">
 			                            <td style="text-align: center;"><c:out value="광고문의"/></td>
 			                            </c:if>
-			                            <td style="text-align: center;">${ list.boardPostDate }</td>
+			                            <td style="text-align: center;" name="boardPostDate">${ list.boardPostDate }</td>
 			                            <c:choose>
 			                            	<c:when test="${ empty list.adminReplyContent }">
-			                            	<td style="text-align: center;"><c:out value="대기중"/></td>
+			                            	<td style="text-align: center;" name="adminReplyContent"><c:out value="대기중"/></td>
 			                            	</c:when>
 			                            	<c:otherwise>
-			                            	<td style="text-align: center;"><c:out value="답변완료"/></td>
+			                            	<td style="text-align: center;" name="adminReplyContent"><c:out value="답변완료"/></td>
 			                            	</c:otherwise>
 			                            </c:choose>
 			                     </tr>

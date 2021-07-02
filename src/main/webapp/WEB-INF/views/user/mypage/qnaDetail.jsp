@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -84,7 +85,7 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left;">문의 / 신고 내역</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/qnaReportList.jsp'" style="width:50px; float: right;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/qnAReportList.jsp'" style="width:50px; float: right;">
             </section> <!--End off Home Sections-->
 
             <section id="menutable" class="menutable">
@@ -92,22 +93,32 @@
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
-							<td>회원탈퇴하고싶습니다</td>
-							<td style="text-align: center; background-color: #F1FAF8;"><b>답변여부</b></td>
-							<td style="border-radius: 0px 21px 0px 0px;">N</td>
+							<td>${ qnA.boardTitle }</td>
+							<td style="text-align: center; background-color: #F1FAF8;"><b>문의코드</b></td>
+							<td style="border-radius: 0px 21px 0px 0px;">${ qnA.boardCode }</td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>문의 구분</b></td>
-							<td>일반 문의</td>
+							<td>
+							<c:if test="${ qnA.questionType eq 1 }">
+							<c:out value="일반문의"/>
+							</c:if>
+							<c:if test="${ qnA.questionType eq 2 }">
+							<c:out value="광고문의"/>
+							</c:if>
+							</td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>문의 일자</b></td>
-							<td>2021-06-17</td>
+							<td>${ qnA.boardPostDate }</td>
 						</tr>
 					</table>
-					<p style="margin-bottom: 50px; margin-left: 8px;">회원탈퇴하고 싶은데 어디에서 하는지 모르겠습니다. 어디서 해야하나요?</p>
+					<p style="margin-bottom: 50px; margin-left: 8px;">${ qnA.boardContent }</p>
 		        </div>
 				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">관리자 답변</div>
 				<div>
-					<textarea class="form-control textarea-layer" style="resize:none; width: 70%; height: 120px; margin-top: 10px; margin: 0px auto; border-radius: 20px; margin-bottom: 50px;" disabled></textarea>
+					
+					<pre class="form-control textarea-layer" style="resize:none; width: 70%; height: 120px; margin-top: 10px; margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+					<c:out value="${ qnA.adminReplyContent }"/>
+					</pre>
 				</div>
             </section>
 

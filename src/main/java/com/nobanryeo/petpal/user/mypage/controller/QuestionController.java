@@ -88,7 +88,16 @@ public class QuestionController {
 	}
 	
 	@GetMapping("qnaRepostList/qnaDetail")
-	public String qnaDetail() {
+	public String qnaDetail(@RequestParam int boardCode, Model model) {
+		
+		System.out.println("넘어온 문의 코드 : " + boardCode);
+		
+		AdQnADTO qnA = questionService.selectQnADetail(boardCode);
+		
+		System.out.println("상세정보 : " + qnA);
+		
+		model.addAttribute("qnA", qnA);
+		
 		
 		return "user/mypage/qnaDetail";
 	}

@@ -29,4 +29,10 @@ public class QuestionServiceImpl implements QuestionService{
 		return mapper.selectQnAList(map);
 	}
 
+	@Override
+	public AdQnADTO selectQnADetail(int boardCode) {
+		return mapper.selectQnADetail(boardCode);
+		
+	}
+
 }
