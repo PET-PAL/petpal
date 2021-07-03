@@ -14,7 +14,16 @@
 		<result column="STATE_CODE" property="stateCode"/>
 		<result column="USER_CODE" property="userCode"/>
 	</resultMap>
-	
+
+	<resultMap id="ReportResultSet" type="ReportManageDTO">
+		<id column="REPORT_CODE" property="reportCode"/>
+		<result column="REPORT_TITLE" property="title"/>
+		<result column="REPORT_CONTENT" property="content"/>
+		<result column="REPORT_DATE" property="date"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
+		<result column="USER_CODE" property="userCode"/>
+	</resultMap>
+
 	<select id="selectQnACount" resultType="int">
 		SELECT
 		       COUNT(*)
@@ -55,6 +64,29 @@
 		 WHERE BOARD_CODE = #{ boardCode }
 	</select>
 
+	<select id="selectReportCount" resultType="int">
+		SELECT
+		       COUNT(*)
+		  FROM REPORT_MANAGE
+		 WHERE USER_CODE = #{ userCode }
+	</select>
+	
+	<select id="selectReportList" resultMap="ReportResultSet" parameterType="hashmap">
+		SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+		                        REPORT_CODE
+		                       ,REPORT_TITLE
+		                       ,REPORT_CONTENT
+		                       ,REPORT_DATE
+		                       ,DECISION_CODE
+		                       ,USER_CODE
+		          FROM REPORT_MANAGE
+		         WHERE USER_CODE = #{ reportDTO.userCode }
+		      ORDER BY REPORT_DATE DESC) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY REPORT_DATE DESC	
+	</select>
 
 
 </mapper>

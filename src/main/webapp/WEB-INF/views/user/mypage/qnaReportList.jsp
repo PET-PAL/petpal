@@ -143,15 +143,36 @@
 
             <section id="list" class="list" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div class="tab">
-					<span class="tab_btn active" data-toggle="tab" href="#menu0" >문의 내역</span>
-					<span class="tab_btn" data-toggle="tab" href="#menu1">신고 내역</span>
+					<span class="tab_btn active" data-toggle="tab">문의 내역</span>
+					<span class="tab_btn" data-toggle="tab" id="report">신고 내역</span>
 					<img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/'" style="width:50px; float: right;">
 				</div>
             </section>
 
+<script>
+$("#report").click(function(){
+	var report = "report";
+	$.ajax({
+		url:"${ pageContext.servletContext.contextPath }/user/mypage/reportList",
+		type:"get",
+		data:{report:report},
+		success:function(data){
+			console.log("성공!!");
+			$("#menu1").css("display","block");
+			$("#menu0").css("display","none");
+			return;
+		},
+		error:function(data){
+			console.log("실패...");
+		}
+	});
+	return false;
+});
+</script>
+
             <section id="menutable" class="menutable">
 				<div class="tab-content">
-	                <div id="menu0" class="tab-pane fade in active">
+	                <div id="menu0" class="tab-pane fade in active" style="display: block;">
 						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		                	<table class="table table-hover" style="margin-bottom: 50px;">
 			                    <thead>
@@ -177,45 +198,46 @@
 			                            <c:if test="${ list.questionType eq 2 }">
 			                            <td style="text-align: center;"><c:out value="광고문의"/></td>
 			                            </c:if>
-			                            <td style="text-align: center;" name="boardPostDate">${ list.boardPostDate }</td>
+			                            <td style="text-align: center;">${ list.boardPostDate }</td>
 			                            <c:choose>
 			                            	<c:when test="${ empty list.adminReplyContent }">
-			                            	<td style="text-align: center;" name="adminReplyContent"><c:out value="대기중"/></td>
+			                            	<td style="text-align: center;"><c:out value="대기중"/></td>
 			                            	</c:when>
 			                            	<c:otherwise>
-			                            	<td style="text-align: center;" name="adminReplyContent"><c:out value="답변완료"/></td>
+			                            	<td style="text-align: center;"><c:out value="답변완료"/></td>
 			                            	</c:otherwise>
 			                            </c:choose>
-			                     </tr>
 			                     </c:forEach>
+			                     </tr>
 			                    </tbody>
 			                </table>
-			                <div class="text-center">
+
+						<div class="text-center">
 							<ul class="pagination">
-							<li>
-								<c:if test="${paging.startPage != 1 }">
-									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/qnaReportList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
-								</c:if>
-								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-									<c:choose>
-										<c:when test="${p == paging.nowPage }">
-											<li><a>${p }</a></li>
-										</c:when>
-										<c:when test="${p != paging.nowPage }">
-											<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/qnaReportList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-										</c:when>
-									</c:choose>
-								</c:forEach>
-								<c:if test="${paging.endPage != paging.lastPage}">
-									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/qnaReportList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
-								</c:if>
-								</li>
+								<li><c:if test="${paging.startPage != 1 }">
+										<li><a
+											href="${ pageContext.servletContext.contextPath }/user/mypage/qnaList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if> <c:forEach begin="${paging.startPage }"
+										end="${paging.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == paging.nowPage }">
+												<li><a>${p }</a></li>
+											</c:when>
+											<c:when test="${p != paging.nowPage }">
+												<li><a
+													href="${ pageContext.servletContext.contextPath }/user/mypage/qnaList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach> <c:if test="${paging.endPage != paging.lastPage}">
+										<li><a
+											href="${ pageContext.servletContext.contextPath }/user/mypage/qnaList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									</c:if></li>
 							</ul>
 						</div>
-	                	</div>
+					</div>
 					</div>
 					
-					<div id="menu1" class="tab-pane fade">
+					<div id="menu1" class="tab-pane fade" style="display: none;" >
 						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		                	<table class="table table-hover" style="margin-bottom: 50px;">
 			                    <thead>
@@ -227,13 +249,20 @@
 			                        </tr>
 			                    </thead>
 			                    <tbody>
+			                        <c:forEach items="${ reportList }" var="report">
 			                        <tr class="before" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/reportDetail.jsp'">
-			                            <td style="text-align: center; padding-left: 15px;">광고성 게시글 작성</td>
-			                            <td style="text-align: center;">황주디</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-			                            <td style="text-align: center; color: red;">처리전</td>
+			                            <td style="text-align: center; padding-left: 15px;">${ report.title }</td>
+			                            <td style="text-align: center; padding-left: 15px;">${ report.content }</td>
+			                            <td style="text-align: center; padding-left: 15px;">${ report.date }</td>
+			                            <c:if test="${ report.decisionCode eq null }">
+			                            <td style="text-align: center; padding-left: 15px;"><c:out value="처리전"/></td>
+			                            </c:if>
+			                            <c:if test="${ !report.decisionCode eq null }">
+			                            <td style="text-align: center; padding-left: 15px;"><c:out value="처리완료"/></td>
+			                            </c:if>
 			                        </tr>
-			                        <tr class="before" onclick="location.href=''">
+			                        </c:forEach>
+			                        <!-- <tr class="before" onclick="location.href=''">
 			                            <td style="text-align: center; padding-left: 15px;">비속어 사용</td>
 			                            <td style="text-align: center;">업나라</td>
 			                            <td style="text-align: center;">2021-06-17</td>
@@ -244,7 +273,7 @@
 			                            <td style="text-align: center;">킘해인</td>
 			                            <td style="text-align: center;">2021-06-17</td>
 										<td style="text-align: center; color: #45B99C;">처리완료</td>
-			                        </tr>
+			                        </tr> -->
 			                    </tbody>
 			                </table>
 			                <div class="text-center">
@@ -260,7 +289,7 @@
             	</div>
             </section>
             
-            <script>
+           <script>
 				let targetLink = document.querySelectorAll('.tab span');
 				for(var i = 0; i < targetLink.length; i++) {
 					targetLink[i].addEventListener('click', function(e){
