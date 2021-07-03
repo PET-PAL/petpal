@@ -5,6 +5,8 @@ import java.util.List;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 
 public interface AdoptMapper {
@@ -28,6 +30,14 @@ public interface AdoptMapper {
 	int insertReply(AdoptReplyDTO replyDTO);
 
 	int insertReplyBoard(AdoptReplyDTO replyDTO);
+
+	int insertBoardReport(FreeBoardReportDTO boardreportDTO);
+
+	int insertReplyReport(AdoptReplyDTO adoptreplyDTO);
+
+	int insertBoardReportMid(FreeBoardReportDTO boardreportDTO);
+
+	int insertMessage(MessageTableDTO messageDTO);
 
 	
 }
