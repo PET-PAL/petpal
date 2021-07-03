@@ -165,6 +165,9 @@
                                     		<c:when test="${ adApprove.stateCode eq 3}">
                                     			거절
                                     		</c:when>
+                                    		<c:when test="${ adApprove.stateCode eq 4}">
+                                    			취소
+                                    		</c:when>
                                     	</c:choose>
                                     </td>
                                   </tr>
@@ -184,6 +187,9 @@
 		                                    	 <c:choose>
 		                                    		<c:when test="${ adApprove.stateCode eq 1}">
 		                                    			대기
+		                                    		</c:when>
+		                                    		<c:when test="${ adApprove.stateCode eq 4}">
+		                                    			취소
 		                                    		</c:when>
 		                                    	</c:choose> 
 		                                    </td>
@@ -206,6 +212,9 @@
 		                                    		<c:when test="${ adApprove.stateCode eq 2}">
 		                                    			승인
 		                                    		</c:when>
+		                                    		<c:when test="${ adApprove.stateCode eq 4}">
+		                                    			취소
+		                                    		</c:when>
 		                                    	</c:choose> 
 		                                    </td>
 	                                  </tr>
@@ -226,6 +235,9 @@
 		                                    	<c:choose>
 		                                    		<c:when test="${ adApprove.stateCode eq 3}">
 		                                    			거절
+		                                    		</c:when>
+		                                    		<c:when test="${ adApprove.stateCode eq 4}">
+		                                    			취소
 		                                    		</c:when>
 		                                    	</c:choose> 
 		                                    </td>

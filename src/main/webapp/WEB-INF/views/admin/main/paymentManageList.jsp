@@ -163,7 +163,8 @@ select { width: 150px; /* 원하는 너비설정 */
 											<table class="table table-hover text-center" style="text-align:center;">
 												<thead>
 													<tr>
-														<th style="text-align:center;">글쓴이 (유저아이디)</th>
+													 	<th scope="col">광고 코드</th>
+                                    					<th scope="col">광고 신청자</th>
 														<th style="text-align:center;">정산 카테고리</th>
 														<th style="text-align:center;">청구 일자</th>
 														<th style="text-align:center;">지급 상태</th>
@@ -171,170 +172,215 @@ select { width: 150px; /* 원하는 너비설정 */
 													</tr>
 												</thead>
 												<tbody>
+												<c:choose>
+												<c:when test="${ empty category }">
+												<c:forEach var="adApprove" items="${ requestScope.payList }">
 													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
-														<td>황주디 (judy1)</td>
-														<td>광고(선)</td>
+														<th scope="row">${ adApprove.adCode }</th>
+	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+														<td>
+														<c:if test= "${ empty adApprove.payDate1st }">
+														1차
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st }">
+														2차
+														</c:if>
+														</td>
 														<td>2021.06.11</td>
-														<td style="color:orange;">납부 전</td>
+														<td>납부 전</td>
 														<td>250000</td>
 													</tr>
-													<tr>
-														<td>손불독 (bulls1)</td>
-														<td>광고(선)</td>
-														<td>2021.06.09</td>
-														<td style="color:red;">납기 초과</td>
-														<td>210000</td>
+												 </c:forEach>
+												 </c:when>
+												 
+												<c:when test="${ category eq 1 }">
+												<c:forEach var="adApprove" items="${ requestScope.payList }">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
+														<th scope="row">${ adApprove.adCode }</th>
+	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+														<td>
+														<c:if test= "${ empty adApprove.payDate1st }">
+														1차
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st }">
+														2차
+														</c:if>
+														</td>
+														<td>
+														<c:if test= "${ empty adApprove.payDate1st }">
+															<c:out value="${ adApprove.decision.decisionDate }"/>
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st }">
+															<c:out value="${ adApprove.postEndDate }"/>
+														</c:if>
+														</td>
+														<td>납부 전</td>
+														<td>
+														<c:if test= "${ empty adApprove.payDate1st }">
+															 <c:choose>
+											                    <c:when test="${adApprove.adTypeCode eq 1}">
+											                    	200000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 3}">
+											                    	100000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 2}">
+											                    	350000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 4}">
+											                    	250000
+											                    </c:when>
+									                          </c:choose>
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st }">
+															${ adApprove.price2nd }
+														</c:if>
+														</td>
 													</tr>
-													<tr>
-														<td>업나라 (naranara)</td>
-														<td>광고(전)</td>
-														<td>2021.05.11</td>
-														<td>납기 취소</td>
-														<td>194000</td>
+												 </c:forEach>
+												 </c:when>
+												 
+												<c:when test="${ category eq 2 }">
+												<c:forEach var="adApprove" items="${ requestScope.payList }">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
+														<th scope="row">${ adApprove.adCode }</th>
+	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+														<td>
+														<c:choose>
+														<c:when test= "${ not empty adApprove.payDate2nd }">
+														2차
+														</c:when>
+														<c:otherwise>
+														1차
+														</c:otherwise>
+														</c:choose>
+														</td>
+														<td>
+														<c:choose>
+														<c:when test= "${ not empty adApprove.payDate2nd }">
+															<c:out value="${ adApprove.postEndDate }"/>
+														</c:when>
+														<c:otherwise>
+															<c:out value="${ adApprove.decision.decisionDate }"/>
+														</c:otherwise>
+														</c:choose>
+														</td>
+														<td>납부 완료</td>
+														<td>
+														<c:choose>
+														<c:when test= "${ not empty adApprove.payDate2nd }">
+															${ adApprove.price2nd }
+														</c:when>
+														<c:otherwise>
+															 <c:choose>
+											                    <c:when test="${adApprove.adTypeCode eq 1}">
+											                    	200000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 3}">
+											                    	100000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 2}">
+											                    	350000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 4}">
+											                    	250000
+											                    </c:when>
+									                          </c:choose>
+														</c:otherwise>
+														</c:choose>
+														</td>
 													</tr>
-													<tr>
-														<td>뉴진 (newjean2)</td>
-														<td>광고(후)</td>
-														<td>2021.04.11</td>
-														<td style="color:green;">납부 완료</td>
-														<td>210000</td>
+												 </c:forEach>
+												 </c:when>
+												 
+												<c:when test="${ category eq 3 }">
+												<c:forEach var="adApprove" items="${ requestScope.payList }">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
+														<th scope="row">${ adApprove.adCode }</th>
+	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+														<td>
+														<c:choose>
+														<c:when test= "${ empty adApprove.payDate1st }">
+														1차
+														</c:when>
+														<c:otherwise>
+														2차
+														</c:otherwise>
+														</c:choose>
+														</td>
+														<td>
+														<c:choose>
+														<c:when test= "${ empty adApprove.payDate1st }">
+															<c:out value="${ adApprove.decision.decisionDate }"/>
+														</c:when>
+														<c:otherwise>
+															<c:out value="${ adApprove.postEndDate }"/>
+														</c:otherwise>
+														</c:choose>
+														</td>
+														<td>납부 초과</td>
+														<td>
+														<c:choose>
+														<c:when test= "${ empty adApprove.payDate1st }">
+															 <c:choose>
+											                    <c:when test="${adApprove.adTypeCode eq 1}">
+											                    	200000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 3}">
+											                    	100000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 2}">
+											                    	350000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 4}">
+											                    	250000
+											                    </c:when>
+									                          </c:choose>
+														</c:when>
+														<c:otherwise>
+															${ adApprove.price2nd }
+														</c:otherwise>
+														</c:choose>
+														</td>
 													</tr>
+												 </c:forEach>
+												 </c:when>
+												 
+												<c:when test="${ category eq 4 }">
+												<c:forEach var="adApprove" items="${ requestScope.payList }">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
+														<th scope="row">${ adApprove.adCode }</th>
+	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+														<td>1차</td>
+														<td>
+														<c:out value="${ adApprove.decision.decisionDate }"/>
+														</td>
+														<td>납부 취소</td>
+														<td>
+														 <c:choose>
+											                    <c:when test="${adApprove.adTypeCode eq 1}">
+											                    	200000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 3}">
+											                    	100000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 2}">
+											                    	350000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 4}">
+											                    	250000
+											                    </c:when>
+									                          </c:choose>
+														</td>
+													</tr>
+												 </c:forEach>
+												 </c:when>
+												 
+												 </c:choose>
 												</tbody>
 											</table>
-													<div class="text-center">
-														<ul class="pagination">
-															<li><a href="#">1</a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-														</ul>
-													</div>			
-                                        </div>
-                                        <div role="tabpanel" class="tab-pane" id="profile">
-                                        	<table class="table table-hover" style="text-align:center;">
-												<thead>
-													<tr>
-														<th style="text-align:center;">글쓴이 (유저아이디)</th>
-														<th style="text-align:center;">정산 카테고리</th>
-														<th style="text-align:center;">청구 일자</th>
-														<th style="text-align:center;">지급 상태</th>
-														<th style="text-align:center;">청구 금액</th>
-													</tr>
-												</thead>
-														<tbody>
-															<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
-																<td>황주디 (judy1)</td>
-																<td>광고(선)</td>
-																<td>2021.06.11</td>
-																<td style="color:orange;">납부 전</td>
-																<td>250000</td>
-															</tr>
-															<tr>
-																<td>황퐝 (judy2)</td>
-																<td>광고(선)</td>
-																<td>2021.06.11</td>
-																<td style="color:orange;">납부 전</td>
-																<td>250000</td>
-															</tr>
-														</tbody>
-													</table>
-													<div class="text-center">
-														<ul class="pagination">
-															<li><a href="#">1</a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-														</ul>
-													</div>			
-                                       </div>
-                                        <div role="tabpanel" class="tab-pane" id="messages">
-                                        <table class="table table-hover" style="text-align:center;">
-												<thead>
-													<tr>
-														<th style="text-align:center;">글쓴이 (유저아이디)</th>
-														<th style="text-align:center;">정산 카테고리</th>
-														<th style="text-align:center;">청구 일자</th>
-														<th style="text-align:center;">지급 상태</th>
-														<th style="text-align:center;">청구 금액</th>
-													</tr>
-												</thead>
-														<tbody>
-															<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
-																<td>업나라 (naranara)</td>
-																<td>광고(후)</td>
-																<td>2021.05.11</td>
-																<td style="color:red;">납기 초과</td>
-																<td>194000</td>
-															</tr>
-														</tbody>
-													
-													</table>
-													<div class="text-center">
-														<ul class="pagination">
-															<li><a href="#">1</a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-														</ul>
-													</div>			
-                                        </div>
-                                        <div role="tabpanel" class="tab-pane" id="settings">
-                                        <table class="table table-hover" style="text-align:center;">
-												<thead>
-													<tr>
-														<th style="text-align:center;">글쓴이 (유저아이디)</th>
-														<th style="text-align:center;">정산 카테고리</th>
-														<th style="text-align:center;">청구 일자</th>
-														<th style="text-align:center;">지급 상태</th>
-														<th style="text-align:center;">청구 금액</th>
-													</tr>
-												</thead>
-														<tbody>
-															<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
-																<td>뉴진 (newjean2)</td>
-																<td>광고(후)</td>
-																<td>2021.04.11</td>
-																<td>납부 완료</td>
-																<td>210000</td>
-															</tr>
-														</tbody>
-													
-													</table>
-													<div class="text-center">
-														<ul class="pagination">
-															<li><a href="#">1</a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-														</ul>
-													</div>			
-                                         </div>
-                                         <div role="tabpanel" class="tab-pane" id="cancel">
-                                        <table class="table table-hover" style="text-align:center;">
-												<thead>
-													<tr>
-														<th style="text-align:center;">글쓴이 (유저아이디)</th>
-														<th style="text-align:center;">정산 카테고리</th>
-														<th style="text-align:center;">청구 일자</th>
-														<th style="text-align:center;">지급 상태</th>
-														<th style="text-align:center;">청구 금액</th>
-													</tr>
-												</thead>
-														<tbody>
-															<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
-																<td>업나라 (naranara)</td>
-																<td>광고(전)</td>
-																<td>2021.05.11</td>
-																<td>납기 취소</td>
-																<td>194000</td>
-															</tr>
-														</tbody>
-													
-													</table>
-														
-                                         </div>
-                                         
-                                            <!-- 페이징 몇 개씩 볼지 선택 -->
+											
+                            <!-- 페이징 몇 개씩 볼지 선택 -->
                             <div style="display: block; text-align: center;">	
 				              <div style="float: right;">
 								<select id="cntPerPage" name="sel" onchange="selChange()">
@@ -354,7 +400,7 @@ select { width: 150px; /* 원하는 너비설정 */
 						<!-- 페이징 버튼 -->
 						<ul class="pagination">
 	                        <c:if test="${paging.startPage != 1 }">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
 	                        </c:if>
 	                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 	                           <c:choose>
@@ -362,20 +408,21 @@ select { width: 150px; /* 원하는 너비설정 */
 	                                 <li><a>${p }</a></li>
 	                              </c:when>
 	                              <c:when test="${p != paging.nowPage }">
-	                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+	                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
 	                              </c:when>
 	                           </c:choose>
 	                        </c:forEach>
 	                        <c:if test="${paging.endPage != paging.lastPage}">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 	                        </c:if>
 	                       </ul>
 								
 							</div>
-                                         
-                                         
-                        </div>
-                    </div>
+														
+                         </div>
+                                   
+                </div>
+              </div>
        		  </div>		
 		</div>
     </section><!-- End off Product section -->

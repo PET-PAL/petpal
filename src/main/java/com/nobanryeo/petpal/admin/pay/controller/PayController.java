@@ -43,7 +43,7 @@ public class PayController {
 			cntPerPage = "5";
 		}
 		
-		List<AdAdminDTO> selectAdPayList = null;
+		List<AdAdminDTO> selectAdPayAllList = null;
 		
 		// 검색 안 했을 떄
 	    if(searchValue == null) {
@@ -58,16 +58,16 @@ public class PayController {
 	    	System.out.println("총 개수 : " + total);
 	    	
 	    	// 페이징 정보
-//	    	paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category);
-//	    	
+	    	paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category);
+	    	
 //	    	// 광고 심사 리스트
-//	    	selectAdPayList = payAdminService.selectAdPayList(paging);
+	    	selectAdPayAllList = payAdminService.selectAdPayAllList(paging);
 //	    	
-//	    	System.out.println("검색 안 했을 때 검색결과 : " + selectAdPayList);
+//	    	System.out.println("검색 안 했을 때 검색결과 : " + selectAdPayAllList);
 	    	
 	    		// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
 	    		model.addAttribute("paging", paging);
-	    		model.addAttribute("adList", selectAdPayList);
+	    		model.addAttribute("payList", selectAdPayAllList);
 	    		model.addAttribute("category", category);
 	    		model.addAttribute("total", total);
 
