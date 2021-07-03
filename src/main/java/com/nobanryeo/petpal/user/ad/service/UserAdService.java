@@ -20,6 +20,8 @@ public interface UserAdService {
 	public int insertAdSubmit2(AdDTO adDTO);
 
 	public int updateFirstAdPayment(AdDTO adDTO);
+
+	public int updateCancelAd(AdDTO adDTO);
 	
 
 }
