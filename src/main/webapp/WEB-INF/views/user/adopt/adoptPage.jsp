@@ -93,8 +93,8 @@
                 <hr style="border-color: rgb(175, 175, 175); width: 90%;">
             </section> <!--End off Home Sections-->
 			<div style="width: 370px; position: relative; left: 60%;">
-		            <form style="margin-bottom: 40px;">
-						<input type="search" placeholder="지역 키워드를 입력해주세요" aria-label="Search"
+		            <form style="margin-bottom: 40px;" action="">
+						<input type="search" name="search" placeholder="지역 키워드를 입력해주세요" aria-label="Search"
 						style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;" autofocus/>
 						<span>
 						<button type="submit" style="background-color: white; height: 40px; width: 50px; float: right; border: solid 1px; border-color: black; border-radius: 5px;">

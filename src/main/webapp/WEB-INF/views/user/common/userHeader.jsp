@@ -103,7 +103,7 @@
                 </div>
             </nav>
             
-            <section id="home" class="home bg-black fix" style="padding-top: 0%; background-color: white; background:white; padding-bottom: 10%">
+            <section id="home" class="home bg-black fix" style="padding-top: 0%; background-color: white; background:white; padding-bottom: 10%;">
                 <!-- <div class="overlay"></div> -->
             </section> 
 

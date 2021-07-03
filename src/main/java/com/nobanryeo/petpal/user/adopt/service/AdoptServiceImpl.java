@@ -10,6 +10,8 @@ import com.nobanryeo.petpal.user.adopt.dao.AdoptMapper;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 
 @Service
@@ -112,6 +114,9 @@ public class AdoptServiceImpl implements AdoptService {
 		return selectReplyList;
 	}
 
+	/**
+	 * 댓글 추가하기 메소드
+	 */
 	@Override
 	public int insertReply(AdoptReplyDTO replyDTO) {
 		
@@ -126,6 +131,55 @@ public class AdoptServiceImpl implements AdoptService {
 		}
 		return result;
 		
+	}
+
+	/**
+	 * 게시글 신고하기 메소드
+	 */
+	@Override
+	public int insertBoardReport(FreeBoardReportDTO boardreportDTO) {
+		
+		int insertBoardreport = adoptMapper.insertBoardReport(boardreportDTO);
+		System.out.println("BoardReportresult in service: "+insertBoardreport );
+		
+		int insertBoardreportMid = adoptMapper.insertBoardReportMid(boardreportDTO);
+		
+		int result = 0;
+		
+		if(insertBoardreport>0 && insertBoardreportMid>0) {
+			result = 1;
+		}
+		return result;
+	}
+
+	/**
+	 * 댓글 신고하기 메소드
+	 */
+	@Override
+	public int insertReplyReport(AdoptReplyDTO adoptreplyDTO) {
+		
+		int insertReplyreport = adoptMapper.insertReplyReport(adoptreplyDTO);
+		System.out.println("ReplyReportresult in service: "+ insertReplyreport);
+		
+		int result = 0;
+		
+		if(insertReplyreport>0) {
+			result = 1;
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 쪽지 보내기 메소드
+	 */
+	@Override
+	public int insertMessage(MessageTableDTO messageDTO) {
+		
+		int insertMessage = adoptMapper.insertMessage(messageDTO);
+		
+		
+		return insertMessage;
 	}
 
 

@@ -13,11 +13,16 @@ public class AdoptReplyDTO {
 	private int replyUserCode;
 	private int boardUserCode;
 	private int boardCode;
+	private String replyReportTitle;
+	private String replyReportContent;
+	private Date replyReportDate;
+	private int decisionCode;
 	
 	public AdoptReplyDTO() {}
 
 	public AdoptReplyDTO(int replyCode, String replyContent, Date replyDate, String replyDeleteYN, String reportYN,
-			String userNickname, int replyUserCode, int boardUserCode, int boardCode) {
+			String userNickname, int replyUserCode, int boardUserCode, int boardCode, String replyReportTitle,
+			String replyReportContent, Date replyReportDate, int decisionCode) {
 		super();
 		this.replyCode = replyCode;
 		this.replyContent = replyContent;
@@ -28,6 +33,10 @@ public class AdoptReplyDTO {
 		this.replyUserCode = replyUserCode;
 		this.boardUserCode = boardUserCode;
 		this.boardCode = boardCode;
+		this.replyReportTitle = replyReportTitle;
+		this.replyReportContent = replyReportContent;
+		this.replyReportDate = replyReportDate;
+		this.decisionCode = decisionCode;
 	}
 
 	public int getReplyCode() {
@@ -102,14 +111,47 @@ public class AdoptReplyDTO {
 		this.boardCode = boardCode;
 	}
 
+	public String getReplyReportTitle() {
+		return replyReportTitle;
+	}
+
+	public void setReplyReportTitle(String replyReportTitle) {
+		this.replyReportTitle = replyReportTitle;
+	}
+
+	public String getReplyReportContent() {
+		return replyReportContent;
+	}
+
+	public void setReplyReportContent(String replyReportContent) {
+		this.replyReportContent = replyReportContent;
+	}
+
+	public Date getReplyReportDate() {
+		return replyReportDate;
+	}
+
+	public void setReplyReportDate(Date replyReportDate) {
+		this.replyReportDate = replyReportDate;
+	}
+
+	public int getDecisionCode() {
+		return decisionCode;
+	}
+
+	public void setDecisionCode(int decisionCode) {
+		this.decisionCode = decisionCode;
+	}
+
 	@Override
 	public String toString() {
 		return "AdoptReplyDTO [replyCode=" + replyCode + ", replyContent=" + replyContent + ", replyDate=" + replyDate
 				+ ", replyDeleteYN=" + replyDeleteYN + ", reportYN=" + reportYN + ", userNickname=" + userNickname
 				+ ", replyUserCode=" + replyUserCode + ", boardUserCode=" + boardUserCode + ", boardCode=" + boardCode
-				+ "]";
+				+ ", replyReportTitle=" + replyReportTitle + ", replyReportContent=" + replyReportContent
+				+ ", replyReportDate=" + replyReportDate + ", decisionCode=" + decisionCode + "]";
 	}
-	
+
 	
 
 }

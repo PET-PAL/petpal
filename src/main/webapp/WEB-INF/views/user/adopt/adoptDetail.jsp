@@ -189,6 +189,7 @@
 
 
             <jsp:include page="../common/userHeader.jsp"/>
+ 		   <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt'" style="width:50px; height:50px; float: right;">
         <div class="culmn">
             <!--Home page style-->
             <!--Home Sections-->
@@ -270,13 +271,13 @@
 		                	<ul style="font-size: large;">
 		                		<li style="margin-bottom: 30px;">&nbsp&nbsp&nbsp작성자 : 
 		                		<b><c:out value="${requestScope.adoptDetail.userNickname}"/></b>
-		                		<img src="${ pageContext.servletContext.contextPath }/resources/images/message icon.png" alt="" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;"/>
+		                		<img src="${ pageContext.servletContext.contextPath }/resources/images/message icon.png" onclick="location.href='#directMessage'" alt="" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;"/>
 		                		<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;">
 		                		</li>
 		                	</ul>
 		                </div>
                 <div align="center" style="height: 150px;">
-                	<h1 style="font-weight: bold;"><c:out value="${requestScope.adoptDetail.adoptBreed}"/>
+                	<h1 id="h1_itm" style="font-weight: bold;"><c:out value="${requestScope.adoptDetail.adoptBreed}"/>/
 	                	<c:if test="${requestScope.adoptDetail.adoptGender eq 'M'}">
 	                	남아
 	                	</c:if>
@@ -356,7 +357,7 @@
 								     					output += '</tr>';
 							     					}
 								     				
-								     				$j3.each(replyList,function(){
+								     				$j3.each(replyList,function(i, item){
 								     					
 								     					var deleteYN = this.replyDeleteYN;
 								     					var length = $j3(this).length;
@@ -364,15 +365,15 @@
 								     					
 								     					
 								     					if(deleteYN == 'N'){
-								     						output += '<tr>';
+								     						output += '<tr id="tr'+i+'">';
 									     					output += '<td class="col-md-3" style="text-align: center;">'+this.userNickname+'</td>';
 								     						output += '<td>'+this.replyContent+'</td>';
 								     						output += '<td style="text-align: center;">'+this.replyDate+'</td>';
-									     					output += '<td><img onclick="location.href=\'#reportComment\'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;">'+'</td>';
+									     					output += '<td><img onclick="test1(this)" class="'+ this.replyCode +'" title="'+this.replyUserCode +'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;">'+'</td>';
 									     					output += '</tr>';
 								     					}
 								     					if(deleteYN == 'Y'){
-								     						output += '<tr>';
+								     						output += '<tr id="tr'+i+'">';
 									     					output += '<td style="text-align: center;">'+' '+'</td>';
 								     						output += '<td>'+'삭제 된 댓글입니다.'+'</td>';
 								     						output += '<td style="text-align: center;">'+' '+'</td>';
@@ -455,23 +456,23 @@
                 
          </section>
             <!-- 게시글 신고 팝업창 -->
-            <div id="reportPost" class="overlay">
-                <div class="popup">
-                    <a href="#none" class="close">&times;</a>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
-                    <div class="findpwd-content" id="contStep02" style="display: block;">
-                        <div class="cont-step_preface">
-                            <hr style="border:0.5px solid #A8A8A8;">
-                        </div>
-                        <!-- 신고 내용 입력 -->
-                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
-                    </div>
-                </div>
-            </div> 
+             <form action="${ pageContext.servletContext.contextPath }/user/adopt/insert/report" method="POST">
+	            <div id="reportPost" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <div class="cont-step_preface">
+	                            <hr style="border:0.5px solid #A8A8A8;">
+	                        </div>
+	                        <!-- 신고 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" id="reportContent_board" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                    </div>
+	                </div>
+	            </div> 
             
             <!-- 댓글 신고 팝업창 -->
-             <form action="${ pageContext.servletContext.contextPath }/user/adopt/insert/report" method="POST">
 	            <div id="reportComment" class="overlay">
 	                <div class="popup">
 	                    <a href="#none" class="close">&times;</a>
@@ -481,7 +482,7 @@
 	                            <hr style="border:0.5px solid #A8A8A8;">
 	                        </div>
 	                        <!-- 신고 내용 입력 -->
-	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input id="reportContent_bs" type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input id="reportContent_reply" type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
 	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
 	                    </div>
 	                </div>
@@ -497,11 +498,50 @@
 	                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
 	                     	신고 내역에서 확인 가능합니다.
 	                    </p>
-	                    <input type="hidden" name="reportContent" id="reportContent1">
+	                    <input type="hidden" name="reportContent" id="reportContent">
+	                    <input type="hidden" name="reportReply" id="reportReply">
+	                    <input type="hidden" name="contentCode" id="contentCode">
+	                    <input type="hidden" name="replycode" id="replycode">
+	                    <input type="hidden" name="replyUsercode" id="replyUsercode">
+	                    <input type="hidden" name="boardTitle" id="boardTitle">
+	                    <input type="hidden" name="category" id="category">
 	                    <div style="text-align: center; margin-top: 30px;"><button type = "submit" id = "btn_report_submit" class="btn_submit" onclick="location.href='#none'">확인</button></div>
                    		<script>
+                   		
+                   		function test1 (test) {
+							
+							let replyCode = test.className;
+							let userCode1 = test.title;
+							console.log(replyCode);
+							console.log(userCode1);
+							
+							
+							$j3("#replycode").val(replyCode);
+							$j3("#replyUsercode").val(userCode1);
+							location.href = '#reportComment';
+                   		}
                    		 $j3("#btn_report_submit").click(function(){
 	                   			console.log("여기오나?");
+	                   			var content = $j3("#reportContent_board").val(); 
+	                   			var reply = $j3("#reportContent_reply").val();
+	                   			var Bcode = ${requestScope.adoptDetail.boardCode};
+	                   			var Rcode = $j3(this).parent().parent().parent().parent().parent().find("input").val();
+	                   			var RUcode = $j3(this).parent().parent().parent().parent().parent().find("input.replyUserCode").val();
+	                   			var Btitle = $('#h1_itm')[0].innerText;
+	                   			
+	                   			if($j3("#reportContent").val(content) != ''){
+	                   				$j3("#category").val('content');
+	                   			}
+	                   			if($j3("#reportReply").val(reply) != ''){
+	                   				$j3("#category").val('reply');
+	                   				
+	                   			}
+	                   			$j3("#reportContent").val(content);
+                   				$j3("#reportReply").val(reply);
+                   				$j3("#contentCode").val(Bcode);
+                   			/* 	$j3("#replycode").val(Rcode); */
+                   				/* $j3("#replyUsercode").val(RUcode); */
+                   				$j3("#boardTitle").val(Btitle);
                    				
                    			});
                    		</script>
@@ -593,7 +633,37 @@
                     </div>
                 </div>
             
+                 <!-- 쪽지 팝업창 -->
+            <div id="directMessage" class="overlay">
+                <div class="popup">
+                    <a href="#none" class="close">&times;</a>
+                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.adoptDetail.userNickname }"/></p>
+                    <div class="findpwd-content" id="contStep02" style="display: block;">
+                        <!-- 쪽지 내용 입력 -->
+                        <form action="${pageContext.servletContext.contextPath }/user/insert/adopt/message" method="post">
+                        	<div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                        	<div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+                        	<input type="hidden" value="${ requestScope.adoptDetail.userCode }" name="receivecode">
+                        	<input type="hidden" value="${ requestScope.adoptDetail.boardCode }" name="boardcode">
+                        	<input type="hidden" value="${ requestScope.adoptDetail.userNickname }" name="receiveUserNick">
+                        </form>
+                    </div>
+                </div>
+            </div>
             
+            <!-- 전송 완료 팝업창 -->
+            <div id="completeMessage" class="overlay">
+                <div class="popup">
+                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+                     	쪽지 전송에 성공하였습니다.<br>
+                    </p>
+                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+                     	보낸 쪽지는 마이페이지에서 확인 가능합니다.
+                    </p>
+                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                    </div>
+                </div>
+            </div>
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
             
