@@ -37,7 +37,5 @@ public interface AdAdminMapper {
 
 	List<AdAdminDTO> searchAdAllList(AdminPageInfoDTO paging);
 
-//	List<AdAdminDTO> selectClickList(List<AdAdminDTO> searchAdAllList);
-
 	
 }

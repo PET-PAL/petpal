@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
     PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.nobanryeo.petpal.admin.ad.dao.PayAdminMapper">
+<mapper namespace="com.nobanryeo.petpal.admin.pay.dao.PayAdminMapper">
 
  <resultMap id="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
 	  	<id property="adCode" column="AD_CODE"/>
@@ -39,39 +39,84 @@
 
 	<!-- 총 광고 결제 관리 갯수 조회 -->
 	 <select id="selectAdPayList" resultType="int" parameterType="AdminPageInfoDTO">
-		SELECT COUNT(*) FROM AD_APPLY_TABLE A
-		 JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
-		WHERE A.STATE_CODE = 2
-		<if test='category == "1"'>
-		  AND A.CANCEL_APPLY_DATE IS NULL
+		SELECT COUNT(*)
+		FROM AD_APPLY_TABLE A
+		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+		<if test='category == null'>
+		WHERE (A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
 		  AND A.PAY_DATE_1ST IS NULL
 		  <![CDATA[
-		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) <= 3
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) <= 3)
+		     ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
+          ]]>
+           OR (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
+          AND (A.PAY_DATE_1ST IS NOT NULL
+           OR A.PAY_DATE_2ND IS NOT NULL))
+           
+            OR ( A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		   <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) > 3)
 		  ]]>
 		   OR (A.PAY_DATE_1ST IS NOT NULL 
           AND A.PAY_DATE_2ND IS NULL
           <![CDATA[
-          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7 )
-		  ]]>
-		</if>
-		<if test='category == "2"'>
-          AND A.CANCEL_APPLY_DATE IS NULL
-           <![CDATA[
-          AND A.POST_START_DATE <= TO_CHAR(SYSDATE,'YYYYMMDD')
-          AND TO_CHAR(SYSDATE,'YYYYMMDD') <= A.POST_END_DATE
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
           ]]>
-		</if>
-		<if test='category == "3"'>
-          AND (A.CANCEL_APPLY_DATE IS NULL
+          
+           OR (A.STATE_CODE = 4 
+          AND A.PAY_DATE_1ST IS NULL
           <![CDATA[
-          AND TO_CHAR(SYSDATE,'YYMMDD') > A.POST_END_DATE)
+          AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
           ]]>
-		</if>
-		<if test='category =="4"'>
-		  AND A.POST_YN = 'N'
-          AND A.CANCEL_APPLY_DATE IS NOT NULL
-		</if>		
+         </if>	
+         <if test='category == "1"'>
+         WHERE (A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) <= 3)
+		  ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
+           ]]>
+         </if>
+         <if test='category == "2"'>
+          WHERE (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
+          AND (A.PAY_DATE_1ST IS NOT NULL
+           OR A.PAY_DATE_2ND IS NOT NULL))
+         </if>	
+         <if test='category =="3"'>
+          WHERE ( A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) > 3)
+		   ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
+          ]]>
+         </if>
+         <if test='category=="4"'>
+         WHERE (A.STATE_CODE = 4 
+          AND A.PAY_DATE_1ST IS NULL
+          <![CDATA[
+          AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
+          ]]>
+         </if>
 	  </select>
+	  
+	  
 
 
 </mapper>
