@@ -33,7 +33,11 @@ public interface AdAdminMapper {
 
 	List<AdAdminDTO> selectAdDetail(int adCode);
 
+	int searchAdList(AdminPageInfoDTO cat);
 
+	List<AdAdminDTO> searchAdAllList(AdminPageInfoDTO paging);
+
+//	List<AdAdminDTO> selectClickList(List<AdAdminDTO> searchAdAllList);
 
 	
 }

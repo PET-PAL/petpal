@@ -177,22 +177,20 @@ public class AdAdminController {
 	    
 	    decision = new DecisionDTO(req.getParameter("decisionReason"), stateCode, code, adCode);
 	    
-
-		// 심사 사유 입력
-		if(! adAdminService.insertAdApprove(decision)) {
+	    // 심사 사유 입력
+	    Boolean result = adAdminService.insertAdApprove(decision);
+		
+		if (result != true) {
 			System.out.println("심사 사유 입력 실패");
+		} else {
+			
+			System.out.println("심사 사유 입력 성공");
+			
+			if(!adAdminService.updateAdApprove(decision)) {
+				System.out.println("심사 결과 업데이트 실패");
+			}
+			System.out.println("심사 결과 업데이트 성공");
 		}
-		
-		System.out.println("광고 심사 인서트 : " + adAdminService.insertAdApprove(decision));
-		
-		System.out.println("심사 사유 입력 성공");
-		
-		if(!adAdminService.updateAdApprove(decision)) {
-			System.out.println("심사 결과 업데이트 실패");
-		}
-		System.out.println("심사 결과 업데이트 성공");
-		
-		//심사사유 조회는 전체 심사 디테일 조회에서 해와야 하는 것 아닌가? (맞음)
 		
 		return "redirect:/admin/adApproveDetail/{adCode}";
 	}
@@ -247,6 +245,7 @@ public class AdAdminController {
 	    		model.addAttribute("adList", selectClickAdList);
 	    		model.addAttribute("category", category);
 	    		model.addAttribute("total", total);
+	    		
 	    	} else {
 	    		// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
 	    		model.addAttribute("paging", paging);
@@ -254,6 +253,55 @@ public class AdAdminController {
 	    		model.addAttribute("category", category);
 	    		model.addAttribute("total", total);
 	    	}
+	    	
+	    } else {
+	    	
+		// 검색했을 때
+				
+				AdminPageInfoDTO cat = new AdminPageInfoDTO(category,searchCondition,searchValue);
+			
+				System.out.println("검색했을 때 cat 출력 : " + cat);
+				System.out.println(cat.getSearchValue());
+				
+				// 카테고리
+		        System.out.println("카테고리 : " + category);
+		        // 검색조건
+		        System.out.println("검색조건 : " + searchCondition);
+		        // 검색값
+		        System.out.println("검색값 : " + searchValue);
+				
+				// 총 개수
+				int total = adAdminService.searchAdList(cat);
+		         
+		        System.out.println("총 개수 : " + total);
+		        
+		        paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category, searchCondition, searchValue);
+				
+				// 광고 심사 리스트
+				List<AdAdminDTO> searchAdAllList = adAdminService.searchAdAllList(paging);
+				
+				System.out.println("검색 했을 때 검색결과 : " + searchAdAllList);
+			
+				// 게시중(category 2)일 때 클릭 수 조회
+		    	if (category != null && category.equals("2")) {
+		    		
+		    		List<AdAdminDTO> searchClickAdList = adAdminService.selectClickAdList(searchAdAllList);
+		    		
+		    		System.out.println("클릭 수 : " + searchClickAdList);
+		    		
+		    		model.addAttribute("paging", paging);
+		    		model.addAttribute("adList", searchClickAdList);
+		    		model.addAttribute("category", category);
+		    		model.addAttribute("total", total);
+		    		
+		    	} else {
+		    		// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
+		    		model.addAttribute("paging", paging);
+		    		model.addAttribute("adList", searchAdAllList);
+		    		model.addAttribute("category", category);
+		    		model.addAttribute("total", total);
+		    	}
+		    	
 	    	
 	    }
 				

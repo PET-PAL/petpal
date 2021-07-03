@@ -259,13 +259,13 @@
                                     <td>
                                     	<!-- 게시 전/게시 중/게시 종료/게시 취소 -->
                                     	<c:choose>
-                                    		<c:when test="${ adApprove.postYn eq 'N' and (startday > day or empty adApprove.postStartDate) and empty adApprove.cancelApplyDate }">
+                                    		<c:when test="${(startday > day or empty adApprove.postStartDate) and empty adApprove.cancelApplyDate }">
                                     			게시전
                                     		</c:when>
-                                    		<c:when test="${ adApprove.postYn eq 'Y' and startday <= day and day <= endday}">
+                                    		<c:when test="${ startday <= day and day <= endday}">
                                     			게시중
                                     		</c:when>
-                                    		<c:when test="${ adApprove.postYn eq 'N' and startday < day and empty adApprove.cancelApplyDate }">
+                                    		<c:when test="${ startday < day and empty adApprove.cancelApplyDate }">
                                     			게시종료
                                     		</c:when>
                                     		<c:when test="${ not empty adApprove.cancelApplyDate }">
