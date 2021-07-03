@@ -27,6 +27,15 @@ public class UserAdServiceImpl implements UserAdService {
 		
 		adList = adMapper.selectAdList(adDTO);
 		
+		for(int i = 0; i < adList.size(); i++) {
+			if(adList.get(i).getDecisionCode() != 0) {
+				AdDTO newDTO = new AdDTO();
+				newDTO = adMapper.selectAdListDecisionDate(adList.get(i));
+				adList.get(i).setDecisionDate(newDTO.getDecisionDate());
+			}
+			
+		}
+		
 		return adList;
 	}
 
@@ -43,7 +52,16 @@ public class UserAdServiceImpl implements UserAdService {
 	@Override
 	public AdDTO selectAdApplyDetail(AdDTO adDTO) {
 		
-		return adMapper.selectAdApplyDetail(adDTO);
+		AdDTO adApplyDetail = new AdDTO();
+		adApplyDetail = adMapper.selectAdApplyDetail(adDTO);
+		
+			if(adApplyDetail.getDecisionCode() != 0) {
+				AdDTO newDTO = new AdDTO();
+				newDTO = adMapper.selectAdListDecisionDate(adApplyDetail);
+				adApplyDetail.setDecisionDate(newDTO.getDecisionDate());
+			}
+		
+		return adApplyDetail;
 	}
 
 	@Override
@@ -68,6 +86,12 @@ public class UserAdServiceImpl implements UserAdService {
 	public int updateFirstAdPayment(AdDTO adDTO) {
 
 		return adMapper.updateFirstAdPayment(adDTO);
+	}
+
+	@Override
+	public int updateCancelAd(AdDTO adDTO) {
+		
+		return adMapper.updateCancelAd(adDTO);
 	}
 
 }

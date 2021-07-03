@@ -42,6 +42,7 @@
 		<result column="PICTURE_DELETE_YN" property="pictureDeleteYn"/>
 		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
 		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
+		<result column="DECISION_DATE" property="decisionDate"/>
 	</resultMap>
 	
 	<resultMap id="adQnAResultSet" type="AdQnADTO">
@@ -73,10 +74,20 @@
 		     , A.COMPANY_EMAIL
 		     , A.COMPANY_PHONE
 		     , A.COMPANY_LOCATION
+		     , A.USER_CODE
+		     , A.DECISION_CODE
 		  FROM AD_APPLY_TABLE A
 		  JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
 		 WHERE A.USER_CODE = #{ userCode }
 		 ORDER BY A.APPLY_DATE DESC
+	</select>
+	
+	<select id="selectAdListDecisionDate" parameterType="AdDTO" resultMap="adResultSet">
+		SELECT A.DECISION_DATE
+		  FROM DECISION_TABLE A
+		  JOIN AD_APPLY_TABLE B ON(B.DECISION_CODE = A.DECISION_CODE)
+		 WHERE B.USER_CODE = #{ userCode }
+		   AND B.AD_CODE = #{ adCode }
 	</select>
 	
 	<select id="selectAdPaymentList" parameterType="AdDTO" resultMap="adResultSet">
@@ -102,6 +113,8 @@
 		     , A.STATE_CODE
 		     , A.POST_END_DATE
 		     , C.PICTURE_UTIL_PATH
+		     , A.USER_CODE
+		     , A.DECISION_CODE
 		  FROM AD_APPLY_TABLE A
 		  JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
 		  JOIN PICTURE_TABLE C ON(C.PICTURE_CODE = A.PICTURE_CODE)
@@ -180,6 +193,14 @@
 			 , POST_START_DATE = SYSDATE + 1
 			 , POST_END_DATE = SYSDATE + (#{ adWeek }*7+1)
 		 WHERE AD_CODE = #{ adCode }
+	</update>
+	
+	<update id="updateCancelAd" parameterType="AdDTO">
+		UPDATE AD_APPLY_TABLE
+		   SET STATE_CODE = '4'
+		     , CANCEL_APPLY_DATE = SYSDATE
+		 WHERE AD_CODE = #{ adCode }
+		   AND USER_CODE = #{ userCode }
 	</update>
 	
 </mapper>
