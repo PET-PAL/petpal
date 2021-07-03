@@ -78,7 +78,6 @@ public class AdAdminServiceImpl implements AdAdminService  {
 	// 광고 검사 총 갯수
 	@Override
 	public int selectAdList(AdminPageInfoDTO cat) {
-		// TODO Auto-generated method stub
 		return adAdminMapper.selectAdList(cat);
 	}
 
@@ -92,6 +91,12 @@ public class AdAdminServiceImpl implements AdAdminService  {
 	@Override
 	public List<AdAdminDTO> selectClickList(List<AdAdminDTO> selectAdList) {
 		return adAdminMapper.selectClickList(selectAdList);
+	}
+	
+	// 광고 관리 디테일 조회
+	@Override
+	public List<AdAdminDTO> selectAdDetail(int adCode) {
+		return adAdminMapper.selectAdDetail(adCode);
 	}
 
 

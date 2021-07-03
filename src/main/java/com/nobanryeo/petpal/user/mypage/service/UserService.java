@@ -2,6 +2,7 @@ package com.nobanryeo.petpal.user.mypage.service;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.nobanryeo.petpal.user.dto.AdQnADTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 
@@ -78,6 +79,8 @@ public interface UserService {
 	boolean updateUserInfo(UserInfoDTO userInfo);
 
 	String withdrawUser(UserInfoDTO userInfo);
+
+	boolean insertQuestion(AdQnADTO qnaDTO);
 
 	
 

@@ -69,6 +69,10 @@
 		     , A.POST_START_DATE
 		     , A.PAY_DATE_2ND
 		     , A.AD_CODE
+		     , B.AD_PRICE
+		     , A.COMPANY_EMAIL
+		     , A.COMPANY_PHONE
+		     , A.COMPANY_LOCATION
 		  FROM AD_APPLY_TABLE A
 		  JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
 		 WHERE A.USER_CODE = #{ userCode }
@@ -162,5 +166,20 @@
 		       , #{ industryDetail }
 		       )
 	</insert>
+	
+	<update id="updateFirstAdPayment" parameterType="AdDTO">
+		<selectKey keyProperty="adWeek" order="BEFORE" resultType="int">
+			SELECT A.AD_WEEK
+			  FROM AD_MANAGE_TABLE A
+			  JOIN AD_APPLY_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
+			 WHERE B.AD_CODE = #{ adCode }
+		</selectKey>
+		UPDATE AD_APPLY_TABLE
+		   SET PAY_DATE_1ST = SYSDATE
+			 , POST_YN = 'Y'
+			 , POST_START_DATE = SYSDATE + 1
+			 , POST_END_DATE = SYSDATE + (#{ adWeek }*7+1)
+		 WHERE AD_CODE = #{ adCode }
+	</update>
 	
 </mapper>

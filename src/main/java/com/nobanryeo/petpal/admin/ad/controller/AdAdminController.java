@@ -254,22 +254,25 @@ public class AdAdminController {
 	    		model.addAttribute("category", category);
 	    		model.addAttribute("total", total);
 	    	}
-	    		
-	    		
-	    	
-	    	
-	    	
 	    	
 	    }
-		
-
-		
+				
 		return "admin/main/adList";
 	}
 	
 	/* 광고관리 디테일 */
-	@RequestMapping("adDetail")
-	public String adDetailReturning() {
+	@RequestMapping(value="adDetail/{adCode}", method=RequestMethod.GET)
+	public String adDetailReturning(Model model, @PathVariable("adCode") int adCode) {
+		
+		System.out.println("adCode : " + adCode);
+		
+		// 광고관리 정보 조회
+		List<AdAdminDTO> selectAdDetail = adAdminService.selectAdDetail(adCode);
+		
+		System.out.println("조회된 광고 관리 디테일 : " + selectAdDetail);
+		
+		model.addAttribute("adApproveDetail", selectAdDetail);
+		
 		
 		return "admin/main/adDetail";
 	}

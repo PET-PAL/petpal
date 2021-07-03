@@ -186,9 +186,9 @@ input {
                                         	<table class="table table-hover" style="text-align:center;">
 												<thead>
 													<tr>
-														<th style="text-align:center;">글쓴이(유저아이디)</th>
-														<th style="text-align:center;">글 제목</th>
-														<th style="text-align:center;">글 게시일자</th>
+														<th style="text-align:center;">신고자</th>
+														<th style="text-align:center;">피신고자</th>
+														<th style="text-align:center;">게시물 제목</th>
 														<th style="text-align:center;">신고일자</th>
 														<c:if test="${empty sortValue}">
 														<th onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?sortValue=1&nowPage=${paging.nowPage}&searchValue=${requestScope.searchValue}&searchCondition=${requestScope.searchCondition}&category=${category}&cntPerPage=${paging.cntPerPage}'" style="text-align:center;">진행상황</th>
@@ -205,8 +205,8 @@ input {
 															<c:forEach items="${reportList}" var="board">
 													<tr onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportDetail?boardCode=${ board.boardCode }'">
 														<td>${board.userId }</td>
+														<td>${board.reportedUser }</td>
 														<td>${board.boardTitle }</td>
-														<td>${board.postDate }</td>
 														<td>${board.reportDate }</td>
 														<td>${board.state }</td>
 													</tr>

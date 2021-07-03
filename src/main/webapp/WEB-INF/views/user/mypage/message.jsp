@@ -73,6 +73,7 @@
 
             <section id="account" class="account" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="font-size: 20px; font-weight: 600; float: left; margin-left: 10px;">쪽지 리스트</div>
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/'" style="width:50px; float: right;">
                 <br>
                 <hr style="border-color: rgb(175, 175, 175);">
             </section>

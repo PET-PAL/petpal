@@ -91,7 +91,19 @@
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 주수</th>
-                                    <td style="border: none;">${adDetail.adTypeCode}주</td>
+                                    <td style="border: none;">
+                                      <c:choose>
+		                                    <c:when test="${adDetail.adTypeCode eq 1}">
+		                                    	1주
+		                                    </c:when>
+		                                    <c:when test="${adDetail.adTypeCode eq 2}">
+		                                    	1주
+		                                    </c:when>
+		                                    <c:otherwise>
+		                                    	2주
+		                                    </c:otherwise>
+                                      </c:choose>
+                                    </td>
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 내용</th>

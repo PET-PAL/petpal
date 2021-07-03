@@ -77,7 +77,6 @@
 		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp">용품리뷰</a></li> 
 	                            </ul> 
 	                        </li>
-                            <li><a href="${ pageContext.servletContext.contextPath }/user/mypage/">마이페이지</a></li>
                             <li><a href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
                         </ul>
                     </div>

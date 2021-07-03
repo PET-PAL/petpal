@@ -19,6 +19,17 @@
 		<result column="PERMISSON_SET" property="permisson" />
 	</resultMap>
 	
+	<resultMap id="QnAResultSet" type="AdQnADTO">
+		<id column="BOARD_CODE" property="boardCode"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
+		<result column="QUESTION_TYPE" property="questionType"/>
+		<result column="BOARD_POST_DATE" property="boardPostDate"/>
+		<result column="ADMIN_REPLY_CONTENT" property="adminReplyContent"/>
+		<result column="STATE_CODE" property="stateCode"/>
+		<result column="USER_CODE" property="userCode"/>
+	</resultMap>
+	
 	<select id="selectUserIdcheck" resultType="string">
        SELECT
               COUNT(*)
@@ -131,6 +142,19 @@
            , #{ code }
            , ADD_MONTHS(SYSDATE, 3)  
            )
+	</insert>
+	<insert id="insertQuestion" parameterType="AdQnADTO">
+		INSERT
+		  INTO QUESTION_BOARD
+		VALUES ( QUESTION_BOARD_SEQ.NEXTVAL
+		       , #{ boardTitle }
+		       , #{ boardContent }
+		       , 1
+		       , SYSDATE
+		       , NULL
+		       , 1
+		       , #{ userCode }
+		       )
 	</insert>
  </mapper>
 

@@ -43,14 +43,6 @@ public class MypageController {
    }
    
    
-   @GetMapping("boardCommentList")
-   public String boardList() {
-      return "user/mypage/boardCommentList";
-   }
-   @GetMapping("qnaReportList")
-   public String qnaReportList() {
-      return "user/mypage/qnaReportList";
-   }
    @GetMapping("adList")
    public String adList() {
       return "user/mypage/adList";
