@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+ <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -56,7 +57,7 @@ select { width: 150px; /* 원하는 너비설정 */
  <script>
 		function selChange() {
 			var sel = document.getElementById('cntPerPage').value;
-			location.href="${ pageContext.servletContext.contextPath }/admin/paymentManageList?nowPage=${paging.nowPage}&cntPerPage="+sel;
+			location.href="${ pageContext.servletContext.contextPath }/admin/payList?nowPage=${paging.nowPage}&cntPerPage="+sel;
 		}
 </script>
 
@@ -92,13 +93,44 @@ select { width: 150px; /* 원하는 너비설정 */
 					 <div class="col-md-20">
 					 		
                                     <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
-                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">납부전</a></li>
-                                        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">납기 초과</a></li>
-                                        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">납부 완료</a></li>
-                                        <li role="presentation"><a href="#cancel" aria-controls="cancel" role="tab" data-toggle="tab">납부 취소</a></li>
-                                    </ul>
+                                     <ul class="nav nav-tabs" role="tablist">
+                        	 <c:if test="${ empty category }">
+	                        		<li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">납부 전</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
+                                	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
+                                 </c:if>
+                                 <c:if test="${ category eq 1 }">
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                                <li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">납부 전</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
+                                	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
+                                 </c:if>
+                                 <c:if test="${ category eq 2 }">
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">납부 전</a></li>
+	                                <li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
+                                	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
+                                 </c:if>
+                                 <c:if test="${ category eq 3 }">
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">납부 전</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
+	                                <li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
+                                	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
+                                 </c:if>
+                                 <c:if test="${ category eq 4 }">
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">납부 전</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
+                                	<li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
+                                 </c:if>		
+                                 <p style="float:right;">총 광고 수 : ${ requestScope.total }개</p>
+                            </ul>   
 							<div class="container-fluid" style="margin-top: 15px;">
 							 <div class="container-fluid" style="float:left;">
 												<select class="ui search dropdown" style="font-size:15px; text-align:center !important; width:150px;">
@@ -299,16 +331,50 @@ select { width: 150px; /* 원하는 너비설정 */
 														</tbody>
 													
 													</table>
-													<div class="text-center">
-														<ul class="pagination">
-															<li><a href="#">1</a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-														</ul>
-													</div>			
+														
                                          </div>
-                                    </div>
+                                         
+                                            <!-- 페이징 몇 개씩 볼지 선택 -->
+                            <div style="display: block; text-align: center;">	
+				              <div style="float: right;">
+								<select id="cntPerPage" name="sel" onchange="selChange()">
+									<option value="5"
+										<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
+									<option value="10"
+										<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
+									<option value="15"
+										<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
+									<option value="20"
+										<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
+								</select>
+							</div> 
+                            
+                            
+                            	
+						<!-- 페이징 버튼 -->
+						<ul class="pagination">
+	                        <c:if test="${paging.startPage != 1 }">
+	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+	                        </c:if>
+	                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+	                           <c:choose>
+	                              <c:when test="${p == paging.nowPage }">
+	                                 <li><a>${p }</a></li>
+	                              </c:when>
+	                              <c:when test="${p != paging.nowPage }">
+	                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+	                              </c:when>
+	                           </c:choose>
+	                        </c:forEach>
+	                        <c:if test="${paging.endPage != paging.lastPage}">
+	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+	                        </c:if>
+	                       </ul>
+								
+							</div>
+                                         
+                                         
+                        </div>
                     </div>
        		  </div>		
 		</div>

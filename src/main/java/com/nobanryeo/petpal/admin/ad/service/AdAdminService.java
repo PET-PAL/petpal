@@ -44,6 +44,17 @@ public interface AdAdminService {
 
 	// 광고 관리 디테일 조회
 	List<AdAdminDTO> selectAdDetail(int adCode);
+	
+	// 광고 관리 검색 총 갯수 조회
+	int searchAdList(AdminPageInfoDTO cat);
+
+	// 광고 관리 검색 리스트 조회
+	List<AdAdminDTO> searchAdAllList(AdminPageInfoDTO paging);
+	
+	// 광고 관리 검색 게시중 클릭수 조회
+	List<AdAdminDTO> selectClickAdList(List<AdAdminDTO> searchAdAllList);
+
+
 
 
 

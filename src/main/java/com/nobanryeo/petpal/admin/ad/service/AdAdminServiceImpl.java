@@ -99,6 +99,25 @@ public class AdAdminServiceImpl implements AdAdminService  {
 		return adAdminMapper.selectAdDetail(adCode);
 	}
 
+	// 광고 관리 검색 총 갯수
+	@Override
+	public int searchAdList(AdminPageInfoDTO cat) {
+		return adAdminMapper.searchAdList(cat);
+	}
+	
+	// 광고 관리 검색 리스트
+	@Override
+	public List<AdAdminDTO> searchAdAllList(AdminPageInfoDTO paging) {
+		return adAdminMapper.searchAdAllList(paging);
+	}
+
+	// 광고 관리 검색 게시 중 클릭 수 조회
+	@Override
+	public List<AdAdminDTO> selectClickAdList(List<AdAdminDTO> searchAdAllList) {
+		return adAdminMapper.selectClickList(searchAdAllList);
+	}
+
+
 
 	
 	
