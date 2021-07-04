@@ -335,4 +335,36 @@
 	  	  
 	  </insert>
 	  
+	  <select id="selectSearchAdoptList" parameterType="String" resultMap="AdoptResultSet">
+	  		
+	  		SELECT
+		       A.BOARD_CODE
+		     , A.ADOPT_BREED
+		     , A.ADOPT_GENDER
+		     , S.STATE_NAME
+		     , A.ADOPT_DELETE_YN
+		     , A.USER_LOCATION
+		     , A.ADOPT_COLOR
+		     , A.USER_CODE
+		     , U.USER_NIKNAME
+		     , A.DOG_OR_CAT
+		     , A.BOARD_DATE
+		     , P.PICTURE_DELETE_YN
+		     , P.PICTURE_CODE
+		     , P.PICTURE_URL
+		     , P.PICTURE_NAME
+		     , P.PICTURE_NEW_NAME
+		     , P.PICTURE_UTIL_PATH
+		  FROM ADOPT_BOARD A
+          JOIN STATE_TABLE S ON(S.STATE_CODE = A.STATE_CODE)
+		  JOIN ADOPT_PICTURE_MANAGE M ON (A.BOARD_CODE = M.BOARD_CODE)
+		  JOIN PICTURE_TABLE P ON (M.PICTURE_CODE = P.PICTURE_CODE)
+		  JOIN USER_TABLE U ON(U.USER_CODE = A.USER_CODE)
+		 WHERE P.PICTURE_DELETE_YN='N'
+		   AND A.ADOPT_DELETE_YN='N'
+		   AND A.USER_LOCATION LIKE '%' ||#{keyword}|| '%'
+		 ORDER BY A.BOARD_DATE DESC
+	  
+	  </select>
+	  
   </mapper>

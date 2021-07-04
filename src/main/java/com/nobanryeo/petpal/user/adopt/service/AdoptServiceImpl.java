@@ -182,6 +182,15 @@ public class AdoptServiceImpl implements AdoptService {
 		return insertMessage;
 	}
 
+	@Override
+	public List<AdoptPictureManageDTO> selectSearchList(String keyword) {
+		
+		List<AdoptPictureManageDTO> selectAdoptSearchList = new ArrayList<>();
+		selectAdoptSearchList = adoptMapper.selectSearchAdoptList(keyword);
+		
+		return selectAdoptSearchList;
+	}
+
 
 
 
