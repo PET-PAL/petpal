@@ -23,7 +23,7 @@ public class ReportController {
 		this.reportService = reportService;
 	}
 	
-	//검색기능 미구현, 소트기능 미구현 아직 자유게시판밖에 못봄 category로 게시판 분류하면 된다 
+	//댓글쪽만 손보면 ok
     @RequestMapping("reportList")
     public String reportList(Model model , AdminPageInfoDTO paging,
             @RequestParam(value="nowPage", required=false)String nowPage
@@ -44,19 +44,39 @@ public class ReportController {
     	if(category == null) {
     		category = "0";
     	}
-    	int total = 0;
-    	AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
-  	    total = reportService.selectReportCount(cat);
-    	paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category,sortValue);
-    	model.addAttribute("paging", paging);
-        model.addAttribute("total",total);
-        model.addAttribute("category", category);
-        model.addAttribute("sortValue",sortValue);
-        
-        
-        List<ReportDTO> reportList = reportService.selectReport(paging);
-    	System.out.println(reportList);
-        model.addAttribute("reportList", reportList);
+    	if(searchValue == null) {
+    		int total = 0;
+        	AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
+      	    total = reportService.selectReportCount(cat);
+        	paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category,sortValue);
+        	model.addAttribute("paging", paging);
+            model.addAttribute("total",total);
+            model.addAttribute("category", category);
+            model.addAttribute("sortValue",sortValue);
+            
+            
+            List<ReportDTO> reportList = reportService.selectReport(paging);
+        	System.out.println(reportList);
+            model.addAttribute("reportList", reportList);
+    	}else {
+    		int total = 0;
+        	AdminPageInfoDTO cat = new AdminPageInfoDTO(category,searchCondition,searchValue);
+      	    total = reportService.selectReportCount(cat);
+        	paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category,searchCondition,searchValue,sortValue);
+        	model.addAttribute("paging", paging);
+            model.addAttribute("total",total);
+            model.addAttribute("category", category);
+            model.addAttribute("sortValue",sortValue);
+            model.addAttribute("searchCondition", searchCondition);
+            model.addAttribute("searchValue", searchValue);
+            
+            List<ReportDTO> reportList = reportService.selectReport(paging);
+        	System.out.println(reportList);
+            model.addAttribute("reportList", reportList);
+    		
+    		
+    	}
+    	
 
        return "admin/main/report";
     }

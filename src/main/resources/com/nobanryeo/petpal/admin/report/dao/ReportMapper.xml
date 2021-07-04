@@ -16,25 +16,35 @@
 	   SELECT COUNT(*) 
 	   
 		<if test='category == "0"'>
-		FROM FREE_BOARD_REPORT
+		FROM FREE_BOARD_REPORT A
 		</if>
 		<if test='category == "1"'>
-		FROM INFO_BOARD_REPORT
+		FROM INFO_BOARD_REPORT A
 		</if>
 		<if test='category == "2"'>
-		FROM SHARE_BOARD_REPORT
+		FROM SHARE_BOARD_REPORT A
 		</if>
 		<if test='category == "3"'>
-		FROM REVIEW_BOARD_REPORT
+		FROM REVIEW_BOARD_REPORT A
 		</if>
 		<if test='category == "4"'>
-		FROM MISSING_BOARD_REPORT
+		FROM MISSING_BOARD_REPORT A
 		</if>
 		<if test='category == "5"'>
-		FROM FRIENDLY_BOARD_REPORT
+		FROM FRIENDLY_BOARD_REPORT A
 		</if>
 		<if test='category == "6"'>
-		FROM ADOPT_BOARD_REPORT
+		FROM ADOPT_BOARD_REPORT A
+		</if>
+		<if test='searchCondition == "userId"'>
+	   	JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
+        JOIN USER_TABLE C ON(B.USER_CODE = C.USER_CODE)
+		WHERE C.USER_ID = #{searchValue}
+		
+		</if>
+		<if test='searchCondition == "boardTitle"'>
+		JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
+		WHERE B.REPORT_TITLE = #{searchValue}
 		</if>
 	</select>
 	<select id="selectReport" resultMap="ReportSet" parameterType="ReportDTO">
@@ -77,10 +87,31 @@
 							JOIN ADOPT_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
 							</if>
 	                        JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
-	                        JOIN USER_TABLE D ON(C.USER_CODE = D.USER_CODE)
+	                        JOIN USER_TABLE D ON(B.USER_CODE = D.USER_CODE)
 	                        JOIN DECISION_TABLE E ON(B.DECISION_CODE = E.DECISION_CODE)
 	                        JOIN STATE_TABLE F ON(E.STATE_CODE = F.STATE_CODE)
 	                        JOIN USER_TABLE G ON(C.USER_CODE = G.USER_CODE)
+	                        
+	                        <if test='searchCondition == "userId"'>
+							WHERE D.USER_ID = #{searchValue}
+							
+							</if>
+							<if test='searchCondition == "boardTitle"'>
+							WHERE B.REPORT_TITLE = #{searchValue}
+							</if>
+							
+							<choose>
+								<when test="sortValue == 1">
+									ORDER BY F.STATE_NAME DESC ,C.BOARD_CODE DESC
+											
+								</when>
+								<when test="sortValue == 2">
+									ORDER BY F.STATE_NAME ASC ,C.BOARD_CODE DESC
+								</when>
+								<otherwise>
+									ORDER BY C.BOARD_CODE DESC
+								</otherwise>
+							</choose>
                         )G
                 )A 
                 WHERE RNUM BETWEEN #{start} AND #{end}
