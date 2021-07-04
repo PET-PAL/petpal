@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -45,32 +46,44 @@
                                 <div role="tabpanel" class="tab-pane active" id="profile">	
                                 	<div class="col-md-10">
 		                                 <table class="table">
+		                                 
 		                                 <tr>
 		                                    <th scope="col-md-3" style="border: none; width: 150px;">신고한 아이디</th>
-		                                    <td style="border: none;">judy123</td>
+		                                    <td style="border: none;">${reportDetail.userId }</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">신고된 아이디</th>
-		                                    <td style="border: none;"></td>
+		                                    <td style="border: none;">${reportDetail.reportedId }</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">신고된 글제목</th>
-		                                    <tdstyle="border: none;"></td>
+		                                    <td style="border: none;">${reportDetail.reportedId }</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">신고 일자</th>
-		                                    <td style="border: none;"></td>
+		                                    <td style="border: none;">${reportDetail.reportDate }</td>
 		                                 </tr>
 		                                 <tr>
-		                                    <th scope="col">신고 내용(이유)</th>
-		                                    <td>아님 우리포맷 싫다 그럼 업체가 작성해서 주면 관리자가 검토 후 글을 올리는거지아님 우리포맷 싫다 그럼 업체가 작성해서 주면 관리자가 검토 후 글을 올리는거지아님 우리포맷 싫다 그럼 업체가 작성해서 주면 관리자가 검토 후 글을 올리는거지</td>
+		                                    <th scope="col" style="border: none;">신고 내용(이유)</th>
+		                                    <td style="border: none;">${reportDetail.boardContent }</td>
 		                                 </tr>
+		                                 <tr>
+		                                    <th scope="col" style=" color:black">처리 여부</th>
+		                                    <td style=" color:black">${reportDetail.state }</td>
+		                                 </tr>
+		                                 <c:if test="${reportDetail.state eq '거절' }">
+		                                 <tr>
+		                                    <th scope="col" style="border: none;">거절 사유</th>
+		                                    <td style="border: none;">${reportDetail.reason }</td>
+		                                 </tr>
+		                                 </c:if>
 		                            </table>
 			           	
 				           	 </div>	                       
 								<div class="col-md-3"  style="float:left;">
 		                            <button type="button" class="btn btn-outline-success text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px; width:200px; margin-top:100px">신고글 보기</button>
 					            </div>
+					            <c:if test="${reportDetail.state eq '대기중' }">
 								<div class="col-md-3 col-md-offset-4"  style="float:right;margin-top: 100px;">
 					               	<button type="submit" class="btn btn-danger btn-sm" style="border-radius:10px;margin-left:65px">신고 승인</button>
 					            </div>
@@ -85,19 +98,23 @@
                    <!-- 심사상태 : 대기일 때 -->   
                    <!--관리자 심사 폼 시작 -->
                  <div class="col-md-12">
-                         <hr>
-                   <form action="">
+                 
+                 <form action="">
 	               <!-- 광고 심사 사유 입력 -->
                    <div class="form-group">
                    		<label for="writer" class="col-sm-2 control-label" style="font-size:20px; font-weight:bold;">관리자 댓글: </label>
 	                   <div class="col-sm-10">
-                        <textarea class="form-control" name="message" rows="5" placeholder="광고 심사 사유를 입력해주세요(거절시에만..)" style="margin-bottom:3%;" required></textarea>
+                        <textarea class="form-control" name="message" rows="5" placeholder="거절 사유를 입력해주세요(거절시에만..)" style="margin-bottom:3%;" required></textarea>
 		               </div>
 		               <div class="form-group col-sm-3"  style="float:right;">
 		               	<button type="submit" class="btn btn-primary btn-sm" style="border-radius:10px;"]>신고 거절 댓글 등록</button>
 		               </div>
                    </div>   	
 	               </form>
+                 
+                 </c:if>
+                         <hr>
+                   
 	               </div>
                             	</div>
                             </div>

@@ -5,11 +5,21 @@
 <mapper namespace="com.nobanryeo.petpal.admin.report.dao.ReportMapper">
 
 <resultMap id="ReportSet" type="ReportDTO">
-		<id column="BOARD_CODE" property="boardCode" />
+		<id column="REPORT_CODE" property="reportCode" />
 		<result column="USER_ID" property="userId" />
 		<result column="REPORT_TITLE" property="boardTitle" />
 		<result column="REPORTED_USER" property="reportedUser" />
 		<result column="REPORT_DATE" property="reportDate" />
+		<result column="STATE" property="state" />
+	</resultMap>
+<resultMap id="ReportDetailSet" type="ReportDetailDTO">
+		<id column="REPORT_CODE" property="reportCode" />
+		<result column="USER_ID" property="userId" />
+		<result column="REPORT_TITLE" property="boardTitle" />
+		<result column="REPORTED_ID" property="reportedId" />
+		<result column="REPORT_CONTENT" property="boardContent" />
+		<result column="REPORT_DATE" property="reportDate" />
+		<result column="DECISION_REASON" property="reason" />
 		<result column="STATE" property="state" />
 	</resultMap>
 	<select id="selectReportCount" resultType="int">
@@ -71,7 +81,7 @@
                     FROM (SELECT
                     		<choose>
                     		<when test="category == 7">
-                    		A.REPLY_CODE AS BOARD_CODE,
+                    		A.REPLY_CODE AS REPORT_CODE,
 						    C.USER_ID,
 						    B.USER_ID AS REPORTED_USER,
 						    A.REPLY_REPORT_TITLE AS REPORT_TITLE,
@@ -111,7 +121,7 @@
                     		
                     		
                     		<otherwise>
-                    		C.BOARD_CODE,
+                    		A.REPORT_CODE,
                             D.USER_ID,
                             B.REPORT_TITLE,
                             G.USER_ID AS REPORTED_USER,
@@ -161,14 +171,14 @@
 							
 							<choose>
 								<when test="sortValue == 1">
-									ORDER BY F.STATE_NAME DESC ,C.BOARD_CODE DESC
+									ORDER BY F.STATE_NAME DESC ,A.REPORT_CODE DESC
 											
 								</when>
 								<when test="sortValue == 2">
-									ORDER BY F.STATE_NAME ASC ,C.BOARD_CODE DESC
+									ORDER BY F.STATE_NAME ASC ,A.REPORT_CODE DESC
 								</when>
 								<otherwise>
-									ORDER BY C.BOARD_CODE DESC
+									ORDER BY A.REPORT_CODE DESC
 								</otherwise>
 							</choose>
                     		</otherwise>
@@ -181,6 +191,51 @@
 	
 	
 	</select>
+	<select id="selectReportDetail" resultMap="ReportDetailSet" parameterType="ReportDetailDTO">
+	SELECT
+    B.REPORT_CODE,
+    C.USER_ID,
+    E.USER_ID AS REPORTED_ID,
+    B.REPORT_TITLE,
+    B.REPORT_CONTENT,
+    B.REPORT_DATE,
+    NVL2(B.DECISION_CODE,G.STATE_NAME,'대기중') AS STATE,
+    F.DECISION_REASON
+    	<if test='category == "0"'>
+		FROM FREE_BOARD_REPORT A
+		JOIN FREE_BOARD D ON(A.BOARD_CODE = D.BOARD_CODE)
+		</if>
+		<if test='category == "1"'>
+		FROM INFO_BOARD_REPORT A
+		JOIN INFO_BOARD D ON(A.BOARD_CODE = D.BOARD_CODE)
+		</if>
+		<if test='category == "2"'>
+		FROM SHARE_BOARD_REPORT A
+		JOIN SHARE_BOARD D ON(A.BOARD_CODE = D.BOARD_CODE)
+		</if>
+		<if test='category == "3"'>
+		FROM REVIEW_BOARD_REPORT A
+		JOIN REVIEW_BOARD D ON(A.BOARD_CODE = D.BOARD_CODE)
+		</if>
+		<if test='category == "4"'>
+		FROM MISSING_BOARD_REPORT A
+		JOIN MISSING_BOARD D ON(A.BOARD_CODE = D.BOARD_CODE)
+		</if>
+		<if test='category == "5"'>
+		FROM FRIENDLY_BOARD_REPORT A
+		JOIN FRIENDLY_BOARD D ON(A.BOARD_CODE = D.BOARD_CODE)
+		</if>
+		<if test='category == "6"'>
+		FROM ADOPT_BOARD_REPORT A
+		JOIN ADOPT_BOARD D ON(A.BOARD_CODE = D.BOARD_CODE)
+		</if>
+    JOIN USER_TABLE E ON(D.USER_CODE = E.USER_CODE)
+    JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
+    JOIN USER_TABLE C ON(B.USER_CODE = C.USER_CODE)
+    LEFT OUTER JOIN DECISION_TABLE F ON(B.DECISION_CODE = F.DECISION_CODE)
+    LEFT OUTER JOIN STATE_TABLE G ON(F.STATE_CODE = G.STATE_CODE)
+	WHERE B.REPORT_CODE =#{reportCode}
 	
+	</select>
 	
 </mapper>
