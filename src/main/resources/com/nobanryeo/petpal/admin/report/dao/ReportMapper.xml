@@ -14,8 +14,22 @@
 	</resultMap>
 	<select id="selectReportCount" resultType="int">
 	   SELECT COUNT(*) 
-	   
-		<if test='category == "0"'>
+	   	<choose>
+	   	<when test="category == 7">
+	   	FROM REPLY_REPORT_TABLE A
+	   	<if test='searchCondition == "userId"'>
+        JOIN USER_TABLE B ON(A.USER_CODE = B.USER_CODE)
+		WHERE B.USER_ID = #{searchValue}
+		
+		</if>
+		<if test='searchCondition == "boardTitle"'>
+		WHERE A.REPLY_REPORT_TITLE = #{searchValue}
+		</if>
+	   	
+	   	
+	   	</when>
+	   	<otherwise>
+	   	<if test='category == "0"'>
 		FROM FREE_BOARD_REPORT A
 		</if>
 		<if test='category == "1"'>
@@ -46,13 +60,58 @@
 		JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
 		WHERE B.REPORT_TITLE = #{searchValue}
 		</if>
+	   	</otherwise>
+	   	</choose>
+		
 	</select>
 	<select id="selectReport" resultMap="ReportSet" parameterType="ReportDTO">
 	SELECT
         *
         FROM( SELECT ROWNUM RNUM, G.*
                     FROM (SELECT
-                            C.BOARD_CODE,
+                    		<choose>
+                    		<when test="category == 7">
+                    		A.REPLY_CODE AS BOARD_CODE,
+						    C.USER_ID,
+						    B.USER_ID AS REPORTED_USER,
+						    A.REPLY_REPORT_TITLE AS REPORT_TITLE,
+						    A.REPLY_REPORT_DATE AS REPORT_DATE,
+						    NVL2(A.DECISION_CODE,E.STATE_NAME,'대기중') AS STATE
+						    
+						    
+						    FROM REPLY_REPORT_TABLE A
+						    JOIN USER_TABLE B ON(A.USER_CODE1 = B.USER_CODE)
+						    JOIN USER_TABLE C ON(A.USER_CODE = C.USER_CODE)
+						    LEFT OUTER JOIN DECISION_TABLE D ON(A.DECISION_CODE = D.DECISION_CODE)
+						    LEFT OUTER JOIN STATE_TABLE E ON(D.STATE_CODE = E.STATE_CODE)
+						    
+                    		<if test='searchCondition == "userId"'>
+							WHERE C.USER_ID = #{searchValue}
+							
+							</if>
+							<if test='searchCondition == "boardTitle"'>
+							WHERE A.REPLY_REPORT_TITLE = #{searchValue}
+							</if>
+							
+							<choose>
+								<when test="sortValue == 1">
+									ORDER BY E.STATE_NAME DESC ,A.REPLY_CODE DESC
+											
+								</when>
+								<when test="sortValue == 2">
+									ORDER BY E.STATE_NAME ASC ,A.REPLY_CODE DESC
+								</when>
+								<otherwise>
+									ORDER BY A.REPLY_CODE DESC
+								</otherwise>
+							</choose>
+                    		
+                    		</when>
+                    		
+                    		
+                    		
+                    		<otherwise>
+                    		C.BOARD_CODE,
                             D.USER_ID,
                             B.REPORT_TITLE,
                             G.USER_ID AS REPORTED_USER,
@@ -112,6 +171,9 @@
 									ORDER BY C.BOARD_CODE DESC
 								</otherwise>
 							</choose>
+                    		</otherwise>
+                    		</choose>
+                            
                         )G
                 )A 
                 WHERE RNUM BETWEEN #{start} AND #{end}
