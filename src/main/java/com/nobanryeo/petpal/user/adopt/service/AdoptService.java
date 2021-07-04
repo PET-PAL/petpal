@@ -32,4 +32,6 @@ public interface AdoptService {
 
 	int insertMessage(MessageTableDTO messageDTO);
 
+	List<AdoptPictureManageDTO> selectSearchList(String keyword);
+
 }

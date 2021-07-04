@@ -382,7 +382,23 @@ public class AdoptController {
 	}
 	
 	@GetMapping("adopt/search/{search}")
-	public ModelAndView selectKeyword(ModelAndView mv) {
+	@ResponseBody
+	public ModelAndView selectKeyword(@PathVariable("search") String keyword, ModelAndView mv, HttpServletResponse response) {
+		
+	
+		response.setContentType("application/json; charset=utf-8");
+		
+		List<AdoptPictureManageDTO> adoptSearchList = new ArrayList<>();
+		adoptSearchList=adoptService.selectSearchList(keyword);
+		System.out.println("controllter sort: "+adoptSearchList );
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting()
+				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+				.serializeNulls().disableHtmlEscaping().create();
+	
+		mv.addObject("adoptSearchList", gson.toJson(adoptSearchList));
+	
+		mv.setViewName("jsonView");
 		
 		return mv;
 	}

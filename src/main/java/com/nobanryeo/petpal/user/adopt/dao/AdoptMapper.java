@@ -39,5 +39,7 @@ public interface AdoptMapper {
 
 	int insertMessage(MessageTableDTO messageDTO);
 
+	List<AdoptPictureManageDTO> selectSearchAdoptList(String keyword);
+
 	
 }
