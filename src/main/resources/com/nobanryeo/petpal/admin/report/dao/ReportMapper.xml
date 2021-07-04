@@ -10,7 +10,7 @@
 		<result column="REPORT_TITLE" property="boardTitle" />
 		<result column="REPORTED_USER" property="reportedUser" />
 		<result column="REPORT_DATE" property="reportDate" />
-		<result column="STATE_NAME" property="state" />
+		<result column="STATE" property="state" />
 	</resultMap>
 	<select id="selectReportCount" resultType="int">
 	   SELECT COUNT(*) 
@@ -57,7 +57,7 @@
                             B.REPORT_TITLE,
                             G.USER_ID AS REPORTED_USER,
                             B.REPORT_DATE,
-                            F.STATE_NAME
+                            NVL2(B.DECISION_CODE,F.STATE_NAME,'대기중') AS STATE
                             <if test='category == "0"'>
 							FROM FREE_BOARD_REPORT A
 							JOIN FREE_BOARD C ON(A.BOARD_CODE = C.BOARD_CODE)
@@ -88,8 +88,8 @@
 							</if>
 	                        JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
 	                        JOIN USER_TABLE D ON(B.USER_CODE = D.USER_CODE)
-	                        JOIN DECISION_TABLE E ON(B.DECISION_CODE = E.DECISION_CODE)
-	                        JOIN STATE_TABLE F ON(E.STATE_CODE = F.STATE_CODE)
+	                        LEFT OUTER JOIN DECISION_TABLE E ON(B.DECISION_CODE = E.DECISION_CODE)
+	                        LEFT OUTER JOIN STATE_TABLE F ON(E.STATE_CODE = F.STATE_CODE)
 	                        JOIN USER_TABLE G ON(C.USER_CODE = G.USER_CODE)
 	                        
 	                        <if test='searchCondition == "userId"'>
