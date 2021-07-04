@@ -60,42 +60,6 @@
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -152,30 +116,6 @@
 			                </tr>
 			            </thead>
 			            <tbody>
-			                <%-- <tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail'">
-			                	<td></td>
-			                	<td style="text-align: center;">일반</td>
-			                    <td style="text-align: center;">우리집 강아지 보세요</td>
-			                    <td style="text-align: center;">킘유진</td>
-			                    <td style="text-align: center;">367</td>
-			                    <td style="text-align: center;">2021-06-17</td>
-			                </tr>
-			                <tr class="general" onclick="location.href=''">
-			                	<td class="blink" style="color:red; text-align: left; margin-left: 5px; font-weight: 600; font-size: 1.2em;">AD</td>
-			                    <td style="text-align: center;">일반</td>
-			                    <td style="text-align: center;">강아지 카페 갔다왔는데 최고네요!</td>
-			                    <td style="text-align: center;">업나라</td>
-			                    <td style="text-align: center;">36</td>
-			                    <td style="text-align: center;">2021-06-17</td>
-			                </tr>
-			                <tr class="question" onclick="location.href=''">
-			                	<td></td>
-			                	<td style="text-align: center;">질문</td>
-			                    <td style="text-align: center;">초보 집사인데 어떻게 해야 하나요?</td>
-			                    <td style="text-align: center;">손성훙</td>
-			                    <td style="text-align: center;">173</td>
-			                    <td style="text-align: center;">2021-06-17</td>
-			                </tr> --%>
 			                <c:forEach var="arr" items="${ freeBoardList }">
 			                	<c:if test="${ arr.category eq '일반' }">
 					                <tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?boardCode=${ arr.boardCode }'">
