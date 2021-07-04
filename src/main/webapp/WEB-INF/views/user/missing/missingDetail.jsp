@@ -164,39 +164,13 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="favicon.ico">
 
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-        <script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
+              	<script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
+         <script type="text/javascript"src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       	 <script>
+          var $j3 = jQuery.noConflict();
+      	 </script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -220,10 +194,52 @@
             <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
          <section>
-            <div class="port_img" style="float: left;">
-                   <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                </div>
-                <div style="float: left; width: 600px; display: flex;">
+       <!--      <div class="port_img" style="float: left; width: 600px;"> -->
+                   <%-- <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" /> --%>
+<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="float: left;">
+                            <!-- Indicators -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                                <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                            </ol>
+
+                            <!-- Wrapper for slides -->
+                            <div class="carousel-inner">
+                                <div class="item active">
+	                                   <div class="port_img">
+	                                       <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" />
+	                                   </div>
+                                </div>
+                                <div class="item">
+                                         <div class="port_img">
+                                             <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" />
+                                         </div>
+                                </div>
+                                <div class="item">
+                                         <div class="port_img">
+                                             <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" />
+                                         </div>
+                                </div>
+                                <div class="item">
+                                         <div class="port_img">
+                                             <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" />
+                                         </div>
+                                </div>
+                              </div> 
+                            <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" style="background-image:none !important;">
+                                <i class="fas fa-arrow-circle-left fa-3x" style="margin-top: 250px;"></i>
+                                <span class="sr-only">Previous</span>
+                            </a>
+
+                            <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next" style="background-image:none !important;">
+                           		<i class="fas fa-arrow-circle-right fa-3x" style="margin-top: 250px;"></i>
+                                <span class="sr-only">Next</span>
+                            </a>
+                     </div>
+
+
+                <div style="float: left;width: 500px;display: flex;flex-direction: row;">
                    <h2 style="background-color: orange; width: 100px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
                    실종 
                    </h2>
@@ -241,11 +257,11 @@
                       </li>
                    </ul>
                 </div>
-                <div style="float: left; width: 600px;">
+                <div style="float: left;width: 600px;text-align: center;margin-left:20px; margin-top: 20px;">
                    <h1 style="font-weight: bold;">차이니즈 크레스티드 / 수컷  <br> 3살 / 14KG / 커피색</h1>
                 </div>
-                <div style="float: left; width: 600px;">
-                   <table style="margin-bottom: 50px; width: 600px;">
+                <div style="float: left; width: 600px; margin-left: 20px;margin-top: 20px;">
+                   <table style="margin-bottom: 50px;width: 600px;">
                     <tbody>
                         <tr>
                             <td style="text-align: center; font-size: 20px; font-weight: bold; width: 40px; height: 50px;">
@@ -290,7 +306,7 @@
                     </tbody>
                 </table>
                 </div>
-                <div style="float: left; width: 600px;" align="center">
+                <div style="float: left; width: 600px; margin-left: 30px;" align="center">
                    <button onclick="show();"  style="background-color: red; border: 0px; border-radius:10px; width: 250px; margin-left:10px;">
                          <h3 style="color: white; padding-top: 10px; font-weight: bold;">전단지 생성하기</h3>
                    </button>
@@ -489,22 +505,5 @@
             <jsp:include page="../../common/banner.jsp"/>
              <jsp:include page="../common/footer.jsp"/>
             
-
-        <!-- JS includes -->
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/bootstrap.min.js"></script>
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/owl.carousel.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.magnific-popup.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.easing.1.3.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.collapse.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/bootsnav.js"></script>
-
-
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/plugins.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
+	</body>
 </html>

@@ -6,6 +6,6 @@ import com.nobanryeo.petpal.user.dto.MissingPictureDTO;
 
 public interface MissingService {
 
-	List<MissingPictureDTO> selectAdoptList();
+	List<MissingPictureDTO> selectMissingList();
 
 }

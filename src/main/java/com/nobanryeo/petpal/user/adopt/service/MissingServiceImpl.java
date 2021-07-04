@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.user.adopt.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +20,14 @@ public class MissingServiceImpl implements MissingService {
 	}
 
 	@Override
-	public List<MissingPictureDTO> selectAdoptList() {
-		return null;
+	public List<MissingPictureDTO> selectMissingList() {
+		
+		List<MissingPictureDTO> missingList = new ArrayList<>();
+		missingList = missingMapper.selectMissingList();
+		
+		return missingList;
 	}
-	
+
+
 	
 }
