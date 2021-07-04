@@ -22,6 +22,23 @@
 		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
  	</resultMap>
 
+	<resultMap id="boardReplyResultSet" type="FreeBoardReplyDTO">
+		<id column="REPLY_CODE" property="replyCode"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REPLY_DATE" property="replyDate"/>
+		<result column="REPLY_DELETE_YN" property="replyDeleteYN"/>
+		<result column="REPORT_YN" property="reportYN"/>
+		<result column="BOARD_CODE" property="boardCode"/>
+		<result column="USER_NIKNAME" property="userNickName"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="USER_CODE1" property="userCode1"/>
+		<result column="REPLY_REPORT_TITLE" property="replyReportTitle"/>
+		<result column="REPLY_REPORT_CONTENT" property="replyReportContent"/>
+		<result column="REPLY_REPORT_DATE" property="replyReportDate"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
+	</resultMap>
+	
+	
  	
  	<select id="selectShareInfoListExistImg" parameterType="ShareInfoDTO" resultMap="ShareInfoResultSet">
  		SELECT A.BOARD_TITLE
@@ -55,6 +72,40 @@
  		   AND A.BOARD_DELETE_YN = 'N'
            AND C.STATE_CODE = 2
  		 ORDER BY A.BOARD_CODE DESC
+ 	</select>
+ 	
+ 	<update id="updateShareInfoViews" parameterType="ShareInfoDTO">
+ 		UPDATE INFO_BOARD
+ 		   SET BOARD_VIEWS = BOARD_VIEWS + 1
+ 		 WHERE BOARD_CODE = #{ boardCode }
+ 	</update>
+ 	
+ 	<select id="selectShareInfoDetail" parameterType="ShareInfoDTO" resultMap="ShareInfoResultSet">
+ 		SELECT A.BOARD_TITLE
+ 		     , A.BOARD_CONTENT
+ 		     , A.BOARD_VIEWS
+ 		     , B.USER_NIKNAME
+ 		     , A.BOARD_POST_DATE
+ 		  FROM INFO_BOARD A
+ 		  JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
+ 		 WHERE A.BOARD_CODE = #{ boardCode }
+ 	</select>
+ 	
+ 	<select id="selectShareInfoReply" parameterType="FreeBoardReplyDTO" resultMap="boardReplyResultSet">
+ 		SELECT A.REPLY_CODE
+ 		     , D.USER_NIKNAME
+ 		     , A.REPLY_CONTENT
+ 		     , A.REPLY_DATE
+ 		     , A.REPLY_DELETE_YN
+ 		     , B.BOARD_CODE
+ 		     , D.USER_CODE
+ 		     , A.REPORT_YN
+ 		  FROM REPLY_MANAGE A
+ 		  JOIN INFO_BOARD_REPLY B ON(B.REPLY_CODE = A.REPLY_CODE)
+          JOIN INFO_BOARD C ON(C.BOARD_CODE = B.BOARD_CODE)
+          JOIN USER_TABLE D ON(D.USER_CODE = B.USER_CODE)
+ 		 WHERE B.BOARD_CODE = #{ boardCode }
+ 		 ORDER BY A.REPLY_CODE DESC
  	</select>
  	
  	<select id="writeShareInfo" parameterType="ShareInfoDTO" resultMap="ShareInfoResultSet">

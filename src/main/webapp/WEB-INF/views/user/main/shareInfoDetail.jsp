@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -153,13 +154,13 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float: left">일반 정보 공유</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/main/shareInfo.jsp'" style="width:50px; float: right; cursor: pointer !important;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/list'" style="width:50px; float: right; cursor: pointer !important;">
             </section>
 
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
 					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/main/shareInfo.jsp" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">일반 정보 공유</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/shareInfo/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">일반 정보 공유</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/main/sharePlace.jsp" style="color: #979797;">프렌들리 플레이스</a></li>
 					</ul>
@@ -171,48 +172,60 @@
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
-							<td>당신의 집에 고양이가 없는 이유</td>
+							<td><c:out value="${ requestScope.shareInfoDetail.boardTitle }"/></td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
-							<td style="border-radius: 0px 21px 0px 0px;">367
+							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="${ requestScope.shareInfoDetail.boardViews }"/>
 							<span>
 							<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;">
 							</span></td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
-							<td>쥬쥬</td>
+							<td><c:out value="${ requestScope.shareInfoDetail.userNickName }"/></td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성 일자</b></td>
-							<td>2021-06-17</td>
+							<td><c:out value="${ requestScope.shareInfoDetail.boardPostDate }"/></td>
 						</tr>
-						</table>
-					<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px;">저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!
-					저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!
-					</p>
+					</table>
+					<div style="margin-bottom: 30px; text-align:center;">
+						<c:out value="${ requestScope.shareInfoDetail.boardContent }" escapeXml="false"/>
+					</div>
 		        </div>
 		        
 				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>
 				<div style="margin-bottom: 40px;">
 					<table class="table" style="margin-bottom: 50px; width: 70%; margin: 0px auto;">
 				    	<tbody>
-				            <tr>
-				                <td style="text-align: center;">킘유진</td>
-				                <td>감사합니다.</td>
-				                <td style="text-align: center;">2021-06-17</td>
-				                 <td><img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-				            </tr>
-				            <tr>
-				                <td style="text-align: center;">업나라</td>
-				                <td>좋은 글 감사합니다! 더 궁금한 점이 있는데 쪽지 드려도 될까요~?</td>
-				                <td style="text-align: center;">2021-06-17</td>
-				                 <td><img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-				            </tr>
-				            <tr>
-				                <td style="text-align: center;">손성훙</td>
-				                <td>정보 감사합니다.</td>
-				                <td style="text-align: center;">2021-06-17</td>
-				                 <td><img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-				            </tr>
+				    		<c:forEach var="arr" items="${ shareInfoReply }">
+					            <c:if test="${ arr.replyDeleteYN eq 'N' }">
+		                        	<tr>
+		                            	<td><c:out value="${ arr.userNickName }"/></td>
+		                            	<td><c:out value="${ arr.replyContent }"/></td>
+		                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+		                            	<input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
+		                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/>
+		                            	<%-- <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px" class="replyReport"></td> --%>
+		                            	<td><img onclick="test1(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+		                        	</tr>
+	                        	</c:if>
+	                        	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
+	                        		<c:if test="${ arr.reportYN eq 'Y' }">
+			                        	<tr>
+			                            	<td><c:out value="${ arr.userNickName }"/></td>
+			                            	<td>신고에 의해 삭제된 댓글입니다.</td>
+			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+			                            	<td></td>
+			                        	</tr>
+	                        		</c:if>
+	                        		<c:if test="${ arr.reportYN eq 'N' }">
+			                        	<tr>
+			                            	<td><c:out value="${ arr.userNickName }"/></td>
+			                            	<td>삭제된 댓글입니다.</td>
+			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+			                            	<td></td>
+			                        	</tr>
+		                        	</c:if>
+	                        	</c:if>
+				            </c:forEach>
 				        </tbody>
 				    </table>
 			    </div>

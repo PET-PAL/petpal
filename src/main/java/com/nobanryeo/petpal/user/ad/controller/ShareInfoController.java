@@ -13,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -54,10 +55,10 @@ private final ShareInfoService shareInfoService;
     	
     	for(Cookie cookie: cookies) {
     		
-    		if(!(cookie.getName().equals("sharInfo"))) {
+    		if(!(cookie.getName().equals("shareInfo"))) {
     			
     			cookie = new Cookie("shareInfo",null); 			//sharInfo라는 이름의 쿠키 생성
-    			cookie.setComment("sharInfo 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
+    			cookie.setComment("shareInfo 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
     			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
     			
     		}
@@ -68,12 +69,30 @@ private final ShareInfoService shareInfoService;
     	return "user/main/shareInfo";
     }
 	
-    // 정보공유게시판 상세내용 조회
-    
-    
-    
-    
-    
+    /**
+     * 정보공유게시판 상세내용 조회
+     */
+    @GetMapping("select/shareInfo/detail")
+    public String selectShareInfoDetail(@CookieValue(name = "shareInfo") String cookie, HttpServletResponse response, Model model, @RequestParam int boardCode) {
+    	
+    	if(!(cookie.contains(String.valueOf(boardCode)))) {
+			
+			cookie += boardCode + "/";
+			
+			// 조회수 카운트
+			shareInfoService.updateShareInfoViews(boardCode);
+			
+		}
+    	
+    	response.addCookie(new Cookie("shareInfo", cookie));
+    	
+    	// 상세 내용 조회      
+        model.addAttribute("shareInfoDetail", shareInfoService.selectShareInfoDetail(boardCode));
+        // 댓글 내용 조회
+        model.addAttribute("shareInfoReply", shareInfoService.selectShareInfoReply(boardCode));
+    	
+    	return "user/main/shareInfoDetail";
+    }
     
     /**
      * 정보공유 게시글 작성 페이지로 이동
