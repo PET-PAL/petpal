@@ -92,7 +92,7 @@
                            <li><a href="${pageContext.servletContext.contextPath }/admin/adminList">관리자 관리</a></li>                    
                             <li class="dropdown"><a href="${pageContext.servletContext.contextPath }/admin/paymentManageList" class="dropdown-category" id="dropdownPaymentMenu" data-toggle="dropdown">결제 관리 <i class="caret"></i></a> 
                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownPaymentMenu" style="width:130px;" > 
-                                  <li style="text-align:center;"><a class="dropdown-item" aria-current="true" href="${pageContext.servletContext.contextPath }/admin/paymentManageList">광고 결제 관리</a></li> 
+                                  <li style="text-align:center;"><a class="dropdown-item" aria-current="true" href="${pageContext.servletContext.contextPath }/admin/payList">광고 결제 관리</a></li> 
                                   <li><a class="dropdown-item" href="${pageContext.servletContext.contextPath }/admin/taxManageList">세금계산서 관리</a></li> 
                                </ul> 
                             </li>

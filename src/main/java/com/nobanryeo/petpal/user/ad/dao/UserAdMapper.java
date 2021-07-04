@@ -21,4 +21,8 @@ public interface UserAdMapper {
 
 	int updateFirstAdPayment(AdDTO adDTO);
 
+	AdDTO selectAdListDecisionDate(AdDTO adDTO);
+
+	int updateCancelAd(AdDTO adDTO);
+
 }

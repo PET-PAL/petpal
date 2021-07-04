@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nobanryeo.petpal.admin.pay.dao.PayAdminMapper">
+
+ <resultMap id="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">
+	  	<id property="adCode" column="AD_CODE"/>
+	  	<result property="adTitle" column="AD_TITLE"/>
+	  	<result property="adContent" column="AD_CONTENT"/>
+	  	<result property="companyNumber" column="COMPANY_NUMBER"/>
+	  	<result property="applyDate" column="APPLY_DATE"/>
+	  	<result property="stateCode" column="STATE_CODE"/>
+	  	<result property="adTypeCode" column="AD_TYPE_CODE"/>
+	  	<result property="postStartDate" column="POST_START_DATE"/>
+	  	<result property="postEndDate" column="POST_END_DATE"/>
+	  	<result property="postYn" column="POST_YN"/>
+	  	<result property="payDate1st" column="PAY_DATE_1ST"/>
+	  	<result property="payDate2nd" column="PAY_DATE_2ND"/>
+	  	<result property="cancelApplyDate" column="CANCEL_APPLY_DATE"/>
+	  	<result property="companyName" column="COMPANY_NAME"/>
+		<result property="companyPhone" column="COMPANY_PHONE"/>
+		<result property="companyEmail" column="COMPANY_EMAIL"/>
+	  	<result property="refundYn" column="REFUND_YN"/>
+	  	<result property="clickNum" column="CLICK_NUM"/>
+	  	<!-- 유저코드에 대한 유저이름 가져옴 (유저코드가 매개) -->
+	  	<!-- 하나의 유저코드는 하나의 유저명만 가질 수 있음 -->	  
+	  	<association property="user" javaType="com.nobanryeo.petpal.user.dto.UserInfoDTO">
+	  		<id property="code" column="USER_CODE"/>
+			<result property="name" column="USER_NAME"/>
+			<result property="id" column="USER_ID"/>
+		</association>
+		 <association property="decision" javaType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
+	   	 <id property="decisionCode" column="DECISION_CODE"/>
+	     <result property="decisionDate" column="DECISION_DATE"/>
+   	     <result property="decisionReason" column="DECISION_REASON"/>
+       </association>
+	  </resultMap>
+
+	<!-- 총 광고 결제 관리 갯수 조회 -->
+	 <select id="selectAdPayList" resultType="int" parameterType="AdminPageInfoDTO">
+		SELECT COUNT(*)
+		FROM AD_APPLY_TABLE A
+		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+		<if test='category == null'>
+		WHERE (A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) <= 3)
+		     ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
+          ]]>
+           OR (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
+          AND (A.PAY_DATE_1ST IS NOT NULL
+           OR A.PAY_DATE_2ND IS NOT NULL))
+           
+            OR ( A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		   <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) > 3)
+		  ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
+          ]]>
+          
+           OR (A.STATE_CODE = 4 
+          AND A.PAY_DATE_1ST IS NULL
+          <![CDATA[
+          AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
+          ]]>
+         </if>	
+         <if test='category == "1"'>
+         WHERE (A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) <= 3)
+		  ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
+           ]]>
+         </if>
+         <if test='category == "2"'>
+          WHERE (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
+          AND (A.PAY_DATE_1ST IS NOT NULL
+           OR A.PAY_DATE_2ND IS NOT NULL))
+         </if>	
+         <if test='category =="3"'>
+          WHERE ( A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) > 3)
+		   ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
+          ]]>
+         </if>
+         <if test='category=="4"'>
+         WHERE (A.STATE_CODE = 4 
+          AND A.PAY_DATE_1ST IS NULL
+          <![CDATA[
+          AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
+          ]]>
+         </if>
+	  </select>
+	  
+	  
+
+
+</mapper>
