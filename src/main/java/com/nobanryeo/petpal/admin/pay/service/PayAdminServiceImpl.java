@@ -29,5 +29,20 @@ public class PayAdminServiceImpl implements PayAdminService {
 	public List<AdAdminDTO> selectAdPayAllList(AdminPageInfoDTO paging) {
 		return payAdminMapper.selectAdPayAllList(paging);
 	}
+
+	@Override
+	public List<AdAdminDTO> selectPayAdminDetail(int adCode) {
+		return payAdminMapper.selectPayAdminDetail(adCode);
+	}
+
+	@Override
+	public int searchAdPayList(AdminPageInfoDTO cat) {
+		return payAdminMapper.searchAdPayList(cat);
+	}
+
+	@Override
+	public List<AdAdminDTO> searchAdPayAllList(AdminPageInfoDTO paging) {
+		return payAdminMapper.searchAdPayAllList(paging);
+	}
 	
 }

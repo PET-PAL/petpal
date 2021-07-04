@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
  <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@page import="java.util.Date"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -76,7 +78,7 @@ select { width: 150px; /* 원하는 너비설정 */
       text-align:center;
       color:#25213b">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/admin/paymentManageList">광고 결제 관리</a></li>
+        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/admin/payList">광고 결제 관리</a></li>
         <hr>
         <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">세금계산서 관리</a></li>
       </ul>
@@ -157,6 +159,28 @@ select { width: 150px; /* 원하는 너비설정 */
 									   	</div>
 								    </form>
 								</div>
+								
+								
+								  <c:set var="day" value="<%=new java.util.Date()%>" />
+                                     <c:set var="today"><fmt:formatDate value="${day}" pattern="yyyy-MM-dd" /></c:set> 
+                                     	
+									 <fmt:parseDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
+									 <fmt:parseDate value="${adApprove.postStartDate}" pattern="yyyy-MM-dd" var="startday" />
+									 <fmt:parseDate value="${adApprove.postEndDate}" pattern="yyyy-MM-dd" var="endday" />
+									 <fmt:parseDate value="${adApprove.applyDate}" pattern="yyyy-MM-dd" var="applyday" />
+									 <fmt:parseDate value="${adApprove.decision.decisionDate}" pattern="yyyy-MM-dd" var="decisionday" />
+									 <fmt:parseDate value="${adApprove.payDate1st}" pattern="yyyy-MM-dd" var="pay1stday" />
+									 <fmt:parseDate value="${adApprove.cancelApplyDate}" pattern="yyyy-MM-dd" var="cancelApplyDay" />  
+									 
+									 <fmt:parseNumber value="${today.time / (1000*60*60*24)}" integerOnly="true" var="caltoday" />
+									 <fmt:parseNumber value="${applyday.time  / (1000*60*60*24)}" integerOnly="true" var="calapplyday" /> 
+									 <fmt:parseNumber value="${pay1stday.time  / (1000*60*60*24)}" integerOnly="true" var="calpay1stday" /> 
+									 <fmt:parseNumber value="${cancelApplyDay.time  / (1000*60*60*24)}" integerOnly="true" var="calcancelapplyday" /> 
+									 <fmt:parseNumber value="${startday.time  / (1000*60*60*24)}" integerOnly="true" var="calstartday" /> 
+									 <fmt:parseNumber value="${endday.time  / (1000*60*60*24)}" integerOnly="true" var="calendday" /> 
+									 <fmt:parseNumber value="${decisionday.time  / (1000*60*60*24)}" integerOnly="true" var="caldecisionday" /> 
+								
+								
                                     <!-- Tab panes -->
                                     <div class="tab-content" style="padding:0px;">
                                         <div role="tabpanel" class="tab-pane active" id="all">		
@@ -175,7 +199,7 @@ select { width: 150px; /* 원하는 너비설정 */
 												<c:choose>
 												<c:when test="${ empty category }">
 												<c:forEach var="adApprove" items="${ requestScope.payList }">
-													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail/${ adApprove.adCode }'">
 														<th scope="row">${ adApprove.adCode }</th>
 	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
 														<td>
@@ -186,9 +210,63 @@ select { width: 150px; /* 원하는 너비설정 */
 														2차
 														</c:if>
 														</td>
-														<td>2021.06.11</td>
-														<td>납부 전</td>
-														<td>250000</td>
+														<td>
+														<c:if test= "${ empty adApprove.payDate1st and empty adApprove.cancelApplyDate}">
+															<c:out value="${ adApprove.decision.decisionDate }"/>
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st and empty adApprove.payDate2nd and empty adApprove.cancelApplyDate }">
+															<c:out value="${ adApprove.postEndDate }"/>
+														</c:if>
+														<c:if test= "${ not empty adApprove.cancelApplyDate }">
+															<c:out value="${ adApprove.cancelApplyDate }"/>
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st and not empty adApprove.payDate2nd and empty adApprove.cancelApplyDate }">
+															${ adApprove.price2nd }
+														</c:if>
+														</td>
+														<td>
+														<c:choose>
+			                                    		<c:when test="${ empty adApprove.payDate1st and today - caldecisionday > 3  and empty adApprove.cancelApplyDate }">
+			                                    		 납부초과
+			                                    		</c:when>
+			                                    		<c:when test="${ not empty adApprove.payDate1st and caltoday - calendday > 3  and empty adApprove.cancelApplyDate and empty adApprove.payDate2nd}">
+			                                    		 납부초과
+			                                    		</c:when> 
+														<c:when test= "${ not empty adApprove.cancelApplyDate and empty adApprove.payDate1st }">
+														납부취소
+														</c:when>
+														<c:when test="${ not empty adApprove.payDate1st and not empty adApprove.payDate2nd}">
+														납부완료
+														</c:when>
+														<c:otherwise>
+														납부전
+														</c:otherwise>
+														</c:choose>
+														</td>
+														<td>
+														<c:if test= "${ empty adApprove.payDate1st }">
+															 <c:choose>
+											                    <c:when test="${adApprove.adTypeCode eq 1}">
+											                    	200000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 3}">
+											                    	100000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 2}">
+											                    	350000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 4}">
+											                    	250000
+											                    </c:when>
+									                          </c:choose>
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st and empty adApprove.payDate2nd }">
+															${ adApprove.price2nd }
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st and not empty adApprove.payDate2nd }">
+															${ adApprove.price2nd }
+														</c:if>
+														</td>
 													</tr>
 												 </c:forEach>
 												 </c:when>

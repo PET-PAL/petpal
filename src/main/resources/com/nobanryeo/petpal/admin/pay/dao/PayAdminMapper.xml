@@ -229,6 +229,232 @@
          
 	  </select>
 	  
+	   <!-- 광고 결제 디테일 조회 -->
+	  <select id="selectPayAdminDetail" resultMap="adAdmin" parameterType="int">
+	  SELECT 
+			   A.AD_CODE
+			 , NVL(B.CLICK,0) CLICK_NUM
+             , NVL(B.CLICK,0)*150 PRICE_2ND
+			 , A.USER_CODE
+			 , C.USER_NAME
+			 , C.USER_ID
+			 , A.AD_TITLE
+			 , A.COMPANY_NAME
+			 , A.COMPANY_PHONE
+			 , A.COMPANY_NUMBER
+			 , A.COMPANY_EMAIL
+			 , A.APPLY_DATE
+			 , A.STATE_CODE
+			 , B.DECISION_DATE
+			 , A.POST_START_DATE
+             , A.POST_END_DATE
+             , A.CANCEL_APPLY_DATE
+             , A.POST_YN
+             , A.PAY_DATE_1ST
+             , A.PAY_DATE_2ND 
+             , A.AD_TYPE_CODE
+		FROM AD_APPLY_TABLE A
+		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+		LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
+		LEFT OUTER JOIN
+	  			 (SELECT AD_CODE, COUNT(*) CLICK
+           		    FROM AD_CLICK_COUNT 
+                    GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
+       WHERE A.AD_CODE = #{adCode}
+	  </select>
 
+
+	<!-- 검색 시 총 광고 결제 관리 갯수 조회 -->
+	 <select id="searchAdPayList" resultType="int" parameterType="AdminPageInfoDTO">
+		SELECT COUNT(*)
+		FROM AD_APPLY_TABLE A
+		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+		<if test='category == null'>
+		WHERE (A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) <= 3)
+		     ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
+          ]]>
+           OR (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
+          AND (A.PAY_DATE_1ST IS NOT NULL
+           OR A.PAY_DATE_2ND IS NOT NULL))
+           
+            OR ( A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		   <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) > 3)
+		  ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
+          ]]>
+          
+           OR (A.STATE_CODE = 4 
+          AND A.PAY_DATE_1ST IS NULL
+          <![CDATA[
+          AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
+          ]]>
+         </if>	
+         <if test='category == "1"'>
+         WHERE (A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) <= 3)
+		  ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
+           ]]>
+         </if>
+         <if test='category == "2"'>
+          WHERE (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
+          AND (A.PAY_DATE_1ST IS NOT NULL
+           OR A.PAY_DATE_2ND IS NOT NULL))
+         </if>	
+         <if test='category =="3"'>
+          WHERE ( A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) > 3)
+		   ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
+          ]]>
+         </if>
+         <if test='category=="4"'>
+         WHERE (A.STATE_CODE = 4 
+          AND A.PAY_DATE_1ST IS NULL
+          <![CDATA[
+          AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
+          ]]>
+         </if>
+         AND C.USER_ID LIKE '%' || #{ searchValue } || '%'
+	  </select>
+		
+	 <!-- 검색 시 광고 결제 관리 조회 -->
+	  <select id="searchAdPayAllList" resultMap="adAdmin" parameterType="AdminPageInfoDTO">
+		SELECT * 
+		  FROM (
+			    SELECT ROWNUM RN, D.* 
+			      FROM (
+		SELECT 
+			   A.AD_CODE
+			 , NVL(B.CLICK,0) CLICK_NUM
+             , NVL(B.CLICK,0)*150 PRICE_2ND
+			 , A.USER_CODE
+			 , C.USER_NAME
+			 , C.USER_ID
+			 , A.AD_TITLE
+			 , A.COMPANY_NUMBER
+			 , A.APPLY_DATE
+			 , A.STATE_CODE
+			 , B.DECISION_DATE
+			 , A.POST_START_DATE
+             , A.POST_END_DATE
+             , A.CANCEL_APPLY_DATE
+             , A.POST_YN
+             , A.PAY_DATE_1ST
+             , A.PAY_DATE_2ND 
+             , A.REFUND_YN
+             , A.AD_TYPE_CODE
+		FROM AD_APPLY_TABLE A
+		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+		LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
+		LEFT OUTER JOIN
+	  			 (SELECT AD_CODE, COUNT(*) CLICK
+           		    FROM AD_CLICK_COUNT 
+                    GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
+		<if test='category == null'>
+		WHERE (A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) <= 3)
+		     ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
+          ]]>
+           OR (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
+          AND (A.PAY_DATE_1ST IS NOT NULL
+           OR A.PAY_DATE_2ND IS NOT NULL))
+           
+            OR ( A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		   <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) > 3)
+		  ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
+          ]]>
+          
+           OR (A.STATE_CODE = 4 
+          AND A.PAY_DATE_1ST IS NULL
+          <![CDATA[
+          AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
+          ]]>
+         </if>	
+         <if test='category == "1"'>
+         WHERE (A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) <= 3)
+		  ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
+           ]]>
+         </if>
+         <if test='category == "2"'>
+          WHERE (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
+          AND (A.PAY_DATE_1ST IS NOT NULL
+           OR A.PAY_DATE_2ND IS NOT NULL))
+         </if>	
+         <if test='category =="3"'>
+          WHERE ( A.STATE_CODE = 2
+		  AND (A.CANCEL_APPLY_DATE IS NULL
+		  AND A.PAY_DATE_1ST IS NULL
+		  <![CDATA[
+		  AND TRUNC(SYSDATE) - TRUNC(B.DECISION_DATE) > 3)
+		   ]]>
+		   OR (A.PAY_DATE_1ST IS NOT NULL 
+          AND A.PAY_DATE_2ND IS NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
+          ]]>
+         </if>
+         <if test='category=="4"'>
+         WHERE (A.STATE_CODE = 4 
+          AND A.PAY_DATE_1ST IS NULL
+          <![CDATA[
+          AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
+          ]]>
+         </if>
+          AND C.USER_ID LIKE '%' || #{ searchValue } || '%'
+          ORDER BY A.AD_CODE DESC
+						) D
+				  )
+			WHERE RN BETWEEN #{start} AND #{end}
+         
+	  </select>
 
 </mapper>

@@ -11,4 +11,10 @@ public interface PayAdminMapper {
 
 	List<AdAdminDTO> selectAdPayAllList(AdminPageInfoDTO paging);
 
+	List<AdAdminDTO> selectPayAdminDetail(int adCode);
+
+	int searchAdPayList(AdminPageInfoDTO cat);
+
+	List<AdAdminDTO> searchAdPayAllList(AdminPageInfoDTO paging);
+
 }
