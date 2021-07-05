@@ -158,7 +158,7 @@ input {
 					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
 					   					    <!-- select 박스 -->
 					   					    <!-- ~를 선택했을 때 value를 넘겨줌 -->
-												<option value="userId" <c:if test="${requestScope.searchCondition eq 'userId'}">selected</c:if>>유저아이디</option>
+												<option value="userId" <c:if test="${requestScope.searchCondition eq 'userId'}">selected</c:if>>신고자ID</option>
 												<option value="boardTitle" <c:if test="${requestScope.searchCondition eq 'boardTitle'}">selected</c:if>>글 제목</option>
 											</select>
 											<!-- input 값도 넘겨줌 -->
@@ -168,7 +168,7 @@ input {
 									    </c:when>
 									    <c:otherwise>
 										    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
-												<option value="userId" >유저아이디</option>
+												<option value="userId" >신고자ID</option>
 												<option value="boardTitle">글 제목</option>
 											</select>
 									        <input id="searchValue" name="searchValue" placeholder="검색어를 입력하세요" 

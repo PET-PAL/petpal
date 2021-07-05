@@ -100,11 +100,11 @@
 						    LEFT OUTER JOIN STATE_TABLE E ON(D.STATE_CODE = E.STATE_CODE)
 						    
                     		<if test='searchCondition == "userId"'>
-							WHERE C.USER_ID = #{searchValue}
+							WHERE C.USER_ID LIKE '%' || #{searchValue} || '%' 
 							
 							</if>
 							<if test='searchCondition == "boardTitle"'>
-							WHERE A.REPLY_REPORT_TITLE = #{searchValue}
+							WHERE A.REPLY_REPORT_TITLE LIKE '%' || #{searchValue} || '%' 
 							</if>
 							
 							<choose>
@@ -166,11 +166,11 @@
 	                        JOIN USER_TABLE G ON(C.USER_CODE = G.USER_CODE)
 	                        
 	                        <if test='searchCondition == "userId"'>
-							WHERE D.USER_ID = #{searchValue}
+							WHERE D.USER_ID LIKE '%' || #{searchValue} || '%' 
 							
 							</if>
 							<if test='searchCondition == "boardTitle"'>
-							WHERE B.REPORT_TITLE = #{searchValue}
+							WHERE B.REPORT_TITLE LIKE '%' || #{searchValue} || '%' 
 							</if>
 							
 							<choose>
