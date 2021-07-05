@@ -268,6 +268,7 @@
 	 <select id="searchAdPayList" resultType="int" parameterType="AdminPageInfoDTO">
 		SELECT COUNT(*)
 		FROM AD_APPLY_TABLE A
+		LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
 		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
 		<if test='category == null'>
 		WHERE (A.STATE_CODE = 2
@@ -341,7 +342,7 @@
           AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
           ]]>
          </if>
-         AND C.USER_ID LIKE '%' || #{ searchValue } || '%'
+         AND C.USER_NAME LIKE '%' || #{ searchValue } || '%'
 	  </select>
 		
 	 <!-- 검색 시 광고 결제 관리 조회 -->
@@ -449,7 +450,7 @@
           AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
           ]]>
          </if>
-          AND C.USER_ID LIKE '%' || #{ searchValue } || '%'
+          AND C.USER_NAME LIKE '%' || #{ searchValue } || '%'
           ORDER BY A.AD_CODE DESC
 						) D
 				  )

@@ -133,6 +133,7 @@ select { width: 150px; /* 원하는 너비설정 */
                                  </c:if>		
                                  <p style="float:right;">총 광고 수 : ${ requestScope.total }개</p>
                             </ul>   
+                            
 							<div class="container-fluid" style="margin-top: 15px;">
 							 <div class="container-fluid" style="float:left;">
 												<select class="ui search dropdown" style="font-size:15px; text-align:center !important; width:150px;">
@@ -151,13 +152,45 @@ select { width: 150px; /* 원하는 너비설정 */
 												  <option value="12">12월</option>
 												
 												</select>
-												</div>	
-								    <form class="d-flex" style="float:right;">
+								</div>
+								
+									
+								    <!-- <form class="d-flex" style="float:right;">
 									     <div class="search">
 									      <input type="text" placeholder="유저명으로 검색해주세요.">
 									      <i class="fas fa-search fa-2x"></i>
 									   	</div>
-								    </form>
+								    </form> -->
+								    
+								    <!-- 검색폼 시작 -->
+								    <form action="${ pageContext.servletContext.contextPath }/admin/payList" method="get" class="d-flex">
+								  	<input type="hidden" name="cntPerPage" value="${ paging.cntPerPage }"/>
+							        <input type="hidden" name="nowPage" value="${ paging.nowPage }"/>
+							        <input type="hidden" name="category" value="${ requestScope.category }"/>
+									<c:choose>
+									    <c:when test="${ !empty requestScope.searchValue }">
+					   					    <%-- <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
+					   					    <!-- select 박스 -->
+					   					    <!-- ~를 선택했을 때 value를 넘겨줌 -->
+												<option value="menu" <c:if test="${requestScope.searchCondition eq 'menu'}">selected</c:if>>카테고리</option>
+												<option value="adCode" <c:if test="${requestScope.searchCondition eq 'adCode'}">selected</c:if>>광고코드</option>
+												<option value="adTitle" <c:if test="${requestScope.searchCondition eq 'adTitle'}">selected</c:if>>광고제목</option>
+												<option value="name" <c:if test="${requestScope.searchCondition eq 'name'}">selected</c:if>>신청자이름</option>
+											</select> --%>
+											<!-- input 값도 넘겨줌 -->
+									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
+									    </c:when>
+									    <c:otherwise>
+									        <input id="searchValue" name="searchValue" placeholder="유저명을 입력하세요" 
+									        aria-label="Search"  class="form-control me-2" type="search" 
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:90px;">
+									    </c:otherwise>
+									</c:choose>
+									<button class="btn btn-outline-success" type="submit" 
+									style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" >Search</button>
+								</form>
+								    
+								    
 								</div>
 								
 								

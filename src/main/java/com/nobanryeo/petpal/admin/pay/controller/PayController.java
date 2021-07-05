@@ -76,7 +76,7 @@ public class PayController {
 	    } else {
 	    	
 	    // 검색했을 때
-	    	AdminPageInfoDTO cat = new AdminPageInfoDTO( category,searchValue);
+	    	AdminPageInfoDTO cat = new AdminPageInfoDTO(category,searchValue);
 			
 			System.out.println("검색했을 때 cat 출력 : " + cat);
 			System.out.println(cat.getSearchValue());
@@ -100,7 +100,7 @@ public class PayController {
 		
 			// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
 			model.addAttribute("paging", paging);
-			model.addAttribute("adApproveList", searchAdPayAllList);
+			model.addAttribute("payList", searchAdPayAllList);
 			model.addAttribute("category", category);
 			model.addAttribute("total", total);
 	    	
