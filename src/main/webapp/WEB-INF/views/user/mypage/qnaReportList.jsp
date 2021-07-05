@@ -158,8 +158,12 @@ $("#report").click(function(){
 		data:{report:report},
 		success:function(data){
 			console.log("성공!!");
-			$("#menu1").css("display","block");
-			$("#menu0").css("display","none");
+			
+			
+			
+			
+			/* $("#menu1").css("display","block");
+			$("#menu0").css("display","none"); */
 			return;
 		},
 		error:function(data){
