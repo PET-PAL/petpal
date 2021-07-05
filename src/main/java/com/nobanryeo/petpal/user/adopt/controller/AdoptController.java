@@ -122,7 +122,6 @@ public class AdoptController {
 	 * @return insert result
 	 */
 	@PostMapping("adopt/write")
-//	@ResponseBody
 	public String putAdoptInfo(@ModelAttribute AdoptDTO adopt,Model model, HttpServletRequest request,@RequestParam(name="picture",required=true) List<MultipartFile> picture, RedirectAttributes rttr, HttpSession session) {
 		
 		
