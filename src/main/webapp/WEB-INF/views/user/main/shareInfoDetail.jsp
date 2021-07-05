@@ -51,7 +51,7 @@
             	cursor: pointer !important;
             }
             
-               .overlay {
+            .overlay {
   				position: fixed;
 				top: 0;
 				bottom: 0;
@@ -122,6 +122,24 @@
                 border-radius: 10px;
                 width: 100px;
             }
+            td > button {
+            	float: right;
+    			border-radius: 5px;
+    			border: 1px solid;
+    			color: #45B99C;
+    			background: white;
+            }
+            td > button:hover {
+            	float: right;
+    			border-radius: 5px;
+    			background-color: #45B99C;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid;
+            }
+            .findpwd-content > div, .findpwd-content > form > div {
+                margin: 0px auto;
+            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -162,7 +180,7 @@
 					<ul style="margin-left: 30%;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/shareInfo/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">일반 정보 공유</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/main/sharePlace.jsp" style="color: #979797;">프렌들리 플레이스</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/sharePlace/list" style="color: #979797;">프렌들리 플레이스</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -181,7 +199,7 @@
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
-							<td><c:out value="${ requestScope.shareInfoDetail.userNickName }"/></td>
+							<td><c:out value="${ requestScope.shareInfoDetail.userNickName }"/><button onclick="location.href='#directMessage'">쪽지보내기</button></td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성 일자</b></td>
 							<td><c:out value="${ requestScope.shareInfoDetail.boardPostDate }"/></td>
 						</tr>
@@ -204,14 +222,14 @@
 		                            	<input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
 		                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/>
 		                            	<%-- <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px" class="replyReport"></td> --%>
-		                            	<td><img onclick="test1(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+		                            	<td><img onclick="report(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
 		                        	</tr>
 	                        	</c:if>
 	                        	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
 	                        		<c:if test="${ arr.reportYN eq 'Y' }">
 			                        	<tr>
 			                            	<td><c:out value="${ arr.userNickName }"/></td>
-			                            	<td>신고에 의해 삭제된 댓글입니다.</td>
+			                            	<td><del>신고에 의해 삭제된 댓글입니다.</del></td>
 			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
 			                            	<td></td>
 			                        	</tr>
@@ -219,7 +237,7 @@
 	                        		<c:if test="${ arr.reportYN eq 'N' }">
 			                        	<tr>
 			                            	<td><c:out value="${ arr.userNickName }"/></td>
-			                            	<td>삭제된 댓글입니다.</td>
+			                            	<td><del>삭제된 댓글입니다.</del></td>
 			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
 			                            	<td></td>
 			                        	</tr>
@@ -231,49 +249,131 @@
 			    </div>
             </section>
             
-            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
-                <input type="text" id="messagecontent" placeholder="  message">
-                <button class="sendmessagecontent">댓글 작성</button>
-            </section>
+            <form action="${ pageContext.servletContext.contextPath }/user/insert/shareInfo/reply" method="post">
+	            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
+	                <input type="text" name="replyContent" id="messagecontent" placeholder="  message">
+	                <input type="hidden" name="boardCode" value="${ requestScope.shareInfoDetail.boardCode }">
+	                <button class="sendmessagecontent">댓글 작성</button>
+	            </section>
+	        </form>
 
-            
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
-            
-            			<!-- 게시글 신고 팝업창 -->
-            <div id="reportPost" class="overlay">
-                <div class="popup">
-                    <a href="#none" class="close">&times;</a>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
-                    <div class="findpwd-content" id="contStep02" style="display: block;">
-                        <div class="cont-step_preface">
-                            <hr style="border:0.5px solid #A8A8A8;">
-                        </div>
-                        <!-- 신고 내용 입력 -->
-                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
-                    </div>
-                </div>
-            </div>
-            
-             <!-- 신고 완료 팝업창 -->
-            <div id="completeReport" class="overlay">
-                <div class="popup">
-                <img alt="warning" src="${ pageContext.servletContext.contextPath }/resources/images/warning.png" style="
-    width: 120px; margin: 0px auto; margin-left: 220px; margin-bottom: -70px;">
-                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
-                     	신고가 정상적으로 접수되었습니다.<br>
-                    </p>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
-                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
-                     	신고 내역에서 확인 가능합니다.
-                    </p>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
-                    </div>
-                </div>
-            </div>
-			
 
+            
+            <!-- 게시글 신고 팝업창 -->
+            <form action="${pageContext.servletContext.contextPath }/user/insert/shareInfo/report" method="post">
+	            <div id="reportPost" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <div class="cont-step_preface">
+	                            <hr style="border:0.5px solid #A8A8A8;">
+	                        </div>
+	                        <!-- 신고 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="reportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <input type="hidden" value="${ requestScope.shareInfoDetail.boardCode }" name="boardCode">
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- 신고 완료 팝업창 -->
+	            <div id="completeReport" class="overlay">
+	                <div class="popup">
+		                <img alt="warning" src="${ pageContext.servletContext.contextPath }/resources/images/warning.png" style="width: 120px; margin: 0px auto; margin-left: 220px; margin-bottom: -70px;">
+		                <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+		                   	신고가 정상적으로 접수되었습니다.<br>
+		                </p>
+		                <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+		                   	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
+		                   	신고 내역에서 확인 가능합니다.
+		                </p>
+	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
+	                </div>
+	            </div>
+	        </form>
+			
+			
+			<!-- 댓글 신고 팝업창 -->
+            <form action="${pageContext.servletContext.contextPath }/user/insert/shareInfo/reportReply" method="post">
+	            <div id="reportComment" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <div class="cont-step_preface">
+	                            <hr style="border:0.5px solid #A8A8A8;">
+	                        </div>
+	                        <!-- 신고 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="replyReportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport2'">신고하기</button></div>
+	                        <input type="hidden" name="inputReplyCode" id="inputReplyCode">
+	                        <input type="hidden" name="inputuserCode1" id="inputuserCode1">
+	                        <input type="hidden" value="${ requestScope.shareInfoDetail.boardCode }" name="boardCode">
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- 신고 완료 팝업창 -->
+	            <div id="completeReport2" class="overlay">
+	                <div class="popup">
+	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+	                     	신고가 정상적으로 접수되었습니다.<br>
+	                    </p>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+	                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
+	                     	신고 내역에서 확인 가능합니다.
+	                    </p>
+	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
+	                </div>
+	            </div>
+            </form>			
+			
+			<script>
+				function report (reply) {
+				
+					let replyCode = reply.className;
+					let userCode1 = reply.title;
+					
+					document.getElementById("inputReplyCode").value = replyCode;
+					document.getElementById("inputuserCode1").value = userCode1;
+					
+					location.href = '#reportComment';
+				}
+			</script>
+			
+			
+			<!-- 쪽지 팝업창 -->
+            <form action="${pageContext.servletContext.contextPath }/user/insert/shareInfo/message" method="post">
+	            <div id="directMessage" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.shareInfoDetail.userNickName }"/></p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <!-- 쪽지 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+	                        <input type="hidden" value="${ requestScope.shareInfoDetail.userCode }" name="userCode1">
+	                        <input type="hidden" value="${ requestScope.shareInfoDetail.boardCode }" name="boardCode">
+	                        <input type="hidden" value="${ requestScope.shareInfoDetail.userNickName }" name="receiveUserNick">
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- 전송 완료 팝업창 -->
+	            <div id="completeMessage" class="overlay">
+	                <div class="popup">
+	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+	                     	쪽지 전송에 성공하였습니다.<br>
+	                    </p>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+	                     	보낸 쪽지는 마이페이지에서 확인 가능합니다.
+	                    </p>
+	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
+	                </div>
+	            </div>
+            </form>
+            
+            
             <!-- 푸터 -->
             <jsp:include page="../common/footer.jsp"/>
         </div>

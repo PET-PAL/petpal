@@ -24,7 +24,7 @@
             }
 
 			section > button{
-			 background-color: #B9062F; 
+			 	background-color: #B9062F; 
                 height: 35px;
                 color: white;
                 border-color: #B9062F; 
@@ -37,10 +37,10 @@
 			.findpwd-content > div, .findpwd-content > form > div {
                 margin: 0px auto;
             }
-			 div > img {
+			div > img {
                 margin-bottom: 20px;
                 text-align: center;
-            width: 20%;
+            	width: 20%;
             }
             a > img {
                 width: 50%;
@@ -80,7 +80,7 @@
                 color:#45B99C;
             }
             
-               .overlay {
+            .overlay {
   				position: fixed;
 				top: 0;
 				bottom: 0;
@@ -269,7 +269,7 @@
 	                        		<c:if test="${ arr.reportYN eq 'Y' }">
 			                        	<tr>
 			                            	<td><c:out value="${ arr.userNickName }"/></td>
-			                            	<td>신고에 의해 삭제된 댓글입니다.</td>
+			                            	<td><del>신고에 의해 삭제된 댓글입니다.</del></td>
 			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
 			                            	<td></td>
 			                        	</tr>
@@ -277,7 +277,7 @@
 	                        		<c:if test="${ arr.reportYN eq 'N' }">
 			                        	<tr>
 			                            	<td><c:out value="${ arr.userNickName }"/></td>
-			                            	<td>삭제된 댓글입니다.</td>
+			                            	<td><del>삭제된 댓글입니다.</del></td>
 			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
 			                            	<td></td>
 			                        	</tr>
@@ -299,44 +299,71 @@
             
 
 			<!-- 게시글 신고 팝업창 -->
-            <div id="reportPost" class="overlay">
-                <div class="popup">
-                    <a href="#none" class="close">&times;</a>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
-                    <div class="findpwd-content" id="contStep02" style="display: block;">
-                        <div class="cont-step_preface">
-                            <hr style="border:0.5px solid #A8A8A8;">
-                        </div>
-                        <!-- 신고 내용 입력 -->
-                        <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/report" method="post">
+            <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/report" method="post">
+	            <div id="reportPost" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <div class="cont-step_preface">
+	                            <hr style="border:0.5px solid #A8A8A8;">
+	                        </div>
+	                        <!-- 신고 내용 입력 -->
 	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="reportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-	                        <div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
 	                        <input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
-                        </form>
-                    </div>
-                </div>
-            </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- 신고 완료 팝업창 -->
+	            <div id="completeReport" class="overlay">
+	                <div class="popup">
+	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+	                     	신고가 정상적으로 접수되었습니다.<br>
+	                    </p>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+	                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
+	                     	신고 내역에서 확인 가능합니다.
+	                    </p>
+	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
+	                </div>
+	            </div>
+            </form>
             
             <!-- 댓글 신고 팝업창 -->
-            <div id="reportComment" class="overlay">
-                <div class="popup">
-                    <a href="#none" class="close">&times;</a>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
-                    <div class="findpwd-content" id="contStep02" style="display: block;">
-                        <div class="cont-step_preface">
-                            <hr style="border:0.5px solid #A8A8A8;">
-                        </div>
-                        <!-- 신고 내용 입력 -->
-                        <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/reportReply" method="post">
-                        	<div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="replyReportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
-                        	<input type="hidden" name="inputReplyCode" id="inputReplyCode">
-                        	<input type="hidden" name="inputuserCode1" id="inputuserCode1">
-                        	<input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
-                        </form>
-                    </div>
-                </div>
-            </div>
+            <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/reportReply" method="post">
+	            <div id="reportComment" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <div class="cont-step_preface">
+	                            <hr style="border:0.5px solid #A8A8A8;">
+	                        </div>
+	                        <!-- 신고 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="replyReportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport2'">신고하기</button></div>
+	                        <input type="hidden" name="inputReplyCode" id="inputReplyCode">
+	                        <input type="hidden" name="inputuserCode1" id="inputuserCode1">
+	                        <input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- 신고 완료 팝업창 -->
+	            <div id="completeReport2" class="overlay">
+	                <div class="popup">
+	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+	                     	신고가 정상적으로 접수되었습니다.<br>
+	                    </p>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+	                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
+	                     	신고 내역에서 확인 가능합니다.
+	                    </p>
+	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+	                </div>
+	            </div>
+            </form>
+            
            	<script>
 				function test1 (test) {
 				
@@ -350,59 +377,43 @@
 				}
 			</script>
             
-            <!-- 신고 완료 팝업창 -->
-            <div id="completeReport" class="overlay">
-                <div class="popup">
-                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
-                     	신고가 정상적으로 접수되었습니다.<br>
-                    </p>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
-                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
-                     	신고 내역에서 확인 가능합니다.
-                    </p>
-                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
-                </div>
-            </div>
-            
-            
             
             <!-- 쪽지 팝업창 -->
-            <div id="directMessage" class="overlay">
-                <div class="popup">
-                    <a href="#none" class="close">&times;</a>
-                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.freeBoardDetail.userNickName }"/></p>
-                    <div class="findpwd-content" id="contStep02" style="display: block;">
-                        <!-- 쪽지 내용 입력 -->
-                        <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/message" method="post">
-                        	<div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        	<div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
-                        	<input type="hidden" value="${ requestScope.freeBoardDetail.userCode }" name="userCode1">
-                        	<input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
-                        	<input type="hidden" value="${ requestScope.freeBoardDetail.userNickName }" name="receiveUserNick">
-                        </form>
-                    </div>
-                </div>
-            </div>
-            
-            <!-- 전송 완료 팝업창 -->
-            <div id="completeMessage" class="overlay">
-                <div class="popup">
-                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
-                     	쪽지 전송에 성공하였습니다.<br>
-                    </p>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
-                     	보낸 쪽지는 마이페이지에서 확인 가능합니다.
-                    </p>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
-                    </div>
-                </div>
-            </div>
+            <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/message" method="post">
+	            <div id="directMessage" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.freeBoardDetail.userNickName }"/></p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <!-- 쪽지 내용 입력 -->
+	                        	<div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+	                        	<input type="hidden" value="${ requestScope.freeBoardDetail.userCode }" name="userCode1">
+	                        	<input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
+	                        	<input type="hidden" value="${ requestScope.freeBoardDetail.userNickName }" name="receiveUserNick">
+	                    </div>
+	                </div>
+	            </div>
+	            
+	            <!-- 전송 완료 팝업창 -->
+	            <div id="completeMessage" class="overlay">
+	                <div class="popup">
+	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+	                     	쪽지 전송에 성공하였습니다.<br>
+	                    </p>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+	                     	보낸 쪽지는 마이페이지에서 확인 가능합니다.
+	                    </p>
+	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
+	                </div>
+	            </div>
+            </form>
 			
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
 			
             <!-- 푸터 -->
             <jsp:include page="../common/footer.jsp"/>
-        </div>
-        
+		</div>
+	</body>        
 </html>
