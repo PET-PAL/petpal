@@ -3,19 +3,21 @@ package com.nobanryeo.petpal.user.mypage.controller;
 import java.util.HashMap;
 import java.util.List;
 
-import org.apache.ibatis.annotations.Param;
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.ReportManageDTO;
@@ -113,12 +115,14 @@ public class QuestionController {
 	}
 	
 	
-	@GetMapping(value="reportList", produces = "application/json; charset=UTF-8")
-	@ResponseBody
-	public String reportList(@ModelAttribute ReportManageDTO reportDTO, @SessionAttribute UserInfoDTO loginUser
-			, PageDTO page , Model model
+	@GetMapping(value="reportList")
+	public ModelAndView reportList(@ModelAttribute ReportManageDTO reportDTO, @SessionAttribute UserInfoDTO loginUser
+			, PageDTO page , HttpServletResponse response
 			, @RequestParam(value="nowPage", required = false)String nowPage
-			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
+			, @RequestParam(value="cntPerPage", required = false)String cntPerPage
+			, ModelAndView mv) throws JsonProcessingException {
+		
+		response.setContentType("application/json; charset=UTF-8");
 		
 		reportDTO.setUserCode(loginUser.getCode());
 		
@@ -153,18 +157,15 @@ public class QuestionController {
 		
 		List<ReportManageDTO> reportList = questionService.selectReportList(map);
 		
+		ObjectMapper mapper = new ObjectMapper();
+		
 		System.out.println("신고내역 리스트 : " + reportList);
 		
-//		model.addAttribute("paging", page);
-//		model.addAttribute("reportList", reportList);
+		mv.addObject("page", page);
+		mv.addObject("reportList", mapper.writeValueAsString(reportList));
+		mv.setViewName("jsonView");
 		
-		HashMap<String, Object> result = new HashMap<String, Object>();
-		result.put("paging", page);
-		result.put("reportList", reportList);
-		
-		Gson gson = new GsonBuilder().create();
-		
-	    return gson.toJson(result);
+	    return mv;
 		
 	}
 	

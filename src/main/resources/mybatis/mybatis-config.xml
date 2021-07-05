@@ -11,6 +11,8 @@
  		<typeAlias alias="UserInfoDTO" type="com.nobanryeo.petpal.user.dto.UserInfoDTO"/>
  		<typeAlias alias="PageDTO" type="com.nobanryeo.petpal.user.dto.PageDTO"/>
  		<typeAlias alias="ReportManageDTO" type="com.nobanryeo.petpal.user.dto.ReportManageDTO"/>
+ 		<typeAlias alias="BoradAndCommentDTO" type="com.nobanryeo.petpal.user.dto.BoradAndCommentDTO"/>
+ 		<typeAlias alias="MissingDTO" type="com.nobanryeo.petpal.user.dto.MissingDTO"/>
  		
  	
  		<typeAlias alias="FreeBoardDTO" type="com.nobanryeo.petpal.user.dto.FreeBoardDTO"/>
