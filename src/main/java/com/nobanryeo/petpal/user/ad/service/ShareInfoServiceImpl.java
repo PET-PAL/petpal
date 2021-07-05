@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.ad.dao.ShareInfoMapper;
-import com.nobanryeo.petpal.user.dto.PictureDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.ShareInfoDTO;
 
 @Service
@@ -40,6 +40,25 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 	}
 
 	@Override
+	public void updateShareInfoViews(int boardCode) {
+		shareInfoMapper.updateShareInfoViews(boardCode);
+	}
+	
+	@Override
+	public ShareInfoDTO selectShareInfoDetail(int boardCode) {
+		
+		return shareInfoMapper.selectShareInfoDetail(boardCode);
+	}
+	
+	@Override
+	public List<FreeBoardReplyDTO> selectShareInfoReply(int boardCode) {
+
+		List<FreeBoardReplyDTO> shareInfoReply = shareInfoMapper.selectShareInfoReply(boardCode);
+		
+		return shareInfoReply;
+	}
+	
+	@Override
 	public ShareInfoDTO writeShareInfo(int userCode) {
 
 		return shareInfoMapper.writeShareInfo(userCode);
@@ -59,4 +78,5 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 		
 		return result + result2;
 	}
+
 }

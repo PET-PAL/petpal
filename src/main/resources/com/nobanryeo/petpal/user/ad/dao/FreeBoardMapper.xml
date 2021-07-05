@@ -118,6 +118,7 @@
              , B.BOARD_CODE
              , A.REPLY_CODE
              , D.USER_CODE
+             , A.REPORT_YN
           FROM REPLY_MANAGE A
           JOIN FREE_BOARD_REPLY B ON(B.REPLY_CODE = A.REPLY_CODE)
           JOIN FREE_BOARD C ON(C.BOARD_CODE = B.BOARD_CODE)

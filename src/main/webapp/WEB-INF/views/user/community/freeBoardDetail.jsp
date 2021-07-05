@@ -4,9 +4,6 @@
 <!DOCTYPE html>
 <html>
     <head>
-    <!-- include libraries(jQuery, bootstrap) -->
-
-
         <style>
             .menutable > div > img {
                 margin-bottom: 20px;
@@ -252,52 +249,44 @@
 					</div>
 		        </div>
             
-             <div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>
-            <div style="margin-bottom: 40px;">
-               <table class="table" style="margin-bottom: 50px; width: 70%; margin: 0px auto;">
-                   <tbody>
-                        <%-- <tr>
-                            <td style="text-align: center;">킘유진</td>
-                            <td>감사합니다.</td>
-                            <td style="text-align: center;">2021-06-17</td>
-                            <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;">업나라</td>
-                            <td>좋은 글 감사합니다! 더 궁금한 점이 있는데 쪽지 드려도 될까요~?</td>
-                            <td style="text-align: center;">2021-06-17</td>
-                            <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-                        </tr>
-                        <tr>
-                            <td style="text-align: center;">손성훙</td>
-                            <td>정보 감사합니다.</td>
-                            <td style="text-align: center;">2021-06-17</td>
-                            <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-                        </tr> --%>
-                        <c:forEach var="arr" items="${ freeBoardReply }" varStatus="status">
-                        	<c:if test="${ arr.replyDeleteYN eq 'N' }">
-	                        	<tr>
-	                            	<td><c:out value="${ arr.userNickName }"/></td>
-	                            	<td><c:out value="${ arr.replyContent }"/></td>
-	                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
-	                            	<input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
-	                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/>
-	                            	<%-- <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px" class="replyReport"></td> --%>
-	                            	<td><img onclick="test1(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-	                        	</tr>
-                        	</c:if>
-                        	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
-	                        	<tr>
-	                            	<td><c:out value="${ arr.userNickName }"/></td>
-	                            	<td>삭제된 댓글입니다.</td>
-	                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
-	                            	<td></td>
-	                        	</tr>
-                        	</c:if>
-                        </c:forEach>
-                    </tbody>
-                </table>
-             </div>
+             	<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>
+            	<div style="margin-bottom: 40px;">
+	                <table class="table" style="margin-bottom: 50px; width: 70%; margin: 0px auto;">
+	                    <tbody>
+	                       	<c:forEach var="arr" items="${ freeBoardReply }" varStatus="status">
+	                      		<c:if test="${ arr.replyDeleteYN eq 'N' }">
+		                        	<tr>
+		                            	<td><c:out value="${ arr.userNickName }"/></td>
+		                            	<td><c:out value="${ arr.replyContent }"/></td>
+		                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+		                            	<input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
+		                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/>
+		                            	<%-- <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px" class="replyReport"></td> --%>
+		                            	<td><img onclick="test1(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+		                        	</tr>
+	                        	</c:if>
+	                        	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
+	                        		<c:if test="${ arr.reportYN eq 'Y' }">
+			                        	<tr>
+			                            	<td><c:out value="${ arr.userNickName }"/></td>
+			                            	<td>신고에 의해 삭제된 댓글입니다.</td>
+			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+			                            	<td></td>
+			                        	</tr>
+	                        		</c:if>
+	                        		<c:if test="${ arr.reportYN eq 'N' }">
+			                        	<tr>
+			                            	<td><c:out value="${ arr.userNickName }"/></td>
+			                            	<td>삭제된 댓글입니다.</td>
+			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+			                            	<td></td>
+			                        	</tr>
+		                        	</c:if>
+	                        	</c:if>
+	                    	</c:forEach>
+	                    </tbody>
+	                </table>
+            	</div>
             </section>
             
             <form action="${ pageContext.servletContext.contextPath }/user/insert/freeboard/reply" method="post">
@@ -307,8 +296,6 @@
 	                <button type="submit" class="sendmessagecontent">댓글 작성</button>
 	            </section>
             </form>
-            
-
             
 
 			<!-- 게시글 신고 팝업창 -->
@@ -350,35 +337,20 @@
                     </div>
                 </div>
             </div>
-                        	<script>
-									/* $( '.replyReport' ).click( function() {
-										var replyCode = parseInt($( '.replyCode' ).val());
-										var userCode1 = parseInt($( '.userCode1' ).val());
-										$('#inputReplyCode').val(replyCode);
-										$('#inputuserCode1').val(userCode1);
-									} ); */
-						/* 			$(document).ready( function() {
-										
-									$( '#replyReport' ).click( function() {
-										var userCode1 = $( '.userCode1' ).val()[0];
-										$('#inputuserCode1').val(userCode1);
-									} ); 
-									}); */
-									
-									function test1 (test) {
-										
-										let replyCode = test.className;
-										let userCode1 = test.title;
-										
-										document.getElementById("inputReplyCode").value = replyCode;
-										document.getElementById("inputuserCode1").value = userCode1;
-										
-										location.href = '#reportComment';
-									}
-									
-							</script>
+           	<script>
+				function test1 (test) {
+				
+					let replyCode = test.className;
+					let userCode1 = test.title;
+					
+					document.getElementById("inputReplyCode").value = replyCode;
+					document.getElementById("inputuserCode1").value = userCode1;
+					
+					location.href = '#reportComment';
+				}
+			</script>
             
-             <!-- 신고 완료 팝업창 -->
+            <!-- 신고 완료 팝업창 -->
             <div id="completeReport" class="overlay">
                 <div class="popup">
                     <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
