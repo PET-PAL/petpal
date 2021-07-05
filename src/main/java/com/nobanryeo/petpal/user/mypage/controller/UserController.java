@@ -180,7 +180,7 @@ public class UserController {
 		UserInfoDTO loginUser = userService.selectUser(userInfo);
 		
 		
-		System.out.println("로그인한 유저의 정보  : " + loginUser);
+		System.out.println("로그인 성공!!!!!!!!!");
 		
 		if(loginUser == null) {
 			System.out.println("정보 불일치 조건문에 들어왔습니다.");
