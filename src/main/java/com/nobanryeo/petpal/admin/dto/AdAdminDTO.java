@@ -31,6 +31,14 @@ public class AdAdminDTO {
 	private DecisionDTO decision;
 	private int clickNum;
 	private int price2nd;
+	// 청구일자
+	private Date payUntilDate;
+	// 납부상태
+	private String payStatus;
+	// 세금계산서 발행일
+	private Date taxBillDate;
+	// 세금액
+	private int taxPrice;
 	
 	public AdAdminDTO() {
 		super();
@@ -40,7 +48,8 @@ public class AdAdminDTO {
 			String companyEmail, String adContent, String postYn, String refundYn, Date payDate2nd, int pictureCode,
 			Date payDate1st, int decisionCode, int userCode, int adTypeCode, String adTitle, String payMethod,
 			Date cancelApplyDate, Date postStartDate, Date postEndDate, int stateCode, UserInfoDTO user,
-			DecisionDTO decision, int clickNum, int price2nd) {
+			DecisionDTO decision, int clickNum, int price2nd, Date payUntilDate, String payStatus, Date taxBillDate,
+			int taxPrice) {
 		super();
 		this.adCode = adCode;
 		this.companyName = companyName;
@@ -67,6 +76,10 @@ public class AdAdminDTO {
 		this.decision = decision;
 		this.clickNum = clickNum;
 		this.price2nd = price2nd;
+		this.payUntilDate = payUntilDate;
+		this.payStatus = payStatus;
+		this.taxBillDate = taxBillDate;
+		this.taxPrice = taxPrice;
 	}
 
 	public int getAdCode() {
@@ -269,6 +282,38 @@ public class AdAdminDTO {
 		this.price2nd = price2nd;
 	}
 
+	public Date getPayUntilDate() {
+		return payUntilDate;
+	}
+
+	public void setPayUntilDate(Date payUntilDate) {
+		this.payUntilDate = payUntilDate;
+	}
+
+	public String getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(String payStatus) {
+		this.payStatus = payStatus;
+	}
+
+	public Date getTaxBillDate() {
+		return taxBillDate;
+	}
+
+	public void setTaxBillDate(Date taxBillDate) {
+		this.taxBillDate = taxBillDate;
+	}
+
+	public int getTaxPrice() {
+		return taxPrice;
+	}
+
+	public void setTaxPrice(int taxPrice) {
+		this.taxPrice = taxPrice;
+	}
+
 	@Override
 	public String toString() {
 		return "AdAdminDTO [adCode=" + adCode + ", companyName=" + companyName + ", applyDate=" + applyDate
@@ -279,9 +324,9 @@ public class AdAdminDTO {
 				+ ", adTitle=" + adTitle + ", payMethod=" + payMethod + ", cancelApplyDate=" + cancelApplyDate
 				+ ", postStartDate=" + postStartDate + ", postEndDate=" + postEndDate + ", stateCode=" + stateCode
 				+ ", user=" + user + ", decision=" + decision + ", clickNum=" + clickNum + ", price2nd=" + price2nd
-				+ "]";
+				+ ", payUntilDate=" + payUntilDate + ", payStatus=" + payStatus + ", taxBillDate=" + taxBillDate
+				+ ", taxPrice=" + taxPrice + "]";
 	}
-
 	
 	
 	

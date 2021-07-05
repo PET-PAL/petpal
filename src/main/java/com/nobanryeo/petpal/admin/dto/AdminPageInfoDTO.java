@@ -44,6 +44,18 @@ public class AdminPageInfoDTO {
 		   setSearchCondition(searchCondition);
 		   setSearchValue(searchValue);
 		}
+	
+	public AdminPageInfoDTO(int nowPage, int cntPerPage, String category, String searchValue, int total) {
+		   setNowPage(nowPage);
+		   setCntPerPage(cntPerPage);
+		   setTotal(total);
+		   setCategory(category);
+		   setSearchValue(searchValue);
+		   calcLastPage(getTotal(), getCntPerPage());
+		   calcStartEndPage(getNowPage(), cntPage);
+		   calcStartEnd(getNowPage(), getCntPerPage());
+		}
+	
 	public AdminPageInfoDTO(int total, int nowPage, int cntPerPage, String category
 			,String searchCondition, String searchValue) {
 		   setNowPage(nowPage);
