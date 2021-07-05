@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+    
+ <mapper namespace="com.nobanryeo.petpal.user.adopt.dao.MissingMapper">
+ 	
+	<resultMap type="MissingPictureDTO" id="missingResultMap">
+		<result/>
+  		<result column="USER_NIKNAME" property="userNickname"/>		
+		<result column="PICTURE_CODE" property="pictureCode"/>
+  		<result column="PICTURE_URL" property="pictureURL"/>
+  		<result column="PICTURE_DELETE_YN" property="pictureDeleteYN"/>
+  		<result column="PICTURE_NAME" property="pictureName"/>
+  		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
+  		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
+	</resultMap>	
+ 
+ </mapper>

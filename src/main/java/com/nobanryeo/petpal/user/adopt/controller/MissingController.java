@@ -41,7 +41,7 @@ public class MissingController {
 		
 		response.setContentType("application/json; charset=utf-8");
 		List<MissingPictureDTO> missingList = new ArrayList<>();
-		missingList=missingService.selectAdoptList();
+		missingList=missingService.selectMissingList();
 		
 		System.out.println("controller: "+missingList);
 		
