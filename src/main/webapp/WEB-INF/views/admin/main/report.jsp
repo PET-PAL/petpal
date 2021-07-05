@@ -48,7 +48,7 @@ input {
       <ul class="nav nav-pills nav-stacked">
         <li class="active1"><a href="${pageContext.servletContext.contextPath }/admin/reportList">신고 게시판</a></li>
         <hr>
-        <li><a href="${pageContext.servletContext.contextPath }/admin/reportList">문의 게시판</a></li>
+        <li><a href="${pageContext.servletContext.contextPath }/admin/askList">문의 게시판</a></li>
       </ul>
     </nav>
     <!-- sidebar end -->

@@ -15,8 +15,12 @@
 <resultMap id="ReportDetailSet" type="ReportDetailDTO">
 		<id column="REPORT_CODE" property="reportCode" />
 		<result column="USER_ID" property="userId" />
+		<result column="USER_NAME" property="userName" />
 		<result column="REPORT_TITLE" property="boardTitle" />
 		<result column="REPORTED_ID" property="reportedId" />
+		<result column="REPORTED_NAME" property="reportedName" />
+		<result column="ADMIN_ID" property="adminId" />
+		<result column="ADMIN_NAME" property="adminName" />
 		<result column="REPORT_CONTENT" property="boardContent" />
 		<result column="REPORT_DATE" property="reportDate" />
 		<result column="DECISION_REASON" property="reason" />
@@ -195,11 +199,15 @@
 	SELECT
     B.REPORT_CODE,
     C.USER_ID,
+    C.USER_NAME,
     E.USER_ID AS REPORTED_ID,
+    E.USER_NAME AS REPORTED_NAME,
     B.REPORT_TITLE,
     B.REPORT_CONTENT,
     B.REPORT_DATE,
     NVL2(B.DECISION_CODE,G.STATE_NAME,'대기중') AS STATE,
+    NVL2(B.DECISION_CODE,H.USER_ID,'대기중') AS ADMIN_ID,
+    NVL2(B.DECISION_CODE,H.USER_NAME,'대기중') AS ADMIN_NAME,
     F.DECISION_REASON
     	<if test='category == "0"'>
 		FROM FREE_BOARD_REPORT A
@@ -234,6 +242,7 @@
     JOIN USER_TABLE C ON(B.USER_CODE = C.USER_CODE)
     LEFT OUTER JOIN DECISION_TABLE F ON(B.DECISION_CODE = F.DECISION_CODE)
     LEFT OUTER JOIN STATE_TABLE G ON(F.STATE_CODE = G.STATE_CODE)
+    LEFT OUTER JOIN USER_TABLE H ON(F.USER_CODE = H.USER_CODE)
 	WHERE B.REPORT_CODE =#{reportCode}
 	
 	</select>

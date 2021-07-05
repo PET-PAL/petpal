@@ -48,12 +48,12 @@
 		                                 <table class="table">
 		                                 
 		                                 <tr>
-		                                    <th scope="col-md-3" style="border: none; width: 150px;">신고한 아이디</th>
-		                                    <td style="border: none;">${reportDetail.userId }</td>
+		                                    <th scope="col-md-3" style="border: none; width: 150px;">신고자</th>
+		                                    <td style="border: none;">${reportDetail.userName }(${reportDetail.userId })</td>
 		                                 </tr>
 		                                 <tr>
-		                                    <th scope="col" style="border: none;">신고된 아이디</th>
-		                                    <td style="border: none;">${reportDetail.reportedId }</td>
+		                                    <th scope="col" style="border: none;">피신고자</th>
+		                                    <td style="border: none;">${reportDetail.reportedName }(${reportDetail.reportedId })</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">신고된 글제목</th>
@@ -71,6 +71,12 @@
 		                                    <th scope="col" style=" color:black">처리 여부</th>
 		                                    <td style=" color:black">${reportDetail.state }</td>
 		                                 </tr>
+		                                 <c:if test="${reportDetail.state != '대기중' }">
+		                                 <tr>
+		                                    <th scope="col" style="border: none;">담당 관리자</th>
+		                                    <td style="border: none;">${reportDetail.adminName }(${reportDetail.adminId })</td>
+		                                 </tr>
+		                                 </c:if>
 		                                 <c:if test="${reportDetail.state eq '거절' }">
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">거절 사유</th>
