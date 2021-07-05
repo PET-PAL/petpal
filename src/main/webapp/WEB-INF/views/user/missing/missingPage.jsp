@@ -14,48 +14,16 @@
                 text-align: center;
             }
         </style>
-        <meta charset="utf-8">
-        <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+       	<script src='https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js'></script>
+        <script type="text/javascript"src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       	 <script>
+          var $j3 = jQuery.noConflict();
+      	 </script>
     </head>
 
-    <body data-spy="scroll" data-target=".navbar-collapse">
-
+       <jsp:include page="../common/userHeader.jsp"/>
 
         <!-- Preloader -->
         <div id="loading">
@@ -74,10 +42,9 @@
             <!--Home page style-->
 
 
-            <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
-            <section id="borad" class="borad" style="width: 80%; margin: 0px auto;  margin-bottom: 40px;">
-                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 200px;">실종신고
+            <section id="borad" class="borad" style="width: 80%; margin: 0px auto;  margin-bottom: 10px;">
+                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 7%;">실종신고
                 <button 
                 style="color: white; background-color: #FFA800; border-color: white; border: 1px solid; 
                 border-radius:10px; width:180px; margin-left:30px;">
@@ -89,7 +56,7 @@
                 	집에 왔어요!
                 </button>
                 </div>
-                <hr style="border-color: rgb(175, 175, 175); width: 80%;">
+                <hr style="border-color: rgb(175, 175, 175); width: 90%;">
             </section> <!--End off Home Sections-->
             <div style="width: 370px; position: relative; left: 60%;">
 		            <form style="margin-bottom: 40px;">
@@ -108,107 +75,67 @@
                             <div class="carousel-inner" role="listbox">
                                 <div class="item active">
                                     <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img" style="position: relative;">
-                                                    	<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">실종</p>
-                                                    	<!-- <p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">집 도착</p> -->
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-                                                        <h4><a href="${ pageContext.servletContext.contextPath }/views/user/missing/missingDetail.jsp">차이니즈 크레스티드/수컷/커피색</a></h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                    	<!-- <p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">실종</p> -->
-                                                    	<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">집 도착</p>
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>초코푸들/암컷/갈색</h4>
-                                                        <h6>서울특별시 xx구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>코리안숏헤어/수컷/턱시도</h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>코리안숏헤어/수컷/치즈태비</h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                             </div>
-                             <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>차이니즈 크레스티드/수컷/커피색</h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>초코푸들/암컷/갈색</h4>
-                                                        <h6>서울특별시 xx구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>코리안숏헤어/수컷/턱시도</h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-                                                        <h4>코리안숏헤어/수컷/치즈태비</h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                        <div class="row" id="missingTotalList">
+                                        
+                                        <script>
+                                            
+                                            var missingList1;
+                                            
+                                            $j3(document).ready(function(){
+										     		console.log("MissingPage select script");
+										     		
+										     		$j3.ajax({
+										     			url:"/petpal/user/missingList",
+										     			success:function(data,status,xhr){
+										     				missingList1 = JSON.parse(data.missingList);
+										     				var missingList = _.uniq(missingList1, 'boardCode');
+										     			
+										     				
+										     				console.table(missingList);
+										     				output='';
+										     				$j3.each(missingList,function(){
+											     				var statusName = this.stateName;
+											     				var gender = this.missingGender;
+											     				console.log(statusName);
+											     				
+										     					output += '<div class="col-sm-3">';
+										     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+										     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + this.boardCode +'\''+'">';
+										     					output += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
+										     					if(statusName == '대기'){
+										     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">실종</p>';
+										     					}
+										     					if(statusName == '승인'){
+										     						output+='<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">집 도착</p>'
+										     					}
+										     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
+										     					output += '</div>';
+										     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+										     					if(gender == 'M'){
+										     						output += '<h4>'+this.missingBreed+'/남아/'+this.missingColor+'</h4>';
+										     					}
+										     					if(gender == 'F'){
+										     						output += '<h4>'+this.missingBreed+'/여아/'+this.missingColor+'</h4>';
+										     					}
+										     					output += '<h6>'+this.missingArea+'</h6>';
+										     					output += '</div>';
+										     					output += '</div>';
+										     					output += '</div>';
+								                                    
+								                             
+										     				});
+										     				
+										     				$j3('#missingTotalList').append(output);
+										                
+										     				
+										     			},error:function(xhr,status,error){
+										     				alert("에러 발생~삐뽀~");
+										     				console.log(error);
+										     			}
+										     		});
+										     	}); 
+                                            
+                                            </script>
                                         </div>
                                     </div>
                                 </div>
@@ -234,23 +161,6 @@
             <jsp:include page="../../common/banner.jsp"/>
         </div>
          <jsp:include page="../common/footer.jsp"/>
-            
 
-        <!-- JS includes -->
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/bootstrap.min.js"></script>
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/owl.carousel.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.magnific-popup.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.easing.1.3.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.collapse.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/bootsnav.js"></script>
-
-
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/plugins.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
+	</body>            
 </html>
