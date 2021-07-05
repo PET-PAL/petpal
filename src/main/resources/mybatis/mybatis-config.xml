@@ -31,6 +31,7 @@
 
  		<typeAlias alias="AskDTO" type="com.nobanryeo.petpal.admin.dto.AskDTO"/>
  		<typeAlias alias="ReportDTO" type="com.nobanryeo.petpal.admin.dto.ReportDTO"/>
+ 		<typeAlias alias="ReportDetailDTO" type="com.nobanryeo.petpal.admin.dto.ReportDetailDTO"/>
 		<typeAlias alias="AskDetailDTO" type="com.nobanryeo.petpal.admin.dto.AskDetailDTO"/>
  		
  		<typeAlias alias="AdAdminDTO" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO"/>

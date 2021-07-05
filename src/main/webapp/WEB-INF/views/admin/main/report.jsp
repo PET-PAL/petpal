@@ -203,7 +203,7 @@ input {
 												</thead>
 														<tbody>
 															<c:forEach items="${reportList}" var="board">
-													<tr onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportDetail?boardCode=${ board.boardCode }'">
+													<tr onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportDetail?reportCode=${ board.reportCode }&category=${category}'">
 														<td>${board.userId }</td>
 														<td>${board.reportedUser }</td>
 														<td>${board.boardTitle }</td>

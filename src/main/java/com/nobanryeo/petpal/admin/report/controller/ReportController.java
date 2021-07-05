@@ -1,6 +1,8 @@
 package com.nobanryeo.petpal.admin.report.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDTO;
+import com.nobanryeo.petpal.admin.dto.ReportDetailDTO;
 import com.nobanryeo.petpal.admin.report.service.ReportService;
 
 @Controller
@@ -82,8 +85,20 @@ public class ReportController {
     }
     
     @RequestMapping("reportDetail")
-    public String reportDetail() {
+    public String reportDetail(Model model, @RequestParam(value="category", required=false)String category
+    		,@RequestParam(value="reportCode", required=false)String reportCode) {
        
+       if(category == null) {
+   		category = "0";
+   	}
+       Map param = new HashMap();
+       
+       param.put("reportCode", reportCode);
+       param.put("category", category);
+       ReportDetailDTO reportDetail = reportService.selectReportDetail(param);
+       System.out.println(reportDetail);
+       
+       model.addAttribute("reportDetail",reportDetail);
        return "admin/main/report_detail";
     }
 }
