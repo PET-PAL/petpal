@@ -94,6 +94,12 @@ private final ShareInfoService shareInfoService;
     	return "user/main/shareInfoDetail";
     }
     
+    @PostMapping("insert/shareInfo/reply")
+    public String insertShareInfoReply(@SessionAttribute UserInfoDTO loginUser, @RequestParam int code) {
+    	
+    	return "redirect:/user/select/shareInfo/detail?boardCode="+code;
+    }
+    
     /**
      * 정보공유 게시글 작성 페이지로 이동
      */
