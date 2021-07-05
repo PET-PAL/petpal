@@ -20,6 +20,7 @@
  		<typeAlias alias="AdDTO" type="com.nobanryeo.petpal.user.dto.AdDTO"/>
  		<typeAlias alias="AdQnADTO" type="com.nobanryeo.petpal.user.dto.AdQnADTO"/>
  		<typeAlias alias="ShareInfoDTO" type="com.nobanryeo.petpal.user.dto.ShareInfoDTO"/>
+ 		<typeAlias alias="FriendlyPlaceDTO" type="com.nobanryeo.petpal.user.dto.FriendlyPlaceDTO"/>
  		
  		
  		<typeAlias alias="AdoptDTO" type="com.nobanryeo.petpal.user.dto.AdoptDTO"/>
