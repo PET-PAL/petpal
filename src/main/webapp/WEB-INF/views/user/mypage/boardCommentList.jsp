@@ -172,11 +172,11 @@
 			                            <td style="text-align: center;">2021-06-17</td>
 			                            <td style="text-align: center;"><button>삭제</button></td>
 			                        </tr>
-			                        <tr onclick="location.href=''">
+			                        <!-- <tr onclick="location.href=''">
 			                            <td style="text-align: center;">약 3개월 시바견 임보 중</td>
 			                            <td style="text-align: center;">2021-06-17</td>
 			                            <td class="notbutton" style="text-align: center;"><button disabled>삭제불가</button></td>
-			                        </tr>
+			                        </tr> -->
 			                    </tbody>
 			                </table>
 			                <div class="text-center">

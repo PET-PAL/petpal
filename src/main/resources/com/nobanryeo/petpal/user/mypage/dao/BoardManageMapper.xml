@@ -120,6 +120,32 @@
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
 		      ORDER BY BOARD_DATE DESC	
 	</select>
+	
+	<select id="selectInfoCount" resultType="int">
+		SELECT 
+		       COUNT(*)
+		  FROM INFO_BOARD
+		 WHERE USER_CODE = #{ userCode } 
+	</select>
+	
+	<select id="selectInfoList" resultMap="boardResultSet" parameterType="hashmap">
+		SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+		                       BOARD_CODE
+                             , BOARD_TITLE
+                             , BOARD_CONTENT
+                             , BOARD_VIEWS
+                             , BOARD_POST_DATE
+                             , BOARD_DELETE_YN
+                             , DECISION_CODE
+                             , USER_CODE
+		          FROM INFO_BOARD
+		         WHERE USER_CODE = #{ bcDTO.userCode }
+		      ORDER BY BOARD_POST_DATE DESC) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY BOARD_POST_DATE DESC	
+	</select>
 
 
 </mapper>

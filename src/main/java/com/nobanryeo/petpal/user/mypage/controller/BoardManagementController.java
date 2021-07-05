@@ -120,7 +120,7 @@ public class BoardManagementController {
 			bcDTO.setUserCode(loginUser.getCode());
 			System.out.println(bcDTO);
 			
-			int total = boardService.selectAdoptCount(bcDTO);
+			int total = boardService.selectInfoCount(bcDTO);
 			
 			System.out.println("토탈 카운트 : " + total);
 			System.out.println("nowPage : " + nowPage);
@@ -146,11 +146,11 @@ public class BoardManagementController {
 			map.put("bcDTO", bcDTO);
 			map.put("pageInfo", page);
 			
-			List<AdoptDTO> bList = boardService.selectAdoptList(map);
-			System.out.println(bList);
+			List<BoradAndCommentDTO> cList = boardService.selectInfoList(map);
+			System.out.println(cList);
 			
 			model.addAttribute("paging", page);
-			model.addAttribute("bList", bList);
+			model.addAttribute("bList", cList);
 		}
 		
 		

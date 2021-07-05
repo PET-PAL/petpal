@@ -38,4 +38,14 @@ public class BoardManagementServiceImpl implements BoardManagementService{
 		return mapper.selectAdoptList(map);
 	}
 
+	@Override
+	public int selectInfoCount(BoradAndCommentDTO bcDTO) {
+		return mapper.selectInfoCount(bcDTO);
+	}
+
+	@Override
+	public List<BoradAndCommentDTO> selectInfoList(HashMap<String, Object> map) {
+		return mapper.selectInfoList(map);
+	}
+
 }

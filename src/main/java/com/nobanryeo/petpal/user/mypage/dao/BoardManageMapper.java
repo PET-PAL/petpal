@@ -17,4 +17,8 @@ public interface BoardManageMapper {
 
 	List<AdoptDTO> selectAdoptList(HashMap<String, Object> map);
 
+	int selectInfoCount(BoradAndCommentDTO bcDTO);
+
+	List<BoradAndCommentDTO> selectInfoList(HashMap<String, Object> map);
+
 }
