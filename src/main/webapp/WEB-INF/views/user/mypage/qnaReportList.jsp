@@ -143,27 +143,32 @@
 
             <section id="list" class="list" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div class="tab">
-					<span class="tab_btn active" data-toggle="tab">문의 내역</span>
-					<span class="tab_btn" data-toggle="tab" id="report">신고 내역</span>
+					<span class="tab_btn active" data-toggle="tab" id="qna" onclick="qna()">문의 내역</span>
+					<span class="tab_btn" data-toggle="tab" onclick="report()">신고 내역</span>
 					<img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/'" style="width:50px; float: right;">
 				</div>
             </section>
 
 <script>
-$("#report").click(function(){
-	var report = "report";
+function report(){
+	
+	console.log("report 들어옴");
 	$.ajax({
 		url:"${ pageContext.servletContext.contextPath }/user/mypage/reportList",
 		type:"get",
-		data:{report:report},
 		success:function(data){
-			console.log("성공!!");
+			console.log(data.reportList);
 			
-			const $table = $("#reportTable tbody");
+			const reportList = JSON.parse(data.reportList);
+			
+			const $table = $("#menu1 tbody");
+			$("#menu0").removeClass("tab-pane fade in active").addClass("tab-pane fade");
+			$("#menu1").removeClass("tab-pane fade").addClass("tab-pane fade in active");
 			
 			$table.html("");
 			
-			for(let index in data){
+			for(let index in reportList){
+				
 				$tr = $("<tr>");
 				$titleTd = $("<td>").text(reportList[index].title);
 				$contentTd = $("<td>").text(reportList[index].content);
@@ -177,22 +182,41 @@ $("#report").click(function(){
 				
 				$table.append($tr);
 			}
-			
-			
-			/* $("#menu1").css("display","block");
-			$("#menu0").css("display","none"); */
+		
 		},
 		error:function(data){
 			console.log("실패...");
 		}
 	});
-	return false;
-});
+}
 </script>
+
+<script>
+
+function qna(){
+	console.log("qna들어옴");
+	$.ajax({
+		url:"${ pageContext.servletContext.contextPath }/user/mypage/qnaList",
+		type:"get",
+		success:function(data){
+			
+			$("#menu1").removeClass("tab-pane fade in active").addClass("tab-pane fade");
+			$("#menu0").removeClass("tab-pane fade").addClass("tab-pane fade in active");
+			
+		
+		},
+		error:function(data){
+			console.log("실패...");
+		}
+	});
+}
+</script>
+
+
 
             <section id="menutable" class="menutable">
 				<div class="tab-content">
-	                <div id="menu0" class="tab-pane fade in active" style="display: block;">
+	                <div id="menu0" class="tab-pane fade in active">
 						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		                	<table class="table table-hover" style="margin-bottom: 50px;">
 			                    <thead>
@@ -257,7 +281,7 @@ $("#report").click(function(){
 					</div>
 					</div>
 					
-					<div id="menu1" class="tab-pane fade" style="display: none;" >
+					<div id="menu1" class="tab-pane fade">
 						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		                	<table class="table table-hover" style="margin-bottom: 50px;" id="reportTable">
 			                    <thead>
@@ -269,41 +293,31 @@ $("#report").click(function(){
 			                        </tr>
 			                    </thead>
 			                    <tbody>
-			                        <%-- <c:forEach items="${ reportList }" var="report">
-			                        <tr class="before" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/reportDetail.jsp'">
-			                            <td style="text-align: center; padding-left: 15px;">${ report.title }</td>
-			                            <td style="text-align: center; padding-left: 15px;">${ report.content }</td>
-			                            <td style="text-align: center; padding-left: 15px;">${ report.date }</td>
-			                            <c:if test="${ report.decisionCode eq null }">
-			                            <td style="text-align: center; padding-left: 15px;"><c:out value="처리전"/></td>
-			                            </c:if>
-			                            <c:if test="${ !report.decisionCode eq null }">
-			                            <td style="text-align: center; padding-left: 15px;"><c:out value="처리완료"/></td>
-			                            </c:if>
-			                        </tr>
-			                        </c:forEach> --%>
-			                        <!-- <tr class="before" onclick="location.href=''">
-			                            <td style="text-align: center; padding-left: 15px;">비속어 사용</td>
-			                            <td style="text-align: center;">업나라</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-										<td style="text-align: center; color: red;">처리전</td>
-			                        </tr>
-			                        <tr class="after" onclick="location.href=''">
-			                            <td style="text-align: center; padding-left: 15px;">도배성 댓글</td>
-			                            <td style="text-align: center;">킘해인</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-										<td style="text-align: center; color: #45B99C;">처리완료</td>
-			                        </tr> -->
+			                       
 			                    </tbody>
 			                </table>
 			                <div class="text-center">
-								<ul class="pagination">
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
-								</ul>
-							</div>
+							<ul class="pagination">
+								<li><c:if test="${page.startPage != 1 }">
+										<li><a
+											href="${ pageContext.servletContext.contextPath }/user/mypage/reportList?nowPage=${page.startPage - 1 }&cntPerPage=${page.cntPerPage}">&lt;</a></li>
+									</c:if> <c:forEach begin="${page.startPage }"
+										end="${page.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == page.nowPage }">
+												<li><a>${p }</a></li>
+											</c:when>
+											<c:when test="${p != page.nowPage }">
+												<li><a
+													href="${ pageContext.servletContext.contextPath }/user/mypage/reportList?nowPage=${p }&cntPerPage=${page.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach> <c:if test="${page.endPage != page.lastPage}">
+										<li><a
+											href="${ pageContext.servletContext.contextPath }/user/mypage/reportList?nowPage=${page.endPage+1 }&cntPerPage=${page.cntPerPage}">&gt;</a></li>
+									</c:if></li>
+							</ul>
+						</div>
 	                	</div>
 					</div>
             	</div>
@@ -320,7 +334,7 @@ $("#report").click(function(){
 	        			}
 					}
 				)};
-				
+				 
 				
 				var filterNo = 0;
 				function qnaFiltering() {

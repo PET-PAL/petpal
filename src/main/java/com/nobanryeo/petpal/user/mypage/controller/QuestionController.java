@@ -6,6 +6,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.ReportManageDTO;
@@ -114,10 +117,11 @@ public class QuestionController {
 	
 	@GetMapping(value="reportList")
 	public ModelAndView reportList(@ModelAttribute ReportManageDTO reportDTO, @SessionAttribute UserInfoDTO loginUser
-			, PageDTO page , Model model, HttpServletResponse response
+			, PageDTO page , HttpServletResponse response
 			, @RequestParam(value="nowPage", required = false)String nowPage
 			, @RequestParam(value="cntPerPage", required = false)String cntPerPage
-			, ModelAndView mv) {
+			, ModelAndView mv) throws JsonProcessingException {
+		
 		response.setContentType("application/json; charset=UTF-8");
 		
 		reportDTO.setUserCode(loginUser.getCode());
@@ -153,10 +157,12 @@ public class QuestionController {
 		
 		List<ReportManageDTO> reportList = questionService.selectReportList(map);
 		
+		ObjectMapper mapper = new ObjectMapper();
+		
 		System.out.println("신고내역 리스트 : " + reportList);
 		
-		mv.addObject("paging", page);
-		mv.addObject("reportList", reportList);
+		mv.addObject("page", page);
+		mv.addObject("reportList", mapper.writeValueAsString(reportList));
 		mv.setViewName("jsonView");
 		
 	    return mv;

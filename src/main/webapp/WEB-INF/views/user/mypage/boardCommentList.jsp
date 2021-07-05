@@ -15,7 +15,7 @@
 			}
 			.tab span.tab_btn {
 			    display: inline-block;
-			    float: none;
+			    float: none;	
 			    position: relative;
 			    width: auto;
 			    height: 40px;
@@ -139,13 +139,13 @@
             <section id="list" class="list" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div class="tab">
                 	<img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/'" style="width:50px; float: right;">
-					<span class="tab_btn active" data-toggle="tab" href="#menu0" >실종신고 게시판</span>
-					<span class="tab_btn" data-toggle="tab" href="#menu1">입양 게시판</span>
-					<span class="tab_btn" data-toggle="tab" href="#menu2">정보공유 게시판</span>
-					<span class="tab_btn" data-toggle="tab" href="#menu3">자유 게시판</span>
-					<span class="tab_btn" data-toggle="tab" href="#menu4">무료나눔 게시판</span>
-					<span class="tab_btn" data-toggle="tab" href="#menu5">용품리뷰 게시판</span>
-					<span class="tab_btn" data-toggle="tab" href="#menu6">댓글목록</span>
+					<span id="sp0" class="tab_btn active" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=A';">실종 게시판</span>
+					<span id="sp1" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=B';" >입양 게시판</span>
+					<span id="sp2" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=C';">정보공유 게시판</span>
+					<span id="sp3" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=D';">자유 게시판</span>
+					<span id="sp4" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E';">무료나눔 게시판</span>
+					<span id="sp5" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=F';">용품리뷰 게시판</span>
+					<span id="sp7" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G';">댓글목록</span>
 				</div>
             </section>
 
@@ -250,6 +250,8 @@
 	        			}
 					}
 				)};
+				
+	
 			</script>
 
             
