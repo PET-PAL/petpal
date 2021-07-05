@@ -99,6 +99,10 @@ public class ReportController {
        System.out.println(reportDetail);
        
        model.addAttribute("reportDetail",reportDetail);
+       model.addAttribute("category",category);
+       model.addAttribute("reportCode",reportCode);
+
+
        return "admin/main/report_detail";
     }
 }
