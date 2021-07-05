@@ -159,12 +159,28 @@ $("#report").click(function(){
 		success:function(data){
 			console.log("성공!!");
 			
+			const $table = $("#reportTable tbody");
 			
+			$table.html("");
+			
+			for(let index in data){
+				$tr = $("<tr>");
+				$titleTd = $("<td>").text(reportList[index].title);
+				$contentTd = $("<td>").text(reportList[index].content);
+				$dateTd = $("<td>").text(reportList[index].date);
+				$decisionTd = $("<td>").text(reportList[index].decisionCode);
+				
+				$tr.append($titleTd);
+				$tr.append($contentTd);
+				$tr.append($dateTd);
+				$tr.append($decisionTd);
+				
+				$table.append($tr);
+			}
 			
 			
 			/* $("#menu1").css("display","block");
 			$("#menu0").css("display","none"); */
-			return;
 		},
 		error:function(data){
 			console.log("실패...");
@@ -243,7 +259,7 @@ $("#report").click(function(){
 					
 					<div id="menu1" class="tab-pane fade" style="display: none;" >
 						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
-		                	<table class="table table-hover" style="margin-bottom: 50px;">
+		                	<table class="table table-hover" style="margin-bottom: 50px;" id="reportTable">
 			                    <thead>
 			                        <tr style="background-color: #F1FAF8;">
 			                            <th style="width: 31%; text-align: center; border-radius: 21px 0px 0px 0px;"><b>신고 제목</b></th>
@@ -253,7 +269,7 @@ $("#report").click(function(){
 			                        </tr>
 			                    </thead>
 			                    <tbody>
-			                        <c:forEach items="${ reportList }" var="report">
+			                        <%-- <c:forEach items="${ reportList }" var="report">
 			                        <tr class="before" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/reportDetail.jsp'">
 			                            <td style="text-align: center; padding-left: 15px;">${ report.title }</td>
 			                            <td style="text-align: center; padding-left: 15px;">${ report.content }</td>
@@ -265,7 +281,7 @@ $("#report").click(function(){
 			                            <td style="text-align: center; padding-left: 15px;"><c:out value="처리완료"/></td>
 			                            </c:if>
 			                        </tr>
-			                        </c:forEach>
+			                        </c:forEach> --%>
 			                        <!-- <tr class="before" onclick="location.href=''">
 			                            <td style="text-align: center; padding-left: 15px;">비속어 사용</td>
 			                            <td style="text-align: center;">업나라</td>

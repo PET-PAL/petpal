@@ -78,7 +78,7 @@
 		                        REPORT_CODE
 		                       ,REPORT_TITLE
 		                       ,REPORT_CONTENT
-		                       ,REPORT_DATE
+		                       ,TO_CHAR(REPORT_DATE, 'YYYYMMDD')
 		                       ,DECISION_CODE
 		                       ,USER_CODE
 		          FROM REPORT_MANAGE
