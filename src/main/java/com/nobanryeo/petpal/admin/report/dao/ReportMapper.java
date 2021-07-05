@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
+import com.nobanryeo.petpal.admin.dto.DecisionDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDetailDTO;
 
@@ -12,5 +13,8 @@ public interface ReportMapper {
 	int selectReportCount (AdminPageInfoDTO cat);
 	List<ReportDTO> selectReport(AdminPageInfoDTO paging);
 	ReportDetailDTO selectReportDetail(Map param);
-	
+	int insertDecision(DecisionDTO decisionData);
+	int updateReport(DecisionDTO decisionData);
+	int updateBoardBlind(DecisionDTO decisionData);
+	int updateUserBan(DecisionDTO decisionData);
 }

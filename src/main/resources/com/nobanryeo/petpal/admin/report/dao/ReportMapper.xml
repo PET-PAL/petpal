@@ -14,6 +14,7 @@
 	</resultMap>
 <resultMap id="ReportDetailSet" type="ReportDetailDTO">
 		<id column="REPORT_CODE" property="reportCode" />
+		<result column="BOARD_CODE" property="boardCode" />
 		<result column="USER_ID" property="userId" />
 		<result column="USER_NAME" property="userName" />
 		<result column="REPORT_TITLE" property="boardTitle" />
@@ -24,6 +25,7 @@
 		<result column="REPORT_CONTENT" property="boardContent" />
 		<result column="REPORT_DATE" property="reportDate" />
 		<result column="DECISION_REASON" property="reason" />
+		<result column="REPLY_CONTENT" property="reportedContent" />
 		<result column="STATE" property="state" />
 	</resultMap>
 	<select id="selectReportCount" resultType="int">
@@ -210,7 +212,8 @@
     NVL2(A.DECISION_CODE,F.STATE_NAME,'대기중') AS STATE,
     NVL2(A.DECISION_CODE,G.USER_ID,'대기중') AS ADMIN_ID,
     NVL2(A.DECISION_CODE,G.USER_NAME,'대기중') AS ADMIN_NAME,
-    E.DECISION_REASON
+    E.DECISION_REASON,
+    D.REPLY_CONTENT
     
     FROM REPLY_REPORT_TABLE A
     JOIN USER_TABLE B ON(A.USER_CODE = B.USER_CODE)
@@ -225,6 +228,7 @@
     
     </when>
     <otherwise>
+    A.BOARD_CODE,
     B.REPORT_CODE,
     C.USER_ID,
     C.USER_NAME,
@@ -278,4 +282,144 @@
 	
 	</select>
 	
+	<insert id="insertDecision" parameterType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
+	    INSERT 
+	      INTO DECISION_TABLE
+	    (
+	      DECISION_CODE
+	    , DECISION_REASON
+	    , DECISION_DATE
+	    , STATE_CODE
+	    , USER_CODE
+	    )
+        VALUES
+        (
+          DECISION_CODE_SEQ.NEXTVAL
+        , #{ decisionReason }
+        , SYSDATE
+        , #{ stateCode }
+        , #{ code }
+        )
+	  </insert>	
+	  
+	  <update id="updateReport" parameterType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
+		<selectKey keyProperty="decisionCode" order="BEFORE" resultType="_int">
+			SELECT
+			       DECISION_CODE_SEQ.CURRVAL
+			  FROM DUAL
+		</selectKey>
+		<choose>
+		<when test="category == 7">
+		
+	     UPDATE REPLY_REPORT_TABLE 
+		   SET 
+			   DECISION_CODE = #{ decisionCode }
+	     WHERE REPLY_CODE = #{ adCode }
+		</when>
+		<otherwise>
+		UPDATE REPORT_MANAGE 
+		   SET 
+			   DECISION_CODE = #{ decisionCode }
+	     WHERE REPORT_CODE = #{ adCode }
+		</otherwise>
+		</choose>
+		
+	 </update>
+	 
+	 
+	 <update id="updateBoardBlind" parameterType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
+	     <if test='category == "0"'>
+		UPDATE FREE_BOARD
+		SET 
+			   BOARD_DELETE_YN = 'Y'
+	     WHERE BOARD_CODE = #{ boardCode }
+		</if>
+		<if test='category == "1"'>
+		UPDATE INFO_BOARD
+		SET 
+			   BOARD_DELETE_YN = 'Y'
+	     WHERE BOARD_CODE = #{ boardCode }
+		</if>
+		<if test='category == "2"'>
+		UPDATE SHARE_BOARD
+		SET 
+			   BOARD_DELETE_YN = 'Y'
+	     WHERE BOARD_CODE = #{ boardCode }
+		</if>
+		<if test='category == "3"'>
+		UPDATE REVIEW_BOARD 
+		SET 
+			   BOARD_DELETE_YN = 'Y'
+	     WHERE BOARD_CODE = #{ boardCode }
+		</if>
+		<if test='category == "4"'>
+		UPDATE MISSING_BOARD
+		SET 
+			   MISSING_DELETE_YN = 'Y'
+	     WHERE BOARD_CODE = #{ boardCode }
+		</if>
+		<if test='category == "5"'>
+		UPDATE FRIENDLY_BOARD
+		SET 
+			   BOARD_DELETE_YN = 'Y'
+	     WHERE BOARD_CODE = #{ boardCode }
+		</if>
+		<if test='category == "6"'>
+		UPDATE ADOPT_BOARD
+		SET 
+			   ADOPT_DELETE_YN = 'Y'
+	     WHERE BOARD_CODE = #{ boardCode }
+		</if>
+		<if test='category == "7"'>
+		UPDATE REPLY_MANAGE
+		SET 
+			   REPORT_YN = 'Y'
+	     WHERE REPLY_CODE = #{ adCode }
+		</if>
+	 </update>
+	  
+	<update id="updateUserBan" parameterType="com.nobanryeo.petpal.admin.dto.DecisionDTO">
+		<selectKey keyProperty="code" order="BEFORE" resultType="_int">
+			SELECT
+			       USER_CODE
+			  
+			<if test='category == "0"'>
+			FROM FREE_BOARD
+			WHERE BOARD_CODE = #{ boardCode }
+			</if>
+			<if test='category == "1"'>
+			FROM INFO_BOARD
+			WHERE BOARD_CODE = #{ boardCode }
+			</if>
+			<if test='category == "2"'>
+			FROM SHARE_BOARD
+			WHERE BOARD_CODE = #{ boardCode }
+			</if>
+			<if test='category == "3"'>
+			FROM REVIEW_BOARD 
+			WHERE BOARD_CODE = #{ boardCode }
+			</if>
+			<if test='category == "4"'>
+			FROM MISSING_BOARD 
+			WHERE BOARD_CODE = #{ boardCode }
+			</if>
+			<if test='category == "5"'>
+			FROM FRIENDLY_BOARD
+			WHERE BOARD_CODE = #{ boardCode } 
+			</if>
+			<if test='category == "6"'>
+			FROM ADOPT_BOARD
+			WHERE BOARD_CODE = #{ boardCode }
+			</if>
+			<if test='category == "7"'>
+			FROM REPLY_MANAGE
+			WHERE REPLY_CODE = #{ adCode }
+			</if>
+			
+		</selectKey>
+		UPDATE USER_TABLE 
+		   SET 
+			   REPORT_COUNT = REPORT_COUNT+1
+	     WHERE USER_CODE = #{ code }
+	 </update>
 </mapper>
