@@ -48,4 +48,44 @@ public class BoardManagementServiceImpl implements BoardManagementService{
 		return mapper.selectInfoList(map);
 	}
 
+	@Override
+	public int selectFreeCount(BoradAndCommentDTO bcDTO) {
+		return mapper.selectFreeCount(bcDTO);
+	}
+
+	@Override
+	public List<BoradAndCommentDTO> selectFreeList(HashMap<String, Object> map) {
+		return mapper.selectFreeList(map);
+	}
+
+	@Override
+	public int selectShareCount(BoradAndCommentDTO bcDTO) {
+		return mapper.selectShareCount(bcDTO);
+	}
+
+	@Override
+	public List<BoradAndCommentDTO> selectShareList(HashMap<String, Object> map) {
+		return mapper.selectShareList(map);
+	}
+
+	@Override
+	public int selectReviewCount(BoradAndCommentDTO bcDTO) {
+		return mapper.selectReviewCount(bcDTO);
+	}
+
+	@Override
+	public List<BoradAndCommentDTO> selectReviewList(HashMap<String, Object> map) {
+		return mapper.selectReviewList(map);
+	}
+
+	@Override
+	public int selectReplyCount(BoradAndCommentDTO bcDTO) {
+		return mapper.selectReplyCount(bcDTO);
+	}
+
+	@Override
+	public List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map) {
+		return mapper.selectReplyList(map);
+	}
+
 }
