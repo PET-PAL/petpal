@@ -6,7 +6,7 @@
  <mapper namespace="com.nobanryeo.petpal.user.adopt.dao.MissingMapper">
  	
 	<resultMap type="MissingPictureDTO" id="missingResultMap">
-		<result/>
+
   		<result column="USER_NIKNAME" property="userNickname"/>		
 		<result column="PICTURE_CODE" property="pictureCode"/>
   		<result column="PICTURE_URL" property="pictureURL"/>
@@ -16,4 +16,4 @@
   		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
 	</resultMap>	
  
- </mapper>
+ </mapper> 
