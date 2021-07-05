@@ -41,6 +41,7 @@ import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
@@ -127,8 +128,8 @@ public class AdoptController {
 		
 		//세선값 넣기
 		
-//		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
-		adopt.setUserCode(5);
+		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		adopt.setUserCode(userCode);
 		System.out.println("controller adopt: "+adopt);
 		System.out.println("controller picture: "+picture);
 		
@@ -291,12 +292,12 @@ public class AdoptController {
 	
 		
 		AdoptReplyDTO replyDTO = new AdoptReplyDTO();
-//		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
 		boardCode = request.getParameter("boardCode");
 		System.out.println(boardCode);
 		replyDTO.setBoardCode((int)(Integer.parseInt(boardCode)));
 		replyDTO.setReplyContent(request.getParameter("replyContent"));
-		replyDTO.setReplyUserCode(27);
+		replyDTO.setReplyUserCode(userCode);
 		System.out.println("ajax 요청 도착: "+replyContent+","+ boardCode);
 		
 		int result = adoptService.insertReply(replyDTO);
@@ -312,14 +313,93 @@ public class AdoptController {
 	}
 	
 	@PostMapping("adopt/insert/report")
-	public void insertReport(Model model, HttpServletRequest request, HttpSession session, FreeBoardReportDTO boardreportDTO) {
+	public String insertReport(Model model, HttpServletRequest request, HttpSession session, FreeBoardReportDTO boardreportDTO, AdoptReplyDTO adoptreplyDTO) {
 		
 		String reportContent = request.getParameter("reportContent");
-//		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		String reportReply = request.getParameter("reportReply");
+		int contentCode = Integer.parseInt(request.getParameter("contentCode"));
+	
+		String boardTitle = request.getParameter("boardTitle");
+		String category = request.getParameter("category");
 		
-		boardreportDTO.setUserCode(26);
+		int boardreportResult = 0;
+		int replyreportResult =0;
+		
+		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+	if(!reportContent.isEmpty()) {	
+		boardreportDTO.setUserCode(userCode);
 		boardreportDTO.setReportContent(reportContent);
+		boardreportDTO.setReportTitle(boardTitle);
+		boardreportDTO.setBoardCode(contentCode);
+		
+		boardreportResult = adoptService.insertBoardReport(boardreportDTO);
+	}
+	
+	if(!reportReply.isEmpty()) {
+		int replycode = Integer.parseInt(request.getParameter("replycode"));
+		int replyUsercode = Integer.parseInt(request.getParameter("replyUsercode"));
+		
+		adoptreplyDTO.setBoardCode(contentCode);
+		adoptreplyDTO.setReplyCode(replycode);
+		adoptreplyDTO.setReplyReportContent(reportReply);
+		adoptreplyDTO.setReplyUserCode(userCode);
+		adoptreplyDTO.setBoardUserCode(replyUsercode);
+		
+		replyreportResult = adoptService.insertReplyReport(adoptreplyDTO);
+	}
+		if(boardreportResult >0 || replyreportResult>0) {
+			model.addAttribute("message", "success");
+		}else {
+			model.addAttribute("message", "fail");
+		}
+		
+		return "redirect:/user/adopt/detail/"+contentCode;
+	}
+	
+	@PostMapping("insert/adopt/message")
+	public String insertMessage(Model model, HttpServletRequest request, HttpSession session, MessageTableDTO messageDTO) {
+		
+		String boardCode = request.getParameter("boardcode");
+		int senderCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		int receiverCode = Integer.parseInt(request.getParameter("receivecode"));
+		String senderNickname = ((UserInfoDTO)session.getAttribute("loginUser")).getNikname();
+		String receiverNickname = request.getParameter("receiveUserNick");
+		String messageContent = request.getParameter("messageContent");
+		
+		messageDTO.setMessageContent(messageContent);
+		messageDTO.setReceiveUserNick(receiverNickname);
+		messageDTO.setSendUserNick(senderNickname);
+		messageDTO.setUserCode(senderCode);
+		messageDTO.setUserCode1(receiverCode);
+		
+		int messageResult = adoptService.insertMessage(messageDTO);
 		
 		
+		
+		
+		return "redirect:/user/adopt/detail/"+boardCode;
+		
+	}
+	
+	@GetMapping("adopt/search/{search}")
+	@ResponseBody
+	public ModelAndView selectKeyword(@PathVariable("search") String keyword, ModelAndView mv, HttpServletResponse response) {
+		
+	
+		response.setContentType("application/json; charset=utf-8");
+		
+		List<AdoptPictureManageDTO> adoptSearchList = new ArrayList<>();
+		adoptSearchList=adoptService.selectSearchList(keyword);
+		System.out.println("controllter sort: "+adoptSearchList );
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting()
+				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+				.serializeNulls().disableHtmlEscaping().create();
+	
+		mv.addObject("adoptSearchList", gson.toJson(adoptSearchList));
+	
+		mv.setViewName("jsonView");
+		
+		return mv;
 	}
 }

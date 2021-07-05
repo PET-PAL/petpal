@@ -68,7 +68,8 @@
 					  com.nobanryeo.petpal.user.ad.dao,
 					  com.nobanryeo.petpal.user.adopt.dao,
 					  com.nobanryeo.petpal.user.mypage.dao,
-					  com.nobanryeo.petpal.admin.ask.dao
-					  com.nobanryeo.petpal.admin.report.dao"/>
+					  com.nobanryeo.petpal.admin.ask.dao,
+					  com.nobanryeo.petpal.admin.report.dao,
+					  com.nobanryeo.petpal.admin.pay.dao"/>
 	
 </beans>

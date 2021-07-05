@@ -261,7 +261,7 @@
                        </table>
                      
                      
-                      <c:if test="${ adDetail.postYn eq 'Y' and startday <= today and today <= endday }">
+                      <c:if test="${ startday <= today and today <= endday }">
 	                   <h3 class="text-uppercase">게시 상태</h3>
                        <table class="table" style="margin-bottom:3%">
                        <tr>
@@ -277,7 +277,7 @@
                        </table>
                        </c:if>
                     
-                    <c:if test="${ not empty adDetail.cancelApplyDate or (adDetail.postYn eq 'N' and adDetail.postEndDate < day) }">
+                    <c:if test="${ not empty adDetail.cancelApplyDate or (adDetail.postEndDate < day) }">
 	                   <h3 class="text-uppercase">2차 결제</h3>
                        <table class="table" style="margin-bottom:3%">
                        <tr>

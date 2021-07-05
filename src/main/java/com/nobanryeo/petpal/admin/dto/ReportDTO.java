@@ -3,7 +3,7 @@ package com.nobanryeo.petpal.admin.dto;
 import java.util.Date;
 
 public class ReportDTO {
-	private int boardCode;
+	private int reportCode;
 	private String userId;
 	private String boardTitle;
 	private String reportedUser;
@@ -14,12 +14,12 @@ public class ReportDTO {
 		
 	}
 
-	public int getBoardCode() {
-		return boardCode;
+	public int getReportCode() {
+		return reportCode;
 	}
 
-	public void setBoardCode(int boardCode) {
-		this.boardCode = boardCode;
+	public void setReportCode(int reportCode) {
+		this.reportCode = reportCode;
 	}
 
 	public String getUserId() {
@@ -62,10 +62,10 @@ public class ReportDTO {
 		this.state = state;
 	}
 
-	public ReportDTO(int boardCode, String userId, String boardTitle, String reportedUser, Date reportDate,
+	public ReportDTO(int reportCode, String userId, String boardTitle, String reportedUser, Date reportDate,
 			String state) {
 		super();
-		this.boardCode = boardCode;
+		this.reportCode = reportCode;
 		this.userId = userId;
 		this.boardTitle = boardTitle;
 		this.reportedUser = reportedUser;
@@ -75,7 +75,7 @@ public class ReportDTO {
 
 	@Override
 	public String toString() {
-		return "ReportDTO [boardCode=" + boardCode + ", userId=" + userId + ", boardTitle=" + boardTitle
+		return "ReportDTO [ReportCode=" + reportCode + ", userId=" + userId + ", boardTitle=" + boardTitle
 				+ ", reportedUser=" + reportedUser + ", reportDate=" + reportDate + ", state=" + state + "]";
 	}
 

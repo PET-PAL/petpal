@@ -14,7 +14,7 @@
                 margin: 0px auto;
                 display: block;
             }
-			div > button {
+			div > button, form > button {
                 background-color: #45B99C; 
                 height: 35px;
                 color: white;
@@ -101,6 +101,8 @@
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ requestScope.adApplyDetail.adCode }'" style="width:50px; float: right;">
             </section> <!--End off Home Sections-->
 
+			<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="isToday"/>
+			<fmt:parseNumber value="${requestScope.adApplyDetail.decisionDate.time / (1000*60*60*24)}" integerOnly="true" var="isDecisionDate"/>
             <section id="menutable" class="menutable">
 				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 20px;">
 					<table class="table" style="margin-bottom: 50px; border-collapse: separate;">
@@ -113,16 +115,18 @@
 							<td><c:out value="${ requestScope.adApplyDetail.companyName }"/></td>
 						</tr>
 					</table>
-					<%-- <img src="${ pageContext.servletContext.contextPath }/${ requestScope.adApplyDetail.pictureUtilPath }"><br> --%>
 					<div style="margin-bottom: 30px; text-align:center;">
 						<c:out value="${ requestScope.adApplyDetail.adContent }" escapeXml="false"/>
 					</div>
 		        </div>
 		        <div style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
-		        	<c:if test="${ requestScope.adApplyDetail.stateCode ne '4' && !(today > requestScope.adApplyDetail.postEndDate) && !(requestScope.adApplyDetail.stateCode eq '3') }">
-		        		<button style="float: right; margin-right: 10px;">광고 취소</button>
+		        	<c:if test="${ requestScope.adApplyDetail.stateCode ne '4' && !(today > requestScope.adApplyDetail.postEndDate) && !(requestScope.adApplyDetail.stateCode eq '3') && !(isToday-isDecisionDate > 3 && requestScope.adApplyDetail.postYn eq 'N') }">
+		        		<form action="${ pageContext.servletContext.contextPath }/user/update/cancel/ad" method="post">
+				        	<input type="hidden" value="${ requestScope.adApplyDetail.adCode }" name="adCode"/>
+		        			<button style="float: right; margin-right: 10px;">광고 취소</button>
+		        		</form>
 		        	</c:if>
-		        	<c:if test="${ requestScope.adApplyDetail.stateCode eq '4' || today > requestScope.adApplyDetail.postEndDate || requestScope.adApplyDetail.stateCode eq '3' }">
+		        	<c:if test="${ requestScope.adApplyDetail.stateCode eq '4' || today > requestScope.adApplyDetail.postEndDate || requestScope.adApplyDetail.stateCode eq '3' || (isToday-isDecisionDate > 3 && requestScope.adApplyDetail.postYn eq 'N') }">
 		        		<button style="float: right; margin-right: 10px; background:lightgray" disabled>취소 불가</button>
 		        	</c:if>
 		        </div>

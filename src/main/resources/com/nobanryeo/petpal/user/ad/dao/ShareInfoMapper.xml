@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nobanryeo.petpal.user.ad.dao.ShareInfoMapper">
+
+	<resultMap id="ShareInfoResultSet" type="ShareInfoDTO">
+		<id column="BOARD_CODE" property="boardCode"/>
+		<result column="BOARD_TITLE" property="boardTitle"/>
+		<result column="BOARD_CONTENT" property="boardContent"/>
+		<result column="BOARD_VIEWS" property="boardViews"/>
+		<result column="BOARD_POST_DATE" property="boardPostDate"/>
+		<result column="BOARD_DELETE_YN" property="boardDeleteYn"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="USER_NIKNAME" property="userNickName"/>
+		<result column="PICTURE_CODE" property="pictureCode"/>
+		<result column="PICTURE_URL" property="pictureURL"/>
+		<result column="PICTURE_DELETE_YN" property="pictureDeleteYN"/>
+		<result column="PICTURE_NAME" property="pictureName"/>
+		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
+		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
+ 	</resultMap>
+
+	<resultMap id="boardReplyResultSet" type="FreeBoardReplyDTO">
+		<id column="REPLY_CODE" property="replyCode"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REPLY_DATE" property="replyDate"/>
+		<result column="REPLY_DELETE_YN" property="replyDeleteYN"/>
+		<result column="REPORT_YN" property="reportYN"/>
+		<result column="BOARD_CODE" property="boardCode"/>
+		<result column="USER_NIKNAME" property="userNickName"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="USER_CODE1" property="userCode1"/>
+		<result column="REPLY_REPORT_TITLE" property="replyReportTitle"/>
+		<result column="REPLY_REPORT_CONTENT" property="replyReportContent"/>
+		<result column="REPLY_REPORT_DATE" property="replyReportDate"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
+	</resultMap>
+	
+	
+ 	
+ 	<select id="selectShareInfoListExistImg" parameterType="ShareInfoDTO" resultMap="ShareInfoResultSet">
+ 		SELECT A.BOARD_TITLE
+ 		     , A.BOARD_CONTENT
+ 		     , A.BOARD_CODE
+ 		     , B.USER_NIKNAME
+             , E.PICTURE_UTIL_PATH
+ 		  FROM INFO_BOARD A
+ 		  JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
+          JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
+          JOIN INFO_PICTURE_MANAGE D ON(D.BOARD_CODE = A.BOARD_CODE)
+          JOIN PICTURE_TABLE E ON(E.PICTURE_CODE = D.PICTURE_CODE)
+ 		 WHERE A.BOARD_DELETE_YN = 'N'
+           AND C.STATE_CODE = 2
+           AND E.PICTURE_DELETE_YN = 'N'
+ 		 ORDER BY A.BOARD_CODE DESC
+ 	</select>
+ 	
+ 	<select id="selectShareInfoListNotExistImg" parameterType="ShareInfoDTO" resultMap="ShareInfoResultSet">
+ 		SELECT A.BOARD_TITLE
+ 		     , A.BOARD_CONTENT
+ 		     , A.BOARD_CODE
+ 		     , B.USER_NIKNAME
+ 		  FROM INFO_BOARD A
+ 		  JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
+          JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
+ 		 WHERE NOT EXISTS (SELECT 1
+ 		                     FROM INFO_PICTURE_MANAGE D
+ 		                    WHERE D.BOARD_CODE = A.BOARD_CODE
+ 		                  )
+ 		   AND A.BOARD_DELETE_YN = 'N'
+           AND C.STATE_CODE = 2
+ 		 ORDER BY A.BOARD_CODE DESC
+ 	</select>
+ 	
+ 	<update id="updateShareInfoViews" parameterType="ShareInfoDTO">
+ 		UPDATE INFO_BOARD
+ 		   SET BOARD_VIEWS = BOARD_VIEWS + 1
+ 		 WHERE BOARD_CODE = #{ boardCode }
+ 	</update>
+ 	
+ 	<select id="selectShareInfoDetail" parameterType="ShareInfoDTO" resultMap="ShareInfoResultSet">
+ 		SELECT A.BOARD_TITLE
+ 		     , A.BOARD_CONTENT
+ 		     , A.BOARD_VIEWS
+ 		     , B.USER_NIKNAME
+ 		     , A.BOARD_POST_DATE
+ 		  FROM INFO_BOARD A
+ 		  JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
+ 		 WHERE A.BOARD_CODE = #{ boardCode }
+ 	</select>
+ 	
+ 	<select id="selectShareInfoReply" parameterType="FreeBoardReplyDTO" resultMap="boardReplyResultSet">
+ 		SELECT A.REPLY_CODE
+ 		     , D.USER_NIKNAME
+ 		     , A.REPLY_CONTENT
+ 		     , A.REPLY_DATE
+ 		     , A.REPLY_DELETE_YN
+ 		     , B.BOARD_CODE
+ 		     , D.USER_CODE
+ 		     , A.REPORT_YN
+ 		  FROM REPLY_MANAGE A
+ 		  JOIN INFO_BOARD_REPLY B ON(B.REPLY_CODE = A.REPLY_CODE)
+          JOIN INFO_BOARD C ON(C.BOARD_CODE = B.BOARD_CODE)
+          JOIN USER_TABLE D ON(D.USER_CODE = B.USER_CODE)
+ 		 WHERE B.BOARD_CODE = #{ boardCode }
+ 		 ORDER BY A.REPLY_CODE DESC
+ 	</select>
+ 	
+ 	<select id="writeShareInfo" parameterType="ShareInfoDTO" resultMap="ShareInfoResultSet">
+ 		SELECT USER_NIKNAME
+		  FROM USER_TABLE
+		 WHERE USER_CODE = #{ userCode }
+	</select>
+	
+	<insert id="insertWriteShreInfo" parameterType="ShareInfoDTO">
+		INSERT ALL
+		  INTO INFO_BOARD
+		VALUES ( INFO_BOARD_SEQ.NEXTVAL
+		       , #{ boardTitle }
+		       , #{ boardContent }
+		       , 0
+		       , SYSDATE
+		       , 'N'
+		       , 1
+		       , #{ userCode }	
+		       )
+		  INTO PICTURE_TABLE
+		VALUES ( PIC_CODE_SEQ.NEXTVAL
+		       , #{ pictureName }
+		       , #{ pictureURL }
+		       , SYSDATE
+		       , 'N'
+		       , #{ pictureNewName }
+		       , #{ pictureUtilPath }
+		       )
+		SELECT *
+          FROM DUAL
+	</insert>
+	
+	<select id="selectBoardCode" resultType="_int">
+		SELECT INFO_BOARD_SEQ.CURRVAL
+	  	  FROM DUAL
+	</select>
+	
+	<insert id="insertShareInfoManage" parameterType="ShareInfoDTO">
+		<selectKey keyProperty="pictureCode" order="BEFORE" resultType="int">
+			SELECT PIC_CODE_SEQ.CURRVAL
+	  	  	  FROM DUAL
+		</selectKey>
+		INSERT
+		  INTO INFO_PICTURE_MANAGE
+		VALUES ( #{ boardCode }
+		       , #{ pictureCode }
+		       )
+	</insert>
+
+</mapper>

@@ -34,6 +34,11 @@ public class AdminPageInfoDTO {
 		   setCategory(category);
 		}
 	
+	public AdminPageInfoDTO(String category, String searchValue) {
+		setCategory(category);
+		setSearchValue(searchValue);
+	}
+	
 	public AdminPageInfoDTO(String category, String searchCondition, String searchValue) {
 		   setCategory(category);
 		   setSearchCondition(searchCondition);
@@ -78,7 +83,8 @@ public class AdminPageInfoDTO {
 		}
 	
 	
-    // 제일 마지막 페이지 계산
+
+	// 제일 마지막 페이지 계산
     public void calcLastPage(int total, int cntPerPage) {
     	setLastPage((int) Math.ceil((double)total / (double)cntPerPage));
     }

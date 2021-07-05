@@ -1,10 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
         <style>
             td > input::placeholder {
                 font-size: 15px;
@@ -99,13 +100,18 @@
                 width: 100px;
             }
         </style>
-	<script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
-	<!-- summerNote -->
-    	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
-</head>
-<jsp:include page="../common/userHeader.jsp"/>
+		<script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
+		<!-- summerNote -->
+	    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
+	    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+	    <script>
+    		var $j3 = jQuery.noConflict();
+    	</script>
+	</head>
+	
+	<body data-spy="scroll" data-target=".navbar-collapse">
+	<jsp:include page="../common/userHeader.jsp"/>
 
         <!-- Preloader -->
         <div id="loading">
@@ -119,71 +125,98 @@
             </div>
         </div><!--End off Preloader -->
 
-
-        <div class="culmn">
-            <!--Home page style-->
-
-
             <!--Home Sections-->
 
-            <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
-                <div style="color: #45B99C; font-size: 25px; font-weight: 600; float: left">일반 정보 공유</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp'" style="width:50px; float: right; cursor: pointer !important;">
-            </section>
+        <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
+            <div style="color: #45B99C; font-size: 25px; font-weight: 600; float: left">일반 정보 공유</div>
+            <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/list'" style="width:50px; float: right; cursor: pointer !important;">
+        </section>
 
-			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
-				<nav>
-					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">일반 정보 공유</a></li>
-						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/main/sharePlace.jsp" style="color: #979797;">프렌들리 플레이스</a></li>
-					</ul>
-				</nav>
-			</div>
+		<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
+			<nav>
+				<ul style="margin-left: 30%;">
+					<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/shareInfo/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">일반 정보 공유</a></li>
+					<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
+					<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/main/sharePlace.jsp" style="color: #979797;">프렌들리 플레이스</a></li>
+				</ul>
+			</nav>
+		</div>
     
-       <section id="menutable" class="menutable">
-		    	<form method="post">
-					<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 30px;">
-							<table class="table" style="border-collapse: separate;">
-								<tr>
-									<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
-									<td style="border-radius: 0px 21px 0px 0px"><input type="text" placeholder="제목을 입력하세요" style="border: none; width: 80%"></td>
-								</tr>
-								<tr>
-									<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
-									<td>킘유진</td>
-								</tr>
-							</table>
-							<textarea id="summernote"></textarea>
-	  						<script>
-						    	$('#summernote').summernote({
-						    		placeholder: '일반 정보 공유 게시글입니다.',
-						        	tabsize: 2,
-						        	height: 500
-						    	});
-						    </script>
-			        </div>
-			        <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite" onclick="location.href='#completeReport'">게시글 작성</button></div>
-				</form>
-            </section>
-
+       	<section id="menutable" class="menutable">
+			<form action="${pageContext.servletContext.contextPath}/user/insert/write/shareInfo" method="post" enctype="multipart/form-data">
+				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 30px;">
+					<table class="table" style="border-collapse: separate;">
+						<tr>
+							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
+							<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="boardTitle" placeholder="제목을 입력하세요" style="border: none; width: 80%"></td>
+						</tr>
+						<tr>
+							<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
+							<td><c:out value="${ requestScope.writeUser.userNickName }"/></td>
+						</tr>
+					</table>
+					<textarea name="boardContent" id="summernote"></textarea>
+	  				<script>
+	  					$j3('#summernote').summernote({
+	  	                    placeholder: '정보공유 게시글을 작성해주세요',
+	  	                    tabsize: 2,
+	  	                    height: 500,
+	  	                    callbacks: {
+	  	                        onImageUpload: function(files, editor, welEditable) {
+	  	                            sendFile(files[0], editor,welEditable);
+	  	                        }
+	  	                    }
+	  	                });
+  					
+					    function sendFile(file, editor,welEditable) {
+					  		var form_data = new FormData();
+						    form_data.append('file', file);
+						    $j3.ajax({
+							    data: form_data,
+							    type: "POST",
+							    url: '${pageContext.servletContext.contextPath}/user/insert/shareInfoImg',
+							    cache: false,
+							    contentType: false,
+							    enctype: 'multipart/form-data',
+							    processData: false,
+							    success: function(data) {
+							    	$j3('#summernote').summernote('editor.insertImage', data.url);
+							    	console.log(data.url);
+							    	$j3("#pictureName").val(data.pictureName);
+							    	$j3("#pictureURL").val(data.pictureURL);
+							    	$j3("#pictureNewName").val(data.pictureNewName);
+							    	$j3("#pictureUtilPath").val(data.pictureUtilPath);
+								}
+					       	});
+					    }  
+					</script>
+			    </div>
+		    	<input type="hidden" id="pictureName" name="pictureName"/>
+                <input type="hidden" id="pictureURL" name="pictureURL"/>
+                <input type="hidden" id="pictureNewName" name="pictureNewName"/>
+                <input type="hidden" id="pictureUtilPath" name="pictureUtilPath"/>
+			    <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite" type="button" onclick="location.href='#completeReport'">게시글 작성</button></div>
             
-            <!-- 오른쪽 배너 -->
-            <jsp:include page="../../common/banner.jsp"/>
+			    <div id="completeReport" class="overlay">
+					<div class="popup">
+				    	<img alt="warning" src="${ pageContext.servletContext.contextPath }/resources/images/warning.png" style="width: 120px; margin: 0px auto; margin-left: 38%; margin-bottom: -70px;">
+							<i class="far fa-times-circle fa-4x" style="float:right; color:#45B99C; cursor:pointer;" onclick="location.href='#none'"></i>
+				     <p style="font-size: 30px; text-align: center; font-weight:bold; color: black; margin-top: 50px;">
+				       	<strong>글 작성 신청이 완료되었습니다.</strong><br>
+				     </p>
+				     <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+				       	검토에는 1~2일 소요 될 수 있습니다.
+				     </p>
+				 	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
+				 </div>
+			    </div>
+			</form>
+        </section>
             
-               				<div id="completeReport" class="overlay">
-	                <div class="popup">
-	                	<img alt="warning" src="${ pageContext.servletContext.contextPath }/resources/images/warning.png" style="
-	    width: 120px; margin: 0px auto; margin-left: 38%; margin-bottom: -70px;">
-	    				<i class="far fa-times-circle fa-4x" style="float:right; color:#45B99C; cursor:pointer;" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/shareInfoWrite.jsp'"></i>
-	                    <p style="font-size: 30px; text-align: center; font-weight:bold; color: black; margin-top: 50px;">
-	                     	<strong>글 작성 신청이 완료되었습니다.</strong><br>
-	                    </p>
-	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
-	                     	검토에는 1~2일 소요 될 수 있습니다.
-	                    </p>
-	                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp'">확인</button></div>
-	                  </div>
-                </div>
+        <!-- 오른쪽 배너 -->
+        <jsp:include page="../../common/banner.jsp"/>
 
-  <jsp:include page="../common/footer.jsp"/>
+		<jsp:include page="../common/footer.jsp"/>
+		
+	</body>
+</html>

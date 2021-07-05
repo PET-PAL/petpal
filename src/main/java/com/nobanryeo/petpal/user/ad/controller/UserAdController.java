@@ -234,12 +234,27 @@ public class UserAdController {
 		
 		adDTO.setUserCode(loginUser.getCode());
 		
-		System.out.println(adDTO);
-		
 		if(adService.updateFirstAdPayment(adDTO) > 0) {
 			System.out.println("결제 정보 수정 성공");
 		} else {
 			System.out.println("결제 정보 수정 실패");			
+		}
+		
+		return "redirect:/user/select/ad/list";
+	}
+	
+	/**
+	 * 광고 취소
+	 */
+	@PostMapping("update/cancel/ad")
+	public String updateCancelAd(@ModelAttribute AdDTO adDTO, @SessionAttribute UserInfoDTO loginUser) {
+		
+		adDTO.setUserCode(loginUser.getCode());
+		
+		if(adService.updateCancelAd(adDTO) > 0) {
+			System.out.println("광고 취소 성공");
+		} else {
+			System.out.println("광고 취소 실패");			
 		}
 		
 		return "redirect:/user/select/ad/list";

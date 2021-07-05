@@ -76,7 +76,7 @@ input {
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=7&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="comment" role="tab" data-toggle="tab">댓글</a></li>
                                     </c:if>
                                     <c:if test="${ category eq 1 }">
-                                    	<li role="presentation" ><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
+                                    	<li role="presentation" ><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
                                         <li role="presentation" class="active"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="info" role="tab" data-toggle="tab">정보공유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="share" role="tab" data-toggle="tab">무료나눔게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="review" role="tab" data-toggle="tab">용품리뷰게시판</a></li>
@@ -86,7 +86,7 @@ input {
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=7&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="comment" role="tab" data-toggle="tab">댓글</a></li>
                                     </c:if>
                                     <c:if test="${ category eq 2 }">
-                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
+                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="info" role="tab" data-toggle="tab">정보공유게시판</a></li>
                                         <li role="presentation" class="active"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="share" role="tab" data-toggle="tab">무료나눔게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="review" role="tab" data-toggle="tab">용품리뷰게시판</a></li>
@@ -96,7 +96,7 @@ input {
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=7&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="comment" role="tab" data-toggle="tab">댓글</a></li>
                                     </c:if>
                                     <c:if test="${ category eq 3 }">
-                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
+                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="info" role="tab" data-toggle="tab">정보공유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="share" role="tab" data-toggle="tab">무료나눔게시판</a></li>
                                         <li role="presentation" class="active"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="review" role="tab" data-toggle="tab">용품리뷰게시판</a></li>
@@ -106,7 +106,7 @@ input {
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=7&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="comment" role="tab" data-toggle="tab">댓글</a></li>
                                     </c:if>
                                     <c:if test="${ category eq 4 }">
-                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
+                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="info" role="tab" data-toggle="tab">정보공유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="share" role="tab" data-toggle="tab">무료나눔게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="review" role="tab" data-toggle="tab">용품리뷰게시판</a></li>
@@ -116,7 +116,7 @@ input {
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=7&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="comment" role="tab" data-toggle="tab">댓글</a></li>
                                     </c:if>
                                     <c:if test="${ category eq 5 }">
-                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
+                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="info" role="tab" data-toggle="tab">정보공유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="share" role="tab" data-toggle="tab">무료나눔게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="review" role="tab" data-toggle="tab">용품리뷰게시판</a></li>
@@ -126,7 +126,7 @@ input {
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=7&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="comment" role="tab" data-toggle="tab">댓글</a></li>
                                     </c:if>
                                     <c:if test="${ category eq 6 }">
-                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
+                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="info" role="tab" data-toggle="tab">정보공유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="share" role="tab" data-toggle="tab">무료나눔게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="review" role="tab" data-toggle="tab">용품리뷰게시판</a></li>
@@ -136,7 +136,7 @@ input {
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=7&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="comment" role="tab" data-toggle="tab">댓글</a></li>
                                     </c:if>
                                     <c:if test="${ category eq 7 }">
-                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
+                                    	<li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">자유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="info" role="tab" data-toggle="tab">정보공유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="share" role="tab" data-toggle="tab">무료나눔게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="review" role="tab" data-toggle="tab">용품리뷰게시판</a></li>
@@ -203,7 +203,7 @@ input {
 												</thead>
 														<tbody>
 															<c:forEach items="${reportList}" var="board">
-													<tr onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportDetail?boardCode=${ board.boardCode }'">
+													<tr onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportDetail?reportCode=${ board.reportCode }&category=${category}'">
 														<td>${board.userId }</td>
 														<td>${board.reportedUser }</td>
 														<td>${board.boardTitle }</td>

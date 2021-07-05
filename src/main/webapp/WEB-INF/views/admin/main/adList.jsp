@@ -232,12 +232,8 @@
                                     </c:if>
                                     </td>
                                     <!-- 날짜 계산 -->
-                                     <%-- <jsp:useBean id="now" class="java.util.Date"/>
-                                     <fmt:formatDate value="${now}" dateStyle="short" var="today" />
-                                     <c:out value="${now}"/> --%>
                                      <c:set var="day" value="<%=new java.util.Date()%>" />
                                      <c:set var="today"><fmt:formatDate value="${day}" pattern="yyyy-MM-dd" /></c:set> 
-   									 <%-- <c:out value="${ today }"/> --%>
                                      	
 									 <fmt:parseDate value="${now}" pattern="yyyy-MM-dd" var="today" />  
 									 <fmt:parseDate value="${adApprove.postStartDate}" pattern="yyyy-MM-dd" var="startday" />
@@ -249,8 +245,8 @@
 									 <fmt:parseNumber value="${today.time / (1000*60*60*24)}" integerOnly="true" var="caltoday" />
 									 <fmt:parseNumber value="${applyday.time  / (1000*60*60*24)}" integerOnly="true" var="calapplyday" /> 
 									 <fmt:parseNumber value="${pay1stday.time  / (1000*60*60*24)}" integerOnly="true" var="calpay1stday" /> 
-									 <fmt:parseNumber value="${pay1stday.time  / (1000*60*60*24)}" integerOnly="true" var="calcancelapplyday" /> 
-									 <fmt:parseNumber value="${pay1stday.time  / (1000*60*60*24)}" integerOnly="true" var="calstartday" /> 
+									 <fmt:parseNumber value="${cancelApplyDay.time  / (1000*60*60*24)}" integerOnly="true" var="calcancelapplyday" /> 
+									 <fmt:parseNumber value="${startday.time  / (1000*60*60*24)}" integerOnly="true" var="calstartday" /> 
 
 									 
                                     <!-- 페이지 게시 상태에 따라 분류 -->
@@ -259,13 +255,13 @@
                                     <td>
                                     	<!-- 게시 전/게시 중/게시 종료/게시 취소 -->
                                     	<c:choose>
-                                    		<c:when test="${ adApprove.postYn eq 'N' and (startday > day or empty adApprove.postStartDate) and empty adApprove.cancelApplyDate }">
+                                    		<c:when test="${(startday > day or empty adApprove.postStartDate) and empty adApprove.cancelApplyDate }">
                                     			게시전
                                     		</c:when>
-                                    		<c:when test="${ adApprove.postYn eq 'Y' and startday <= day and day <= endday}">
+                                    		<c:when test="${ startday <= day and day <= endday}">
                                     			게시중
                                     		</c:when>
-                                    		<c:when test="${ adApprove.postYn eq 'N' and startday < day and empty adApprove.cancelApplyDate }">
+                                    		<c:when test="${ startday < day and empty adApprove.cancelApplyDate }">
                                     			게시종료
                                     		</c:when>
                                     		<c:when test="${ not empty adApprove.cancelApplyDate }">
