@@ -182,6 +182,9 @@ public class AdoptServiceImpl implements AdoptService {
 		return insertMessage;
 	}
 
+	/**
+	 * 지역 검색 메소드
+	 */
 	@Override
 	public List<AdoptPictureManageDTO> selectSearchList(String keyword) {
 		
@@ -192,6 +195,9 @@ public class AdoptServiceImpl implements AdoptService {
 	}
 
 
+	/**
+	 * 입양 완료 상태값 변경 메소드
+	 */
 	@Override
 	public int putAdoptStatus(int baordCode) {
 		

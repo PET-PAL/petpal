@@ -33,6 +33,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nobanryeo.petpal.user.adopt.service.MissingService;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
 import com.nobanryeo.petpal.user.dto.MissingPictureDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
@@ -235,7 +236,7 @@ public class MissingController {
 		return mv;
 	}
 	
-	@PostMapping("adopt/detail/insert/missingReply")
+	@PostMapping("missing/detail/insert/missingReply")
 	@ResponseBody
 	public ModelAndView insertReply(ModelAndView mv, String replyContent, String boardCode, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
 		
@@ -263,5 +264,26 @@ public class MissingController {
 		return mv;
 	}
 	
+	@PostMapping("missing/insert/message")
+	public String insertMissingMessage(Model model, HttpServletRequest request, HttpSession session, MessageTableDTO messageDTO) {
+		
+		String boardCode = request.getParameter("boardcode");
+		int senderCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		int receiverCode = Integer.parseInt(request.getParameter("receivecode"));
+		String senderNickname = ((UserInfoDTO)session.getAttribute("loginUser")).getNikname();
+		String receiverNickname = request.getParameter("receiveUserNick");
+		String messageContent = request.getParameter("messageContent");
+		
+		messageDTO.setMessageContent(messageContent);
+		messageDTO.setReceiveUserNick(receiverNickname);
+		messageDTO.setSendUserNick(senderNickname);
+		messageDTO.setUserCode(senderCode);
+		messageDTO.setUserCode1(receiverCode);
+		
+		int messageResult = missingService.insertMessage(messageDTO);
+		
+		
+		return "redirect:/user/missing/detail/"+boardCode;
+	}
 	
 }
