@@ -42,16 +42,6 @@
 		<result column="RECEIVE_NICKNAME" property="receiveUserNick"/>
 	</resultMap>
 	
-	<resultMap id="reportResultSet" type="FreeBoardReportDTO">
-		<id column="REPORT_CODE" property="reportCode"/>
-		<result column="REPORT_TITLE" property="reportTitle"/>
-		<result column="REPORT_CONTENT" property="reportContent"/>
-		<result column="REPORT_DATE" property="reportDate"/>
-		<result column="DECISION_CODE" property="decisionCode"/>
-		<result column="USER_CODE" property="userCode"/>
-		<result column="BOARD_CODE" property="boardCode"/>
-	</resultMap>
-	
 	<resultMap id="pictureResultSet" type="PictureDTO">
 		<id column="PICTURE_CODE" property="pictureCode"/>
 		<result column="PICTURE_NAME" property="pictureName"/>

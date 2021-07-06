@@ -12,11 +12,12 @@ public class MissingPictureDTO {
 	private String missingBreed;
 	private String missingGender;
 	private int missingAge;
+	private String missingColor;
 	private int mssingWeight;
 	private String missingCharacter;
 	private String missingRequest;
 	private String missingDeleteYN;
-	private int stateCode;
+	private String stateName;
 	private int userCode;
 	private String dogOrcat;
 	private String userNickname;
@@ -30,10 +31,10 @@ public class MissingPictureDTO {
 	public MissingPictureDTO() {}
 
 	public MissingPictureDTO(int boardCode, Date missingDate, String missingArea, String missingPlace,
-			String missingPhone, String missingBreed, String missingGender, int missingAge, int mssingWeight,
-			String missingCharacter, String missingRequest, String missingDeleteYN, int stateCode, int userCode,
-			String dogOrcat, String userNickname, int pictureCode, String pictureURL, String pictureDeleteYN,
-			String pictureName, String pictureNewName, String pictureUtilPath) {
+			String missingPhone, String missingBreed, String missingGender, int missingAge, String missingColor,
+			int mssingWeight, String missingCharacter, String missingRequest, String missingDeleteYN, String stateName,
+			int userCode, String dogOrcat, String userNickname, int pictureCode, String pictureURL,
+			String pictureDeleteYN, String pictureName, String pictureNewName, String pictureUtilPath) {
 		super();
 		this.boardCode = boardCode;
 		this.missingDate = missingDate;
@@ -43,11 +44,12 @@ public class MissingPictureDTO {
 		this.missingBreed = missingBreed;
 		this.missingGender = missingGender;
 		this.missingAge = missingAge;
+		this.missingColor = missingColor;
 		this.mssingWeight = mssingWeight;
 		this.missingCharacter = missingCharacter;
 		this.missingRequest = missingRequest;
 		this.missingDeleteYN = missingDeleteYN;
-		this.stateCode = stateCode;
+		this.stateName = stateName;
 		this.userCode = userCode;
 		this.dogOrcat = dogOrcat;
 		this.userNickname = userNickname;
@@ -123,6 +125,14 @@ public class MissingPictureDTO {
 		this.missingAge = missingAge;
 	}
 
+	public String getMissingColor() {
+		return missingColor;
+	}
+
+	public void setMissingColor(String missingColor) {
+		this.missingColor = missingColor;
+	}
+
 	public int getMssingWeight() {
 		return mssingWeight;
 	}
@@ -155,12 +165,12 @@ public class MissingPictureDTO {
 		this.missingDeleteYN = missingDeleteYN;
 	}
 
-	public int getStateCode() {
-		return stateCode;
+	public String getStateName() {
+		return stateName;
 	}
 
-	public void setStateCode(int stateCode) {
-		this.stateCode = stateCode;
+	public void setStateName(String stateName) {
+		this.stateName = stateName;
 	}
 
 	public int getUserCode() {
@@ -239,15 +249,15 @@ public class MissingPictureDTO {
 	public String toString() {
 		return "MissingPictureDTO [boardCode=" + boardCode + ", missingDate=" + missingDate + ", missingArea="
 				+ missingArea + ", missingPlace=" + missingPlace + ", missingPhone=" + missingPhone + ", missingBreed="
-				+ missingBreed + ", missingGender=" + missingGender + ", missingAge=" + missingAge + ", mssingWeight="
-				+ mssingWeight + ", missingCharacter=" + missingCharacter + ", missingRequest=" + missingRequest
-				+ ", missingDeleteYN=" + missingDeleteYN + ", stateCode=" + stateCode + ", userCode=" + userCode
-				+ ", dogOrcat=" + dogOrcat + ", userNickname=" + userNickname + ", pictureCode=" + pictureCode
-				+ ", pictureURL=" + pictureURL + ", pictureDeleteYN=" + pictureDeleteYN + ", pictureName=" + pictureName
-				+ ", pictureNewName=" + pictureNewName + ", pictureUtilPath=" + pictureUtilPath + "]";
+				+ missingBreed + ", missingGender=" + missingGender + ", missingAge=" + missingAge + ", missingColor="
+				+ missingColor + ", mssingWeight=" + mssingWeight + ", missingCharacter=" + missingCharacter
+				+ ", missingRequest=" + missingRequest + ", missingDeleteYN=" + missingDeleteYN + ", stateName="
+				+ stateName + ", userCode=" + userCode + ", dogOrcat=" + dogOrcat + ", userNickname=" + userNickname
+				+ ", pictureCode=" + pictureCode + ", pictureURL=" + pictureURL + ", pictureDeleteYN=" + pictureDeleteYN
+				+ ", pictureName=" + pictureName + ", pictureNewName=" + pictureNewName + ", pictureUtilPath="
+				+ pictureUtilPath + "]";
 	}
-	
-	
+
 	
 
 }

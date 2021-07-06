@@ -25,13 +25,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.ShareInfoService;
+import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.ShareInfoDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 /**
  * @author WEENARA
- * 정보공유 게시판 Controller
+ * 정보공유 게시판, 프렌들리플레이스게시판 Controller
  */
 @Controller
 @RequestMapping("/user/*")
@@ -92,6 +95,80 @@ private final ShareInfoService shareInfoService;
         model.addAttribute("shareInfoReply", shareInfoService.selectShareInfoReply(boardCode));
     	
     	return "user/main/shareInfoDetail";
+    }
+    
+    /**
+     * 정보공유게시판 댓글 작성
+     */
+    @PostMapping("insert/shareInfo/reply")
+    public String insertShareInfoReply(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute FreeBoardReplyDTO reply) {
+    	
+    	reply.setBoardCode(boardCode);
+    	reply.setUserCode(loginUser.getCode());
+    	
+    	if(shareInfoService.insertShareInfoReply(reply) > 0 ) {
+    		System.out.println("댓글 작성 성공");
+    	} else {
+    		System.out.println("댓글 작성 실패");
+    	}
+    	
+    	return "redirect:/user/select/shareInfo/detail?boardCode="+boardCode;
+    }
+    
+    /**
+     * 쪽지 보내기
+     */
+    @PostMapping("insert/shareInfo/message")
+    public String insertShareInfoMessage(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute MessageTableDTO message) {
+    	
+    	message.setUserCode(loginUser.getCode());
+    	System.out.println(message);
+    	
+    	if(shareInfoService.insertShareInfoMessage(message) > 0) {
+    		System.out.println("쪽지보내기 성공");
+    	} else {
+    		System.out.println("쪽지보내기 실패");
+    	}
+    	
+    	return "redirect:/user/select/shareInfo/detail?boardCode="+boardCode;
+    }
+    
+    /**
+     * 정보공유게시판 게시글 신고
+     */
+    @PostMapping("insert/shareInfo/report")
+    public String insertShareInfoReport(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute FreeBoardReportDTO report) {
+    	
+    	report.setUserCode(loginUser.getCode());
+    	report.setBoardCode(boardCode);
+    	
+    	if(shareInfoService.insertShareInfoReport(report) > 0) {
+    		System.out.println("게시글 신고 성공");
+    	} else {
+    		System.out.println("게시글 신고 실패");
+    	}
+    	
+    	return "redirect:/user/select/shareInfo/detail?boardCode="+boardCode;
+    }
+    
+    /**
+     * 정보공유게시판 댓글 신고
+     */
+    @PostMapping("insert/shareInfo/reportReply")
+    public String insertShareInfoReportReply(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute FreeBoardReplyDTO replyReport, @RequestParam String inputReplyCode, @RequestParam String inputuserCode1) {
+    	
+    	replyReport.setUserCode(loginUser.getCode());
+    	replyReport.setReplyCode(Integer.parseInt(inputReplyCode));
+    	replyReport.setUserCode1(Integer.parseInt(inputuserCode1));
+    	System.out.println(replyReport);
+    	
+    	if(shareInfoService.insertShareInfoReportReply(replyReport) > 0) {
+    		System.out.println("댓글신고 성공");
+    	} else {
+    		System.out.println("댓글신고 실패");
+    	}
+    	
+    	return "redirect:/user/select/shareInfo/detail?boardCode="+boardCode;
     }
     
     /**
@@ -158,4 +235,130 @@ private final ShareInfoService shareInfoService;
 		
 		return "redirect:/user/select/shareInfo/list";
 	}
+	
+	
+	/**
+     * 프렌들리 플레이스 게시판 리스트 조회
+     */
+    @GetMapping("select/sharePlace/list")
+    public String selectSharePlaceList(Model model, HttpServletResponse response, HttpServletRequest request) {
+    	
+    	Cookie[] cookies = request.getCookies();
+    	
+    	for(Cookie cookie: cookies) {
+    		
+    		if(!(cookie.getName().equals("sharePlace"))) {
+    			
+    			cookie = new Cookie("sharePlace",null); 		//sharInfo라는 이름의 쿠키 생성
+    			cookie.setComment("sharePlace 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
+    			
+    		}
+    	}
+       
+        model.addAttribute("sharePlaceList", shareInfoService.selectSharePlaceList());
+    	
+    	return "user/main/sharePlace";
+    }
+    
+    /**
+     * 프렌들리 플레이스 게시판 상세내용 조회
+     */
+    @GetMapping("select/sharePlace/detail")
+	public String selectSharePlaceDetail(@CookieValue(name = "sharePlace") String cookie, HttpServletResponse response,
+			Model model , @RequestParam int boardCode) {
+    	
+    	if(!(cookie.contains(String.valueOf(boardCode)))) {
+			
+			cookie += boardCode + "/";
+			
+			// 조회수 카운트
+			shareInfoService.updateSharePlaceViews(boardCode);
+			
+		}
+    	
+    	response.addCookie(new Cookie("sharePlace", cookie));
+    	
+    	// 상세 내용 조회      
+        model.addAttribute("sharePlaceDetail", shareInfoService.selectSharePlaceDetail(boardCode));
+        // 댓글 내용 조회
+        model.addAttribute("sharePlaceReply", shareInfoService.selectSharePlaceReply(boardCode));
+    	
+    	return "user/main/sharePlaceDetail";
+    }
+    
+    /**
+     * 프렌들리 플레이스 게시판 댓글 작성
+     */
+    @PostMapping("insert/sharePlace/reply")
+    public String insertSharePlaceReply(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute FreeBoardReplyDTO reply) {
+    	
+    	reply.setBoardCode(boardCode);
+    	reply.setUserCode(loginUser.getCode());
+    	
+    	if(shareInfoService.insertSharePlaceReply(reply) > 0 ) {
+    		System.out.println("댓글 작성 성공");
+    	} else {
+    		System.out.println("댓글 작성 실패");
+    	}
+    	
+    	return "redirect:/user/select/sharePlace/detail?boardCode="+boardCode;
+    }
+    
+    /**
+     * 쪽지보내기
+     */
+    @PostMapping("insert/sharePlace/message")
+    public String insertSharePlaceMessage(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute MessageTableDTO message) {
+    	
+    	message.setUserCode(loginUser.getCode());
+    	System.out.println(message);
+    	
+    	if(shareInfoService.insertShareInfoMessage(message) > 0) {
+    		System.out.println("쪽지보내기 성공");
+    	} else {
+    		System.out.println("쪽지보내기 실패");
+    	}
+    	
+    	return "redirect:/user/select/sharePlace/detail?boardCode="+boardCode;
+    }
+    
+    /**
+     * 프렌들리 플레이스 게시판 게시글 신고
+     */
+    @PostMapping("insert/sharePlace/report")
+    public String insertSharePlaceReport(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute FreeBoardReportDTO report) {
+    	
+    	report.setUserCode(loginUser.getCode());
+    	report.setBoardCode(boardCode);
+    	
+    	if(shareInfoService.insertSharePlaceReport(report) > 0) {
+    		System.out.println("게시글 신고 성공");
+    	} else {
+    		System.out.println("게시글 신고 실패");
+    	}
+    	
+    	return "redirect:/user/select/sharePlace/detail?boardCode="+boardCode;
+    }
+    
+    /**
+     * 프렌들리 플레이스 게시판 댓글 신고
+     */
+    @PostMapping("insert/sharePlace/reportReply")
+    public String insertSharePlaceReportReply(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute FreeBoardReplyDTO replyReport, @RequestParam String inputReplyCode, @RequestParam String inputuserCode1) {
+    	
+    	replyReport.setUserCode(loginUser.getCode());
+    	replyReport.setReplyCode(Integer.parseInt(inputReplyCode));
+    	replyReport.setUserCode1(Integer.parseInt(inputuserCode1));
+    	System.out.println(replyReport);
+    	
+    	if(shareInfoService.insertShareInfoReportReply(replyReport) > 0) {
+    		System.out.println("댓글신고 성공");
+    	} else {
+    		System.out.println("댓글신고 실패");
+    	}
+    	
+    	return "redirect:/user/select/sharePlace/detail?boardCode="+boardCode;
+    }
+	
 }

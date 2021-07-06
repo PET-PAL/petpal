@@ -1,8 +1,13 @@
 package com.nobanryeo.petpal.admin.pay.controller;
 
+import java.util.Calendar;
+import java.util.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
 import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
 import com.nobanryeo.petpal.admin.pay.service.PayAdminService;
+import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -65,6 +71,97 @@ public class PayController {
 	    	// 광고 심사 리스트
 	    	selectAdPayAllList = payAdminService.selectAdPayAllList(paging);
 	    	
+	    	// 현재 페이지에 보여지는 게시물 갯수 
+	    	int cntNowPage = payAdminService.selectNumber(paging);
+	    	
+	    	// 청구일자
+	    	for(int i = 0; i < cntNowPage; i++) {
+	    		
+	    		if( selectAdPayAllList.get(i).getPayDate1st() != null && selectAdPayAllList.get(i).getCancelApplyDate() == null) {
+	    			selectAdPayAllList.get(i).setPayUntilDate(selectAdPayAllList.get(i).getPostEndDate());
+	    		} else if( selectAdPayAllList.get(i).getPayDate1st() == null ) {
+	    			selectAdPayAllList.get(i).setPayUntilDate(selectAdPayAllList.get(i).getDecision().getDecisionDate());
+	    		} else if( selectAdPayAllList.get(i).getPayDate1st() != null && !selectAdPayAllList.get(i).getCancelApplyDate().equals(null)){
+	    			selectAdPayAllList.get(i).setPayUntilDate(selectAdPayAllList.get(i).getCancelApplyDate());
+	    		}
+	    		
+	    	}
+	    	
+	    	Calendar cal = Calendar.getInstance();
+	    	
+	    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+	    	
+	    	String day = sdf.format(cal.getTime());
+	    	
+	    	SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+	    	
+	    	Date today = null;
+	    	try {
+				today = format.parse(day);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+	    	    	
+	    	
+	    	// 납부상태
+	    	for(int j = 0; j < cntNowPage; j++) {
+	    		
+	    		Date de2 = null;
+	    		Date po2 = null;
+	    		
+	    		 
+	    		// 승인일  - 날짜 형식에 맞게 형변환
+	    		if(selectAdPayAllList.get(j).getDecision().getDecisionDate() != null ) {
+	    			String de1 = sdf.format(selectAdPayAllList.get(j).getDecision().getDecisionDate().getTime());
+	    			
+	    			try {
+						de2 = format.parse(de1);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    		
+	    		
+	    		// 종료일 - 날짜 형식에 맞게 형변환
+	    		if(selectAdPayAllList.get(j).getPostEndDate() != null) {
+	    			String po1 = sdf.format(selectAdPayAllList.get(j).getDecision().getDecisionDate().getTime());
+	    			
+	    			try {
+						po2 = format.parse(po1);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+	    		}
+	    		
+	    		if(selectAdPayAllList.get(j).getPayDate1st() == null && Math.abs((today.getTime() - de2.getTime())/ (24*60*60*1000)) <= 3
+	    				&& selectAdPayAllList.get(j).getCancelApplyDate() == null ) {
+	    			selectAdPayAllList.get(j).setPayStatus("납부전");
+	    			System.out.println("차이1 : " + (today.getTime() - de2.getTime())/ (24*60*60*1000));
+
+	    		} else if (selectAdPayAllList.get(j).getPayDate1st() != null && Math.abs((today.getTime() - po2.getTime())/ (24*60*60*1000)) <= 7
+	    				&& selectAdPayAllList.get(j).getPayDate2nd() == null ) {
+	    			selectAdPayAllList.get(j).setPayStatus("납부전");
+	    			System.out.println("차이2 : " + (today.getTime() - po2.getTime())/ (24*60*60*1000));
+	    			
+	    		} else if(selectAdPayAllList.get(j).getPayDate1st() != null && selectAdPayAllList.get(j).getPayDate2nd() == null ) {
+	    			selectAdPayAllList.get(j).setPayStatus("납부전");
+	    			
+	    		} else if (selectAdPayAllList.get(j).getPayDate1st() == null && selectAdPayAllList.get(j).getCancelApplyDate() != null) {
+	    			selectAdPayAllList.get(j).setPayStatus("납부취소");
+	    			
+	    		} else if (selectAdPayAllList.get(j).getPayDate1st() != null && selectAdPayAllList.get(j).getPayDate2nd() != null ||
+	    				selectAdPayAllList.get(j).getPayDate1st() != null && selectAdPayAllList.get(j).getCancelApplyDate() != null) {
+	    			selectAdPayAllList.get(j).setPayStatus("납부완료");
+	    			
+	    		} else {
+	    			selectAdPayAllList.get(j).setPayStatus("납부초과");
+	    		}
+	    		
+	    		
+	    		System.out.println("납부 상태 : " + selectAdPayAllList.get(j).getPayStatus());
+	    	}
+	    	
+	    	
          	System.out.println("검색 안 했을 때 검색결과 : " + selectAdPayAllList);
 	    	
 	    		// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
@@ -91,12 +188,17 @@ public class PayController {
 	         
 	        System.out.println("총 개수 : " + total);
 	        
-	        paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category, searchValue);
+	        paging = new AdminPageInfoDTO(Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category, searchValue, total);
 			
 			// 광고 심사 리스트
 			List<AdAdminDTO> searchAdPayAllList = payAdminService.searchAdPayAllList(paging);
 			
 			System.out.println("검색 했을 때 검색결과1 : " + searchAdPayAllList);
+			System.out.println("총 개수1 : " + total);
+			System.out.println("검색값1 : " + searchValue);
+			System.out.println("탭메뉴1 : " + category);
+			System.out.println("검색했을 때 cat 출력1 : " + cat);
+			System.out.println("paging: " + paging);
 		
 			// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
 			model.addAttribute("paging", paging);
@@ -128,7 +230,58 @@ public class PayController {
 	
 	//세금계산서관리 리스트
 	@RequestMapping("taxManageList")
-	public String taxManageListReturning() {
+	public String taxManageListReturning(Model model, AdminPageInfoDTO paging,
+			  @RequestParam(value="nowPage", required=false)String nowPage
+			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
+			, @RequestParam(value="category", required=false)String category
+			, @RequestParam(value="searchCondition", required=false)String searchCondition
+			, @RequestParam(value="searchValue", required=false)String searchValue, HttpServletRequest request) {
+		
+		
+		if (nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "5";
+		} else if (nowPage == null) {
+			nowPage = "1";
+		} else if (cntPerPage == null) { 
+			cntPerPage = "5";
+		}
+		
+		// 검색 안 했을 떄
+		if(searchValue == null) {
+			
+			AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
+			
+			System.out.println("검색 안했을 때 cat 출력 : " + cat);
+			
+			// 총 개수
+			int total = payAdminService.selectTaxList(cat);
+			
+			System.out.println("총 개수 : " + total);
+			
+			// 페이징 정보
+			paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category);
+			
+			// 광고 심사 리스트
+			List<AdAdminDTO> selectTaxAllList = payAdminService.selectTaxAllList(paging);
+			
+			System.out.println("검색 안 했을 때 검색결과 : " + selectTaxAllList);
+			
+			// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
+			model.addAttribute("paging", paging);
+			model.addAttribute("adApproveList", selectTaxAllList);
+			model.addAttribute("category", category);
+			model.addAttribute("total", total);
+					
+				}
+		
+		
+		
+		
+		
+		
+		
+		
 		
 		return "admin/main/taxManageList";
 	}

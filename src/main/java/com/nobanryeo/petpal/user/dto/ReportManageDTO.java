@@ -2,14 +2,19 @@ package com.nobanryeo.petpal.user.dto;
 
 import java.sql.Date;
 
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 public class ReportManageDTO {
 	
 	private int reportCode; //신고관리코드
 	private String title; //신고타이틀
 	private String content; //신고내용
-	private Date date;		//신고날짜
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+	private java.sql.Date date;		//신고날짜
 	private int decisionCode; //심사코드
 	private int userCode; //신고자코드
+	
 	
 	public ReportManageDTO() {
 		

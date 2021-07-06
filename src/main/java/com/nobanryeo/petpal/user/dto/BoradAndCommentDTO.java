@@ -1,0 +1,130 @@
+package com.nobanryeo.petpal.user.dto;
+
+import java.sql.Date;
+
+public class BoradAndCommentDTO {
+	
+	private int boardCode;	//게시글코드
+	private String boardTitle;	//게시글제목
+	private String boardContent;	//게시글내용
+	private int views;	//조회수
+	private Date postDate;	//포스팅날
+	private String deleteYn;	//삭제여부
+	private int dicisionCode;	//관리자승인여부(두개페이지)
+	private String boardMap;	//지도값
+	private int userCode;	//유저코드
+	private int replyCode;  //댓글코드
+
+	public BoradAndCommentDTO() {
+		
+	}
+
+	public BoradAndCommentDTO(int boardCode, String boardTitle, String boardContent, int views, Date postDate,
+			String deleteYn, int dicisionCode, String boardMap, int userCode, int replyCode) {
+		super();
+		this.boardCode = boardCode;
+		this.boardTitle = boardTitle;
+		this.boardContent = boardContent;
+		this.views = views;
+		this.postDate = postDate;
+		this.deleteYn = deleteYn;
+		this.dicisionCode = dicisionCode;
+		this.boardMap = boardMap;
+		this.userCode = userCode;
+		this.replyCode = replyCode;
+	}
+
+	public int getBoardCode() {
+		return boardCode;
+	}
+
+	public void setBoardCode(int boardCode) {
+		this.boardCode = boardCode;
+	}
+
+	public String getBoardTitle() {
+		return boardTitle;
+	}
+
+	public void setBoardTitle(String boardTitle) {
+		this.boardTitle = boardTitle;
+	}
+
+	public String getBoardContent() {
+		return boardContent;
+	}
+
+	public void setBoardContent(String boardContent) {
+		this.boardContent = boardContent;
+	}
+
+	public int getViews() {
+		return views;
+	}
+
+	public void setViews(int views) {
+		this.views = views;
+	}
+
+	public Date getPostDate() {
+		return postDate;
+	}
+
+	public void setPostDate(Date postDate) {
+		this.postDate = postDate;
+	}
+
+	public String getDeleteYn() {
+		return deleteYn;
+	}
+
+	public void setDeleteYn(String deleteYn) {
+		this.deleteYn = deleteYn;
+	}
+
+	public int getDicisionCode() {
+		return dicisionCode;
+	}
+
+	public void setDicisionCode(int dicisionCode) {
+		this.dicisionCode = dicisionCode;
+	}
+
+	public String getBoardMap() {
+		return boardMap;
+	}
+
+	public void setBoardMap(String boardMap) {
+		this.boardMap = boardMap;
+	}
+
+	public int getUserCode() {
+		return userCode;
+	}
+
+	public void setUserCode(int userCode) {
+		this.userCode = userCode;
+	}
+
+	public int getReplyCode() {
+		return replyCode;
+	}
+
+	public void setReplyCode(int replyCode) {
+		this.replyCode = replyCode;
+	}
+
+	@Override
+	public String toString() {
+		return "BoradAndCommentDTO [boardCode=" + boardCode + ", boardTitle=" + boardTitle + ", boardContent="
+				+ boardContent + ", views=" + views + ", postDate=" + postDate + ", deleteYn=" + deleteYn
+				+ ", dicisionCode=" + dicisionCode + ", boardMap=" + boardMap + ", userCode=" + userCode
+				+ ", replyCode=" + replyCode + "]";
+	}
+	
+	
+	
+	
+	
+	
+}

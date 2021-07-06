@@ -61,6 +61,11 @@ select { width: 150px; /* 원하는 너비설정 */
 			var sel = document.getElementById('cntPerPage').value;
 			location.href="${ pageContext.servletContext.contextPath }/admin/payList?nowPage=${paging.nowPage}&cntPerPage="+sel;
 		}
+		
+		function monthChange() {
+			var month = document.getElementById('monthChange').value;
+			location.href="${ pageContext.servletContext.contextPath }/admin/payList?nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}&month="+month; 
+		}
 </script>
 
 
@@ -136,8 +141,8 @@ select { width: 150px; /* 원하는 너비설정 */
                             
 							<div class="container-fluid" style="margin-top: 15px;">
 							 <div class="container-fluid" style="float:left;">
-												<select class="ui search dropdown" style="font-size:15px; text-align:center !important; width:150px;">
-												  <option value ="0" selected>월별 조회</option>
+									<select id="monthChange" name="month" onchange="monthChange()" class="ui search dropdown" style="font-size:15px; text-align:center !important; width:150px;">
+												  <option value ="0">월별 조회</option>
 												  <option value="1">1월</option>
 												  <option value="2">2월</option>
 												  <option value="3">3월</option>
@@ -151,9 +156,11 @@ select { width: 150px; /* 원하는 너비설정 */
 												  <option value="11">11월</option>
 												  <option value="12">12월</option>
 												
-												</select>
+									</select>
 								</div>
 								
+					
+									
 									
 								    <!-- <form class="d-flex" style="float:right;">
 									     <div class="search">
@@ -169,14 +176,6 @@ select { width: 150px; /* 원하는 너비설정 */
 							        <input type="hidden" name="category" value="${ requestScope.category }"/>
 									<c:choose>
 									    <c:when test="${ !empty requestScope.searchValue }">
-					   					    <%-- <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
-					   					    <!-- select 박스 -->
-					   					    <!-- ~를 선택했을 때 value를 넘겨줌 -->
-												<option value="menu" <c:if test="${requestScope.searchCondition eq 'menu'}">selected</c:if>>카테고리</option>
-												<option value="adCode" <c:if test="${requestScope.searchCondition eq 'adCode'}">selected</c:if>>광고코드</option>
-												<option value="adTitle" <c:if test="${requestScope.searchCondition eq 'adTitle'}">selected</c:if>>광고제목</option>
-												<option value="name" <c:if test="${requestScope.searchCondition eq 'name'}">selected</c:if>>신청자이름</option>
-											</select> --%>
 											<!-- input 값도 넘겨줌 -->
 									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
 									    </c:when>
@@ -244,37 +243,10 @@ select { width: 150px; /* 원하는 너비설정 */
 														</c:if>
 														</td>
 														<td>
-														<c:if test= "${ empty adApprove.payDate1st and empty adApprove.cancelApplyDate}">
-															<c:out value="${ adApprove.decision.decisionDate }"/>
-														</c:if>
-														<c:if test= "${ not empty adApprove.payDate1st and empty adApprove.payDate2nd and empty adApprove.cancelApplyDate }">
-															<c:out value="${ adApprove.postEndDate }"/>
-														</c:if>
-														<c:if test= "${ not empty adApprove.cancelApplyDate }">
-															<c:out value="${ adApprove.cancelApplyDate }"/>
-														</c:if>
-														<c:if test= "${ not empty adApprove.payDate1st and not empty adApprove.payDate2nd and empty adApprove.cancelApplyDate }">
-															${ adApprove.price2nd }
-														</c:if>
+															<c:out value="${ adApprove.payUntilDate }"/>
 														</td>
 														<td>
-														<c:choose>
-			                                    		<c:when test="${ empty adApprove.payDate1st and today - caldecisionday > 3  and empty adApprove.cancelApplyDate }">
-			                                    		 납부초과
-			                                    		</c:when>
-			                                    		<c:when test="${ not empty adApprove.payDate1st and caltoday - calendday > 3  and empty adApprove.cancelApplyDate and empty adApprove.payDate2nd}">
-			                                    		 납부초과
-			                                    		</c:when> 
-														<c:when test= "${ not empty adApprove.cancelApplyDate and empty adApprove.payDate1st }">
-														납부취소
-														</c:when>
-														<c:when test="${ not empty adApprove.payDate1st and not empty adApprove.payDate2nd}">
-														납부완료
-														</c:when>
-														<c:otherwise>
-														납부전
-														</c:otherwise>
-														</c:choose>
+															<c:out value="${ adApprove.payStatus }"/>
 														</td>
 														<td>
 														<c:if test= "${ empty adApprove.payDate1st }">
