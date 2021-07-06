@@ -282,6 +282,7 @@
 										<td style="text-align: center;">${ list.missingDate }</td>
 										<td style="text-align: center;">
 										<input type="hidden" value="${ list.boardCode }" id="code">
+										<input type="hidden" value="A" id="type">
 										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
 										</td>
 									</tr>
@@ -289,7 +290,7 @@
 									</c:if>
 			                        <c:if test="${ type eq 'B' }">
 			                        <c:forEach items="${ bList }" var="list">
-									<tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/detail/${ list.boardCode }'">
+									<tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/detail/${ list.boardCode }'" id="stop">
 										<c:if test="${ list.adoptGender eq 'M'}">
 										<td style="text-align: center;">${ list.adoptBreed }/남아/${ list.adoptColor }</td>
 										</c:if>
@@ -298,7 +299,11 @@
 										</c:if>
 										<td style="text-align: center;">${ list.boardDate }</td>
 										<c:if test="${ list.stateCode eq 1 }">
-										<td ><button>삭제</button></td>
+										<td >
+										<input type="hidden" value="${ list.boardCode }" id="code">
+										<input type="hidden" value="B" id="type">
+										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										</td>
 										</c:if>
 										<c:if test="${ list.stateCode eq 2 }">
 										<td style="text-align: center;"><button disabled>삭제불가</button></td>
@@ -308,46 +313,66 @@
 			                        </c:if>
 			                        <c:if test="${ type eq 'C' }">
 			                        <c:forEach items="${ cList }" var="list">	
-									<tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
-										<td><button>삭제</button></td>
+										<td>
+										<input type="hidden" value="${ list.boardCode }" id="code">
+										<input type="hidden" value="C" id="type">
+										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										</td>
 									</tr>
 									</c:forEach>
 			                        </c:if>
 			                        <c:if test="${ type eq 'D' }">
 			                        <c:forEach items="${ dList }" var="list">
-									<tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?boardCode=${ list.boardCode }'">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?boardCode=${ list.boardCode }'">
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
-										<td style="text-align: center;"><button>삭제</button></td>
+										<td style="text-align: center;">
+										<input type="hidden" value="${ list.boardCode }" id="code">
+										<input type="hidden" value="D" id="type">
+										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										</td>
 									</tr>
 									</c:forEach>
 			                        </c:if>
 			                        <c:if test="${ type eq 'E' }">
 			                        <c:forEach items="${ eList }" var="list">
-									<tr>
+									<tr id="stop">
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
-										<td style="text-align: center;"><button>삭제</button></td>
+										<td style="text-align: center;">
+										<input type="hidden" value="${ list.boardCode }" id="code">
+										<input type="hidden" value="E" id="type">
+										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										</td>
 									</tr>
 									</c:forEach>
 			                        </c:if>
 			                        <c:if test="${ type eq 'F' }">
 			                        <c:forEach items="${ fList }" var="list">
-									<tr>
+									<tr id="stop">
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
-										<td style="text-align: center;"><button>삭제</button></td>
+										<td style="text-align: center;">
+										<input type="hidden" value="${ list.boardCode }" id="code">
+										<input type="hidden" value="F" id="type">
+										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										</td>
 									</tr>
 									</c:forEach>
 			                        </c:if>
 			                        <c:if test="${ type eq 'G' }">
 			                        <c:forEach items="${ gList }" var="list">
-									<tr>
+									<tr id="stop">
 										<td style="text-align: center;">${ list.replyContent }</td>
 										<td style="text-align: center;">${ list.replyDate }</td>
-										<td style="text-align: center;"><button>삭제</button></td>
+										<td style="text-align: center;">
+										<input type="hidden" value="${ list.replyCode }" id="code">
+										<input type="hidden" value="G" id="type">
+										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										</td>
 									</tr>
 									</c:forEach>
 			                        </c:if>
@@ -547,9 +572,9 @@
 					<p style="font-size: 20px; text-align: center; padding-bottom: 10px;">삭제하기</p>
 					<div class="cont-step cont-step_02" id="contStep02" style="display: block;">
 						<div class="cont-step_preface">
-							<h3 align="center">해당 게시글을 삭제하시겠습니까</h3>
+							<h3 align="center">해당 글을 삭제하시겠습니까</h3>
 							<br>
-							<button style="margin-left: 43%;" onclick="postDelete()">
+							<button style="margin-left: 43%;" onclick="postDeleteA()">
 							삭제하기
 							</button>
 						</div>
@@ -558,21 +583,23 @@
 			</div>
 <script type="text/javascript">
 
-function postDelete(){
+function postDeleteA(){
 	
 var boardCode = document.getElementById("code").value;
+var type = document.getElementById("type").value;
 console.log(boardCode);
+console.log(type);
 
 $.ajax({
 	url:"${pageContext.servletContext.contextPath}/user/mypage/deletePost",
 	type:"post",
-	data:{boardCode:boardCode},
+	data:{boardCode:boardCode , type:type},
 	success:function(data){
 		console.log("성공!!!!!!!!!!!!");
 		alert("삭제에 성공했습니다.");
 	},
 	error:function(data){
-		alert("삭제에 실패했습니다.");
+		alert("삭제에 실패했습니다. 지속된 게시글 삭제는 고객센터에 연락바랍니다.");
 	}
 });
 

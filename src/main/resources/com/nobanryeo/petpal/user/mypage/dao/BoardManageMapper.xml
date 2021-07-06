@@ -266,6 +266,43 @@
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
 		      ORDER BY REPLY_DATE DESC	
 	</select>
+	
+	<update id="deleteMissingPost" parameterType="int" >
+		UPDATE MISSING_BOARD
+           SET MISSING_DELETE_YN = 'Y'
+         WHERE BOARD_CODE = #{ boardCode }
+	</update>
+	<update id="deleteAdoptPost" parameterType="int" >
+		UPDATE ADOPT_BOARD
+           SET ADOPT_DELETE_YN = 'Y'
+         WHERE BOARD_CODE = #{ boardCode }
+	</update>
+	
+	<update id="deleteInfoPost" parameterType="int" >
+		UPDATE INFO_BOARD
+           SET BOARD_DELETE_YN = 'Y'
+         WHERE BOARD_CODE = #{ boardCode }
+	</update>
+	<update id="deleteFreePost" parameterType="int" >
+		UPDATE FREE_BOARD
+           SET BOARD_DELETE_YN = 'Y'
+         WHERE BOARD_CODE = #{ boardCode }
+	</update>
+	<update id="deletePostShare" parameterType="int" >
+		UPDATE SHARE_BOARD
+           SET BOARD_DELETE_YN = 'Y'
+         WHERE BOARD_CODE = #{ boardCode }
+	</update>
+	<update id="deletePostReview" parameterType="int" >
+		UPDATE REVIEW_BOARD
+           SET BOARD_DELETE_YN = 'Y'
+         WHERE BOARD_CODE = #{ boardCode }
+	</update>
+	<update id="deleteReply" parameterType="int" >
+		UPDATE REPLY_MANAGE
+           SET REPLY_DELETE_YN = 'Y'
+         WHERE REPLY_CODE = #{ boardCode }
+	</update>
 
 </mapper>
 

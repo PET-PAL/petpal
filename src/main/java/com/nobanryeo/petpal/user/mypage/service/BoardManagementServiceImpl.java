@@ -90,7 +90,52 @@ public class BoardManagementServiceImpl implements BoardManagementService{
 
 	@Override
 	public boolean deletePost(int boardCode) {
-		return false;
+		return mapper.deleteMissingPost(boardCode) > 0? true : false;
+	}
+
+	@Override
+	public boolean deletePostAdopt(int boardCode) {
+		return mapper.deleteAdoptPost(boardCode) > 0? true:false;
+	}
+
+	@Override
+	public boolean deletePostInfo(int boardCode) {
+		return mapper.deleteInfoPost(boardCode) > 0? true:false;
+	}
+
+	@Override
+	public boolean deletePostFree(int boardCode) {
+		return mapper.deleteFreePost(boardCode) > 0? true:false;
+	}
+
+	@Override
+	public boolean deletePostShare(int boardCode) {
+		return mapper.deletePostShare(boardCode) > 0? true:false;
+	}
+
+	@Override
+	public boolean deletePostReview(int boardCode) {
+		return mapper.deletePostReview(boardCode) > 0? true:false;
+	}
+
+	@Override
+	public boolean deleteReply(int boardCode) {
+		return mapper.deleteReply(boardCode) > 0? true:false;
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

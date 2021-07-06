@@ -37,4 +37,18 @@ public interface BoardManageMapper {
 
 	List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map);
 
+	int deleteMissingPost(int boardCode);
+
+	int deleteAdoptPost(int boardCode);
+
+	int deleteInfoPost(int boardCode);
+
+	int deleteFreePost(int boardCode);
+
+	int deletePostShare(int boardCode);
+
+	int deletePostReview(int boardCode);
+
+	int deleteReply(int boardCode);
+
 }
