@@ -61,4 +61,9 @@ public class QuestionServiceImpl implements QuestionService{
 		return mapper.selectReplyReportList(map);
 	}
 
+	@Override
+	public ReportManageDTO selectDecision(int decisionCode) {
+		return mapper.selectDecision(decisionCode);
+	}
+
 }

@@ -37,4 +37,6 @@ public interface BoardManagementService {
 
 	List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map);
 
+	boolean deletePost(int boardCode);
+
 }

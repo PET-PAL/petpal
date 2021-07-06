@@ -50,6 +50,8 @@ public interface QuestionService {
 
 	List<ReportManageDTO> selectReplyReportList(HashMap<String, Object> map);
 
+	ReportManageDTO selectDecision(int decisionCode);
+
 }
 
 

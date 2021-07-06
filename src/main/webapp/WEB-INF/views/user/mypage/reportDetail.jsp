@@ -82,17 +82,18 @@
             <section id="menutable" class="menutable">
 				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
+		            <c:if test="${ type eq 'B' }">
 						<tr>
-							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>신고 제목</b></td>
+							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>신고한 게시물</b></td>
 							<td>${ report.title }</td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>접수 상태</b></td>
-							<c:if test="${ report.decisionCode eq 1 }">
+							<c:if test="${ report.stateCode eq 1 }">
 							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="대기중"/></td>
 							</c:if>
-							<c:if test="${ report.decisionCode eq 2 }">
+							<c:if test="${ report.stateCode eq 2 }">
 							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="승인"/></td>
 							</c:if>
-							<c:if test="${ report.decisionCode eq 3 }">
+							<c:if test="${ report.stateCode eq 3 }">
 							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="거절"/></td>
 							</c:if>
 						</tr>
@@ -102,13 +103,36 @@
 							<td style="text-align: center; background-color: #F1FAF8;"><b>처리 날짜</b></td>
 							<td>${ report.dDate }</td>
 						</tr>
+		            </c:if>
+		            <c:if test="${ type eq 'C' }">
+						<tr>
+							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>신고한 댓글</b></td>
+							<td>${ replyTitle }</td>
+							<td style="text-align: center; background-color: #F1FAF8;"><b>접수 상태</b></td>
+							<c:if test="${ stateCode eq 1 }">
+							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="대기중"/></td>
+							</c:if>
+							<c:if test="${ decision.stateCode eq 2 }">
+							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="승인"/></td>
+							</c:if>
+							<c:if test="${ decision.stateCode eq 3 }">
+							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="거절"/></td>
+							</c:if>
+						</tr>
+						<tr>
+							<td style="text-align: center; background-color: #F1FAF8;"><b>신고 일자</b></td>
+							<td>${ replyDate }</td>
+							<td style="text-align: center; background-color: #F1FAF8;"><b>처리 날짜</b></td>
+							<td>${ decision.dDate }</td>
+						</tr>
+		            </c:if>
 					</table>
 					<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px;">${ report.content }</p>
+					<p style="margin-bottom: 50px; margin-left: 8px;">${ replyContent }</p>
 		        </div>
                 <div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">관리자 답변</div>
 				<div>
-					<textarea class="form-control textarea-layer" style="resize:none; width: 70%; height: 120px; margin-top: 10px; margin: 0px auto; border-radius: 20px; margin-bottom: 50px;" disabled>${ report.dReason }</textarea>
+					<textarea class="form-control textarea-layer" style="resize:none; width: 70%; height: 120px; margin-top: 10px; margin: 0px auto; border-radius: 20px; margin-bottom: 50px;" disabled>${ decision.dReason }</textarea>
 				</div>
             </section>
 
