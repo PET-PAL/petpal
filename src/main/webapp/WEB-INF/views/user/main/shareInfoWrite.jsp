@@ -188,7 +188,7 @@
 							    	$j3("#pictureUtilPath").val(data.pictureUtilPath);
 								}
 					       	});
-					    }  
+					    }
 					</script>
 			    </div>
 		    	<input type="hidden" id="pictureName" name="pictureName"/>

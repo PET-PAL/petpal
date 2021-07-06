@@ -94,7 +94,7 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 	@Override
 	public int inserWriteShreInfo(ShareInfoDTO shareInfo) {
 		
-		// InfoBoard, ImageTablle insert해주기
+		// InfoBoard, ImageTable insert해주기
 		int result = shareInfoMapper.insertWriteShreInfo(shareInfo);
 		// insert후 boardCode 가져오기
 		int boardCode = shareInfoMapper.selectBoardCode(shareInfo);
@@ -156,6 +156,21 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 	@Override
 	public int insertSharePlaceReport(FreeBoardReportDTO report) {
 		return shareInfoMapper.insertSharePlaceReport(report);
+	}
+
+	@Override
+	public int insertWriteShrePlace(FriendlyPlaceDTO sharePlace) {
+		
+		// friendlyPlaceBoard, ImageTable insert해주기
+		int result1 = shareInfoMapper.insertWriteSharePlace(sharePlace);
+		// insert후 boardCode 가져오기
+		int boardCode = shareInfoMapper.selectPlaceBoardCode(sharePlace);
+		sharePlace.setBoardCode(boardCode);
+		
+		// 중간 manageTable insert해주기
+		int result2 = shareInfoMapper.insertSharePlaceManage(sharePlace);
+		
+		return result1 + result2;
 	}
 
 }

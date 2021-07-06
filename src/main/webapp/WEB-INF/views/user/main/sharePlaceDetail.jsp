@@ -171,7 +171,7 @@
             <!--Home Sections-->
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float: left">프렌들리 플레이스</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/sharePlace.jsp'" style="width:50px; float: right; cursor: pointer !important;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/list'" style="width:50px; float: right; cursor: pointer !important;">
             </section>
 
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
@@ -219,18 +219,50 @@
 					<div style="margin-bottom: 30px; text-align:center;">
 						<c:out value="${ requestScope.sharePlaceDetail.boardContent }" escapeXml="false"/>
 					</div>
-					<div id="map" style="width:500px;height:400px; margin-left:25%;"></div>
-						    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6ab156b1ea98fdb4f592662f81ba96f"></script>
-						    <script>
-						        var container = document.getElementById('map');
-						        var options = {
-						            center: new kakao.maps.LatLng(33.450701, 126.570667),
-						            level: 3
-						        };
-						 
-						        var map = new kakao.maps.Map(container, options);
-						    </script>
-		       		 </div>
+					
+					<div id="map" style="width:80%;height:400px; margin:0px auto; margin-bottom:30px;"></div>
+						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b85791a0e7d027a11d7cf8b979f0fb14&libraries=services"></script>
+						<script>
+							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+							    mapOption = {
+							        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+							        level: 2 // 지도의 확대 레벨
+							    };
+							var placeAddress = '<c:out value="${ requestScope.sharePlaceDetail.placeAddress }"/>';
+							var placeName = '<c:out value="${ requestScope.sharePlaceDetail.placeName }"/>';
+							
+							// 지도를 생성합니다    
+							var map = new kakao.maps.Map(mapContainer, mapOption); 
+							
+							// 주소-좌표 변환 객체를 생성합니다
+							var geocoder = new kakao.maps.services.Geocoder();
+							
+							// 주소로 좌표를 검색합니다
+							geocoder.addressSearch(placeAddress, function(result, status) {
+							
+							    // 정상적으로 검색이 완료됐으면 
+							     if (status === kakao.maps.services.Status.OK) {
+							
+							        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+							
+							        // 결과값으로 받은 위치를 마커로 표시합니다
+							        var marker = new kakao.maps.Marker({
+							            map: map,
+							            position: coords
+							        });
+							
+							        // 인포윈도우로 장소에 대한 설명을 표시합니다
+							        var infowindow = new kakao.maps.InfoWindow({
+							            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+placeName+'</div>'
+							        });
+							        infowindow.open(map, marker);
+							
+							        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+							        map.setCenter(coords);
+							    } 
+							});    
+							</script>
+		       		</div>
 		        
 				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>
 				<div style="margin-bottom: 40px;">

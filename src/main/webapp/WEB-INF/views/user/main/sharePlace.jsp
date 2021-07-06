@@ -186,7 +186,7 @@
                 <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
                  	정보에 대한 사실확인등을 위하여 글 작성시 <br> 관리자의 검토에 의해 글이 게시됩니다.<br> 신청에 대한 검토는 1~2일 소요 될 수 있습니다.
                 </p>
-                <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/sharePlaceWrite.jsp'">확인</button></div>
+                <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/write/sharePlace'">확인</button></div>
             </div>
         </div>
 
