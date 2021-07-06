@@ -607,7 +607,32 @@
 		  FROM (
 				SELECT NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE))TAX_BILL_DATE
 				  FROM AD_APPLY_TABLE A
-				 WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL)
+				 WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
+		<choose>
+        <when test='category == "2"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
+           ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7))
+           ]]>
+        </when>
+        <when test='category == "1"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
+          ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7))
+          ]]>
+        </when>
+        <otherwise>
+		)
+		</otherwise>
+       </choose>
 	  </select>
 	  
 	   <!-- 세금계산서 관리 목록 조회 -->
@@ -628,6 +653,7 @@
 			 , C.USER_ID
 			 , A.AD_TITLE
 			 , A.COMPANY_NUMBER
+			 , A.CANCEL_APPLY_DATE
 			 , TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) CAL_END_DATE
 			 , TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) CAL_APPLY_DATE
 		FROM AD_APPLY_TABLE A
@@ -638,16 +664,27 @@
            		    FROM AD_CLICK_COUNT 
                     GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
         WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
-       <choose>
-        <when test='category == "1"'>
-        
-        </when>
+         <choose>
         <when test='category == "2"'>
-        
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
+           ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7)
+           ]]>
         </when>
-        <otherwise>
-        
-        </otherwise>
+        <when test='category == "1"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
+          ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
+          ]]>
+        </when>
        </choose>
           ORDER BY A.AD_CODE DESC
 						) D
@@ -664,7 +701,6 @@
 		  FROM (
 			    SELECT ROWNUM RN, D.* 
 			      FROM (
-
 		SELECT 
 			   A.AD_CODE
 			 , NVL(B.CLICK,0) CLICK_NUM
@@ -687,15 +723,26 @@
                     GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
         WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
        <choose>
-        <when test='category == "1"'>
-        
-        </when>
         <when test='category == "2"'>
-        
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
+           ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7)
+           ]]>
         </when>
-        <otherwise>
-        
-        </otherwise>
+        <when test='category == "1"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
+          ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
+          ]]>
+        </when>
        </choose>
           ORDER BY A.AD_CODE DESC
 						) D
@@ -735,5 +782,156 @@
           AND A.AD_CODE = #{adCode}
 	  </select>
 	
+	  <!-- 검색 시 세금계산서 갯수 조회 -->
+	  <select id="searchTaxList" resultType="int" parameterType="AdminPageInfoDTO">	
+		SELECT 
+		       COUNT(*)
+			   FROM AD_APPLY_TABLE A
+			   LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+			   LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
+			   LEFT OUTER JOIN
+			  	    (SELECT AD_CODE, COUNT(*) CLICK
+		           		    FROM AD_CLICK_COUNT 
+		                    GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
+         WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
+           AND C.USER_NAME LIKE '%'|| #{ searchValue } || '%'
+        <choose>
+        <when test='category == "2"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
+           ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7)
+           ]]>
+        </when>
+        <when test='category == "1"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
+          ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
+          ]]>
+        </when>
+       </choose>
+	
+	  </select>
+
+	 <!-- 검색 시 세금계산서 조회 -->
+	  <select id="searchTaxAllList" resultMap="adAdmin" parameterType="AdminPageInfoDTO">	
+		SELECT * 
+		  FROM (
+			    SELECT ROWNUM RN, D.* 
+			      FROM (
+		SELECT 
+			   A.AD_CODE
+			 , NVL(B.CLICK,0) CLICK_NUM
+             , NVL(B.CLICK,0)*150 PRICE_2ND
+             , NVL(B.CLICK,0)*150*0.1 TAX_PRICE
+             , NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE))TAX_BILL_DATE
+			 , A.USER_CODE
+			 , C.USER_NAME
+			 , C.USER_ID
+			 , A.AD_TITLE
+			 , A.COMPANY_NUMBER
+			 , TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) CAL_END_DATE
+			 , TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) CAL_APPLY_DATE
+		FROM AD_APPLY_TABLE A
+		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+		LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
+		LEFT OUTER JOIN
+	  			 (SELECT AD_CODE, COUNT(*) CLICK
+           		    FROM AD_CLICK_COUNT 
+                    GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
+        WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
+	        <choose>
+	        <when test='category == "2"'>
+	          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
+	          <![CDATA[
+	          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
+	           ]]>
+	           OR (A.CANCEL_APPLY_DATE IS NULL
+	           <![CDATA[
+	          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7))
+	           ]]>
+	        </when>
+	        <when test='category == "1"'>
+	          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
+	          	  <![CDATA[
+	          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
+	          ]]>
+	           OR (A.CANCEL_APPLY_DATE IS NULL
+	           	  <![CDATA[
+	          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7))
+	          ]]>
+	        </when>
+	       </choose>
+          AND C.USER_NAME LIKE '%'|| #{ searchValue } || '%'
+            ORDER BY A.AD_CODE DESC
+						) D
+				  )
+			WHERE RN BETWEEN #{start} AND #{end}
+       </select>
+	
+	 <!-- 검색 시  현재 페이지에 보이는 세금계산서 개수 조회 -->
+	  <select id="searchTaxNumber" resultType="int" parameterType="AdminPageInfoDTO">	
+		SELECT COUNT(E.RN) 
+		  	 FROM 
+		  	(SELECT * 
+			  FROM (
+				    SELECT ROWNUM RN, D.* 
+				      FROM (
+			SELECT 
+				   A.AD_CODE
+				 , NVL(B.CLICK,0) CLICK_NUM
+	             , NVL(B.CLICK,0)*150 PRICE_2ND
+	             , NVL(B.CLICK,0)*150*0.1 TAX_PRICE
+	             , NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE))TAX_BILL_DATE
+				 , A.USER_CODE
+				 , C.USER_NAME
+				 , C.USER_ID
+				 , A.AD_TITLE
+				 , A.COMPANY_NUMBER
+				 , TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) CAL_END_DATE
+				 , TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) CAL_APPLY_DATE
+			FROM AD_APPLY_TABLE A
+			LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+			LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
+			LEFT OUTER JOIN
+		  			 (SELECT AD_CODE, COUNT(*) CLICK
+	           		    FROM AD_CLICK_COUNT 
+	                    GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
+	        WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
+	       		 <choose>
+			        <when test='category == "2"'>
+			          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
+			          <![CDATA[
+			          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
+			           ]]>
+			           OR (A.CANCEL_APPLY_DATE IS NULL
+			           <![CDATA[
+			          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7))
+			           ]]>
+			        </when>
+			        <when test='category == "1"'>
+			          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
+			          	  <![CDATA[
+			          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
+			          ]]>
+			           OR (A.CANCEL_APPLY_DATE IS NULL
+			           	  <![CDATA[
+			          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7))
+			          ]]>
+			        </when>
+			       </choose>
+	          AND C.USER_NAME LIKE '%'|| #{ searchValue } || '%'
+	            ORDER BY A.AD_CODE DESC
+							) D
+					  )
+				WHERE RN BETWEEN #{start} AND #{end} ) E
+		</select>
 	
 </mapper>
