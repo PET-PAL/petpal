@@ -6,7 +6,23 @@
  <mapper namespace="com.nobanryeo.petpal.user.adopt.dao.MissingMapper">
  	
 	<resultMap type="MissingPictureDTO" id="missingResultMap">
-
+		<result column="BOARD_CODE" property="boardCode"/>
+		<result column="BOARD_DATE" property="boardDate"/>
+		<result column="MISSING_DATE" property="missingDate"/>
+		<result column="MISSING_AREA" property="missingArea"/>
+		<result column="MISSING_PLACE" property="missingPlace"/>
+		<result column="MISSING_PHONE" property="missingPhone"/>
+		<result column="MISSING_BREED" property="missingBreed"/>
+		<result column="MISSING_COLOR" property="missingColor"/>
+		<result column="MISSING_GENDER" property="missingGender"/>
+		<result column="MISSING_AGE" property="missingAge"/>
+		<result column="MISSING_WEIGTH" property="mssingWeight"/>
+		<result column="MISSING_CHARACTER" property="missingCharacter"/>
+		<result column="MISSING_REQUEST" property="missingRequest"/>
+		<result column="MISSING_DELETE_YN" property="missingDeleteYN"/>
+		<result column="STATE_NAME" property="stateName"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="DOG_OR_CAT" property="dogOrcat"/>
   		<result column="USER_NIKNAME" property="userNickname"/>		
 		<result column="PICTURE_CODE" property="pictureCode"/>
   		<result column="PICTURE_URL" property="pictureURL"/>
@@ -14,6 +30,131 @@
   		<result column="PICTURE_NAME" property="pictureName"/>
   		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
   		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
-	</resultMap>	
+	</resultMap>
+	
+	 <resultMap type="MissingDTO" id="missingResultset">
+  		<id column="BOARD_CODE" property="boardCode"/>
+  		<result column="BOARD_DATE" property="boardDate"/>
+  		<result column="MISSING_DATE" property="missingDate"/>
+  		<result column="MISSING_AREA" property="area"/>
+  		<result column="MISSING_PLACE" property="place"/>
+  		<result column="MISSING_PHONE" property="phone"/>
+  		<result column="MISSING_BREED" property="breed"/>
+  		<result column="MISSING_GENDER" property="gender"/>
+  		<result column="MISSING_AGE" property="age"/>
+  		<result column="MISSING_WEIGTH" property="weigth"/>
+  		<result column="MISSING_CHARACTER" property="character"/>
+  		<result column="MISSING_REQUEST" property="request"/>
+  		<result column="MISSING_DELETE_YN" property="deleteYn"/>
+  		<result column="STATE_CODE" property="stateCode"/>
+  		<result column="USER_CODE" property="userCode"/>
+  		<result column="DOG_OR_CAT" property="dOc"/>
+  		<result column="MISSING_COLOR" property="color"/>
+  	</resultMap>	
+	
+	<resultMap type="PictureDTO" id="pictureInsertResultset">
+  		<id column="PICTURE_CODE" property="pictureCode"/>
+  		<result column="PICTURE_NAME" property="pictureName"/>
+  		<result column="PICTURE_URL" property="pictureURL"/>
+  		<result column="PICTURE_UPLOAD_DATE" property="pictureUploadDate"/>
+  		<result column="PICTURE_DELETE_YN" property="pictureDeleteYN"/>
+  		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
+  		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
+  	</resultMap>
+	
  
+ 	<select id="selectMissingList" parameterType="MissingPictureDTO" resultMap="missingResultMap" >
+ 		SELECT
+ 		      M.BOARD_CODE
+            , M.MISSING_DATE
+			, M.MISSING_AREA
+			, M.MISSING_PLACE
+			, M.MISSING_BREED
+			, M.MISSING_GENDER
+			, M.MISSING_COLOR
+			, M.MISSING_AGE
+			, M.MISSING_WEIGTH
+			, M.MISSING_CHARACTER
+			, M.MISSING_REQUEST
+			, M.MISSING_DELETE_YN
+			, S.STATE_NAME
+			, M.USER_CODE
+			, M.DOG_OR_CAT
+			, P.PICTURE_UTIL_PATH
+			, P.PICTURE_DELETE_YN
+		    , P.PICTURE_CODE
+		    , U.USER_NIKNAME
+		 FROM MISSING_BOARD M
+		 JOIN MISSING_PICTURE_MANAGE MP ON (M.BOARD_CODE = MP.BOARD_CODE)
+		 JOIN PICTURE_TABLE P ON (P.PICTURE_CODE = MP.PICTURE_CODE)
+		 JOIN USER_TABLE U ON (U.USER_CODE = M.USER_CODE)
+         JOIN STATE_TABLE S ON(S.STATE_CODE = M.STATE_CODE)
+		WHERE M.MISSING_DELETE_YN = 'N'
+		  AND P.PICTURE_DELETE_YN = 'N'
+        ORDER BY M.MISSING_DATE DESC
+ 	</select>
+ 
+ 	<insert id="insertMissingInfo" parameterType="MissingDTO">
+ 		INSERT
+ 		  INTO MISSING_BOARD
+ 		VALUES
+ 		(
+ 		  MISSING_BOARD_SEQ.NEXTVAL
+	    , #{missingDate}
+	    , #{area}
+	    , #{place}
+	    , #{phone}
+	    , #{breed}
+	    , #{gender}
+	    , #{age}
+	    , #{weigth}
+	    , #{character}
+	    , #{request}
+	    , 'N'
+	    ,  1
+	    , #{userCode}
+	    , #{dOc}
+	    , #{color}
+	    , SYSDATE
+ 		)
+ 		<selectKey keyProperty="boardCode" order="AFTER" resultType="int">
+ 			SELECT
+ 			      MISSING_BOARD_SEQ.CURRVAL
+ 			  FROM DUAL
+ 		</selectKey>
+ 		
+ 	</insert>
+ 	<insert id="insertPicture" parameterType="PictureDTO" >
+ 		INSERT 
+	  	 INTO PICTURE_TABLE
+	  	VALUES
+	  	(
+	  	  PIC_CODE_SEQ.NEXTVAL
+	  	, #{pictureName}
+	  	, #{pictureURL}
+	  	, SYSDATE
+	  	, 'N'
+	  	, #{pictureNewName}
+	  	, #{pictureUtilPath}
+	  	)
+ 	</insert>
+ 	
+ 	<insert id="insertMidTab" >
+ 		<selectKey keyProperty="pictureCode" order="BEFORE" resultType="int">
+	  	SELECT
+	  	      PIC_CODE_SEQ.CURRVAL
+	  	  FROM DUAL
+	  </selectKey>
+ 	    INSERT
+	  	INTO MISSING_PICTURE_MANAGE
+	  	(
+	  	  BOARD_CODE
+	  	, PICTURE_CODE
+	  	)
+	  	VALUES
+	  	(
+	  	#{boardCode}
+	   ,#{pictureCode}
+	  	)
+ 	</insert>
  </mapper> 

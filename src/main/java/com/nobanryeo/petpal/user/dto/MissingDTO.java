@@ -5,6 +5,7 @@ import java.sql.Date;
 public class MissingDTO {
 	
 	private int boardCode; //게시물코드
+	private Date boardDate; //게시글 등록날짜
 	private Date missingDate; //잃어버린날
 	private String area; //잃어버린지역
 	private String place; //잃어버린장소
@@ -25,11 +26,12 @@ public class MissingDTO {
 		
 	}
 
-	public MissingDTO(int boardCode, Date missingDate, String area, String place, String phone, String breed,
-			String gender, int age, double weigth, String character, String request, String deleteYn, int stateCode,
-			int userCode, String dOc, String color) {
+	public MissingDTO(int boardCode, Date boardDate, Date missingDate, String area, String place, String phone,
+			String breed, String gender, int age, double weigth, String character, String request, String deleteYn,
+			int stateCode, int userCode, String dOc, String color) {
 		super();
 		this.boardCode = boardCode;
+		this.boardDate = boardDate;
 		this.missingDate = missingDate;
 		this.area = area;
 		this.place = place;
@@ -53,6 +55,14 @@ public class MissingDTO {
 
 	public void setBoardCode(int boardCode) {
 		this.boardCode = boardCode;
+	}
+
+	public Date getBoardDate() {
+		return boardDate;
+	}
+
+	public void setBoardDate(Date boardDate) {
+		this.boardDate = boardDate;
 	}
 
 	public Date getMissingDate() {
@@ -177,13 +187,13 @@ public class MissingDTO {
 
 	@Override
 	public String toString() {
-		return "MissingDTO [boardCode=" + boardCode + ", missingDate=" + missingDate + ", area=" + area + ", place="
-				+ place + ", phone=" + phone + ", breed=" + breed + ", gender=" + gender + ", age=" + age + ", weigth="
-				+ weigth + ", character=" + character + ", request=" + request + ", deleteYn=" + deleteYn
-				+ ", stateCode=" + stateCode + ", userCode=" + userCode + ", dOc=" + dOc + ", color=" + color + "]";
+		return "MissingDTO [boardCode=" + boardCode + ", boardDate=" + boardDate + ", missingDate=" + missingDate
+				+ ", area=" + area + ", place=" + place + ", phone=" + phone + ", breed=" + breed + ", gender=" + gender
+				+ ", age=" + age + ", weigth=" + weigth + ", character=" + character + ", request=" + request
+				+ ", deleteYn=" + deleteYn + ", stateCode=" + stateCode + ", userCode=" + userCode + ", dOc=" + dOc
+				+ ", color=" + color + "]";
 	}
-	
-	
+
 	
 	
 	

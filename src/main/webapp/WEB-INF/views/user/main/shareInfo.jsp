@@ -121,7 +121,7 @@
 				<ul style="margin-left: 30%;">
 					<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/shareInfo/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">일반 정보 공유</a></li>
 					<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
-					<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/aa" style="color: #979797;">프렌들리 플레이스</a></li>
+					<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/sharePlace/list" style="color: #979797;">프렌들리 플레이스</a></li>
 				</ul>
 			</nav>
 		</div>

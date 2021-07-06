@@ -4,8 +4,13 @@ import java.util.Date;
 
 public class ReportDetailDTO {
 	private int reportCode;
+	private int boardCode;
 	private String userId;
+	private String userName;
 	private String reportedId;
+	private String reportedName;
+	private String adminId;
+	private String adminName;
 	private String boardTitle;
 	private String boardContent;
 	private String reportedTitle;
@@ -34,12 +39,44 @@ public class ReportDetailDTO {
 		this.userId = userId;
 	}
 
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 	public String getReportedId() {
 		return reportedId;
 	}
 
 	public void setReportedId(String reportedId) {
 		this.reportedId = reportedId;
+	}
+
+	public String getReportedName() {
+		return reportedName;
+	}
+
+	public void setReportedName(String reportedName) {
+		this.reportedName = reportedName;
+	}
+
+	public String getAdminId() {
+		return adminId;
+	}
+
+	public void setAdminId(String adminId) {
+		this.adminId = adminId;
+	}
+
+	public String getAdminName() {
+		return adminName;
+	}
+
+	public void setAdminName(String adminName) {
+		this.adminName = adminName;
 	}
 
 	public String getBoardTitle() {
@@ -98,12 +135,26 @@ public class ReportDetailDTO {
 		this.state = state;
 	}
 
-	public ReportDetailDTO(int reportCode, String userId, String reportedId, String boardTitle, String boardContent,
+	public int getBoardCode() {
+		return boardCode;
+	}
+
+	public void setBoardCode(int boardCode) {
+		this.boardCode = boardCode;
+	}
+
+	public ReportDetailDTO(int reportCode, int boardCode, String userId, String userName, String reportedId,
+			String reportedName, String adminId, String adminName, String boardTitle, String boardContent,
 			String reportedTitle, String reportedContent, Date reportDate, String reason, String state) {
 		super();
 		this.reportCode = reportCode;
+		this.boardCode = boardCode;
 		this.userId = userId;
+		this.userName = userName;
 		this.reportedId = reportedId;
+		this.reportedName = reportedName;
+		this.adminId = adminId;
+		this.adminName = adminName;
 		this.boardTitle = boardTitle;
 		this.boardContent = boardContent;
 		this.reportedTitle = reportedTitle;
@@ -115,13 +166,15 @@ public class ReportDetailDTO {
 
 	@Override
 	public String toString() {
-		return "ReportDetailDTO [reportCode=" + reportCode + ", userId=" + userId + ", reportedId=" + reportedId
-				+ ", boardTitle=" + boardTitle + ", boardContent=" + boardContent + ", reportedTitle=" + reportedTitle
-				+ ", reportedContent=" + reportedContent + ", reportDate=" + reportDate + ", reason=" + reason
-				+ ", state=" + state + "]";
+		return "ReportDetailDTO [reportCode=" + reportCode + ", boardCode=" + boardCode + ", userId=" + userId
+				+ ", userName=" + userName + ", reportedId=" + reportedId + ", reportedName=" + reportedName
+				+ ", adminId=" + adminId + ", adminName=" + adminName + ", boardTitle=" + boardTitle + ", boardContent="
+				+ boardContent + ", reportedTitle=" + reportedTitle + ", reportedContent=" + reportedContent
+				+ ", reportDate=" + reportDate + ", reason=" + reason + ", state=" + state + "]";
 	}
 
 	
+
 	
 	
 	

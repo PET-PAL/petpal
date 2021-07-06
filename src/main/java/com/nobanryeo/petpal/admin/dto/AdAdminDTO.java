@@ -31,16 +31,39 @@ public class AdAdminDTO {
 	private DecisionDTO decision;
 	private int clickNum;
 	private int price2nd;
+	private String companyLocation;
+	private String industry;
+	private String industryDetail;
+	private String leaderName;
+	
+	// 청구일자
+	private Date payUntilDate;
+	// 납부상태
+	private String payStatus;
+	// 세금계산서 발행일
+	private Date taxBillDate;
+	// 세금액
+	private int taxPrice;
+	// 오늘 - 광고 만료일
+	private int calEndDate;
+	// 오늘 - 취소 신청일
+	private int calApplyDate;
 	
 	public AdAdminDTO() {
 		super();
 	}
 
+	
+
+	
+
 	public AdAdminDTO(int adCode, String companyName, Date applyDate, String companyNumber, String companyPhone,
 			String companyEmail, String adContent, String postYn, String refundYn, Date payDate2nd, int pictureCode,
 			Date payDate1st, int decisionCode, int userCode, int adTypeCode, String adTitle, String payMethod,
 			Date cancelApplyDate, Date postStartDate, Date postEndDate, int stateCode, UserInfoDTO user,
-			DecisionDTO decision, int clickNum, int price2nd) {
+			DecisionDTO decision, int clickNum, int price2nd, String companyLocation, String industry,
+			String industryDetail, String leaderName, Date payUntilDate, String payStatus, Date taxBillDate,
+			int taxPrice, int calEndDate, int calApplyDate) {
 		super();
 		this.adCode = adCode;
 		this.companyName = companyName;
@@ -67,7 +90,21 @@ public class AdAdminDTO {
 		this.decision = decision;
 		this.clickNum = clickNum;
 		this.price2nd = price2nd;
+		this.companyLocation = companyLocation;
+		this.industry = industry;
+		this.industryDetail = industryDetail;
+		this.leaderName = leaderName;
+		this.payUntilDate = payUntilDate;
+		this.payStatus = payStatus;
+		this.taxBillDate = taxBillDate;
+		this.taxPrice = taxPrice;
+		this.calEndDate = calEndDate;
+		this.calApplyDate = calApplyDate;
 	}
+
+
+
+
 
 	public int getAdCode() {
 		return adCode;
@@ -269,6 +306,128 @@ public class AdAdminDTO {
 		this.price2nd = price2nd;
 	}
 
+	public Date getPayUntilDate() {
+		return payUntilDate;
+	}
+
+	public void setPayUntilDate(Date payUntilDate) {
+		this.payUntilDate = payUntilDate;
+	}
+
+	public String getPayStatus() {
+		return payStatus;
+	}
+
+	public void setPayStatus(String payStatus) {
+		this.payStatus = payStatus;
+	}
+
+	public Date getTaxBillDate() {
+		return taxBillDate;
+	}
+
+	public void setTaxBillDate(Date taxBillDate) {
+		this.taxBillDate = taxBillDate;
+	}
+
+	public int getTaxPrice() {
+		return taxPrice;
+	}
+
+	public void setTaxPrice(int taxPrice) {
+		this.taxPrice = taxPrice;
+	}
+	
+	
+
+	public int getCalEndDate() {
+		return calEndDate;
+	}
+
+
+
+	public void setCalEndDate(int calEndDate) {
+		this.calEndDate = calEndDate;
+	}
+
+
+
+	public int getCalApplyDate() {
+		return calApplyDate;
+	}
+
+
+
+	public void setCalApplyDate(int calApplyDate) {
+		this.calApplyDate = calApplyDate;
+	}
+
+
+
+	public String getCompanyLocation() {
+		return companyLocation;
+	}
+
+
+
+
+
+	public void setCompanyLocation(String companyLocation) {
+		this.companyLocation = companyLocation;
+	}
+
+
+
+
+
+	public String getIndustry() {
+		return industry;
+	}
+
+
+
+
+
+	public void setIndustry(String industry) {
+		this.industry = industry;
+	}
+
+
+
+
+
+	public String getIndustryDetail() {
+		return industryDetail;
+	}
+
+
+
+
+
+	public void setIndustryDetail(String industryDetail) {
+		this.industryDetail = industryDetail;
+	}
+
+
+
+
+
+	public String getLeaderName() {
+		return leaderName;
+	}
+
+
+
+
+
+	public void setLeaderName(String leaderName) {
+		this.leaderName = leaderName;
+	}
+
+
+
+
+
 	@Override
 	public String toString() {
 		return "AdAdminDTO [adCode=" + adCode + ", companyName=" + companyName + ", applyDate=" + applyDate
@@ -279,10 +438,16 @@ public class AdAdminDTO {
 				+ ", adTitle=" + adTitle + ", payMethod=" + payMethod + ", cancelApplyDate=" + cancelApplyDate
 				+ ", postStartDate=" + postStartDate + ", postEndDate=" + postEndDate + ", stateCode=" + stateCode
 				+ ", user=" + user + ", decision=" + decision + ", clickNum=" + clickNum + ", price2nd=" + price2nd
-				+ "]";
+				+ ", companyLocation=" + companyLocation + ", industry=" + industry + ", industryDetail="
+				+ industryDetail + ", leaderName=" + leaderName + ", payUntilDate=" + payUntilDate + ", payStatus="
+				+ payStatus + ", taxBillDate=" + taxBillDate + ", taxPrice=" + taxPrice + ", calEndDate=" + calEndDate
+				+ ", calApplyDate=" + calApplyDate + "]";
 	}
 
-	
+
+
+
+
 	
 	
 

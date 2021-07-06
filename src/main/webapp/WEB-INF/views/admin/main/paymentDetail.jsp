@@ -103,7 +103,7 @@
 													<c:out value="${ adApprove.cancelApplyDate }"/>
 												</c:if>
 												<c:if test= "${ not empty adApprove.payDate1st and not empty adApprove.payDate2nd and empty adApprove.cancelApplyDate }">
-													${ adApprove.price2nd }
+													${ adApprove.postEndDate }
 											</c:if>
 		                                    </td>
 		                                 </tr>

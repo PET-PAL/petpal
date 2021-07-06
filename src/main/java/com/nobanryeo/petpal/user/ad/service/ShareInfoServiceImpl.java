@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.ad.dao.ShareInfoMapper;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
+import com.nobanryeo.petpal.user.dto.FriendlyPlaceDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.ShareInfoDTO;
 
 @Service
@@ -59,6 +62,30 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 	}
 	
 	@Override
+	public int insertShareInfoReply(FreeBoardReplyDTO reply) {
+
+		return shareInfoMapper.insertShareInfoReply(reply);
+	}
+	
+	@Override
+	public int insertShareInfoMessage(MessageTableDTO message) {
+
+		return shareInfoMapper.insertShareInfoMessage(message);
+	}
+	
+	@Override
+	public int insertShareInfoReport(FreeBoardReportDTO report) {
+
+		return shareInfoMapper.insertShareInfoReport(report);
+	}
+	
+	@Override
+	public int insertShareInfoReportReply(FreeBoardReplyDTO replyReport) {
+		
+		return shareInfoMapper.insertShareInfoReportReply(replyReport);
+	}
+	
+	@Override
 	public ShareInfoDTO writeShareInfo(int userCode) {
 
 		return shareInfoMapper.writeShareInfo(userCode);
@@ -67,7 +94,7 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 	@Override
 	public int inserWriteShreInfo(ShareInfoDTO shareInfo) {
 		
-		// InfoBoard, ImageTablle insert해주기
+		// InfoBoard, ImageTable insert해주기
 		int result = shareInfoMapper.insertWriteShreInfo(shareInfo);
 		// insert후 boardCode 가져오기
 		int boardCode = shareInfoMapper.selectBoardCode(shareInfo);
@@ -77,6 +104,73 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 		int result2 = shareInfoMapper.insertShareInfoManage(shareInfo);
 		
 		return result + result2;
+	}
+
+	
+	
+	
+	
+	
+	@Override
+	public List<FriendlyPlaceDTO> selectSharePlaceList() {
+
+		// 이미지가 존재하는 정보공유게시판 리스트 조회
+		List<FriendlyPlaceDTO> friendlyPlaceList1 = new ArrayList<>();
+		friendlyPlaceList1 = shareInfoMapper.selectSharePlaceListExistImg();
+		
+		// 이미지가 존재하지 않는 정보공유게시판 리스트 조회
+		List<FriendlyPlaceDTO> friendlyPlaceList2 = shareInfoMapper.selectSharePlaceListNotExistImg();
+		
+		List<FriendlyPlaceDTO> friendlyPlaceList = new ArrayList<>();
+		friendlyPlaceList.addAll(friendlyPlaceList1);
+		friendlyPlaceList.addAll(friendlyPlaceList2);
+		
+		System.out.println(friendlyPlaceList);
+		
+		return friendlyPlaceList;
+	}
+
+	@Override
+	public void updateSharePlaceViews(int boardCode) {
+		shareInfoMapper.updateSharePlaceViews(boardCode);
+	}
+
+	@Override
+	public FriendlyPlaceDTO selectSharePlaceDetail(int boardCode) {
+		return shareInfoMapper.selectSharePlaceDetail(boardCode);
+	}
+
+	@Override
+	public List<FreeBoardReplyDTO> selectSharePlaceReply(int boardCode) {
+		
+		List<FreeBoardReplyDTO> sharePlaceReply = shareInfoMapper.selectSharePlaceReply(boardCode);
+		
+		return sharePlaceReply;
+	}
+
+	@Override
+	public int insertSharePlaceReply(FreeBoardReplyDTO reply) {
+		return shareInfoMapper.insertSharePlaceReply(reply);
+	}
+
+	@Override
+	public int insertSharePlaceReport(FreeBoardReportDTO report) {
+		return shareInfoMapper.insertSharePlaceReport(report);
+	}
+
+	@Override
+	public int insertWriteShrePlace(FriendlyPlaceDTO sharePlace) {
+		
+		// friendlyPlaceBoard, ImageTable insert해주기
+		int result1 = shareInfoMapper.insertWriteSharePlace(sharePlace);
+		// insert후 boardCode 가져오기
+		int boardCode = shareInfoMapper.selectPlaceBoardCode(sharePlace);
+		sharePlace.setBoardCode(boardCode);
+		
+		// 중간 manageTable insert해주기
+		int result2 = shareInfoMapper.insertSharePlaceManage(sharePlace);
+		
+		return result1 + result2;
 	}
 
 }

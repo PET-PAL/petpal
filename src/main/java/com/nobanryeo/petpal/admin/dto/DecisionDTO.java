@@ -10,6 +10,10 @@ public class DecisionDTO {
 	private int stateCode;
 	private int code; // 유저코드(관리자코드)
 	private int adCode; // 광고코드
+	private String category;
+	private String boardCode;
+	
+	
 	
 	public DecisionDTO() {
 		super();
@@ -34,6 +38,24 @@ public class DecisionDTO {
 		this.adCode = adCode;
 	}
 	
+	public DecisionDTO(String decisionReason, int stateCode, int code, int adCode , String category, String boardCode) {
+		super();
+		this.decisionReason = decisionReason;
+		this.stateCode = stateCode;
+		this.code = code;
+		this.adCode = adCode;
+		this.category = category;
+		this.boardCode = boardCode;
+	}
+	
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public int getDecisionCode() {
 		return decisionCode;
 	}
@@ -80,6 +102,16 @@ public class DecisionDTO {
 
 	public void setAdCode(int adCode) {
 		this.adCode = adCode;
+	}
+
+	
+	
+	public String getBoardCode() {
+		return boardCode;
+	}
+
+	public void setBoardCode(String boardCode) {
+		this.boardCode = boardCode;
 	}
 
 	@Override

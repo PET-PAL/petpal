@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -123,6 +124,24 @@
                 border-radius: 10px;
                 width: 100px;
             }
+            td > button {
+            	float: right;
+    			border-radius: 5px;
+    			border: 1px solid;
+    			color: #45B99C;
+    			background: white;
+            }
+            td > button:hover {
+            	float: right;
+    			border-radius: 5px;
+    			background-color: #45B99C;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid;
+            }
+            .findpwd-content > div, .findpwd-content > form > div {
+                margin: 0px auto;
+            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -131,8 +150,8 @@
         <link rel="icon" type="image/png" href="favicon.ico">
 
     </head>
-            <jsp:include page="../common/userHeader.jsp"/>
-
+    <body>
+        <jsp:include page="../common/userHeader.jsp"/>
 
         <!-- Preloader -->
         <div id="loading">
@@ -148,22 +167,19 @@
 
 
         <div class="culmn">
-            <!--Home page style-->
-
 
             <!--Home Sections-->
-
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float: left">프렌들리 플레이스</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/main/sharePlace.jsp'" style="width:50px; float: right; cursor: pointer !important;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/list'" style="width:50px; float: right; cursor: pointer !important;">
             </section>
 
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
-					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/main/shareInfo.jsp" style="color: #979797;">일반 정보 공유</a></li>
+					<ul style="margin-left: 25%;">
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/shareInfo/list" style="color: #979797;">일반 정보 공유</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/main/sharePlace.jsp"style="color: #45B99C; font-size: 1.3em; font-weight: 600;">프렌들리 플레이스</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/sharePlace/list"style="color: #45B99C; font-size: 1.3em; font-weight: 600;">프렌들리 플레이스</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -173,9 +189,9 @@
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
-							<td>당신의 집에 고양이가 없는 이유</td>
+							<td><c:out value="${ requestScope.sharePlaceDetail.boardTitle }"/></td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
-							<td style="border-radius: 0px 21px 0px 0px;">204
+							<td style="border-radius: 0px 21px 0px 0px;"><c:out value=" ${requestScope.sharePlaceDetail.boardViews }"/>
 							<span>
 							<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;">
 							</span>
@@ -183,111 +199,236 @@
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
-							<td>쥬쥬</td>
+							<td><c:out value="${ requestScope.sharePlaceDetail.userNickName }"/><button onclick="location.href='#directMessage'">쪽지보내기</button></td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성 일자</b></td>
-							<td>2021-06-17</td>
+							<td><c:out value="${ requestScope.sharePlaceDetail.boardPostDate }"/></td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>장소명</b></td>
-							<td>쥬쥬카페</td>
+							<td><c:out value="${ requestScope.sharePlaceDetail.placeName }"/></td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>장소 연락처</b></td>
-							<td>02-0116-1117</td>
+							<td><c:out value="${ requestScope.sharePlaceDetail.placePhone }"/></td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>장소 주소</b></td>
-							<td>서울시 강남구 000로 12 </td>
+							<td><c:out value="${ requestScope.sharePlaceDetail.placeAddress }"/></td>
 							<td></td>
 							<td></td>
 						</tr>
-						</table>
-					<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px;">저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!
-					저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아치 크기에 따라서 옷 고르기도 좋습니다!
-					</p>
-					<div id="map" style="width:500px;height:400px; margin-left:25%;"></div>
-						    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d6ab156b1ea98fdb4f592662f81ba96f"></script>
-						    <script>
-						        var container = document.getElementById('map');
-						        var options = {
-						            center: new kakao.maps.LatLng(33.450701, 126.570667),
-						            level: 3
-						        };
-						 
-						        var map = new kakao.maps.Map(container, options);
-						    </script>
-		       		 </div>
+					</table>
+					<div style="margin-bottom: 30px; text-align:center;">
+						<c:out value="${ requestScope.sharePlaceDetail.boardContent }" escapeXml="false"/>
+					</div>
+					
+					<div id="map" style="width:80%;height:400px; margin:0px auto; margin-bottom:30px;"></div>
+						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b85791a0e7d027a11d7cf8b979f0fb14&libraries=services"></script>
+						<script>
+							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+							    mapOption = {
+							        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+							        level: 2 // 지도의 확대 레벨
+							    };
+							var placeAddress = '<c:out value="${ requestScope.sharePlaceDetail.placeAddress }"/>';
+							var placeName = '<c:out value="${ requestScope.sharePlaceDetail.placeName }"/>';
+							
+							// 지도를 생성합니다    
+							var map = new kakao.maps.Map(mapContainer, mapOption); 
+							
+							// 주소-좌표 변환 객체를 생성합니다
+							var geocoder = new kakao.maps.services.Geocoder();
+							
+							// 주소로 좌표를 검색합니다
+							geocoder.addressSearch(placeAddress, function(result, status) {
+							
+							    // 정상적으로 검색이 완료됐으면 
+							     if (status === kakao.maps.services.Status.OK) {
+							
+							        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+							
+							        // 결과값으로 받은 위치를 마커로 표시합니다
+							        var marker = new kakao.maps.Marker({
+							            map: map,
+							            position: coords
+							        });
+							
+							        // 인포윈도우로 장소에 대한 설명을 표시합니다
+							        var infowindow = new kakao.maps.InfoWindow({
+							            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+placeName+'</div>'
+							        });
+							        infowindow.open(map, marker);
+							
+							        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+							        map.setCenter(coords);
+							    } 
+							});    
+							</script>
+		       		</div>
 		        
 				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>
 				<div style="margin-bottom: 40px;">
 					<table class="table" style="margin-bottom: 50px; width: 70%; margin: 0px auto;">
 				    	<tbody>
-				            <tr>
-				                <td style="text-align: center;">킘유진</td>
-				                <td>감사합니다.</td>
-				                <td style="text-align: center;">2021-06-17</td>
-				                <td><img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-				            </tr>
-				            <tr>
-				                <td style="text-align: center;">업나라</td>
-				                <td>좋은 글 감사합니다! 더 궁금한 점이 있는데 쪽지 드려도 될까요~?</td>
-				                <td style="text-align: center;">2021-06-17</td>
-				                <td><img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-				            </tr>
-				            <tr>
-				                <td style="text-align: center;">손성훙</td>
-				                <td>정보 감사합니다.</td>
-				                <td style="text-align: center;">2021-06-17</td>
-				                <td><img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-				            </tr>
+				    		<c:forEach var="arr" items="${ sharePlaceReply }">
+				    			<c:if test="${ arr.replyDeleteYN eq 'N' }">
+						            <tr>
+						                <td><c:out value="${ arr.userNickName }"></c:out></td>
+						                <td><c:out value="${ arr.replyContent }"/></td>
+						                <td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+						                <input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
+			                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/>
+						                <td><img onclick="report(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+						            </tr>
+						        </c:if>
+					            <c:if test="${ arr.replyDeleteYN eq 'Y' }">
+	                        		<c:if test="${ arr.reportYN eq 'Y' }">
+			                        	<tr>
+			                            	<td><c:out value="${ arr.userNickName }"/></td>
+			                            	<td><del>신고에 의해 삭제된 댓글입니다.</del></td>
+			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+			                            	<td></td>
+			                        	</tr>
+	                        		</c:if>
+	                        		<c:if test="${ arr.reportYN eq 'N' }">
+			                        	<tr>
+			                            	<td><c:out value="${ arr.userNickName }"/></td>
+			                            	<td><del>삭제된 댓글입니다.</del></td>
+			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+			                            	<td></td>
+			                        	</tr>
+		                        	</c:if>
+	                        	</c:if>
+					        </c:forEach>
 				        </tbody>
 				    </table>
 			    </div>
             </section>
             
-            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
-                <input type="text" id="messagecontent" placeholder="  message">
-                <button class="sendmessagecontent">댓글 작성</button>
-            </section>
+            <form action="${ pageContext.servletContext.contextPath }/user/insert/sharePlace/reply" method="post">
+	            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
+	                <input type="text" name="replyContent" id="messagecontent" placeholder="  message">
+	                <input type="hidden" name="boardCode" value="${ requestScope.sharePlaceDetail.boardCode }">
+	                <button class="sendmessagecontent">댓글 작성</button>
+	            </section>
+            </form>
 
-              </div>
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
             
 			<!-- 게시글 신고 팝업창 -->
-            <div id="reportPost" class="overlay">
-                <div class="popup">
-                    <a href="#none" class="close">&times;</a>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
-                    <div class="findpwd-content" id="contStep02" style="display: block;">
-                        <div class="cont-step_preface">
-                            <hr style="border:0.5px solid #A8A8A8;">
-                        </div>
-                        <!-- 신고 내용 입력 -->
-                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
-                    </div>
-                </div>
-            </div>
+            <form action="${pageContext.servletContext.contextPath }/user/insert/sharePlace/report" method="post">
+	            <div id="reportPost" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <div class="cont-step_preface">
+	                            <hr style="border:0.5px solid #A8A8A8;">
+	                        </div>
+	                        <!-- 신고 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="reportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <input type="hidden" value="${ requestScope.sharePlaceDetail.boardCode }" name="boardCode">
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- 신고 완료 팝업창 -->
+	            <div id="completeReport" class="overlay">
+	                <div class="popup">
+		                <img alt="warning" src="${ pageContext.servletContext.contextPath }/resources/images/warning.png" style="width: 120px; margin: 0px auto; margin-left: 220px; margin-bottom: -70px;">
+		                <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+		                   	신고가 정상적으로 접수되었습니다.<br>
+		                </p>
+		                <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+		                   	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
+		                   	신고 내역에서 확인 가능합니다.
+		                </p>
+	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
+	                </div>
+	            </div>
+	        </form>
+	        
+	        
+	        <!-- 댓글 신고 팝업창 -->
+            <form action="${pageContext.servletContext.contextPath }/user/insert/sharePlace/reportReply" method="post">
+	            <div id="reportComment" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <div class="cont-step_preface">
+	                            <hr style="border:0.5px solid #A8A8A8;">
+	                        </div>
+	                        <!-- 신고 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="replyReportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport2'">신고하기</button></div>
+	                        <input type="hidden" name="inputReplyCode" id="inputReplyCode">
+	                        <input type="hidden" name="inputuserCode1" id="inputuserCode1">
+	                        <input type="hidden" value="${ requestScope.sharePlaceDetail.boardCode }" name="boardCode">
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- 신고 완료 팝업창 -->
+	            <div id="completeReport2" class="overlay">
+	                <div class="popup">
+	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+	                     	신고가 정상적으로 접수되었습니다.<br>
+	                    </p>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+	                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
+	                     	신고 내역에서 확인 가능합니다.
+	                    </p>
+	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
+	                </div>
+	            </div>
+            </form>			
+			
+			<script>
+				function report (reply) {
+				
+					let replyCode = reply.className;
+					let userCode1 = reply.title;
+					
+					document.getElementById("inputReplyCode").value = replyCode;
+					document.getElementById("inputuserCode1").value = userCode1;
+					
+					location.href = '#reportComment';
+				}
+			</script>
             
-             <!-- 신고 완료 팝업창 -->
-            <div id="completeReport" class="overlay">
-                <div class="popup">
-                <img alt="warning" src="${ pageContext.servletContext.contextPath }/resources/images/warning.png" style="
-    width: 120px; margin: 0px auto; margin-left: 40%; margin-bottom: -70px;">
-                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
-                     	신고가 정상적으로 접수되었습니다.<br>
-                    </p>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
-                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
-                     	신고 내역에서 확인 가능합니다.
-                    </p>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
-                    </div>
-                </div>
+            
+            <!-- 쪽지 팝업창 -->
+            <form action="${pageContext.servletContext.contextPath }/user/insert/sharePlace/message" method="post">
+	            <div id="directMessage" class="overlay">
+	                <div class="popup">
+	                    <a href="#none" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.sharePlaceDetail.userNickName }"/></p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <!-- 쪽지 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+	                        <input type="hidden" value="${ requestScope.sharePlaceDetail.userCode }" name="userCode1">
+	                        <input type="hidden" value="${ requestScope.sharePlaceDetail.boardCode }" name="boardCode">
+	                        <input type="hidden" value="${ requestScope.sharePlaceDetail.userNickName }" name="receiveUserNick">
+	                    </div>
+	                </div>
+	            </div>
+	            <!-- 전송 완료 팝업창 -->
+	            <div id="completeMessage" class="overlay">
+	                <div class="popup">
+	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+	                     	쪽지 전송에 성공하였습니다.<br>
+	                    </p>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+	                     	보낸 쪽지는 마이페이지에서 확인 가능합니다.
+	                    </p>
+	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
+	                </div>
+	            </div>
+            </form>
           
 			
             <!-- 푸터 -->
             <jsp:include page="../common/footer.jsp"/>
         </div>
-        
+    </body>   
 </html>

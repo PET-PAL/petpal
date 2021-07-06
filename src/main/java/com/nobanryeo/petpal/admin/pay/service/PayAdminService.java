@@ -17,4 +17,14 @@ public interface PayAdminService {
 
 	List<AdAdminDTO> searchAdPayAllList(AdminPageInfoDTO paging);
 
+	int selectNumber(AdminPageInfoDTO paging);
+
+	int selectTaxList(AdminPageInfoDTO cat);
+
+	List<AdAdminDTO> selectTaxAllList(AdminPageInfoDTO paging);
+
+	int selectTaxNumber(AdminPageInfoDTO paging);
+
+	List<AdAdminDTO> selectTaxDetail(int adCode);
+
 }

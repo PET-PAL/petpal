@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -48,6 +49,20 @@ input {
     
 }
 </style>
+<script>
+
+function selChange() {
+	var sel = document.getElementById('cntPerPage').value;
+	location.href="${ pageContext.servletContext.contextPath }/admin/taxManageList?nowPage=${paging.nowPage}&cntPerPage="+sel;
+}
+
+function monthChange() {
+	var month = document.getElementById('monthChange').value;
+	location.href="${ pageContext.servletContext.contextPath }/admin/taxManageList?nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}&month="+month; 
+}
+
+</script>
+
 </head>
 <body>
 	<jsp:include page="../../admin/common/header.jsp"></jsp:include> 
@@ -62,7 +77,7 @@ input {
       text-align:center;
       color:#25213b">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/admin/payList">광고 결제 관리</a></li>
+        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">광고 결제 관리</a></li>
         <hr>
         <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">세금계산서 관리</a></li>
       </ul>
@@ -78,16 +93,30 @@ input {
                         </div>	
 					 <div class="col-md-20">
 					 		
-                                    <!-- Nav tabs -->
-                                    <ul class="nav nav-tabs" role="tablist">
-                                        <li role="presentation" class="active"><a href="#all" aria-controls="all" role="tab" data-toggle="tab">All</a></li>
-                                        <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">납부전</a></li>
-                                        <li role="presentation"><a href="#settings" aria-controls="settings" role="tab" data-toggle="tab">납부 완료</a></li>
-                                    </ul>
+                                 <!-- Nav tabs -->
+                                 <ul class="nav nav-tabs" role="tablist">
+                                 <c:if test="${ empty category }">
+	                        		<li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">납부 전</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
+                                 </c:if>
+                                 <c:if test="${ category eq 1 }">
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                                <li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">납부 전</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
+                                 </c:if>
+                                 <c:if test="${ category eq 2 }">
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">납부 전</a></li>
+	                                <li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
+                                 </c:if>
+                                 <p style="float:right;">총 광고 수 : ${ requestScope.total }개</p>
+                            </ul>  
+                                    
 							<div class="container-fluid" style="margin-top: 15px;">
 							 <div class="container-fluid" style="float:left;">
-												<select class="ui search dropdown" style="font-size:15px; text-align:center !important; width:150px;">
-												  <option value ="0" selected>월별 조회</option>
+									<select id="monthChange" name="month" onchange="monthChange()" class="ui search dropdown" style="font-size:15px; text-align:center !important; width:150px;">
+												  <option value ="0">월별 조회</option>
 												  <option value="1">1월</option>
 												  <option value="2">2월</option>
 												  <option value="3">3월</option>
@@ -101,14 +130,31 @@ input {
 												  <option value="11">11월</option>
 												  <option value="12">12월</option>
 												
-												</select>
-												</div>	
-								    <form class="d-flex" style="float:right;">
-									     <div class="search">
-										      <input type="text" placeholder="유저명으로 검색해주세요.">
-										      <i class="fas fa-search fa-2x"></i>
-									   	</div>
-								    </form>
+									</select>
+								</div>
+								
+								     
+								    <!-- 검색폼 시작 -->
+								    <form action="${ pageContext.servletContext.contextPath }/admin/taxManageList" method="get" class="d-flex">
+								  	<input type="hidden" name="cntPerPage" value="${ paging.cntPerPage }"/>
+							        <input type="hidden" name="nowPage" value="${ paging.nowPage }"/>
+							        <input type="hidden" name="category" value="${ requestScope.category }"/>
+									<c:choose>
+									    <c:when test="${ !empty requestScope.searchValue }">
+											<!-- input 값도 넘겨줌 -->
+									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
+									    </c:when>
+									    <c:otherwise>
+									        <input id="searchValue" name="searchValue" placeholder="유저명을 입력하세요" 
+									        aria-label="Search"  class="form-control me-2" type="search" 
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:90px;">
+									    </c:otherwise>
+									</c:choose>
+									<button class="btn btn-outline-success" type="submit" 
+									style="float: left; margin-left: 30px; width: 10px; border-radius: 50px; height:40px" >Search</button>
+								</form>
+								
+								
 								</div>
                                     <!-- Tab panes -->
                                     <div class="tab-content" style="padding:0px;">
@@ -117,7 +163,6 @@ input {
 												<thead>
 													<tr>
 														<th style="text-align:center;">글쓴이 (유저아이디)</th>
-														<th style="text-align:center;">정산 카테고리</th>
 														<th style="text-align:center;">세금계산서 일자</th>
 														<th style="text-align:center;">지급 상태</th>
 														<th style="text-align:center;">청구 금액</th>
@@ -125,124 +170,96 @@ input {
 													</tr>
 												</thead>
 												<tbody>
+												
+												<c:choose>
+												<c:when test="${ empty category }">
+												<c:forEach var="adApprove" items="${ requestScope.taxList }">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }'">
 													<tr>
-														<td>황주디 (judy1)</td>
-														<td>광고(선)</td>
-														<td>2021.06.11</td>
-														<td>납부 전</td>
-														<td>250000</td>
-														<td><a href="taxbill">view more</a></td>
+														<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+														<td>${ adApprove.taxBillDate }</td>
+														<td>${ adApprove.payStatus }</td>
+														<td>${ adApprove.price2nd + adApprove.taxPrice }</td>
+														<td><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }">view more</a></td>
 													</tr>
+												</c:forEach>
+												</c:when>
+													
+												<c:when test="${ category eq 1 }">
+												<c:forEach var="adApprove" items="${ requestScope.taxList }">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }'">
 													<tr>
-														<td>손불독 (bulls1)</td>
-														<td>광고(선)</td>
-														<td>2021.06.09</td>
-														<td>납부 전</td>
-														<td>210000</td>
-														<td><a href=#;>view more</a></td>
+														<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+														<td>${ adApprove.taxBillDate }</td>
+														<td>${ adApprove.payStatus }</td>
+														<td>${ adApprove.price2nd + adApprove.taxPrice }</td>
+														<td><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }">view more</a></td>
 													</tr>
+												</c:forEach>
+												</c:when>
+												
+												<c:when test="${ category eq 2 }">
+												<c:forEach var="adApprove" items="${ requestScope.taxList }">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }'">
 													<tr>
-														<td>업나라 (naranara)</td>
-														<td>광고(전)</td>
-														<td>2021.05.11</td>
-														<td>납부 완료</td>
-														<td>194000</td>
-														<td><a href=#;>view more</a></td>
+														<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+														<td>${ adApprove.taxBillDate }</td>
+														<td>${ adApprove.payStatus }</td>
+														<td>${ adApprove.price2nd + adApprove.taxPrice }</td>
+														<td><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }">view more</a></td>
 													</tr>
-													<tr>
-														<td>뉴진 (newjean2)</td>
-														<td>광고(후)</td>
-														<td>2021.04.11</td>
-														<td>납부 완료</td>
-														<td>210000</td>
-														<td><a href=#;>view more</a></td>
-													</tr>
+												</c:forEach>
+												</c:when>	
+												</c:choose>
 												</tbody>
 											</table>
-													<div class="text-center">
-														<ul class="pagination">
-															<li><a href="#">1</a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-														</ul>
-													</div>			
-                                        </div>
-                                        <div role="tabpanel" class="tab-pane" id="profile">
-                                        	<table class="table table-hover" style="text-align:center;">
-												<thead>
-													<tr>
-														<th style="text-align:center;">글쓴이 (유저아이디)</th>
-														<th style="text-align:center;">정산 카테고리</th>
-														<th style="text-align:center;">세금계산서 일자</th>
-														<th style="text-align:center;">지급 상태</th>
-														<th style="text-align:center;">청구 금액</th>
-														<th style="text-align:center;">세금계산서 보기</th>
-													</tr>
-												</thead>
-														<tbody>
-															<tr>
-																<td>황주디 (judy1)</td>
-																<td>광고(선)</td>
-																<td>2021.06.11</td>
-																<td>납부 전</td>
-																<td>250000</td>
-																<td><a href=#;>view more</a></td>
-															</tr>
-															<tr>
-																<td>황퐝 (judy2)</td>
-																<td>광고(선)</td>
-																<td>2021.06.11</td>
-																<td>납부 전</td>
-																<td>250000</td>
-																<td><a href=#;>view more</a></td>
-															</tr>
-														</tbody>
-													</table>
-													<div class="text-center">
-														<ul class="pagination">
-															<li><a href="#">1</a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-															
-														</ul>
-													</div>			
-                                       </div>
-                                       <div role="tabpanel" class="tab-pane" id="settings">
-                                        <table class="table table-hover" style="text-align:center;">
-												<thead>
-													<tr>
-														<th style="text-align:center;">글쓴이 (유저아이디)</th>
-														<th style="text-align:center;">정산 카테고리</th>
-														<th style="text-align:center;">세금계산서 일자</th>
-														<th style="text-align:center;">지급 상태</th>
-														<th style="text-align:center;">청구 금액</th>
-														<th style="text-align:center;">세금계산서 보기</th>
-													</tr>
-												</thead>
-														<tbody>
-															<tr>
-																<td>뉴진 (newjean2)</td>
-																<td>광고(후)</td>
-																<td>2021.04.11</td>
-																<td>납부 완료</td>
-																<td>210000</td>
-																<td><a href=#;>view more</a></td>
-															</tr>
-														</tbody>
+												
 													
-													</table>
-													<div class="text-center">
-														<ul class="pagination">
-															<li><a href="#">1</a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-														</ul>
-													</div>			
-                                         </div>
-                                    </div>
+													
+							<!-- 페이징 몇 개씩 볼지 선택 -->
+                            <div style="display: block; text-align: center;">	
+				              <div style="float: right;">
+								<select id="cntPerPage" name="sel" onchange="selChange()">
+									<option value="5"
+										<c:if test="${paging.cntPerPage == 5}">selected</c:if>>5줄 보기</option>
+									<option value="10"
+										<c:if test="${paging.cntPerPage == 10}">selected</c:if>>10줄 보기</option>
+									<option value="15"
+										<c:if test="${paging.cntPerPage == 15}">selected</c:if>>15줄 보기</option>
+									<option value="20"
+										<c:if test="${paging.cntPerPage == 20}">selected</c:if>>20줄 보기</option>
+								</select>
+							</div> 
+                            
+                            
+                            	
+						<!-- 페이징 버튼 -->
+						<ul class="pagination">
+	                        <c:if test="${paging.startPage != 1 }">
+	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+	                        </c:if>
+	                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+	                           <c:choose>
+	                              <c:when test="${p == paging.nowPage }">
+	                                 <li><a>${p }</a></li>
+	                              </c:when>
+	                              <c:when test="${p != paging.nowPage }">
+	                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+	                              </c:when>
+	                           </c:choose>
+	                        </c:forEach>
+	                        <c:if test="${paging.endPage != paging.lastPage}">
+	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+	                        </c:if>
+	                       </ul>
+								
+							</div>
+													
+													
+														
+                               </div>
+                             
+                          </div>
                     </div>
        		  </div>		
 		</div>

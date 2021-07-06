@@ -42,11 +42,11 @@
 	   	
 	   	<if test='searchCondition == "userId"'>
 	   	JOIN USER_TABLE B ON(A.USER_CODE = B.USER_CODE)
-		WHERE B.USER_ID = #{searchValue}
+		WHERE B.USER_ID LIKE '%' || #{searchValue} || '%' 
 		
 		</if>
 		<if test='searchCondition == "boardTitle"'>
-		WHERE A.BOARD_TITLE = #{searchValue}
+		WHERE A.BOARD_TITLE LIKE '%' || #{searchValue} || '%' 
 		</if>
 		<if test='category == "1"'>
 		AND A.QUESTION_TYPE = 1
@@ -144,10 +144,10 @@
 											     	C.QUESTION_TYPE = 2
 											    </if>
 											    <if test='searchCondition == "userId"'>
-												AND E.USER_ID = #{searchValue}
+												AND E.USER_ID LIKE '%' || #{searchValue} || '%' 
 												</if>
 												<if test='searchCondition == "boardTitle"'>
-												AND C.BOARD_TITLE = #{searchValue}
+												AND C.BOARD_TITLE LIKE '%' || #{searchValue} || '%' 
 												</if>
 										   </where>
                                             
@@ -182,7 +182,7 @@
 	    A.ADMIN_REPLY_CONTENT
 	    FROM QUESTION_BOARD A
 	    JOIN USER_TABLE B ON(A.USER_CODE = B.USER_CODE)
-	    WHERE A.BOARD_CODE =#{boardCode}
+	    WHERE A.BOARD_CODE =#{boardCode} 
 	</select>
 	
 	<update id="updateReply" parameterType="AskDetailDTO">
