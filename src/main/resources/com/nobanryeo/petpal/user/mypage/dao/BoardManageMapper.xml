@@ -304,5 +304,6 @@
          WHERE REPLY_CODE = #{ boardCode }
 	</update>
 
+
 </mapper>
 

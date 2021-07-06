@@ -13,6 +13,9 @@
  		<typeAlias alias="ReportManageDTO" type="com.nobanryeo.petpal.user.dto.ReportManageDTO"/>
  		<typeAlias alias="BoradAndCommentDTO" type="com.nobanryeo.petpal.user.dto.BoradAndCommentDTO"/>
  		<typeAlias alias="MissingDTO" type="com.nobanryeo.petpal.user.dto.MissingDTO"/>
+ 		<typeAlias alias="ReviewDTO" type="com.nobanryeo.petpal.user.dto.ReviewDTO"/>
+ 		<typeAlias alias="ReviewReplyDTO" type="com.nobanryeo.petpal.user.dto.ReviewReplyDTO"/>
+ 		<typeAlias alias="ReviewReportDTO" type="com.nobanryeo.petpal.user.dto.ReviewReportDTO"/>
  		
  	
  		<typeAlias alias="FreeBoardDTO" type="com.nobanryeo.petpal.user.dto.FreeBoardDTO"/>

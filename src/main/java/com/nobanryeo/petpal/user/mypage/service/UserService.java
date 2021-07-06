@@ -1,8 +1,12 @@
 package com.nobanryeo.petpal.user.mypage.service;
 
+import java.util.List;
+
 import javax.servlet.http.HttpServletResponse;
 
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
+import com.nobanryeo.petpal.user.dto.BoradAndCommentDTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 
@@ -81,6 +85,10 @@ public interface UserService {
 	String withdrawUser(UserInfoDTO userInfo);
 
 	boolean insertQuestion(AdQnADTO qnaDTO);
+
+	int selectReviewPostCount();
+
+	List<BoradAndCommentDTO> selectMissing(PageDTO page);
 
 	
 

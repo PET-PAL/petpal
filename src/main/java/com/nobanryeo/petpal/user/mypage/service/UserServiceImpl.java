@@ -1,6 +1,7 @@
 package com.nobanryeo.petpal.user.mypage.service;
 
 import java.io.PrintWriter;
+import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -10,19 +11,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
+import com.nobanryeo.petpal.user.dto.BoradAndCommentDTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
+import com.nobanryeo.petpal.user.mypage.dao.BoardManageMapper;
 import com.nobanryeo.petpal.user.mypage.dao.UserMapper;
 
 @Service
 public class UserServiceImpl implements UserService{
 	
 	private UserMapper mapper;
+	private BoardManageMapper boardMapper;
 	private BCryptPasswordEncoder passwordEncoder;
 	
 	@Autowired
-	public UserServiceImpl(UserMapper mapper, BCryptPasswordEncoder passwordEncoder) {
+	public UserServiceImpl(UserMapper mapper, BCryptPasswordEncoder passwordEncoder, BoardManageMapper boardMapper) {
 		this.mapper = mapper;
 		this.passwordEncoder = passwordEncoder;
+		this.boardMapper = boardMapper;
 	}
 
 
@@ -270,8 +276,19 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public boolean insertQuestion(AdQnADTO qnaDTO) {
-		
 		return mapper.insertQuestion(qnaDTO) > 0 ? true : false;
+	}
+
+
+	@Override
+	public int selectReviewPostCount() {
+		return boardMapper.selectReviewPostCount();
+	}
+
+
+	@Override
+	public List<BoradAndCommentDTO> selectMissing(PageDTO page) {
+		return boardMapper.selectReviewPostList(page);
 	}
 	
 	

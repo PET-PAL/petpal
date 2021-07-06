@@ -6,6 +6,7 @@ import java.util.List;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.BoradAndCommentDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 
 public interface BoardManageMapper {
 
@@ -50,5 +51,10 @@ public interface BoardManageMapper {
 	int deletePostReview(int boardCode);
 
 	int deleteReply(int boardCode);
+
+	int selectReviewPostCount();
+
+	List<BoradAndCommentDTO> selectReviewPostList(PageDTO page);
+
 
 }
