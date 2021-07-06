@@ -1,7 +1,11 @@
 package com.nobanryeo.petpal.admin.admin.controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 @Controller
 @RequestMapping("/admin/*")
@@ -31,5 +35,10 @@ public class AdminController {
 		return "admin/main/adminAdd";
 	}
 	
-	
+	@RequestMapping("insertAdmin")
+	public String insertAdmin(@ModelAttribute UserInfoDTO userInfo) {
+		System.out.println(userInfo);
+
+		return "admin/main/adminAdd";
+	}
 }

@@ -52,11 +52,11 @@
 									</div>
 									</div>
                                    <div class="col-lg-2">
-                                   <button class="btn btn-outline-success" 
+                                   </div>
+	                              <div class="col-lg-2">
+	                              <button class="btn btn-outline-success" 
                                    type="button" style="border-radius:10px; margin-right: 20px; float:right; background: white; border:1px solid green; color:green;" 
                                    onclick="location.href='adminAdd'">관리자 등록</button></div>
-	                              <div class="col-lg-2">
-	                              <button class="btn btn-outline-danger" type="button"  style="border-radius:10px; float:right; margin-right:10px; background: white; border:1px solid red; color:red;">관리자 삭제</button></div>
 	                         </div>
 						</div>
 						
@@ -66,7 +66,6 @@
                             <table class="table table-hover">
                                 <thead>
                                  <tr>
-                                    <th></th>
                                     <th scope="col">관리자 코드</th>
                                     <th scope="col">관리자 아이디</th>
                                     <th scope="col">이름</th>
@@ -77,7 +76,6 @@
                                 </thead>
                                 <tbody>
                                  <tr>
-                                    <td><input class="check" type="checkbox" id="admin" onclick="checkClick(this)"></td>
                                     <th scope="row">1</th>
                                     <td>id1</td>
                                     <td onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adminDetail'">김관리</td>
@@ -86,7 +84,6 @@
                                     <td>대표관리자</td>
                                   </tr>
                                   <tr>
-                                    <td><input class="check" type="checkbox" id="admin" onclick="checkClick(this)"></td>
                                     <th scope="row">2</th>
                                     <td>id1</td>
                                     <td onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adminDetail'">김관리</td>
@@ -95,7 +92,6 @@
                                     <td>대표관리자</td>
                                   </tr>
                                   <tr>
-                                    <td><input class="check" type="checkbox" id="admin" onclick="checkClick(this)"></td>
                                     <th scope="row">3</th>
                                     <td>id1</td>
                                     <td onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adminDetail'">김관리</td>
