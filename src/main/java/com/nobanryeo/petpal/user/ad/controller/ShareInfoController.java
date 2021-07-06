@@ -140,16 +140,23 @@ private final ShareInfoService shareInfoService;
      * 쪽지 보내기
      */
     @PostMapping("insert/shareInfo/message")
-    public String insertShareInfoMessage(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute MessageTableDTO message) {
+    public String insertShareInfoMessage(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute MessageTableDTO message, RedirectAttributes rttr) {
     	
     	message.setUserCode(loginUser.getCode());
     	System.out.println(message);
+    	
+    	if(message.getUserCode() == message.getUserCode1()) {
+    		rttr.addFlashAttribute("message", "본인에게는 쪽지를 보낼 수 없습니다.");
+    		return "redirect:/user/select/shareInfo/detail?boardCode="+boardCode;
+    	}
     	
     	if(shareInfoService.insertShareInfoMessage(message) > 0) {
     		System.out.println("쪽지보내기 성공");
     	} else {
     		System.out.println("쪽지보내기 실패");
     	}
+    	
+    	rttr.addFlashAttribute("message", "쪽지 전송에 성공하였습니다. 보낸 쪽지는 마이페이지에서 확인 가능합니다.");
     	
     	return "redirect:/user/select/shareInfo/detail?boardCode="+boardCode;
     }
@@ -251,17 +258,15 @@ private final ShareInfoService shareInfoService;
 		shareInfo.setUserCode(loginUser.getCode());
 		
 		if(shareInfo.getPictureName().equals("")) { // 이미지없이 게시글 작성시
-			
 			rttr.addFlashAttribute("message", "최소 한 개 이상의 이미지가 필요합니다.");
 			return "redirect:/user/select/shareInfo";
-			
+
 		} else { // 이미지가 있는 게시글 작성시
-			
 			if(shareInfoService.inserWriteShreInfo(shareInfo) > 1) {
 				System.out.println("게시글 작성 성공");
 			}
-			
 		}
+		rttr.addFlashAttribute("message", "글 작성 신청이 완료되었습니다. 검토에는 1~2일 소요 될 수 있습니다.");
 		
 		return "redirect:/user/select/shareInfo/list";
 	}
@@ -361,16 +366,23 @@ private final ShareInfoService shareInfoService;
      * 쪽지보내기
      */
     @PostMapping("insert/sharePlace/message")
-    public String insertSharePlaceMessage(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute MessageTableDTO message) {
+    public String insertSharePlaceMessage(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, @ModelAttribute MessageTableDTO message, RedirectAttributes rttr) {
     	
     	message.setUserCode(loginUser.getCode());
     	System.out.println(message);
+    	
+    	if(message.getUserCode() == message.getUserCode1()) {
+    		rttr.addFlashAttribute("message", "본인에게는 쪽지를 보낼 수 없습니다.");
+    		return "redirect:/user/select/sharePlace/detail?boardCode="+boardCode;
+    	}
     	
     	if(shareInfoService.insertShareInfoMessage(message) > 0) {
     		System.out.println("쪽지보내기 성공");
     	} else {
     		System.out.println("쪽지보내기 실패");
     	}
+    	
+    	rttr.addFlashAttribute("message", "쪽지 전송에 성공하였습니다. 보낸 쪽지는 마이페이지에서 확인 가능합니다.");
     	
     	return "redirect:/user/select/sharePlace/detail?boardCode="+boardCode;
     }
@@ -481,6 +493,8 @@ private final ShareInfoService shareInfoService;
 			}
 			
 		}
+		
+		rttr.addFlashAttribute("message", "글 작성 신청이 완료되었습니다. 검토에는 1~2일 소요 될 수 있습니다.");
 		
 		return "redirect:/user/select/sharePlace/list";
 	}

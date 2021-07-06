@@ -169,9 +169,6 @@
                 border: 1px solid;
             }
         </style>
-        
-       
-		
         <meta charset="utf-8">
         <title>PET-PAL</title>
         
@@ -179,6 +176,12 @@
     	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    	<script>
+		    const message = '${ requestScope.message }';
+		    if(message != null && message !== '') {
+		    	alert(message);
+		    }
+		</script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -386,17 +389,17 @@
 	                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.freeBoardDetail.userNickName }"/></p>
 	                    <div class="findpwd-content" id="contStep02" style="display: block;">
 	                        <!-- 쪽지 내용 입력 -->
-	                        	<div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-	                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
-	                        	<input type="hidden" value="${ requestScope.freeBoardDetail.userCode }" name="userCode1">
-	                        	<input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
-	                        	<input type="hidden" value="${ requestScope.freeBoardDetail.userNickName }" name="receiveUserNick">
+	                       <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                       <input type="hidden" value="${ requestScope.freeBoardDetail.userCode }" name="userCode1">
+	                       <input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
+	                       <input type="hidden" value="${ requestScope.freeBoardDetail.userNickName }" name="receiveUserNick">
+	                       <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">보내기</button></div>
 	                    </div>
 	                </div>
 	            </div>
 	            
 	            <!-- 전송 완료 팝업창 -->
-	            <div id="completeMessage" class="overlay">
+	            <!-- <div id="completeMessage" class="overlay">
 	                <div class="popup">
 	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
 	                     	쪽지 전송에 성공하였습니다.<br>
@@ -406,7 +409,7 @@
 	                    </p>
 	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
 	                </div>
-	            </div>
+	            </div> -->
             </form>
 			
             <!-- 오른쪽 배너 -->

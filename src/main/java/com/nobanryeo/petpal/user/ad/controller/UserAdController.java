@@ -25,6 +25,7 @@ import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.UserAdService;
 import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 /**
@@ -47,12 +48,30 @@ public class UserAdController {
 	 * 광고 신청 내역 조회
 	 */
 	@GetMapping("select/ad/list")
-	public String selectAdList(Model model, @SessionAttribute UserInfoDTO loginUser) {
+	public String selectAdList(Model model, @SessionAttribute UserInfoDTO loginUser, PageDTO page
+    		, @RequestParam(value="nowPage", required = false)String nowPage
+			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
 		
 		AdDTO adDTO = new AdDTO();
 		adDTO.setUserCode(loginUser.getCode());
 		
-		model.addAttribute("adList", adService.selectAdList(adDTO));
+		// 페이징처리
+    	int total = adService.selectAdListCount(adDTO);
+    	
+    	if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "10";
+		} else if(nowPage == null) {
+			nowPage = "1";
+		} else if(cntPerPage == null) {
+			cntPerPage = "10";
+		}
+    	
+    	page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+    	
+    	model.addAttribute("paging", page);
+		
+		model.addAttribute("adList", adService.selectAdList(adDTO,page));
 		
 		// 광고 클릭수 조회
 		model.addAttribute("adPaymentList", adService.selectAdPaymentList(adDTO));

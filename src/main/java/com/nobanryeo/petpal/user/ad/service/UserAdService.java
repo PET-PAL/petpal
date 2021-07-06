@@ -4,10 +4,13 @@ import java.util.List;
 
 import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 
 public interface UserAdService {
 
-	public List<AdDTO> selectAdList(AdDTO adDTO);
+	public int selectAdListCount(AdDTO adDTO);
+	
+	public List<AdDTO> selectAdList(AdDTO adDTO, PageDTO page);
 
 	public List<AdDTO> selectAdPaymentList(AdDTO adDTO);
 
@@ -22,6 +25,7 @@ public interface UserAdService {
 	public int updateFirstAdPayment(AdDTO adDTO);
 
 	public int updateCancelAd(AdDTO adDTO);
+
 	
 
 }

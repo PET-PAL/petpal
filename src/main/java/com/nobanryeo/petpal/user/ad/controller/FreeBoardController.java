@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.FreeBoardService;
@@ -143,17 +144,23 @@ public class FreeBoardController {
      * 쪽지 작성
      */
     @PostMapping("insert/freeboard/message")
-    public String insertFreeBoardMessage(@ModelAttribute MessageTableDTO message, Model model, @RequestParam int code, @RequestParam String receiveUserNick, @SessionAttribute UserInfoDTO loginUser) {
+    public String insertFreeBoardMessage(@ModelAttribute MessageTableDTO message, Model model, @RequestParam int code, @RequestParam String receiveUserNick, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) {
        
  	    message.setReceiveUserNick(receiveUserNick);
         message.setUserCode(loginUser.getCode());
-        System.out.println(message);
+
+        if(message.getUserCode() == message.getUserCode1()) {
+    		rttr.addFlashAttribute("message", "본인에게는 쪽지를 보낼 수 없습니다.");
+    		return "redirect:/user/select/freeboard/detail?boardCode="+code;
+    	}
         
         if(freeBoardService.insertFreeBoardMessage(message) > 0) {
            System.out.println("쪽지 전송 성공");
         } else {
            System.out.println("쪽지 전송 실패");
         }
+        
+        rttr.addFlashAttribute("message", "쪽지 전송에 성공하였습니다. 보낸 쪽지는 마이페이지에서 확인 가능합니다.");
         
         return "redirect:/user/select/freeboard/detail?boardCode="+code;
     }

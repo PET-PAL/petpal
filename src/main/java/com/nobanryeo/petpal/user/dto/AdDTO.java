@@ -41,7 +41,7 @@ public class AdDTO {
 	private String pictureDeleteYn;
 	private String pictureNewName;
 	private String pictureUtilPath;
-	private Date decisionDate;
+	private String decisionDate;
 	
 	public AdDTO() {}
 
@@ -52,7 +52,7 @@ public class AdDTO {
 			String adTypeName, int adPrice, int adWeek, int clickCount, int morePayAmount, String leaderName,
 			String companyLocation, String industry, String industryDetail, String pictureName, String pictureUrl,
 			Date pictureUploadDate, String pictureDeleteYn, String pictureNewName, String pictureUtilPath,
-			Date decisionDate) {
+			String decisionDate) {
 		super();
 		this.adCode = adCode;
 		this.companyName = companyName;
@@ -390,11 +390,11 @@ public class AdDTO {
 		this.pictureUtilPath = pictureUtilPath;
 	}
 
-	public Date getDecisionDate() {
+	public String getDecisionDate() {
 		return decisionDate;
 	}
 
-	public void setDecisionDate(Date decisionDate) {
+	public void setDecisionDate(String decisionDate) {
 		this.decisionDate = decisionDate;
 	}
 

@@ -110,8 +110,17 @@
                 border-radius: 10px;
                 width: 100px;
             }
+            .pagination > li > a, .pagination > li > span {
+            	color: #19A985 !important;
+            }
 		</style>
 		<script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
+		<script>
+		    const message = '${ requestScope.message }';
+		    if(message != null && message !== '') {
+		    	alert(message);
+		    }
+		</script>
 	</head>
 	<body data-spy="scroll" data-target=".navbar-collapse">
 	<jsp:include page="../common/userHeader.jsp"/>
