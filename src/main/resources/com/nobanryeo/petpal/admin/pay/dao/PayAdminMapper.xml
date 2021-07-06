@@ -21,6 +21,8 @@
 	  	<result property="companyName" column="COMPANY_NAME"/>
 		<result property="companyPhone" column="COMPANY_PHONE"/>
 		<result property="companyEmail" column="COMPANY_EMAIL"/>
+		<result property="companyLocation" column="COMPANY_LOCATION"/>
+		<result property="leaderName" column="LEADER_NAME"/>
 	  	<result property="refundYn" column="REFUND_YN"/>
 	  	<result property="clickNum" column="CLICK_NUM"/>
 	  	<result property="price2nd" column="PRICE_2ND"/>
@@ -28,6 +30,11 @@
 	  	<result property="payStatus" column="PAY_STATUS"/>
 	  	<result property="taxBillDate" column="TAX_BILL_DATE"/>
 	  	<result property="taxPrice" column="TAX_PRICE"/>
+	  	<result property="calEndDate" column="CAL_END_DATE"/>
+	  	<result property="calApplyDate" column="CAL_APPLY_DATE"/>
+	  	<result property="industry" column="INDUSTRY"/>
+	  	<result property="industryDetail" column="INDUSTRY_DETAIL"/>
+	  	
 	  	
 	  	<!-- 유저코드에 대한 유저이름 가져옴 (유저코드가 매개) -->
 	  	<!-- 하나의 유저코드는 하나의 유저명만 가질 수 있음 -->	  
@@ -621,8 +628,8 @@
 			 , C.USER_ID
 			 , A.AD_TITLE
 			 , A.COMPANY_NUMBER
-			 , TRUNC(SYSDATE) - TO_DATE(post_end_date) D
-			 , TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) E
+			 , TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) CAL_END_DATE
+			 , TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) CAL_APPLY_DATE
 		FROM AD_APPLY_TABLE A
 		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
 		LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
@@ -648,6 +655,85 @@
 			WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
+	 <!-- 세금계산서 관리 현재 페이지 갯수 조회 -->
+	  <select id="selectTaxNumber" resultType="int" parameterType="AdminPageInfoDTO">
+		SELECT COUNT(E.RN) 
+	  	 FROM 
+	  	(
+		SELECT * 
+		  FROM (
+			    SELECT ROWNUM RN, D.* 
+			      FROM (
+
+		SELECT 
+			   A.AD_CODE
+			 , NVL(B.CLICK,0) CLICK_NUM
+             , NVL(B.CLICK,0)*150 PRICE_2ND
+             , NVL(B.CLICK,0)*150*0.1 TAX_PRICE
+             , NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE))TAX_BILL_DATE
+			 , A.USER_CODE
+			 , C.USER_NAME
+			 , C.USER_ID
+			 , A.AD_TITLE
+			 , A.COMPANY_NUMBER
+			 , TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) CAL_END_DATE
+			 , TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) CAL_APPLY_DATE
+		FROM AD_APPLY_TABLE A
+		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+		LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
+		LEFT OUTER JOIN
+	  			 (SELECT AD_CODE, COUNT(*) CLICK
+           		    FROM AD_CLICK_COUNT 
+                    GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
+        WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
+       <choose>
+        <when test='category == "1"'>
+        
+        </when>
+        <when test='category == "2"'>
+        
+        </when>
+        <otherwise>
+        
+        </otherwise>
+       </choose>
+          ORDER BY A.AD_CODE DESC
+						) D
+				  )
+			WHERE RN BETWEEN #{start} AND #{end}) E
+	</select>
+	
+	<!-- 광고 결제 디테일 조회 -->
+	  <select id="selectTaxDetail" resultMap="adAdmin" parameterType="int">
+	 	SELECT 
+			   A.AD_CODE
+			 , NVL(B.CLICK,0) CLICK_NUM
+             , NVL(B.CLICK,0)*150 PRICE_2ND
+             , NVL(B.CLICK,0)*150*0.1 TAX_PRICE
+             , NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE))TAX_BILL_DATE
+			 , A.USER_CODE
+			 , C.USER_NAME
+			 , C.USER_ID
+			 , A.AD_TITLE
+			 , A.COMPANY_NAME
+			 , A.COMPANY_NUMBER
+			 , A.AD_TYPE_CODE
+			 , A.COMPANY_LOCATION
+			 , A.LEADER_NAME
+			 , A.INDUSTRY
+			 , A.INDUSTRY_DETAIL
+			 , TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) CAL_END_DATE
+			 , TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) CAL_APPLY_DATE
+		FROM AD_APPLY_TABLE A
+		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+		LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
+		LEFT OUTER JOIN
+	  			 (SELECT AD_CODE, COUNT(*) CLICK
+           		    FROM AD_CLICK_COUNT 
+                    GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
+        WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
+          AND A.AD_CODE = #{adCode}
+	  </select>
 	
 	
 </mapper>

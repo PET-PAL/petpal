@@ -173,40 +173,40 @@ function monthChange() {
 												
 												<c:choose>
 												<c:when test="${ empty category }">
-												<c:forEach var="adApprove" items="${ requestScope.payList }">
+												<c:forEach var="adApprove" items="${ requestScope.taxList }">
 													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }'">
 													<tr>
 														<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
-														<td>2021.06.11</td>
-														<td>납부 전</td>
-														<td>${ adApprove.price2nd }</td>
-														<td><a href="taxbill">view more</a></td>
+														<td>${ adApprove.taxBillDate }</td>
+														<td>${ adApprove.payStatus }</td>
+														<td>${ adApprove.price2nd + adApprove.taxPrice }</td>
+														<td><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }">view more</a></td>
 													</tr>
 												</c:forEach>
 												</c:when>
 													
 												<c:when test="${ category eq 1 }">
-												<c:forEach var="adApprove" items="${ requestScope.payList }">
+												<c:forEach var="adApprove" items="${ requestScope.taxList }">
 													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }'">
 													<tr>
 														<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
-														<td>2021.06.11</td>
-														<td>납부 전</td>
-														<td>${ adApprove.price2nd }</td>
-														<td><a href="taxbill">view more</a></td>
+														<td>${ adApprove.taxBillDate }</td>
+														<td>${ adApprove.payStatus }</td>
+														<td>${ adApprove.price2nd + adApprove.taxPrice }</td>
+														<td><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }">view more</a></td>
 													</tr>
 												</c:forEach>
 												</c:when>
 												
 												<c:when test="${ category eq 2 }">
-												<c:forEach var="adApprove" items="${ requestScope.payList }">
+												<c:forEach var="adApprove" items="${ requestScope.taxList }">
 													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }'">
 													<tr>
 														<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
-														<td>2021.06.11</td>
-														<td>납부 전</td>
-														<td>${ adApprove.price2nd }</td>
-														<td><a href="taxbill">view more</a></td>
+														<td>${ adApprove.taxBillDate }</td>
+														<td>${ adApprove.payStatus }</td>
+														<td>${ adApprove.price2nd + adApprove.taxPrice }</td>
+														<td><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList/${ adApprove.adCode }">view more</a></td>
 													</tr>
 												</c:forEach>
 												</c:when>	
@@ -236,7 +236,7 @@ function monthChange() {
 						<!-- 페이징 버튼 -->
 						<ul class="pagination">
 	                        <c:if test="${paging.startPage != 1 }">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
 	                        </c:if>
 	                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 	                           <c:choose>
@@ -244,12 +244,12 @@ function monthChange() {
 	                                 <li><a>${p }</a></li>
 	                              </c:when>
 	                              <c:when test="${p != paging.nowPage }">
-	                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+	                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
 	                              </c:when>
 	                           </c:choose>
 	                        </c:forEach>
 	                        <c:if test="${paging.endPage != paging.lastPage}">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 	                        </c:if>
 	                       </ul>
 								
