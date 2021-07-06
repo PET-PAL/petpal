@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -66,7 +67,7 @@
                margin: 15% auto; /* 15% from the top and centered */
                padding: 20px;
                border: 1px solid #888;
-               width: 800px; /* Could be more or less, depending on screen size */      
+               width: 900px; /* Could be more or less, depending on screen size */      
            }
            /* Modal Content/Box */
            .modal-content {
@@ -75,8 +76,8 @@
                padding: 20px;
                margin-top: 10px;
                border: 1px solid #888;
-               width: 800px;
-               height: 900px;
+               width: 700px;
+               height:1000px;
                overflow-y: auto;                         
            }
            .modal-body{
@@ -158,23 +159,17 @@
                 margin: 0px auto;
             }
         </style>
-        <meta charset="utf-8">
-        <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-              	<script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
+        <script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jspdf.min.js" rel="stylesheet"></script>
+		<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/html2canvas.js" rel="stylesheet"></script>
          <script type="text/javascript"src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
        	 <script>
           var $j3 = jQuery.noConflict();
       	 </script>
     </head>
 
-    <body data-spy="scroll" data-target=".navbar-collapse">
-
+    <jsp:include page="../common/userHeader.jsp"/>
 
         <!-- Preloader -->
         <div id="loading">
@@ -191,12 +186,11 @@
 
         <div class="culmn">
             <!--Home page style-->
-            <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
          <section>
        <!--      <div class="port_img" style="float: left; width: 600px;"> -->
                    <%-- <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" /> --%>
-<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="float: left;">
+				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="float: left;margin-left: 20px;">
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -206,26 +200,22 @@
 
                             <!-- Wrapper for slides -->
                             <div class="carousel-inner">
-                                <div class="item active">
-	                                   <div class="port_img">
-	                                       <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" />
-	                                   </div>
-                                </div>
-                                <div class="item">
-                                         <div class="port_img">
-                                             <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" />
-                                         </div>
-                                </div>
-                                <div class="item">
-                                         <div class="port_img">
-                                             <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" />
-                                         </div>
-                                </div>
-                                <div class="item">
-                                         <div class="port_img">
-                                             <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" />
-                                         </div>
-                                </div>
+                            <c:forEach var="image" varStatus="status" items="${pictureMissingList}">
+	                            	<c:if test="${status.index == '0' }" >
+		                                <div class="item active">
+			                                   <div class="port_img">
+			                                       <img src="${ pageContext.servletContext.contextPath }/${ image.pictureUtilPath}" style="float: left; margin-left: 50px;"alt="" />
+			                                   </div>
+		                                </div>
+	                                </c:if>
+	                                <c:if test="${status.index != '0' }" >
+		                                <div class="item">
+		                                         <div class="port_img">
+		                                             <img src="${ pageContext.servletContext.contextPath }/${ image.pictureUtilPath}" style="float: left; margin-left: 50px;"alt="" />
+		                                         </div>
+		                                </div>
+	                                </c:if>
+                                </c:forEach>
                               </div> 
                             <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev" style="background-image:none !important;">
                                 <i class="fas fa-arrow-circle-left fa-3x" style="margin-top: 250px;"></i>
@@ -238,27 +228,40 @@
                             </a>
                      </div>
 
-
-                <div style="float: left;width: 500px;display: flex;flex-direction: row;">
-                   <h2 style="background-color: orange; width: 100px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
-                   실종 
-                   </h2>
-                   <!-- 상태 값에 따른 c:if 처리 -->
-                   <!-- <h2 style="background-color: #44B99C; width: 130px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
-                   집 도착
-                   </h2> -->
-                   <img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 20px; cursor:pointer;">
-                </div>
+	                <div style="float: left;width: 400px;margin-left:25px; display: flex;flex-direction: row;">
+						<c:if test="${requestScope.missingDetail.stateCode eq '1'}">
+		                   <h2 style="background-color: orange; width: 100px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
+		                   실종 
+		                   </h2>
+			            </c:if>
+	                   <!-- 상태 값에 따른 c:if 처리 -->
+	                   <c:if test="${requestScope.missingDetail.stateCode eq '2'}">
+		                   <h2 style="background-color: #44B99C; width: 130px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
+		                   집 도착
+		                   </h2> 
+		                </c:if>
+	                   <img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 20px; cursor:pointer;">
+	                </div>
                 <div>
                    <ul style="font-size: large;">
-                      <li>작성자 : 
-                      <b>QlQlfl</b>
+                      <li>&nbsp&nbsp&nbsp작성자 : 
+                      <b><c:out value="${requestScope.missingDetail.userNickname}"/></b>
                       <img src="${ pageContext.servletContext.contextPath }/resources/images/message icon.png" alt="" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;"/>
                       </li>
                    </ul>
                 </div>
-                <div style="float: left;width: 600px;text-align: center;margin-left:20px; margin-top: 20px;">
-                   <h1 style="font-weight: bold;">차이니즈 크레스티드 / 수컷  <br> 3살 / 14KG / 커피색</h1>
+                <div style="float: left;margin-left:30px; margin-top: 15px;">
+                   <h1 style="font-weight: bold;"><c:out value="${requestScope.missingDetail.breed}"/>/ 
+                   <c:if test="${requestScope.missingDetail.gender eq 'M'}">
+                   	남아  <br> 
+                   </c:if>
+                   <c:if test="${requestScope.missingDetail.gender eq 'F'}">
+                   	여아  <br> 
+                   </c:if>
+                   
+                   <c:out value="${requestScope.missingDetail.age}"/>살 / 
+                   <c:out value="${requestScope.missingDetail.weigth}"/>KG / 
+                   <c:out value="${requestScope.missingDetail.color}"/></h1>
                 </div>
                 <div style="float: left; width: 600px; margin-left: 20px;margin-top: 20px;">
                    <table style="margin-bottom: 50px;width: 600px;">
@@ -268,7 +271,7 @@
                                날 짜 
                             </td>
                             <td style="font-size: 20px; padding-left: 30px;">
-                            2021-06-21
+                            <c:out value="${requestScope.missingDetail.missingDate}"/>
                             </td>
                         </tr>
                         <tr>
@@ -276,7 +279,7 @@
                                장 소 
                            </td>
                            <td style="font-size: 20px; padding-left: 30px; ">
-                                 서울특별시 xx구 xx동 xxxxxxxx아파트 앞 횡단보도
+                                 <c:out value="${requestScope.missingDetail.area}"/>&nbsp<c:out value="${requestScope.missingDetail.place}"/>
                            </td>
                          </tr>
                          <tr>
@@ -284,7 +287,7 @@
                                특 징
                            </td>
                            <td style="font-size: 20px; padding-left: 30px; width: 300px;">
-                                 등에 연한 갈색의 얼룩처럼 보이게 털이 자랐어요. 코에 상처가 났어요. 꼬리가 비정상적으로 길어요.
+                                 <c:out value="${requestScope.missingDetail.character}"/>
                            </td>
                          </tr>
                          <tr>
@@ -292,7 +295,7 @@
                                기 타
                            </td>
                            <td style="font-size: 20px; padding-left: 30px; width: 300px;">
-                                 겁이 많은 아이에요. 발견하시면 다가가지 말고 제보 부탁드려요ㅠㅠ
+                                <c:out value="${requestScope.missingDetail.request}"/>
                            </td>
                          </tr>
                          <tr>
@@ -300,27 +303,31 @@
                                연 락 처
                            </td>
                            <td style="font-size: 20px; padding-left: 30px; width: 300px;">
-                                 010-1234-5673
+                                 <c:out value="${requestScope.missingDetail.phone}"/>
                            </td>
                          </tr>
                     </tbody>
                 </table>
                 </div>
                 <div style="float: left; width: 600px; margin-left: 30px;" align="center">
-                   <button onclick="show();"  style="background-color: red; border: 0px; border-radius:10px; width: 250px; margin-left:10px;">
+                   <button onclick="show();" id="make_pdf" style="background-color: red; border: 0px; border-radius:10px; width: 250px; margin-left:10px;">
                          <h3 style="color: white; padding-top: 10px; font-weight: bold;">전단지 생성하기</h3>
                    </button>
-                   <button  
-                      style="background-color: #45B99C; border: 0px; border-radius:10px; width:250px; margin-left:10px;">
-                         <h3 style="color: white; padding-top: 10px; font-weight: bold;">찾았습니다!</h3>
-                   </button>
+                   
+                	<input type="button" class="btn btn-light"style= "background-color: #45B99C;border: 0px;border-radius: 10px; width: 250px; margin-left: 60px; color: white; font-size: 22px; height: 50px; padding-top: 10px; margin-bottom: 7px" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/update/status?board=${requestScope.missingDetail.boardCode}'" value ="찾았습니다!"/>
+                   
                    <br>
-                   <button>삭제하기</button>
-                   <button>수정하기</button>
+                   <div style="float:right;margin-top: 10px;">
+				                	<button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/update'">수정하기</button>
+				                	<button id="delete_board_btn" class="btn btn-light" style="width:100px; color: red;border:none; background-color:white;">삭제하기</button>
+			       </div>
+			       
                    <!-- 찾았습니다 버튼이 눌릴시 아래의 h3이 나오면 된다. -> 상태에 따른 c:if처리 -->
-                   <!-- <h3 style="background-color: #45B99C; width: 600px; border-radius: 8px; height: 50px; color: white; font-weight: bold; padding-top: 10px;">
-                   찾았습니다! 많은 관심과 제보 감사합니다!
-                   </h3> -->
+                   <c:if test="${requestScope.missingDetail.stateCode eq '2'}">
+	                   <h3 style="background-color: #45B99C; width: 600px; border-radius: 8px; height: 50px; color: white; font-weight: bold; padding-top: 10px;">
+	                   찾았습니다! 많은 관심과 제보 감사합니다!
+	                   </h3>
+                   </c:if>
                 </div>
          </section>
             <section id="boradtable" class="boradtable">
@@ -329,45 +336,82 @@
                        <div class="container">
                            <div class="row">
                                <table class="table" style="margin-bottom: 50px;">
-                                <tbody>
-                                    <tr>
-                                        <td style="text-align: center;">펫파파</td>
-                                        <td>오늘 농협 옆 골목길에서 목격했습니다. 꼭 찾길 바랄게요</td>
-                                        <td style="text-align: center;">2021-06-22</td>
-                                        <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">유기농간식</td>
-                                        <td style="width: 500px;">xx초등학교 앞에서 봤습니다.</td>
-                                        <td style="text-align: center;">2021-06-23</td>
-                                         <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">삐띠딕</td>
-                                        <td>아직 못찾았나요? 꼭 찾길 바랄게요ㅠㅠ</td>
-                                        <td style="text-align: center;">2021-06-23</td>
-                                         <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">Qododor</td>
-                                        <td>아이구야 힘내세요</td>
-                                        <td style="text-align: center;">2021-06-23</td>
-                                         <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-                                    </tr>
-                                    <tr>
-                                        <td style="text-align: center;">Backgu</td>
-                                        <td>멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍멍</td>
-                                        <td style="text-align: center;">2021-06-23</td>
-                                         <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;"></td>
-                                    </tr>
-                                    <tr>
-                                       <td style="text-align: center;"> </td>
-                                        <td>삭제 된 댓글입니다.</td>
-                                        <td style="text-align: center;"> </td>
-                                         <td></td>
-                                    </tr>
+                                <tbody id="tbody">
+                                   
                                 </tbody>
                             </table>
+                            
+                            <script>
+				                $j3(document).ready(function(){
+								     		console.log("MissingPage reply select script");
+								     		
+								     		var code = "${requestScope.missingDetail.boardCode}";
+								     	
+								     			$j3.ajax({
+								     			url:"select/missingReply/"+code,
+								     			type:"GET",
+								     			success:function(data,status,xhr){
+								     				const replyMList = JSON.parse(data.missingReplyList);
+								     				/* debugger; */
+								     				console.table(replyMList);
+								     				console.log(replyMList.length);
+								     				output='';
+								     				if(replyMList.length == 0){
+							     						output += '<tr>';
+								     					output += '<td style="text-align: center; border:none;">'+' '+'</td>';
+							     						output += '<td style="border:none;">'+'</td>';
+							     						output += '<td style="text-align: center; border:none; font-weight:bold;">'+'작성된 댓글이 없습니다. 처음으로 댓글을 작성해 보세요~ ^^ '+'</td>';
+								     					output += '<td style="border:none;">'+'</td>';
+								     					output += '</tr>';
+							     					}
+								     				
+								     				$j3.each(replyMList,function(i, item){
+								     					
+								     					var deleteYN = this.replyDeleteYN;
+								     					var reportYN = this.reportYN;
+								     					var length = $j3(this).length;
+								     					console.log(length);
+								     					
+								     					
+								     					if(deleteYN == 'N'){
+								     						output += '<tr id="tr'+i+'">';
+									     					output += '<td class="col-md-3" style="text-align: center;">'+this.userNickname+'</td>';
+								     						output += '<td>'+this.replyContent+'</td>';
+								     						output += '<td style="text-align: center;">'+this.replyDate+'</td>';
+									     					output += '<td><img onclick="test1(this)" class="'+ this.replyCode +'" title="'+this.replyUserCode +'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;">'+'</td>';
+									     					output += '</tr>';
+								     					}
+								     					if(deleteYN == 'Y'&& reportYN =='N'){
+								     						output += '<tr id="tr'+i+'">';
+									     					output += '<td style="text-align: center;">'+' '+'</td>';
+								     						output += '<td>'+'삭제 된 댓글입니다.'+'</td>';
+								     						output += '<td style="text-align: center;">'+' '+'</td>';
+									     					output += '<td>'+'</td>';
+									     					output += '</tr>';
+								     					}
+								     					if(deleteYN == 'Y'&& reportYN =='Y'){
+								     						output += '<tr id="tr'+i+'">';
+									     					output += '<td style="text-align: center;">'+' '+'</td>';
+								     						output += '<td>'+'신고에 의해 삭제 된 댓글입니다.'+'</td>';
+								     						output += '<td style="text-align: center;">'+' '+'</td>';
+									     					output += '<td>'+'</td>';
+									     					output += '</tr>';
+								     					}
+								     					
+								                             
+								     				});
+								     				
+								     				$('#tbody').append(output);
+								                
+								     				
+								     			},error:function(xhr,status,error){
+								     				alert("에러 발생~삐뽀~");
+								     				console.log(error);
+								     			}
+								     		});
+				               		});
+				                
+				                    	</script>
                             <div class="text-center">
                            <ul class="pagination">
                               <li><a href="#"><</a></li>
@@ -382,46 +426,88 @@
                         </div>
                     </div>
                 </div>
-                <p style="margin-left: 380px; font-weight: bold; font-size: 20px;">
-                삐비디딕
-                </p>
-             <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto;">
-                <input type="text" id="messagecontent" placeholder="  혹시 이 아이를 보셨나요? 댓글로 목격 제보를 남겨보세요." >
-                <button class="sendmessagecontent">댓글 작성</button>
+                
+               <!-- 댓글 작성 부분 -->
+              	 <p style="margin-left: 200px;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
+	             	삐비디딕
+	             </p>
+	             <section id="sendmessage" class="sendmessage">
+               			<input style="width:850px; float:left;" type="text" id="messagecontent" placeholder="  혹시 이 아이를 보셨나요? 댓글로 목격 제보를 남겨보세요." >
+		                <button class="sendmessagecontent" id="replySubmit" style="float:left;">댓글 작성</button>
+		         </section>
+          		<!-- 댓글 작성 부분 끝! -->
             </section>
-            </section>
-            
+                   <script>
+		            
+			            $j3("#replySubmit").click(function(){
+				     		var code = ${requestScope.missingDetail.boardCode};
+			     			var content = $j3('#messagecontent').val();
+			     			console.log(code);
+			     			console.log(content);
+			     			
+				     		if(content.trim()==''){
+				     			alert('댓글을 입력하신 후 다시 눌러주시기 바랍니다.');
+				     			return;
+				     		}
+				     		
+				     		$j3.ajax({
+			     			url:"insert/missingReply",
+			     			type:"POST",
+		    				data:{"replyContent": content,
+		    					"boardCode": code},
+		    				success: function(data,status,xhr){
+		    					if(data.message=="success"){
+		    					alert("댓글등록 완료! ");
+		    					location.reload();
+		    						
+		    					}
+		    					if(data.message=="fail"){
+		    						alert("댓글등록 실패! ");
+		    						
+		    					}
+		    				},error:function(xhr,status,error){
+			     				alert("에러 발생~삐뽀~");
+			     				console.log(error);
+			     			}
+			     		});
+           		});
+		            </script>
             <!-- The Modal -->
+               
             <div id="flyerModal" class="modal">
                <!-- Modal content -->
-               <div class="modal-content">
-               <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px; width: 30px; float: right; background-color: white;" onClick="close_pop();">
-                   <span class="pop_bt" style="font-size: 13pt; font-weight: bold;" >
-                     X
-                   </span>
-               </div>
-                   <div style="height: 50px; width: 600px; background-color: yellow; margin-left: 80px;" align="center">
+               <div class="modal-content" id="pdfDiv">
+	               <div style="cursor:pointer;background-color:#DDDDDD;text-align: center;padding-bottom: 10px;padding-top: 10px; width: 30px; float: right; background-color: white;" onClick="close_pop();">
+	                   <span class="pop_bt" style="font-size: 13pt; font-weight: bold;" >
+	                     X
+	                   </span>
+	               </div>
+                   <div style="width: 600px; background-color: yellow;" align="center">
                       <h2 style="color: red; font-weight: bold; margin-top: 0px;">강아지를 찾습니다</h2>
                    </div>
                    <div style="margin-top: 20px;" align="center">
-                      <img style="margin-left: 40px; margin-bottom: 20px; height: 600px; width: 600px;" src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
+	                   <c:forEach var="image" varStatus="status" items="${pictureMissingList}">
+		                  <c:if test="${status.index == '0' }" >
+	                     	 <img style="margin-left: 40px; margin-bottom: 20px; height: 500px; width: 500px;" src="${ pageContext.servletContext.contextPath }/${image.pictureUtilPath}" alt="" />
+	                      </c:if>
+	                   	</c:forEach>
                    </div>
                    <div style="background-color: red; margin-bottom: 20px;" align="center">
-                      <h2 style="color: white; font-weight: bold; font-size: 20px; margin-bottom: 0px;">차이니즈 크레스티드</h2>
-                      <h3 style="color: white; font-weight: bold; font-size: 20px; margin-bottom: 0px;">서울특별시 xx구 xx동 xxxxxxxx아파트 앞 횡단보도</h3>
-                      <h2 style="color: white; font-weight: bold; font-size: 20px; margin-bottom: 0px;">날짜 2021-06-21</h2>
+                      <h2 style="color: white; font-weight: bold; font-size: 25px; margin-bottom: 0px;">${requestScope.missingDetail.breed}</h2>
+                      <h3 style="color: white; font-weight: bold; font-size: 25px; margin-bottom: 0px;">${requestScope.missingDetail.area} ${requestScope.missingDetail.place}</h3>
+                      <h2 style="color: white; font-weight: bold; font-size: 25px; margin-bottom: 0px;">날짜: ${requestScope.missingDetail.missingDate}</h2>
                    </div>
                    <div align="center">
                       <ul style="font-size: 20px;">
                          <li>장소 : 
-                         <b>서울특별시 xx구 xx동 xxxxxxx아파트 부근 앞 횡단보도</b>
+                         <b><c:out value="${requestScope.missingDetail.area}"/>&nbsp ${requestScope.missingDetail.place}</b>
                          </li>
                          <li>특징 : 
-                         <b style="color: red;">등에 연한 갈색의 얼룩처럼 보이게 털이 자랐어요. 코에 상처가 났어요. 꼬리가 비정상적으로 길어요</b>
+                         <b style="color: red;"><c:out value="${requestScope.missingDetail.character}"/></b>
                          </li>
                       </ul>
-                      <br><br>
-                      <h3 style="font-size: 20px;">※ 겁이 많아요. 발견하시면 다가가지 말고 연락 부탁드립니다.</h3>
+                      <br>
+                      <h3 style="font-size: 20px;"><c:out value="${requestScope.missingDetail.request}"/></h3>
                       <!-- 아래의 전단지 자진수거는 따로 데이터가 들어오는 것이 아니라 기본적으로 적혀져있는 포멧 -->
                       <h3>※동물을 찾으면 자진수거 하겠습니다. 전단지를 떼지 말아주세요!</h3>
                    </div>
@@ -429,21 +515,21 @@
                       <hr style="border: soild 1px; border-color: black;">
                       <div>
                          <h2 style="color: #19A985; font-weight: bold; width: 200px; float: left; padding-top: 20px;">PET-PAL</h2>
-                         <h2 style="color: red; font-weight: bold; width: 400px;">TEL) 010-8123-1234</h2>
-                         <p style="font-size: 15px; width: 400px; padding-left: 35px;">반려동물 입양/실종동물 찾기는 '펫팔'을 검색해보세요!</p>
+                         <h2 style="color: red; font-weight: bold; width: 500px;">TEL) ${requestScope.missingDetail.phone}</h2>
+                         <p style="font-size: 15px; width: 500px; padding-left: 35px;">반려동물 입양/실종동물 찾기는 '펫팔'을 검색해보세요!</p>
                       </div>
                       <hr style="border: soild 1px; border-color: black;">
                    </div>
-                   <div align="center">
-                      <button style="background-color: #19A985; width: 250px; height: 60px; font-size: 20px; color: white;">
+                   	<div align="center" >
+                      <button id="pdf_make" style="background-color: #19A985; width: 250px; height: 60px; font-size: 20px; color: white;">
                          PDF 생성하기
                       </button>
                       <button style="background-color: #19A985; width: 250px; height: 60px; font-size: 20px; color: white; margin-left: 30px;">
                          SNS 공유하기
                       </button>
-                   </div>
-            </div>
-           </div> 
+           			</div>
+           		 </div>
+           	</div>
             <!-- 게시글 신고 팝업창 -->
             <div id="reportPost" class="overlay">
                 <div class="popup">
@@ -493,12 +579,43 @@
             
            <script>
               function show(){
-                   $('#flyerModal').show();
+            	  $j3('#flyerModal').show();
               };
               //팝업 Close 기능
               function close_pop(flag) {
-                   $('#flyerModal').hide();
+            	  $j3('#flyerModal').hide();
               };
+              
+              $j3("#make_pdf").click(function(){
+            	  html2canvas($j3('#pdfDiv')[0]).then(function(canvas){
+            		  // 캔버스를 이미지로 변환
+            		    var imgData = canvas.toDataURL('image/jpeg', 1.0);
+            			     
+            		    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
+            		    var pageHeight = imgWidth * 2;  // 출력 페이지 세로 길이 계산 A4 기준
+            		    var imgHeight = canvas.height * imgWidth / canvas.width;
+            		    var heightLeft = imgHeight;
+            		    var margin = 5; // 출력 페이지 여백설정
+            		    var doc = new jsPDF('p', 'mm');
+            		    var position = 0;
+            		       
+            		    // 첫 페이지 출력
+            		    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
+            		    heightLeft -= pageHeight;
+            		         
+            		    // 한 페이지 이상일 경우 루프 돌면서 출력
+            		    while (heightLeft >= 20) {
+            		        position = heightLeft - imgHeight;
+            		        doc.addPage();
+            		        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
+            		        heightLeft -= pageHeight;
+            		    }
+            			  
+            		  doc.save('${requestScope.missingDetail.userNickname}.pdf');
+            		
+
+            	  });
+              });
            </script>
 
             <!-- 오른쪽 배너 -->

@@ -21,6 +21,7 @@ public class MissingDTO {
 	private int userCode; //유저코드
 	private String dOc; //개or고양이
 	private String color; //색상
+	private String userNickname; //유저 닉네임(보드 호출용)
 	
 	public MissingDTO() {
 		
@@ -28,7 +29,7 @@ public class MissingDTO {
 
 	public MissingDTO(int boardCode, Date boardDate, Date missingDate, String area, String place, String phone,
 			String breed, String gender, int age, double weigth, String character, String request, String deleteYn,
-			int stateCode, int userCode, String dOc, String color) {
+			int stateCode, int userCode, String dOc, String color, String userNickname) {
 		super();
 		this.boardCode = boardCode;
 		this.boardDate = boardDate;
@@ -47,6 +48,7 @@ public class MissingDTO {
 		this.userCode = userCode;
 		this.dOc = dOc;
 		this.color = color;
+		this.userNickname = userNickname;
 	}
 
 	public int getBoardCode() {
@@ -185,18 +187,22 @@ public class MissingDTO {
 		this.color = color;
 	}
 
+	public String getUserNickname() {
+		return userNickname;
+	}
+
+	public void setUserNickname(String userNickname) {
+		this.userNickname = userNickname;
+	}
+
 	@Override
 	public String toString() {
 		return "MissingDTO [boardCode=" + boardCode + ", boardDate=" + boardDate + ", missingDate=" + missingDate
 				+ ", area=" + area + ", place=" + place + ", phone=" + phone + ", breed=" + breed + ", gender=" + gender
 				+ ", age=" + age + ", weigth=" + weigth + ", character=" + character + ", request=" + request
 				+ ", deleteYn=" + deleteYn + ", stateCode=" + stateCode + ", userCode=" + userCode + ", dOc=" + dOc
-				+ ", color=" + color + "]";
+				+ ", color=" + color + ", userNickname=" + userNickname + "]";
 	}
 
-	
-	
-	
-	
 	
 }

@@ -192,6 +192,14 @@ public class AdoptServiceImpl implements AdoptService {
 	}
 
 
+	@Override
+	public int putAdoptStatus(int baordCode) {
+		
+		int result = adoptMapper.putAdoptStatus(baordCode);
+		return result;
+	}
+
+
 
 
 }

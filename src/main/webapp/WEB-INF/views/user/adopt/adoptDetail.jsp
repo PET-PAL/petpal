@@ -172,8 +172,7 @@
        </script>
     </head>
 
-    <body data-spy="scroll" data-target=".navbar-collapse">
-
+    <jsp:include page="../common/userHeader.jsp"/>
 
         <!-- Preloader -->
         <div id="loading">
@@ -188,7 +187,6 @@
         </div><!--End off Preloader -->
 
 
-            <jsp:include page="../common/userHeader.jsp"/>
  		   <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt'" style="width:50px; height:50px; float: right;">
         <div class="culmn">
             <!--Home page style-->
@@ -252,19 +250,22 @@
 			                	<h2 style="background-color: orange; width: 130px; border-radius: 8px; float:left; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
 			                	대기중
 			                	</h2>
-			                	<div style="float:right;margin-right: -600px;">
-				                	<button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;">수정하기</button>
-				                	<button class="btn btn-light" style="width:100px; color: red;border:none; background-color:white;">삭제하기</button>
-			                	</div>
 		                	</c:if>
+		                	<%-- <c:if test="${requestScope.adoptDetail.userCode eq sessionScope.loginUser.code }">  --%>
+			                	<div style="float:right;margin-right: -550px;">
+				                	<button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/update'">수정하기</button>
+				                	<c:if test="${requestScope.adoptDetail.stateCode eq '1'}">
+				                		<input type="button" class="btn btn-light" style="width:150px; color: green; font-weight: bolder; border:none; background-color:white;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/update/status?board=${requestScope.adoptDetail.boardCode}'" value ="입양 완료하기"/>
+									</c:if>
+				                	<button id="delete_board_btn" class="btn btn-light" style="width:100px; color: red;border:none; background-color:white;">삭제하기</button>
+			               		</div>
+			                <%-- </c:if> --%>
                 	<!-- 상태 값에 따른 c:if 처리 -->
 		                	<c:if test="${requestScope.adoptDetail.stateCode eq '2'}">
 			                	<h2 style="float:left; background-color: #FF6230; width: 130px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">
 			                	완료
 			                	</h2>
-			                	<!-- <button style="background-color: #A91919; width: 100px; border-radius: 8px; height: 40px; color: white; font-weight: bold; padding-top: 5px; ">
-			                	신고하기
-			                	</button> -->
+			                	
 		                	</c:if>
                			 </div>
                			 <div>
@@ -353,13 +354,14 @@
 								     					output += '<td style="text-align: center; border:none;">'+' '+'</td>';
 							     						output += '<td style="border:none;">'+'</td>';
 							     						output += '<td style="text-align: center; border:none; font-weight:bold;">'+'작성된 댓글이 없습니다. 처음으로 댓글을 작성해 보세요~ ^^ '+'</td>';
-								     					output += '<td>'+'</td>';
+								     					output += '<td style="border:none;">'+'</td>';
 								     					output += '</tr>';
 							     					}
 								     				
 								     				$j3.each(replyList,function(i, item){
 								     					
 								     					var deleteYN = this.replyDeleteYN;
+								     					var reportYN = this.reportYN;
 								     					var length = $j3(this).length;
 								     					console.log(length);
 								     					
@@ -372,10 +374,18 @@
 									     					output += '<td><img onclick="test1(this)" class="'+ this.replyCode +'" title="'+this.replyUserCode +'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;">'+'</td>';
 									     					output += '</tr>';
 								     					}
-								     					if(deleteYN == 'Y'){
+								     					if(deleteYN == 'Y'&& reportYN =='N'){
 								     						output += '<tr id="tr'+i+'">';
 									     					output += '<td style="text-align: center;">'+' '+'</td>';
 								     						output += '<td>'+'삭제 된 댓글입니다.'+'</td>';
+								     						output += '<td style="text-align: center;">'+' '+'</td>';
+									     					output += '<td>'+'</td>';
+									     					output += '</tr>';
+								     					}
+								     					if(deleteYN == 'Y'&& reportYN =='Y'){
+								     						output += '<tr id="tr'+i+'">';
+									     					output += '<td style="text-align: center;">'+' '+'</td>';
+								     						output += '<td>'+'신고에 의해 삭제 된 댓글입니다.'+'</td>';
 								     						output += '<td style="text-align: center;">'+' '+'</td>';
 									     					output += '<td>'+'</td>';
 									     					output += '</tr>';
@@ -393,6 +403,7 @@
 								     			}
 								     		});
 				               		});
+				                
 				                    	</script>
 				                <div class="text-center">
 									<ul class="pagination">
@@ -410,12 +421,12 @@
                 </div>
                 
                 
-	             	<p style="margin-left: 280px;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
+	             	<p style="margin-left: 200px;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
 	             	삐비디딕
 	             	</p>
-		             <section id="sendmessage" class="sendmessage" style="width: 60%;margin-left: 100px; ">
-		                <input type="text" id="messagecontent" placeholder="  댓글로 임시보호자님을 응원해주세요!" style="width: 800px; float: left;" >
-		                <button class="sendmessagecontent" id="replySubmit" style="float:right;">댓글 작성</button>
+		             <section id="sendmessage" class="sendmessage">
+		                <input type="text" id="messagecontent" placeholder="  댓글로 임시보호자님을 응원해주세요!" style="width: 850px; float: left;" >
+		                <button class="sendmessagecontent" id="replySubmit" style="float:left;">댓글 작성</button>
 		            </section>
 		            
 		            <script>
@@ -539,8 +550,6 @@
 	                   			$j3("#reportContent").val(content);
                    				$j3("#reportReply").val(reply);
                    				$j3("#contentCode").val(Bcode);
-                   			/* 	$j3("#replycode").val(Rcode); */
-                   				/* $j3("#replyUsercode").val(RUcode); */
                    				$j3("#boardTitle").val(Btitle);
                    				
                    			});
@@ -669,8 +678,5 @@
             
             <jsp:include page="../common/footer.jsp"/>
             
-
-        <!-- JS includes -->
-
-  
+	</body>
 </html>

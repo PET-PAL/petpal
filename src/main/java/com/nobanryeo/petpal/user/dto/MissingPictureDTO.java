@@ -5,6 +5,7 @@ import java.sql.Date;
 public class MissingPictureDTO {
 	
 	private int boardCode;
+	private Date boardDate;
 	private Date missingDate;
 	private String missingArea;
 	private String missingPlace;
@@ -30,13 +31,14 @@ public class MissingPictureDTO {
 	
 	public MissingPictureDTO() {}
 
-	public MissingPictureDTO(int boardCode, Date missingDate, String missingArea, String missingPlace,
+	public MissingPictureDTO(int boardCode, Date boardDate, Date missingDate, String missingArea, String missingPlace,
 			String missingPhone, String missingBreed, String missingGender, int missingAge, String missingColor,
 			int mssingWeight, String missingCharacter, String missingRequest, String missingDeleteYN, String stateName,
 			int userCode, String dogOrcat, String userNickname, int pictureCode, String pictureURL,
 			String pictureDeleteYN, String pictureName, String pictureNewName, String pictureUtilPath) {
 		super();
 		this.boardCode = boardCode;
+		this.boardDate = boardDate;
 		this.missingDate = missingDate;
 		this.missingArea = missingArea;
 		this.missingPlace = missingPlace;
@@ -67,6 +69,14 @@ public class MissingPictureDTO {
 
 	public void setBoardCode(int boardCode) {
 		this.boardCode = boardCode;
+	}
+
+	public Date getBoardDate() {
+		return boardDate;
+	}
+
+	public void setBoardDate(Date boardDate) {
+		this.boardDate = boardDate;
 	}
 
 	public Date getMissingDate() {
@@ -247,17 +257,16 @@ public class MissingPictureDTO {
 
 	@Override
 	public String toString() {
-		return "MissingPictureDTO [boardCode=" + boardCode + ", missingDate=" + missingDate + ", missingArea="
-				+ missingArea + ", missingPlace=" + missingPlace + ", missingPhone=" + missingPhone + ", missingBreed="
-				+ missingBreed + ", missingGender=" + missingGender + ", missingAge=" + missingAge + ", missingColor="
-				+ missingColor + ", mssingWeight=" + mssingWeight + ", missingCharacter=" + missingCharacter
-				+ ", missingRequest=" + missingRequest + ", missingDeleteYN=" + missingDeleteYN + ", stateName="
-				+ stateName + ", userCode=" + userCode + ", dogOrcat=" + dogOrcat + ", userNickname=" + userNickname
-				+ ", pictureCode=" + pictureCode + ", pictureURL=" + pictureURL + ", pictureDeleteYN=" + pictureDeleteYN
-				+ ", pictureName=" + pictureName + ", pictureNewName=" + pictureNewName + ", pictureUtilPath="
-				+ pictureUtilPath + "]";
+		return "MissingPictureDTO [boardCode=" + boardCode + ", boardDate=" + boardDate + ", missingDate=" + missingDate
+				+ ", missingArea=" + missingArea + ", missingPlace=" + missingPlace + ", missingPhone=" + missingPhone
+				+ ", missingBreed=" + missingBreed + ", missingGender=" + missingGender + ", missingAge=" + missingAge
+				+ ", missingColor=" + missingColor + ", mssingWeight=" + mssingWeight + ", missingCharacter="
+				+ missingCharacter + ", missingRequest=" + missingRequest + ", missingDeleteYN=" + missingDeleteYN
+				+ ", stateName=" + stateName + ", userCode=" + userCode + ", dogOrcat=" + dogOrcat + ", userNickname="
+				+ userNickname + ", pictureCode=" + pictureCode + ", pictureURL=" + pictureURL + ", pictureDeleteYN="
+				+ pictureDeleteYN + ", pictureName=" + pictureName + ", pictureNewName=" + pictureNewName
+				+ ", pictureUtilPath=" + pictureUtilPath + "]";
 	}
 
 	
-
 }
