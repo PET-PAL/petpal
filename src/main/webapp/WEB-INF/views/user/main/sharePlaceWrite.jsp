@@ -120,6 +120,15 @@
 	    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	    <script>
 	    	var $j3 = jQuery.noConflict();
+	    	
+	    	function messageChk() {
+	    		const message = '${ requestScope.message }';
+	    		if(message != null && message !== '') {
+	    			alert(message);
+	    		} else {
+	    			location.href = '#completeReport';
+	    		}
+    		}
 	    </script>
 	</head>
 	<body data-spy="scroll" data-target=".navbar-collapse">
@@ -205,7 +214,7 @@
 	                <input type="hidden" id="pictureURL" name="pictureURL"/>
 	                <input type="hidden" id="pictureNewName" name="pictureNewName"/>
 	                <input type="hidden" id="pictureUtilPath" name="pictureUtilPath"/>
-			    <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button type="button" class="reviewWrite" onclick="location.href='#completeReport'">게시글 작성</button></div>
+			    <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button type="button" class="reviewWrite" onclick="messageChk()">게시글 작성</button></div>
 			    
 			    <div id="completeReport" class="overlay">
             		<div class="popup">

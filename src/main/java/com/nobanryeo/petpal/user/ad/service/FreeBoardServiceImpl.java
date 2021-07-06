@@ -12,6 +12,7 @@ import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 
 @Service
@@ -25,10 +26,15 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 	}
 	
 	@Override
-	public List<FreeBoardDTO> selectFreeBoardList() {
+	public int selectFreeBoardCount() {
+		return freeBoardMapper.selectFreeBoardCount();
+	}
+	
+	@Override
+	public List<FreeBoardDTO> selectFreeBoardList(PageDTO page) {
 		
 		List<FreeBoardDTO> selectFreeBoardList = new ArrayList<>();
-		selectFreeBoardList = freeBoardMapper.selectFreeBoardList();
+		selectFreeBoardList = freeBoardMapper.selectFreeBoardList(page);
 		
 		return selectFreeBoardList;
 	}

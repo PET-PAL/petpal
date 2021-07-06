@@ -46,9 +46,12 @@
         <title>PET-PAL</title>
         
         <!-- summerNote -->
-    	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    	<script>
+    		var $j3 = jQuery.noConflict();
+    	</script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -93,11 +96,38 @@
 						</table>
 	  						 <textarea id="summernote" name="boardContent"></textarea>
 	  						 <script>
-						      $('#summernote').summernote({
-						    	  placeholder: '광고 문의 작성란입니다.',
-						          tabsize: 2,
-						          height: 500
-						      });
+	  						$j3('#summernote').summernote({
+		  	                    placeholder: '정보공유 게시글을 작성해주세요',
+		  	                    tabsize: 2,
+		  	                    height: 500,
+		  	                    callbacks: {
+		  	                        onImageUpload: function(files, editor, welEditable) {
+		  	                            sendFile(files[0], editor,welEditable);
+		  	                        }
+		  	                    }
+		  	                });
+	  					
+						    function sendFile(file, editor,welEditable) {
+						  		var form_data = new FormData();
+							    form_data.append('file', file);
+							    $j3.ajax({
+								    data: form_data,
+								    type: "POST",
+								    url: '${pageContext.servletContext.contextPath}/user/insert/adQnAImg',
+								    cache: false,
+								    contentType: false,
+								    enctype: 'multipart/form-data',
+								    processData: false,
+								    success: function(data) {
+								    	$j3('#summernote').summernote('editor.insertImage', data.url);
+								    	console.log(data.url);
+								    	$j3("#pictureName").val(data.pictureName);
+								    	$j3("#pictureURL").val(data.pictureURL);
+								    	$j3("#pictureNewName").val(data.pictureNewName);
+								    	$j3("#pictureUtilPath").val(data.pictureUtilPath);
+									}
+						       	});
+						    }
 						    </script>
 			        </div>
 					<div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button type="submit" class="adQnaWrite">광고 문의 작성</button></div>

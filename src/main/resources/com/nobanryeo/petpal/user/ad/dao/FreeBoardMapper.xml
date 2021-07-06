@@ -56,18 +56,31 @@
 
 	
 	
-	<select id="selectFreeBoardList" parameterType="FreeBoardDTO" resultMap="freeBoardResultSet">
-        SELECT
-               A.BOARD_TITLE
-             , A.BOARD_VIEWS
-             , A.BOARD_POST_DATE
-             , B.USER_NIKNAME
-             , A.CATEGORY
-             , A.BOARD_CODE
+	<select id="selectFreeBoardCount" resultType="int">
+        SELECT COUNT(*)
           FROM FREE_BOARD A
-          JOIN USER_TABLE B ON (B.USER_CODE = A.USER_CODE)
          WHERE BOARD_DELETE_YN = 'N'
-         ORDER BY A.BOARD_CODE DESC
+	</select>
+	
+	<select id="selectFreeBoardList" parameterType="FreeBoardDTO" resultMap="freeBoardResultSet">
+        SELECT * 
+		  FROM (
+			     SELECT ROWNUM RN, C.* 
+			       FROM (
+		                 SELECT
+		                        A.BOARD_TITLE
+		                      , A.BOARD_VIEWS
+		                      , A.BOARD_POST_DATE
+		                      , B.USER_NIKNAME
+		                      , A.CATEGORY
+		                      , A.BOARD_CODE
+		                   FROM FREE_BOARD A
+		                   JOIN USER_TABLE B ON (B.USER_CODE = A.USER_CODE)
+		                  WHERE BOARD_DELETE_YN = 'N'
+		                  ORDER BY A.BOARD_CODE DESC
+                        ) C
+               )
+	     WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
 	<update id="updateFreeBoardViews" parameterType="FreeBoardDTO">
