@@ -1,9 +1,6 @@
 package com.nobanryeo.petpal.user.mypage.controller;
 
 
-import java.util.HashMap;
-import java.util.List;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -25,7 +22,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
 import com.nobanryeo.petpal.user.dto.BoradAndCommentDTO;
-import com.nobanryeo.petpal.user.dto.MissingDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 import com.nobanryeo.petpal.user.mypage.service.UserService;
@@ -284,42 +280,7 @@ public class UserController {
 		
 		return "redirect:/";
 	}
-	
-	@GetMapping("review")
-	public String review(Model model, BoradAndCommentDTO bcDTO, PageDTO page
-			, @RequestParam(value="nowPage", required = false)String nowPage
-			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
-		
-//		int total = userService.selectReviewPostCount();
-//		
-//		System.out.println("토탈 카운트 : " + total);
-//		System.out.println("nowPage : " + nowPage);
-//		System.out.println("cntPerPage : " + cntPerPage);
-//		
-//		
-//		if(nowPage == null && cntPerPage == null) {
-//			nowPage = "1";
-//			cntPerPage = "10";
-//		} else if(nowPage == null) {
-//			nowPage = "1";
-//		} else if(cntPerPage == null) {
-//			cntPerPage = "10";
-//		}
-//		
-//		page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-//		
-//		System.out.println("문의 현재 페이지 : " + page.getNowPage());
-//		System.out.println("문의 마지막 페이지 : " + page.getEnd());
-//		System.out.println("문의 페이지당 글 갯수 : " + page.getCntPerPage());
-//		
-//		List<BoradAndCommentDTO> reviewList = userService.selectMissing(page);
-//		
-//		System.out.println(reviewList);
-		
-		return "user/community/reviewList";
-	}
-	
-	
+
 
 }
 

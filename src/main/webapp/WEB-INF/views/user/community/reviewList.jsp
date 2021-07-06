@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -147,35 +148,37 @@
 			                </tr>
 			            </thead>
 			            <tbody>
-			                <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewDetail.jsp'">
-			                	<td></td>
-			                    <td style="text-align: center;">강아지 옷 리뷰</td>
-			                    <td style="text-align: center;">킘유진</td>
-			                    <td style="text-align: center;">367</td>
-			                    <td style="text-align: center;">2021-06-17</td>
-			                </tr>
-			                <tr onclick="location.href=''">
-			                	<td class="blink" style="color:red; text-align: left; margin-left: 5px; font-weight: 600; font-size: 1.2em;">AD</td>
-			                    <td style="text-align: center;">고양이 사료 추천드려요~!</td>
-			                    <td style="text-align: center;">업나라</td>
-			                    <td style="text-align: center;">36</td>
-			                    <td style="text-align: center;">2021-06-17</td>
-			                </tr>
-			                <tr onclick="location.href=''">
-			                	<td></td>
-			                    <td style="text-align: center;">캣타워 개꾸루루룰~!</td>
-			                    <td style="text-align: center;">손성훙</td>
-			                    <td style="text-align: center;">173</td>
-			                    <td style="text-align: center;">2021-06-17</td>
-			                </tr>
+			                <c:forEach var="arr" items="${ reviewList }">
+					                <tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/review/reviewDetail?boardCode=${ arr.boardCode }'">
+					                	<td></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.boardTitle }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.userNickName }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.boardViews }"/></td>
+					                    <td style="text-align: center;"><c:out value="${ arr.boardPostDate }"/></td>
+					                </tr>
+			                </c:forEach>
 			            </tbody>
 			        </table>
 			        <div class="text-center">
 						<ul class="pagination">
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
+						<li>
+							<c:if test="${paging.startPage != 1 }">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/review?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+							</c:if>
+							<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+								<c:choose>
+									<c:when test="${p == paging.nowPage }">
+										<li><a>${p }</a></li>
+									</c:when>
+									<c:when test="${p != paging.nowPage }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/review?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${paging.endPage != paging.lastPage}">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/review?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+							</c:if>
+							</li>
 						</ul>
 					</div>
 	            </div>
