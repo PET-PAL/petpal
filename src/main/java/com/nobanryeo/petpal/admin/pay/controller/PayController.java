@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.admin.pay.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -307,8 +309,34 @@ public class PayController {
 		List<AdAdminDTO> selectTaxDetail = payAdminService.selectTaxDetail(adCode);
 				
 		System.out.println("조회된 광고 관리 디테일 : " + selectTaxDetail);
+		
+		// 2차 금액
+		String price2nd = String.valueOf(selectTaxDetail.get(0).getPrice2nd());
+		
+		// 세액
+		String taxPrice = String.valueOf(selectTaxDetail.get(0).getTaxPrice());
+		
+		// 월 일
+		Date taxday = selectTaxDetail.get(0).getTaxBillDate();
+		
+		String taxString = DateFormatUtils.format(taxday, "yyyy-MM-dd");
+		
+		System.out.println("taxString : " + taxString);
+		
+		String year = taxString.substring(0,4);
+		String month = taxString.substring(5,7);
+		String day = taxString.substring(8,10);
+		
+		System.out.println("년도 : " + year);
+		System.out.println("월 : " + month);
+		System.out.println("일 : " + day);
 				
 		model.addAttribute("adApprove", selectTaxDetail);
+		model.addAttribute("taxMonthDay", month);
+		model.addAttribute("taxDayDay", day);
+		model.addAttribute("price2nd", price2nd);
+		model.addAttribute("taxPrice", price2nd);
+		
 		
 		return "admin/main/taxbill";
 	}

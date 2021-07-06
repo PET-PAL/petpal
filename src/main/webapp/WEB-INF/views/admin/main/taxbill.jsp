@@ -37,7 +37,7 @@
 </style>
 </head>
 <script>
-	  var str = "${taxBill.supplyPrice}"
+	  var str = "${requestScope.price2nd}"
       var last = str.charAt(str.length-1);
       var last1 = str.charAt(str.length-2);
       var last2 = str.charAt(str.length-3);
@@ -48,7 +48,7 @@
       var last7 = str.charAt(str.length-8);
       var last8 = str.charAt(str.length-9);
       
-      var tax = "${taxBill.tax}";
+      var tax = "${requestScope.taxPrice}";
       var tax1 = tax.charAt(tax.length-1);
       var tax2 = tax.charAt(tax.length-2);
       var tax3 = tax.charAt(tax.length-3);
@@ -78,7 +78,7 @@
 		 	<p role="presentation" style="font-weight:800; font-size:25px; color:black; margin-top:10px;">세금계산서 상세보기</p>
                         </div>	
 					 <div class="col-md-25">
-							 <a href="taxManageList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+							 <a href="${ pageContext.servletContext.contextPath }/admin/taxManageList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
 							                               			style="width:50px;height:52px; margin-top:-60px; float:right;"></a>
 
 <table width='778' cellpadding='0' cellspacing='0' align='center'>
@@ -194,7 +194,7 @@
       <td class='border_top' align='center' width='156' rowspan='2'>&nbsp;</td>
      </tr>
      <tr>
-      <td class='border_up' align='center' width='85' height='25'><script>document.write(year + '-' + month + '-' + date)</script> </td>
+      <td class='border_up' align='center' width='85' height='25'>${ adApprove.taxBillDate } </td>
       <td class='border_up' align='center' width='35'>&nbsp;</td>
       <td class='border_up' align='center' width='20'>&nbsp;</td>
       <td class='border_up' align='center' width='20'>&nbsp;</td>
@@ -209,6 +209,7 @@
       <td class='border_up' align='center' width='20'><script>document.write(last)</script></td>
       
       <td class='border_up' align='center' width='20'>&nbsp;</td>
+      <td class='border_up' align='center' width='20'>&nbsp;</td>
       <td class='border_up' align='center' width='20'><script>document.write(tax9)</script></td>
       <td class='border_up' align='center' width='20'><script>document.write(tax8)</script></td>
       <td class='border_up' align='center' width='20'><script>document.write(tax7)</script></td>
@@ -217,7 +218,6 @@
       <td class='border_up' align='center' width='20'><script>document.write(tax4)</script></td>
       <td class='border_up' align='center' width='20'><script>document.write(tax3)</script></td>
       <td class='border_up' align='center' width='20'><script>document.write(tax2)</script></td>
-      <td class='border_up' align='center' width='20'><script>document.write(tax1)</script></td>
      </tr>
     </table>
     </c:forEach>
@@ -238,19 +238,21 @@
       <td class='border_top' align='center' width='60'>비고</td>
      </tr>
      <tr>
-      <td class='border_up' align='center' width='50' height='25'><c:out value="${taxBill.stlDate }"></c:out></td>
+     <%-- <c:forEach var="taxFullDay" items="${ requestScope.taxFullDay }"> --%>
+      <td class='border_up' align='center' width='50' height='25'><c:out value="${taxMonthDay}"/>-<c:out value="${taxDayDay}"/></td>
+		<%-- </c:forEach>       --%>
       <td class='border_up' align='center' width='195'>
  		<c:choose>
-			 <c:when test="${adDetail.adTypeCode eq 1}">
+			 <c:when test="${adApprove.adTypeCode eq 1}">
 			 	장소 외
 			 </c:when>
-			 <c:when test="${adDetail.adTypeCode eq 3}">
+			 <c:when test="${adApprove.adTypeCode eq 3}">
 			 	장소 외
 			 </c:when>
-			 <c:when test="${adDetail.adTypeCode eq 2}">
+			 <c:when test="${adApprove.adTypeCode eq 2}">
 			 	장소
 			 </c:when>
-			 <c:when test="${adDetail.adTypeCode eq 4}">
+			 <c:when test="${adApprove.adTypeCode eq 4}">
 			 	장소
 			 </c:when>
 	    </c:choose>
@@ -258,10 +260,10 @@
       <td class='border_up' align='center' width='42'>&nbsp;</td>
       <td class='border_up' align='center' width='65'>
        <c:choose>
-		     <c:when test="${adDetail.adTypeCode eq 1}">
+		     <c:when test="${adApprove.adTypeCode eq 1}">
 		     	1주
 		     </c:when>
-		     <c:when test="${adDetail.adTypeCode eq 2}">
+		     <c:when test="${adApprove.adTypeCode eq 2}">
 		     	1주
 		     </c:when>
 		     <c:otherwise>
@@ -310,6 +312,7 @@
   </tr>
   <tr>
    <td width='100%'>
+   <c:forEach var="adApprove" items="${ requestScope.adApprove }">
     <table cellpadding='0' cellspacing='0' width='700'>
      <tr align='justify'>
       <td class='border_up' align='center' width='122' height='2'>합계금액</td>
@@ -320,13 +323,14 @@
       <td class='border_top' rowspan='2' align='center' width='143'>이 금액을 징수 함</td>
      </tr>
      <tr>
-      <td class='border_up' align='center' width='122' height='25'><c:out value="${taxBill.tax }"></c:out></td>
+      <td class='border_up' align='center' width='122' height='25'><c:out value="${adApprove.taxPrice + adApprove.price2nd }"></c:out></td>
       <td class='border_up' align='center' width='108'> V </td>
       <td class='border_up' align='center' width='108'>&nbsp;</td>
       <td class='border_up' align='center' width='108'>&nbsp;</td>
       <td class='border_up' align='center' width='108'>&nbsp;</td>
      </tr>
     </table>
+    </c:forEach>
    </td>
   </tr>
 </table>
@@ -371,7 +375,8 @@
    </td>
   </tr>
   <tr> 
-   <td>
+   <td> 
+   <c:forEach var="adApprove" items="${ requestScope.adApprove }">
     <table cellpadding='0' cellspacing='0' width='700'>
      <tr>
       <td class='border_up_red' align='center' width='17' rowspan='4'>공<br><br><br>급<br><br><br>자</td>
@@ -379,39 +384,41 @@
       <td class='border_up_red' align='center' width='278' colspan='5'>&nbsp;</td>
       <td class='border_up_red' align='center' width='17' rowspan='4'>공<br>급<br>받<br>는<br>자</td>
       <td class='border_up_red' align='center' width='55'>등록번호</td>
-      <td class='border_top_red' align='center' width='278' colspan='5'><c:out value="${taxBill.registrationNo }"></c:out></td>
+      <td class='border_top_red' align='center' width='278' colspan='5'>${adApprove.companyNumber }</td>
      </tr>
      <tr>
       <td class='border_up_red' align='center' width='55' height='33'>상 호<br>(법입명)</td>
       <td class='border_up_red' align='center' width='160' colspan='3'>펫 팔</td>
       <td class='border_up_red' align='center' width='12' colspan='1'>성<br>명</td>
-      <td class='border_up_red' align='right' width='94' colspan='1'>황주희 인</td>
+      <td class='border_up_red' align='right' width='94' colspan='1'>김해인 인</td>
       <td class='border_up_red' align='center' width='55'>상 호<br>(법입명)</td>
-      <td class='border_up_red' align='center' width='160' colspan='3'><c:out value="${taxBill.accomoName }"></c:out></td>
+      <td class='border_up_red' align='center' width='160' colspan='3'><c:out value="${adApprove.companyName }"></c:out></td>
       <td class='border_up_red' align='center' width='12' colspan='1'>성<br>명</td>
-      <td class='border_top_red' align='right' width='94' colspan='1'><c:out value="${taxBill.ceoName }"></c:out> 인</td>
+      <td class='border_top_red' align='right' width='94' colspan='1'><c:out value="${adApprove.leaderName }"></c:out> 인</td>
      </tr>
      <tr>
       <td class='border_up_red' align='center' width='55' height='33'>사업장<br>주  소</td>
       <td class='border_up_red' align='center' width='278' colspan='5'>서울</td>
       <td class='border_up_red' align='center' width='55'>사업장<br>주  소</td>
-      <td class='border_top_red' align='center' width='278' colspan='5'><c:out value="${taxBill.accomoAddress }"></c:out></td>
+      <td class='border_top_red' align='center' width='278' colspan='5'><c:out value="${adApprove.companyLocation }"></c:out></td>
      </tr>
      <tr>
       <td class='border_up_red' align='center' width='55' height='33'>업  태</td>
-      <td class='border_up_red' align='center' width='148' colspan='1'>&nbsp;</td>
-      <td class='border_up_red' align='center' width='12' colspan='1'>종<br>목</td>
-      <td class='border_up_red' align='center' width='106' colspan='3'>&nbsp;</td>
-      <td class='border_up_red' align='center' width='55'>업 &nbsp; 태</td>
       <td class='border_up_red' align='center' width='148' colspan='1'>광고 대행업</td>
       <td class='border_up_red' align='center' width='12' colspan='1'>종<br>목</td>
-      <td class='border_top_red' align='center' width='106' colspan='3'><c:out value="${taxBill.accomoType }"></c:out></td>
+      <td class='border_up_red' align='center' width='106' colspan='3'>반려동물 서비스업</td>
+      <td class='border_up_red' align='center' width='55'>업 &nbsp; 태</td>
+      <td class='border_up_red' align='center' width='148' colspan='1'><c:out value="${adApprove.industry }"></c:out></td>
+      <td class='border_up_red' align='center' width='12' colspan='1'>종<br>목</td>
+      <td class='border_top_red' align='center' width='106' colspan='3'><c:out value="${adApprove.industryDetail }"></c:out></td>
      </tr>
     </table>
+    </c:forEach>
    </td>
   </tr>
   <tr>
    <td width='100%'>
+   <c:forEach var="adApprove" items="${ requestScope.adApprove }">
     <table cellpadding='0' cellspacing='0' width='700'>
      <tr>
       <td class='border_up_red' align='center' width='85' height='21'>작 &nbsp; 성</td>
@@ -448,7 +455,7 @@
       <td class='border_top_red' align='center' width='156' rowspan='2'>&nbsp;</td>
      </tr>
      <tr>
-      <td class='border_up_red' align='center' width='85' height='25'><script>document.write(year + '-' + month + '-' + date)</script></td>
+      <td class='border_up_red' align='center' width='85' height='25'>${ adApprove.taxBillDate }</td>
       <td class='border_up_red' align='center' width='35'>&nbsp;</td>
       <td class='border_up_red' align='center' width='20'>&nbsp;</td>
       <td class='border_up_red' align='center' width='20'>&nbsp;</td>
@@ -463,6 +470,7 @@
       <td class='border_up_red' align='center' width='20'><script>document.write(last)</script></td>
       
       <td class='border_up_red' align='center' width='20'>&nbsp;</td>
+      <td class='border_up_red' align='center' width='20'>&nbsp;</td>
       <td class='border_up_red' align='center' width='20'><script>document.write(tax9)</script></td>
       <td class='border_up_red' align='center' width='20'><script>document.write(tax8)</script></td>
       <td class='border_up_red' align='center' width='20'><script>document.write(tax7)</script></td>
@@ -471,13 +479,14 @@
       <td class='border_up_red' align='center' width='20'><script>document.write(tax4)</script></td>
       <td class='border_up_red' align='center' width='20'><script>document.write(tax3)</script></td>
       <td class='border_up_red' align='center' width='20'><script>document.write(tax2)</script></td>
-      <td class='border_up_red' align='center' width='20'><script>document.write(tax1)</script></td>
      </tr>
     </table>
+    </c:forEach>
    </td>
   </tr>
   <tr>
    <td width='100%'>
+   <c:forEach var="adApprove" items="${ requestScope.adApprove }">
     <table cellpadding='0' cellspacing='0' width='700'>
      <tr>
       <td class='border_up_red' align='center' width='50' height='21'>월 일</td>
@@ -490,13 +499,40 @@
       <td class='border_top_red' align='center' width='60'>비고</td>
      </tr>
      <tr>
-      <td class='border_up_red' align='center' width='50' height='25'><c:out value="${taxBill.stlDate }"></c:out></td>
-      <td class='border_up_red' align='center' width='195'><c:out value="${taxBill.accomoName }"></c:out></td>
+      <td class='border_up_red' align='center' width='50' height='25'><c:out value="${taxMonthDay}"/>-<c:out value="${taxDayDay}"/></td>
+      <td class='border_up_red' align='center' width='195'>
+      <c:choose>
+			 <c:when test="${adApprove.adTypeCode eq 1}">
+			 	장소 외
+			 </c:when>
+			 <c:when test="${adApprove.adTypeCode eq 3}">
+			 	장소 외
+			 </c:when>
+			 <c:when test="${adApprove.adTypeCode eq 2}">
+			 	장소
+			 </c:when>
+			 <c:when test="${adApprove.adTypeCode eq 4}">
+			 	장소
+			 </c:when>
+	    </c:choose>
+      </td>
       <td class='border_up_red' align='center' width='42'>&nbsp;</td>
-      <td class='border_up_red' align='center' width='65'><c:out value="${taxBill.count }"></c:out></td>
-      <td class='border_up_red' align='center' width='55'><c:out value="${taxBill.price }"></c:out></td>
-      <td class='border_up_red' align='center' width='150'><c:out value="${taxBill.supplyPrice }"></c:out></td>
-      <td class='border_up_red' align='center' width='83'><c:out value="${taxBill.tax }"></c:out></td>
+      <td class='border_up_red' align='center' width='65'>
+       <c:choose>
+		     <c:when test="${adApprove.adTypeCode eq 1}">
+		     	1주
+		     </c:when>
+		     <c:when test="${adApprove.adTypeCode eq 2}">
+		     	1주
+		     </c:when>
+		     <c:otherwise>
+		     	2주
+		     </c:otherwise>
+       </c:choose>
+      </td>
+      <td class='border_up_red' align='center' width='55'><c:out value="${adApprove.price2nd }"></c:out></td>
+      <td class='border_up_red' align='center' width='150'><c:out value="${adApprove.price2nd }"></c:out></td>
+      <td class='border_up_red' align='center' width='83'><c:out value="${adApprove.taxPrice }"></c:out></td>
       <td class='border_top_red' align='center' width='60'>&nbsp;</td>
      </tr>
      <tr>
@@ -530,10 +566,12 @@
       <td class='border_top_red' align='center' width='60'>&nbsp;</td>
      </tr>
     </table>
+    </c:forEach>
    </td>
   </tr>
   <tr>
    <td width='100%'>
+   <c:forEach var="adApprove" items="${ requestScope.adApprove }">
     <table cellpadding='0' cellspacing='0' width='700'>
      <tr align='justify'>
       <td class='border_up_red' align='center' width='122' height='2'>합계금액</td>
@@ -544,13 +582,14 @@
       <td class='border_top_red' rowspan='2' align='center' width='143'>이 금액을 징수 함</td>
      </tr>
      <tr>
-      <td class='border_up_red' align='center' width='122' height='25'><c:out value="${taxBill.tax }"></c:out></td>
+      <td class='border_up_red' align='center' width='122' height='25'><c:out value="${adApprove.taxPrice + adApprove.price2nd }"></c:out></td>
       <td class='border_up_red' align='center' width='108'> V </td>
       <td class='border_up_red' align='center' width='108'>&nbsp;</td>
       <td class='border_up_red' align='center' width='108'>&nbsp;</td>
       <td class='border_up_red' align='center' width='108'>&nbsp;</td>
      </tr>
     </table>
+    </c:forEach>
    </td>
   </tr>
 </table>
