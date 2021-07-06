@@ -262,35 +262,54 @@ public class PayController {
 			// 페이징 정보
 			paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category);
 			
-			// 광고 심사 리스트
+			// 세금계산서 리스트
 			List<AdAdminDTO> selectTaxAllList = payAdminService.selectTaxAllList(paging);
+			
+			// 세금계산서 현재 페이지 게시물 갯수 조회
+			int cntNowPage = payAdminService.selectTaxNumber(paging);
+			
+			for (int i = 0; i < cntNowPage; i++) {
+				
+				if(selectTaxAllList.get(i).getCancelApplyDate() != null && selectTaxAllList.get(i).getCalApplyDate() > 7) {
+					selectTaxAllList.get(i).setPayStatus("납부완료");
+				} else if(selectTaxAllList.get(i).getCancelApplyDate() == null && selectTaxAllList.get(i).getCalEndDate() > 7) {
+					selectTaxAllList.get(i).setPayStatus("납부완료");
+				} else {
+					selectTaxAllList.get(i).setPayStatus("납부전");
+				}
+				
+				System.out.println(selectTaxAllList.get(i).getPayStatus());
+			}
+			
 			
 			System.out.println("검색 안 했을 때 검색결과 : " + selectTaxAllList);
 			
 			// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
 			model.addAttribute("paging", paging);
-			model.addAttribute("adApproveList", selectTaxAllList);
+			model.addAttribute("taxList", selectTaxAllList);
 			model.addAttribute("category", category);
 			model.addAttribute("total", total);
 					
 				}
 		
 		
-		
-		
-		
-		
-		
-		
+
 		
 		return "admin/main/taxManageList";
 	}
 	
 	
 	//세금계산서 디테일 (세금계산서 보기)
-	@RequestMapping("taxbill")
-	public String taxbillReturning() {
-			
+	@RequestMapping(value="taxManageList/{adCode}", method=RequestMethod.GET)
+	public String taxbillReturning(Model model, @PathVariable("adCode") int adCode) {
+		
+		// 광고관리 정보 조회
+		List<AdAdminDTO> selectTaxDetail = payAdminService.selectTaxDetail(adCode);
+				
+		System.out.println("조회된 광고 관리 디테일 : " + selectTaxDetail);
+				
+		model.addAttribute("adApprove", selectTaxDetail);
+		
 		return "admin/main/taxbill";
 	}
 }

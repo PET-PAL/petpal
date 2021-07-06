@@ -57,7 +57,10 @@
 			  color: #A5A5A5;
 			}
         </style>
-
+		<script type="text/javascript"src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+       	 <script>
+          var $j3 = jQuery.noConflict();
+       </script>
     </head>
 
 	     <jsp:include page="../common/userHeader.jsp"/>
@@ -94,13 +97,13 @@
 								<tr>
 									<td>날짜</td>
 									<td>
-										<select class="form-select" >
+										<select class="form-select" id="year">
 						                    <option value="2021" >2021</option>
 							                <option value="2020">2020</option>
 							                <option value="2019">2019</option>
 						                 </select>	
 						                 -
-						                 <select class="form-select" size="1" style="overflow-y:scroll;">
+						                 <select class="form-select" size="1" style="overflow-y:scroll;" id="month">
 						                    <option value="1" >01</option>
 							                <option value="2">02</option>
 							                <option value="3">03</option>
@@ -115,7 +118,7 @@
 							                <option value="12">12</option>
 						                 </select>
 						                 -
-						                 <select class="form-select" size="1" style="overflow-y:scroll;" >
+						                 <select class="form-select" size="1" style="overflow-y:scroll;" id="date">
 						                    <option value="1" >01</option>
 							                <option value="2">02</option>
 							                <option value="3">03</option>
@@ -148,24 +151,25 @@
 							                <option value="30">30</option>
 							                <option value="31">31</option>
 						                 </select>						
+									<input type="hidden" id="missingDate" name="missingDate"/>
 									</td>
 								</tr>
 								<tr>
 									<td>지역</td>
 									<td>
-									<input type="text" id="missingarea" name="missingarea" style="width: 240px; background: #F1FAF8;" placeholder=" 예시) 서울특별시 서초구" > 
+									<input type="text" id="area" name="area" style="width: 240px; background: #F1FAF8;" placeholder=" 예시) 서울특별시 서초구" > 
 									    
 									</td>
 									
 								</tr>
 								<tr>
 									<td>장소</td>
-									<td><input type="text" id="missingPlace" name="missingPlace" style="width: 240px; background: #F1FAF8;" placeholder=" 예시) 강남초등학교 정문 부근" ></td>
+									<td><input type="text" id="place" name="place" style="width: 240px; background: #F1FAF8;" placeholder=" 예시) 강남초등학교 정문 부근" ></td>
 								</tr>
 								
 								<tr>
 									<td>연락처</td>
-									<td><input type="text" id="ownerPhone" name="ownerPhone" style="width: 240px; background: #F1FAF8;" placeholder=" 예시) 010-1234-5678" ></td>
+									<td><input type="text" id="phone" name="phone" style="width: 240px; background: #F1FAF8;" placeholder=" 예시) 010-1234-5678" ></td>
 								</tr>
 								</table>
 								<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px;  ">
@@ -175,36 +179,40 @@
 								<tr>
 									<td>품종</td>
 									<td>
-										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="dogOrcat" value="C" checked> 고양이</label>
-										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="dogOrcat" value="D" > 강아지</label>
-										<input type="text" id="ownerName" style="width: 130px; background: #F1FAF8;"placeholder=" 예시) 닥스훈트"  >								
+										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="dOc" value="C" checked> 고양이</label>
+										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="dOc" value="D" > 강아지</label>
+										<input type="text" id="breed" name="breed" style="width: 130px; background: #F1FAF8;"placeholder=" 예시) 닥스훈트"  >								
 									</td>
 								</tr>	
 																<tr>
 									<td>성별</td>
 									<td>
-										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="missingGender" value="F" checked> 암컷</label>
-										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="missingGender" value="M" > 수컷</label>													
+										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="gender" value="F" checked> 암컷</label>
+										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="gender" value="M" > 수컷</label>													
 									</td>
 								</tr>
 								<tr>
 									<td>나이</td>
-									<td><input type="text" name="missingAge" id="age" style="width: 80px; background: #F1FAF8;" >  살</td>
+									<td><input type="text" name="age" id="age" style="width: 80px; background: #F1FAF8;" >  살</td>
 								</tr>
 								<tr>
 									<td>몸무게</td>
-									<td><input type="text" id="weight" name="missingWeight" style="width: 80px; background: #F1FAF8;"  >  KG</td>
+									<td><input type="text" id="weigth" name="weigth" style="width: 80px; background: #F1FAF8;"  >  KG</td>
+								</tr>
+								<tr>
+									<td>색상</td>
+									<td><input type="text" id="color" name="color" style="width: 150px; background: #F1FAF8;" placeholder=" 예시)브라운" ></td>
 								</tr>
 								<tr>
 									<td>특징</td>
-									<td><textarea name="missingCharacter" rows="3" id="textArea" class="input-xlarge" style="background: #F1FAF8;"
+									<td><textarea name="character" rows="3" id="character" class="input-xlarge" style="background: #F1FAF8;"
 									placeholder=" 예시) 빨간 목줄을 하고 있어요. 꼬리가 사고로 짧아요. &#13;&#10; 바로 알아 볼 수 있는 특징을 적어주세요! (특수기호, 공백 포함 50자 이내)"
 									></textarea></td>
 									
 								</tr>
 								<tr>
 									<td>기타</td>
-									<td><textarea name ="missingRequest" rows="3" id="textArea" class="input-xlarge" style="background: #F1FAF8;"
+									<td><textarea name ="request" rows="3" id="request" class="input-xlarge" style="background: #F1FAF8;"
 									placeholder=" 예시) 예민한 아이입니다. 목격시 다가가지 말고 연락주세요. &#13;&#10; 목격 했을 때의 상황 등의 주의사항을 적어주세요! (특수기호, 공백 포함 40자 이내)"
 									></textarea></td>
 								</tr>
@@ -217,7 +225,7 @@
 									</td>
 								</tr>	
 						</table>
-                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button type="submit"> 동물 신고하기</button></div>
+                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button id="button" type="submit"> 동물 신고하기</button></div>
 	                </div>
 				</form>
             </section>
@@ -234,7 +242,23 @@
        					fl.reset();
        				};
        			};
-            	
+       	
+       	$j3("#button").click(function(){
+       		
+       		var msYear = document.getElementById("year");
+       		var msMonth = document.getElementById("month");
+       		var msDate = document.getElementById("date");
+       		
+       		msYear = msYear.options[msYear.selectedIndex].value;
+       		msMonth = msMonth.options[msMonth.selectedIndex].value;
+       		msDate = msDate.options[msDate.selectedIndex].value;
+       		var misDate = msYear+"-"+msMonth+"-"+msDate;
+       		
+       		console.log(misDate);
+       		$j3("#missingDate").val(misDate);
+       	
+       	});
+       		
             </script>
             
             <!-- 오른쪽 배너 -->

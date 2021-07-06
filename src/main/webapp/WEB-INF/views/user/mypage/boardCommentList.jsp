@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -155,36 +156,260 @@
 						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		                	<table class="table table-hover" style="margin-bottom: 50px;">
 			                    <thead>
+			                    <c:choose>
+			                    	<c:when test="${ type eq 'G' }">
+			                    	<tr style="background-color: #F1FAF8;">
+			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>댓글 내용</b></th>
+	                                    <th style="text-align: center;"><b>날짜</b></th>
+			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>게시글 삭제</b></th>
+			                        </tr>
+			                    	</c:when>
+			                    <c:otherwise>
 			                        <tr style="background-color: #F1FAF8;">
 			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>제목</b></th>
 	                                    <th style="text-align: center;"><b>날짜</b></th>
 			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>게시글 삭제</b></th>
 			                        </tr>
+			                    </c:otherwise>
+			                    </c:choose>
 			                    </thead>
 			                    <tbody>
-			                        <tr onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp'">
-			                            <td style="text-align: center;">강아지 옷 리뷰</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-			                            <td style="text-align: center;"><button>삭제</button></td>
-			                        </tr>
-			                        <tr onclick="location.href=''">
-			                            <td style="text-align: center;">저희 코코 자랑~!</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-			                            <td style="text-align: center;"><button>삭제</button></td>
-			                        </tr>
-			                        <tr onclick="location.href=''">
-			                            <td style="text-align: center;">약 3개월 시바견 임보 중</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-			                            <td class="notbutton" style="text-align: center;"><button disabled>삭제불가</button></td>
-			                        </tr>
+			                    <c:if test="${ type eq 'A' }">
+			                        <c:forEach items="${ aList }" var="list">
+								    <tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing'">
+										<c:if test="${ list.gender eq 'M'}">
+										<td style="text-align: center;">${ list.breed }/남아/${ list.color }</td>
+										</c:if>
+										<c:if test="${ list.gender eq 'F'}">
+										<td style="text-align: center;">${ list.breed }/여아/${ list.color }</td>
+										</c:if>
+										<td style="text-align: center;">${ list.missingDate }</td>
+										<td style="text-align: center;"><button>삭제</button></td>
+									</tr>
+									</c:forEach>
+									</c:if>
+			                        <c:if test="${ type eq 'B' }">
+			                        <c:forEach items="${ bList }" var="list">
+									<tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/detail/${ list.boardCode }'">
+										<c:if test="${ list.adoptGender eq 'M'}">
+										<td style="text-align: center;">${ list.adoptBreed }/남아/${ list.adoptColor }</td>
+										</c:if>
+										<c:if test="${ list.adoptGender eq 'F'}">
+										<td style="text-align: center;">${ list.adoptBreed }/여아/${ list.adoptColor }</td>
+										</c:if>
+										<td style="text-align: center;">${ list.boardDate }</td>
+										<c:if test="${ list.stateCode eq 1 }">
+										<td style="text-align: center;"><button>삭제</button></td>
+										</c:if>
+										<c:if test="${ list.stateCode eq 2 }">
+										<td style="text-align: center;"><button disabled>삭제불가</button></td>
+										</c:if>
+									</tr>
+									</c:forEach>
+			                        </c:if>
+			                        <c:if test="${ type eq 'C' }">
+			                        <c:forEach items="${ cList }" var="list">	
+									<tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
+										<td style="text-align: center;">${ list.boardTitle }</td>
+										<td style="text-align: center;">${ list.postDate }</td>
+										<td style="text-align: center;"><button>삭제</button></td>
+									</tr>
+									</c:forEach>
+			                        </c:if>
+			                        <c:if test="${ type eq 'D' }">
+			                        <c:forEach items="${ dList }" var="list">
+									<tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?boardCode=${ list.boardCode }'">
+										<td style="text-align: center;">${ list.boardTitle }</td>
+										<td style="text-align: center;">${ list.postDate }</td>
+										<td style="text-align: center;"><button>삭제</button></td>
+									</tr>
+									</c:forEach>
+			                        </c:if>
+			                        <c:if test="${ type eq 'E' }">
+			                        <c:forEach items="${ eList }" var="list">
+									<tr>
+										<td style="text-align: center;">${ list.boardTitle }</td>
+										<td style="text-align: center;">${ list.postDate }</td>
+										<td style="text-align: center;"><button>삭제</button></td>
+									</tr>
+									</c:forEach>
+			                        </c:if>
+			                        <c:if test="${ type eq 'F' }">
+			                        <c:forEach items="${ fList }" var="list">
+									<tr>
+										<td style="text-align: center;">${ list.boardTitle }</td>
+										<td style="text-align: center;">${ list.postDate }</td>
+										<td style="text-align: center;"><button>삭제</button></td>
+									</tr>
+									</c:forEach>
+			                        </c:if>
+			                        <c:if test="${ type eq 'G' }">
+			                        <c:forEach items="${ gList }" var="list">
+									<tr>
+										<td style="text-align: center;">${ list.replyContent }</td>
+										<td style="text-align: center;">${ list.replyDate }</td>
+										<td style="text-align: center;"><button>삭제</button></td>
+									</tr>
+									</c:forEach>
+			                        </c:if>
+			                        
+			                       
 			                    </tbody>
 			                </table>
 			                <div class="text-center">
 								<ul class="pagination">
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
+								<!-- A타입일때 하단 -->
+								<c:if test="${ type eq 'A' }">
+								<li>
+									<c:if test="${paging.startPage != 1 }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=A&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if>
+									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == paging.nowPage }">
+												<li><a>${p }</a></li>
+											</c:when>
+											<c:when test="${p != paging.nowPage }">
+												<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=A&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${paging.endPage != paging.lastPage}">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=A&?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+									</c:if>
+									</li>
+								</c:if>
+								<!-- B타입일때 하단 -->
+								<c:if test="${ type eq 'B' }">
+								<li>
+									<c:if test="${paging.startPage != 1 }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=B&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if>
+									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == paging.nowPage }">
+												<li><a>${p }</a></li>
+											</c:when>
+											<c:when test="${p != paging.nowPage }">
+												<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=B&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${paging.endPage != paging.lastPage}">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=B&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									</c:if>
+									</li>
+								</c:if>
+								<!-- C타입일때 하단 -->
+								<c:if test="${ type eq 'C' }">
+								<li>
+									<c:if test="${paging.startPage != 1 }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=C&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if>
+									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == paging.nowPage }">
+												<li><a>${p }</a></li>
+											</c:when>
+											<c:when test="${p != paging.nowPage }">
+												<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=C&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${paging.endPage != paging.lastPage}">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=C&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									</c:if>
+									</li>
+								</c:if>
+								<!-- D타입일때 하단 -->
+								<c:if test="${ type eq 'D' }">
+								<li>
+									<c:if test="${paging.startPage != 1 }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=D&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if>
+									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == paging.nowPage }">
+												<li><a>${p }</a></li>
+											</c:when>
+											<c:when test="${p != paging.nowPage }">
+												<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=D&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${paging.endPage != paging.lastPage}">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=D&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									</c:if>
+									</li>
+								</c:if>
+								<!-- E타입일때 하단 -->
+								<c:if test="${ type eq 'E' }">
+								<li>
+									<c:if test="${paging.startPage != 1 }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if>
+									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == paging.nowPage }">
+												<li><a>${p }</a></li>
+											</c:when>
+											<c:when test="${p != paging.nowPage }">
+												<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${paging.endPage != paging.lastPage}">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									</c:if>
+									</li>
+								</c:if>
+								<!-- F타입일때 하단 -->
+								<c:if test="${ type eq 'F' }">
+								<li>
+									<c:if test="${paging.startPage != 1 }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=F&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if>
+									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == paging.nowPage }">
+												<li><a>${p }</a></li>
+											</c:when>
+											<c:when test="${p != paging.nowPage }">
+												<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=F&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${paging.endPage != paging.lastPage}">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=F&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									</c:if>
+									</li>
+								</c:if>
+								<!-- G타입일때 하단 -->
+								<c:if test="${ type eq 'G' }">
+								<li>
+									<c:if test="${paging.startPage != 1 }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if>
+									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == paging.nowPage }">
+												<li><a>${p }</a></li>
+											</c:when>
+											<c:when test="${p != paging.nowPage }">
+												<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${paging.endPage != paging.lastPage}">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									</c:if>
+									</li>
+								</c:if>
+								
+								
+								
+								
+								
 								</ul>
 							</div>
 	                	</div>

@@ -46,4 +46,19 @@ public class QuestionServiceImpl implements QuestionService{
 		return mapper.selectReportList(map);
 	}
 
+	@Override
+	public ReportManageDTO selectReportDetail(int reportCode) {
+		return mapper.selectReportDetail(reportCode);
+	}
+
+	@Override
+	public int selectReplyReportCount(int code) {
+		return mapper.selectReplyReportCount(code);
+	}
+
+	@Override
+	public List<ReportManageDTO> selectReplyReportList(HashMap<String, Object> map) {
+		return mapper.selectReplyReportList(map);
+	}
+
 }

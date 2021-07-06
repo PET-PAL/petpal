@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -76,7 +77,6 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float: left">문의 / 신고 내역</div>
-            	<img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/qnaReportList.jsp'" style="width:50px; float: right;">
             </section> <!--End off Home Sections-->
 
             <section id="menutable" class="menutable">
@@ -84,23 +84,31 @@
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>신고 제목</b></td>
-							<td>비속어 사용</td>
+							<td>${ report.title }</td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>접수 상태</b></td>
-							<td style="border-radius: 0px 21px 0px 0px; color:red;">처리전</td>
+							<c:if test="${ report.decisionCode eq 1 }">
+							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="대기중"/></td>
+							</c:if>
+							<c:if test="${ report.decisionCode eq 2 }">
+							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="승인"/></td>
+							</c:if>
+							<c:if test="${ report.decisionCode eq 3 }">
+							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="거절"/></td>
+							</c:if>
 						</tr>
 						<tr>
-							<td style="text-align: center; background-color: #F1FAF8;"><b>신고 대상</b></td>
-							<td>업나라</td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>신고 일자</b></td>
-							<td>2021-06-17</td>
+							<td>${ report.date }</td>
+							<td style="text-align: center; background-color: #F1FAF8;"><b>처리 날짜</b></td>
+							<td>${ report.dDate }</td>
 						</tr>
 					</table>
 					<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px;">쪽지로 비속어 사용하면서 사람 열받게 하네요 신고 부탁드립니다.</p>
+					<p style="margin-bottom: 50px; margin-left: 8px;">${ report.content }</p>
 		        </div>
                 <div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">관리자 답변</div>
 				<div>
-					<textarea class="form-control textarea-layer" style="resize:none; width: 70%; height: 120px; margin-top: 10px; margin: 0px auto; border-radius: 20px; margin-bottom: 50px;" disabled></textarea>
+					<textarea class="form-control textarea-layer" style="resize:none; width: 70%; height: 120px; margin-top: 10px; margin: 0px auto; border-radius: 20px; margin-bottom: 50px;" disabled>${ report.dReason }</textarea>
 				</div>
             </section>
 

@@ -11,7 +11,6 @@ public class FriendlyPlaceDTO {
 	private Date boardPostDate;
 	private String boardDeleteYn;
 	private int decisionCode;
-	private String boardMapValue;
 	private int userCode;
 	private String placeName;
 	private String placePhone;
@@ -27,7 +26,7 @@ public class FriendlyPlaceDTO {
 	public FriendlyPlaceDTO() {}
 
 	public FriendlyPlaceDTO(int boardCode, String boardTitle, String boardContent, int boardViews, Date boardPostDate,
-			String boardDeleteYn, int decisionCode, String boardMapValue, int userCode, String placeName,
+			String boardDeleteYn, int decisionCode, int userCode, String placeName,
 			String placePhone, String placeAddress, String userNickName, int pictureCode, String pictureURL,
 			String pictureDeleteYN, String pictureName, String pictureNewName, String pictureUtilPath) {
 		super();
@@ -38,7 +37,6 @@ public class FriendlyPlaceDTO {
 		this.boardPostDate = boardPostDate;
 		this.boardDeleteYn = boardDeleteYn;
 		this.decisionCode = decisionCode;
-		this.boardMapValue = boardMapValue;
 		this.userCode = userCode;
 		this.placeName = placeName;
 		this.placePhone = placePhone;
@@ -106,14 +104,6 @@ public class FriendlyPlaceDTO {
 
 	public void setDecisionCode(int decisionCode) {
 		this.decisionCode = decisionCode;
-	}
-
-	public String getBoardMapValue() {
-		return boardMapValue;
-	}
-
-	public void setBoardMapValue(String boardMapValue) {
-		this.boardMapValue = boardMapValue;
 	}
 
 	public int getUserCode() {
@@ -208,11 +198,11 @@ public class FriendlyPlaceDTO {
 	public String toString() {
 		return "FriendlyPlaceDTO [boardCode=" + boardCode + ", boardTitle=" + boardTitle + ", boardContent="
 				+ boardContent + ", boardViews=" + boardViews + ", boardPostDate=" + boardPostDate + ", boardDeleteYn="
-				+ boardDeleteYn + ", decisionCode=" + decisionCode + ", boardMapValue=" + boardMapValue + ", userCode="
-				+ userCode + ", placeName=" + placeName + ", placePhone=" + placePhone + ", placeAddress="
-				+ placeAddress + ", userNickName=" + userNickName + ", pictureCode=" + pictureCode + ", pictureURL="
-				+ pictureURL + ", pictureDeleteYN=" + pictureDeleteYN + ", pictureName=" + pictureName
-				+ ", pictureNewName=" + pictureNewName + ", pictureUtilPath=" + pictureUtilPath + "]";
+				+ boardDeleteYn + ", decisionCode=" + decisionCode + ", userCode=" + userCode + ", placeName="
+				+ placeName + ", placePhone=" + placePhone + ", placeAddress=" + placeAddress + ", userNickName="
+				+ userNickName + ", pictureCode=" + pictureCode + ", pictureURL=" + pictureURL + ", pictureDeleteYN="
+				+ pictureDeleteYN + ", pictureName=" + pictureName + ", pictureNewName=" + pictureNewName
+				+ ", pictureUtilPath=" + pictureUtilPath + "]";
 	}
 
 }

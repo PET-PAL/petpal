@@ -143,74 +143,12 @@
 
             <section id="list" class="list" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div class="tab">
-					<span class="tab_btn active" data-toggle="tab" id="qna" onclick="qna()">문의 내역</span>
-					<span class="tab_btn" data-toggle="tab" onclick="report()">신고 내역</span>
+					<span class="tab_btn active" data-toggle="tab" id="qna" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList?type=A';">문의 내역</span>
+					<span class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList?type=B';">게시글 신고 내역</span>
+					<span class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList?type=C';">댓글 신고 내역</span>
 					<img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/'" style="width:50px; float: right;">
 				</div>
             </section>
-
-<script>
-function report(){
-	
-	console.log("report 들어옴");
-	$.ajax({
-		url:"${ pageContext.servletContext.contextPath }/user/mypage/reportList",
-		type:"get",
-		success:function(data){
-			console.log(data.reportList);
-			
-			const reportList = JSON.parse(data.reportList);
-			
-			const $table = $("#menu1 tbody");
-			$("#menu0").removeClass("tab-pane fade in active").addClass("tab-pane fade");
-			$("#menu1").removeClass("tab-pane fade").addClass("tab-pane fade in active");
-			
-			$table.html("");
-			
-			for(let index in reportList){
-				
-				$tr = $("<tr>");
-				$titleTd = $("<td>").text(reportList[index].title);
-				$contentTd = $("<td>").text(reportList[index].content);
-				$dateTd = $("<td>").text(reportList[index].date);
-				$decisionTd = $("<td>").text(reportList[index].decisionCode);
-				
-				$tr.append($titleTd);
-				$tr.append($contentTd);
-				$tr.append($dateTd);
-				$tr.append($decisionTd);
-				
-				$table.append($tr);
-			}
-		
-		},
-		error:function(data){
-			console.log("실패...");
-		}
-	});
-}
-</script>
-
-<script>
-
-function qna(){
-	console.log("qna들어옴");
-	$.ajax({
-		url:"${ pageContext.servletContext.contextPath }/user/mypage/qnaList",
-		type:"get",
-		success:function(data){
-			
-			$("#menu1").removeClass("tab-pane fade in active").addClass("tab-pane fade");
-			$("#menu0").removeClass("tab-pane fade").addClass("tab-pane fade in active");
-			
-		
-		},
-		error:function(data){
-			console.log("실패...");
-		}
-	});
-}
-</script>
 
 
 
@@ -220,20 +158,31 @@ function qna(){
 						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		                	<table class="table table-hover" style="margin-bottom: 50px;">
 			                    <thead>
+			                    <c:if test="${ type eq 'A' }">
 			                        <tr style="background-color: #F1FAF8;">
 			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>문의 제목</b></th>
 	                                    <th class="filtering" onclick="qnaFiltering();" style="text-align: center;"><b>문의 구분</b><img src="${ pageContext.servletContext.contextPath }/resources/images/filter.png" style="width:15px; margin-left:10px;"></th>
 			                            <th style="text-align: center;"><b>날짜</b></th>
 			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>답변 여부</b></th>
 			                        </tr>
+			                    </c:if>
+			                    <c:if test="${ type eq 'B' || type eq 'C'}">
+			                    	<tr style="background-color: #F1FAF8;">
+			                            <th style="width: 31%; text-align: center; border-radius: 21px 0px 0px 0px;"><b>신고 제목</b></th>
+			                            <th style="width: 23%; text-align: center;"><b>신고 내용</b></th>
+			                            <th style="width: 23%; text-align: center;"><b>신고 일자</b></th>
+			                            <th class="filtering" onclick="statusFiltering();" style="width: 23%; text-align: center; border-radius: 0px 21px 0px 0px;"><b>접수 상태</b><img src="${ pageContext.servletContext.contextPath }/resources/images/filter.png" style="width:15px; margin-left:10px;"></th>
+			                        </tr>
+			                    </c:if>
 			                    </thead>
 			                    <tbody>
+			                    <c:if test="${ type eq 'A' }">
 			                     <c:forEach items="${ qnaList }" var="list">
 			                     <c:if test="${ list.questionType eq 1 }">
-			                        <tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaRepostList/qnaDetail?boardCode=${list.boardCode}'">
+			                        <tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/qnaDetail?boardCode=${list.boardCode}'">
 			                     </c:if>
 			                     <c:if test="${ list.questionType eq 2 }">
-			                        <tr class="ad" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaRepostList/qnaDetail?boardCode=${list.boardCode}'">
+			                        <tr class="ad" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/qnaDetail?boardCode=${list.boardCode}'">
 			                     </c:if>
 			                            <td style="text-align: center; padding-left: 15px;">${ list.boardTitle }</td>				
 			                            <c:if test="${ list.questionType eq 1 }">
@@ -251,16 +200,54 @@ function qna(){
 			                            	<td style="text-align: center;"><c:out value="답변완료"/></td>
 			                            	</c:otherwise>
 			                            </c:choose>
-			                     </c:forEach>
 			                     </tr>
+			                     </c:forEach>	
+			                    </c:if>
+			                    <c:if test="${ type eq 'B' }">
+			                     <c:forEach items="${ reportList }" var="list">
+			                        	<tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?reportCode=${list.reportCode}'">
+			                            <td style="text-align: center;">${ list.title }</td>
+			                            <td style="text-align: center;">${ list.content }</td>
+			                            <td style="text-align: center;">${ list.date }</td>
+			                            <c:if test="${ list.stateCode eq 1 }">
+			                            <td style="text-align: center;"><c:out value="대기중"/></td>
+			                            </c:if>
+			                            <c:if test="${ list.stateCode eq 2 }">
+			                            <td style="text-align: center;"><c:out value="승인"/></td>
+			                            </c:if>
+			                            <c:if test="${ list.stateCode eq 3 }">
+			                            <td style="text-align: center;"><c:out value="거절"/></td>
+			                            </c:if>
+			                     </tr>
+			                     </c:forEach>	
+			                    </c:if>
+			                    <c:if test="${ type eq 'C' }">
+			                     <c:forEach items="${ replyList }" var="list">
+			                        	<tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?reportCode=${list.reportCode}'">
+			                            <td style="text-align: center;">${ list.replyTitle }</td>
+			                            <td style="text-align: center;">${ list.replyContent }</td>
+			                            <td style="text-align: center;">${ list.replyDate }</td>
+			                            <c:if test="${ list.stateCode eq 1 }">
+			                            <td style="text-align: center;"><c:out value="대기중"/></td>
+			                            </c:if>
+			                            <c:if test="${ list.stateCode eq 2 }">
+			                            <td style="text-align: center;"><c:out value="승인"/></td>
+			                            </c:if>
+			                            <c:if test="${ list.stateCode eq 3 }">
+			                            <td style="text-align: center;"><c:out value="거절"/></td>
+			                            </c:if>
+			                     </tr>
+			                     </c:forEach>	
+			                    </c:if>
 			                    </tbody>
 			                </table>
 
 						<div class="text-center">
 							<ul class="pagination">
+							<c:if test="${ type eq 'A' }">
 								<li><c:if test="${paging.startPage != 1 }">
 										<li><a
-											href="${ pageContext.servletContext.contextPath }/user/mypage/qnaList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+											href="${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList?type=A&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
 									</c:if> <c:forEach begin="${paging.startPage }"
 										end="${paging.endPage }" var="p">
 										<c:choose>
@@ -269,56 +256,38 @@ function qna(){
 											</c:when>
 											<c:when test="${p != paging.nowPage }">
 												<li><a
-													href="${ pageContext.servletContext.contextPath }/user/mypage/qnaList?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+													href="${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList?type=A&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
 											</c:when>
 										</c:choose>
 									</c:forEach> <c:if test="${paging.endPage != paging.lastPage}">
 										<li><a
-											href="${ pageContext.servletContext.contextPath }/user/mypage/qnaList?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+											href="${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList?type=A&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 									</c:if></li>
-							</ul>
-						</div>
-					</div>
-					</div>
-					
-					<div id="menu1" class="tab-pane fade">
-						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
-		                	<table class="table table-hover" style="margin-bottom: 50px;" id="reportTable">
-			                    <thead>
-			                        <tr style="background-color: #F1FAF8;">
-			                            <th style="width: 31%; text-align: center; border-radius: 21px 0px 0px 0px;"><b>신고 제목</b></th>
-			                            <th style="width: 23%; text-align: center;"><b>신고 대상</b></th>
-			                            <th style="width: 23%; text-align: center;"><b>신고 일자</b></th>
-			                            <th class="filtering" onclick="statusFiltering();" style="width: 23%; text-align: center; border-radius: 0px 21px 0px 0px;"><b>접수 상태</b><img src="${ pageContext.servletContext.contextPath }/resources/images/filter.png" style="width:15px; margin-left:10px;"></th>
-			                        </tr>
-			                    </thead>
-			                    <tbody>
-			                       
-			                    </tbody>
-			                </table>
-			                <div class="text-center">
-							<ul class="pagination">
-								<li><c:if test="${page.startPage != 1 }">
+							</c:if>
+							<c:if test="${ type eq 'B' }">
+								<li><c:if test="${paging.startPage != 1 }">
 										<li><a
-											href="${ pageContext.servletContext.contextPath }/user/mypage/reportList?nowPage=${page.startPage - 1 }&cntPerPage=${page.cntPerPage}">&lt;</a></li>
-									</c:if> <c:forEach begin="${page.startPage }"
-										end="${page.endPage }" var="p">
+											href="${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList?type=B&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if> <c:forEach begin="${paging.startPage }"
+										end="${paging.endPage }" var="p">
 										<c:choose>
-											<c:when test="${p == page.nowPage }">
+											<c:when test="${p == paging.nowPage }">
 												<li><a>${p }</a></li>
 											</c:when>
-											<c:when test="${p != page.nowPage }">
+											<c:when test="${p != paging.nowPage }">
 												<li><a
-													href="${ pageContext.servletContext.contextPath }/user/mypage/reportList?nowPage=${p }&cntPerPage=${page.cntPerPage}">${p }</a></li>
+													href="${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList?type=B&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
 											</c:when>
 										</c:choose>
-									</c:forEach> <c:if test="${page.endPage != page.lastPage}">
+									</c:forEach> <c:if test="${paging.endPage != paging.lastPage}">
 										<li><a
-											href="${ pageContext.servletContext.contextPath }/user/mypage/reportList?nowPage=${page.endPage+1 }&cntPerPage=${page.cntPerPage}">&gt;</a></li>
+											href="${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList?type=B&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 									</c:if></li>
+							</c:if>
+							
 							</ul>
 						</div>
-	                	</div>
+						</div>
 					</div>
             	</div>
             </section>

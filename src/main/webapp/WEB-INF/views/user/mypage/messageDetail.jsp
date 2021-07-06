@@ -160,7 +160,7 @@
 								</c:choose>
 							</c:forEach>
 							<c:if test="${paging.endPage != paging.lastPage}">
-								<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message/messageDetail?userCode1=${ oneList.userCode1 }&userCode=${ oneList.userCode }&?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+								<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/message/messageDetail?userCode1=${ oneList.userCode1 }&userCode=${ oneList.userCode }&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 							</c:if>
 							</li>
 						</ul>

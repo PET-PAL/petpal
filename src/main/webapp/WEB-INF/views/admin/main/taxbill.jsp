@@ -1,6 +1,6 @@
-<!-- <%@ page language="java" contentType="text/html; charset=UTF-8"
+ <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> -->
+    <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 
 <html>
@@ -37,7 +37,7 @@
 </style>
 </head>
 <script>
-      var str = "${taxBill.supplyPrice}";
+	  var str = "${taxBill.supplyPrice}"
       var last = str.charAt(str.length-1);
       var last1 = str.charAt(str.length-2);
       var last2 = str.charAt(str.length-3);
@@ -115,6 +115,7 @@
   </tr>
   <tr> 
    <td>
+    <c:forEach var="adApprove" items="${ requestScope.adApprove }">
     <table cellpadding='0' cellspacing='0' width='700'>
      <tr>
       <td class='border_up' align='center' width='17' rowspan='4'>공<br><br><br>급<br><br><br>자</td>
@@ -122,39 +123,41 @@
       <td class='border_up' align='center' width='278' colspan='5'>&nbsp;</td>
       <td class='border_up' align='center' width='17' rowspan='4'>공<br>급<br>받<br>는<br>자</td>
       <td class='border_up' align='center' width='55'>등록번호</td>
-      <td class='border_top' align='center' width='278' colspan='5'><c:out value="${taxBill.registrationNo }"></c:out></td>
+      <td class='border_top' align='center' width='278' colspan='5'>${adApprove.companyNumber }</td>
      </tr>
      <tr>
       <td class='border_up' align='center' width='55' height='33'>상 호<br>(법인명)</td>
       <td class='border_up' align='center' width='160' colspan='3'>펫 팔</td>
       <td class='border_up' align='center' width='12' colspan='1'>성<br>명</td>
-      <td class='border_up' align='right' width='94' colspan='1'>황주희 인</td>
+      <td class='border_up' align='right' width='94' colspan='1'>김해인 인</td>
       <td class='border_up' align='center' width='55'>상 호<br>(법인명)</td>
-      <td class='border_up' align='center' width='160' colspan='3'><c:out value="${taxBill.accomoName }"></c:out></td>
+      <td class='border_up' align='center' width='160' colspan='3'>${adApprove.companyName }</td>
       <td class='border_up' align='center' width='12' colspan='1'>성<br>명</td>
-      <td class='border_top' align='right' width='94' colspan='1'><c:out value="${taxBill.ceoName }"></c:out> 인</td>
+      <td class='border_top' align='right' width='94' colspan='1'><c:out value="${adApprove.leaderName }"></c:out> 인</td>
      </tr>
      <tr>
       <td class='border_up' align='center' width='55' height='33'>사업장<br>주  소</td>
       <td class='border_up' align='center' width='278' colspan='5'>서울</td>
       <td class='border_up' align='center' width='55'>사업장<br>주  소</td>
-      <td class='border_top' align='center' width='278' colspan='5'><c:out value="${taxBill.accomoAddress }"></c:out></td>
+      <td class='border_top' align='center' width='278' colspan='5'><c:out value="${adApprove.companyLocation }"></c:out></td>
      </tr>
      <tr>
       <td class='border_up' align='center' width='55' height='33'>업  태</td>
-      <td class='border_up' align='center' width='148' colspan='1'>&nbsp;</td>
-      <td class='border_up' align='center' width='12' colspan='1'>종<br>목</td>
-      <td class='border_up' align='center' width='106' colspan='3'>&nbsp;</td>
-      <td class='border_up' align='center' width='55'>업 &nbsp; 태</td>
       <td class='border_up' align='center' width='148' colspan='1'>광고대행업</td>
       <td class='border_up' align='center' width='12' colspan='1'>종<br>목</td>
-      <td class='border_top' align='center' width='106' colspan='3'><c:out value="${taxBill.accomoType }"></c:out></td>
+      <td class='border_up' align='center' width='106' colspan='3'>반려동물 서비스업</td>
+      <td class='border_up' align='center' width='55'>업 &nbsp; 태</td>
+      <td class='border_up' align='center' width='148' colspan='1'><c:out value="${adApprove.industry }"></c:out></td>
+      <td class='border_up' align='center' width='12' colspan='1'>종<br>목</td>
+      <td class='border_top' align='center' width='106' colspan='3'><c:out value="${adApprove.industryDetail }"></c:out></td>
      </tr>
     </table>
+    </c:forEach>
    </td>
   </tr>
   <tr>
    <td width='100%'>
+    <c:forEach var="adApprove" items="${ requestScope.adApprove }">
     <table cellpadding='0' cellspacing='0' width='700'>
      <tr>
       <td class='border_up' align='center' width='85' height='21'>작 &nbsp; 성</td>
@@ -217,10 +220,12 @@
       <td class='border_up' align='center' width='20'><script>document.write(tax1)</script></td>
      </tr>
     </table>
+    </c:forEach>
    </td>
   </tr>
   <tr>
    <td width='100%'>
+   <c:forEach var="adApprove" items="${ requestScope.adApprove }">
     <table cellpadding='0' cellspacing='0' width='700'>
      <tr>
       <td class='border_up' align='center' width='50' height='21'>월 일</td>
@@ -234,12 +239,39 @@
      </tr>
      <tr>
       <td class='border_up' align='center' width='50' height='25'><c:out value="${taxBill.stlDate }"></c:out></td>
-      <td class='border_up' align='center' width='195'><c:out value="${taxBill.accomoName }"></c:out></td>
+      <td class='border_up' align='center' width='195'>
+ 		<c:choose>
+			 <c:when test="${adDetail.adTypeCode eq 1}">
+			 	장소 외
+			 </c:when>
+			 <c:when test="${adDetail.adTypeCode eq 3}">
+			 	장소 외
+			 </c:when>
+			 <c:when test="${adDetail.adTypeCode eq 2}">
+			 	장소
+			 </c:when>
+			 <c:when test="${adDetail.adTypeCode eq 4}">
+			 	장소
+			 </c:when>
+	    </c:choose>
+	  </td>
       <td class='border_up' align='center' width='42'>&nbsp;</td>
-      <td class='border_up' align='center' width='65'><c:out value="${taxBill.count }"></c:out></td>
-      <td class='border_up' align='center' width='55'><c:out value="${taxBill.price }"></c:out></td>
-      <td class='border_up' align='center' width='150'><c:out value="${taxBill.supplyPrice }"></c:out></td>
-      <td class='border_up' align='center' width='83'><c:out value="${taxBill.tax }"></c:out></td>
+      <td class='border_up' align='center' width='65'>
+       <c:choose>
+		     <c:when test="${adDetail.adTypeCode eq 1}">
+		     	1주
+		     </c:when>
+		     <c:when test="${adDetail.adTypeCode eq 2}">
+		     	1주
+		     </c:when>
+		     <c:otherwise>
+		     	2주
+		     </c:otherwise>
+       </c:choose>
+      </td>
+      <td class='border_up' align='center' width='55'><c:out value="${adApprove.price2nd }"></c:out></td>
+      <td class='border_up' align='center' width='150'><c:out value="${adApprove.price2nd }"></c:out></td>
+      <td class='border_up' align='center' width='83'><c:out value="${adApprove.taxPrice }"></c:out></td>
       <td class='border_top' align='center' width='60'>&nbsp;</td>
      </tr>
      <tr>
@@ -273,6 +305,7 @@
       <td class='border_top' align='center' width='60'>&nbsp;</td>
      </tr>
     </table>
+    </c:forEach>
    </td>
   </tr>
   <tr>

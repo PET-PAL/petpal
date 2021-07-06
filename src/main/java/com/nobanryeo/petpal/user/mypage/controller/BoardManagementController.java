@@ -75,6 +75,10 @@ public class BoardManagementController {
 			
 			List<MissingDTO> aList = boardService.selectMissing(map);
 			System.out.println(aList);
+			
+			model.addAttribute("paging", page);
+			model.addAttribute("aList", aList);
+			model.addAttribute("type", "A");
 
 		} else if(type.equals("B")) {
 			
@@ -113,6 +117,7 @@ public class BoardManagementController {
 			
 			model.addAttribute("paging", page);
 			model.addAttribute("bList", bList);
+			model.addAttribute("type", "B");
 			
 		} else if(type.equals("C")) {
 			
@@ -120,7 +125,7 @@ public class BoardManagementController {
 			bcDTO.setUserCode(loginUser.getCode());
 			System.out.println(bcDTO);
 			
-			int total = boardService.selectAdoptCount(bcDTO);
+			int total = boardService.selectInfoCount(bcDTO);
 			
 			System.out.println("토탈 카운트 : " + total);
 			System.out.println("nowPage : " + nowPage);
@@ -146,11 +151,169 @@ public class BoardManagementController {
 			map.put("bcDTO", bcDTO);
 			map.put("pageInfo", page);
 			
-			List<AdoptDTO> bList = boardService.selectAdoptList(map);
-			System.out.println(bList);
+			List<BoradAndCommentDTO> cList = boardService.selectInfoList(map);
+			System.out.println(cList);
 			
 			model.addAttribute("paging", page);
-			model.addAttribute("bList", bList);
+			model.addAttribute("cList", cList);
+			model.addAttribute("type", "C");
+			
+		} else if(type.equals("D")) {
+			
+			System.out.println("들어온 타입 : " + type);
+			bcDTO.setUserCode(loginUser.getCode());
+			System.out.println(bcDTO);
+			
+			int total = boardService.selectFreeCount(bcDTO);
+			
+			System.out.println("토탈 카운트 : " + total);
+			System.out.println("nowPage : " + nowPage);
+			System.out.println("cntPerPage : " + cntPerPage);
+			
+			
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "10";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "10";
+			}
+			
+			page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			
+			System.out.println("문의 현재 페이지 : " + page.getNowPage());
+			System.out.println("문의 마지막 페이지 : " + page.getEnd());
+			System.out.println("문의 페이지당 글 갯수 : " + page.getCntPerPage());
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("bcDTO", bcDTO);
+			map.put("pageInfo", page);
+			
+			List<BoradAndCommentDTO> dList = boardService.selectFreeList(map);
+			System.out.println(dList);
+			
+			model.addAttribute("paging", page);
+			model.addAttribute("dList", dList);
+			model.addAttribute("type", "D");
+			
+		} else if(type.equals("E")) {
+			
+			System.out.println("들어온 타입 : " + type);
+			bcDTO.setUserCode(loginUser.getCode());
+			System.out.println(bcDTO);
+			
+			int total = boardService.selectShareCount(bcDTO);
+			
+			System.out.println("토탈 카운트 : " + total);
+			System.out.println("nowPage : " + nowPage);
+			System.out.println("cntPerPage : " + cntPerPage);
+			
+			
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "10";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "10";
+			}
+			
+			page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			
+			System.out.println("문의 현재 페이지 : " + page.getNowPage());
+			System.out.println("문의 마지막 페이지 : " + page.getEnd());
+			System.out.println("문의 페이지당 글 갯수 : " + page.getCntPerPage());
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("bcDTO", bcDTO);
+			map.put("pageInfo", page);
+			
+			List<BoradAndCommentDTO> eList = boardService.selectShareList(map);
+			System.out.println(eList);
+			
+			model.addAttribute("paging", page);
+			model.addAttribute("eList", eList);
+			model.addAttribute("type", "E");
+			
+		} else if(type.equals("F")) {
+			
+			System.out.println("들어온 타입 : " + type);
+			bcDTO.setUserCode(loginUser.getCode());
+			System.out.println(bcDTO);
+			
+			int total = boardService.selectReviewCount(bcDTO);
+			
+			System.out.println("토탈 카운트 : " + total);
+			System.out.println("nowPage : " + nowPage);
+			System.out.println("cntPerPage : " + cntPerPage);
+			
+			
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "10";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "10";
+			}
+			
+			page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			
+			System.out.println("문의 현재 페이지 : " + page.getNowPage());
+			System.out.println("문의 마지막 페이지 : " + page.getEnd());
+			System.out.println("문의 페이지당 글 갯수 : " + page.getCntPerPage());
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("bcDTO", bcDTO);
+			map.put("pageInfo", page);
+			
+			List<BoradAndCommentDTO> fList = boardService.selectReviewList(map);
+			System.out.println(fList);
+			
+			model.addAttribute("paging", page);
+			model.addAttribute("fList", fList);
+			model.addAttribute("type", "F");
+			
+		} else if(type.equals("G")) {
+			
+			System.out.println("들어온 타입 : " + type);
+			bcDTO.setUserCode(loginUser.getCode());
+			System.out.println(bcDTO);
+			
+			int total = boardService.selectReplyCount(bcDTO);
+			
+			System.out.println("토탈 카운트 : " + total);
+			System.out.println("nowPage : " + nowPage);
+			System.out.println("cntPerPage : " + cntPerPage);
+			
+			
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "10";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "10";
+			}
+			
+			page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			
+			System.out.println("문의 현재 페이지 : " + page.getNowPage());
+			System.out.println("문의 마지막 페이지 : " + page.getEnd());
+			System.out.println("문의 페이지당 글 갯수 : " + page.getCntPerPage());
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("bcDTO", bcDTO);
+			map.put("pageInfo", page);
+			
+			List<BoradAndCommentDTO> gList = boardService.selectReplyList(map);
+			System.out.println(gList);
+			
+			model.addAttribute("paging", page);
+			model.addAttribute("gList", gList);
+			model.addAttribute("type", "G");
+			
 		}
 		
 		
