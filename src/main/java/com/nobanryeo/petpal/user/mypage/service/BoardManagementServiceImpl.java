@@ -88,4 +88,9 @@ public class BoardManagementServiceImpl implements BoardManagementService{
 		return mapper.selectReplyList(map);
 	}
 
+	@Override
+	public boolean deletePost(int boardCode) {
+		return false;
+	}
+
 }

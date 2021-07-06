@@ -74,7 +74,7 @@
                             	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownAskMenu" style="width:130px;" > 
 		                            <li><a class="dropdown-item" aria-current="true" href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list">자유 게시판</a></li> 
 		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/.jsp">무료나눔</a></li> 
-		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp">용품리뷰</a></li> 
+		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/user/review">용품리뷰</a></li> 
 	                            </ul> 
 	                        </li>
                             <li><a href="${ pageContext.servletContext.contextPath }/user/login">로그인</a></li>
@@ -91,7 +91,7 @@
                             	<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownAskMenu" style="width:130px;" > 
 		                            <li><a class="dropdown-item" aria-current="true" href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list">자유 게시판</a></li> 
 		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/.jsp">무료나눔</a></li> 
-		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp">용품리뷰</a></li> 
+		                            <li><a class="dropdown-item" href="${ pageContext.servletContext.contextPath }/user/review">용품리뷰</a></li> 
 	                            </ul> 
 	                        </li>
                             <li><a href="${ pageContext.servletContext.contextPath }/user/mypage/">마이페이지</a></li>

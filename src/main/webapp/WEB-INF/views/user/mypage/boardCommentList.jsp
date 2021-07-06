@@ -69,6 +69,102 @@
                 font-weight: 500;
                 border-radius: 10px;
 			}
+			td > input {
+            	height: 40px;
+                width: 95%;
+                border-radius: 10px;
+                border: 1px solid rgb(175, 175, 175);
+            }
+            tr, td {
+            	font-size: 17px;
+				height: 55px;
+				text-align: left;
+			}
+            td > button {
+                background-color: #45B99C; 
+                height: 35px;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid; 
+                font-size: 16px; 
+                font-weight: 500;
+                border-radius: 10px;
+            }
+            div > button {
+                background-color: #45B99C; 
+                height: 35px;
+                color: white;
+                border-color: #45B99C; 
+                border: 1px solid;
+                font-size: 16px; 
+                font-weight: 500;
+                border-radius: 10px;
+                margin-left: 20px;
+            }
+            td > input::placeholder {
+                font-size: 15px;
+                color:#a1a1a1;
+            }
+            .overlay {
+  				position: fixed;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				background: rgba(0, 0, 0, 0.7);
+				transition: opacity 500ms;
+				visibility: hidden;
+				opacity: 0;
+				z-index: 900;
+				height: 150% !important;
+			}
+			.overlay:target {
+				visibility: visible;
+				opacity: 1;
+			}
+			.popup {
+				position: fixed;
+				width: 60%;
+				padding: 10px;
+				max-width: 500px;
+				border-radius: 10px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: rgba(255, 255, 255, .9);
+				-webkit-transition: opacity .5s, visibility 0s linear .5s;
+				transition: opacity .5s, visibility 0s linear .5s;
+				z-index: 1;
+			}
+			.popup:target {
+				visibility: visible;
+				opacity: 1;
+				-webkit-transition-delay: 0s;
+				transition-delay: 0s;
+			}
+			.popup-close {
+				position: absolute;
+				padding: 10px;
+				max-width: 500px;
+				border-radius: 10px;
+				top: 50%;
+				left: 50%;
+				transform: translate(-50%, -50%);
+				background: rgba(255, 255, 255, .9);
+			}
+			.popup .close {
+				position: absolute;
+				right: 5px;
+				top: 5px;
+				padding: 5px;
+				color: #000;
+				transition: color .3s;
+				font-size: 2em;
+				line-height: .6em;
+			}
+			.popup .close:hover {
+				color: #007a5c;
+			}
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -176,7 +272,7 @@
 			                    <tbody>
 			                    <c:if test="${ type eq 'A' }">
 			                        <c:forEach items="${ aList }" var="list">
-								    <tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing'">
+								    <tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing'" id="stop">
 										<c:if test="${ list.gender eq 'M'}">
 										<td style="text-align: center;">${ list.breed }/남아/${ list.color }</td>
 										</c:if>
@@ -184,7 +280,10 @@
 										<td style="text-align: center;">${ list.breed }/여아/${ list.color }</td>
 										</c:if>
 										<td style="text-align: center;">${ list.missingDate }</td>
-										<td style="text-align: center;"><button>삭제</button></td>
+										<td style="text-align: center;">
+										<input type="hidden" value="${ list.boardCode }" id="code">
+										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										</td>
 									</tr>
 									</c:forEach>
 									</c:if>
@@ -199,7 +298,7 @@
 										</c:if>
 										<td style="text-align: center;">${ list.boardDate }</td>
 										<c:if test="${ list.stateCode eq 1 }">
-										<td style="text-align: center;"><button>삭제</button></td>
+										<td ><button>삭제</button></td>
 										</c:if>
 										<c:if test="${ list.stateCode eq 2 }">
 										<td style="text-align: center;"><button disabled>삭제불가</button></td>
@@ -212,7 +311,7 @@
 									<tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
-										<td style="text-align: center;"><button>삭제</button></td>
+										<td><button>삭제</button></td>
 									</tr>
 									</c:forEach>
 			                        </c:if>
@@ -405,58 +504,6 @@
 									</c:if>
 									</li>
 								</c:if>
-								
-								
-								
-								
-								
-								</ul>
-							</div>
-	                	</div>
-					</div>
-					
-					<div id="menu1" class="tab-pane fade">
-						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
-		                	<table class="table table-hover" style="margin-bottom: 50px;">
-			                    <thead>
-			                        <tr style="background-color: #F1FAF8;">
-			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>게시판 유형</b></th>
-			                            <th style="text-align: center;"><b>제목</b></th>
-			                            <th style="text-align: center;"><b>댓글 내용</b></th>
-	                                    <th style="text-align: center;"><b>날짜</b></th>
-			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>댓글 삭제</b></th>
-			                        </tr>
-			                    </thead>
-			                    <tbody>
-			                        <tr onclick="location.href=''">
-			                            <td style="text-align: center;">용품리뷰</td>
-			                            <td>강아지 옷 리뷰</td>
-			                            <td>감사합니다~</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-			                            <td style="text-align: center;"><button>삭제</button></td>
-			                        </tr>
-			                        <tr onclick="location.href=''">
-			                            <td style="text-align: center;">자유게시판</td>
-			                            <td>뽀삐 근황~</td>
-			                            <td>뽀삐 너무 귀엽네요</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-			                            <td style="text-align: center;"><button>삭제</button></td>
-			                        </tr>
-			                        <tr onclick="location.href=''">
-			                            <td style="text-align: center;">입양게시판</td>
-			                            <td>약 3개월 시바견 임보 중</td>
-			                            <td>쪽지 부탁드립니다.</td>
-			                            <td style="text-align: center;">2021-06-17</td>
-			                            <td style="text-align: center;"><button>삭제</button></td>
-			                        </tr>
-			                    </tbody>
-			                </table>
-			                <div class="text-center">
-								<ul class="pagination">
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
 								</ul>
 							</div>
 	                	</div>
@@ -476,8 +523,71 @@
 					}
 				)};
 				
-	
+				/* $('#stop').click(function(){
+					event.stopPropagation();
+					alert("제발...");
+				}); */
+				
+				let stop = document.getElementById('stop');
+				let del = document.getElementById('delete');
+				
+				stop.addEventListener('click', clicked);
+				del.addEventListener('click', clicked);
+				
+				function clicked(e){
+					e.stopPropagation();
+				}
+				
+				
 			</script>
+			
+			<div id="deletePost" class="overlay">
+				<div class="popup">
+					<a href="" class="close">&times;</a>
+					<p style="font-size: 20px; text-align: center; padding-bottom: 10px;">삭제하기</p>
+					<div class="cont-step cont-step_02" id="contStep02" style="display: block;">
+						<div class="cont-step_preface">
+							<h3 align="center">해당 게시글을 삭제하시겠습니까</h3>
+							<br>
+							<button style="margin-left: 43%;" onclick="postDelete()">
+							삭제하기
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+<script type="text/javascript">
+
+function postDelete(){
+	
+var boardCode = document.getElementById("code").value;
+console.log(boardCode);
+
+$.ajax({
+	url:"${pageContext.servletContext.contextPath}/user/mypage/deletePost",
+	type:"post",
+	data:{boardCode:boardCode},
+	success:function(data){
+		console.log("성공!!!!!!!!!!!!");
+		alert("삭제에 성공했습니다.");
+	},
+	error:function(data){
+		alert("삭제에 실패했습니다.");
+	}
+});
+
+}
+</script>
+
+
+
+
+
+
+
+
+
+							
 
             
             <!-- 오른쪽 배너 -->
