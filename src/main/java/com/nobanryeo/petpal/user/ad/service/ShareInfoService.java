@@ -44,5 +44,6 @@ public interface ShareInfoService {
 
 	public int insertSharePlaceReport(FreeBoardReportDTO report);
 
+	public int insertWriteShrePlace(FriendlyPlaceDTO sharePlace);
 
 }

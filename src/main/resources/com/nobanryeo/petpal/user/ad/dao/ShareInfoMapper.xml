@@ -56,7 +56,6 @@
 		<result column="BOARD_POST_DATE" property="boardPostDate"/>
 		<result column="BOARD_DELETE_YN" property="boardDeleteYn"/>
 		<result column="DECISION_CODE" property="decisionCode"/>
-		<result column="BOARD_MAP_VALUE" property="boardMapValue"/>
 		<result column="USER_CODE" property="userCode"/>
 		<result column="PLACE_NAME" property="placeName"/>
 		<result column="PLACE_PHONE" property="placePhone"/>
@@ -388,6 +387,51 @@
 		           )
             SELECT *
               FROM DUAL
+	</insert>
+	
+	<insert id="insertWriteSharePlace" parameterType="FriendlyPlaceDTO">
+		INSERT ALL
+		  INTO FRIENDLY_BOARD
+		VALUES ( FRIENDLY_BOARD_SEQ.NEXTVAL
+		       , #{ boardTitle }
+		       , #{ boardContent }
+		       , 0
+		       , SYSDATE
+		       , 'N'
+		       , 1
+		       , #{ userCode }	
+		       , #{ placeName }
+		       , #{ placePhone }
+		       , #{ placeAddress }
+		       )
+		  INTO PICTURE_TABLE
+		VALUES ( PIC_CODE_SEQ.NEXTVAL
+		       , #{ pictureName }
+		       , #{ pictureURL }
+		       , SYSDATE
+		       , 'N'
+		       , #{ pictureNewName }
+		       , #{ pictureUtilPath }
+		       )
+		SELECT *
+          FROM DUAL
+	</insert>
+	
+	<select id="selectPlaceBoardCode" resultType="_int">
+		SELECT FRIENDLY_BOARD_SEQ.CURRVAL
+	  	  FROM DUAL
+	</select>
+	
+	<insert id="insertSharePlaceManage" parameterType="FriendlyPlaceDTO">
+		<selectKey keyProperty="pictureCode" order="BEFORE" resultType="int">
+			SELECT PIC_CODE_SEQ.CURRVAL
+	  	  	  FROM DUAL
+		</selectKey>
+		INSERT
+		  INTO FRIENDLY_PICTURE_MANAGE
+		VALUES ( #{ boardCode }
+		       , #{ pictureCode }
+		       )
 	</insert>
 
 </mapper>

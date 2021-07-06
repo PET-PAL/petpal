@@ -53,5 +53,10 @@ public interface ShareInfoMapper {
 
 	int insertSharePlaceReport(FreeBoardReportDTO report);
 
+	int insertWriteSharePlace(FriendlyPlaceDTO sharePlace);
+
+	int selectPlaceBoardCode(FriendlyPlaceDTO sharePlace);
+
+	int insertSharePlaceManage(FriendlyPlaceDTO sharePlace);
 
 }
