@@ -168,7 +168,7 @@
 			                    </c:if>
 			                    <c:if test="${ type eq 'B' || type eq 'C'}">
 			                    	<tr style="background-color: #F1FAF8;">
-			                            <th style="width: 31%; text-align: center; border-radius: 21px 0px 0px 0px;"><b>신고 제목</b></th>
+			                            <th style="width: 31%; text-align: center; border-radius: 21px 0px 0px 0px;"><b>신고한 게시물/댓글</b></th>
 			                            <th style="width: 23%; text-align: center;"><b>신고 내용</b></th>
 			                            <th style="width: 23%; text-align: center;"><b>신고 일자</b></th>
 			                            <th class="filtering" onclick="statusFiltering();" style="width: 23%; text-align: center; border-radius: 0px 21px 0px 0px;"><b>접수 상태</b><img src="${ pageContext.servletContext.contextPath }/resources/images/filter.png" style="width:15px; margin-left:10px;"></th>
@@ -205,7 +205,7 @@
 			                    </c:if>
 			                    <c:if test="${ type eq 'B' }">
 			                     <c:forEach items="${ reportList }" var="list">
-			                        	<tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?reportCode=${list.reportCode}'">
+			                        	<tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?title=${list.title}&sstateCode=${ list.stateCode }'">
 			                            <td style="text-align: center;">${ list.title }</td>
 			                            <td style="text-align: center;">${ list.content }</td>
 			                            <td style="text-align: center;">${ list.date }</td>
@@ -227,7 +227,7 @@
 			                            <td style="text-align: center;">${ list.replyTitle }</td>
 			                            <td style="text-align: center;">${ list.replyContent }</td>
 			                            <td style="text-align: center;">${ list.replyDate }</td>
-			                            <c:if test="${ list.stateCode eq 1 }">
+			                            <c:if test="${ list.stateCode eq 0 }">
 			                            <td style="text-align: center;"><c:out value="대기중"/></td>
 			                            </c:if>
 			                            <c:if test="${ list.stateCode eq 2 }">

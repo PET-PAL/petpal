@@ -191,12 +191,12 @@ public class QuestionAndReportController {
 	}
 	
 	@GetMapping("qnaAndReportList/reportDetail")
-	public String reportDetail(@RequestParam int reportCode, Model model) {
-		System.out.println("넘어온 신고 코드 : " + reportCode);
+	public String reportDetail(@RequestParam(value="title", required = false) String title, Model model) {
+		System.out.println("title : " + title);
 		
-		ReportManageDTO report = questionService.selectReportDetail(reportCode);
+//		ReportManageDTO report = questionService.selectReportDetail(reportCode);
 		
-		model.addAttribute("report", report);
+//		model.addAttribute("report", report);
 		
 		return "user/mypage/reportDetail";
 	}

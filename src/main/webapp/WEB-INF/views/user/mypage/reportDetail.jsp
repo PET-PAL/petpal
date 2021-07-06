@@ -83,7 +83,7 @@
 				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
-							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>신고 제목</b></td>
+							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>신고한 게시물/댓글</b></td>
 							<td>${ report.title }</td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>접수 상태</b></td>
 							<c:if test="${ report.decisionCode eq 1 }">

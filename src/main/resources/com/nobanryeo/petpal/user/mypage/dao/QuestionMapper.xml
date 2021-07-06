@@ -131,7 +131,7 @@
                               , A.REPLY_REPORT_DATE
                               , B.STATE_CODE
 		          FROM REPLY_REPORT_TABLE A
-		          JOIN DECISION_TABLE B ON (A.DECISION_CODE = B.DECISION_CODE)
+		     LEFT JOIN DECISION_TABLE B ON (A.DECISION_CODE = B.DECISION_CODE)
 		         WHERE A.USER_CODE = #{ reportDTO.userCode }
 		      ORDER BY REPLY_REPORT_DATE DESC) A)
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
