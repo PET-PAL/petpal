@@ -2,10 +2,18 @@ package com.nobanryeo.petpal.user.adopt.dao;
 
 import java.util.List;
 
+import com.nobanryeo.petpal.user.dto.MissingDTO;
 import com.nobanryeo.petpal.user.dto.MissingPictureDTO;
+import com.nobanryeo.petpal.user.dto.PictureDTO;
 
 public interface MissingMapper {
 
 	List<MissingPictureDTO> selectMissingList();
+
+	int insertMissingInfo(MissingDTO missing);
+
+	int insertPicture(PictureDTO picture);
+
+	int insertMidTab(PictureDTO picture);
 
 }
