@@ -77,9 +77,9 @@ function monthChange() {
       text-align:center;
       color:#25213b">
       <ul class="nav nav-pills nav-stacked">
-        <li><a href="${ pageContext.servletContext.contextPath }/admin/payList">광고 결제 관리</a></li>
+        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">광고 결제 관리</a></li>
         <hr>
-        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">세금계산서 관리</a></li>
+        <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">세금계산서 관리</a></li>
       </ul>
     </nav>
     <!-- sidebar end -->
@@ -117,15 +117,15 @@ function monthChange() {
 							 <div class="container-fluid" style="float:left;">
 									<select id="monthChange" name="month" onchange="monthChange()" class="ui search dropdown" style="font-size:15px; text-align:center !important; width:150px;">
 												  <option value ="0">월별 조회</option>
-												  <option value="1">1월</option>
-												  <option value="2">2월</option>
-												  <option value="3">3월</option>
-												  <option value="4">4월</option>
-												  <option value="5">5월</option>
-												  <option value="6">6월</option>
-												  <option value="7">7월</option>
-												  <option value="8">8월</option>
-												  <option value="9">9월</option>
+												  <option value="01">1월</option>
+												  <option value="02">2월</option>
+												  <option value="03">3월</option>
+												  <option value="04">4월</option>
+												  <option value="05">5월</option>
+												  <option value="06">6월</option>
+												  <option value="07">7월</option>
+												  <option value="08">8월</option>
+												  <option value="09">9월</option>
 												  <option value="10">10월</option>
 												  <option value="11">11월</option>
 												  <option value="12">12월</option>

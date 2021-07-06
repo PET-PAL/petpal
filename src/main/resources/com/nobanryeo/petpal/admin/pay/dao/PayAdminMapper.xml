@@ -635,7 +635,47 @@
        </choose>
 	  </select>
 	  
-	   <!-- 세금계산서 관리 목록 조회 -->
+	  	  <!-- 월별 조회 시 세금계산서 총 갯수 구하기 -->
+	  <select id="selectTaxMonthList" resultType="int" parameterType="AdminPageInfoDTO">
+		SELECT COUNT(*) 
+		  FROM (
+				SELECT NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE))TAX_BILL_DATE
+				  FROM AD_APPLY_TABLE A
+				 WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
+		<choose>
+        <when test='category == "2"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
+           ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7)
+           ]]>
+          AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')))
+        </when>
+        <when test='category == "1"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
+          ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
+          ]]>
+          AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')))
+        </when>
+        <otherwise>
+		  AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')))
+		</otherwise>
+       </choose>
+	  </select>
+	  
+	
+		   <!-- 세금계산서 관리 목록 조회 -->
 	  <select id="selectTaxAllList" resultMap="adAdmin" parameterType="AdminPageInfoDTO">
 		SELECT * 
 		  FROM (
@@ -692,6 +732,72 @@
 			WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
+	  <!-- 세금계산서 월별 관리 목록 조회 -->
+	  <select id="selectTaxMonthAllList" resultMap="adAdmin" parameterType="AdminPageInfoDTO">
+		SELECT * 
+		  FROM (
+			    SELECT ROWNUM RN, D.* 
+			      FROM (
+
+		SELECT 
+			   A.AD_CODE
+			 , NVL(B.CLICK,0) CLICK_NUM
+             , NVL(B.CLICK,0)*150 PRICE_2ND
+             , NVL(B.CLICK,0)*150*0.1 TAX_PRICE
+             , NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE))TAX_BILL_DATE
+			 , A.USER_CODE
+			 , C.USER_NAME
+			 , C.USER_ID
+			 , A.AD_TITLE
+			 , A.COMPANY_NUMBER
+			 , A.CANCEL_APPLY_DATE
+			 , TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) CAL_END_DATE
+			 , TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) CAL_APPLY_DATE
+		FROM AD_APPLY_TABLE A
+		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+		LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
+		LEFT OUTER JOIN
+	  			 (SELECT AD_CODE, COUNT(*) CLICK
+           		    FROM AD_CLICK_COUNT 
+                    GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
+        WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
+         <choose>
+        <when test='category == "2"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
+           ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7)
+           ]]>
+          AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+        </when>
+        <when test='category == "1"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
+          ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
+          AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+          ]]>
+        </when>
+        <otherwise>
+          AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+        </otherwise>
+       </choose>
+          ORDER BY A.AD_CODE DESC
+						) D
+				  )
+			WHERE RN BETWEEN #{start} AND #{end}
+	</select>
+	
+	
 	 <!-- 세금계산서 관리 현재 페이지 갯수 조회 -->
 	  <select id="selectTaxNumber" resultType="int" parameterType="AdminPageInfoDTO">
 		SELECT COUNT(E.RN) 
@@ -743,6 +849,72 @@
           AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
           ]]>
         </when>
+       </choose>
+          ORDER BY A.AD_CODE DESC
+						) D
+				  )
+			WHERE RN BETWEEN #{start} AND #{end}) E
+	</select>
+	
+	  <!-- 월별 조회 시 세금계산서 관리 현재 페이지 갯수 조회 -->
+	  <select id="selectTaxMonthNumber" resultType="int" parameterType="AdminPageInfoDTO">
+		SELECT COUNT(E.RN) 
+	  	 FROM 
+	  	(
+		SELECT * 
+		  FROM (
+			    SELECT ROWNUM RN, D.* 
+			      FROM (
+		SELECT 
+			   A.AD_CODE
+			 , NVL(B.CLICK,0) CLICK_NUM
+             , NVL(B.CLICK,0)*150 PRICE_2ND
+             , NVL(B.CLICK,0)*150*0.1 TAX_PRICE
+             , NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE))TAX_BILL_DATE
+			 , A.USER_CODE
+			 , C.USER_NAME
+			 , C.USER_ID
+			 , A.AD_TITLE
+			 , A.COMPANY_NUMBER
+			 , TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) CAL_END_DATE
+			 , TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) CAL_APPLY_DATE
+		FROM AD_APPLY_TABLE A
+		LEFT JOIN DECISION_TABLE B ON A.DECISION_CODE = B.DECISION_CODE
+		LEFT JOIN USER_TABLE C ON C.USER_CODE = A.USER_CODE
+		LEFT OUTER JOIN
+	  			 (SELECT AD_CODE, COUNT(*) CLICK
+           		    FROM AD_CLICK_COUNT 
+                    GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
+        WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
+       <choose>
+        <when test='category == "2"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
+           ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7)
+           ]]>
+          AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+        </when>
+        <when test='category == "1"'>
+          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
+          ]]>
+           OR (A.CANCEL_APPLY_DATE IS NULL
+           	  <![CDATA[
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
+          ]]>
+          AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+        </when>
+        <otherwise>
+          AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+        </otherwise>
        </choose>
           ORDER BY A.AD_CODE DESC
 						) D

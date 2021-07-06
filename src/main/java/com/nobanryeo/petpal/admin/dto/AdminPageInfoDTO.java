@@ -15,6 +15,7 @@ public class AdminPageInfoDTO {
 	private String searchCondition;
 	private String searchValue;
 	private String sortValue;
+	private int fullMonth; // 월별 조회 
 	
 	public AdminPageInfoDTO() {
 		super();
@@ -32,8 +33,13 @@ public class AdminPageInfoDTO {
 	
 	public AdminPageInfoDTO(String category) {
 		   setCategory(category);
-		}
+	}
 	
+	public AdminPageInfoDTO(String category, int fullMonth) {
+		   setCategory(category);
+		   setFullMonth(fullMonth);
+		}
+
 	public AdminPageInfoDTO(String category, String searchValue) {
 		setCategory(category);
 		setSearchValue(searchValue);
@@ -68,6 +74,21 @@ public class AdminPageInfoDTO {
 		   calcStartEndPage(getNowPage(), cntPage);
 		   calcStartEnd(getNowPage(), getCntPerPage());
 		}
+	
+	// 월별 조회
+	public AdminPageInfoDTO(int total, int nowPage, int cntPerPage, String category
+			, int fullMonth) {
+		   setNowPage(nowPage);
+		   setCntPerPage(cntPerPage);
+		   setTotal(total);
+		   setCategory(category);
+		   setFullMonth(fullMonth);
+		   calcLastPage(getTotal(), getCntPerPage());
+		   calcStartEndPage(getNowPage(), cntPage);
+		   calcStartEnd(getNowPage(), getCntPerPage());
+		}
+	
+
 	//임시로 만듦(성훈)(sort용)
 	public AdminPageInfoDTO(int total, int nowPage, int cntPerPage, String category, String sortValue) {
 		   setNowPage(nowPage);
@@ -79,6 +100,7 @@ public class AdminPageInfoDTO {
 		   calcStartEndPage(getNowPage(), cntPage);
 		   calcStartEnd(getNowPage(), getCntPerPage());
 		}
+	
 	public AdminPageInfoDTO(int total, int nowPage, int cntPerPage, String category
 			,String searchCondition, String searchValue, String sortValue) {
 		   setNowPage(nowPage);
@@ -224,22 +246,24 @@ public class AdminPageInfoDTO {
 		this.sortValue = sortValue;
 	}
 
+	public int getFullMonth() {
+		return fullMonth;
+	}
+
+	public void setFullMonth(int fullMonth) {
+		this.fullMonth = fullMonth;
+	}
+
 	@Override
 	public String toString() {
 		return "AdminPageInfoDTO [nowPage=" + nowPage + ", startPage=" + startPage + ", endPage=" + endPage + ", total="
 				+ total + ", cntPerPage=" + cntPerPage + ", lastPage=" + lastPage + ", start=" + start + ", end=" + end
 				+ ", cntPage=" + cntPage + ", category=" + category + ", searchCondition=" + searchCondition
-				+ ", searchValue=" + searchValue + ", sortValue=" + sortValue + "]";
+				+ ", searchValue=" + searchValue + ", sortValue=" + sortValue + ", fullMonth=" + fullMonth + "]";
 	}
 
 	
 
-
-	
-
-	
-	 
-	 
 	 
 	 
 }
