@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.user.mypage.controller;
 
+import java.sql.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -191,13 +192,58 @@ public class QuestionAndReportController {
 	}
 	
 	@GetMapping("qnaAndReportList/reportDetail")
-	public String reportDetail(@RequestParam(value="title", required = false) String title, Model model) {
-		System.out.println("title : " + title);
+	public String reportDetail(@RequestParam(value="reportCode", required = false, defaultValue = "0") int reportCode
+			, @RequestParam(value = "type") String type
+			, @RequestParam(value = "replyTitle", required = false) String replyTitle
+			, @RequestParam(value = "replyContent", required = false) String replyContent
+			, @RequestParam(value = "replyDate", required = false) Date replyDate
+			, @RequestParam(value = "dCode", required = false, defaultValue = "0") int decisionCode
+			, Model model) {
 		
-//		ReportManageDTO report = questionService.selectReportDetail(reportCode);
+		System.out.println("넘어온 타입 : " + type);
 		
-//		model.addAttribute("report", report);
-		
+		if(type.equals("B")) {
+			
+			System.out.println("넘어온 신고 코드 : " + reportCode);
+			ReportManageDTO report = questionService.selectReportDetail(reportCode);
+			
+			model.addAttribute("report", report);
+			model.addAttribute("type", "B");
+			
+		} else if(type.equals("C")) {
+			
+			System.out.println("댓글 : " + replyTitle);
+			System.out.println("신고내용 : " + replyContent);
+			System.out.println("심사코드 있나? : " + decisionCode);
+			
+			if(decisionCode > 0) {
+				System.out.println("심사됐음");
+				
+				ReportManageDTO decision = questionService.selectDecision(decisionCode);
+				
+				model.addAttribute("decision", decision);
+				model.addAttribute("replyTitle", replyTitle);
+				model.addAttribute("replyContent", replyContent);
+				model.addAttribute("replyDate", replyDate);
+				model.addAttribute("type", "C");
+				
+				
+			} else {
+				
+				int stateCode = 1; 
+				
+				System.out.println("심사되지 않음");
+				model.addAttribute("replyTitle", replyTitle);
+				model.addAttribute("replyContent", replyContent);
+				model.addAttribute("stateCode", stateCode);
+				model.addAttribute("replyDate", replyDate);
+				model.addAttribute("type", "C");
+			}
+			
+			
+		}
+			
+			
 		return "user/mypage/reportDetail";
 	}
 	

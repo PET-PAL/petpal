@@ -161,14 +161,14 @@
 			                    	<tr style="background-color: #F1FAF8;">
 			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>댓글 내용</b></th>
 	                                    <th style="text-align: center;"><b>날짜</b></th>
-			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>게시글 삭제</b></th>
+			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
 			                        </tr>
 			                    	</c:when>
 			                    <c:otherwise>
 			                        <tr style="background-color: #F1FAF8;">
 			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>제목</b></th>
 	                                    <th style="text-align: center;"><b>날짜</b></th>
-			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>게시글 삭제</b></th>
+			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
 			                        </tr>
 			                    </c:otherwise>
 			                    </c:choose>

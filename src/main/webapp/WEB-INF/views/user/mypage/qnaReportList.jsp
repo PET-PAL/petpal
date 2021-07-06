@@ -205,11 +205,20 @@
 			                    </c:if>
 			                    <c:if test="${ type eq 'B' }">
 			                     <c:forEach items="${ reportList }" var="list">
-			                        	<tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?title=${list.title}&sstateCode=${ list.stateCode }'">
+			                        	<%-- <tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?type=B&reportCode=${ list.reportCode }'"> --%>
+					                     <c:if test="${ list.stateCode eq 0 }">
+					                        <tr class="wait" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?type=B&reportCode=${ list.reportCode }'">
+					                     </c:if>
+					                     <c:if test="${ list.stateCode eq 2 }">
+					                        <tr class="ok" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?type=B&reportCode=${ list.reportCode }'">
+					                     </c:if>
+					                     <c:if test="${ list.stateCode eq 3 }">
+					                        <tr class="no" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?type=B&reportCode=${ list.reportCode }'">
+					                     </c:if>
 			                            <td style="text-align: center;">${ list.title }</td>
 			                            <td style="text-align: center;">${ list.content }</td>
 			                            <td style="text-align: center;">${ list.date }</td>
-			                            <c:if test="${ list.stateCode eq 1 }">
+			                            <c:if test="${ list.stateCode eq 0 }">
 			                            <td style="text-align: center;"><c:out value="대기중"/></td>
 			                            </c:if>
 			                            <c:if test="${ list.stateCode eq 2 }">
@@ -223,7 +232,16 @@
 			                    </c:if>
 			                    <c:if test="${ type eq 'C' }">
 			                     <c:forEach items="${ replyList }" var="list">
-			                        	<tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?reportCode=${list.reportCode}'">
+			                        	<%-- <tr class="nomal" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?type=C&replyTitle=${ list.replyTitle }&replyContent=${ list.replyContent }&dCode=${ list.decisionCode }&replyDate=${ list.replyDate }'"> --%>
+			                        	<c:if test="${ list.stateCode eq 0 }">
+					                        <tr class="wait" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?type=C&replyTitle=${ list.replyTitle }&replyContent=${ list.replyContent }&dCode=${ list.decisionCode }&replyDate=${ list.replyDate }'">
+					                     </c:if>
+					                     <c:if test="${ list.stateCode eq 2 }">
+					                        <tr class="ok" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?type=C&replyTitle=${ list.replyTitle }&replyContent=${ list.replyContent }&dCode=${ list.decisionCode }&replyDate=${ list.replyDate }'">
+					                     </c:if>
+					                     <c:if test="${ list.stateCode eq 3 }">
+					                        <tr class="no" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/qnaAndReportList/reportDetail?type=C&replyTitle=${ list.replyTitle }&replyContent=${ list.replyContent }&dCode=${ list.decisionCode }&replyDate=${ list.replyDate }'">
+					                     </c:if>
 			                            <td style="text-align: center;">${ list.replyTitle }</td>
 			                            <td style="text-align: center;">${ list.replyContent }</td>
 			                            <td style="text-align: center;">${ list.replyDate }</td>
@@ -304,7 +322,7 @@
 					}
 				)};
 				 
-				
+				//문의 타입
 				var filterNo = 0;
 				function qnaFiltering() {
 					
@@ -325,24 +343,35 @@
 					
 				}
 				
-				var filterNoo = 0;
+				var filter = 0;
 				function statusFiltering() {
 					
-					filterNoo++;
+					filter++;
+					console.log(filter);
 					
-					if(filterNoo > 2) {
-						filterNoo = 1;
+					if(filter > 3) {
+						filter = 1;
 					}
 					
-					if(filterNoo == 1) {
-						$(".after").hide();
-						$(".before").show();
-					} else {
-						$(".before").hide();
-						$(".after").show();
+					if(filter == 1) {
+						console.log("1번 필터");
+						$(".no").hide();
+						$(".ok").hide();
+						$(".wait").show();
+					} else if(filter == 2) {
+						console.log("2번 필터");
+						$(".wait").hide();
+						$(".no").hide();
+						$(".ok").show();
+					} else{
+						console.log("3번 필터");
+						$(".ok").hide();
+						$(".wait").hide();
+						$(".no").show();
 					}
 					
 				}
+				
 			</script>
 
             
