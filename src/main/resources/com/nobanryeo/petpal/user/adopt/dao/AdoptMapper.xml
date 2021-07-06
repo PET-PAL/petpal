@@ -367,4 +367,11 @@
 	  
 	  </select>
 	  
+	  <update id="putAdoptStatus" parameterType="int" >
+	      UPDATE ADOPT_BOARD
+	         SET
+	       STATE_CODE = 2
+	       WHERE BOARD_CODE = #{boardCode}
+	  </update>
+	  
   </mapper>

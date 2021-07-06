@@ -19,6 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,11 +32,16 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nobanryeo.petpal.user.adopt.service.MissingService;
+import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
 import com.nobanryeo.petpal.user.dto.MissingPictureDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
+/**
+ * @author judyh
+ *
+ */
 @Controller
 @RequestMapping("/user/*")
 public class MissingController {
@@ -46,12 +52,23 @@ public class MissingController {
 	public MissingController(MissingService missingService) {
 		this.missingService = missingService;
 	}
-
+	
+	
+	/**
+	 * 실종신고 메인 페이지 호출 메소드
+	 * @return
+	 */
 	@GetMapping("missing")
 	public String missingBoard() {
 		return "user/missing/missingPage";
 	}
 	
+	/**
+	 * 실종신고 메인 페이지 정보 JSON으로 전달 메소드
+	 * @param mv
+	 * @param response
+	 * @return
+	 */
 	@GetMapping("missingList")
 	@ResponseBody
 	public ModelAndView misssingBoard(ModelAndView mv, HttpServletResponse response) {
@@ -78,6 +95,17 @@ public class MissingController {
 		return "user/missing/missingBoardWrite";
 	}
 	
+	/**
+	 * 실종신고글 작성 메소드
+	 * @param missing
+	 * @param model
+	 * @param request
+	 * @param picture
+	 * @param rttr
+	 * @param session
+	 * @return
+	 * @throws ParseException
+	 */
 	@PostMapping("missing/write")
 	public String insertMissingWrite(@ModelAttribute MissingDTO missing, Model model,HttpServletRequest request,@RequestParam(name="picture",required=true) List<MultipartFile> picture, RedirectAttributes rttr, HttpSession session) throws ParseException {
 		
@@ -172,8 +200,68 @@ public class MissingController {
 	}
 	
 	@GetMapping("missing/detail/{boardCode}")
-	public String missingDetail() {
+	public String missingDetail(@PathVariable("boardCode") int code, Model model) {
+		
+		MissingDTO missingDetail = new MissingDTO();
+		missingDetail = missingService.selectMissingDetail(code);
+		
+		List<PictureDTO> pictureMissingList = new ArrayList<>(); 
+		pictureMissingList = missingService.selectMissingDetailPicture(code);
+		
+		model.addAttribute("missingDetail", missingDetail);
+		model.addAttribute("pictureMissingList", pictureMissingList);
 		
 		return "user/missing/missingDetail";
 	}
+	
+	@GetMapping("missing/detail/select/missingReply/{boardCode}")
+	@ResponseBody
+	public ModelAndView selectreplyList(@PathVariable("boardCode") int code, ModelAndView mv, HttpServletResponse response) {
+		
+		response.setContentType("application/json; charset=utf-8");
+		List<AdoptReplyDTO> missingReplyList = new ArrayList<>();
+		missingReplyList = missingService.selectReplyList(code);
+		
+//		System.out.println("adoptList in controller: "+adoptService.selectAdoptList());
+		System.out.println("controller of reply: "+missingReplyList);
+		
+		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting()
+				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+				.serializeNulls().disableHtmlEscaping().create();
+	
+		mv.addObject("missingReplyList", gson.toJson(missingReplyList));
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	@PostMapping("adopt/detail/insert/missingReply")
+	@ResponseBody
+	public ModelAndView insertReply(ModelAndView mv, String replyContent, String boardCode, HttpServletRequest request, HttpServletResponse response, HttpSession session) {
+		
+		response.setContentType("application/json; charset=utf-8");
+	
+		
+		AdoptReplyDTO replyDTO = new AdoptReplyDTO();
+		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		boardCode = request.getParameter("boardCode");
+		System.out.println(boardCode);
+		replyDTO.setBoardCode((int)(Integer.parseInt(boardCode)));
+		replyDTO.setReplyContent(request.getParameter("replyContent"));
+		replyDTO.setReplyUserCode(userCode);
+		System.out.println("ajax 요청 도착: "+replyContent+","+ boardCode);
+		
+		int result = missingService.insertReply(replyDTO);
+		
+		if(result>0) {
+			mv.addObject("message", "success");
+			
+		}else {
+			mv.addObject("message", "fail");
+		}
+		mv.setViewName("jsonView");
+		return mv;
+	}
+	
+	
 }

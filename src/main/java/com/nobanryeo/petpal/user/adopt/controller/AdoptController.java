@@ -260,7 +260,6 @@ public class AdoptController {
 		List<AdoptReplyDTO> replyList = new ArrayList<>();
 		replyList=adoptService.selectReplyList(code);
 		
-//		System.out.println("adoptList in controller: "+adoptService.selectAdoptList());
 		System.out.println("controller of reply: "+replyList);
 		
 		Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd").setPrettyPrinting()
@@ -401,4 +400,24 @@ public class AdoptController {
 		
 		return mv;
 	}
+	
+	@GetMapping("adopt/update")
+	public String putBoardRevisedInfo() {
+		return "user/adopt/adoptBoardRevised";
+	}
+	
+	@GetMapping("adopt/update/status")
+	public String putAdoptStatus(@RequestParam("board") int board, HttpServletRequest request) {
+		System.out.println("board: "+board);
+		
+		int baordCode = Integer.parseInt(request.getParameter("board"));
+
+		
+		int result = adoptService.putAdoptStatus(baordCode);
+		
+		System.out.println("controller in update status: " + result);
+		
+		return "redirect:/user/adopt/detail/"+baordCode;
+	}
+	
 }

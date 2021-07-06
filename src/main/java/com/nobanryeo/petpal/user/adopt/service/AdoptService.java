@@ -34,4 +34,6 @@ public interface AdoptService {
 
 	List<AdoptPictureManageDTO> selectSearchList(String keyword);
 
+	int putAdoptStatus(int status);
+
 }

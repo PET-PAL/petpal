@@ -41,6 +41,7 @@
   		<result column="MISSING_PHONE" property="phone"/>
   		<result column="MISSING_BREED" property="breed"/>
   		<result column="MISSING_GENDER" property="gender"/>
+  		<result column="USER_NIKNAME" property="userNickname"/>
   		<result column="MISSING_AGE" property="age"/>
   		<result column="MISSING_WEIGTH" property="weigth"/>
   		<result column="MISSING_CHARACTER" property="character"/>
@@ -62,10 +63,26 @@
   		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
   	</resultMap>
 	
+	<resultMap type="AdoptReplyDTO" id="replyResultset">
+		<result column="REPLY_CODE" property="replyCode"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REPLY_DATE" property="replyDate"/>
+		<result column="REPLY_DELETE_YN" property="replyDeleteYN"/>
+		<result column="REPORT_YN" property="reportYN"/>
+		<result column="USER_NIKNAME" property="userNickname"/>
+		<result column="replyUser" property="replyUserCode"/>
+		<result column="boardUser" property="boardUserCode"/>
+		<result column="BOARD_CODE" property="boardCode"/>
+		<result column="REPLY_REPORT_TITLE" property="replyReportTitle"/>
+		<result column="REPLY_REPORT_CONTENT" property="replyReportContent"/>
+		<result column="REPLY_REPORT_DATE" property="replyReportDate"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
+	</resultMap>
  
  	<select id="selectMissingList" parameterType="MissingPictureDTO" resultMap="missingResultMap" >
  		SELECT
  		      M.BOARD_CODE
+ 		    , M.BOARD_DATE
             , M.MISSING_DATE
 			, M.MISSING_AREA
 			, M.MISSING_PLACE
@@ -91,7 +108,7 @@
          JOIN STATE_TABLE S ON(S.STATE_CODE = M.STATE_CODE)
 		WHERE M.MISSING_DELETE_YN = 'N'
 		  AND P.PICTURE_DELETE_YN = 'N'
-        ORDER BY M.MISSING_DATE DESC
+        ORDER BY M.BOARD_DATE DESC
  	</select>
  
  	<insert id="insertMissingInfo" parameterType="MissingDTO">
@@ -157,4 +174,89 @@
 	   ,#{pictureCode}
 	  	)
  	</insert>
+ 	
+ 	<select id="selectMissingDetail" parameterType="int" resultMap="missingResultset">
+ 		SELECT
+ 		      M.BOARD_CODE
+ 		    , M.BOARD_DATE
+            , M.MISSING_DATE
+			, M.MISSING_AREA
+			, M.MISSING_PLACE
+			, M.MISSING_PHONE
+			, M.MISSING_BREED
+			, M.MISSING_GENDER
+			, M.MISSING_COLOR
+			, M.MISSING_AGE
+			, M.MISSING_WEIGTH
+			, M.MISSING_CHARACTER
+			, M.MISSING_REQUEST
+			, M.MISSING_DELETE_YN
+			, M.STATE_CODE
+			, M.USER_CODE
+			, U.USER_NIKNAME
+		FROM MISSING_BOARD M
+		JOIN USER_TABLE U ON (U.USER_CODE = M.USER_CODE)
+	   WHERE M.MISSING_DELETE_YN = 'N'
+	     AND M.BOARD_CODE = #{boardCode}
+ 	</select>
+ 	
+ 	<select id="selectMissingDetailPicture" parameterType="int" resultMap="pictureInsertResultset">
+ 		SELECT 
+               P.PICTURE_CODE
+              ,P.PICTURE_UTIL_PATH
+           FROM PICTURE_TABLE P
+           JOIN MISSING_PICTURE_MANAGE MP ON (P.PICTURE_CODE = MP.PICTURE_CODE)
+           JOIN MISSING_BOARD M ON (M.BOARD_CODE = MP.BOARD_CODE)
+          WHERE M.BOARD_CODE = #{boardCode}
+            AND P.PICTURE_DELETE_YN = 'N'
+ 	</select>
+ 	
+ 	<select id="selectAllMissingReply" parameterType="_int" resultMap="replyResultset">
+	  	SELECT 
+		      R.REPLY_CODE
+		    , R.REPLY_CONTENT
+		    , R.REPLY_DATE
+		    , R.REPLY_DELETE_YN
+		    , R.REPORT_YN
+		    , R.USER_CODE as replyUser
+		    , U.USER_NIKNAME
+		    , M.BOARD_CODE
+		    , M.USER_CODE as boardUser
+		  FROM REPLY_MANAGE R
+		  JOIN MISSING_BOARD_REPLY MB ON(R.REPLY_CODE = MB.REPLY_CODE)
+		  JOIN MISSING_BOARD M ON (M.BOARD_CODE =  MB.BOARD_CODE)
+		  JOIN USER_TABLE U ON (U.USER_CODE = R.USER_CODE)
+		 WHERE M.BOARD_CODE = #{boardCode}
+		   AND R.REPLY_DELETE_YN = 'N'
+	  </select>
+	  
+	   <insert id="insertReply" parameterType="AdoptReplyDTO">
+	  	INSERT
+	  	  INTO REPLY_MANAGE 
+	  	VALUES
+	  	(
+	  		REPLY_CODE_SEQ.NEXTVAL
+		  , #{replyContent}
+          , SYSDATE
+          , 'N'
+          , 'N'
+          , #{replyUserCode}
+	  	)
+	  </insert>
+	  
+	  <insert id="insertReplyBoard" parameterType="AdoptReplyDTO">
+		  <selectKey keyProperty="replyCode" order="BEFORE" resultType="int">
+		  	SELECT
+		  	      REPLY_CODE_SEQ.CURRVAL
+		  	  FROM DUAL
+		  </selectKey>
+		  INSERT
+		    INTO MISSING_BOARD_REPLY
+		  VALUES
+		  (
+		    #{boardCode}
+		  , #{replyCode}
+		  , #{replyUserCode}
+		  )
+	  </insert>
  </mapper> 

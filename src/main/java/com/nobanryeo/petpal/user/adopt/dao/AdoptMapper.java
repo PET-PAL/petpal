@@ -41,5 +41,7 @@ public interface AdoptMapper {
 
 	List<AdoptPictureManageDTO> selectSearchAdoptList(String keyword);
 
+	int putAdoptStatus(int boardCode);
+
 	
 }
