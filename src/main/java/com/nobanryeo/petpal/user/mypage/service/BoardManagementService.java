@@ -17,4 +17,24 @@ public interface BoardManagementService {
 
 	List<AdoptDTO> selectAdoptList(HashMap<String, Object> map);
 
+	int selectInfoCount(BoradAndCommentDTO bcDTO);
+
+	List<BoradAndCommentDTO> selectInfoList(HashMap<String, Object> map);
+
+	int selectFreeCount(BoradAndCommentDTO bcDTO);
+
+	List<BoradAndCommentDTO> selectFreeList(HashMap<String, Object> map);
+
+	int selectShareCount(BoradAndCommentDTO bcDTO);
+
+	List<BoradAndCommentDTO> selectShareList(HashMap<String, Object> map);
+
+	int selectReviewCount(BoradAndCommentDTO bcDTO);
+
+	List<BoradAndCommentDTO> selectReviewList(HashMap<String, Object> map);
+
+	int selectReplyCount(BoradAndCommentDTO bcDTO);
+
+	List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map);
+
 }

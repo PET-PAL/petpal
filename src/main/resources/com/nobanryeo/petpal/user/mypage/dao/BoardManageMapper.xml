@@ -14,7 +14,13 @@
 		<result column="DECISION_CODE" property="dicisionCode"/>
 		<result column="BOARD_MAP_VALUE" property="boardMap"/>
 		<result column="USER_CODE" property="userCode"/>
+		<result column="REPLY_CODE" property="replyCode"/>
+		<result column="REPLY_CONTENT" property="replyContent"/>
+		<result column="REPLY_DATE" property="replyDate"/>
+		<result column="REPLY_DELETE_YN" property="replyDeleteYn"/>
+		<result column="REPORT_YN" property="reportYn"/>
 	</resultMap>
+
 	
   	<resultMap type="AdoptDTO" id="adoptResultset">
   		<id column="BOARD_CODE" property="boardCode"/>
@@ -59,6 +65,7 @@
 		       COUNT(*)
 		  FROM MISSING_BOARD
 		 WHERE USER_CODE = #{ userCode } 
+		   AND MISSING_DELETE_YN = 'N'
 	</select>
 	
 	<select id="selectMissing" resultMap="missingResultset" parameterType="hashmap">
@@ -83,6 +90,7 @@
                                ,MISSING_COLOR
 		          FROM MISSING_BOARD
 		         WHERE USER_CODE = #{ bcDTO.userCode }
+		           AND MISSING_DELETE_YN = 'N'
 		      ORDER BY BOARD_CODE DESC) A)
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
 		      ORDER BY BOARD_CODE	
@@ -92,7 +100,8 @@
 		SELECT 
 		       COUNT(*)
 		  FROM ADOPT_BOARD
-		 WHERE USER_CODE = #{ userCode } 
+		 WHERE USER_CODE = #{ userCode }
+		   AND ADOPT_DELETE_YN = 'N'
 	</select>
 	
 	<select id="selectAdoptList" resultMap="adoptResultset" parameterType="hashmap">
@@ -116,11 +125,147 @@
                               , USER_LOCATION
 		          FROM ADOPT_BOARD
 		         WHERE USER_CODE = #{ bcDTO.userCode }
+		           AND ADOPT_DELETE_YN = 'N'
 		      ORDER BY BOARD_DATE DESC) A)
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
 		      ORDER BY BOARD_DATE DESC	
 	</select>
+	
+	<select id="selectInfoCount" resultType="int">
+		SELECT 
+		       COUNT(*)
+		  FROM INFO_BOARD
+		 WHERE USER_CODE = #{ userCode } 
+		   AND BOARD_DELETE_YN = 'N'
+	</select>
+	
+	<select id="selectInfoList" resultMap="boardResultSet" parameterType="hashmap">
+		SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+		                       BOARD_CODE
+                             , BOARD_TITLE
+                             , BOARD_CONTENT
+                             , BOARD_VIEWS
+                             , BOARD_POST_DATE
+                             , BOARD_DELETE_YN
+                             , DECISION_CODE
+                             , USER_CODE
+		          FROM INFO_BOARD
+		         WHERE USER_CODE = #{ bcDTO.userCode }
+		           AND BOARD_DELETE_YN = 'N'
+		      ORDER BY BOARD_POST_DATE DESC) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY BOARD_POST_DATE DESC	
+	</select>
+	
+	<select id="selectFreeCount" resultType="int">
+		SELECT 
+		       COUNT(*)
+		  FROM FREE_BOARD
+		 WHERE USER_CODE = #{ userCode } 
+		   AND BOARD_DELETE_YN = 'N'
+	</select>
 
+	<select id="selectFreeList" resultMap="boardResultSet" parameterType="hashmap">
+		SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+		                       BOARD_CODE
+                             , BOARD_TITLE
+                             , BOARD_CONTENT
+                             , BOARD_VIEWS
+                             , BOARD_POST_DATE
+                             , BOARD_DELETE_YN
+                             , USER_CODE
+		          FROM FREE_BOARD
+		         WHERE USER_CODE = #{ bcDTO.userCode }
+		           AND BOARD_DELETE_YN = 'N'
+		      ORDER BY BOARD_POST_DATE DESC) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY BOARD_POST_DATE DESC	
+	</select>
+	
+	<select id="selectShareCount" resultType="int">
+		SELECT 
+		       COUNT(*)
+		  FROM SHARE_BOARD
+		 WHERE USER_CODE = #{ userCode } 
+		   AND BOARD_DELETE_YN = 'N'
+	</select>
+
+	<select id="selectShareList" resultMap="boardResultSet" parameterType="hashmap">
+		SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+		                       BOARD_CODE
+                             , BOARD_TITLE
+                             , BOARD_CONTENT
+                             , BOARD_VIEWS
+                             , BOARD_POST_DATE
+                             , BOARD_DELETE_YN
+                             , USER_CODE
+		          FROM SHARE_BOARD
+		         WHERE USER_CODE = #{ bcDTO.userCode }
+		           AND BOARD_DELETE_YN = 'N'
+		      ORDER BY BOARD_POST_DATE DESC) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY BOARD_POST_DATE DESC	
+	</select>
+	
+	<select id="selectReviewCount" resultType="int">
+		SELECT 
+		       COUNT(*)
+		  FROM REVIEW_BOARD
+		 WHERE USER_CODE = #{ userCode }
+		   AND BOARD_DELETE_YN = 'N'
+	</select>
+	
+	<select id="selectReviewList" resultMap="boardResultSet" parameterType="hashmap">
+		SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+		                       BOARD_CODE
+                             , BOARD_TITLE
+                             , BOARD_CONTENT
+                             , BOARD_VIEWS
+                             , BOARD_POST_DATE
+                             , BOARD_DELETE_YN
+                             , USER_CODE
+		          FROM REVIEW_BOARD
+		         WHERE USER_CODE = #{ bcDTO.userCode }
+		           AND BOARD_DELETE_YN = 'N'
+		      ORDER BY BOARD_POST_DATE DESC) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY BOARD_POST_DATE DESC	
+	</select>
+	
+	<select id="selectReplyCount" resultType="int">
+		SELECT 
+		       COUNT(*)
+		  FROM REPLY_MANAGE
+		 WHERE USER_CODE = #{ userCode }
+		   AND REPLY_DELETE_YN = 'N'
+		   AND REPORT_YN = 'N'
+	</select>
+	
+	<select id="selectReplyList" resultMap="boardResultSet" parameterType="hashmap">
+		SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+		                       REPLY_CODE
+                             , REPLY_CONTENT
+                             , REPLY_DATE
+                             , REPLY_DELETE_YN
+                             , REPORT_YN
+		          FROM REPLY_MANAGE
+		         WHERE USER_CODE = #{ bcDTO.userCode }
+		           AND REPLY_DELETE_YN = 'N'
+		           AND REPORT_YN = 'N'
+		      ORDER BY REPLY_DATE DESC) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY REPLY_DATE DESC	
+	</select>
 
 </mapper>
 

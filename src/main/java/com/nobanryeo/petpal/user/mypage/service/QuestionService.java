@@ -44,6 +44,12 @@ public interface QuestionService {
 	 */
 	List<ReportManageDTO> selectReportList(HashMap<String, Object> map);
 
+	ReportManageDTO selectReportDetail(int reportCode);
+
+	int selectReplyReportCount(int code);
+
+	List<ReportManageDTO> selectReplyReportList(HashMap<String, Object> map);
+
 }
 
 

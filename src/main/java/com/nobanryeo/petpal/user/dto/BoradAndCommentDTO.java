@@ -14,13 +14,18 @@ public class BoradAndCommentDTO {
 	private String boardMap;	//지도값
 	private int userCode;	//유저코드
 	private int replyCode;  //댓글코드
+	private String replyContent; //댓글내용
+	private Date replyDate; //댓글작성날짜
+	private String replyDeleteYn; //댓글삭제여부
+	private String reportYn; //신고여부
 
 	public BoradAndCommentDTO() {
 		
 	}
 
 	public BoradAndCommentDTO(int boardCode, String boardTitle, String boardContent, int views, Date postDate,
-			String deleteYn, int dicisionCode, String boardMap, int userCode, int replyCode) {
+			String deleteYn, int dicisionCode, String boardMap, int userCode, int replyCode, String replyContent,
+			Date replyDate, String replyDeleteYn, String reportYn) {
 		super();
 		this.boardCode = boardCode;
 		this.boardTitle = boardTitle;
@@ -32,6 +37,10 @@ public class BoradAndCommentDTO {
 		this.boardMap = boardMap;
 		this.userCode = userCode;
 		this.replyCode = replyCode;
+		this.replyContent = replyContent;
+		this.replyDate = replyDate;
+		this.replyDeleteYn = replyDeleteYn;
+		this.reportYn = reportYn;
 	}
 
 	public int getBoardCode() {
@@ -114,14 +123,47 @@ public class BoradAndCommentDTO {
 		this.replyCode = replyCode;
 	}
 
+	public String getReplyContent() {
+		return replyContent;
+	}
+
+	public void setReplyContent(String replyContent) {
+		this.replyContent = replyContent;
+	}
+
+	public Date getReplyDate() {
+		return replyDate;
+	}
+
+	public void setReplyDate(Date replyDate) {
+		this.replyDate = replyDate;
+	}
+
+	public String getReplyDeleteYn() {
+		return replyDeleteYn;
+	}
+
+	public void setReplyDeleteYn(String replyDeleteYn) {
+		this.replyDeleteYn = replyDeleteYn;
+	}
+
+	public String getReportYn() {
+		return reportYn;
+	}
+
+	public void setReportYn(String reportYn) {
+		this.reportYn = reportYn;
+	}
+
 	@Override
 	public String toString() {
 		return "BoradAndCommentDTO [boardCode=" + boardCode + ", boardTitle=" + boardTitle + ", boardContent="
 				+ boardContent + ", views=" + views + ", postDate=" + postDate + ", deleteYn=" + deleteYn
 				+ ", dicisionCode=" + dicisionCode + ", boardMap=" + boardMap + ", userCode=" + userCode
-				+ ", replyCode=" + replyCode + "]";
+				+ ", replyCode=" + replyCode + ", replyContent=" + replyContent + ", replyDate=" + replyDate
+				+ ", replyDeleteYn=" + replyDeleteYn + ", reportYn=" + reportYn + "]";
 	}
-	
+
 	
 	
 	
