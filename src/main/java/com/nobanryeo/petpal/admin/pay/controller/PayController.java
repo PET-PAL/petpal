@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.admin.pay.controller;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.text.ParseException;
@@ -9,6 +10,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.commons.lang.time.DateFormatUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -276,6 +278,10 @@ public class PayController {
 					selectTaxAllList.get(i).setPayStatus("납부완료");
 				} else {
 					selectTaxAllList.get(i).setPayStatus("납부전");
+					System.out.println("납부전 : " + selectTaxAllList.get(i).getCalApplyDate());
+					System.out.println("납부전2 : " + selectTaxAllList.get(i).getCalEndDate());
+					System.out.println("납부전3 : " + selectTaxAllList.get(i).getCancelApplyDate());
+					
 				}
 				
 				System.out.println(selectTaxAllList.get(i).getPayStatus());
@@ -290,7 +296,49 @@ public class PayController {
 			model.addAttribute("category", category);
 			model.addAttribute("total", total);
 					
+			} else {
+				
+				AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
+				
+				System.out.println("검색 안했을 때 cat 출력 : " + cat);
+				
+				// 총 개수
+				int total = payAdminService.searchTaxList(cat);
+				
+				System.out.println("총 개수 : " + total);
+				
+				// 페이징 정보
+				paging = new AdminPageInfoDTO(Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category, searchValue, total);
+				
+				// 세금계산서 리스트
+				List<AdAdminDTO> searchTaxAllList = payAdminService.searchTaxAllList(paging);
+				
+				// 세금계산서 현재 페이지 게시물 갯수 조회
+				int cntNowPage = payAdminService.searchTaxNumber(paging);
+				
+				for (int i = 0; i < cntNowPage; i++) {
+					
+					if(searchTaxAllList.get(i).getCancelApplyDate() != null && searchTaxAllList.get(i).getCalApplyDate() > 7) {
+						searchTaxAllList.get(i).setPayStatus("납부완료");
+					} else if(searchTaxAllList.get(i).getCancelApplyDate() == null && searchTaxAllList.get(i).getCalEndDate() > 7) {
+						searchTaxAllList.get(i).setPayStatus("납부완료");
+					} else {
+						searchTaxAllList.get(i).setPayStatus("납부전");
+					}
+					
+					System.out.println(searchTaxAllList.get(i).getPayStatus());
 				}
+				
+				
+				System.out.println("검색 했을 때 검색결과 : " + searchTaxAllList);
+				
+				// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
+				model.addAttribute("paging", paging);
+				model.addAttribute("taxList", searchTaxAllList);
+				model.addAttribute("category", category);
+				model.addAttribute("total", total);
+				
+			}
 		
 		
 
@@ -307,8 +355,34 @@ public class PayController {
 		List<AdAdminDTO> selectTaxDetail = payAdminService.selectTaxDetail(adCode);
 				
 		System.out.println("조회된 광고 관리 디테일 : " + selectTaxDetail);
+		
+		// 2차 금액
+		String price2nd = String.valueOf(selectTaxDetail.get(0).getPrice2nd());
+		
+		// 세액
+		String taxPrice = String.valueOf(selectTaxDetail.get(0).getTaxPrice());
+		
+		// 월 일
+		Date taxday = selectTaxDetail.get(0).getTaxBillDate();
+		
+		String taxString = DateFormatUtils.format(taxday, "yyyy-MM-dd");
+		
+		System.out.println("taxString : " + taxString);
+		
+		String year = taxString.substring(0,4);
+		String month = taxString.substring(5,7);
+		String day = taxString.substring(8,10);
+		
+		System.out.println("년도 : " + year);
+		System.out.println("월 : " + month);
+		System.out.println("일 : " + day);
 				
 		model.addAttribute("adApprove", selectTaxDetail);
+		model.addAttribute("taxMonthDay", month);
+		model.addAttribute("taxDayDay", day);
+		model.addAttribute("price2nd", price2nd);
+		model.addAttribute("taxPrice", price2nd);
+		
 		
 		return "admin/main/taxbill";
 	}

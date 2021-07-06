@@ -220,7 +220,7 @@ select { width: 150px; /* 원하는 너비설정 */
 												<thead>
 													<tr>
 													 	<th scope="col">광고 코드</th>
-                                    					<th scope="col">광고 신청자</th>
+                                    					<th style="text-align:center;">광고 신청자</th>
 														<th style="text-align:center;">정산 카테고리</th>
 														<th style="text-align:center;">청구 일자</th>
 														<th style="text-align:center;">지급 상태</th>

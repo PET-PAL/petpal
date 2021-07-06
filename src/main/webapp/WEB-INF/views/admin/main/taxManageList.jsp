@@ -77,9 +77,9 @@ function monthChange() {
       text-align:center;
       color:#25213b">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">광고 결제 관리</a></li>
+        <li><a href="${ pageContext.servletContext.contextPath }/admin/payList">광고 결제 관리</a></li>
         <hr>
-        <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">세금계산서 관리</a></li>
+        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">세금계산서 관리</a></li>
       </ul>
     </nav>
     <!-- sidebar end -->
