@@ -11,6 +11,7 @@ import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.FriendlyPlaceDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.ShareInfoDTO;
 
 @Service
@@ -24,18 +25,15 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 	}
 
 	@Override
-	public List<ShareInfoDTO> selectShareInfoList() {
-		
-		// 이미지가 존재하는 정보공유게시판 리스트 조회
-		List<ShareInfoDTO> shareInfoList1 = new ArrayList<>();
-		shareInfoList1 = shareInfoMapper.selectShareInfoListExistImg();
+	public int selectShareInfoCount() {
+		return shareInfoMapper.selectShareInfoCount();
+	}
 
-		// 이미지가 존재하지 않는 정보공유게시판 리스트 조회
-		List<ShareInfoDTO> shareInfoList2 = shareInfoMapper.selectShareInfoListNotExistImg();
+	@Override
+	public List<ShareInfoDTO> selectShareInfoList(PageDTO page) {
 		
 		List<ShareInfoDTO> shareInfoList = new ArrayList<>();
-		shareInfoList.addAll(shareInfoList1);
-		shareInfoList.addAll(shareInfoList2);
+		shareInfoList = shareInfoMapper.selectShareInfoListExistImg(page);
 		
 		System.out.println(shareInfoList);
 		
@@ -110,20 +108,18 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 	
 	
 	
+
 	
 	@Override
-	public List<FriendlyPlaceDTO> selectSharePlaceList() {
+	public int selectSharePlaceCount() {
+		return shareInfoMapper.selectSharePlaceCount();
+	}
+	
+	@Override
+	public List<FriendlyPlaceDTO> selectSharePlaceList(PageDTO page) {
 
-		// 이미지가 존재하는 정보공유게시판 리스트 조회
-		List<FriendlyPlaceDTO> friendlyPlaceList1 = new ArrayList<>();
-		friendlyPlaceList1 = shareInfoMapper.selectSharePlaceListExistImg();
-		
-		// 이미지가 존재하지 않는 정보공유게시판 리스트 조회
-		List<FriendlyPlaceDTO> friendlyPlaceList2 = shareInfoMapper.selectSharePlaceListNotExistImg();
-		
 		List<FriendlyPlaceDTO> friendlyPlaceList = new ArrayList<>();
-		friendlyPlaceList.addAll(friendlyPlaceList1);
-		friendlyPlaceList.addAll(friendlyPlaceList2);
+		friendlyPlaceList = shareInfoMapper.selectSharePlaceListExistImg(page);
 		
 		System.out.println(friendlyPlaceList);
 		
@@ -172,5 +168,6 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 		
 		return result1 + result2;
 	}
+
 
 }

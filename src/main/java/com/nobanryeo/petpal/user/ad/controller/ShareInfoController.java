@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.ShareInfoService;
@@ -29,6 +30,7 @@ import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.FriendlyPlaceDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.ShareInfoDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
@@ -53,7 +55,9 @@ private final ShareInfoService shareInfoService;
      * 정보공유게시판 리스트 조회
      */
     @GetMapping("select/shareInfo/list")
-    public String selectShareInfoList(Model model, HttpServletResponse response, HttpServletRequest request) {
+    public String selectShareInfoList(Model model, HttpServletResponse response, HttpServletRequest request, PageDTO page
+    		, @RequestParam(value="nowPage", required = false)String nowPage
+			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
     	
     	Cookie[] cookies = request.getCookies();
     	
@@ -68,7 +72,23 @@ private final ShareInfoService shareInfoService;
     		}
     	}
        
-        model.addAttribute("shareInfoList", shareInfoService.selectShareInfoList());
+    	// 페이징처리
+    	int total = shareInfoService.selectShareInfoCount();
+    	
+    	if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "12";
+		} else if(nowPage == null) {
+			nowPage = "1";
+		} else if(cntPerPage == null) {
+			cntPerPage = "12";
+		}
+    	
+    	page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+    	
+    	model.addAttribute("paging", page);
+    	
+        model.addAttribute("shareInfoList", shareInfoService.selectShareInfoList(page));
     	
     	return "user/main/shareInfo";
     }
@@ -226,12 +246,21 @@ private final ShareInfoService shareInfoService;
 	 * 정보공유게시판 게시글 작성
 	 */
 	@PostMapping("insert/write/shareInfo")
-	public String insertWriteShareInfo(@ModelAttribute ShareInfoDTO shareInfo, @ModelAttribute PictureDTO picture, @SessionAttribute UserInfoDTO loginUser) {
+	public String insertWriteShareInfo(@ModelAttribute ShareInfoDTO shareInfo, @ModelAttribute PictureDTO picture, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) {
 		
 		shareInfo.setUserCode(loginUser.getCode());
 		
-		if(shareInfoService.inserWriteShreInfo(shareInfo) > 1) {
-			System.out.println("게시글 작성 성공");
+		if(shareInfo.getPictureName().equals("")) { // 이미지없이 게시글 작성시
+			
+			rttr.addFlashAttribute("message", "최소 한 개 이상의 이미지가 필요합니다.");
+			return "redirect:/user/select/shareInfo";
+			
+		} else { // 이미지가 있는 게시글 작성시
+			
+			if(shareInfoService.inserWriteShreInfo(shareInfo) > 1) {
+				System.out.println("게시글 작성 성공");
+			}
+			
 		}
 		
 		return "redirect:/user/select/shareInfo/list";
@@ -246,7 +275,9 @@ private final ShareInfoService shareInfoService;
      * 프렌들리 플레이스 게시판 리스트 조회
      */
     @GetMapping("select/sharePlace/list")
-    public String selectSharePlaceList(Model model, HttpServletResponse response, HttpServletRequest request) {
+    public String selectSharePlaceList(Model model, HttpServletResponse response, HttpServletRequest request, PageDTO page
+    		, @RequestParam(value="nowPage", required = false)String nowPage
+			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
     	
     	Cookie[] cookies = request.getCookies();
     	
@@ -260,8 +291,24 @@ private final ShareInfoService shareInfoService;
     			
     		}
     	}
+    	
+    	// 페이징처리
+    	int total = shareInfoService.selectSharePlaceCount();
+    	
+    	if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "12";
+		} else if(nowPage == null) {
+			nowPage = "1";
+		} else if(cntPerPage == null) {
+			cntPerPage = "12";
+		}
+    	
+    	page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+    	
+    	model.addAttribute("paging", page);
        
-        model.addAttribute("sharePlaceList", shareInfoService.selectSharePlaceList());
+        model.addAttribute("sharePlaceList", shareInfoService.selectSharePlaceList(page));
     	
     	return "user/main/sharePlace";
     }
@@ -418,13 +465,21 @@ private final ShareInfoService shareInfoService;
 	 * 프렌들리 플레이스 게시글 작성
 	 */
 	@PostMapping("insert/write/sharePlace")
-	public String insertWriteSharePlace(@ModelAttribute FriendlyPlaceDTO sharePlace, @SessionAttribute UserInfoDTO loginUser) {
+	public String insertWriteSharePlace(@ModelAttribute FriendlyPlaceDTO sharePlace, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) {
 		
 		sharePlace.setUserCode(loginUser.getCode());
-		System.out.println(sharePlace);
 		
-		if(shareInfoService.insertWriteShrePlace(sharePlace) > 1) {
-			System.out.println("게시글 작성 성공");
+		if(sharePlace.getPictureName().equals("")) { // 이미지없이 게시글 작성시
+			
+			rttr.addFlashAttribute("message", "최소 한 개 이상의 이미지가 필요합니다.");
+			return "redirect:/user/select/write/sharePlace";
+			
+		} else { // 이미지가 있는 게시글 작성시
+			
+			if(shareInfoService.insertWriteShrePlace(sharePlace) > 1) {
+				System.out.println("게시글 작성 성공");
+			}
+			
 		}
 		
 		return "redirect:/user/select/sharePlace/list";

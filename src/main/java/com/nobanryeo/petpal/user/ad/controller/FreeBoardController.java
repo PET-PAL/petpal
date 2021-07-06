@@ -3,6 +3,8 @@ package com.nobanryeo.petpal.user.ad.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -29,6 +31,7 @@ import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
@@ -52,7 +55,9 @@ public class FreeBoardController {
      * 자유게시판 전체 게시글 조회
      */
     @GetMapping("select/freeboard/list")
-    public String selectFreeBoardList(Model model, HttpServletResponse response, HttpServletRequest request) {
+    public String selectFreeBoardList(Model model, HttpServletResponse response, HttpServletRequest request, PageDTO page
+    		, @RequestParam(value="nowPage", required = false)String nowPage
+			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
     	
     	Cookie[] cookies = request.getCookies();
     	
@@ -66,8 +71,23 @@ public class FreeBoardController {
     			
     		}
     	}
-       
-        model.addAttribute("freeBoardList", freeBoardService.selectFreeBoardList());
+    	
+    	// 페이징처리
+    	int total = freeBoardService.selectFreeBoardCount();
+    	
+    	if(nowPage == null && cntPerPage == null) {
+			nowPage = "1";
+			cntPerPage = "10";
+		} else if(nowPage == null) {
+			nowPage = "1";
+		} else if(cntPerPage == null) {
+			cntPerPage = "10";
+		}
+    	
+    	page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+    	
+    	model.addAttribute("paging", page);
+        model.addAttribute("freeBoardList", freeBoardService.selectFreeBoardList(page));
        
         return "user/community/freeBoardList";
     }
@@ -249,11 +269,17 @@ public class FreeBoardController {
 			System.out.println("게시글 작성 실패");
 		}
 		
-		// 이미지 insert
-		if(freeBoardService.insertFreeBoardImg(picture) > 0) {
-			System.out.println("이미지 작성 성공");
+		// 이미지 insert -> 이미지 없을때 insert 안해줌
+		if(picture.getPictureName().equals("")) {
+			
 		} else {
-			System.out.println("이미지 작성 실패");
+			
+			if(freeBoardService.insertFreeBoardImg(picture) > 0) {
+				System.out.println("이미지 작성 성공");
+			} else {
+				System.out.println("이미지 작성 실패");
+			}
+			
 		}
 		
 		return "redirect:/user/select/freeboard/list";

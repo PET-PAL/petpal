@@ -76,6 +76,12 @@
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+        <script>
+	        const message = '${ requestScope.message }';
+	    	if(message != null && message !== '') {
+	    		alert(message);
+	    	}
+        </script>
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">

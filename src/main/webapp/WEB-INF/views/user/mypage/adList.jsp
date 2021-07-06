@@ -313,12 +313,27 @@
 			                        </c:forEach>
 			                    </tbody>
 			                </table>
-			                <div class="text-center">
+			                <!-- 페이징처리 -->
+							<div class="text-center">
 								<ul class="pagination">
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
+									<li>
+										<c:if test="${paging.startPage != 1 }">
+											<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+										</c:if>
+										<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+											<c:choose>
+												<c:when test="${p == paging.nowPage }">
+													<li><a>${p }</a></li>
+												</c:when>
+												<c:when test="${p != paging.nowPage }">
+													<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+												</c:when>
+											</c:choose>
+										</c:forEach>
+										<c:if test="${paging.endPage != paging.lastPage}">
+											<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+										</c:if>
+									</li>
 								</ul>
 							</div>
 	                	</div>
@@ -368,12 +383,27 @@
 			                        </c:forEach>
 			                    </tbody>
 			                </table>
-			                <div class="text-center">
+			                <!-- 페이징처리 -->
+							<div class="text-center">
 								<ul class="pagination">
-									<li><a href="#">1</a></li>
-									<li><a href="#">2</a></li>
-									<li><a href="#">3</a></li>
-									<li><a href="#">4</a></li>
+									<li>
+										<c:if test="${paging.startPage != 1 }">
+											<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+										</c:if>
+										<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+											<c:choose>
+												<c:when test="${p == paging.nowPage }">
+													<li><a>${p }</a></li>
+												</c:when>
+												<c:when test="${p != paging.nowPage }">
+													<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+												</c:when>
+											</c:choose>
+										</c:forEach>
+										<c:if test="${paging.endPage != paging.lastPage}">
+											<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+										</c:if>
+									</li>
 								</ul>
 							</div>
 	                	</div>

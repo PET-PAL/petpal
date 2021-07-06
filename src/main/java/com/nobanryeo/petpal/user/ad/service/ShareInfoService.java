@@ -6,11 +6,14 @@ import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.FriendlyPlaceDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.ShareInfoDTO;
 
 public interface ShareInfoService {
 
-	public List<ShareInfoDTO> selectShareInfoList();
+	public int selectShareInfoCount();
+	
+	public List<ShareInfoDTO> selectShareInfoList(PageDTO page);
 	
 	public void updateShareInfoViews(int boardCode);
 
@@ -30,9 +33,12 @@ public interface ShareInfoService {
 
 	public int inserWriteShreInfo(ShareInfoDTO shareInfo);
 
+
+
 	
+	public int selectSharePlaceCount();
 	
-	public List<FriendlyPlaceDTO> selectSharePlaceList();
+	public List<FriendlyPlaceDTO> selectSharePlaceList(PageDTO page);
 
 	public void updateSharePlaceViews(int boardCode);
 
@@ -45,5 +51,9 @@ public interface ShareInfoService {
 	public int insertSharePlaceReport(FreeBoardReportDTO report);
 
 	public int insertWriteShrePlace(FriendlyPlaceDTO sharePlace);
+
+
+
+
 
 }

@@ -71,38 +71,40 @@
 	
 	
  	
- 	<select id="selectShareInfoListExistImg" parameterType="ShareInfoDTO" resultMap="ShareInfoResultSet">
- 		SELECT A.BOARD_TITLE
- 		     , A.BOARD_CONTENT
- 		     , A.BOARD_CODE
- 		     , B.USER_NIKNAME
-             , E.PICTURE_UTIL_PATH
- 		  FROM INFO_BOARD A
- 		  JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
+ 	<select id="selectShareInfoCount" resultType="int">
+        SELECT COUNT(*)
+          FROM INFO_BOARD A
+          JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
           JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
           JOIN INFO_PICTURE_MANAGE D ON(D.BOARD_CODE = A.BOARD_CODE)
           JOIN PICTURE_TABLE E ON(E.PICTURE_CODE = D.PICTURE_CODE)
- 		 WHERE A.BOARD_DELETE_YN = 'N'
+         WHERE A.BOARD_DELETE_YN = 'N'
            AND C.STATE_CODE = 2
            AND E.PICTURE_DELETE_YN = 'N'
- 		 ORDER BY A.BOARD_CODE DESC
- 	</select>
+	</select>
  	
- 	<select id="selectShareInfoListNotExistImg" parameterType="ShareInfoDTO" resultMap="ShareInfoResultSet">
- 		SELECT A.BOARD_TITLE
- 		     , A.BOARD_CONTENT
- 		     , A.BOARD_CODE
- 		     , B.USER_NIKNAME
- 		  FROM INFO_BOARD A
- 		  JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
-          JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
- 		 WHERE NOT EXISTS (SELECT 1
- 		                     FROM INFO_PICTURE_MANAGE D
- 		                    WHERE D.BOARD_CODE = A.BOARD_CODE
- 		                  )
- 		   AND A.BOARD_DELETE_YN = 'N'
-           AND C.STATE_CODE = 2
- 		 ORDER BY A.BOARD_CODE DESC
+ 	<select id="selectShareInfoListExistImg" parameterType="ShareInfoDTO" resultMap="ShareInfoResultSet">
+ 		SELECT * 
+		  FROM (
+			     SELECT ROWNUM RN, F.* 
+			       FROM (
+ 		                  SELECT A.BOARD_TITLE
+ 		                       , A.BOARD_CONTENT
+ 		                       , A.BOARD_CODE
+ 		                       , B.USER_NIKNAME
+                               , E.PICTURE_UTIL_PATH
+ 		                    FROM INFO_BOARD A
+ 		                    JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
+                            JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
+                            JOIN INFO_PICTURE_MANAGE D ON(D.BOARD_CODE = A.BOARD_CODE)
+                            JOIN PICTURE_TABLE E ON(E.PICTURE_CODE = D.PICTURE_CODE)
+ 		                   WHERE A.BOARD_DELETE_YN = 'N'
+                             AND C.STATE_CODE = 2
+                             AND E.PICTURE_DELETE_YN = 'N'
+ 		                   ORDER BY A.BOARD_CODE DESC
+ 		                 ) F
+               )
+	     WHERE RN BETWEEN #{start} AND #{end}
  	</select>
  	
  	<update id="updateShareInfoViews" parameterType="ShareInfoDTO">
@@ -273,13 +275,10 @@
 	
 	
 	
-	<select id="selectSharePlaceListExistImg" parameterType="FriendlyPlaceDTO" resultMap="SharePlaceResultSet">
- 		SELECT A.BOARD_TITLE
- 		     , A.BOARD_CONTENT
- 		     , A.BOARD_CODE
- 		     , B.USER_NIKNAME
-             , E.PICTURE_UTIL_PATH
- 		  FROM FRIENDLY_BOARD A
+	
+	<select id="selectSharePlaceCount" resultType="int">
+		SELECT COUNT(*)
+		  FROM FRIENDLY_BOARD A
  		  JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
           JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
           JOIN FRIENDLY_PICTURE_MANAGE D ON(D.BOARD_CODE = A.BOARD_CODE)
@@ -287,24 +286,30 @@
  		 WHERE A.BOARD_DELETE_YN = 'N'
            AND C.STATE_CODE = 2
            AND E.PICTURE_DELETE_YN = 'N'
- 		 ORDER BY A.BOARD_CODE DESC
- 	</select>
- 	
- 	<select id="selectSharePlaceListNotExistImg" parameterType="FriendlyPlaceDTO" resultMap="SharePlaceResultSet">
- 		SELECT A.BOARD_TITLE
- 		     , A.BOARD_CONTENT
- 		     , A.BOARD_CODE
- 		     , B.USER_NIKNAME
- 		  FROM FRIENDLY_BOARD A
- 		  JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
-          JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
- 		 WHERE NOT EXISTS (SELECT 1
- 		                     FROM FRIENDLY_PICTURE_MANAGE D
- 		                    WHERE D.BOARD_CODE = A.BOARD_CODE
- 		                  )
- 		   AND A.BOARD_DELETE_YN = 'N'
-           AND C.STATE_CODE = 2
- 		 ORDER BY A.BOARD_CODE DESC
+	</select>
+	
+	<select id="selectSharePlaceListExistImg" parameterType="FriendlyPlaceDTO" resultMap="SharePlaceResultSet">
+		SELECT * 
+		  FROM (
+			     SELECT ROWNUM RN, F.* 
+			       FROM (
+ 		                  SELECT A.BOARD_TITLE
+ 		                       , A.BOARD_CONTENT
+ 		                       , A.BOARD_CODE
+ 		                       , B.USER_NIKNAME
+                               , E.PICTURE_UTIL_PATH
+ 		                    FROM FRIENDLY_BOARD A
+ 		                    JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
+                            JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
+                            JOIN FRIENDLY_PICTURE_MANAGE D ON(D.BOARD_CODE = A.BOARD_CODE)
+                            JOIN PICTURE_TABLE E ON(E.PICTURE_CODE = D.PICTURE_CODE)
+ 		                   WHERE A.BOARD_DELETE_YN = 'N'
+                             AND C.STATE_CODE = 2
+                             AND E.PICTURE_DELETE_YN = 'N'
+ 		                   ORDER BY A.BOARD_CODE DESC
+ 		                 ) F
+               )
+	     WHERE RN BETWEEN #{start} AND #{end}
  	</select>
  	
  	<update id="updateSharePlaceViews" parameterType="FriendlyPlaceDTO">
