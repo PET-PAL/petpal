@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
      <head>
@@ -179,12 +180,24 @@
 							<td>권한설정</td>
 							<td><ul>
 		                                <li>
-		                                  	
-		                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="1" style="margin-bottom:2%" checked="checked">
-		                              		<label for="priv">대표관리자</label>
+		                                  	<c:choose>
+		                                  		<c:when test="${ sessionScope.loginUser.permisson eq 3}">
+		                                  		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="3" style="margin-bottom:2%" >
+			                              		<label for="priv">대표관리자</label>
+			                              		
+			                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="2" style="margin-bottom:2%" checked="checked">
+			                              		<label for="priv">서브관리자</label>
+		                                  		</c:when>
+		                                  		
+		                                  		<c:otherwise>
+		                                  		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="3" style="margin-bottom:2%"  disabled>
+			                              		<label for="priv">대표관리자</label>
+			                              		
+			                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="2" style="margin-bottom:2%" checked="checked">
+			                              		<label for="priv">서브관리자</label>
+		                                  		</c:otherwise>
+		                                  	</c:choose>
 		                              		
-		                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="2" style="margin-bottom:2%">
-		                              		<label for="priv">서브관리자</label>
 		                              	</li>
 		                        </ul>
 		                  </td>
