@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +48,8 @@ public class BoardManagementController {
 			, @RequestParam(value="nowPage", required = false)String nowPage
 			, @RequestParam(value="cntPerPage", required = false)String cntPerPage
 			, @RequestParam(value="nowPage2", required = false)String nowPage2
-			, @RequestParam(value="cntPerPage2", required = false)String cntPerPage2) {
+			, @RequestParam(value="cntPerPage2", required = false)String cntPerPage2
+			, HttpServletResponse response, HttpServletRequest request) {
 		
 		bcDTO.setType(type);
 		
@@ -194,6 +196,21 @@ public class BoardManagementController {
 			
 		} else if(type.equals("D")) {
 			
+			Cookie[] cookies = request.getCookies();
+	    	
+	    	for(Cookie cookie: cookies) {
+	    		
+	    		if(!(cookie.getName().equals("freeboard"))) {
+	    			
+	    			cookie = new Cookie("freeboard",null); 			//freeboard라는 이름의 쿠키 생성
+	    			cookie.setComment("freeboard 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
+	    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
+	    			
+	    		}
+	    		System.out.println("쿠키확인!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+	    		System.out.println(cookie);
+	    	}
+	    	
 			System.out.println("들어온 타입 : " + type);
 			bcDTO.setUserCode(loginUser.getCode());
 			
