@@ -39,4 +39,16 @@ public interface BoardManagementService {
 
 	boolean deletePost(int boardCode);
 
+	boolean deletePostAdopt(int boardCode);
+
+	boolean deletePostInfo(int boardCode);
+
+	boolean deletePostFree(int boardCode);
+
+	boolean deletePostShare(int boardCode);
+
+	boolean deletePostReview(int boardCode);
+
+	boolean deleteReply(int boardCode);
+
 }

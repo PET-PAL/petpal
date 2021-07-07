@@ -165,7 +165,7 @@
                                 <div class="col-sm-3">
                                     <div class="port_item xs-m-top-30">
                                         <div class="port_img">
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/lost_dog.png"
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/wanted.png"
                                             style="width: 290px; height: 250px;"
                                              onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing'">
                                         </div>
@@ -178,7 +178,7 @@
                                 <div class="col-sm-3">
                                     <div class="port_item xs-m-top-30">
                                         <div class="port_img">
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/adoptMe.jpg"
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/catbox.png"
                                             style="width: 290px; height: 250px;"
                                              onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt'">
                                         </div>
@@ -191,9 +191,9 @@
                                 <div class="col-sm-3">
                                     <div class="port_item xs-m-top-30">
                                         <div class="port_img">
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/source.png"
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/dogbook2.png"
                                             style="width: 290px; height: 250px;"
-                                             onclick="location.href='${ pageContext.servletContext.contextPath }/user/main/shareInfo.jsp'">
+                                             onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/list'">
                                         </div>
                                         <div class="port_caption m-top-20">
                                             <h5>정보공유</h5>

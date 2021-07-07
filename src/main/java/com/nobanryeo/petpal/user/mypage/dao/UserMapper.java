@@ -104,7 +104,6 @@ public interface UserMapper {
 	 */
 	int insertQuestion(AdQnADTO qnaDTO);
 
-	
 
 }
 

@@ -6,6 +6,7 @@ import java.util.List;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.BoradAndCommentDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
+import com.nobanryeo.petpal.user.dto.PageDTO;
 
 public interface BoardManageMapper {
 
@@ -36,5 +37,24 @@ public interface BoardManageMapper {
 	int selectReplyCount(BoradAndCommentDTO bcDTO);
 
 	List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map);
+
+	int deleteMissingPost(int boardCode);
+
+	int deleteAdoptPost(int boardCode);
+
+	int deleteInfoPost(int boardCode);
+
+	int deleteFreePost(int boardCode);
+
+	int deletePostShare(int boardCode);
+
+	int deletePostReview(int boardCode);
+
+	int deleteReply(int boardCode);
+
+	int selectReviewPostCount();
+
+	List<BoradAndCommentDTO> selectReviewPostList(PageDTO page);
+
 
 }

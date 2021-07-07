@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.BoradAndCommentDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
@@ -324,12 +326,74 @@ public class BoardManagementController {
 	
 	@PostMapping(value = "deletePost", produces = "application/json; charset=UTF-8")
 	@ResponseBody
-	public String deletePost(@RequestParam(value="boardCode", required = false) int boardCode) {
+	public String deletePost(@RequestParam(value="boardCode", required = false) int boardCode
+			,@RequestParam(value="type", required = false) String type) {
 		System.out.println("boardCode : " + boardCode);
+		System.out.println("type : " + type);
 		
-		 boolean result = boardService.deletePost(boardCode);
+		String result = "";
 		
-		return "";
+		if(type.equals("A")) {
+			
+			boolean value = boardService.deletePost(boardCode);
+			
+			if(value == true) {
+				result = "success";
+			} else {
+				result = "fail";
+			}
+			
+		} else if(type.equals("B")) {
+			System.out.println("B타입에 들어옴");
+			
+			boolean value = boardService.deletePostAdopt(boardCode);
+			
+			if(value == true) {
+				result = "success";
+			} else {
+				result = "fail";
+			}
+
+		} else if(type.equals("C")) {
+			boolean value = boardService.deletePostInfo(boardCode);
+			if(value == true) {
+				result = "success";
+			} else {
+				result = "fail";
+			}
+		} else if(type.equals("D")) {
+			boolean value = boardService.deletePostFree(boardCode);
+			if(value == true) {
+				result = "success";
+			} else {
+				result = "fail";
+			}
+		} else if(type.equals("E")) {
+			boolean value = boardService.deletePostShare(boardCode);
+			if(value == true) {
+				result = "success";
+			} else {
+				result = "fail";
+			}
+		} else if(type.equals("F")) {
+			boolean value = boardService.deletePostReview(boardCode);
+			if(value == true) {
+				result = "success";
+			} else {
+				result = "fail";
+			}
+		} else if(type.equals("G")) {
+			boolean value = boardService.deleteReply(boardCode);
+			if(value == true) {
+				result = "success";
+			} else {
+				result = "fail";
+			}
+		}
+		
+	    Gson gson = new GsonBuilder().create();
+	     
+	    return gson.toJson(result);
 	}
 	
 	
