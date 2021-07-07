@@ -41,8 +41,18 @@
                             <div class="tab-content" style="padding-top: 15px;">
                                 <div role="tabpanel" class="tab-pane active" id="profile">	
                                 <div>
-                                	<button type="button" style=" width: 200px; height: 50px; background-color: orange; border-radius: 50px; border: none; margin-left: 40%; pointer-events: none; font-size: 28px;
-    								color: white; font-weight: bolder;"> 납부전</button>
+                                	<c:forEach var="adApprove" items="${ requestScope.payDetail }">
+                                	<button type="button" style=" width: 240px; height: 50px; background-color: orange; border-radius: 50px; border: none; margin-left: 40%; pointer-events: none; font-size: 28px;
+    								color: white; font-weight: bolder;"> 
+    								<c:if test= "${ empty adApprove.payDate1st }">
+											1차
+										    </c:if>
+									      	<c:if test= "${ not empty adApprove.payDate1st }">
+									    	2차
+										    </c:if>
+    								<c:out value="${ adApprove.payStatus }"/>
+    								</button>
+    								</c:forEach>
                                 </div>
                                    <hr style="border:1px solid lightgray; width:100%;">
                                 	<div class="col-md-6 col-md-offset-3">
@@ -57,6 +67,7 @@
 									 <fmt:parseDate value="${adApprove.decision.decisionDate}" pattern="yyyy-MM-dd" var="decisionday" />
 									 <fmt:parseDate value="${adApprove.payDate1st}" pattern="yyyy-MM-dd" var="pay1stday" />
 									 <fmt:parseDate value="${adApprove.cancelApplyDate}" pattern="yyyy-MM-dd" var="cancelApplyDay" />
+									 <fmt:parseDate value="${adApprove.payDate1st}" pattern="yyyy-MM-dd" var="payday1st" />
 									   
 									 
 									 <fmt:parseNumber value="${today.time / (1000*60*60*24)}" integerOnly="true" var="caltoday" />
@@ -66,6 +77,8 @@
 									 <fmt:parseNumber value="${startday.time  / (1000*60*60*24)}" integerOnly="true" var="calstartday" /> 
 									 <fmt:parseNumber value="${endday.time  / (1000*60*60*24)}" integerOnly="true" var="calendday" /> 
 									 <fmt:parseNumber value="${decisionday.time  / (1000*60*60*24)}" integerOnly="true" var="caldecisionday" /> 
+									 <fmt:parseNumber value="${payday1st.time  / (1000*60*60*24)}" integerOnly="true" var="calpayday1st" /> 
+									 <fmt:parseNumber value="${adApprove.payDate1st.time}" integerOnly="true" var="calpayday1st" /> 
 									 <%-- <fmt:parseNumber value="${decisionday.time  / (1000*60*60*24) + 3*(1000*60*60*24)}" integerOnly="true" var="caldday" /> --%> 
 		                               
 									 <fmt:parseDate value="${caldday}" pattern="yyyy-MM-dd" var="calDday" />
@@ -73,17 +86,168 @@
 		                               <table class="table text-center">
                                 		
                                 		<c:forEach var="adApprove" items="${ requestScope.payDetail }">
+		                        
 		                                 <tr>
-		                                    <th scope="col" style="border: none;">이름(유저아이디)</th>
+		                                    <th scope="col" style="border: none; font-size: 22px; color: black;">1차 결제</th>
 		                                    <td style="border: none;">
-		                                    ${ adApprove.user.name }(${ adApprove.user.id })
 		                                    </td>
 		                                 </tr>
 		                                 <tr>
+		                                    <th scope="col" style="border: none;">1차 가격</th>
+		                                   <td style="border:none">
+					                          <c:choose>
+							                    <c:when test="${adApprove.adTypeCode eq 1}">
+							                    	200,000원
+							                    </c:when>
+							                    <c:when test="${adApprove.adTypeCode eq 3}">
+							                    	100,000원
+							                    </c:when>
+							                    <c:when test="${adApprove.adTypeCode eq 2}">
+							                    	350,000원
+							                    </c:when>
+							                    <c:when test="${adApprove.adTypeCode eq 4}">
+							                    	250,000원
+							                    </c:when>
+					                           </c:choose>
+					                          </td>
+		                                 </tr>
+		                                 <tr>
+		                                    <th scope="col" style="border: none;">1차 결제 여부</th>
+		                                    <td style="border: none;">
+											<c:if test="${ not empty adApprove.payDate1st }">
+					      						 Y
+					                          </c:if>
+					                          <c:if test="${ empty adApprove.payDate1st }">
+					      						 N
+					                          </c:if>
+		                                    </td>
+		                                 </tr>
+		                                   <tr>
+					                          <th scope="col"style="border:none">1차 결제 금액</th>
+					                          <td style="border:none">
+					                          <c:if test="${ not empty adApprove.payDate1st }">
+					      						<c:choose>
+							                    <c:when test="${adApprove.adTypeCode eq 1}">
+							                    	200,000원
+							                    </c:when>
+							                    <c:when test="${adApprove.adTypeCode eq 3}">
+							                    	100,000원
+							                    </c:when>
+							                    <c:when test="${adApprove.adTypeCode eq 2}">
+							                    	350,000원
+							                    </c:when>
+							                    <c:when test="${adApprove.adTypeCode eq 4}">
+							                    	250,000원
+							                    </c:when>
+					                           </c:choose>
+					                          </c:if>
+					                          <c:if test="${ empty adApprove.payDate1st }">
+					      						 -
+					                          </c:if>
+					                          </td>
+					                       </tr>
+					                       <tr>
+					                          <th scope="col" style="border:none">1차 결제 일자</th>
+					                          <td style="border:none">
+					                          	<c:if test="${ not empty adApprove.payDate1st }">
+					                          	${ adApprove.payDate1st }
+					                          	</c:if>
+					                         	 <c:if test="${ empty adApprove.payDate1st }">
+					      						 -
+					                          	</c:if>
+					                          	
+					                          </td>
+					                       </tr>
+					                       <tr>
+					                          <th scope="col" style="border:none">1차 결제 방법</th>
+					                          <td style="border:none">
+					                          <c:if test="${ not empty adApprove.payDate1st }">
+					                          	카카오페이
+					                          </c:if>
+					                          <c:if test="${ empty adApprove.payDate1st }">
+					      						 -
+					                          </c:if>
+					                          </td>
+					                       </tr>
+		                                 
+		                                   <c:if test="${ startday <= today and today <= endday }">
+						                       <tr>
+						                          <th scope="col" style="border:none">총 클릭 수</th>
+						                          <td style="border:none">${ adApprove.clickNum }회</td>
+						                       </tr>
+						                       <tr>
+						                          <th scope="col" style="border:none">예상 2차 가격</th>
+						                          <td style="border:none">
+						                          ${ adApprove.price2nd }원
+						                          </td>
+						                        </tr>
+						                       </c:if>
+                    
+                    <c:if test="${ not empty adApprove.cancelApplyDate or (adApprove.postEndDate < day) }">
+	                   <tr>	 
+	                   	 <th scope="col" style="border: none; font-size: 22px; color: black;">2차 결제</th>
+		                 <td style="border: none;"></td>
+		               </tr>
+                       <tr>
+                          <th scope="col" style="border:none">2차 가격</th>
+                          <td style="border:none">
+                           ${ adApprove.price2nd }원
+                          </td>
+                       </tr>
+                       <tr>
+                          <th scope="col" style="border:none">총 클릭 수</th>
+                          <td style="border:none">
+                          ${ adApprove.clickNum }회
+                          </td>
+                       </tr>
+                       <tr>
+                          <th scope="col"style="border:none">결제 여부</th>
+                          <td style="border:none">
+                          <c:if test="${ not empty adApprove.payDate2nd }">
+      						 Y
+                          </c:if>
+                          <c:if test="${ empty adApprove.payDate2nd }">
+                          	N
+                          </c:if>
+                          </td>
+                       </tr>
+                       <tr>
+                          <th scope="col" style="border:none">결제 금액</th>
+                          <td style="border:none">
+                          <c:if test="${ not empty adApprove.payDate2nd }">
+      						 ${ adApprove.price2nd }원
+                          </c:if>
+                          <c:if test="${ empty adApprove.payDate2nd }">
+                          	-
+                          </c:if>
+                          </td>
+                       </tr>
+                       <tr>
+                          <th scope="col" style="border:none">결제 일자</th>
+                          <td style="border:none">
+                           <c:if test="${ not empty adApprove.payDate2nd }">
+      						 ${ adApprove.payDate2nd }
+                          </c:if>
+                          <c:if test="${ empty adApprove.payDate2nd }">
+                          	-
+                          </c:if>
+                          </td>
+                       </tr>
+                       </c:if>
+		                                
+		                                
+		                                
+		                                <tr>
+										<th style="border: none;"></th>
+										<td style="border: none;"></td>
+										</tr>
+		                                 
+		                                 
+		                                    <tr>
 		                                    <th scope="col" style="border: none;">정산 카테고리</th>
 		                                  	<td style="border: none;">
 		                                  	<c:if test= "${ empty adApprove.payDate1st }">
-												1차
+											1차
 										    </c:if>
 									      	<c:if test= "${ not empty adApprove.payDate1st }">
 									    	2차
@@ -93,45 +257,29 @@
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">청구 일자</th>
 		                                    <td style="border: none;">
-		                                    <c:if test= "${ empty adApprove.payDate1st and empty adApprove.cancelApplyDate}">
-													<c:out value="${ adApprove.decision.decisionDate }"/>
-												</c:if>
-												<c:if test= "${ not empty adApprove.payDate1st and empty adApprove.payDate2nd and empty adApprove.cancelApplyDate }">
-													<c:out value="${ adApprove.postEndDate }"/>
-												</c:if>
-												<c:if test= "${ not empty adApprove.cancelApplyDate }">
-													<c:out value="${ adApprove.cancelApplyDate }"/>
-												</c:if>
-												<c:if test= "${ not empty adApprove.payDate1st and not empty adApprove.payDate2nd and empty adApprove.cancelApplyDate }">
-													${ adApprove.postEndDate }
-											</c:if>
+											<c:out value="${ adApprove.payUntilDate }"/>
 		                                    </td>
 		                                 </tr>
-		                                 <tr>
+		                              <%--    <tr>
 		                                    <th scope="col" style="border: none;">납부 예정 일자</th>
 		                                     <td style="border: none;">
 		                                     <c:if test= "${ empty adApprove.payDate1st and empty adApprove.cancelApplyDate}">
-													<%-- <c:out value="${ calDday }"/> --%>
+													<c:out value="${ payday1st }"/>
 												</c:if>
-												<%-- <c:if test= "${ not empty adApprove.payDate1st and empty adApprove.payDate2nd and empty adApprove.cancelApplyDate }">
-													<c:out value="${ adApprove.postEndDate + 7 }"/>
-												</c:if>
-												<c:if test= "${ not empty adApprove.cancelApplyDate }">
-													<c:out value="${ adApprove.cancelApplyDate + 7 }"/>
-												</c:if> --%>
 		                                     </td>
-		                                 </tr>
-										<tr>
-										<th style="border: none;"></th>
-										<td style="border: none;"></td>
-										</tr>
+		                                 </tr> --%>
+		                                 
 										<tr>
 										<th style="border: none;"></th>
 										<td style="border: none;"></td>
 										</tr>
 
 		                                 <tr>
-		                                    <th scope="col" style="border: none; font-size: 22px; color: black;">청구 금액(원)</th>
+		                                    <th scope="col" style="border: none; font-size: 22px; color: black;">
+		                                    <c:if test= "${ empty adApprove.payDate1st }">1차</c:if>
+		                                    <c:if test= "${ not empty adApprove.payDate1st }">2차</c:if>
+		                                    	청구 금액(원)
+		                                    </th>
 		                                     <td style="border: none;">
 												<c:if test= "${ empty adApprove.payDate1st }">
 													 <c:choose>
@@ -157,7 +305,11 @@
 												</c:if>
 		                                     </td>
 		                                 </tr>
+		                                 
 		                                 </c:forEach>
+		                                 
+		                                 
+		                                 
 		                            </table>
 		                            </div>
 		                            
@@ -166,6 +318,10 @@
 		                            <table class="table text-center">
 		                            
 		                            	<c:forEach var="adApprove" items="${ requestScope.payDetail }">
+		                            	<tr>
+		                                    <th class="col-md-3" style="border: none; width: 150px;">이름(유저아이디)</th>
+		                                     <td style="border:none">${ adApprove.user.name }(${ adApprove.user.id })</td>
+		                                 </tr>
 		                                 <tr>
 		                                    <th class="col-md-3" style="border: none; width: 150px;">기업명</th>
 		                                     <td style="border:none">${adApprove.companyName}</td>

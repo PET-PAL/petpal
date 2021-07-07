@@ -87,6 +87,7 @@ public class PayController {
 	    			selectAdPayAllList.get(i).setPayUntilDate(selectAdPayAllList.get(i).getCancelApplyDate());
 	    		}
 	    		
+	    		System.out.println(selectAdPayAllList.get(i).getPayUntilDate());
 	    	}
 	    	
 	    	Calendar cal = Calendar.getInstance();
@@ -224,6 +225,89 @@ public class PayController {
 		List<AdAdminDTO> selectPayAdminDetail = payAdminService.selectPayAdminDetail(adCode);
 		
 		System.out.println("조회된 광고결제관리 디테일 : " + selectPayAdminDetail);
+		
+		// 최신 청구일자
+		if( selectPayAdminDetail.get(0).getPayDate1st() != null && selectPayAdminDetail.get(0).getCancelApplyDate() == null) {
+			selectPayAdminDetail.get(0).setPayUntilDate(selectPayAdminDetail.get(0).getPostEndDate());
+		} else if( selectPayAdminDetail.get(0).getPayDate1st() == null ) {
+			selectPayAdminDetail.get(0).setPayUntilDate(selectPayAdminDetail.get(0).getDecision().getDecisionDate());
+		} else if( selectPayAdminDetail.get(0).getPayDate1st() != null && !selectPayAdminDetail.get(0).getCancelApplyDate().equals(null)){
+			selectPayAdminDetail.get(0).setPayUntilDate(selectPayAdminDetail.get(0).getCancelApplyDate());
+		}
+		
+		System.out.println("상세보기 청구일자 :" + selectPayAdminDetail.get(0).getPayUntilDate());
+		
+		// 최신 납부상태
+		Calendar cal = Calendar.getInstance();
+    	
+    	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+    	
+    	String day = sdf.format(cal.getTime());
+    	
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-mm-dd");
+    	
+    	Date today = null;
+    	try {
+			today = format.parse(day);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		
+    	Date de2 = null;
+		Date po2 = null;
+		
+		// 승인일  - 날짜 형식에 맞게 형변환
+		if(selectPayAdminDetail.get(0).getDecision().getDecisionDate() != null ) {
+			String de1 = sdf.format(selectPayAdminDetail.get(0).getDecision().getDecisionDate().getTime());
+			
+			try {
+				de2 = format.parse(de1);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		
+		// 종료일 - 날짜 형식에 맞게 형변환
+		if(selectPayAdminDetail.get(0).getPostEndDate() != null) {
+			String po1 = sdf.format(selectPayAdminDetail.get(0).getDecision().getDecisionDate().getTime());
+			
+			try {
+				po2 = format.parse(po1);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		
+		if(selectPayAdminDetail.get(0).getPayDate1st() == null && Math.abs((today.getTime() - de2.getTime())/ (24*60*60*1000)) <= 3
+				&& selectPayAdminDetail.get(0).getCancelApplyDate() == null ) {
+			selectPayAdminDetail.get(0).setPayStatus("납부전");
+			System.out.println("차이1 : " + (today.getTime() - de2.getTime())/ (24*60*60*1000));
+
+		} else if (selectPayAdminDetail.get(0).getPayDate1st() != null && Math.abs((today.getTime() - po2.getTime())/ (24*60*60*1000)) <= 7
+				&& selectPayAdminDetail.get(0).getPayDate2nd() == null ) {
+			selectPayAdminDetail.get(0).setPayStatus("납부전");
+			System.out.println("차이2 : " + (today.getTime() - po2.getTime())/ (24*60*60*1000));
+			
+		} else if(selectPayAdminDetail.get(0).getPayDate1st() != null && selectPayAdminDetail.get(0).getPayDate2nd() == null ) {
+			selectPayAdminDetail.get(0).setPayStatus("납부전");
+			
+		} else if (selectPayAdminDetail.get(0).getPayDate1st() == null && selectPayAdminDetail.get(0).getCancelApplyDate() != null) {
+			selectPayAdminDetail.get(0).setPayStatus("납부취소");
+			
+		} else if (selectPayAdminDetail.get(0).getPayDate1st() != null && selectPayAdminDetail.get(0).getPayDate2nd() != null ||
+				selectPayAdminDetail.get(0).getPayDate1st() != null && selectPayAdminDetail.get(0).getCancelApplyDate() != null) {
+			selectPayAdminDetail.get(0).setPayStatus("납부완료");
+			
+		} else {
+			selectPayAdminDetail.get(0).setPayStatus("납부초과");
+		}
+		
+		
+		System.out.println("상세보기 납부 상태 : " + selectPayAdminDetail.get(0).getPayStatus());
+		
+		
+		
 		
 		model.addAttribute("payDetail",selectPayAdminDetail);
 		

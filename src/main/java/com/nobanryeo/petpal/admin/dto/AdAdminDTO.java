@@ -36,8 +36,10 @@ public class AdAdminDTO {
 	private String industryDetail;
 	private String leaderName;
 	
-	// 청구일자
+	// 청구일자 (DTO엥만 존재함)
 	private Date payUntilDate;
+	// 청구일자 (DB에 존재하는 컬럼)
+	private Date payDate;
 	// 납부상태
 	private String payStatus;
 	// 세금계산서 발행일
@@ -49,21 +51,18 @@ public class AdAdminDTO {
 	// 오늘 - 취소 신청일
 	private int calApplyDate;
 	
+	
 	public AdAdminDTO() {
 		super();
 	}
-
-	
-
-	
 
 	public AdAdminDTO(int adCode, String companyName, Date applyDate, String companyNumber, String companyPhone,
 			String companyEmail, String adContent, String postYn, String refundYn, Date payDate2nd, int pictureCode,
 			Date payDate1st, int decisionCode, int userCode, int adTypeCode, String adTitle, String payMethod,
 			Date cancelApplyDate, Date postStartDate, Date postEndDate, int stateCode, UserInfoDTO user,
 			DecisionDTO decision, int clickNum, int price2nd, String companyLocation, String industry,
-			String industryDetail, String leaderName, Date payUntilDate, String payStatus, Date taxBillDate,
-			int taxPrice, int calEndDate, int calApplyDate) {
+			String industryDetail, String leaderName, Date payUntilDate, Date payDate, String payStatus,
+			Date taxBillDate, int taxPrice, int calEndDate, int calApplyDate) {
 		super();
 		this.adCode = adCode;
 		this.companyName = companyName;
@@ -95,15 +94,13 @@ public class AdAdminDTO {
 		this.industryDetail = industryDetail;
 		this.leaderName = leaderName;
 		this.payUntilDate = payUntilDate;
+		this.payDate = payDate;
 		this.payStatus = payStatus;
 		this.taxBillDate = taxBillDate;
 		this.taxPrice = taxPrice;
 		this.calEndDate = calEndDate;
 		this.calApplyDate = calApplyDate;
 	}
-
-
-
 
 
 	public int getAdCode() {
@@ -337,96 +334,63 @@ public class AdAdminDTO {
 	public void setTaxPrice(int taxPrice) {
 		this.taxPrice = taxPrice;
 	}
-	
-	
 
 	public int getCalEndDate() {
 		return calEndDate;
 	}
 
-
-
 	public void setCalEndDate(int calEndDate) {
 		this.calEndDate = calEndDate;
 	}
-
-
 
 	public int getCalApplyDate() {
 		return calApplyDate;
 	}
 
-
-
 	public void setCalApplyDate(int calApplyDate) {
 		this.calApplyDate = calApplyDate;
 	}
-
-
 
 	public String getCompanyLocation() {
 		return companyLocation;
 	}
 
-
-
-
-
 	public void setCompanyLocation(String companyLocation) {
 		this.companyLocation = companyLocation;
 	}
-
-
-
-
 
 	public String getIndustry() {
 		return industry;
 	}
 
-
-
-
-
 	public void setIndustry(String industry) {
 		this.industry = industry;
 	}
 
-
-
-
-
 	public String getIndustryDetail() {
 		return industryDetail;
 	}
-
-
-
-
 
 	public void setIndustryDetail(String industryDetail) {
 		this.industryDetail = industryDetail;
 	}
 
 
-
-
-
 	public String getLeaderName() {
 		return leaderName;
 	}
-
-
-
-
 
 	public void setLeaderName(String leaderName) {
 		this.leaderName = leaderName;
 	}
 
+	public Date getPayDate() {
+		return payDate;
+	}
 
-
-
+	public void setPayDate(Date payDate) {
+		this.payDate = payDate;
+	}
 
 	@Override
 	public String toString() {
@@ -439,16 +403,10 @@ public class AdAdminDTO {
 				+ ", postStartDate=" + postStartDate + ", postEndDate=" + postEndDate + ", stateCode=" + stateCode
 				+ ", user=" + user + ", decision=" + decision + ", clickNum=" + clickNum + ", price2nd=" + price2nd
 				+ ", companyLocation=" + companyLocation + ", industry=" + industry + ", industryDetail="
-				+ industryDetail + ", leaderName=" + leaderName + ", payUntilDate=" + payUntilDate + ", payStatus="
-				+ payStatus + ", taxBillDate=" + taxBillDate + ", taxPrice=" + taxPrice + ", calEndDate=" + calEndDate
-				+ ", calApplyDate=" + calApplyDate + "]";
+				+ industryDetail + ", leaderName=" + leaderName + ", payUntilDate=" + payUntilDate + ", payDate="
+				+ payDate + ", payStatus=" + payStatus + ", taxBillDate=" + taxBillDate + ", taxPrice=" + taxPrice
+				+ ", calEndDate=" + calEndDate + ", calApplyDate=" + calApplyDate + "]";
 	}
 
-
-
-
-
-	
-	
 
 }
