@@ -44,4 +44,5 @@ public class ReviewPostServiceImpl implements ReviewPostService {
 		return mapper.selectReviewReply(boardCode);
 	}
 
+
 }

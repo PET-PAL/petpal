@@ -8,9 +8,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.ReviewDTO;
+import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 import com.nobanryeo.petpal.user.mypage.service.ReviewPostService;
 
 @Controller
@@ -23,6 +25,15 @@ public class ReviewPostController {
 		this.reviewService = reviewService;
 	}
 	
+	/**
+	 * 리뷰 리스트
+	 * @param model
+	 * @param reviewDTO
+	 * @param page
+	 * @param nowPage
+	 * @param cntPerPage
+	 * @return
+	 */
 	@GetMapping("review")
 	public String review(Model model, ReviewDTO reviewDTO, PageDTO page
 			, @RequestParam(value="nowPage", required = false)String nowPage
@@ -60,6 +71,12 @@ public class ReviewPostController {
 		return "user/community/reviewList";
 	}
 	
+	/**
+	 * 리뷰디테일 출력
+	 * @param boardCode
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("review/reviewDetail")
 	public String reviewDetail(@RequestParam int boardCode, Model model) {
 		
@@ -74,6 +91,17 @@ public class ReviewPostController {
 		return "user/community/reviewDetail";
 	}
 	
+	/**
+	 * 글작성 페이지 띄우기
+	 * @param model
+	 * @param loginUser
+	 * @return
+	 */
+	@GetMapping("review/reviewWrite")
+	public String reviewWrite(Model model, @SessionAttribute UserInfoDTO loginUser) {
+		
+		return "user/community/reviewDetailWrite";
+	}
 	
 	
 	

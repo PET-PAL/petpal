@@ -18,4 +18,5 @@ public interface ReviewPostService {
 
 	List<ReviewReplyDTO> selectReviewReply(int boardCode);
 
+
 }

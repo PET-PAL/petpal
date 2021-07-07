@@ -206,9 +206,9 @@ public class BoardManagementController {
 	    			cookie.setComment("freeboard 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
 	    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
 	    			
+	    			System.out.println("쿠키확인!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1");
+	    			System.out.println(cookie);
 	    		}
-	    		System.out.println("쿠키확인!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-	    		System.out.println(cookie);
 	    	}
 	    	
 			System.out.println("들어온 타입 : " + type);
