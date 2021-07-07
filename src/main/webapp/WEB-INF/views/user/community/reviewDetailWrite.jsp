@@ -79,7 +79,7 @@
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         
         <!-- summerNote -->
-    	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     	<script>
@@ -127,7 +127,7 @@
 			</div>
 
             <section id="menutable" class="menutable">
-		    	<form action="${ pageContext.servletContext.contextPath }/user/insert/write/freeboard" method="post" enctype="multipart/form-data">
+		    	<form action="${ pageContext.servletContext.contextPath }/user/review/reviewWrite/insertBoard" method="post" enctype="multipart/form-data">
 					<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 30px;">
 						<table class="table" style="border-collapse: separate;">
 							<tr>
@@ -142,7 +142,7 @@
 						<textarea id="summernote" name="boardContent"></textarea>
 	  					<script>
 	  						$j3('#summernote').summernote({
-	  	                        placeholder: '자유게시판 게시물을 작성해주세요',
+	  	                        placeholder: '리뷰 상품 게시물을 작성해주세요',
 	  	                        tabsize: 2,
 	  	                        height: 500,
 	  	                        callbacks: {
@@ -153,6 +153,7 @@
 	  	                    });
 	  					
 							function sendFile(file, editor,welEditable) {
+								console.log("사진 ajax 들어옴");
 							 	var form_data = new FormData();
 								form_data.append('file', file);
 								$j3.ajax({

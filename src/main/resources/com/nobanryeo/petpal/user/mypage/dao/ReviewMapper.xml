@@ -102,6 +102,13 @@
            AND A.BOARD_CODE = #{ boardCode }
 	</select>
 	
+	<select id="selectReviewImg" parameterType="PictureDTO" resultMap="pictureResultSet">
+        SELECT A.PICTURE_UTIL_PATH
+          FROM PICTURE_TABLE A
+          JOIN REVIEW_PICTURE_MANAGE B ON(B.PICTURE_CODE = A.PICTURE_CODE)
+         WHERE B.BOARD_CODE = #{ boardCode }    
+	</select>
+	
 	<select id="selectReviewReply" resultMap="reviewReplyResultSet" parameterType="ReviewReplyDTO">
 		SELECT
                D.USER_NIKNAME
@@ -119,6 +126,49 @@
          WHERE B.BOARD_CODE = #{ boardCode }
          ORDER BY A.REPLY_DATE ASC
 	</select>
+	
+	<insert id="insertWriteReviewBoard" parameterType="ReviewDTO">
+		INSERT
+		  INTO REVIEW_BOARD
+		VALUES ( REVIEW_BOARD_SEQ.NEXTVAL
+		       , #{ boardTitle }
+		       , #{ boardContent }
+		       , 0
+		       , SYSDATE
+		       , 'N'
+		       , #{ userCode }
+		       )
+	</insert>
+	
+	<select id="selectBoardCode" resultType="_int">
+		SELECT REVIEW_BOARD_SEQ.CURRVAL
+	  	  FROM DUAL
+	</select>
+	
+	<insert id="insertReviewBoardImg" parameterType="PictureDTO">
+		INSERT
+		  INTO PICTURE_TABLE
+		VALUES ( PIC_CODE_SEQ.NEXTVAL
+		       , #{ pictureName }
+			   , #{ pictureURL }
+               , SYSDATE
+               , 'N'
+               , #{ pictureNewName }
+               , #{ pictureUtilPath }
+		       )
+	</insert>
+	
+	<insert id="insertReviewBoardImg2" parameterType="PictureDTO">
+		<selectKey keyProperty="pictureCode" order="BEFORE" resultType="int">
+	  		SELECT PIC_CODE_SEQ.CURRVAL
+	  	  	  FROM DUAL
+	  	</selectKey>
+		INSERT
+		  INTO REVIEW_PICTURE_MANAGE
+		VALUES ( #{ boardCode }
+		       , #{ pictureCode }
+		       )
+	</insert>
 
 </mapper>
 
