@@ -87,6 +87,7 @@
 	                           , A.USER_CODE
 	                           , A.DECISION_CODE
                                , C.DECISION_DATE
+                               , A.CANCEL_APPLY_DATE
                            FROM AD_APPLY_TABLE A
                            JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
                            LEFT JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
@@ -214,6 +215,12 @@
 		     , CANCEL_APPLY_DATE = SYSDATE
 		 WHERE AD_CODE = #{ adCode }
 		   AND USER_CODE = #{ userCode }
+	</update>
+	
+	<update id="updateAdMorePay" parameterType="AdDTO">
+		UPDATE AD_APPLY_TABLE
+		   SET PAY_DATE_2ND = SYSDATE
+		 WHERE AD_CODE = #{ adCode }
 	</update>
 	
 </mapper>
