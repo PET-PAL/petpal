@@ -107,15 +107,11 @@
 	    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 	    <script>
     		var $j3 = jQuery.noConflict();
-    		
-    		function messageChk() {
-	    		const message = '${ requestScope.message }';
-	    		if(message != null && message !== '') {
-	    			alert(message);
-	    		} else {
-	    			location.href = '#completeReport';
-	    		}
-    		}
+
+		    const message = '${ requestScope.message }';
+		    if(message != null && message !== '') {
+		    	alert(message);
+		    }
     	</script>
     	
 	</head>
@@ -205,9 +201,9 @@
                 <input type="hidden" id="pictureURL" name="pictureURL"/>
                 <input type="hidden" id="pictureNewName" name="pictureNewName"/>
                 <input type="hidden" id="pictureUtilPath" name="pictureUtilPath"/>
-			    <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite" type="button" onclick="messageChk()">게시글 작성</button></div>
+			    <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite">게시글 작성</button></div>
             
-			    <div id="completeReport" class="overlay">
+<%-- 			    <div id="completeReport" class="overlay">
 					<div class="popup">
 				    	<img alt="warning" src="${ pageContext.servletContext.contextPath }/resources/images/warning.png" style="width: 120px; margin: 0px auto; margin-left: 38%; margin-bottom: -70px;">
 						<i class="far fa-times-circle fa-4x" style="float:right; color:#45B99C; cursor:pointer;" onclick="location.href='#none'"></i>
@@ -219,7 +215,7 @@
 				     	</p>
 				 		<div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
 				 	</div>
-			    </div>
+			    </div> --%>
 			</form>
         </section>
             

@@ -194,7 +194,8 @@
 									<fmt:formatDate value="${now}" pattern="yyyy-MM-dd" var="today" />
 									<fmt:parseNumber value="${now.time / (1000*60*60*24)}" integerOnly="true" var="isToday"/>
 			                        <c:forEach var="arr" items="${ adList }" varStatus="status">
-									<fmt:parseNumber value="${arr.decisionDate.time / (1000*60*60*24)}" integerOnly="true" var="isDecisionDate"/>
+			                        <fmt:parseDate value="${ arr.decisionDate }" pattern ="yyyy-MM-dd" var="dicisiondate"/>
+									<fmt:parseNumber value="${dicisiondate.time / (1000*60*60*24)}" integerOnly="true" var="isDecisionDate"/>
 			                        	<tr>
 			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
 			                            	<td onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/adApply/detail?adCode=${ arr.adCode }'" style="text-align: center;"><c:out value="${ arr.adWeek }"/>주</td>
@@ -434,6 +435,9 @@
                      	예금주 : 주식회사 펫팔
                     </p>
                     <p style="font-size: 10px; text-align: center; margin-top: 20px;">
+                    	추가결제금액에는 부가가치세액 10%가 포함되어있습니다.<br>
+                    </p>
+                    <p style="font-size: 10px; text-align: center;">
                     	추가결제금액 미입금 시 유선으로 안내연락 드리며, 그 이후에도 미입금 시 법적 조취를 취함<br>
                     </p>
                     <p style="font-size: 10px; text-align: center; padding-bottom: 10px;">

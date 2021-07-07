@@ -57,6 +57,9 @@
 			.filtering {
 				cursor: pointer;
 			}
+			.pagination > li > a, .pagination > li > span {
+            	color: #19A985 !important;
+            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>

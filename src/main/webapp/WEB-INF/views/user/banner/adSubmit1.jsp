@@ -271,8 +271,7 @@ o. 본 약관의 비밀유지의무, 양도금지의무를 위반한 경우
         <!-- JS includes -->
         <script>
         function selectAll(selectAll)  {
-		  const checkboxes 
-		       = document.getElementsByName('admit');
+		  const checkboxes = document.getElementsByName('admit');
 		  
 		  checkboxes.forEach((checkbox) =>  {
 		    checkbox.checked = selectAll.checked;

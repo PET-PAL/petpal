@@ -148,7 +148,12 @@
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <link rel="icon" type="image/png" href="favicon.ico">
-
+		<script>
+		    const message = '${ requestScope.message }';
+		    if(message != null && message !== '') {
+		    	alert(message);
+		    }
+		</script>
     </head>
     <body>
         <jsp:include page="../common/userHeader.jsp"/>
@@ -405,15 +410,15 @@
 	                    <div class="findpwd-content" id="contStep02" style="display: block;">
 	                        <!-- 쪽지 내용 입력 -->
 	                        <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
 	                        <input type="hidden" value="${ requestScope.sharePlaceDetail.userCode }" name="userCode1">
 	                        <input type="hidden" value="${ requestScope.sharePlaceDetail.boardCode }" name="boardCode">
 	                        <input type="hidden" value="${ requestScope.sharePlaceDetail.userNickName }" name="receiveUserNick">
+	                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">보내기</button></div>
 	                    </div>
 	                </div>
 	            </div>
 	            <!-- 전송 완료 팝업창 -->
-	            <div id="completeMessage" class="overlay">
+	            <!-- <div id="completeMessage" class="overlay">
 	                <div class="popup">
 	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
 	                     	쪽지 전송에 성공하였습니다.<br>
@@ -423,7 +428,7 @@
 	                    </p>
 	                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit">확인</button></div>
 	                </div>
-	            </div>
+	            </div> -->
             </form>
           
 			
