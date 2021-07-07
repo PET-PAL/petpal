@@ -3,6 +3,7 @@ package com.nobanryeo.petpal.user.adopt.dao;
 import java.util.List;
 
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
 import com.nobanryeo.petpal.user.dto.MissingPictureDTO;
@@ -29,5 +30,15 @@ public interface MissingMapper {
 	int insertReplyBoard(AdoptReplyDTO replyDTO);
 
 	int insertMessage(MessageTableDTO messageDTO);
+
+	int insertBoardReport(FreeBoardReportDTO boardreportDTO);
+
+	int insertBoardReportMid(FreeBoardReportDTO boardreportDTO);
+
+	int insertReplyReport(AdoptReplyDTO adoptreplyDTO);
+
+	List<MissingPictureDTO> selectSearchList(String keyword);
+
+	int putMissingStatus(int boardCode);
 
 }

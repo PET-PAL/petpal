@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.adopt.dao.MissingMapper;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
 import com.nobanryeo.petpal.user.dto.MissingPictureDTO;
@@ -70,6 +71,9 @@ public class MissingServiceImpl implements MissingService {
 		return missingDetail;
 	}
 
+	/**
+	 * 사진 조회 메소드
+	 */
 	@Override
 	public List<PictureDTO> selectMissingDetailPicture(int code) {
 		
@@ -78,6 +82,9 @@ public class MissingServiceImpl implements MissingService {
 		return pictureList;
 	}
 
+	/**
+	 * 댓글 조회 메소드
+	 */
 	@Override
 	public List<AdoptReplyDTO> selectReplyList(int code) {
 		List<AdoptReplyDTO> missingReplyList = new ArrayList<>();
@@ -85,6 +92,9 @@ public class MissingServiceImpl implements MissingService {
 		return missingReplyList;
 	}
 
+	/**
+	 * 댓글 등록 메소드
+	 */
 	@Override
 	public int insertReply(AdoptReplyDTO replyDTO) {
 		
@@ -110,6 +120,56 @@ public class MissingServiceImpl implements MissingService {
 		int insertResult = missingMapper.insertMessage(messageDTO);
 		
 		return insertResult;
+	}
+
+	@Override
+	public int insertBoardReport(FreeBoardReportDTO boardreportDTO) {
+		
+		int insertBoardreport = missingMapper.insertBoardReport(boardreportDTO);
+		System.out.println("BoardReportresult in service: "+insertBoardreport );
+		
+		int insertBoardreportMid = missingMapper.insertBoardReportMid(boardreportDTO);
+		
+		int result = 0;
+		
+		if(insertBoardreport>0 && insertBoardreportMid>0) {
+			result = 1;
+		}
+		return result;
+	}
+
+	@Override
+	public int insertReplyReport(AdoptReplyDTO adoptreplyDTO) {
+		
+		int insertReplyreport = missingMapper.insertReplyReport(adoptreplyDTO);
+		System.out.println("ReplyReportresult in service: "+ insertReplyreport);
+		
+		int result = 0;
+		
+		if(insertReplyreport>0) {
+			result = 1;
+		}
+		
+		return result;
+	}
+
+	/**
+	 * 지역 검색 메소드
+	 */
+	@Override
+	public List<MissingPictureDTO> selectSearchList(String keyword) {
+		
+		List<MissingPictureDTO> missingSelectArea = new ArrayList<>();
+		missingSelectArea = missingMapper.selectSearchList(keyword);
+		
+		return missingSelectArea;
+	}
+
+	@Override
+	public int putMissingStatus(int boardCode) {
+
+		int result = missingMapper.putMissingStatus(boardCode);
+		return result;
 	}
 
 	

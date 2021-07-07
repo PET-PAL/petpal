@@ -89,6 +89,16 @@
 		<result column="RECEIVE_NICKNAME" property="receiveUserNick"/>
 	</resultMap>
  
+ 	<resultMap id="reportResultSet" type="FreeBoardReportDTO">
+		<id column="REPORT_CODE" property="reportCode"/>
+		<result column="REPORT_TITLE" property="reportTitle"/>
+		<result column="REPORT_CONTENT" property="reportContent"/>
+		<result column="REPORT_DATE" property="reportDate"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="BOARD_CODE" property="boardCode"/>
+	</resultMap>
+	
  	<select id="selectMissingList" parameterType="MissingPictureDTO" resultMap="missingResultMap" >
  		SELECT
  		      M.BOARD_CODE
@@ -238,7 +248,7 @@
 		  JOIN MISSING_BOARD M ON (M.BOARD_CODE =  MB.BOARD_CODE)
 		  JOIN USER_TABLE U ON (U.USER_CODE = R.USER_CODE)
 		 WHERE M.BOARD_CODE = #{boardCode}
-		   AND R.REPLY_DELETE_YN = 'N'
+		
 	  </select>
 	  
 	   <insert id="insertReply" parameterType="AdoptReplyDTO">
@@ -286,4 +296,94 @@
 		  	)
 	  
 	  </insert>
+	  <insert id="insertBoardReport" parameterType="FreeBoardReportDTO">
+	  	INSERT
+	  	  INTO REPORT_MANAGE
+	  	VALUES
+	  	(
+	  	 REPORT_MANAGE_SEQ.NEXTVAL
+	   , #{reportTitle}
+	   , #{reportContent}
+	   , SYSDATE
+	   , DEFAULT
+	   , #{userCode}
+	  	)
+	  
+	  </insert>
+	  <insert id="insertBoardReportMid" parameterType="FreeBoardReportDTO">
+	  	<selectKey keyProperty="reportCode" order="BEFORE" resultType="int">
+	  		SELECT
+		  	      REPORT_MANAGE_SEQ.CURRVAL
+		  	  FROM DUAL
+	  	</selectKey>
+	  	INSERT
+	  	  INTO MISSING_BOARD_REPORT
+	  	VALUES
+	  	(
+	  	 #{boardCode}
+	   , #{reportCode}
+	  	)
+	  </insert>
+	  <insert id="insertReplyReport" parameterType="AdoptReplyDTO">
+	    <selectKey keyProperty="replyReportTitle" order="BEFORE" resultType="String">
+	    	SELECT
+	    	       REPLY_CONTENT
+	    	  FROM REPLY_MANAGE
+	    	 WHERE REPLY_CODE = #{replyCode}
+	    </selectKey>
+	  	INSERT
+	  	  INTO REPLY_REPORT_TABLE
+	  	VALUES
+	  	 (
+	  	  #{boardUserCode}
+	  	, #{replyCode}
+	  	, #{replyUserCode}
+	  	, #{replyReportTitle}
+	  	, #{replyReportContent}
+	  	, SYSDATE
+	  	, DEFAULT
+	  	 )
+	  </insert>
+	  
+	  <select id="selectSearchList" parameterType="String" resultMap="missingResultMap">
+		  SELECT
+	 		      M.BOARD_CODE
+	 		    , M.BOARD_DATE
+	            , M.MISSING_DATE
+				, M.MISSING_AREA
+				, M.MISSING_PLACE
+				, M.MISSING_BREED
+				, M.MISSING_GENDER
+				, M.MISSING_COLOR
+				, M.MISSING_AGE
+				, M.MISSING_WEIGTH
+				, M.MISSING_CHARACTER
+				, M.MISSING_REQUEST
+				, M.MISSING_DELETE_YN
+				, S.STATE_NAME
+				, M.USER_CODE
+				, M.DOG_OR_CAT
+				, P.PICTURE_UTIL_PATH
+				, P.PICTURE_DELETE_YN
+			    , P.PICTURE_CODE
+			    , U.USER_NIKNAME
+			 FROM MISSING_BOARD M
+			 JOIN MISSING_PICTURE_MANAGE MP ON (M.BOARD_CODE = MP.BOARD_CODE)
+			 JOIN PICTURE_TABLE P ON (P.PICTURE_CODE = MP.PICTURE_CODE)
+			 JOIN USER_TABLE U ON (U.USER_CODE = M.USER_CODE)
+	         JOIN STATE_TABLE S ON(S.STATE_CODE = M.STATE_CODE)
+			WHERE M.MISSING_DELETE_YN = 'N'
+			  AND P.PICTURE_DELETE_YN = 'N'
+			  AND M.MISSING_AREA LIKE '%' ||#{keyword}|| '%'
+			  AND M.MISSING_PLACE LIKE '%' ||#{keyword}|| '%'
+	        ORDER BY M.BOARD_DATE DESC
+	  
+	  </select>
+	  
+	  <update id="putMissingStatus" parameterType="int">
+	  	  UPDATE MISSING_BOARD
+	         SET STATE_CODE = 2
+	       WHERE BOARD_CODE = #{boardCode}
+	  
+	  </update>
  </mapper> 
