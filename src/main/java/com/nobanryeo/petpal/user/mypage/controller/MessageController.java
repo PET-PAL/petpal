@@ -165,8 +165,8 @@ public class MessageController {
 			System.out.println("일반 if들어옴!");
 			
 			recevie = messageDTO.getReceiveUserNick(); //받는사람은 룹룽이 아닌 사람
-			recevieCode = messageDTO.getUserCode();
-			sendCode = messageDTO.getUserCode1();
+			recevieCode = messageDTO.getUserCode1();
+			sendCode = messageDTO.getUserCode();
 			
 			messageDTO.setSendUserNick(send); //보내는 사람: 룹룽이
 			messageDTO.setReceiveUserNick(recevie); //받는 사람: 룹룽이x
@@ -183,8 +183,8 @@ public class MessageController {
 			System.out.println("else 들어옴!");
 			
 			recevie = messageDTO.getSendUserNick(); //받는사람은 보낸사람
-			recevieCode = messageDTO.getUserCode1();
-			sendCode = messageDTO.getUserCode();
+			recevieCode = messageDTO.getUserCode();
+			sendCode = messageDTO.getUserCode1();
 			
 			messageDTO.setSendUserNick(send);
 			messageDTO.setReceiveUserNick(recevie);

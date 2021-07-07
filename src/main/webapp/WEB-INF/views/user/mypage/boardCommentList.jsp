@@ -558,24 +558,6 @@
 					}
 				)};
 				</script>
-				<!-- <script>
-				/* $('#stop').click(function(){
-					event.stopPropagation();
-					alert("제발...");
-				}); */
-				
-				let stop = document.getElementById('stop');
-				let del = document.getElementById('delete');
-				
-				stop.addEventListener('click', clicked);
-				del.addEventListener('click', clicked);
-				
-				function clicked(e){
-					e.stopPropagation();
-				}
-				
-				
-			</script> -->
 			
 			<div id="deletePost" class="overlay" id="why">
 				<div class="popup">
