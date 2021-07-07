@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,11 +38,16 @@
                                <a href="${ pageContext.servletContext.contextPath }/admin/adminList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
                                			style="width:40px;height:42px; margin-right:30px; margin-top:-50px; float:right;"></a>
 						
-					
+											
+		                                  		
+		                                  		
+		                                  		
+		                                  	
 
                         <!-- 작은 컨테이너 시작 -->
                         <div class="container" style="padding-top:15px;">
-                        
+                        <c:choose>
+		                <c:when test="${ sessionScope.loginUser.permisson eq 3}">
                         <!-- 대표관리자 접속 시 수정 가능 부분 -->
                         <form>
                               <div class="form-group">
@@ -108,7 +114,8 @@
                                 </div>                      
                         </form>
                         <!-- 대표관리자 접속 수정 가능 -->
-                        
+                        </c:when>
+                        <c:otherwise>
                         <!-- 서브관리자 접속 시 수정 불가 (readonly="readonly" 속성 추가 ) -->
                          <form>
                               <div class="form-group">
@@ -168,7 +175,8 @@
                                                
                         </form>
                         <!-- 서브관리자 접속 시 수정 불가 -->
-                        
+                        	</c:otherwise>
+		                    </c:choose>
                         
                      
                         </div><!-- 작은 컨테이너 끝 -->

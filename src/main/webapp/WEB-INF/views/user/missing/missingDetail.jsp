@@ -163,6 +163,7 @@
         <script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
         <script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/jspdf.min.js" rel="stylesheet"></script>
 		<script type="text/javascript" src="${ pageContext.servletContext.contextPath }/resources/js/html2canvas.js" rel="stylesheet"></script>
+         <script src="//developers.kakao.com/sdk/js/kakao.min.js"></script>
          <script type="text/javascript"src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
        	 <script>
           var $j3 = jQuery.noConflict();
@@ -170,6 +171,7 @@
     </head>
 
     <jsp:include page="../common/userHeader.jsp"/>
+    
 
         <!-- Preloader -->
         <div id="loading">
@@ -246,7 +248,7 @@
                    <ul style="font-size: large;">
                       <li>&nbsp&nbsp&nbsp작성자 : 
                       <b><c:out value="${requestScope.missingDetail.userNickname}"/></b>
-                      <img src="${ pageContext.servletContext.contextPath }/resources/images/message icon.png" alt="" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;"/>
+                      <img src="${ pageContext.servletContext.contextPath }/resources/images/message icon.png" onclick="location.href='#directMessage'" alt="" style="height: 50px; width: 50px; margin-top: 0px; margin-bottom: 0px; margin-left: 0px; cursor:pointer;"/>
                       </li>
                    </ul>
                 </div>
@@ -335,7 +337,7 @@
                    <div class="item active">
                        <div class="container">
                            <div class="row">
-                               <table class="table" style="margin-bottom: 50px;">
+                               <table class="table" style="margin-bottom: 50px; width: 95%;">
                                 <tbody id="tbody">
                                    
                                 </tbody>
@@ -376,9 +378,9 @@
 								     					if(deleteYN == 'N'){
 								     						output += '<tr id="tr'+i+'">';
 									     					output += '<td class="col-md-3" style="text-align: center;">'+this.userNickname+'</td>';
-								     						output += '<td>'+this.replyContent+'</td>';
-								     						output += '<td style="text-align: center;">'+this.replyDate+'</td>';
-									     					output += '<td><img onclick="test1(this)" class="'+ this.replyCode +'" title="'+this.replyUserCode +'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;">'+'</td>';
+								     						output += '<td class="col-md-6">'+this.replyContent+'</td>';
+								     						output += '<td class="col-md-3" style="text-align: center;">'+this.replyDate+'</td>';
+									     					output += '<td><img onclick="test1(this)" class="'+ this.replyCode +'" title="'+this.replyUserCode +'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px;height: 25px;margin-bottom: 0px;cursor:pointer;margin-right: 120px;margin-left: 50px;">'+'</td>';
 									     					output += '</tr>';
 								     					}
 								     					if(deleteYN == 'Y'&& reportYN =='N'){
@@ -429,13 +431,14 @@
                 
                <!-- 댓글 작성 부분 -->
               	 <p style="margin-left: 200px;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
-	             	삐비디딕
+	             	쥬디
 	             </p>
 	             <section id="sendmessage" class="sendmessage">
                			<input style="width:850px; float:left;" type="text" id="messagecontent" placeholder="  혹시 이 아이를 보셨나요? 댓글로 목격 제보를 남겨보세요." >
 		                <button class="sendmessagecontent" id="replySubmit" style="float:left;">댓글 작성</button>
 		         </section>
           		<!-- 댓글 작성 부분 끝! -->
+
             </section>
                    <script>
 		            
@@ -472,6 +475,7 @@
 			     		});
            		});
 		            </script>
+		            
             <!-- The Modal -->
                
             <div id="flyerModal" class="modal">
@@ -521,15 +525,49 @@
                       <hr style="border: soild 1px; border-color: black;">
                    </div>
                    	<div align="center" >
-                      <button id="pdf_make" style="background-color: #19A985; width: 250px; height: 60px; font-size: 20px; color: white;">
+                      <!-- <button id="pdf_make" style="background-color: #19A985; width: 250px; height: 60px; font-size: 20px; color: white;">
                          PDF 생성하기
-                      </button>
-                      <button style="background-color: #19A985; width: 250px; height: 60px; font-size: 20px; color: white; margin-left: 30px;">
-                         SNS 공유하기
-                      </button>
+                      </button> -->
+                      <!-- 카카오톡 버튼 -->
+                                		           	<a id="create-kakao-link-btn" href="javascript:;">
+  <img style = "width:60px;height:60px; margin-left:100px;"
+    src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
+  />
+</a>
+<script type="text/javascript">
+  Kakao.init('4ea76873bdaa8b3d5ba67d5d803dcc64'); 
+    	  var code = "${requestScope.missingDetail.boardCode}";
+  Kakao.Link.createDefaultButton({
+    container: '#create-kakao-link-btn',
+    objectType: 'feed',
+    content: {
+      title: '강아지/고양이를 찾아주세요!!',
+      description: '#실종 #강아지 #고양이 #신고 #목격 #찾아주세요!',
+      imageUrl:
+    	 'https://flexible.img.hani.co.kr/flexible/normal/970/739/imgdb/original/2020/0507/20200507502335.jpg'
+    ,
+      link: {
+        mobileWebUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
+        webUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
+      },
+    },
+  
+    buttons: [
+      {
+        title: '웹으로 보기',
+        link: {
+          mobileWebUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
+          webUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
+        },
+      },
+    ],
+  })
+  
+</script>
            			</div>
            		 </div>
            	</div>
+
             <!-- 게시글 신고 팝업창 -->
             <div id="reportPost" class="overlay">
                 <div class="popup">
@@ -575,7 +613,38 @@
                     </div>
                 </div>
             </div>
+                  <!-- 쪽지 팝업창 -->
+           <form action="${pageContext.servletContext.contextPath }/user/missing/insert/message" method="post">
+            <div id="directMessage" class="overlay">
+                <div class="popup">
+                    <a class="close">&times;</a>
+                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.missingDetail.userNickname }"/></p>
+                    <div class="findpwd-content" id="contStep02" style="display: block;">
+                        <!-- 쪽지 내용 입력 -->
+                        	<div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="   내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+                        	
+                       
+                    </div>
+                </div>
+            </div>
             
+            <!-- 전송 완료 팝업창 -->
+            <div id="completeMessage" class="overlay">
+                <div class="popup">
+                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+                     	쪽지 전송에 성공하였습니다.<br>
+                    </p>
+                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+                     	보낸 쪽지는 마이페이지에서 확인 가능합니다.
+                    </p>
+                    		<input type="hidden" value="${ requestScope.missingDetail.userCode }" name="receivecode">
+                        	<input type="hidden" value="${ requestScope.missingDetail.boardCode }" name="boardcode">
+                        	<input type="hidden" value="${ requestScope.missingDetail.userNickname }" name="receiveUserNick">
+                        <div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit" >확인</button></div>
+                    </div>
+                </div>
+                 </form>
             
            <script>
               function show(){

@@ -33,4 +33,10 @@ public interface PayAdminService {
 
 	int searchTaxNumber(AdminPageInfoDTO paging);
 
+	int selectTaxMonthList(AdminPageInfoDTO cat);
+
+	List<AdAdminDTO> selectTaxMonthAllList(AdminPageInfoDTO paging);
+
+	int selectTaxMonthNumber(AdminPageInfoDTO paging);
+
 }

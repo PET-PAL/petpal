@@ -643,19 +643,17 @@
                 </div>
             
                  <!-- 쪽지 팝업창 -->
+          <form action="${pageContext.servletContext.contextPath }/user/insert/adopt/message" method="post">
             <div id="directMessage" class="overlay">
                 <div class="popup">
                     <a href="#none" class="close">&times;</a>
                     <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.adoptDetail.userNickname }"/></p>
                     <div class="findpwd-content" id="contStep02" style="display: block;">
                         <!-- 쪽지 내용 입력 -->
-                        <form action="${pageContext.servletContext.contextPath }/user/insert/adopt/message" method="post">
                         	<div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        	<div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
-                        	<input type="hidden" value="${ requestScope.adoptDetail.userCode }" name="receivecode">
-                        	<input type="hidden" value="${ requestScope.adoptDetail.boardCode }" name="boardcode">
-                        	<input type="hidden" value="${ requestScope.adoptDetail.userNickname }" name="receiveUserNick">
-                        </form>
+                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+                        	
+                        
                     </div>
                 </div>
             </div>
@@ -669,10 +667,13 @@
                     <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
                      	보낸 쪽지는 마이페이지에서 확인 가능합니다.
                     </p>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
-                    </div>
-                </div>
-            </div>
+                    <input type="hidden" value="${ requestScope.adoptDetail.userCode }" name="receivecode">
+                    <input type="hidden" value="${ requestScope.adoptDetail.boardCode }" name="boardcode">
+                    <input type="hidden" value="${ requestScope.adoptDetail.userNickname }" name="receiveUserNick">
+                    <div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit">확인</button></div>
+                  </div>
+              </div>
+         </form>
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
             

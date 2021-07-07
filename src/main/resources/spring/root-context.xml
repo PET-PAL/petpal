@@ -70,6 +70,7 @@
 					  com.nobanryeo.petpal.user.mypage.dao,
 					  com.nobanryeo.petpal.admin.ask.dao,
 					  com.nobanryeo.petpal.admin.report.dao,
-					  com.nobanryeo.petpal.admin.pay.dao"/>
+					  com.nobanryeo.petpal.admin.pay.dao,
+					  com.nobanryeo.petpal.admin.manage.dao"/>
 	
 </beans>

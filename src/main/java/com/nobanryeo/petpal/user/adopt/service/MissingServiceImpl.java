@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.adopt.dao.MissingMapper;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
 import com.nobanryeo.petpal.user.dto.MissingPictureDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
@@ -98,6 +99,17 @@ public class MissingServiceImpl implements MissingService {
 			result = 1;
 		}
 		return result;
+	}
+
+	/**
+	 * 쪽지 등록 메소드
+	 */
+	@Override
+	public int insertMessage(MessageTableDTO messageDTO) {
+
+		int insertResult = missingMapper.insertMessage(messageDTO);
+		
+		return insertResult;
 	}
 
 	
