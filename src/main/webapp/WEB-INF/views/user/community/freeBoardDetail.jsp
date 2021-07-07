@@ -258,18 +258,18 @@
 	                    <tbody>
 	                       	<c:forEach var="arr" items="${ freeBoardReply }" varStatus="status">
 	                      		<c:if test="${ arr.replyDeleteYN eq 'N' }">
-		                        	<tr>
-		                            	<td><c:out value="${ arr.userNickName }"/></td>
-		                            	<td><c:out value="${ arr.replyContent }"/></td>
-		                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
-		                            	<input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
-		                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/>
-		                            	<%-- <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px" class="replyReport"></td> --%>
-		                            	<td><img onclick="test1(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
-		                        	</tr>
-	                        	</c:if>
-	                        	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
-	                        		<c:if test="${ arr.reportYN eq 'Y' }">
+	                      			<c:if test="${ arr.reportYN eq 'N' }">
+			                        	<tr>
+			                            	<td><c:out value="${ arr.userNickName }"/></td>
+			                            	<td><c:out value="${ arr.replyContent }"/></td>
+			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+			                            	<input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
+			                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/>
+			                            	<%-- <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px" class="replyReport"></td> --%>
+			                            	<td><img onclick="test1(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+			                        	</tr>
+			                        </c:if>
+			                        <c:if test="${ arr.reportYN eq 'Y' }">
 			                        	<tr>
 			                            	<td><c:out value="${ arr.userNickName }"/></td>
 			                            	<td><del>신고에 의해 삭제된 댓글입니다.</del></td>
@@ -277,14 +277,14 @@
 			                            	<td></td>
 			                        	</tr>
 	                        		</c:if>
-	                        		<c:if test="${ arr.reportYN eq 'N' }">
-			                        	<tr>
-			                            	<td><c:out value="${ arr.userNickName }"/></td>
-			                            	<td><del>삭제된 댓글입니다.</del></td>
-			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
-			                            	<td></td>
-			                        	</tr>
-		                        	</c:if>
+	                        	</c:if>
+	                        	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
+		                        	<tr>
+		                            	<td><c:out value="${ arr.userNickName }"/></td>
+		                            	<td><del>삭제된 댓글입니다.</del></td>
+		                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+		                            	<td></td>
+		                        	</tr>
 	                        	</c:if>
 	                    	</c:forEach>
 	                    </tbody>
@@ -305,7 +305,7 @@
             <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/report" method="post">
 	            <div id="reportPost" class="overlay">
 	                <div class="popup">
-	                    <a href="#none" class="close">&times;</a>
+	                    <a href="" class="close">&times;</a>
 	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
 	                    <div class="findpwd-content" id="contStep02" style="display: block;">
 	                        <div class="cont-step_preface">
@@ -337,7 +337,7 @@
             <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/reportReply" method="post">
 	            <div id="reportComment" class="overlay">
 	                <div class="popup">
-	                    <a href="#none" class="close">&times;</a>
+	                    <a href="" class="close">&times;</a>
 	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
 	                    <div class="findpwd-content" id="contStep02" style="display: block;">
 	                        <div class="cont-step_preface">
@@ -385,7 +385,7 @@
             <form action="${pageContext.servletContext.contextPath }/user/insert/freeboard/message" method="post">
 	            <div id="directMessage" class="overlay">
 	                <div class="popup">
-	                    <a href="#none" class="close">&times;</a>
+	                    <a href="" class="close">&times;</a>
 	                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.freeBoardDetail.userNickName }"/></p>
 	                    <div class="findpwd-content" id="contStep02" style="display: block;">
 	                        <!-- 쪽지 내용 입력 -->

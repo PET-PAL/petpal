@@ -284,9 +284,14 @@
           JOIN FRIENDLY_PICTURE_MANAGE D ON(D.BOARD_CODE = A.BOARD_CODE)
           JOIN PICTURE_TABLE E ON(E.PICTURE_CODE = D.PICTURE_CODE)
  		 WHERE A.BOARD_DELETE_YN = 'N'
+ 		 <include refid="search"></include>
            AND C.STATE_CODE = 2
            AND E.PICTURE_DELETE_YN = 'N'
 	</select>
+	
+	<sql id="search">
+		AND PLACE_ADDRESS LIKE '%' || #{keyWord} || '%'
+	</sql>
 	
 	<select id="selectSharePlaceListExistImg" parameterType="FriendlyPlaceDTO" resultMap="SharePlaceResultSet">
 		SELECT * 
@@ -298,12 +303,14 @@
  		                       , A.BOARD_CODE
  		                       , B.USER_NIKNAME
                                , E.PICTURE_UTIL_PATH
+                               , A.PLACE_ADDRESS
  		                    FROM FRIENDLY_BOARD A
  		                    JOIN USER_TABLE B ON(B.USER_CODE = A.USER_CODE)
                             JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
                             JOIN FRIENDLY_PICTURE_MANAGE D ON(D.BOARD_CODE = A.BOARD_CODE)
                             JOIN PICTURE_TABLE E ON(E.PICTURE_CODE = D.PICTURE_CODE)
  		                   WHERE A.BOARD_DELETE_YN = 'N'
+ 		                   <include refid="search"></include>
                              AND C.STATE_CODE = 2
                              AND E.PICTURE_DELETE_YN = 'N'
  		                   ORDER BY A.BOARD_CODE DESC

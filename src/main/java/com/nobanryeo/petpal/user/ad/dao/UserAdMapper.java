@@ -10,7 +10,7 @@ public interface UserAdMapper {
 
 	int selectAdListCount(AdDTO adDTO);
 	
-	List<AdDTO> selectAdList(AdDTO adDTO, PageDTO page);
+	List<AdDTO> selectAdList(AdDTO adDTO);
 
 	List<AdDTO> selectAdPaymentList(AdDTO adDTO);
 
@@ -23,8 +23,6 @@ public interface UserAdMapper {
 	int insertAdSubmit2(AdDTO adDTO);
 
 	int updateFirstAdPayment(AdDTO adDTO);
-
-//	AdDTO selectAdListDecisionDate(AdDTO adDTO);
 
 	int updateCancelAd(AdDTO adDTO);
 

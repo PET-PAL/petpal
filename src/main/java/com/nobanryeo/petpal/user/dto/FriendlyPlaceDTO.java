@@ -22,13 +22,58 @@ public class FriendlyPlaceDTO {
 	private String pictureName;
 	private String pictureNewName;
 	private String pictureUtilPath;
+	private String keyWord;
+	private int nowPage; 	//현재 페이지
+	private int startPage;	//시작페이지
+	private int endPage;	//끝페이지
+	private int total;		//게시글 총 갯수
+	private int cntPerPage;	//페이지당 글 갯수
+	private int lastPage;	//마지막페이지
+	private int start;		//쿼리에 쓸 start
+	private int end;		//쿼리에 쓸 end
 	
-	public FriendlyPlaceDTO() {}
-
+	private int cntPage = 5;
+	
+	public FriendlyPlaceDTO() {
+	}
+	
+	public FriendlyPlaceDTO(int total, int nowPage, int cntPerPage) {
+		setNowPage(nowPage);
+		setCntPerPage(cntPerPage);
+		setTotal(total);
+		calcLastPage(getTotal(), getCntPerPage());
+		calcStartEndPage(getNowPage(), cntPage);
+		calcStartEnd(getNowPage(), getCntPerPage());
+	}
+	
+	// 제일 마지막 페이지 계산
+	public void calcLastPage(int total, int cntPerPage) {
+		setLastPage((int) Math.ceil((double)total / (double)cntPerPage));
+	}
+	
+	// 시작, 끝 페이지 계산
+	public void calcStartEndPage(int nowPage, int cntPage) {
+		setEndPage(((int)Math.ceil((double)nowPage / (double)cntPage)) * cntPage);
+		if (getLastPage() < getEndPage()) {
+			setEndPage(getLastPage());
+		}
+		setStartPage(getEndPage() - cntPage + 1);
+		if (getStartPage() < 1) {
+			setStartPage(1);
+		}
+	}
+	
+	// DB 쿼리에서 사용할 start, end값 계산
+	public void calcStartEnd(int nowPage, int cntPerPage) {
+		setEnd(nowPage * cntPerPage);
+		setStart(getEnd() - cntPerPage + 1);
+	}
+	
 	public FriendlyPlaceDTO(int boardCode, String boardTitle, String boardContent, int boardViews, Date boardPostDate,
-			String boardDeleteYn, int decisionCode, int userCode, String placeName,
-			String placePhone, String placeAddress, String userNickName, int pictureCode, String pictureURL,
-			String pictureDeleteYN, String pictureName, String pictureNewName, String pictureUtilPath) {
+			String boardDeleteYn, int decisionCode, int userCode, String placeName, String placePhone,
+			String placeAddress, String userNickName, int pictureCode, String pictureURL, String pictureDeleteYN,
+			String pictureName, String pictureNewName, String pictureUtilPath, String keyWord, int nowPage,
+			int startPage, int endPage, int total, int cntPerPage, int lastPage, int start, int end, int cntPage) {
 		super();
 		this.boardCode = boardCode;
 		this.boardTitle = boardTitle;
@@ -48,6 +93,16 @@ public class FriendlyPlaceDTO {
 		this.pictureName = pictureName;
 		this.pictureNewName = pictureNewName;
 		this.pictureUtilPath = pictureUtilPath;
+		this.keyWord = keyWord;
+		this.nowPage = nowPage;
+		this.startPage = startPage;
+		this.endPage = endPage;
+		this.total = total;
+		this.cntPerPage = cntPerPage;
+		this.lastPage = lastPage;
+		this.start = start;
+		this.end = end;
+		this.cntPage = cntPage;
 	}
 
 	public int getBoardCode() {
@@ -194,6 +249,86 @@ public class FriendlyPlaceDTO {
 		this.pictureUtilPath = pictureUtilPath;
 	}
 
+	public String getKeyWord() {
+		return keyWord;
+	}
+
+	public void setKeyWord(String keyWord) {
+		this.keyWord = keyWord;
+	}
+
+	public int getNowPage() {
+		return nowPage;
+	}
+
+	public void setNowPage(int nowPage) {
+		this.nowPage = nowPage;
+	}
+
+	public int getStartPage() {
+		return startPage;
+	}
+
+	public void setStartPage(int startPage) {
+		this.startPage = startPage;
+	}
+
+	public int getEndPage() {
+		return endPage;
+	}
+
+	public void setEndPage(int endPage) {
+		this.endPage = endPage;
+	}
+
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public int getCntPerPage() {
+		return cntPerPage;
+	}
+
+	public void setCntPerPage(int cntPerPage) {
+		this.cntPerPage = cntPerPage;
+	}
+
+	public int getLastPage() {
+		return lastPage;
+	}
+
+	public void setLastPage(int lastPage) {
+		this.lastPage = lastPage;
+	}
+
+	public int getStart() {
+		return start;
+	}
+
+	public void setStart(int start) {
+		this.start = start;
+	}
+
+	public int getEnd() {
+		return end;
+	}
+
+	public void setEnd(int end) {
+		this.end = end;
+	}
+
+	public int getCntPage() {
+		return cntPage;
+	}
+
+	public void setCntPage(int cntPage) {
+		this.cntPage = cntPage;
+	}
+
 	@Override
 	public String toString() {
 		return "FriendlyPlaceDTO [boardCode=" + boardCode + ", boardTitle=" + boardTitle + ", boardContent="
@@ -202,7 +337,10 @@ public class FriendlyPlaceDTO {
 				+ placeName + ", placePhone=" + placePhone + ", placeAddress=" + placeAddress + ", userNickName="
 				+ userNickName + ", pictureCode=" + pictureCode + ", pictureURL=" + pictureURL + ", pictureDeleteYN="
 				+ pictureDeleteYN + ", pictureName=" + pictureName + ", pictureNewName=" + pictureNewName
-				+ ", pictureUtilPath=" + pictureUtilPath + "]";
+				+ ", pictureUtilPath=" + pictureUtilPath + ", keyWord=" + keyWord + ", nowPage=" + nowPage
+				+ ", startPage=" + startPage + ", endPage=" + endPage + ", total=" + total + ", cntPerPage="
+				+ cntPerPage + ", lastPage=" + lastPage + ", start=" + start + ", end=" + end + ", cntPage=" + cntPage
+				+ "]";
 	}
 
 }

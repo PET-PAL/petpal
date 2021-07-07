@@ -10,7 +10,7 @@ public interface UserAdService {
 
 	public int selectAdListCount(AdDTO adDTO);
 	
-	public List<AdDTO> selectAdList(AdDTO adDTO, PageDTO page);
+	public List<AdDTO> selectAdList(AdDTO adDTO);
 
 	public List<AdDTO> selectAdPaymentList(AdDTO adDTO);
 
