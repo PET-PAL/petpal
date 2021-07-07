@@ -98,11 +98,17 @@
 	</select>
 	
 	<select id="selectAdPaymentList" parameterType="AdDTO" resultMap="adResultSet">
-		SELECT AD_CODE
+		<!-- SELECT AD_CODE
              , COUNT(*) CLICK_COUNT
              , COUNT(*)*150*1.1 MORE_PAY_AMOUNT
           FROM AD_CLICK_COUNT
-         GROUP BY AD_CODE
+         GROUP BY AD_CODE -->
+         SELECT A.AD_CODE
+              , COUNT(B.AD_CODE) CLICK_COUNT
+              , COUNT(B.AD_CODE)*150*1.1 MORE_PAY_AMOUNT
+           FROM AD_APPLY_TABLE A
+           LEFT JOIN AD_CLICK_COUNT B ON(B.AD_CODE = A.AD_CODE)
+           GROUP BY A.AD_CODE
 	</select>
 	
 	<select id="selectAdApplyDetail" parameterType="AdDTO" resultMap="adResultSet">

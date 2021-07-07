@@ -171,7 +171,7 @@
 
             <section id="list" class="list" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div class="tab">
-					<span class="tab_btn active" data-toggle="tab" href="#menu0" >광고 신청 내역</span>
+					<span class="tab_btn active" data-toggle="tab" href="#menu0" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=A'">광고 신청 내역</span>
 					<span class="tab_btn" data-toggle="tab" href="#menu1" onclick="location.href='#notice'">만료광고 결제 관리</span>
 				</div>
             </section>
@@ -337,10 +337,9 @@
 								</ul>
 							</div>
 	                	</div>
-					</div>
-					
-					<div id="menu1" class="tab-pane fade">
-						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+	                	
+	                	
+	                	<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		                	<table class="table" id="paytable" style="margin-bottom: 50px;">
 			                    <thead>
 			                        <tr style="background-color: #F1FAF8;">
@@ -385,6 +384,53 @@
 			                </table>
 	                	</div>
 					</div>
+					
+					<%-- <div id="menu1" class="tab-pane fade">
+						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+		                	<table class="table" id="paytable" style="margin-bottom: 50px;">
+			                    <thead>
+			                        <tr style="background-color: #F1FAF8;">
+			                            <th style="width:16%; text-align: center; border-radius: 21px 0px 0px 0px;"><b>기업 / 상호명</b></th>
+			                            <th style="width:16%; text-align: center;"><b>광고 기간</b></th>
+			                            <th style="width:16%; text-align: center;"><b>클릭 횟수</b></th>
+			                            <th style="width:16%; text-align: center;"><b>광고 만료 일자</b></th>
+			                            <th style="width:16%; text-align: center;"><b>추가 결제 금액</b></th>
+			                            <th class="filtering" onclick="filtering();" style="width:20%; text-align: center; border-radius: 0px 21px 0px 0px;"><b>결제 상태</b><img src="${ pageContext.servletContext.contextPath }/resources/images/filter.png" style="width:15px; margin-left:10px;"></th>
+			                        </tr>
+			                    </thead>
+			                    <tbody>
+			                        <c:forEach var="arr" items="${ adList2 }">
+			                        	<c:forEach var="arr2" items="${ adPaymentList }">
+				                        	<c:if test="${ today > arr.postEndDate && empty arr.payDate2nd }">
+				                        		<c:if test="${ arr.adCode == arr2.adCode }">
+							                        <tr class="morepay">
+							                            <td style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr.adWeek }"/>주</td>
+							                            <td style="text-align: center;"><c:out value="${ arr2.clickCount }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr.postEndDate }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr2.morePayAmount }"/>원</td>
+							                            <td class="class" style="text-align: center; color: red;">추가결제 대기중<button onclick="location.href='#taxBill'"></button></td>
+						                            </tr>
+					                            </c:if>
+				                            </c:if>
+				                            <c:if test="${ today > arr.postEndDate && !empty arr.payDate2nd }">
+				                            	<c:if test="${ arr.adCode == arr2.adCode }">
+							                        <tr class="completepay">
+							                            <td style="text-align: center;"><c:out value="${ arr.companyName }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr.adWeek }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr2.clickCount }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr.postEndDate }"/></td>
+							                            <td style="text-align: center;"><c:out value="${ arr2.morePayAmount }"/>원</td>
+							                            <td style="text-align: center; color: #45B99C;">결제 완료</td>
+						                            </tr>
+					                            </c:if>
+				                            </c:if>
+			                        	</c:forEach>
+			                        </c:forEach>
+			                    </tbody>
+			                </table>
+	                	</div>
+					</div> --%>
             	</div>
             </section>
             
@@ -396,7 +442,7 @@
                     <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
                      	세금계산서 내역
                     </p>
-                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=B'">확인</button></div>
                 </div>
             </div>
             
