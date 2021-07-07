@@ -111,7 +111,7 @@
                                   <tr>
                                     <th scope="row">${board.code}</th>
                                     <td>${board.id}</td>
-                                    <td onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adminDetail'">${board.name}</td>
+                                    <td onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adminDetail?boardCode=${board.code}'">${board.name}</td>
                                     <td>${board.email}</td>
                                     <c:if test="${board.permisson eq 2}">
                                     <td>서브관리자</td>
