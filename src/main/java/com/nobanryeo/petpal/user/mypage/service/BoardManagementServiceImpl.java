@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.BoradAndCommentDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
+import com.nobanryeo.petpal.user.dto.ReviewReplyDTO;
 import com.nobanryeo.petpal.user.mypage.dao.BoardManageMapper;
 @Service
 public class BoardManagementServiceImpl implements BoardManagementService{
@@ -78,15 +79,15 @@ public class BoardManagementServiceImpl implements BoardManagementService{
 		return mapper.selectReviewList(map);
 	}
 
-	@Override
-	public int selectReplyCount(BoradAndCommentDTO bcDTO) {
-		return mapper.selectReplyCount(bcDTO);
-	}
+	/*
+	 * @Override public int selectReplyCount(BoradAndCommentDTO bcDTO) { return
+	 * mapper.selectReplyCount(bcDTO); }
+	 */
 
-	@Override
-	public List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map) {
-		return mapper.selectReplyList(map);
-	}
+//	@Override
+//	public List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map) {
+//		return mapper.selectReplyList(map);
+//	}
 
 	@Override
 	public boolean deletePost(int boardCode) {
@@ -123,6 +124,27 @@ public class BoardManagementServiceImpl implements BoardManagementService{
 		return mapper.deleteReply(boardCode) > 0? true:false;
 	}
 
+	@Override
+	public List<ReviewReplyDTO> selectMissingReplyList(HashMap<String, Object> map) {
+		return mapper.selectMissingReplyList(map);
+	}
+
+	@Override
+	public int selectMissingReplyCount(BoradAndCommentDTO bcDTO) {
+		return mapper.selectMissingReplyCount(bcDTO);
+	}
+
+	@Override
+	public int selectReplyCount(BoradAndCommentDTO bcDTO) {
+		return mapper.selectReplyCount(bcDTO);
+	}
+
+	@Override
+	public List<ReviewReplyDTO> selectReplyList(HashMap<String, Object> map) {
+		return mapper.selectReplyList(map);
+	}
+
+	
 }
 
 

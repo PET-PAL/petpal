@@ -153,8 +153,8 @@ public class ReviewReplyDTO {
 				+ ", replyReportTitle=" + replyReportTitle + ", replyReportContent=" + replyReportContent
 				+ ", replyReportDate=" + replyReportDate + ", decisionCode=" + decisionCode + "]";
 	}
-	
-	
+
+
 	
 	
 

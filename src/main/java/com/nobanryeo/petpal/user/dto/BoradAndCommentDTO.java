@@ -18,6 +18,7 @@ public class BoradAndCommentDTO {
 	private Date replyDate; //댓글작성날짜
 	private String replyDeleteYn; //댓글삭제여부
 	private String reportYn; //신고여부
+	private String type;
 
 	public BoradAndCommentDTO() {
 		
@@ -25,7 +26,7 @@ public class BoradAndCommentDTO {
 
 	public BoradAndCommentDTO(int boardCode, String boardTitle, String boardContent, int views, Date postDate,
 			String deleteYn, int dicisionCode, String boardMap, int userCode, int replyCode, String replyContent,
-			Date replyDate, String replyDeleteYn, String reportYn) {
+			Date replyDate, String replyDeleteYn, String reportYn, String type) {
 		super();
 		this.boardCode = boardCode;
 		this.boardTitle = boardTitle;
@@ -41,6 +42,7 @@ public class BoradAndCommentDTO {
 		this.replyDate = replyDate;
 		this.replyDeleteYn = replyDeleteYn;
 		this.reportYn = reportYn;
+		this.type = type;
 	}
 
 	public int getBoardCode() {
@@ -155,13 +157,21 @@ public class BoradAndCommentDTO {
 		this.reportYn = reportYn;
 	}
 
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+
 	@Override
 	public String toString() {
 		return "BoradAndCommentDTO [boardCode=" + boardCode + ", boardTitle=" + boardTitle + ", boardContent="
 				+ boardContent + ", views=" + views + ", postDate=" + postDate + ", deleteYn=" + deleteYn
 				+ ", dicisionCode=" + dicisionCode + ", boardMap=" + boardMap + ", userCode=" + userCode
 				+ ", replyCode=" + replyCode + ", replyContent=" + replyContent + ", replyDate=" + replyDate
-				+ ", replyDeleteYn=" + replyDeleteYn + ", reportYn=" + reportYn + "]";
+				+ ", replyDeleteYn=" + replyDeleteYn + ", reportYn=" + reportYn + ", type=" + type + "]";
 	}
 
 	

@@ -7,6 +7,7 @@ import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.BoradAndCommentDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
+import com.nobanryeo.petpal.user.dto.ReviewReplyDTO;
 
 public interface BoardManageMapper {
 
@@ -34,9 +35,9 @@ public interface BoardManageMapper {
 
 	List<BoradAndCommentDTO> selectReviewList(HashMap<String, Object> map);
 
-	int selectReplyCount(BoradAndCommentDTO bcDTO);
+//	int selectReplyCount(BoradAndCommentDTO bcDTO);
 
-	List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map);
+//	List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map);
 
 	int deleteMissingPost(int boardCode);
 
@@ -55,6 +56,14 @@ public interface BoardManageMapper {
 	int selectReviewPostCount();
 
 	List<BoradAndCommentDTO> selectReviewPostList(PageDTO page);
+
+	List<ReviewReplyDTO> selectMissingReplyList(HashMap<String, Object> map);
+
+	int selectMissingReplyCount(BoradAndCommentDTO bcDTO);
+
+	int selectReplyCount(BoradAndCommentDTO bcDTO);
+
+	List<ReviewReplyDTO> selectReplyList(HashMap<String, Object> map);
 
 
 }

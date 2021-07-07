@@ -6,6 +6,7 @@ import java.util.List;
 import com.nobanryeo.petpal.user.dto.AdoptDTO;
 import com.nobanryeo.petpal.user.dto.BoradAndCommentDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
+import com.nobanryeo.petpal.user.dto.ReviewReplyDTO;
 
 public interface BoardManagementService {
 
@@ -33,9 +34,9 @@ public interface BoardManagementService {
 
 	List<BoradAndCommentDTO> selectReviewList(HashMap<String, Object> map);
 
-	int selectReplyCount(BoradAndCommentDTO bcDTO);
+//	int selectReplyCount(BoradAndCommentDTO bcDTO);
 
-	List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map);
+//	List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map);
 
 	boolean deletePost(int boardCode);
 
@@ -50,5 +51,13 @@ public interface BoardManagementService {
 	boolean deletePostReview(int boardCode);
 
 	boolean deleteReply(int boardCode);
+
+	List<ReviewReplyDTO> selectMissingReplyList(HashMap<String, Object> map);
+
+	int selectMissingReplyCount(BoradAndCommentDTO bcDTO);
+
+	int selectReplyCount(BoradAndCommentDTO bcDTO);
+
+	List<ReviewReplyDTO> selectReplyList(HashMap<String, Object> map);
 
 }
