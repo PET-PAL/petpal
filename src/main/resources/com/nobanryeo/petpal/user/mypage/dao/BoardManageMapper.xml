@@ -60,21 +60,6 @@
   		<result column="MISSING_COLOR" property="color"/>
   	</resultMap>
   	
-  	<resultMap id="replyResultSet" type="ReviewReplyDTO">
-		<id column="REPLY_CODE" property="replyCode"/>
-		<result column="REPLY_CONTENT" property="replyContent"/>
-		<result column="REPLY_DATE" property="replyDate"/>
-		<result column="REPLY_DELETE_YN" property="replyDeleteYN"/>
-		<result column="REPORT_YN" property="reportYN"/>
-		<result column="BOARD_CODE" property="boardCode"/>
-		<result column="USER_NIKNAME" property="userNickName"/>
-		<result column="USER_CODE" property="userCode"/>
-		<result column="USER_CODE1" property="userCode1"/>
-		<result column="REPLY_REPORT_TITLE" property="replyReportTitle"/>
-		<result column="REPLY_REPORT_CONTENT" property="replyReportContent"/>
-		<result column="REPLY_REPORT_DATE" property="replyReportDate"/>
-		<result column="DECISION_CODE" property="decisionCode"/>
-	</resultMap>
 	
 	<select id="selectMissingCount" resultType="int">
 		SELECT 
@@ -330,7 +315,7 @@
       ORDER BY REPLY_DATE DESC	
 	</select>
 	
-	<select id="selectMissingReplyList" resultMap="replyResultSet" parameterType="hashmap">
+	<select id="selectMissingReplyList" resultMap="boardResultSet" parameterType="hashmap">
         SELECT * 
 		  FROM (SELECT ROWNUM RN, A.* 
 		          FROM (SELECT 
@@ -377,7 +362,7 @@
       ORDER BY REPLY_DATE DESC	
 	</select>
 
-	<select id="selectReplyList" resultMap="replyResultSet" parameterType="hashmap">
+	<select id="selectReplyList" resultMap="boardResultSet" parameterType="hashmap">
         SELECT * 
 		  FROM (SELECT ROWNUM RN, A.* 
 		          FROM (SELECT 
@@ -386,24 +371,42 @@
                              , A.REPLY_DATE
                              , A.REPLY_DELETE_YN
                              , A.REPORT_YN
+                             , B.BOARD_CODE
+                  <choose>
+                  <when test='bcDTO.type eq "A"'>
+                  			 , C.MISSING_DELETE_YN
+                  </when>
+                  <when test='bcDTO.type eq "B"'>
+                  			 , C.ADOPT_DELETE_YN
+                  </when>
+                  <otherwise>
+                             , C.BOARD_DELETE_YN
+                  </otherwise>
+                  </choose>
 		          FROM REPLY_MANAGE A
 		          <if test='bcDTO.type eq "A"'>
                   JOIN MISSING_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
+                  JOIN MISSING_BOARD C ON(B.BOARD_CODE = C.BOARD_CODE)
 		          </if>
 		          <if test='bcDTO.type eq "B"'>
                   JOIN ADOPT_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
+                  JOIN ADOPT_BOARD C ON(B.BOARD_CODE = C.BOARD_CODE)
 		          </if>
 		          <if test='bcDTO.type eq "C"'>
                   JOIN INFO_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
+                  JOIN INFO_BOARD C ON(A.REPLY_CODE = B.REPLY_CODE)
 		          </if>
 		          <if test='bcDTO.type eq "D"'>
                   JOIN FREE_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
+                  JOIN FREE_BOARD C ON(A.REPLY_CODE = B.REPLY_CODE)
 		          </if>
 		          <if test='bcDTO.type eq "E"'>
                   JOIN SHARE_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
+                  JOIN SHARE_BOARD C ON(B.BOARD_CODE = C.BOARD_CODE)
 		          </if>
 		          <if test='bcDTO.type eq "F"'>
                   JOIN REVIEW_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
+                  JOIN REVIEW_BOARD C ON(B.BOARD_CODE = C.BOARD_CODE)
 		          </if>
 		         WHERE B.USER_CODE = #{ bcDTO.userCode }	
 		           AND REPLY_DELETE_YN = 'N'

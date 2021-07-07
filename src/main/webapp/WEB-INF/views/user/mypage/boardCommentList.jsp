@@ -252,22 +252,11 @@
 						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		                	<table class="table table-hover" style="margin-bottom: 50px;">
 			                    <thead>
-			                    <c:choose>
-			                    	<c:when test="${ type eq 'G' }">
-			                    	<tr style="background-color: #F1FAF8;">
-			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>댓글 내용</b></th>
-	                                    <th style="text-align: center;"><b>날짜</b></th>
-			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
-			                        </tr>
-			                    	</c:when>
-			                    <c:otherwise>
 			                        <tr style="background-color: #F1FAF8;">
 			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>제목</b></th>
 	                                    <th style="text-align: center;"><b>날짜</b></th>
 			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
 			                        </tr>
-			                    </c:otherwise>
-			                    </c:choose>
 			                    </thead>
 			                    <tbody>
 			                    <c:if test="${ type eq 'A' }">
@@ -357,20 +346,6 @@
 									</tr>
 									</c:forEach>
 			                        </c:if>
-			                       <%--  <c:if test="${ type eq 'G' }">
-			                        <c:forEach items="${ gList }" var="list">
-									<tr id="stop">
-										<td style="text-align: center;">${ list.replyContent }</td>
-										<td style="text-align: center;">${ list.replyDate }</td>
-										<td style="text-align: center;">
-										<input type="hidden" value="G" id="type">
-										<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
-										</td>
-									</tr>
-									</c:forEach>
-			                        </c:if> --%>
-			                        
-			                       
 			                    </tbody>
 			                </table>
 			                <div class="text-center">
@@ -501,27 +476,6 @@
 									</c:if>
 									</li>
 								</c:if>
-								<!-- G타입일때 하단 -->
-								<%-- <c:if test="${ type eq 'G' }">
-								<li>
-									<c:if test="${paging.startPage != 1 }">
-										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
-									</c:if>
-									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-										<c:choose>
-											<c:when test="${p == paging.nowPage }">
-												<li><a>${p }</a></li>
-											</c:when>
-											<c:when test="${p != paging.nowPage }">
-												<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-											</c:when>
-										</c:choose>
-									</c:forEach>
-									<c:if test="${paging.endPage != paging.lastPage}">
-										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
-									</c:if>
-									</li>
-								</c:if> --%>
 								</ul>
 							</div>
 	                	</div>
@@ -542,19 +496,12 @@
 			            <tbody>
 			            <c:if test="${ type eq 'A' }">
 			                <c:forEach items="${ reply }" var="list">
-								<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
-									<td style="text-align: center;">${ list.replyContent }</td>
-									<td style="text-align: center;">${ list.replyDate }</td>
-									<td style="text-align: center;">
-									<input type="hidden" value="G" id="type2">
-									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
-									</td>
-								</tr>
-							</c:forEach>
-			            </c:if>
-			            <c:if test="${ type eq 'A' }">
-			                <c:forEach items="${ reply }" var="list">
-								<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+				                <c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+				                </c:if>
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
@@ -567,7 +514,12 @@
 			            </c:if>
 			            <c:if test="${ type eq 'B' }">
 			                <c:forEach items="${ reply }" var="list">
-								<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+				                <c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/detail/${ list.boardCode }'">
+				                </c:if>
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
@@ -580,7 +532,12 @@
 			            </c:if>
 			            <c:if test="${ type eq 'C' }">
 			                <c:forEach items="${ reply }" var="list">
-								<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+				            	<c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
+				                </c:if>
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
@@ -593,7 +550,12 @@
 			            </c:if>
 			            <c:if test="${ type eq 'D' }">
 			                <c:forEach items="${ reply }" var="list">
-								<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+			                	<c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?boardCode=${ list.boardCode }'">
+				                </c:if>
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
@@ -606,7 +568,12 @@
 			            </c:if>
 			            <c:if test="${ type eq 'E' }">
 			                <c:forEach items="${ reply }" var="list">
-								<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+			                	<c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+				                </c:if>
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
@@ -619,7 +586,12 @@
 			            </c:if>
 			            <c:if test="${ type eq 'F' }">
 			                <c:forEach items="${ reply }" var="list">
-								<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+			                	<c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/review/reviewDetail?boardCode=${ list.boardCode }'">
+				                </c:if>
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
@@ -762,24 +734,20 @@
             
             <script>
 				let targetLink = document.querySelectorAll('.tab span');
-				/* for(var i = 0; i < targetLink.length; i++) {
-					targetLink[i].addEventListener('click', function(e){
-	        			e.preventDefault();
-						for(var x = 0; x < targetLink.length; x++){
-	            			targetLink[x].classList.remove('active');
-	            			e.target.classList.add('active');
-	        			}
+				for(var i = 0; i < targetLink.length; i++){
+					targetLink[i].classList.remove('active');
+					if(i == ${ requestScope.num}){
+						targetLink[i].classList.add('active');
 					}
-				)}; */
-					for(var i = 0; i < targetLink.length; i++){
-						targetLink[i].classList.remove('active');
-						if(i == ${ requestScope.num}){
-							targetLink[i].classList.add('active');
-						}
-					}
+				}
 				
-				
-				</script>
+			</script>
+			<script>
+				function deletePosting(){
+					console.log("들어옴");
+					alert("삭제가 된 게시글입니다.");
+				}
+			</script>
 			
 			<div id="deletePost" class="overlay" id="why">
 				<div class="popup">
@@ -841,7 +809,7 @@ $.ajax({
 		alert("삭제에 실패했습니다. 지속된 삭제 실패는 고객센터에 연락바랍니다.");
 	}
 });
-
+}
 
 </script>
 
