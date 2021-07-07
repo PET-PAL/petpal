@@ -281,9 +281,8 @@
 										</c:if>
 										<td style="text-align: center;">${ list.missingDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="A" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -300,9 +299,8 @@
 										<td style="text-align: center;">${ list.boardDate }</td>
 										<c:if test="${ list.stateCode eq 1 }">
 										<td >
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="B" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 										</c:if>
 										<c:if test="${ list.stateCode eq 2 }">
@@ -317,9 +315,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td>
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="C" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -330,9 +327,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="D" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -343,9 +339,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="E" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -356,9 +351,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="F" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -369,9 +363,8 @@
 										<td style="text-align: center;">${ list.replyContent }</td>
 										<td style="text-align: center;">${ list.replyDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="${ list.replyCode }" id="code">
 										<input type="hidden" value="G" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -564,7 +557,8 @@
 	        			}
 					}
 				)};
-				
+				</script>
+				<!-- <script>
 				/* $('#stop').click(function(){
 					event.stopPropagation();
 					alert("제발...");
@@ -581,9 +575,9 @@
 				}
 				
 				
-			</script>
+			</script> -->
 			
-			<div id="deletePost" class="overlay">
+			<div id="deletePost" class="overlay" id="why">
 				<div class="popup">
 					<a href="" class="close">&times;</a>
 					<p style="font-size: 20px; text-align: center; padding-bottom: 10px;">삭제하기</p>
@@ -591,6 +585,7 @@
 						<div class="cont-step_preface">
 							<h3 align="center">해당 글을 삭제하시겠습니까</h3>
 							<br>
+							<input type="hidden" name="boardCode" id="inputReplyCode">
 							<button style="margin-left: 43%;" onclick="postDeleteA()">
 							삭제하기
 							</button>
@@ -600,17 +595,37 @@
 			</div>
 <script type="text/javascript">
 
-function postDeleteA(){
+
+
+function deleteClick(test){
 	
-var boardCode = document.getElementById("code").value;
-var type = document.getElementById("type").value;
-console.log(boardCode);
-console.log(type);
+	/* let stop = document.getElementById('stop');
+	let del = document.getElementById('delete');
+	
+	stop.addEventListener('click', clicked);
+	del.addEventListener('click', clicked);
+	 */
+	event.stopPropagation();
+	 
+	let replyCode = test.className;
+	document.getElementById("inputReplyCode").value = replyCode;
+	location.href = '#deletePost';
+
+}
+
+function postDeleteA(){
+
+	var type = document.getElementById("type").value;
+	var boardCode = document.getElementById("inputReplyCode").value;
+	console.log(type);
+	console.log(boardCode);
 
 $.ajax({
+	
+	
 	url:"${pageContext.servletContext.contextPath}/user/mypage/deletePost",
 	type:"post",
-	data:{boardCode:boardCode , type:type},
+	data:{boardCode:boardCode, type:type},
 	success:function(data){
 		console.log("성공!!!!!!!!!!!!");
 		alert("삭제에 성공했습니다.");
@@ -620,8 +635,8 @@ $.ajax({
 		alert("삭제에 실패했습니다. 지속된 삭제 실패는 고객센터에 연락바랍니다.");
 	}
 });
-
 }
+
 </script>
 
 
