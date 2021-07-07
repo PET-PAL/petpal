@@ -44,6 +44,7 @@
  		<typeAlias alias="AdAdminDTO" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO"/>
  		<typeAlias alias="DecisionDTO" type="com.nobanryeo.petpal.admin.dto.DecisionDTO"/>
  		<typeAlias alias="AdminPageInfoDTO" type="com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO"/>
+ 		<typeAlias alias="AdminReviewDTO" type="com.nobanryeo.petpal.admin.dto.AdminReviewDTO"/>
  		<!-- <typeAlias alias="SearchCriteria" type="com.nobanryeo.petpal.admin.dto.SearchCriteria"/> -->
  		
  	</typeAliases>
