@@ -368,7 +368,7 @@ public class BoardManagementController {
 			boolean value = boardService.deletePost(boardCode);
 			
 			if(value == true) {
-				result = "success";
+				result = "A";
 			} else {
 				result = "fail";
 			}
@@ -380,7 +380,7 @@ public class BoardManagementController {
 			boolean value = boardService.deletePostAdopt(boardCode);
 			
 			if(value == true) {
-				result = "success";
+				result = "B";
 			} else {
 				result = "fail";
 			}
@@ -389,7 +389,7 @@ public class BoardManagementController {
 			System.out.println("C들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			boolean value = boardService.deletePostInfo(boardCode);
 			if(value == true) {
-				result = "success";
+				result = "C";
 			} else {
 				result = "fail";
 			}
@@ -397,7 +397,7 @@ public class BoardManagementController {
 			System.out.println("D들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			boolean value = boardService.deletePostFree(boardCode);
 			if(value == true) {
-				result = "success";
+				result = "D";
 			} else {
 				result = "fail";
 			}
@@ -405,7 +405,7 @@ public class BoardManagementController {
 			System.out.println("E들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			boolean value = boardService.deletePostShare(boardCode);
 			if(value == true) {
-				result = "success";
+				result = "E";
 			} else {
 				result = "fail";
 			}
@@ -413,7 +413,7 @@ public class BoardManagementController {
 			System.out.println("F들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			boolean value = boardService.deletePostReview(boardCode);
 			if(value == true) {
-				result = "success";
+				result = "F";
 			} else {
 				result = "fail";
 			}

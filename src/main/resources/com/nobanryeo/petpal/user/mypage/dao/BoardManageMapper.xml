@@ -394,11 +394,11 @@
 		          </if>
 		          <if test='bcDTO.type eq "C"'>
                   JOIN INFO_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
-                  JOIN INFO_BOARD C ON(A.REPLY_CODE = B.REPLY_CODE)
+                  JOIN INFO_BOARD C ON(B.BOARD_CODE = C.BOARD_CODE)
 		          </if>
 		          <if test='bcDTO.type eq "D"'>
                   JOIN FREE_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
-                  JOIN FREE_BOARD C ON(A.REPLY_CODE = B.REPLY_CODE)
+                  JOIN FREE_BOARD C ON(B.BOARD_CODE = C.BOARD_CODE)
 		          </if>
 		          <if test='bcDTO.type eq "E"'>
                   JOIN SHARE_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
