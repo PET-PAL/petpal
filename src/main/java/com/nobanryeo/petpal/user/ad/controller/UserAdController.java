@@ -48,33 +48,73 @@ public class UserAdController {
 	 * 광고 신청 내역 조회
 	 */
 	@GetMapping("select/ad/list")
-	public String selectAdList(Model model, @SessionAttribute UserInfoDTO loginUser, PageDTO page
+	public String selectAdList(Model model, @SessionAttribute UserInfoDTO loginUser
+			, @RequestParam(value = "type", defaultValue =  "A") String type
     		, @RequestParam(value="nowPage", required = false)String nowPage
 			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
 		
 		AdDTO adDTO = new AdDTO();
 		adDTO.setUserCode(loginUser.getCode());
 		
-		// 페이징처리
-    	int total = adService.selectAdListCount(adDTO);
-    	
-    	if(nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "10";
-		} else if(nowPage == null) {
-			nowPage = "1";
-		} else if(cntPerPage == null) {
-			cntPerPage = "10";
+		if(type.equals("A")) {
+			
+			// 페이징처리
+	    	int total = adService.selectAdListCount(adDTO);
+	    	
+	    	if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "10";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "10";
+			}
+
+	    	adDTO.setTotal(total);
+	    	adDTO.setNowPage(Integer.parseInt(nowPage));
+	    	adDTO.setCntPerPage(Integer.parseInt(cntPerPage));
+	    	
+	    	adDTO = new AdDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+	    	adDTO.setUserCode(loginUser.getCode());
+	    	
+	    	model.addAttribute("paging", adDTO);
+			model.addAttribute("adList", adService.selectAdList(adDTO));
+			
+			
+			model.addAttribute("adList2", adService.selectAdList(adDTO));
+			model.addAttribute("type", "A");
+			
+		} else if(type.equals("B")) {
+			
+			// 페이징처리
+			int total = adService.selectAdListCount(adDTO);
+			
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "10";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "10";
+			}
+			
+			adDTO.setTotal(total);
+			adDTO.setNowPage(Integer.parseInt(nowPage));
+			adDTO.setCntPerPage(Integer.parseInt(cntPerPage));
+			
+			adDTO = new AdDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			adDTO.setUserCode(loginUser.getCode());
+			
+			model.addAttribute("paging", adDTO);
+			model.addAttribute("adList", adService.selectAdList(adDTO));
+			
+			
+			model.addAttribute("adList2", adService.selectAdList(adDTO));
+			// 광고 클릭수 조회
+			model.addAttribute("adPaymentList", adService.selectAdPaymentList(adDTO));
+			model.addAttribute("type", "B");
 		}
-    	
-    	page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-    	
-    	model.addAttribute("paging", page);
 		
-		model.addAttribute("adList", adService.selectAdList(adDTO,page));
-		
-		// 광고 클릭수 조회
-		model.addAttribute("adPaymentList", adService.selectAdPaymentList(adDTO));
 		
 		return "user/mypage/adList";
 	}

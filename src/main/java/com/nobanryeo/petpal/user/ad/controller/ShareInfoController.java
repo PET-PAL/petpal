@@ -280,7 +280,8 @@ private final ShareInfoService shareInfoService;
      * 프렌들리 플레이스 게시판 리스트 조회
      */
     @GetMapping("select/sharePlace/list")
-    public String selectSharePlaceList(Model model, HttpServletResponse response, HttpServletRequest request, PageDTO page
+    public String selectSharePlaceList(Model model, HttpServletResponse response, HttpServletRequest request
+    		, @ModelAttribute FriendlyPlaceDTO sharePlace
     		, @RequestParam(value="nowPage", required = false)String nowPage
 			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
     	
@@ -309,11 +310,24 @@ private final ShareInfoService shareInfoService;
 			cntPerPage = "12";
 		}
     	
-    	page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+    	String keyWord = "";
     	
-    	model.addAttribute("paging", page);
-       
-        model.addAttribute("sharePlaceList", shareInfoService.selectSharePlaceList(page));
+    	if(sharePlace.getKeyWord() == null) { // keyWord 검색했을 때
+    		sharePlace.setKeyWord(keyWord);
+    	} else { // keyWord 검색 안했을 때
+    		keyWord = sharePlace.getKeyWord();
+    	}
+    	
+    	sharePlace.setTotal(total);
+    	sharePlace.setNowPage(Integer.parseInt(nowPage));
+    	sharePlace.setCntPerPage(Integer.parseInt(cntPerPage));
+    	
+    	sharePlace = new FriendlyPlaceDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+    	
+    	sharePlace.setKeyWord(keyWord);
+    	
+    	model.addAttribute("paging", sharePlace);
+        model.addAttribute("sharePlaceList", shareInfoService.selectSharePlaceList(sharePlace));
     	
     	return "user/main/sharePlace";
     }

@@ -140,13 +140,7 @@
 				<div class="container-fluid" style="float:left;">
 	 				<p role="presentation" style="font-weight:800; font-size:25px; color:#45B99C; margin-top:10px; float:left; margin-right:15px;"> 일반 정보 공유</p>
 					<button type="button" class="send_btn" onclick="location.href='#completeReport'" style="vertical-align: text-top;"><strong>게시글 작성신청</strong></button>
-				</div>	
-				<form class="d-flex" style="float:right;">
-					<div class="search">
-						<input type="text" placeholder="키워드로 검색해주세요." style="vertical-align: text-top;">
-						<i class="fas fa-search fa-2x"></i>
-					</div>
-				</form>
+				</div>
 			</div>
 		</section>
 		

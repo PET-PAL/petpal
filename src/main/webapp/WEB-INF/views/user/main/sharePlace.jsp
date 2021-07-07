@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+    <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -141,11 +142,11 @@
 					<p role="presentation" style="font-weight:800; font-size:25px; color:#45B99C; margin-top:10px; float:left; margin-right:15px;">프렌들리 플레이스</p>
 					<button type="button" class="send_btn" onclick="location.href='#completeReport'" style="vertical-align: text-top;"><strong>게시글 작성신청</strong></button>
 				</div>	
-				<form class="d-flex" style="float:right;">
-					<div class="search">
-						<input type="text" placeholder="키워드로 검색해주세요." style="vertical-align: text-top;">
-						<i class="fas fa-search fa-2x"></i>
-					</div>
+	            <form method="get" action="${ pageContext.servletContext.contextPath }/user/select/sharePlace/list" style="float: right;">
+					<input type="search" placeholder="지역 키워드를 입력해주세요" name="keyWord" aria-label="Search" style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: gray;">
+					<span>
+						<button type="submit" style="background-color: white; height: 40px; width: 50px; border: solid 1px; border-color: gray; border-radius: 5px;">검색</button>
+					</span>
 				</form>
 			</div>
 		</section>
@@ -165,7 +166,14 @@
 		                    </div>
 		                	<div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
 		                    	<h4><strong><c:out value="${ arr.boardTitle }"/></strong></h4>
-		                    	<h5><c:out value="${ arr.userNickName }"/></h5>
+		                    	<c:choose>
+							        <c:when test="${fn:length(arr.placeAddress) gt 10}">
+							        	<h5><c:out value="${fn:substring(arr.placeAddress, 0, 9)}"/> . . .</h5>
+							        </c:when>
+							        <c:otherwise>
+			                    		<h5><c:out value="${ arr.placeAddress }"/></h5>
+							        </c:otherwise>
+								</c:choose>
 		                    </div>
 		                </div>
 		            </div>

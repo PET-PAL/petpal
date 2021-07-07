@@ -68,60 +68,47 @@
 	<select id="selectAdList" parameterType="AdDTO" resultMap="adResultSet">
 		SELECT * 
 		  FROM (
-			     SELECT ROWNUM RN, C.* 
+			     SELECT ROWNUM RN, D.* 
 			       FROM (
-		SELECT
-	           A.COMPANY_NAME
-             , B.AD_WEEK
-	         , A.APPLY_DATE
-	         , A.POST_YN
-	         , A.STATE_CODE
-	         , A.POST_END_DATE
-	         , A.POST_START_DATE
-	         , A.PAY_DATE_2ND
-	         , A.AD_CODE
-	         , B.AD_PRICE
-	         , A.COMPANY_EMAIL
-	         , A.COMPANY_PHONE
-	         , A.COMPANY_LOCATION
-	         , A.USER_CODE
-	         , A.DECISION_CODE
-             , CASE
-                  WHEN NOT EXISTS ( SELECT 1
-                                      FROM DECISION_TABLE D
-                                     WHERE A.DECISION_CODE = D.DECISION_CODE
-                                       AND A.USER_CODE = #{ userCode }
-                                  ) THEN 'null'
-                             ELSE ( SELECT TO_CHAR(DT.DECISION_DATE)
-                                      FROM DECISION_TABLE DT
-                                      JOIN AD_APPLY_TABLE AA ON(AA.DECISION_CODE = DT.DECISION_CODE)
-                                     WHERE AA.USER_CODE = #{ userCode }
-                                       AND DT.DECISION_CODE = A.DECISION_CODE
-                                   )
-              END DECISION_DATE
-         FROM AD_APPLY_TABLE A
-         JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
-        WHERE A.USER_CODE = #{ userCode }
-        ORDER BY A.APPLY_DATE DESC
-        ) C
+		                  SELECT
+	                             A.COMPANY_NAME
+                               , B.AD_WEEK
+	                           , A.APPLY_DATE
+	                           , A.POST_YN
+	                           , A.STATE_CODE
+	                           , A.POST_END_DATE
+	                           , A.POST_START_DATE
+	                           , A.PAY_DATE_2ND
+	                           , A.AD_CODE
+	                           , B.AD_PRICE
+	                           , A.COMPANY_EMAIL
+	                           , A.COMPANY_PHONE
+	                           , A.COMPANY_LOCATION
+	                           , A.USER_CODE
+	                           , A.DECISION_CODE
+                               , C.DECISION_DATE
+                           FROM AD_APPLY_TABLE A
+                           JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
+                           LEFT JOIN DECISION_TABLE C ON(C.DECISION_CODE = A.DECISION_CODE)
+                          WHERE A.USER_CODE = #{ userCode }
+                          ORDER BY A.APPLY_DATE DESC
+                        ) D
                )
 	     WHERE RN BETWEEN #{start} AND #{end}
 	</select>
 	
-<!-- 	<select id="selectAdListDecisionDate" parameterType="AdDTO" resultMap="adResultSet">
-		SELECT A.DECISION_DATE
-		  FROM DECISION_TABLE A
-		  JOIN AD_APPLY_TABLE B ON(B.DECISION_CODE = A.DECISION_CODE)
-		 WHERE B.USER_CODE = #{ userCode }
-		   AND B.AD_CODE = #{ adCode }
-	</select> -->
-	
 	<select id="selectAdPaymentList" parameterType="AdDTO" resultMap="adResultSet">
-		SELECT AD_CODE
+		<!-- SELECT AD_CODE
              , COUNT(*) CLICK_COUNT
              , COUNT(*)*150*1.1 MORE_PAY_AMOUNT
           FROM AD_CLICK_COUNT
-         GROUP BY AD_CODE
+         GROUP BY AD_CODE -->
+         SELECT A.AD_CODE
+              , COUNT(B.AD_CODE) CLICK_COUNT
+              , COUNT(B.AD_CODE)*150*1.1 MORE_PAY_AMOUNT
+           FROM AD_APPLY_TABLE A
+           LEFT JOIN AD_CLICK_COUNT B ON(B.AD_CODE = A.AD_CODE)
+           GROUP BY A.AD_CODE
 	</select>
 	
 	<select id="selectAdApplyDetail" parameterType="AdDTO" resultMap="adResultSet">
