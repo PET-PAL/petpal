@@ -165,6 +165,21 @@
 		<result property="adTypeCode" column="AD_TYPE_CODE"/>
 	</resultMap>
 	
+	 <!-- 광고 심사 팝업 -->
+	 <select id="selectAdPopUp" resultMap="adApproveDetail" parameterType="int">
+	   SELECT 
+			  	A.AD_CODE
+			  , A.AD_TITLE
+			  ,	A.COMPANY_NAME
+			  , B.USER_NAME
+			  ,	B.USER_ID
+			  ,	A.AD_CONTENT
+			  , A.APPLY_DATE
+		   FROM AD_APPLY_TABLE A
+		   JOIN USER_TABLE B ON B.USER_CODE = A.USER_CODE
+		  WHERE A.AD_CODE = #{adCode}
+	 </select>
+	
 	  <!-- 광고 심사 디테일 -->
 	  <select id="selectAdApproveDetail" resultMap="adApproveDetail" parameterType="int">
 	    SELECT 
@@ -222,7 +237,6 @@
                     GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
         		   WHERE A.AD_CODE = #{adCode}
 	  </select>
-	  
 	  
 	  
 	  <resultMap id="adDecision" extends="adAdmin" type="com.nobanryeo.petpal.admin.dto.AdAdminDTO">

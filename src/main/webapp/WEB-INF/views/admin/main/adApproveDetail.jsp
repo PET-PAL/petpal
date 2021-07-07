@@ -3,18 +3,33 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
-       <head>
-       <style>
-       .table > tr > th{
-			text-align: center;
-			border: none;
-		}
-		.table > tr > th{
-			text-align: center;
-			border: none;
-		}
-       
-       </style>
+   <head>
+	<style>
+	.table > tr > th{
+	text-align: center;
+	border: none;
+	}
+	.table > tr > th{
+	text-align: center;
+	border: none;
+	}
+	</style>
+	
+	<script>
+	function click_ad(){
+		var adCode = document.getElementById('adPopUpCode').value;
+		var url="${ pageContext.servletContext.contextPath }/admin/adPopUp?adCode="+adCode;
+		var name= "adPopUp";
+		var option= "width = 600, height = 500, left = 100, top = 50, location = no";
+		
+		window.open(url,name,option)
+		
+	}
+	
+	
+	</script>	
+	
+  
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -58,10 +73,6 @@
                                     <th style="border: none; width: 150px;">사업자 번호</th>
                                     <td style="border: none;">${adDetail.companyNumber}</td>
                                  </tr>
-                                 <!-- <tr>
-                                    <th style="border: none; width: 150px;">사업자 등록증</th>
-                                    <td style="border: none;"> <button class="btn text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px;">사업자 등록증 보기</button></td>
-                                 </tr> -->
                                  <tr>
                                     <th style="border: none; width: 150px;">사업자 전화번호</th>
                                     <td style="border: none;">${adDetail.companyPhone}</td>
@@ -107,7 +118,11 @@
                                  </tr>
                                  <tr>
                                     <th style="border: none; width: 150px;">광고 내용</th>
-                                    <td style="border: none;"> <button class="btn text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px;">광고 내용 보기</button></td>
+                                    <td style="border: none;"> 
+                                    <button class="btn text-center" onclick="click_ad();" id="adPopUpCode" value="${adDetail.adCode}" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px;">
+                                    	광고 내용 보기
+                                    </button>
+                                    </td>
                                  </tr>
                                  
                             </table>

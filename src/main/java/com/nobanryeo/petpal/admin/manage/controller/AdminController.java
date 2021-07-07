@@ -1,6 +1,8 @@
 package com.nobanryeo.petpal.admin.manage.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -90,7 +92,14 @@ public class AdminController {
 	
 	// 관리자관리 디테일
 	@RequestMapping("adminDetail")
-	public String adminDetailReturning() {
+	public String adminDetailReturning(Model model,@RequestParam(value="boardCode", required=false)String boardCode) {
+		System.out.println("boardCode"+boardCode);
+		UserInfoDTO adminList = adminService.selectAdminDetail(boardCode);
+		
+		model.addAttribute("boardCode",boardCode);
+		model.addAttribute("adminList",adminList);
+
+		
 		return "admin/main/adminDetail";
 	}
 	
@@ -112,4 +121,36 @@ public class AdminController {
 		
 		return "admin/main/adminAdd";
 	}
+	
+	
+	@RequestMapping("updateAdmin")
+	public String updateAdmin(Model model,@RequestParam(value="permisson", required=false)String permissonCode
+			,@RequestParam(value="userCode", required=false)String userCode) {
+		
+		System.out.println("permisson"+permissonCode);
+		System.out.println("userCode"+userCode);
+		
+		Map param = new HashMap();
+		
+		param.put("permissonCode", Integer.parseInt(permissonCode));
+		param.put("userCode", userCode);
+		boolean updateAdmin = adminService.updateAdmin(param);
+		System.out.println(updateAdmin);
+		return adminListReturning(model, null, null, null, null, null, null, null);
+	}
+	
+	@RequestMapping("AdminDelete")
+	public String adminDelete(Model model,@RequestParam(value="userCode", required=false)String userCode) {
+		int permissonCode = 1;
+		
+		System.out.println("userCode"+userCode);
+		Map param = new HashMap();
+		param.put("permissonCode", permissonCode);
+		param.put("userCode", userCode);
+		boolean updateAdmin = adminService.updateAdmin(param);
+		boolean updateAdminTable = adminService.updateAdminTable(userCode);
+		
+		return adminListReturning(model, null, null, null, null, null, null, null);
+	}
+	
 }

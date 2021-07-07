@@ -78,7 +78,7 @@
                         </button>
                     
                      <div style="color: #19A985; font-weight: 800; font-size: 35px; margin-top: 25px; margin-left: -45px"
-                          onclick="location.href='adminMainPage'">
+                          onclick="location.href='${pageContext.servletContext.contextPath }/admin/adminMainPage'">
                      PET-PAL
                      </div>
                         

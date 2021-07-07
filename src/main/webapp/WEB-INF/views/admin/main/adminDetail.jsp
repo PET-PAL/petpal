@@ -49,59 +49,74 @@
                         <c:choose>
 		                <c:when test="${ sessionScope.loginUser.permisson eq 3}">
                         <!-- 대표관리자 접속 시 수정 가능 부분 -->
-                        <form>
+                        <form action="${ pageContext.servletContext.contextPath }/admin/updateAdmin" method="post">
+                         <input type="hidden" name="userCode" value="${ adminList.code }"/>
                               <div class="form-group">
                                 <label for="cname" class="col-lg-2">아이디</label>
                               	<div class="col-lg-10">
-	                                  <input class="form-control" id="name" name="name"  type="text"  value="" style="margin-bottom:3%"></input>
+	                                  <input class="form-control" id="name" name="name"  type="text"  value="${adminList.id}" style="margin-bottom:3%" readonly="readonly"></input>
 	                            </div>
                               </div>
                               
                               <div class="form-group">
 	                              <label for="cname" class="col-lg-2">이름</label>
 	                                <div class="col-lg-10">
-	                                  <input class="form-control" id="name" name="name"  type="text"  value="" style="margin-bottom:3%"></input>
+	                                  <input class="form-control" id="name" name="name"  type="text"  value="${adminList.name}" style="margin-bottom:3%" readonly="readonly"></input>
 	                                </div>
                                </div>
                                
-                               <div class="form-group">
-	                              <label for="cname" class="col-lg-2">이메일</label>
-	                                <div class="col-lg-10">
-	                                  <input type="email" class="form-control" id="email" name="email"  type="text"  value="" style="margin-bottom:3%"></input>
-	                                </div>
-                               </div>
                               
                                <div class="form-group">
 	                              <label for="cname" class="col-lg-2">권한</label>
 	                                <div class="col-lg-10">
 		                                <ul>
+		                                <c:choose>
+		                                <c:when test="${adminList.permisson eq 2 }">
 		                                <li class="col-lg-6">
 		                                  	<label for="priv" class="col-lg-3">
 										    	대표관리자
 										  	</label>
-		                              		<input class="radio-inline" type="radio" name="priv" id="priv" style="margin-bottom:6%">
+		                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="3" style="margin-bottom:6%">
 		                              	</li>
 		                              	<li class="col-lg-6">
 		                              		<label for="priv" class="col-lg-3">
 										    	서브관리자
 										  	</label>
-		                              		<input class="radio-inline" type="radio" name="priv" id="priv" style="margin-bottom:6%">
+		                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="2" style="margin-bottom:6%" checked>
 		                              	</li>
+		                                </c:when>
+		                                
+		                                <c:otherwise>
+		                                <li class="col-lg-6">
+		                                  	<label for="priv" class="col-lg-3">
+										    	대표관리자
+										  	</label>
+		                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="3" style="margin-bottom:6%" checked>
+		                              	</li>
+		                              	<li class="col-lg-6">
+		                              		<label for="priv" class="col-lg-3">
+										    	서브관리자
+										  	</label>
+		                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="2" style="margin-bottom:6%">
+		                              	</li>
+		                                </c:otherwise>
+		                                </c:choose>
+		                                
 		                              	</ul>
 	                                </div>
                               	</div>
                          	 
                                <div class="form-group">
-	                              <label for="cname" class="control-label col-lg-2">비밀번호</label>
+	                              <label for="cname" class="col-lg-2">이메일</label>
 	                                <div class="col-lg-10">
-	                                  <input type="password" class="form-control" id="pwd" name="pwd"  type="text"  value="" style="margin-bottom:3%"></input>
+	                                  <input class="form-control" id="name" name="name"  type="text"  value="${adminList.email}" style="margin-bottom:3%" readonly="readonly"></input>
 	                                </div>
                                </div>
                                
                                <div class="form-group">
 	                              <label for="cname" class="control-label col-lg-2">휴대폰번호</label>
 	                                <div class="col-lg-10">
-	                                  <input class="form-control" id="phoneNum" name="phoneNum"  type="text"  value="" style="margin-bottom:3%" placeholder="예시) 010-3489-2872"></input>
+	                                  <input class="form-control" id="phoneNum" name="phoneNum"  type="text"  value="${adminList.phone}" style="margin-bottom:3%" readonly="readonly"></input>
 	                                </div>
                                </div>
                                
@@ -111,8 +126,23 @@
                                  <div class="col-lg-10"></div>
                                  <div class="col-lg-2" style="padding-right:0px">
                                  	<button type="submit" class="btn text-center" id="revise">수정완료</button></div>
-                                </div>                      
-                        </form>
+                                 </div>
+                                 </form>
+                          <div class="col-lg-12"></div>
+                          <div class="col-lg-12"></div>
+                          <div class="col-lg-12"></div>
+                          <div class="col-lg-12"></div>
+                          <div class="col-lg-12"></div>
+                          <div class="col-lg-12"></div>
+                          <div class="col-lg-12"></div>
+                          <div class="col-lg-12"></div>
+                          
+                         <div class="col-lg-12">
+                         <div class="col-lg-10"></div>
+                         <div class="col-lg-2" style="padding-right:0px">                             
+                        <button onclick="location.href='${ pageContext.servletContext.contextPath }/admin/AdminDelete?userCode=${adminList.code }'" class="btn text-center" id="revise">권한해지</button>
+                         </div>
+                         </div>    	
                         <!-- 대표관리자 접속 수정 가능 -->
                         </c:when>
                         <c:otherwise>
@@ -159,12 +189,6 @@
 	                                </div>
                               	</div>
                          	 
-                               <div class="form-group">
-	                              <label for="cname" class="control-label col-lg-2">비밀번호</label>
-	                                <div class="col-lg-10">
-	                                  <input type="password" class="form-control" id="pwd" name="pwd"  type="text"  value="" style="margin-bottom:3%; background-color:white;" readonly="readonly"></input>
-	                                </div>
-                               </div>
                                
                                <div class="form-group">
 	                              <label for="cname" class="control-label col-lg-2">휴대폰번호</label>

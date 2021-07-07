@@ -58,7 +58,7 @@ function selChange() {
 
 function monthChange() {
 	var month = document.getElementById('monthChange').value;
-	location.href="${ pageContext.servletContext.contextPath }/admin/taxManageList?nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}&month="+month; 
+	location.href="${ pageContext.servletContext.contextPath }/admin/taxManageList?category=${paging.category}&nowPage=${paging.nowPage}&cntPerPage=${paging.cntPerPage}&month="+month; 
 }
 
 </script>
@@ -77,9 +77,9 @@ function monthChange() {
       text-align:center;
       color:#25213b">
       <ul class="nav nav-pills nav-stacked">
-        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">광고 결제 관리</a></li>
+        <li><a href="${ pageContext.servletContext.contextPath }/admin/payList">광고 결제 관리</a></li>
         <hr>
-        <li><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">세금계산서 관리</a></li>
+        <li class="active1"><a href="${ pageContext.servletContext.contextPath }/admin/taxManageList">세금계산서 관리</a></li>
       </ul>
     </nav>
     <!-- sidebar end -->

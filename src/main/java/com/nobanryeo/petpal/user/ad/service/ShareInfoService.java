@@ -38,7 +38,7 @@ public interface ShareInfoService {
 	
 	public int selectSharePlaceCount();
 	
-	public List<FriendlyPlaceDTO> selectSharePlaceList(PageDTO page);
+	public List<FriendlyPlaceDTO> selectSharePlaceList(FriendlyPlaceDTO sharePlace);
 
 	public void updateSharePlaceViews(int boardCode);
 

@@ -153,6 +153,21 @@ public class AdAdminController {
 		
 	}
 	
+	/* 광고내용 팝업창 */
+	@RequestMapping("adPopUp")
+	public String adListReturning(Model model,
+			                      @RequestParam(value="adCode", required=false) int adCode) {
+		System.out.println("광고코드 : " + adCode);
+		
+		// 광고 정보 조회
+		List<AdAdminDTO> selectAdPopUp = adAdminService.selectAdPopUp(adCode);
+				
+		model.addAttribute("adPopUp", selectAdPopUp);
+		
+		return "admin/main/adPopUp";
+	}
+	
+	
 	/* 광고심사 심사 입력 */
 	@RequestMapping(value="adApproveDetail/{adCode}", method=RequestMethod.POST)
 	public String adApproveInsert(Model model, 

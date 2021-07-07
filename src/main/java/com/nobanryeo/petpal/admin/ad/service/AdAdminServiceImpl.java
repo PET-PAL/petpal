@@ -117,6 +117,12 @@ public class AdAdminServiceImpl implements AdAdminService  {
 		return adAdminMapper.selectClickList(searchAdAllList);
 	}
 
+	// 광고 팝업
+	@Override
+	public List<AdAdminDTO> selectAdPopUp(int adCode) {
+		return adAdminMapper.selectAdPopUp(adCode);
+	}
+
 
 
 	

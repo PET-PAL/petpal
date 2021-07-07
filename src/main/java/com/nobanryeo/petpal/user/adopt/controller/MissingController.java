@@ -32,7 +32,9 @@ import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nobanryeo.petpal.user.adopt.service.MissingService;
+import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.MissingDTO;
 import com.nobanryeo.petpal.user.dto.MissingPictureDTO;
@@ -282,6 +284,107 @@ public class MissingController {
 		
 		int messageResult = missingService.insertMessage(messageDTO);
 		
+		
+		return "redirect:/user/missing/detail/"+boardCode;
+	}
+	
+	/**
+	 * 게시글 / 댓글 신고 메소드
+	 * @param model
+	 * @param request
+	 * @param session
+	 * @param boardreportDTO
+	 * @param adoptreplyDTO
+	 * @return
+	 */
+	@PostMapping("missing/insert/report")
+	public String insertReport(Model model, HttpServletRequest request, HttpSession session, FreeBoardReportDTO boardreportDTO, AdoptReplyDTO adoptreplyDTO) {
+		
+		String reportContent = request.getParameter("reportContent");
+		String reportReply = request.getParameter("reportReply");
+		int contentCode = Integer.parseInt(request.getParameter("contentCode"));
+	
+		String boardTitle = request.getParameter("boardTitle");
+		
+		int boardreportResult = 0;
+		int replyreportResult =0;
+		
+		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+	if(!reportContent.isEmpty()) {	
+		boardreportDTO.setUserCode(userCode);
+		boardreportDTO.setReportContent(reportContent);
+		boardreportDTO.setReportTitle(boardTitle);
+		boardreportDTO.setBoardCode(contentCode);
+		
+		boardreportResult = missingService.insertBoardReport(boardreportDTO);
+	}
+	
+	if(!reportReply.isEmpty()) {
+		int replycode = Integer.parseInt(request.getParameter("replycode"));
+		int replyUsercode = Integer.parseInt(request.getParameter("replyUsercode"));
+		
+		adoptreplyDTO.setBoardCode(contentCode);
+		adoptreplyDTO.setReplyCode(replycode);
+		adoptreplyDTO.setReplyReportContent(reportReply);
+		adoptreplyDTO.setReplyUserCode(userCode);
+		adoptreplyDTO.setBoardUserCode(replyUsercode);
+		
+		replyreportResult = missingService.insertReplyReport(adoptreplyDTO);
+	}
+		if(boardreportResult >0 || replyreportResult>0) {
+			model.addAttribute("message", "success");
+		}else {
+			model.addAttribute("message", "fail");
+		}
+		
+		return "redirect:/user/missing/detail/"+contentCode;
+	}
+	
+	/**
+	 * 지역 검색 메소드
+	 * @param keyword
+	 * @param mv
+	 * @param response
+	 * @return
+	 */
+	@GetMapping("missing/search/{search1}")
+	@ResponseBody
+	public ModelAndView selectKeyword(@PathVariable("search1") String keyword, ModelAndView mv, HttpServletResponse response) {
+		
+	
+		response.setContentType("application/json; charset=utf-8");
+		
+		List<MissingPictureDTO> missingSearchList = new ArrayList<>();
+		missingSearchList=missingService.selectSearchList(keyword);
+		System.out.println("controllter sort: "+missingSearchList );
+		
+		Gson gson = new GsonBuilder().setPrettyPrinting()
+				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
+				.serializeNulls().disableHtmlEscaping().create();
+	
+		mv.addObject("missingSearchList", gson.toJson(missingSearchList));
+	
+		mv.setViewName("jsonView");
+		
+		return mv;
+	}
+	
+	/**
+	 *  찾기완료 상태값 변경 메소드
+	 * @param board
+	 * @param request
+	 * @return
+	 */
+	@GetMapping("missing/update/status")
+	public String putMissingStatus(@RequestParam("board") int board, HttpServletRequest request) {
+		System.out.println("board: "+board);
+		
+		int boardCode = Integer.parseInt(request.getParameter("board"));
+
+		
+		int result = missingService.putMissingStatus(boardCode);
+		
+		System.out.println("controller in update status: " + result);
 		
 		return "redirect:/user/missing/detail/"+boardCode;
 	}

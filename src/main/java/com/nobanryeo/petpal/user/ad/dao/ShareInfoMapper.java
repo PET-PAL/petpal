@@ -43,7 +43,7 @@ public interface ShareInfoMapper {
 	
 	int selectSharePlaceCount();
 	
-	List<FriendlyPlaceDTO> selectSharePlaceListExistImg(PageDTO page);
+	List<FriendlyPlaceDTO> selectSharePlaceListExistImg(FriendlyPlaceDTO shareInfo);
 
 	void updateSharePlaceViews(int boardCode);
 

@@ -37,5 +37,7 @@ public interface AdAdminMapper {
 
 	List<AdAdminDTO> searchAdAllList(AdminPageInfoDTO paging);
 
+	List<AdAdminDTO> selectAdPopUp(int adCode);
+
 	
 }

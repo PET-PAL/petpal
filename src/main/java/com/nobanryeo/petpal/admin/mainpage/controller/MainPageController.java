@@ -4,7 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/*")
+@RequestMapping("/admin/*")
 public class MainPageController {
 
 	// 관리자 메인페이지

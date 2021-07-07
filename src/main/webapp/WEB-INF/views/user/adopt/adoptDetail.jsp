@@ -187,7 +187,7 @@
         </div><!--End off Preloader -->
 
 
- 		   <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt'" style="width:50px; height:50px; float: right;">
+ 		   <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt'" style="width:50px; height:50px; float: right; margin-bottom: 0px; margin-right:180px;">
         <div class="culmn">
             <!--Home page style-->
             <!--Home Sections-->
@@ -257,7 +257,6 @@
 				                	<c:if test="${requestScope.adoptDetail.stateCode eq '1'}">
 				                		<input type="button" class="btn btn-light" style="width:150px; color: green; font-weight: bolder; border:none; background-color:white;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/update/status?board=${requestScope.adoptDetail.boardCode}'" value ="입양 완료하기"/>
 									</c:if>
-				                	<button id="delete_board_btn" class="btn btn-light" style="width:100px; color: red;border:none; background-color:white;">삭제하기</button>
 			               		</div>
 			                <%-- </c:if> --%>
                 	<!-- 상태 값에 따른 c:if 처리 -->
@@ -377,7 +376,7 @@
 								     					if(deleteYN == 'Y'&& reportYN =='N'){
 								     						output += '<tr id="tr'+i+'">';
 									     					output += '<td style="text-align: center;">'+' '+'</td>';
-								     						output += '<td>'+'삭제 된 댓글입니다.'+'</td>';
+								     						output += '<td><del>'+'삭제 된 댓글입니다.'+'</del></td>';
 								     						output += '<td style="text-align: center;">'+' '+'</td>';
 									     					output += '<td>'+'</td>';
 									     					output += '</tr>';
@@ -434,12 +433,16 @@
 			            $j3("#replySubmit").click(function(){
 				     		var code = ${requestScope.adoptDetail.boardCode};
 			     			var content = $j3('#messagecontent').val();
-			     			console.log(code);
-			     			console.log(content);
-				     		if(content.trim()==''){
-				     			alert('댓글을 입력하신 후 다시 눌러주시기 바랍니다.');
-				     			return;
-				     		}
+
+			     			if(${sessionScope.loginUser ne null}){
+					     		if(content.trim()==''){
+					     			alert('댓글을 입력하신 후 다시 눌러주시기 바랍니다.');
+					     			return;
+					     		}
+			     			}else{
+			     				alert('로그인 후 댓글을 추가할 수 있습니다!');
+			     				return
+			     			}
 				     		
 				     	
 				     		$j3.ajax({
@@ -458,7 +461,6 @@
 		    						
 		    					}
 		    				},error:function(xhr,status,error){
-			     				alert("에러 발생~삐뽀~");
 			     				console.log(error);
 			     			}
 			     		});
@@ -536,8 +538,6 @@
 	                   			var content = $j3("#reportContent_board").val(); 
 	                   			var reply = $j3("#reportContent_reply").val();
 	                   			var Bcode = ${requestScope.adoptDetail.boardCode};
-	                   			var Rcode = $j3(this).parent().parent().parent().parent().parent().find("input").val();
-	                   			var RUcode = $j3(this).parent().parent().parent().parent().parent().find("input.replyUserCode").val();
 	                   			var Btitle = $('#h1_itm')[0].innerText;
 	                   			
 	                   			if($j3("#reportContent").val(content) != ''){

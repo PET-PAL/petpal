@@ -37,6 +37,19 @@ FROM DUAL
         )
 
 </insert>
+<select id="selectAdminDetail" resultMap="userResultSet">
+SELECT
+	USER_CODE,
+	USER_ID,
+	USER_NAME,
+	PERMISSON_SET,
+	USER_PWD,
+	USER_PHONE
+	,USER_EMAIL
+	
+	FROM USER_TABLE
+	WHERE USER_CODE =#{boardCode}
+</select>
 <select id="selectListCount" resultType="int">
 SELECT COUNT(*) 
 	FROM USER_TABLE
@@ -50,6 +63,22 @@ SELECT COUNT(*)
 	</if>
 
 </select>
+<update id="updateAdmin" parameterType="UserInfoDTO">
+UPDATE USER_TABLE 
+		SET 
+			PERMISSON_SET = #{permissonCode}
+WHERE USER_CODE = #{ userCode }
+
+</update>
+
+
+<update id="updateAdminTable">
+UPDATE ADMIN_TABLE 
+		SET 
+			RETIRE_DATE = SYSDATE
+WHERE USER_CODE = #{ userCode }
+
+</update>
 <select id="selectAdminList" resultMap="userResultSet" parameterType="UserInfoDTO">
 SELECT
         *

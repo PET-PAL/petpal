@@ -116,10 +116,10 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 	}
 	
 	@Override
-	public List<FriendlyPlaceDTO> selectSharePlaceList(PageDTO page) {
+	public List<FriendlyPlaceDTO> selectSharePlaceList(FriendlyPlaceDTO shareInfo) {
 
 		List<FriendlyPlaceDTO> friendlyPlaceList = new ArrayList<>();
-		friendlyPlaceList = shareInfoMapper.selectSharePlaceListExistImg(page);
+		friendlyPlaceList = shareInfoMapper.selectSharePlaceListExistImg(shareInfo);
 		
 		System.out.println(friendlyPlaceList);
 		

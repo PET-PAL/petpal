@@ -635,7 +635,7 @@
        </choose>
 	  </select>
 	  
-	  	  <!-- 월별 조회 시 세금계산서 총 갯수 구하기 -->
+	  <!-- 월별 조회 시 세금계산서 총 갯수 구하기 -->
 	  <select id="selectTaxMonthList" resultType="int" parameterType="AdminPageInfoDTO">
 		SELECT COUNT(*) 
 		  FROM (
@@ -644,32 +644,32 @@
 				 WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
 		<choose>
         <when test='category == "2"'>
-          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
           <![CDATA[
           AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
            ]]>
            OR (A.CANCEL_APPLY_DATE IS NULL
            <![CDATA[
-          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7)
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7))
            ]]>
           AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
-          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')))
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')+ 0.99999))
         </when>
         <when test='category == "1"'>
-          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
           	  <![CDATA[
           AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
           ]]>
            OR (A.CANCEL_APPLY_DATE IS NULL
            	  <![CDATA[
-          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7))
           ]]>
           AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
-          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')))
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')+ 0.99999))
         </when>
         <otherwise>
 		  AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
-          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')))
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')+ 0.99999))
 		</otherwise>
        </choose>
 	  </select>
@@ -763,32 +763,32 @@
         WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
          <choose>
         <when test='category == "2"'>
-          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
           <![CDATA[
           AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
            ]]>
            OR (A.CANCEL_APPLY_DATE IS NULL
            <![CDATA[
-          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7)
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7))
            ]]>
           AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
-          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')+ 0.99999)
         </when>
         <when test='category == "1"'>
-          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
           	  <![CDATA[
           AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
           ]]>
            OR (A.CANCEL_APPLY_DATE IS NULL
            	  <![CDATA[
-          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7))
           AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
-          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')+ 0.99999)
           ]]>
         </when>
         <otherwise>
           AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
-          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')+ 0.99999)
         </otherwise>
        </choose>
           ORDER BY A.AD_CODE DESC
@@ -888,32 +888,32 @@
         WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
        <choose>
         <when test='category == "2"'>
-          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
           <![CDATA[
           AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
            ]]>
            OR (A.CANCEL_APPLY_DATE IS NULL
            <![CDATA[
-          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7)
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7))
            ]]>
           AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
-          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')+ 0.99999)
         </when>
         <when test='category == "1"'>
-          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
           	  <![CDATA[
           AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
           ]]>
            OR (A.CANCEL_APPLY_DATE IS NULL
            	  <![CDATA[
-          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7))
           ]]>
           AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
-          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')+ 0.99999)
         </when>
         <otherwise>
           AND NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) BETWEEN  TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
-          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD'))
+          AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')+ 0.99999)
         </otherwise>
        </choose>
           ORDER BY A.AD_CODE DESC

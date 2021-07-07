@@ -278,7 +278,7 @@ select { width: 150px; /* 원하는 너비설정 */
 												 
 												<c:when test="${ category eq 1 }">
 												<c:forEach var="adApprove" items="${ requestScope.payList }">
-													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail/${ adApprove.adCode }'">
 														<th scope="row">${ adApprove.adCode }</th>
 	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
 														<td>
@@ -325,7 +325,7 @@ select { width: 150px; /* 원하는 너비설정 */
 												 
 												<c:when test="${ category eq 2 }">
 												<c:forEach var="adApprove" items="${ requestScope.payList }">
-													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail/${ adApprove.adCode }'">
 														<th scope="row">${ adApprove.adCode }</th>
 	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
 														<td>
@@ -378,7 +378,7 @@ select { width: 150px; /* 원하는 너비설정 */
 												 
 												<c:when test="${ category eq 3 }">
 												<c:forEach var="adApprove" items="${ requestScope.payList }">
-													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail/${ adApprove.adCode }'">
 														<th scope="row">${ adApprove.adCode }</th>
 	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
 														<td>
@@ -431,7 +431,7 @@ select { width: 150px; /* 원하는 너비설정 */
 												 
 												<c:when test="${ category eq 4 }">
 												<c:forEach var="adApprove" items="${ requestScope.payList }">
-													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail'">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail/${ adApprove.adCode }'">
 														<th scope="row">${ adApprove.adCode }</th>
 	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
 														<td>1차</td>
