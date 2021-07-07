@@ -237,7 +237,8 @@ public class PayController {
 			, @RequestParam(value="cntPerPage", required=false)String cntPerPage
 			, @RequestParam(value="category", required=false)String category
 			, @RequestParam(value="searchCondition", required=false)String searchCondition
-			, @RequestParam(value="searchValue", required=false)String searchValue, HttpServletRequest request) {
+			, @RequestParam(value="searchValue", required=false)String searchValue
+			, @RequestParam(value="month", required=false)String month) {
 		
 		
 		if (nowPage == null && cntPerPage == null) {
@@ -252,6 +253,56 @@ public class PayController {
 		// 검색 안 했을 떄
 		if(searchValue == null) {
 			
+			// 월별 조회 시
+			if (month != null) {
+
+				int fullMonth = Integer.parseInt("2021" + month + "01");
+				
+				System.out.println("검색한 월 : " + fullMonth);
+				
+				AdminPageInfoDTO cat2 = new AdminPageInfoDTO(category, fullMonth);
+				
+				// 월별 조회 선택 시 총 개수
+				int totalMonth = payAdminService.selectTaxMonthList(cat2);
+				
+				// 월별 조회 선택 시 페이징 정보
+				paging = new AdminPageInfoDTO(totalMonth, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage), category, fullMonth);
+				
+				// 세금계산서 리스트
+				List<AdAdminDTO> selectTaxMonthAllList = payAdminService.selectTaxMonthAllList(paging);
+				
+				// 세금계산서 현재 페이지 게시물 갯수 조회
+				int cntNowPage = payAdminService.selectTaxMonthNumber(paging);
+				
+				for (int i = 0; i < cntNowPage; i++) {
+					
+					if(selectTaxMonthAllList.get(i).getCancelApplyDate() != null && selectTaxMonthAllList.get(i).getCalApplyDate() > 7) {
+						selectTaxMonthAllList.get(i).setPayStatus("납부완료");
+					} else if(selectTaxMonthAllList.get(i).getCancelApplyDate() == null && selectTaxMonthAllList.get(i).getCalEndDate() > 7) {
+						selectTaxMonthAllList.get(i).setPayStatus("납부완료");
+					} else {
+						selectTaxMonthAllList.get(i).setPayStatus("납부전");
+						System.out.println("납부전 : " + selectTaxMonthAllList.get(i).getCalApplyDate());
+						System.out.println("납부전2 : " + selectTaxMonthAllList.get(i).getCalEndDate());
+						System.out.println("납부전3 : " + selectTaxMonthAllList.get(i).getCancelApplyDate());
+						
+					}
+					
+					System.out.println(selectTaxMonthAllList.get(i).getPayStatus());
+				}
+				
+				System.out.println("월별 조회 시 검색결과 : " + selectTaxMonthAllList);
+				
+				// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
+				model.addAttribute("paging", paging);
+				model.addAttribute("taxList", selectTaxMonthAllList);
+				model.addAttribute("category", category);
+				model.addAttribute("total", totalMonth);
+				
+				
+			} else {
+			// 월별 조회 안 했을 시
+				
 			AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
 			
 			System.out.println("검색 안했을 때 cat 출력 : " + cat);
@@ -295,12 +346,14 @@ public class PayController {
 			model.addAttribute("taxList", selectTaxAllList);
 			model.addAttribute("category", category);
 			model.addAttribute("total", total);
+			
+			}
 					
 			} else {
 				
 				AdminPageInfoDTO cat = new AdminPageInfoDTO(category);
 				
-				System.out.println("검색 안했을 때 cat 출력 : " + cat);
+				System.out.println("검색했을 때 cat 출력 : " + cat);
 				
 				// 총 개수
 				int total = payAdminService.searchTaxList(cat);

@@ -84,5 +84,20 @@ public class PayAdminServiceImpl implements PayAdminService {
 	public int searchTaxNumber(AdminPageInfoDTO paging) {
 		return payAdminMapper.searchTaxNumber(paging);
 	}
+
+	@Override
+	public int selectTaxMonthList(AdminPageInfoDTO cat) {
+		return payAdminMapper.selectTaxMonthList(cat);
+	}
+
+	@Override
+	public List<AdAdminDTO> selectTaxMonthAllList(AdminPageInfoDTO paging) {
+		return payAdminMapper.selectTaxMonthAllList(paging);
+	}
+
+	@Override
+	public int selectTaxMonthNumber(AdminPageInfoDTO paging) {
+		return payAdminMapper.selectTaxMonthNumber(paging);
+	}
 	
 }
