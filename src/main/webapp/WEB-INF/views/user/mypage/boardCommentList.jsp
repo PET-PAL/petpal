@@ -536,6 +536,23 @@
             	</div>
             </section>
             
+            <div id="menu0" class="tab-pane fade in active">
+				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+		            <table class="table table-hover" style="margin-bottom: 50px;">
+			             <thead>
+			                <tr style="background-color: #F1FAF8;">
+			                    <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>댓글 내용</b></th>
+	                            <th style="text-align: center;"><b>날짜</b></th>
+			                    <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			            
+			            </tbody>
+			         </table>
+			     </div>
+			 </div>    
+            
             <script>
 				let targetLink = document.querySelectorAll('.tab span');
 				for(var i = 0; i < targetLink.length; i++) {
@@ -597,6 +614,7 @@ $.ajax({
 	success:function(data){
 		console.log("성공!!!!!!!!!!!!");
 		alert("삭제에 성공했습니다.");
+		location.href="${pageContext.servletContext.contextPath}/user/mypage/boardCommentList?"+this.data;
 	},
 	error:function(data){
 		alert("삭제에 실패했습니다. 지속된 삭제 실패는 고객센터에 연락바랍니다.");
