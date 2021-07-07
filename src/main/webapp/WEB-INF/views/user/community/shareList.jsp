@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -14,48 +15,9 @@
                 text-align: center;
             }
         </style>
-        <meta charset="utf-8">
-        <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
 
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     </head>
-
-    <body data-spy="scroll" data-target=".navbar-collapse">
-
+        <jsp:include page="../common/userHeader.jsp"/>
 
         <!-- Preloader -->
         <div id="loading">
@@ -74,7 +36,6 @@
             <!--Home page style-->
 
 
-            <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
             <section id="borad" class="borad" style="width: 80%; margin: 0px auto;  margin-bottom: 40px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 200px;">무료나눔
@@ -109,120 +70,51 @@
                                 <div class="item active">
                                     <div class="container">
                                         <div class="row">
-                                            <div class="col-sm-3">
+                                        <c:forEach var= "share" varStatus="status" items="${shareList }">
+                                            <div class="col-sm-3" href="${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/{${shareList.boardCode}}">
                                                 <div class="port_item xs-m-top-30">
                                                     <div class="port_img" style="position: relative;">
+                                                    	<c:if test="${shareList.stateCode eq 1 }">
                                                     	<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">나눔중</p>
-                                                    	<!-- <p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">집 도착</p> -->
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
+                                                    	</c:if>
+                                                    	<c:if test="${shareList.stateCode eq 2 }">
+                                                    	<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">나눔 완료</p>
+                                                        </c:if>
+                                                        <img src="${ pageContext.servletContext.contextPath }/${shareList.pictureUtilPath}" alt="" />
                                                     </div>
                                                     <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-                                                        <h4><a href="${ pageContext.servletContext.contextPath }/views/user/community/shareDetail.jsp">강아지 침대 나눕니다</a></h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
+                                                        <h4><a>${shareList.boardTitle }</a></h4>
                                                     </div>
                                                 </div>
                                             </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                    	<!-- <p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">실종</p> -->
-                                                    	<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">나눔완료</p>
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>고양이 간식 나눔합니다</h4>
-                                                        <h6>서울특별시 xx구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>햄스터 챗바퀴 받으실분있나요</h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>강아지 훈련책 드립니다</h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                          </c:forEach>
                                         </div>
                                     </div>
                                 </div>
                              </div>
-                             <div class="carousel-inner" role="listbox">
-                                <div class="item active">
-                                    <div class="container">
-                                        <div class="row">
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>강아지장난감드립니다</h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>유통기한 얼마남지 않은사료 </h4>
-                                                        <h6>서울특별시 xx구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center">
-                                                        <h4>고양이장난감</h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30">
-                                                    <div class="port_img">
-                                                        <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" alt="" />
-                                                    </div>
-                                                    <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-                                                        <h4>배변패드 남아서 드려요</h4>
-                                                        <h6>서울특별시 강남구 xx동</h6>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                             </div>
-                    <div class="text-center">
-						<ul class="pagination">
-							<li><a href="#"><</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">></a></li>
-						</ul>
-					</div>
+		<!-- 페이징처리 -->
+            <div class="text-center">
+				<ul class="pagination">
+				<li>
+					<c:if test="${paging.startPage != 1 }">
+						<li><a href="${ pageContext.servletContext.contextPath }/user/shareFree/list?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+					</c:if>
+					<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+						<c:choose>
+							<c:when test="${p == paging.nowPage }">
+								<li><a>${p }</a></li>
+							</c:when>
+							<c:when test="${p != paging.nowPage }">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/shareFree/list?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+							</c:when>
+						</c:choose>
+					</c:forEach>
+					<c:if test="${paging.endPage != paging.lastPage}">
+						<li><a href="${ pageContext.servletContext.contextPath }/user/shareFree/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+					</c:if>
+					</li>
+				</ul>
+			</div>
             </section>
             <div style="position: fixed; top: 310px; left: 200px;">
 	            <button style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
@@ -234,22 +126,5 @@
         </div>
          <jsp:include page="../common/footer.jsp"/>
             
-
-        <!-- JS includes -->
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/jquery-1.11.2.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/bootstrap.min.js"></script>
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/owl.carousel.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.magnific-popup.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.easing.1.3.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.min.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/jquery.collapse.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/bootsnav.js"></script>
-
-
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/plugins.js"></script>
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/main.js"></script>
+	</body>
 </html>
