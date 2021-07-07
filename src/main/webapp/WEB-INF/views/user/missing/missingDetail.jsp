@@ -253,7 +253,7 @@
                    </ul>
                 </div>
                 <div style="float: left;margin-left:30px; margin-top: 15px;">
-                   <h1 style="font-weight: bold;"><c:out value="${requestScope.missingDetail.breed}"/>/ 
+                   <h1 id="h1_itm" style="font-weight: bold;"><c:out value="${requestScope.missingDetail.breed}"/>/ 
                    <c:if test="${requestScope.missingDetail.gender eq 'M'}">
                    	남아  <br> 
                    </c:if>
@@ -315,14 +315,13 @@
                    <button onclick="show();" id="make_pdf" style="background-color: red; border: 0px; border-radius:10px; width: 250px; margin-left:10px;">
                          <h3 style="color: white; padding-top: 10px; font-weight: bold;">전단지 생성하기</h3>
                    </button>
-                   
-                	<input type="button" class="btn btn-light"style= "background-color: #45B99C;border: 0px;border-radius: 10px; width: 250px; margin-left: 60px; color: white; font-size: 22px; height: 50px; padding-top: 10px; margin-bottom: 7px" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/update/status?board=${requestScope.missingDetail.boardCode}'" value ="찾았습니다!"/>
-                   
-                   <br>
-                   <div style="float:right;margin-top: 10px;">
-				                	<button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/update'">수정하기</button>
-				                	<button id="delete_board_btn" class="btn btn-light" style="width:100px; color: red;border:none; background-color:white;">삭제하기</button>
-			       </div>
+                   	<c:if test="${sessionScope.loginUser.code eq requestScope.missingDetail.userCode}">
+                		<input type="button" class="btn btn-light"style= "background-color: #45B99C;border: 0px;border-radius: 10px; width: 250px; margin-left: 60px; color: white; font-size: 22px; height: 50px; padding-top: 10px; margin-bottom: 7px" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/update/status?board=${requestScope.missingDetail.boardCode}'" value ="찾았습니다!"/>
+	                   <br>
+	                   <div style="float:right;margin-top: 10px;">
+					       <button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/update'">수정하기</button>
+				       </div>
+                    </c:if>
 			       
                    <!-- 찾았습니다 버튼이 눌릴시 아래의 h3이 나오면 된다. -> 상태에 따른 c:if처리 -->
                    <c:if test="${requestScope.missingDetail.stateCode eq '2'}">
@@ -386,7 +385,7 @@
 								     					if(deleteYN == 'Y'&& reportYN =='N'){
 								     						output += '<tr id="tr'+i+'">';
 									     					output += '<td style="text-align: center;">'+' '+'</td>';
-								     						output += '<td>'+'삭제 된 댓글입니다.'+'</td>';
+								     						output += '<td><del>'+'삭제 된 댓글입니다.'+'</del></td>';
 								     						output += '<td style="text-align: center;">'+' '+'</td>';
 									     					output += '<td>'+'</td>';
 									     					output += '</tr>';
@@ -445,13 +444,17 @@
 			            $j3("#replySubmit").click(function(){
 				     		var code = ${requestScope.missingDetail.boardCode};
 			     			var content = $j3('#messagecontent').val();
-			     			console.log(code);
-			     			console.log(content);
 			     			
-				     		if(content.trim()==''){
-				     			alert('댓글을 입력하신 후 다시 눌러주시기 바랍니다.');
-				     			return;
-				     		}
+			     			if(${sessionScope.loginUser ne null}){
+					     		if(content.trim()==''){
+					     			alert('댓글을 입력하신 후 다시 눌러주시기 바랍니다.');
+
+					     			return;
+					     		}
+			     			}else{
+			     				alert('로그인 후 댓글을 추가할 수 있습니다!');
+			     				return;
+			     			}
 				     		
 				     		$j3.ajax({
 			     			url:"insert/missingReply",
@@ -469,7 +472,6 @@
 		    						
 		    					}
 		    				},error:function(xhr,status,error){
-			     				alert("에러 발생~삐뽀~");
 			     				console.log(error);
 			     			}
 			     		});
@@ -529,90 +531,134 @@
                          PDF 생성하기
                       </button> -->
                       <!-- 카카오톡 버튼 -->
-                                		           	<a id="create-kakao-link-btn" href="javascript:;">
-  <img style = "width:60px;height:60px; margin-left:100px;"
-    src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"
-  />
-</a>
-<script type="text/javascript">
-  Kakao.init('4ea76873bdaa8b3d5ba67d5d803dcc64'); 
-    	  var code = "${requestScope.missingDetail.boardCode}";
-  Kakao.Link.createDefaultButton({
-    container: '#create-kakao-link-btn',
-    objectType: 'feed',
-    content: {
-      title: '강아지/고양이를 찾아주세요!!',
-      description: '#실종 #강아지 #고양이 #신고 #목격 #찾아주세요!',
-      imageUrl:
-    	 'https://flexible.img.hani.co.kr/flexible/normal/970/739/imgdb/original/2020/0507/20200507502335.jpg'
-    ,
-      link: {
-        mobileWebUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
-        webUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
-      },
-    },
-  
-    buttons: [
-      {
-        title: '웹으로 보기',
-        link: {
-          mobileWebUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
-          webUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
-        },
-      },
-    ],
-  })
-  
-</script>
+               		<a id="create-kakao-link-btn" href="javascript:;">
+					  <img style = "width:60px;height:60px; margin-left:100px;" src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/>
+					</a>
+					
+						<script type="text/javascript">
+						  Kakao.init('4ea76873bdaa8b3d5ba67d5d803dcc64'); 
+						    	  var code = "${requestScope.missingDetail.boardCode}";
+						  Kakao.Link.createDefaultButton({
+						    container: '#create-kakao-link-btn',
+						    objectType: 'feed',
+						    content: {
+						      title: '강아지/고양이를 찾아주세요!!',
+						      description: '#실종 #강아지 #고양이 #신고 #목격 #찾아주세요!',
+						      imageUrl:
+						    	 'https://flexible.img.hani.co.kr/flexible/normal/970/739/imgdb/original/2020/0507/20200507502335.jpg'
+						    ,
+						      link: {
+						        mobileWebUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
+						        webUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
+						      },
+						    },
+						  
+						    buttons: [
+						      {
+						        title: '웹으로 보기',
+						        link: {
+						          mobileWebUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
+						          webUrl: 'http://localhost:8888/petpal/user/missing/detail/'+code,
+						        },
+						      },
+						    ],
+						  })
+						  
+						</script>
            			</div>
            		 </div>
            	</div>
-
-            <!-- 게시글 신고 팝업창 -->
-            <div id="reportPost" class="overlay">
-                <div class="popup">
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
-                    <div class="findpwd-content" id="contStep02" style="display: block;">
-                        <div class="cont-step_preface">
-                            <hr style="border:0.5px solid #A8A8A8;">
-                        </div>
-                        <!-- 신고 내용 입력 -->
-                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
-                    </div>
-                 </div>
-            </div> 
+</div>
+             <!-- 게시글 신고 팝업창 -->
+              <form action="${ pageContext.servletContext.contextPath }/user/missing/insert/report" method="POST">
+	            <div id="reportPost" class="overlay">
+	                <div class="popup">
+	                    <a href="" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <div class="cont-step_preface">
+	                            <hr style="border:0.5px solid #A8A8A8;">
+	                        </div>
+	                        <!-- 신고 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" id="reportContent_board" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                    </div>
+	                </div>
+	            </div> 
             
             <!-- 댓글 신고 팝업창 -->
-            <div id="reportComment" class="overlay">
-                <div class="popup">
-                    <a href="#none" class="close">&times;</a>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
-                    <div class="findpwd-content" id="contStep02" style="display: block;">
-                        <div class="cont-step_preface">
-                            <hr style="border:0.5px solid #A8A8A8;">
-                        </div>
-                        <!-- 신고 내용 입력 -->
-                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
-                    </div>
-                </div>
-            </div> 
+	            <div id="reportComment" class="overlay">
+	                <div class="popup">
+	                    <a href="" class="close">&times;</a>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
+	                    <div class="findpwd-content" id="contStep02" style="display: block;">
+	                        <div class="cont-step_preface">
+	                            <hr style="border:0.5px solid #A8A8A8;">
+	                        </div>
+	                        <!-- 신고 내용 입력 -->
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input id="reportContent_reply" type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                    </div>
+	                </div>
+	            </div> 
             
              <!-- 신고 완료 팝업창 -->
-            <div id="completeReport" class="overlay">
-                <div class="popup">
-                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
-                        신고가 정상적으로 접수되었습니다.<br>
-                    </p>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
-                        신고에 대한 처리는 1~2일 소요될 수 있으며<br>
-                        신고 내역에서 확인 가능합니다.
-                    </p>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+	            <div id="completeReport" class="overlay">
+	                <div class="popup">
+	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+	                     	신고가 정상적으로 접수되었습니다.<br>
+	                    </p>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+	                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
+	                     	신고 내역에서 확인 가능합니다.
+	                    </p>
+	                    <input type="hidden" name="reportContent" id="reportContent">
+	                    <input type="hidden" name="reportReply" id="reportReply">
+	                    <input type="hidden" name="contentCode" id="contentCode">
+	                    <input type="hidden" name="replycode" id="replycode">
+	                    <input type="hidden" name="replyUsercode" id="replyUsercode">
+	                    <input type="hidden" name="boardTitle" id="boardTitle">
+	                    <input type="hidden" name="category" id="category">
+	                    <div style="text-align: center; margin-top: 30px;"><button type = "submit" id = "btn_report_submit" class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                   		<script>
+                   		
+                   		function test1 (test) {
+							
+							let replyCode = test.className;
+							let userCode1 = test.title;
+							console.log(replyCode);
+							console.log(userCode1);
+							
+							
+							$j3("#replycode").val(replyCode);
+							$j3("#replyUsercode").val(userCode1);
+							location.href = '#reportComment';
+                   		}
+                   		 $j3("#btn_report_submit").click(function(){
+	                   			console.log("여기오나?");
+	                   			var content = $j3("#reportContent_board").val(); 
+	                   			var reply = $j3("#reportContent_reply").val();
+	                   			var Bcode = ${requestScope.missingDetail.boardCode};
+	                   			var Btitle = $('#h1_itm')[0].innerText;
+	                   			
+	                   			if($j3("#reportContent").val(content) != ''){
+	                   				$j3("#category").val('content');
+	                   			}
+	                   			if($j3("#reportReply").val(reply) != ''){
+	                   				$j3("#category").val('reply');
+	                   				
+	                   			}
+	                   			$j3("#reportContent").val(content);
+                   				$j3("#reportReply").val(reply);
+                   				$j3("#contentCode").val(Bcode);
+                   				$j3("#boardTitle").val(Btitle);
+                   				
+                   			});
+                   		</script>
                     </div>
                 </div>
-            </div>
+            </form>
+         
                   <!-- 쪽지 팝업창 -->
            <form action="${pageContext.servletContext.contextPath }/user/missing/insert/message" method="post">
             <div id="directMessage" class="overlay">

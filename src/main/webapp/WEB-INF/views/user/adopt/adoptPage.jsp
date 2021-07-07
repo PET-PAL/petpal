@@ -97,17 +97,15 @@
                 </div>
                 <hr style="border-color: rgb(175, 175, 175); width: 90%;">
             </section> <!--End off Home Sections-->
-			<div style="width: 370px; position: relative; left: 60%; margin-bottom:20px;">
-		           <!--  <form style="margin-bottom: 40px;"> -->
+				<div style="width: 370px; position: relative; left: 60%; margin-bottom:20px;">
 						<input type="search" id="search" name="search" placeholder="지역 키워드를 입력해주세요" aria-label="Search"
 						style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;" autofocus/>
 						<span>
-						<button id="search_btn" type="submit" style="background-color: white; height: 40px; width: 50px; float: right; border: solid 1px; border-color: black; border-radius: 5px;">
-							검색
-						</button>
+							<button id="search_btn" type="submit" style="background-color: white; height: 40px; width: 50px; float: right; border: solid 1px; border-color: black; border-radius: 5px;">
+								검색
+							</button>
 						</span>
-					<!-- </form> -->
-			</div>
+				</div>
 			
 			<script>
 			
@@ -188,6 +186,7 @@
                                             <script>
                                             
                                             var adoptList1;
+                                            var category = 0;
                                             
                                             $j3(document).ready(function(){
 										     		console.log("adoptPage select script");
@@ -303,7 +302,7 @@
                                             		};
                                             	};
                                             	
-                                            	
+                                            	url:
                                             	var adoptWaitingList = adoptWaitingList1.filter(isWaiting);
                                             	console.table(adoptWaitingList);
                                             	
@@ -334,6 +333,7 @@
 							     				});
 							     				
 							     				$j3('#adoptlistList').append(output3);
+							     				
                                             })
                                             
                                             
