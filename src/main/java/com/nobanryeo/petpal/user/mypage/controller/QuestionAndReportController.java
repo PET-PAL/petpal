@@ -96,6 +96,7 @@ public class QuestionAndReportController {
 			model.addAttribute("paging", page);
 			model.addAttribute("qnaList", qnaList);
 			model.addAttribute("type", "A");
+			model.addAttribute("num", "0");
 			
 		} else if(type.equals("B")) {
 			//신고내역 리스트 조회
@@ -132,6 +133,7 @@ public class QuestionAndReportController {
 			model.addAttribute("paging", page);
 			model.addAttribute("reportList", reportList);
 			model.addAttribute("type", "B");
+			model.addAttribute("num", "1");
 			
 		} else if(type.equals("C")) {
 			
@@ -169,6 +171,7 @@ public class QuestionAndReportController {
 			model.addAttribute("paging", page);
 			model.addAttribute("replyList", replyList);
 			model.addAttribute("type", "C");
+			model.addAttribute("num", "2");
 			
 		}
 		

@@ -311,16 +311,13 @@
             </section>
             
            <script>
-				let targetLink = document.querySelectorAll('.tab span');
-				for(var i = 0; i < targetLink.length; i++) {
-					targetLink[i].addEventListener('click', function(e){
-	        			e.preventDefault();
-						for(var x = 0; x < targetLink.length; x++){
-	            			targetLink[x].classList.remove('active');
-	            			e.target.classList.add('active');
-	        			}
-					}
-				)};
+           let targetLink = document.querySelectorAll('.tab span');
+			for(var i = 0; i < targetLink.length; i++){
+				targetLink[i].classList.remove('active');
+				if(i == ${ requestScope.num}){
+					targetLink[i].classList.add('active');
+				}
+			}
 				 
 				//문의 타입
 				var filterNo = 0;

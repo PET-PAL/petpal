@@ -242,7 +242,7 @@
 					<span id="sp3" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=D';">자유 게시판</span>
 					<span id="sp4" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E';">무료나눔 게시판</span>
 					<span id="sp5" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=F';">용품리뷰 게시판</span>
-					<span id="sp7" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G';">댓글목록</span>
+					<%-- <span id="sp7" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G';">댓글목록</span> --%>
 				</div>
             </section>
 
@@ -252,27 +252,16 @@
 						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		                	<table class="table table-hover" style="margin-bottom: 50px;">
 			                    <thead>
-			                    <c:choose>
-			                    	<c:when test="${ type eq 'G' }">
-			                    	<tr style="background-color: #F1FAF8;">
-			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>댓글 내용</b></th>
-	                                    <th style="text-align: center;"><b>날짜</b></th>
-			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
-			                        </tr>
-			                    	</c:when>
-			                    <c:otherwise>
 			                        <tr style="background-color: #F1FAF8;">
 			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>제목</b></th>
 	                                    <th style="text-align: center;"><b>날짜</b></th>
 			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
 			                        </tr>
-			                    </c:otherwise>
-			                    </c:choose>
 			                    </thead>
 			                    <tbody>
 			                    <c:if test="${ type eq 'A' }">
 			                        <c:forEach items="${ aList }" var="list">
-								    <tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing'" id="stop">
+								    <tr onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'" id="stop">
 										<c:if test="${ list.gender eq 'M'}">
 										<td style="text-align: center;">${ list.breed }/남아/${ list.color }</td>
 										</c:if>
@@ -281,9 +270,8 @@
 										</c:if>
 										<td style="text-align: center;">${ list.missingDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="A" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -300,9 +288,8 @@
 										<td style="text-align: center;">${ list.boardDate }</td>
 										<c:if test="${ list.stateCode eq 1 }">
 										<td >
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="B" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 										</c:if>
 										<c:if test="${ list.stateCode eq 2 }">
@@ -317,9 +304,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td>
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="C" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -330,9 +316,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="D" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -343,9 +328,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="E" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -356,28 +340,12 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="${ list.boardCode }" id="code">
 										<input type="hidden" value="F" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
 			                        </c:if>
-			                        <c:if test="${ type eq 'G' }">
-			                        <c:forEach items="${ gList }" var="list">
-									<tr id="stop">
-										<td style="text-align: center;">${ list.replyContent }</td>
-										<td style="text-align: center;">${ list.replyDate }</td>
-										<td style="text-align: center;">
-										<input type="hidden" value="${ list.replyCode }" id="code">
-										<input type="hidden" value="G" id="type">
-										<button onclick="location.href='#deletePost'" id="delete">삭제</button>
-										</td>
-									</tr>
-									</c:forEach>
-			                        </c:if>
-			                        
-			                       
 			                    </tbody>
 			                </table>
 			                <div class="text-center">
@@ -508,65 +476,280 @@
 									</c:if>
 									</li>
 								</c:if>
-								<!-- G타입일때 하단 -->
-								<c:if test="${ type eq 'G' }">
-								<li>
-									<c:if test="${paging.startPage != 1 }">
-										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
-									</c:if>
-									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-										<c:choose>
-											<c:when test="${p == paging.nowPage }">
-												<li><a>${p }</a></li>
-											</c:when>
-											<c:when test="${p != paging.nowPage }">
-												<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-											</c:when>
-										</c:choose>
-									</c:forEach>
-									<c:if test="${paging.endPage != paging.lastPage}">
-										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
-									</c:if>
-									</li>
-								</c:if>
 								</ul>
 							</div>
 	                	</div>
 					</div>
             	</div>
             </section>
+            <section>
+            <div id="menu0" class="tab-pane fade in active">
+				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+		            <table class="table table-hover" style="margin-bottom: 50px;">
+			             <thead>
+			                <tr style="background-color: #F1FAF8;">
+			                    <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>댓글 내용</b></th>
+	                            <th style="text-align: center;"><b>날짜</b></th>
+			                    <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
+			                </tr>
+			            </thead>
+			            <tbody>
+			            <c:if test="${ type eq 'A' }">
+			                <c:forEach items="${ reply }" var="list">
+				                <c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+				                </c:if>
+									<td style="text-align: center;">${ list.replyContent }</td>
+									<td style="text-align: center;">${ list.replyDate }</td>
+									<td style="text-align: center;">
+									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="A" id="type">
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									</td>
+								</tr>
+							</c:forEach>
+			            </c:if>
+			            <c:if test="${ type eq 'B' }">
+			                <c:forEach items="${ reply }" var="list">
+				                <c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/detail/${ list.boardCode }'">
+				                </c:if>
+									<td style="text-align: center;">${ list.replyContent }</td>
+									<td style="text-align: center;">${ list.replyDate }</td>
+									<td style="text-align: center;">
+									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="B" id="type">
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									</td>
+								</tr>
+							</c:forEach>
+			            </c:if>
+			            <c:if test="${ type eq 'C' }">
+			                <c:forEach items="${ reply }" var="list">
+				            	<c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
+				                </c:if>
+									<td style="text-align: center;">${ list.replyContent }</td>
+									<td style="text-align: center;">${ list.replyDate }</td>
+									<td style="text-align: center;">
+									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="C" id="type">
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									</td>
+								</tr>
+							</c:forEach>
+			            </c:if>
+			            <c:if test="${ type eq 'D' }">
+			                <c:forEach items="${ reply }" var="list">
+			                	<c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?boardCode=${ list.boardCode }'">
+				                </c:if>
+									<td style="text-align: center;">${ list.replyContent }</td>
+									<td style="text-align: center;">${ list.replyDate }</td>
+									<td style="text-align: center;">
+									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="D" id="type">
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									</td>
+								</tr>
+							</c:forEach>
+			            </c:if>
+			            <c:if test="${ type eq 'E' }">
+			                <c:forEach items="${ reply }" var="list">
+			                	<c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+				                </c:if>
+									<td style="text-align: center;">${ list.replyContent }</td>
+									<td style="text-align: center;">${ list.replyDate }</td>
+									<td style="text-align: center;">
+									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="E" id="type">
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									</td>
+								</tr>
+							</c:forEach>
+			            </c:if>
+			            <c:if test="${ type eq 'F' }">
+			                <c:forEach items="${ reply }" var="list">
+			                	<c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/review/reviewDetail?boardCode=${ list.boardCode }'">
+				                </c:if>
+									<td style="text-align: center;">${ list.replyContent }</td>
+									<td style="text-align: center;">${ list.replyDate }</td>
+									<td style="text-align: center;">
+									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="F" id="type">
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									</td>
+								</tr>
+							</c:forEach>
+			            </c:if>
+			            </tbody>
+			         </table>
+			  <div class="text-center">
+				<ul class="pagination">
+				<c:if test="${ type eq 'A' }">
+					<li>
+						<c:if test="${paging2.startPage != 1 }">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=A&nowPage2=${paging2.startPage - 1 }&cntPerPage2=${paging2.cntPerPage}">&lt;</a></li>
+						</c:if>
+						<c:forEach begin="${paging2.startPage }" end="${paging2.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == paging2.nowPage }">
+									<li><a>${p }</a></li>
+								</c:when>
+								<c:when test="${p != paging2.nowPage }">
+									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=A&nowPage2=${p }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging2.endPage != paging2.lastPage}">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=A&?nowPage2=${paging2.endPage+1 }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+						</c:if>
+						</li>
+				</c:if>
+				<c:if test="${ type eq 'B' }">
+					<li>
+						<c:if test="${paging2.startPage != 1 }">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=B&nowPage2=${paging2.startPage - 1 }&cntPerPage2=${paging2.cntPerPage}">&lt;</a></li>
+						</c:if>
+						<c:forEach begin="${paging2.startPage }" end="${paging2.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == paging2.nowPage }">
+									<li><a>${p }</a></li>
+								</c:when>
+								<c:when test="${p != paging2.nowPage }">
+									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=B&nowPage2=${p }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging2.endPage != paging2.lastPage}">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=B&?nowPage2=${paging2.endPage+1 }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+						</c:if>
+						</li>
+				</c:if>
+				<c:if test="${ type eq 'C' }">
+					<li>
+						<c:if test="${paging2.startPage != 1 }">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=C&nowPage2=${paging2.startPage - 1 }&cntPerPage2=${paging2.cntPerPage}">&lt;</a></li>
+						</c:if>
+						<c:forEach begin="${paging2.startPage }" end="${paging2.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == paging2.nowPage }">
+									<li><a>${p }</a></li>
+								</c:when>
+								<c:when test="${p != paging2.nowPage }">
+									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=C&nowPage2=${p }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging2.endPage != paging2.lastPage}">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=C&?nowPage2=${paging2.endPage+1 }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+						</c:if>
+						</li>
+				</c:if>
+				<c:if test="${ type eq 'D' }">
+					<li>
+						<c:if test="${paging2.startPage != 1 }">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=D&nowPage2=${paging2.startPage - 1 }&cntPerPage2=${paging2.cntPerPage}">&lt;</a></li>
+						</c:if>
+						<c:forEach begin="${paging2.startPage }" end="${paging2.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == paging2.nowPage }">
+									<li><a>${p }</a></li>
+								</c:when>
+								<c:when test="${p != paging2.nowPage }">
+									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=D&nowPage2=${p }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging2.endPage != paging2.lastPage}">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=D&?nowPage2=${paging2.endPage+1 }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+						</c:if>
+						</li>
+				</c:if>
+				<c:if test="${ type eq 'E' }">
+					<li>
+						<c:if test="${paging2.startPage != 1 }">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E&nowPage2=${paging2.startPage - 1 }&cntPerPage2=${paging2.cntPerPage}">&lt;</a></li>
+						</c:if>
+						<c:forEach begin="${paging2.startPage }" end="${paging2.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == paging2.nowPage }">
+									<li><a>${p }</a></li>
+								</c:when>
+								<c:when test="${p != paging2.nowPage }">
+									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E&nowPage2=${p }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging2.endPage != paging2.lastPage}">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E&?nowPage2=${paging2.endPage+1 }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+						</c:if>
+						</li>
+				</c:if>
+				<c:if test="${ type eq 'F' }">
+					<li>
+						<c:if test="${paging2.startPage != 1 }">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=F&nowPage2=${paging2.startPage - 1 }&cntPerPage2=${paging2.cntPerPage}">&lt;</a></li>
+						</c:if>
+						<c:forEach begin="${paging2.startPage }" end="${paging2.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == paging2.nowPage }">
+									<li><a>${p }</a></li>
+								</c:when>
+								<c:when test="${p != paging2.nowPage }">
+									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=F&nowPage2=${p }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging2.endPage != paging2.lastPage}">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=F&?nowPage2=${paging2.endPage+1 }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+						</c:if>
+						</li>
+				</c:if>
+				 	</ul>
+			    </div>
+			   </div>
+			 </div>  
+            </section>
             
             <script>
 				let targetLink = document.querySelectorAll('.tab span');
-				for(var i = 0; i < targetLink.length; i++) {
-					targetLink[i].addEventListener('click', function(e){
-	        			e.preventDefault();
-						for(var x = 0; x < targetLink.length; x++){
-	            			targetLink[x].classList.remove('active');
-	            			e.target.classList.add('active');
-	        			}
+				for(var i = 0; i < targetLink.length; i++){
+					targetLink[i].classList.remove('active');
+					if(i == ${ requestScope.num}){
+						targetLink[i].classList.add('active');
 					}
-				)};
-				
-				/* $('#stop').click(function(){
-					event.stopPropagation();
-					alert("제발...");
-				}); */
-				
-				let stop = document.getElementById('stop');
-				let del = document.getElementById('delete');
-				
-				stop.addEventListener('click', clicked);
-				del.addEventListener('click', clicked);
-				
-				function clicked(e){
-					e.stopPropagation();
 				}
 				
-				
+			</script>
+			<script>
+				function deletePosting(){
+					console.log("들어옴");
+					alert("삭제가 된 게시글입니다.");
+				}
 			</script>
 			
-			<div id="deletePost" class="overlay">
+			<div id="deletePost" class="overlay" id="why">
 				<div class="popup">
 					<a href="" class="close">&times;</a>
 					<p style="font-size: 20px; text-align: center; padding-bottom: 10px;">삭제하기</p>
@@ -574,6 +757,7 @@
 						<div class="cont-step_preface">
 							<h3 align="center">해당 글을 삭제하시겠습니까</h3>
 							<br>
+							<input type="hidden" name="boardCode" id="inputReplyCode">
 							<button style="margin-left: 43%;" onclick="postDeleteA()">
 							삭제하기
 							</button>
@@ -583,27 +767,50 @@
 			</div>
 <script type="text/javascript">
 
-function postDeleteA(){
+
+
+function deleteClick(test){
 	
-var boardCode = document.getElementById("code").value;
-var type = document.getElementById("type").value;
-console.log(boardCode);
-console.log(type);
+	/* let stop = document.getElementById('stop');
+	let del = document.getElementById('delete');
+	
+	stop.addEventListener('click', clicked);
+	del.addEventListener('click', clicked);
+	 */
+	event.stopPropagation();
+	 
+	let replyCode = test.className;
+	document.getElementById("inputReplyCode").value = replyCode;
+	location.href = '#deletePost';
+
+}
+
+function postDeleteA(){
+
+	var type = document.getElementById("type2").value;
+	var load = document.getElementById("type").value;
+	var boardCode = document.getElementById("inputReplyCode").value;
+	console.log(type);
+	console.log(load);
+	console.log(boardCode);
 
 $.ajax({
+	
 	url:"${pageContext.servletContext.contextPath}/user/mypage/deletePost",
 	type:"post",
-	data:{boardCode:boardCode , type:type},
+	data:{boardCode:boardCode, type:type, load:load},
 	success:function(data){
 		console.log("성공!!!!!!!!!!!!");
+		console.log(data);
 		alert("삭제에 성공했습니다.");
+		location.href="${pageContext.servletContext.contextPath}/user/mypage/boardCommentList?type="+data;
 	},
 	error:function(data){
 		alert("삭제에 실패했습니다. 지속된 삭제 실패는 고객센터에 연락바랍니다.");
 	}
 });
-
 }
+
 </script>
 
 
