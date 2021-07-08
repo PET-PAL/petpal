@@ -83,6 +83,7 @@ public class UserAdController {
 			
 			model.addAttribute("adList2", adService.selectAdList(adDTO));
 			model.addAttribute("type", "A");
+			model.addAttribute("num", 0);
 			
 		} else if(type.equals("B")) {
 			
@@ -113,10 +114,28 @@ public class UserAdController {
 			// 광고 클릭수 조회
 			model.addAttribute("adPaymentList", adService.selectAdPaymentList(adDTO));
 			model.addAttribute("type", "B");
+			model.addAttribute("num", 1);
 		}
 		
 		
 		return "user/mypage/adList";
+	}
+	
+	/**
+	 * 광고 2차결제 정보 수정
+	 */
+	@PostMapping("update/ad/morePay")
+	public String updateAdMorePay(Model model, @ModelAttribute AdDTO adDTO, @SessionAttribute UserInfoDTO loginUser) {
+		
+		adDTO.setUserCode(loginUser.getCode());
+		
+		if(adService.updateAdMorePay(adDTO) > 0) {
+			System.out.println("2차결제 완료");
+		} else {
+			System.out.println("2차결제 실패");
+		}
+		
+		return "redirect:/user/select/ad/list";
 	}
 	
 	/**

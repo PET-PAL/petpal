@@ -94,5 +94,10 @@ public class UserAdServiceImpl implements UserAdService {
 		return adMapper.updateCancelAd(adDTO);
 	}
 
+	@Override
+	public int updateAdMorePay(AdDTO adDTO) {
+		return adMapper.updateAdMorePay(adDTO);
+	}
+
 
 }

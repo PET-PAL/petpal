@@ -26,5 +26,7 @@ public interface UserAdMapper {
 
 	int updateCancelAd(AdDTO adDTO);
 
+	int updateAdMorePay(AdDTO adDTO);
+
 
 }
