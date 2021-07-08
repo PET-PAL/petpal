@@ -276,21 +276,22 @@ public class FreeBoardController {
 		// 게시글 insert
 		if(freeBoardService.insertWriteFreeBoard(freeBoard) > 0) {
 			System.out.println("게시글 작성 성공");
-		} else {
-			System.out.println("게시글 작성 실패");
-		}
 		
-		// 이미지 insert -> 이미지 없을때 insert 안해줌
-		if(picture.getPictureName().equals("")) {
-			
-		} else {
-			
-			if(freeBoardService.insertFreeBoardImg(picture) > 0) {
-				System.out.println("이미지 작성 성공");
+			// 이미지 insert -> 이미지 없을때 insert 안해줌
+			if(picture.getPictureName().equals("")) {
+				
 			} else {
-				System.out.println("이미지 작성 실패");
+				
+				if(freeBoardService.insertFreeBoardImg(picture) > 0) {
+					System.out.println("이미지 작성 성공");
+				} else {
+					System.out.println("이미지 작성 실패");
+				}
+				
 			}
 			
+		} else {
+			System.out.println("게시글 작성 실패");
 		}
 		
 		return "redirect:/user/select/freeboard/list";

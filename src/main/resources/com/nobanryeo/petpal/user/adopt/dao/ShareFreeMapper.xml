@@ -6,7 +6,7 @@
  <mapper namespace="com.nobanryeo.petpal.user.adopt.dao.ShareFreeMapper">
  
  	<resultMap type="ShareFreeDTO" id="sharefreeResultMap">
- 		<result column="BOARD_CODE" property="boardCode"/>
+ 		<id column="BOARD_CODE" property="boardCode"/>
  		<result column="BOARD_TITLE" property="boardTitle"/>
  		<result column="BOARD_CONTENT" property="boardContent"/>
  		<result column="BOARD_DELETE_YN" property="boardDeleteYn"/>
@@ -21,6 +21,17 @@
  		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
  		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
  	</resultMap>
+ 	
+ 	<resultMap type="PictureDTO" id="pictureInsertResultset">
+  		<id column="PICTURE_CODE" property="pictureCode"/>
+  		<result column="PICTURE_NAME" property="pictureName"/>
+  		<result column="PICTURE_URL" property="pictureURL"/>
+  		<result column="PICTURE_UPLOAD_DATE" property="pictureUploadDate"/>
+  		<result column="PICTURE_DELETE_YN" property="pictureDeleteYN"/>
+  		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
+  		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
+  	</resultMap>
+  	
  	
  	<select id="selectTotalCount" resultType="int">
  		SELECT
@@ -59,4 +70,89 @@
 		            )
 		    WHERE RN BETWEEN  #{pageInfo.start} AND #{pageInfo.end}
  	</select>
+ 	
+ 	<insert id="insertNewBoard" parameterType="ShareFreeDTO">
+ 		INSERT
+ 		  INTO SHARE_BOARD
+ 		VALUES
+ 		(
+ 		  SHARE_BOARD_SEQ.NEXTVAL
+ 		, #{boardTitle}
+ 		, #{boardContent}
+ 		, 'N'
+ 		, 0
+ 		, SYSDATE
+ 		, 1
+ 		, #{userCode}
+ 		)
+ 		
+ 		<selectKey keyProperty="boardCode" order="AFTER" resultType="int">
+ 		   SELECT
+ 		         SHARE_BOARD_SEQ.CURRVAL
+ 		     FROM DUAL
+ 		</selectKey>
+ 	</insert>
+ 	
+ 	 	<insert id="insertNewPicture" parameterType="PictureDTO" >
+ 		INSERT 
+	  	 INTO PICTURE_TABLE
+	  	VALUES
+	  	(
+	  	  PIC_CODE_SEQ.NEXTVAL
+	  	, #{pictureName}
+	  	, #{pictureURL}
+	  	, SYSDATE
+	  	, 'N'
+	  	, #{pictureNewName}
+	  	, #{pictureUtilPath}
+	  	)
+ 	</insert>
+ 	
+ 	<insert id="insertMidBoard" >
+ 		<selectKey keyProperty="pictureCode" order="BEFORE" resultType="int">
+	  	SELECT
+	  	      PIC_CODE_SEQ.CURRVAL
+	  	  FROM DUAL
+	  </selectKey>
+ 	    INSERT
+	  	INTO SHARE_PICTURE_MANAGE
+	  	(
+	  	  BOARD_CODE
+	  	, PICTURE_CODE
+	  	)
+	  	VALUES
+	  	(
+	  	#{boardCode}
+	   ,#{pictureCode}
+	  	)
+ 	</insert>
+ 	
+ 	<update id="updateShareBoardViews" parameterType="int">
+ 		UPDATE SHARE_BOARD
+ 		   SET BOARD_VIEWS =BOARD_VIEWS+1
+ 		 WHERE BOARD_CODE = #{boardCode}
+ 	</update>
+ 	
+ 	<select id="selectBoardDetail" parameterType="int" resultMap="sharefreeResultMap">
+ 	 	SELECT 
+ 	 		   S.BOARD_CODE
+             , S.BOARD_TITLE
+             , S.BOARD_CONTENT
+             , S.BOARD_DELETE_YN
+             , S.BOARD_VIEWS
+             , S.STATE_CODE
+             , S.BOARD_POST_DATE
+             , ST.STATE_NAME
+             , U.USER_NIKNAME
+             , P.PICTURE_UTIL_PATH
+          FROM SHARE_BOARD S
+          JOIN STATE_TABLE ST ON (ST.STATE_CODE = S.STATE_CODE)
+          JOIN USER_TABLE U ON (U.USER_CODE = S.USER_CODE)
+          JOIN SHARE_PICTURE_MANAGE SM ON(S.BOARD_CODE = SM.BOARD_CODE)
+          JOIN PICTURE_TABLE P ON(P.PICTURE_CODE = SM.PICTURE_CODE)
+         WHERE S.BOARD_DELETE_YN = 'N'
+           AND P.PICTURE_DELETE_YN = 'N' 
+           AND S.BOARD_CODE = #{boardCode}
+ 	</select>
+ 	
  </mapper>

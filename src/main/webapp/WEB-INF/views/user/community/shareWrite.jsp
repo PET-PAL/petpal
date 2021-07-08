@@ -37,55 +37,17 @@
 
         </style>
         
-       
-		
-        <meta charset="utf-8">
-        <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         
         <!-- summerNote -->
-    	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    	<script>
+          var $j3 = jQuery.noConflict();
+        </script>
     </head>
 
-    <body data-spy="scroll" data-target=".navbar-collapse">
-
+    <jsp:include page="../common/userHeader.jsp"/>
 
         <!-- Preloader -->
         <div id="loading">
@@ -104,57 +66,87 @@
             <!--Home page style-->
 
 
-            <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
-            
-            <!-- sidebar start -->
-			<nav class="col-sm-3 sidenav" style="
-		      position: fixed;
-		      width: 200px;
-		      height: 100%;
-		      margin-left: -20px;
-		      text-align:center;
-		      color:#25213b">
-		      <ul class="nav nav-pills nav-stacked">
-		        <li><a href="" style="color:#25213b">자유게시판</a></li>
-		        <hr>
-		        <li class="active1"><a href="" style="color:#0D6C27; font-weight:bold;">무료나눔</a></li>
-		        <hr>
-		         <li><a href="" style="color:#25213b">용품리뷰</a></li>
-		      </ul>
-		    </nav>
-		    <!-- sidebar end -->
             
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left;">커뮤니티</div>
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="width:50px; float: right;">
             </section> <!--End off Home Sections-->
+            
+			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
+				<nav>
+					<ul style="margin-left: 30%;">
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list" style="color: #979797;">자유게시판</a></li>
+						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/shareFree/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">무료나눔</a></li>
+						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp" style="color: #979797;">용품리뷰</a></li>
+					</ul>
+				</nav>
+			</div>
 
             <section id="menutable" class="menutable">
+				<form action = "${ pageContext.servletContext.contextPath }/user/shareFree/insert/newBoard" method="post">
 				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 20px;">
 					<table class="table" style="margin-bottom: 0px; border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
-							<td style="border-radius: 0px 21px 0px 0px">강아지 작아진 옷 무료 나눔합니다.</td>
+							<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="boardTitle" placeholder="무슨 제품인지 알 수 있게 표시해주세요. 예시) 고양이 침대 나눔합니다" style="border: none; width: 80%"></td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
-							<td>킘해인</td>
+							<td><input type="text" name="userNickname" value="${sessionScope.loginUser.nikname }" style="border: none; width: 80%" readonly></td>
 						</tr>
 					</table>
-					<form method="post">
-  						 <div id="summernote"></div>
+						<input type="hidden" id = "originFileName" name="pictureName"/>
+						<input type="hidden" id = "saveName" name="pictureNewName"/>
+						<input type="hidden" id = "filePath" name="pictureURL"/>
+						<input type="hidden" id = "utilPath" name="pictureUtilPath"/>
+  						<textarea id="summernote" name="boardContent"></textarea>
   						 <script>
-					      $('#summernote').summernote({
+					      $j3('#summernote').summernote({
 					    	  placeholder: '무료 나눔 게시글을 작성해주세요',
 					          tabsize: 2,
-					          height: 300
+					          height: 300,
+					          callbacks:{
+					        	  onImageUpload : function(files,editor,welEditable){
+					        		  for(var i=files.length-1; i>=0;i--){ 
+					        		  uploadSummernoteImageFile(files[0],this);
+					        		 } 
+					        	  }
+					        	}
 					      });
+					      
+					      /* 이미지 파일 업로드 */
+					      
+					     function uploadSummernoteImageFile(file, editor) {
+									var data = new FormData();
+									data.append("file", file);
+									$j3.ajax({
+										data : data,
+										type : "POST",
+										url : "shareImg",
+										contentType : false,
+										processData : false,
+										enctype:'multipart/form-data',
+										success : function(data) {
+							            	//항상 업로드된 파일의 url이 있어야 한다.
+											$j3(editor).summernote('insertImage', data.url);
+							            	console.log(data.url);
+							            	console.table(data);
+							            	$j3('#originFileName').val(data.originFileName);
+							            	$j3('#saveName').val(data.saveName);
+							            	$j3('#filePath').val(data.filePath);
+							            	$j3('#utilPath').val(data.utilPath);
+							            	
+										}
+									});
+								}
 					    </script>
-					</form>
 		        </div>
-		         <div style="margin: 0px auto; margin-top: 10px; text-align: center;"><button>등록하기</button></div>
+		         <div style="margin: 0px auto; margin-top: 10px; text-align: center;"><button type="submit">등록하기</button></div>
+			</form>
             </section>
             
          
@@ -167,4 +159,5 @@
             <jsp:include page="../common/footer.jsp"/>
         </div>
         
+      </body>
 </html>

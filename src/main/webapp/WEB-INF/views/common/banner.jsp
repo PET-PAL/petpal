@@ -17,6 +17,7 @@
     	text-align: center;
 	}
 </style>
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 
@@ -24,7 +25,7 @@
                 <ul>
                     <li><a id="adQnA" onclick="userCheck()" href=""><img src="${ pageContext.servletContext.contextPath }/resources/images/conversation.png" style="width: 100px; height: 100px;"></a></li>
                     <li style="text-align: center;">광고 문의</li>
-                    <li><a href=""><img src="${ pageContext.servletContext.contextPath }/resources/images/adqna.png" style="width: 100px; height: 100px;"></a></li>
+                    <li><a href="${ pageContext.servletContext.contextPath }/main#question"><img src="${ pageContext.servletContext.contextPath }/resources/images/adqna.png" style="width: 100px; height: 100px;"></a></li>
                     <li style="text-align: center;">불편 문의</li>
                     <li><a id="adsubmit" onclick="userCheck()" href=""><img src="${ pageContext.servletContext.contextPath }/resources/images/clipboard.png" style="width: 100px; height: 100px;"></a></li>
                     <li style="text-align: center; margin-bottom: 20px;">광고 신청</li>

@@ -3,6 +3,8 @@ package com.nobanryeo.petpal.user.adopt.dao;
 import java.util.HashMap;
 import java.util.List;
 
+import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.ShareFreeDTO;
 
 public interface ShareFreeMapper {
@@ -10,5 +12,18 @@ public interface ShareFreeMapper {
 	int selectTotalCount();
 
 	List<ShareFreeDTO> selectShareFreeList(HashMap<String, Object> map);
+
+	int insertNewBoard(ShareFreeDTO shareDTO);
+
+	int insertNewPicture(PictureDTO picture);
+
+	int insertMidBoard(PictureDTO picture);
+
+	void updateShareBoardViews(int code);
+
+	ShareFreeDTO selectBoardDetail(int code);
+
+
+
 
 }

@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.adopt.dao.ShareFreeMapper;
+import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
+import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.ShareFreeDTO;
 
 @Service
@@ -33,6 +35,41 @@ public class ShareFreeServiceImpl implements ShareFreeService {
 		List<ShareFreeDTO> shareAllList = sharefreeMapper.selectShareFreeList(map);
 		return shareAllList;
 
+	}
+
+	@Override
+	public int insertNewBoard(ShareFreeDTO shareDTO) {
+		
+		return sharefreeMapper.insertNewBoard(shareDTO);
+	}
+
+
+	@Override
+	public int insertNewBoth(ShareFreeDTO shareDTO, PictureDTO picture) {
+		
+		int boardResult = sharefreeMapper.insertNewBoard(shareDTO);
+		
+		picture.setBoardCode(shareDTO.getBoardCode());
+		int pictureResult = sharefreeMapper.insertNewPicture(picture);
+		
+		int bothResult = sharefreeMapper.insertMidBoard(picture);
+		
+		System.out.println("service result = "+boardResult+pictureResult+bothResult);
+		return bothResult;
+	}
+
+	@Override
+	public ShareFreeDTO selectBoardDetail(int code) {
+		
+		ShareFreeDTO shareDTO = sharefreeMapper.selectBoardDetail(code);
+		
+		return shareDTO;
+	}
+
+
+	@Override
+	public void updateShareBoardViews(int code) {
+		sharefreeMapper.updateShareBoardViews(code);
 	}
 
 	

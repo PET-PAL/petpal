@@ -57,36 +57,29 @@ public class BoardManagementController {
     		
     		if(!(cookie.getName().equals("freeboard"))) {
     			
-    			cookie = new Cookie("freeboard",null); 			//freeboard라는 이름의 쿠키 생성
-    			cookie.setComment("freeboard 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
-    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
+    			cookie = new Cookie("freeboard",null); 				//freeboard라는 이름의 쿠키 생성
+    			cookie.setComment("freeboard 게시글 조회 확인");			//해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);							//사용자에게 해당 쿠키를 추가
     			
     		}
     		
-		
-			if(!(cookie.getName().equals("shareboard"))) {
-			
-			cookie = new Cookie("shareboard",null); 			//shareboard라는 이름의 쿠키 생성
-			cookie.setComment("shareboard 게시글 조회 확인"); 		//해당 쿠키가 어떤 용도인지 커멘트
-			response.addCookie(cookie); 						//사용자에게 해당 쿠키를 추가
-			}
-			
-			if(!(cookie.getName().equals("infoboard"))) {
-			
-			cookie = new Cookie("infoboard",null); 				//infoboard라는 이름의 쿠키 생성
-			cookie.setComment("infoboard 게시글 조회 확인"); 			//해당 쿠키가 어떤 용도인지 커멘트
-			response.addCookie(cookie); 						//사용자에게 해당 쿠키를 추가
-			}
-			
-			if(!(cookie.getName().equals("reviewboard"))) {
-			
-			cookie = new Cookie("reviewboard",null); 			//reviewboard라는 이름의 쿠키 생성
-			cookie.setComment("reviewboard 게시글 조회 확인"); 		//해당 쿠키가 어떤 용도인지 커멘트
-			response.addCookie(cookie); 						//사용자에게 해당 쿠키를 추가
-			
-		
-			}
+    		if(!(cookie.getName().equals("reviewboard"))) {
+    			
+    			cookie = new Cookie("reviewboard",null); 				//reviewboard라는 이름의 쿠키 생성
+    			cookie.setComment("reviewboard 게시글 조회 확인");			//해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);								//사용자에게 해당 쿠키를 추가
+    			
+    		}
+    		
+    		if(!(cookie.getName().equals("sharefree"))) {
+    			
+    			cookie = new Cookie("sharefree",null); 				//sharefree라는 이름의 쿠키 생성
+    			cookie.setComment("sharefree 게시글 조회 확인");			//해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);								//사용자에게 해당 쿠키를 추가
+    			
+    		}
 		}
+    	
     	
     	
 		bcDTO.setType(type);

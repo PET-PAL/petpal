@@ -130,7 +130,8 @@
 	<insert id="insertWriteReviewBoard" parameterType="ReviewDTO">
 		INSERT
 		  INTO REVIEW_BOARD
-		VALUES ( REVIEW_BOARD_SEQ.NEXTVAL
+		VALUES (
+				 REVIEW_BOARD_SEQ.NEXTVAL
 		       , #{ boardTitle }
 		       , #{ boardContent }
 		       , 0
@@ -148,7 +149,8 @@
 	<insert id="insertReviewBoardImg" parameterType="PictureDTO">
 		INSERT
 		  INTO PICTURE_TABLE
-		VALUES ( PIC_CODE_SEQ.NEXTVAL
+		VALUES ( 
+				 PIC_CODE_SEQ.NEXTVAL
 		       , #{ pictureName }
 			   , #{ pictureURL }
                , SYSDATE
@@ -165,11 +167,110 @@
 	  	</selectKey>
 		INSERT
 		  INTO REVIEW_PICTURE_MANAGE
-		VALUES ( #{ boardCode }
+		VALUES ( 
+				 #{ boardCode }
 		       , #{ pictureCode }
 		       )
 	</insert>
+	
+	<insert id="insertReviewBoardMessage" parameterType="MessageTableDTO">
+		<selectKey keyProperty="sendUserNick" order="BEFORE" resultType="string">
+			SELECT
+			       USER_NIKNAME
+			  FROM USER_TABLE
+			 WHERE USER_CODE = #{ userCode }
+		</selectKey>
+		INSERT
+		  INTO MESSAGE_TABLE
+		VALUES ( 
+				 MESSAGE_CODE_SEQ.NEXTVAL
+		       , #{ messageContent }
+		       , SYSDATE
+		       , #{ userCode1 }
+		       , #{ userCode }
+		       , #{ sendUserNick }
+		       , #{ receiveUserNick }
+		       )
+	</insert>
+	
+	<insert id="insertReviewBoardReport" parameterType="ReviewReportDTO">
+		<selectKey keyProperty="reportTitle" order="BEFORE" resultType="string">
+			SELECT
+			       BOARD_TITLE
+			  FROM REVIEW_BOARD
+			 WHERE BOARD_CODE = #{ boardCode }
+		</selectKey>
+			INSERT ALL
+			  INTO REPORT_MANAGE
+			VALUES (
+					 REPORT_MANAGE_SEQ.NEXTVAL
+			       , #{ reportTitle }
+			       , #{ reportContent }
+			       , SYSDATE
+			       , NULL
+			       , #{ userCode }
+			       )
+			  INTO REVIEW_BOARD_REPORT
+		    VALUES (
+		    		 #{ boardCode }
+		           , REPORT_MANAGE_SEQ.CURRVAL
+		           )
+            SELECT *
+              FROM DUAL
+	</insert>
 
+	<insert id="insertReviewBoardReply" parameterType="ReviewReplyDTO">
+		INSERT ALL
+		  INTO REPLY_MANAGE
+		VALUES (
+				 REPLY_CODE_SEQ.CURRVAL
+		       , #{ replyContent }
+		       , SYSDATE
+		       , 'N'
+		       , 'N'
+		       , #{ userCode }
+		       )
+		  INTO REVIEW_BOARD_REPLY
+		VALUES ( #{ boardCode }
+		       , REPLY_CODE_SEQ.NEXTVAL
+		       , #{ userCode }
+		       )
+        SELECT *
+          FROM DUAL
+	</insert>
+	
+	<insert id="insertReviewReplyReport" parameterType="ReviewReplyDTO">
+		<selectKey keyProperty="replyReportTitle" order="BEFORE" resultType="string">
+			SELECT
+			       REPLY_CONTENT
+			  FROM REPLY_MANAGE
+			 WHERE REPLY_CODE = #{ replyCode }
+		</selectKey>
+			INSERT 
+			  INTO REPLY_REPORT_TABLE
+			VALUES (
+					 #{ userCode1 }
+			       , #{ replyCode }
+			       , #{ userCode }
+			       , #{ replyReportTitle }
+			       , #{ replyReportContent }
+			       , SYSDATE
+			       , null
+			       )
+	</insert>
+	
+	<select id="selectWritedReview" parameterType="int" resultMap="reviewResultSet">
+		SELECT
+               A.BOARD_TITLE
+             , A.BOARD_CONTENT
+             , A.BOARD_CODE
+             , B.USER_NIKNAME
+          FROM REVIEW_BOARD A
+          JOIN USER_TABLE B ON (B.USER_CODE = A.USER_CODE)
+         WHERE A.BOARD_DELETE_YN = 'N'
+           AND A.BOARD_CODE = #{ boardCode }
+	</select>
+	
 </mapper>
 
 
