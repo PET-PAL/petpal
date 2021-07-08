@@ -90,14 +90,25 @@
 					</div>
 		        </div>
 		        <div style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
-		        	<c:if test="${ requestScope.adApplyDetail.stateCode ne '4' && !(today > requestScope.adApplyDetail.postEndDate) && !(requestScope.adApplyDetail.stateCode eq '3') && !(isToday-isDecisionDate > 3 && requestScope.adApplyDetail.postYn eq 'N') }">
-		        		<form action="${ pageContext.servletContext.contextPath }/user/update/cancel/ad" method="post">
-				        	<input type="hidden" value="${ requestScope.adApplyDetail.adCode }" name="adCode"/>
-		        			<button style="float: right; margin-right: 10px;">광고 취소</button>
-		        		</form>
+		        	<!-- 광고 취소 분기처리 -->
+		        	<c:if test="${ isDecisionDate ne '0' }">
+			        	<c:if test="${ requestScope.adApplyDetail.stateCode ne '4' && !(today > requestScope.adApplyDetail.postEndDate) && !(requestScope.adApplyDetail.stateCode eq '3') && !(isToday-isDecisionDate > 3 && requestScope.adApplyDetail.postYn eq 'N') }">
+			        		<form action="${ pageContext.servletContext.contextPath }/user/update/cancel/ad" method="post">
+					        	<input type="hidden" value="${ requestScope.adApplyDetail.adCode }" name="adCode"/>
+			        			<button style="float: right; margin-right: 10px;">광고 취소</button>
+			        		</form>
+			        	</c:if>
+			        	<c:if test="${ requestScope.adApplyDetail.stateCode eq '4' || today > requestScope.adApplyDetail.postEndDate || requestScope.adApplyDetail.stateCode eq '3' || (isToday-isDecisionDate > 3 && requestScope.adApplyDetail.postYn eq 'N') }">
+			        		<button id="notcancel" disabled>취소 불가</button>
+			        	</c:if>
 		        	</c:if>
-		        	<c:if test="${ requestScope.adApplyDetail.stateCode eq '4' || today > requestScope.adApplyDetail.postEndDate || requestScope.adApplyDetail.stateCode eq '3' || (isToday-isDecisionDate > 3 && requestScope.adApplyDetail.postYn eq 'N') }">
-		        		<button id="notcancel" disabled>취소 불가</button>
+		        	<c:if test="${ isDecisionDate eq '0' }">
+			        	<c:if test="${ requestScope.adApplyDetail.stateCode ne '4' && !(today > requestScope.adApplyDetail.postEndDate) && !(requestScope.adApplyDetail.stateCode eq '3') }">
+			        		<form action="${ pageContext.servletContext.contextPath }/user/update/cancel/ad" method="post">
+					        	<input type="hidden" value="${ requestScope.adApplyDetail.adCode }" name="adCode"/>
+			        			<button style="float: right; margin-right: 10px;">광고 취소</button>
+			        		</form>
+			        	</c:if>
 		        	</c:if>
 		        </div>
             </section>

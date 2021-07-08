@@ -320,7 +320,7 @@
             
             <form action="${ pageContext.servletContext.contextPath }/user/insert/freeboard/reply" method="post">
 	            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
-	                <input type="text" id="replyContent" name="replyContent" placeholder="  message">
+	                <input type="text" id="replyContent" name="replyContent" placeholder="  message" required>
 	                <input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
 	                <button type="submit" class="sendmessagecontent">댓글 작성</button>
 	            </section>
@@ -338,7 +338,7 @@
 	                            <hr style="border:0.5px solid #A8A8A8;">
 	                        </div>
 	                        <!-- 신고 내용 입력 -->
-	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="reportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="reportContent" placeholder="신고내용을 입력하세요" required style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
 	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
 	                        <input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
 	                    </div>
@@ -370,7 +370,7 @@
 	                            <hr style="border:0.5px solid #A8A8A8;">
 	                        </div>
 	                        <!-- 신고 내용 입력 -->
-	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="replyReportContent" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" name="replyReportContent" placeholder="신고내용을 입력하세요" required style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
 	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport2'">신고하기</button></div>
 	                        <input type="hidden" name="inputReplyCode" id="inputReplyCode">
 	                        <input type="hidden" name="inputuserCode1" id="inputuserCode1">
@@ -415,7 +415,7 @@
 	                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.freeBoardDetail.userNickName }"/></p>
 	                    <div class="findpwd-content" id="contStep02" style="display: block;">
 	                        <!-- 쪽지 내용 입력 -->
-	                       <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+	                       <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" required style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
 	                       <input type="hidden" value="${ requestScope.freeBoardDetail.userCode }" name="userCode1">
 	                       <input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
 	                       <input type="hidden" value="${ requestScope.freeBoardDetail.userNickName }" name="receiveUserNick">

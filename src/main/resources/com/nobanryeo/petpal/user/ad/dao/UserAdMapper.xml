@@ -129,9 +129,12 @@
 		     , C.PICTURE_UTIL_PATH
 		     , A.USER_CODE
 		     , A.DECISION_CODE
+             , D.DECISION_DATE
+             , A.POST_YN
 		  FROM AD_APPLY_TABLE A
 		  JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
 		  JOIN PICTURE_TABLE C ON(C.PICTURE_CODE = A.PICTURE_CODE)
+		  LEFT JOIN DECISION_TABLE D ON(D.DECISION_CODE = A.DECISION_CODE)
 		 WHERE A.USER_CODE = #{ userCode }
 		   AND A.AD_CODE = #{ adCode }
 	</select>
@@ -225,22 +228,6 @@
 		 WHERE AD_CODE = #{ adCode }
 	</update>
 	
-	<select id="selectRandomAdPlace" parameterType="AdDTO" resultMap="adResultSet">
-		SELECT *
-          FROM ( SELECT *
-                   FROM AD_APPLY_TABLE
-                  ORDER BY DBMS_RANDOM.RANDOM
-               ) A
-          JOIN AD_MANAGE_TABLE B ON(A.AD_TYPE_CODE = B.AD_TYPE_CODE)
-          JOIN PICTURE_TABLE C ON(C.PICTURE_CODE = A.PICTURE_CODE)
-         WHERE POST_YN = 'Y'
-           AND STATE_CODE = 2
-           AND B.AD_TYPE_NAME = '장소'
-         <![CDATA[
-           AND POST_START_DATE <= SYSDATE
-           AND POST_END_DATE >= SYSDATE
-         ]]>
-	</select>
 	<select id="selectRandomAdNonPlace" parameterType="AdDTO" resultMap="adResultSet">
 		SELECT *
           FROM ( SELECT *
@@ -252,6 +239,22 @@
          WHERE POST_YN = 'Y'
            AND STATE_CODE = 2
            AND B.AD_TYPE_NAME = '그 외'
+         <![CDATA[
+           AND POST_START_DATE <= SYSDATE
+           AND POST_END_DATE >= SYSDATE
+         ]]>
+	</select>
+	<select id="selectRandomAdPlace" parameterType="AdDTO" resultMap="adResultSet">
+		SELECT *
+          FROM ( SELECT *
+                   FROM AD_APPLY_TABLE
+                  ORDER BY DBMS_RANDOM.RANDOM
+               ) A
+          JOIN AD_MANAGE_TABLE B ON(A.AD_TYPE_CODE = B.AD_TYPE_CODE)
+          JOIN PICTURE_TABLE C ON(C.PICTURE_CODE = A.PICTURE_CODE)
+         WHERE POST_YN = 'Y'
+           AND STATE_CODE = 2
+           AND B.AD_TYPE_NAME = '장소'
          <![CDATA[
            AND POST_START_DATE <= SYSDATE
            AND POST_END_DATE >= SYSDATE

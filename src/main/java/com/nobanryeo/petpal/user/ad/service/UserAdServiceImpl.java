@@ -108,5 +108,14 @@ public class UserAdServiceImpl implements UserAdService {
 		return randomAd;
 	}
 
+	@Override
+	public List<AdDTO> selectRandomAdPlace() {
+
+		List<AdDTO> randomAd = new ArrayList<>();
+		randomAd = adMapper.selectRandomAdPlace();
+		
+		return randomAd;
+	}
+
 
 }

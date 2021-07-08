@@ -98,7 +98,7 @@
 						<table class="table" style="margin-bottom: 50px; border-collapse: separate; margin-bottom:0px;">
 							<tr>
 								<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
-								<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="adTitle" id="adTitle" placeholder="제목을 입력하세요"></td>
+								<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="adTitle" id="adTitle" placeholder="제목을 입력하세요" required></td>
 							</tr>
 							<tr>
 								<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>기업 / 상호명</b></td>

@@ -113,6 +113,14 @@
             .pagination > li > a, .pagination > li > span {
             	color: #19A985 !important;
             }
+            @keyframes blink-effect {
+                50% {
+                    opacity: 0;
+                }
+            }
+            .blink {
+                animation: blink-effect 1s step-end infinite;
+            }
 		</style>
 		<script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
 		<script>
@@ -139,7 +147,9 @@
 			<div class="col-md-20">
 				<div class="container-fluid" style="float:left;">
 	 				<p role="presentation" style="font-weight:800; font-size:25px; color:#45B99C; margin-top:10px; float:left; margin-right:15px;"> 일반 정보 공유</p>
-					<button type="button" class="send_btn" onclick="location.href='#completeReport'" style="vertical-align: text-top;"><strong>게시글 작성신청</strong></button>
+	 				<c:if test="${ !empty sessionScope.loginUser.code}">
+						<button type="button" class="send_btn" onclick="location.href='#completeReport'" style="vertical-align: text-top;"><strong>게시글 작성신청</strong></button>
+					</c:if>
 				</div>
 			</div>
 		</section>
@@ -150,12 +160,7 @@
                 	<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ arr.boardCode }'">
                         <div class="port_item xs-m-top-30">
                             <div class="port_img">
-                            	<c:if test="${ empty arr.pictureUtilPath }">
-                                	<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/resources/images/noImg.PNG"/>
-                                </c:if>
-                                <c:if test="${ !empty arr.pictureUtilPath }">
-                                	<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/${ arr.pictureUtilPath }"/>
-                                </c:if>
+                               	<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/${ arr.pictureUtilPath }"/>
                             </div>
                             <div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
                                 <h4><strong style="font-size:20px;"><c:out value="${ arr.boardTitle }"/></strong></h4>
@@ -164,18 +169,33 @@
                         </div>
                     </div>
                     <!-- 광고 끼워넣기 -->
-	                <c:if test="${ status.index == 1 }">
+	                <c:if test="${ status.index == 2 }">
 	                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
 	                		<c:if test="${ adStatus.index == 0 }">
 		                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?adCode=${ arr.boardCode }'">
 			                        <div class="port_item xs-m-top-30">
-			                            <div class="port_img">
-			                            	<c:if test="${ empty adarr.pictureUtilPath }">
-			                                	<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/resources/images/noImg.PNG"/>
-			                                </c:if>
-			                                <c:if test="${ !empty adarr.pictureUtilPath }">
-			                                	<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>
-			                                </c:if>
+			                            <div class="port_img" style="position: relative;">
+		                                	<img style="width:290px; height:250px; z-index: -1;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>
+		                                	<div class="blink" style="position:absolute; left:5px; top:5px; font-weight: 600; font-size: 1.3em; color:red;">AD</div>
+			                            </div>
+			                            <div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
+			                                <h4><strong style="font-size:20px;"><c:out value="${ adarr.adTitle }"/></strong></h4>
+			                                <h5><c:out value="${ adarr.companyName }"/></h5>
+			                            </div>
+			                        </div>
+			                    </div>
+		                	</c:if>
+	                	</c:forEach>
+	                </c:if>
+	                <!-- 광고 끼워넣기 -->
+	                <c:if test="${ status.index == 5 }">
+	                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
+	                		<c:if test="${ adStatus.index == 1 }">
+		                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?adCode=${ arr.boardCode }'">
+			                        <div class="port_item xs-m-top-30">
+			                            <div class="port_img" style="position: relative;">
+		                                	<img style="width:290px; height:250px; z-index: -1;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>
+		                                	<div class="blink" style="position:absolute; left:5px; top:5px; font-weight: 600; font-size: 1.3em; color:red;">AD</div>
 			                            </div>
 			                            <div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
 			                                <h4><strong style="font-size:20px;"><c:out value="${ adarr.adTitle }"/></strong></h4>
