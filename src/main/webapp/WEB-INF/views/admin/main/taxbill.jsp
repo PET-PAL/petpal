@@ -18,6 +18,12 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
 
+<script src="./node_modules/jspdf/dist/jspdf.min.js"></script>
+
+<script type = "text/javascript" src = "http://code.jquery.com/jquery-latest.min.js"></script> 
+<script type = "text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.5.3/jspdf.min.js"></script>
+<script type = "text/javascript" src = "https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script>
+
 
 <style type="text/css">
 <!--
@@ -81,12 +87,13 @@
 							 <a href="${ pageContext.servletContext.contextPath }/admin/taxManageList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
 							                               			style="width:50px;height:52px; margin-top:-60px; float:right;"></a>
 
+   <button id="create_pdf" style="width: 100px; height:50px; margin-left : border-radius: 5px; font-size: larger;">pdf 생성</button>
 <table width='778' cellpadding='0' cellspacing='0' align='center'>
  <tr>
   <td width='100%'><br><br><br>
   
   
-<div id="capture">
+<div id="pdf_wrap">
 
 <table width='700' cellpadding='0' cellspacing='0' align='center' class='border_all'>
  <tr>
@@ -607,7 +614,7 @@
          <!------------------- body table 놓이는곳 -------------------->
       <div style="margin-left: 30%;">
 	      <button class="btn btn-primary" style="width: 200px; height:50px; margin-right: 15px; border-radius: 5px; font-size: larger;">발행 완료</button>
-	      <button class="btn btn-info" id="upload" style="width: 200px; height:50px; border-radius: 5px; font-size: larger;">upload</button>
+	     <!--  <button id="create_pdf" style="width: 200px; height:50px; border-radius: 5px; font-size: larger;">pdf 생성</button> -->
       </div>
       </div>
       </div>
@@ -615,32 +622,27 @@
       </section>
 <script>
 
-   $("#upload").on("click",function() {
-      screenShot($("#capture"));
-   });
+$('#create_pdf').click(function() {
+	  //pdf_wrap을 canvas객체로 변환
+	  html2canvas($('#pdf_wrap')[0]).then(function(canvas) {
+	    var doc = new jsPDF('p', 'mm', 'a4'); //jspdf객체 생성
+	    var imgData = canvas.toDataURL('image/png'); //캔버스를 이미지로 변환
+	    doc.addImage(imgData, 'PNG', 0, 0); //이미지를 기반으로 pdf생성
 
-   function screenShot(target) {
-      if (target != null && target.length > 0) {
-         var t = target[0];
-         html2canvas(t).then(function(canvas) {
-            var requestNo = ${requestScope.taxBill.requestNo};
-            var myImg = canvas.toDataURL("image/png");
-            myImg = myImg.replace("data:image/png;base64,", "");
-            $.ajax({
-               type : "POST",
-               data : {
-                  "imgSrc" : myImg,
-                  "requestNo" : requestNo
-               },
-               dataType : "text",
-               url : "${pageContext.servletContext.contextPath}/sales/taxdownload",
-               success : function(data) {
-                  location.href ="${pageContext.servletContext.contextPath}/admin/move?successCode=" + data;
-               }
-            });
-         });
-      }
-   }
+	    var imgWidth = 210; 
+	    var pageHeight = 295; 
+	    var imgHeight = canvas.height * imgWidth / canvas.width;
+	    var heightLeft = imgHeight; 
+	    var position = 0; 
+	    doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight); 
+	 
+	   
+
+	    doc.save('baekguTax' + '${ requestScope.tax.now }' + '${ requestScope.tax.bName }' + '.pdf'); //pdf저장
+	    
+	  });
+	});
+  
 </script>
 
 	<jsp:include page="../../admin/common/footer.jsp"></jsp:include> 
