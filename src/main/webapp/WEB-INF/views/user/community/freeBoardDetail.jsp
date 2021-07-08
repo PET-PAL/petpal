@@ -318,6 +318,7 @@
 	                    </div>
 	                </div>
 	            </div>
+	            
 	            <!-- 신고 완료 팝업창 -->
 	            <div id="completeReport" class="overlay">
 	                <div class="popup">
