@@ -104,6 +104,18 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 		return result + result2;
 	}
 
+	@Override
+	public int updateModifyShareInfo(ShareInfoDTO shareInfo) {
+		
+		// InfoBoardTable update
+		int result = shareInfoMapper.updateModifyShareInfo(shareInfo);
+		// PictureTable update
+		int result2 = shareInfoMapper.updateModifyShareInfo2(shareInfo);
+		
+		return result + result2;
+	}
+
+
 	
 	
 	
@@ -169,5 +181,15 @@ public class ShareInfoServiceImpl implements ShareInfoService {
 		return result1 + result2;
 	}
 
+	@Override
+	public int updateModifySharePlace(FriendlyPlaceDTO sharePlace) {
+
+		// FriendlyBoardTable update
+		int result = shareInfoMapper.updateModifySharePlace(sharePlace);
+		// PictureTable update
+		int result2 = shareInfoMapper.updateModifySharePlace2(sharePlace);
+		
+		return result + result2;
+	}
 
 }

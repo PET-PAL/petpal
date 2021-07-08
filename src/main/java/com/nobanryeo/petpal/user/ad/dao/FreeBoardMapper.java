@@ -42,8 +42,6 @@ public interface FreeBoardMapper {
 	
 	int insertFreeBoardImg2(PictureDTO picture);
 
-
-	
-
+	int updateModifyFreeBoare(FreeBoardDTO freeBoard);
 
 }

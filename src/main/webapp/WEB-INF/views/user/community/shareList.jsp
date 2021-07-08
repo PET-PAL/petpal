@@ -37,8 +37,8 @@
 
 
             <!--Home Sections-->
-            <section id="borad" class="borad" style="width: 80%; margin: 0px auto;  margin-bottom: 40px;">
-                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 200px;">무료나눔
+            <section id="borad" class="borad" style="width: 80%; margin: 0px auto; ">
+                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 110px;">무료나눔
                 <button 
                 style="color: white; background-color: #FFA800; border-color: white; border: 1px solid; 
                 border-radius:10px; width:180px; margin-left:30px;">
@@ -50,10 +50,9 @@
                 	나눔완료
                 </button>
                 </div>
-                <hr style="border-color: rgb(175, 175, 175); width: 80%;">
+                <hr style="border-color: rgb(175, 175, 175); width: 90%;">
             </section> <!--End off Home Sections-->
-            <div style="width: 370px; position: relative; left: 60%;">
-		            <form style="margin-bottom: 40px;">
+            <div style="width: 370px; margin-bottom:10px; position: relative; left: 60%;">
 						<input type="search" placeholder=" 검색 키워드를 입력해주세요" aria-label="Search"
 						style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;">
 						<span>
@@ -61,7 +60,6 @@
 							검색
 						</button>
 						</span>
-					</form>
 					</div>
 
             <section id="boradtable" class="boradtable">
@@ -69,21 +67,21 @@
                             <div class="carousel-inner" role="listbox">
                                 <div class="item active">
                                     <div class="container">
-                                        <div class="row">
-                                        <c:forEach var= "share" varStatus="status" items="${shareList }">
-                                            <div class="col-sm-3" href="${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/${shareList.boardCode}">
-                                                <div class="port_item xs-m-top-30">
+                                        <div class="row" style="margin-left: 20px;">
+                                        <c:forEach var= "share" varStatus="status" items="${requestScope.shareList }">
+                                            <div class="col-sm-3">
+                                                <div class="port_item xs-m-top-30" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/${share.boardCode}'">
                                                     <div class="port_img" style="position: relative;">
-                                                    	<c:if test="${shareList.stateCode eq 1 }">
-                                                    	<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">나눔중</p>
+                                                    	<c:if test="${share.stateCode == 1 }">
+                                                    		<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">나눔중</p>
                                                     	</c:if>
-                                                    	<c:if test="${shareList.stateCode eq 2 }">
-                                                    	<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">나눔 완료</p>
+                                                    	<c:if test="${share.stateCode eq 2 }">
+                                                    		<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">나눔 완료</p>
                                                         </c:if>
-                                                        <img src="${ pageContext.servletContext.contextPath }/${shareList.pictureUtilPath}" alt="" />
+                                                        <img src="${ pageContext.servletContext.contextPath }/${share.pictureUtilPath}" style="width:250px; height:250px;" alt="" />
                                                     </div>
                                                     <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-                                                        <h4><a>${shareList.boardTitle }</a></h4>
+                                                        <h4><a style="color:black;">${share.boardTitle }</a></h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -92,6 +90,8 @@
                                     </div>
                                 </div>
                              </div>
+                             
+                           
 		<!-- 페이징처리 -->
             <div class="text-center">
 				<ul class="pagination">
@@ -117,7 +117,7 @@
 			</div>
             </section>
             <div style="position: fixed; top: 310px; left: 200px;">
-	            <button style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
+	            <button onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/insert/newcontent'" style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
 	            <h4 style="writing-mode: vertical-rl; color: white; font-weight: bold;" align="center">글 작성하기</h4>
 	            </button>
 			</div>

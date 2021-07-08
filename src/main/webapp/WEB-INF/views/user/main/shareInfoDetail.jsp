@@ -131,15 +131,36 @@
             }
             td > button:hover {
             	float: right;
-    			border-radius: 5px;
+    			border-radius: 10px;
     			background-color: #45B99C;
                 color: white;
                 border-color: #45B99C; 
                 border: 1px solid;
             }
+            #underline-btn {
+            	float: right;
+    			border: none;
+    			color: #45B99C;
+    			background: white;
+    			height: 40px;
+    			width: 100px;
+                font-size: 15px;
+            }
+            #underline-btn:hover {
+            	float: right;
+    			border-radius: 15px;
+    			background-color: white;
+                color: #45B99C;
+                border-color: #45B99C; 
+                border: 1px solid;
+                height: 40px;
+                width: 100px;
+                font-size: 15px;
+            }
             .findpwd-content > div, .findpwd-content > form > div {
                 margin: 0px auto;
             }
+           
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -191,7 +212,7 @@
 			</div>
 
             <section id="menutable" class="menutable">
-				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 10px;">
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
@@ -214,7 +235,14 @@
 					</div>
 		        </div>
 		        
-				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>
+		        <!-- 게시글 작성자와 login 세션값 일치할 때 수정하기 버튼 보이기 -->
+		        <div style="width: 70%; margin: 0px auto; margin-bottom: 50px; text-align:right;">
+		        	<c:if test="${sessionScope.loginUser.code eq requestScope.shareInfoDetail.userCode}">
+		        		<button style="margin-right:10px;" id="underline-btn" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/modify?boardCode=${ requestScope.shareInfoDetail.boardCode }'">수정하기</button>
+		        	</c:if>
+		        </div>
+		        
+				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-top:40px; margin-bottom: 10px;">전체 댓글</div>
 				<div style="margin-bottom: 40px;">
 					<table class="table" style="margin-bottom: 50px; width: 70%; margin: 0px auto;">
 				    	<tbody>
