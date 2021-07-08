@@ -94,6 +94,11 @@ public class ReviewPostServiceImpl implements ReviewPostService {
 		return mapper.insertReviewReplyReport(replyDTO);
 	}
 
+	@Override
+	public ReviewDTO selectWritedReview(int boardCode) {
+		return mapper.selectWritedReview(boardCode);
+	}
+
 	
 
 

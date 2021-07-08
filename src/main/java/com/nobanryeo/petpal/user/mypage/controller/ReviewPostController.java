@@ -9,6 +9,7 @@ import java.util.UUID;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.stereotype.Controller;
@@ -330,6 +331,14 @@ public class ReviewPostController {
         return "redirect:/user/review/reviewDetail?boardCode="+replyDTO.getBoardCode();
     }
 	
+	/**
+	 * 댓글 신고
+	 * @param replyDTO
+	 * @param model
+	 * @param user
+	 * @param rttr
+	 * @return
+	 */
 	@PostMapping("review/reviewDetail/reviewReplyReport")
 	public String insertReviewReplyReport(@ModelAttribute ReviewReplyDTO replyDTO, Model model
 			, @RequestParam(defaultValue = "0", required = false) int user, RedirectAttributes rttr) {
@@ -353,6 +362,21 @@ public class ReviewPostController {
 	    	   return "redirect:/user/review/reviewDetail?boardCode="+replyDTO.getBoardCode();
 	       }
 		
+	}
+	
+	@GetMapping("review/writeUpdate")
+	public String writeUpdateReview(ReviewDTO reviewDTO, Model model
+			, @RequestParam(value = "boardCode", defaultValue = "0")int boardCode
+			, RedirectAttributes rttr) {
+		
+		if(boardCode == 0) {
+			rttr.addFlashAttribute("message", "잘못된 경로로 접근하셨습니다!");
+			return "redirect:/user/review";
+		}
+		
+		model.addAttribute("review", reviewService.selectWritedReview(boardCode));
+		
+		return "user/community/reviewModify";
 	}
 	
 

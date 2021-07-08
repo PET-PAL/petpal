@@ -39,6 +39,8 @@ public interface ReviewMapper {
 
 	int insertReviewReplyReport(ReviewReplyDTO replyDTO);
 
+	ReviewDTO selectWritedReview(int boardCode);
+
 	
 	
 

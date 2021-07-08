@@ -259,6 +259,17 @@
 			       )
 	</insert>
 	
+	<select id="selectWritedReview" parameterType="int" resultMap="reviewResultSet">
+		SELECT
+               A.BOARD_TITLE
+             , A.BOARD_CONTENT
+             , A.BOARD_CODE
+             , B.USER_NIKNAME
+          FROM REVIEW_BOARD A
+          JOIN USER_TABLE B ON (B.USER_CODE = A.USER_CODE)
+         WHERE A.BOARD_DELETE_YN = 'N'
+           AND A.BOARD_CODE = #{ boardCode }
+	</select>
 	
 </mapper>
 

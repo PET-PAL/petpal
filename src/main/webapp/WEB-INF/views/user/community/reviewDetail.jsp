@@ -184,7 +184,14 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float: left">커뮤니티</div>
-                <span style="margin-left: 30px;"><button onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewModify.jsp'">수정하기</button></span>
+                <c:choose>
+                <c:when test="${ requestScope.review.userNickName eq sessionScope.loginUser.nikname }">
+                	<span style="margin-left: 30px;"><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/review/writeUpdate?boardCode=${ requestScope.review.boardCode }'">수정하기</button></span>
+				</c:when>
+				<c:otherwise>
+					<span></span>
+				</c:otherwise>
+                </c:choose>
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp'" style="width:50px; float: right; cursor: pointer !important;">
             </section>
 
@@ -205,7 +212,8 @@
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
 							<td style="width:15%; text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
-							<td style="width:45%;"><c:out value="${ requestScope.review.boardTitle }"/></td>
+							<td style="width:45%;"><c:out value="${ requestScope.review.boardTitle }"/>
+							</td>
 							<td style="width:15%; text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
 							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="${ requestScope.review.boardViews }"/><span><img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;"></span></td>
 						</tr>
@@ -213,7 +221,9 @@
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
 							<c:choose>
 								<c:when test="${ requestScope.review.userNickName eq sessionScope.loginUser.nikname }">
-									<td><c:out value="${ requestScope.review.userNickName }"/>
+									<td>
+										<c:out value="${ requestScope.review.userNickName }"/>
+									</td>
 								</c:when>
 								<c:otherwise>
 									<td><c:out value="${ requestScope.review.userNickName }"/><button onclick="location.href='#directMessage'">쪽지보내기</button></td>
@@ -337,23 +347,7 @@
 					location.href = '#reportComment';
 				}
 			</script>
-            
-             <!-- 신고 완료 팝업창 -->
-            <!-- <div id="completeReport" class="overlay">
-                <div class="popup">
-                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
-                     	신고가 정상적으로 접수되었습니다.<br>
-                    </p>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
-                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
-                     	신고 내역에서 확인 가능합니다.
-                    </p>
-                    <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
-                </div>
-            </div> -->
-            
-            
-            
+
             <!-- 쪽지 팝업창 -->
             <form action="${pageContext.servletContext.contextPath }/user/review/reviewDetail/message" method="post">
             <div id="directMessage" class="overlay">

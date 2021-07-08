@@ -35,5 +35,7 @@ public interface ReviewPostService {
 
 	int insertReviewReplyReport(ReviewReplyDTO replyDTO);
 
+	ReviewDTO selectWritedReview(int boardCode);
+
 
 }

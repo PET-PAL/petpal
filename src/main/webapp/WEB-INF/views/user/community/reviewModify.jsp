@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,9 +43,14 @@
         <title>PET-PAL</title>
         
         <!-- summerNote -->
-    	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    	<script>
+          var $j3 = jQuery.noConflict();
+        </script>
+
+    	
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -92,7 +98,7 @@
 							<table class="table" style="border-collapse: separate;">
 								<tr>
 									<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
-									<td style="border-radius: 0px 21px 0px 0px"><input type="text" value="강아지 옷 리뷰" placeholder="제목을 입력하세요" style="border: none; width: 80%"></td>
+									<td><input type="text" style="width:45%; border: 0px;" value="${ requestScope.review.boardTitle }"></td>
 								</tr>
 								<tr>
 									<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
@@ -100,17 +106,42 @@
 								</tr>
 							</table>
 							<textarea id="summernote">
-								<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
-								<p style="margin-bottom: 50px; margin-left: 8px;">
-								저희 강아지랑 너무 잘어울려요~! 여기 브랜드 애용하고 있었는데 이번에 나온 디자인이 너무 예쁘네요
-								다들 한번 구매해보세요 후회 절대 없습니다~ 사이즈도 다양해서 강아지 크기에 따라서 옷 고르기도 좋습니다!</p>
+								<c:out value="${ requestScope.review.boardContent }" escapeXml="false"/>
 							</textarea>
 	  						<script>
-						    	$('#summernote').summernote({
-						        	tabsize: 2,
-						        	height: 500
-						    	});
-						    </script>
+	  						$j3('#summernote').summernote({
+	  	                        tabsize: 2,
+	  	                        height: 500,
+	  	                        callbacks: {
+	  	                            onImageUpload: function(files, editor, welEditable) {
+	  	                                 sendFile(files[0], editor,welEditable);
+	  	                            }
+	  	                    	}
+	  	                    });
+	  					
+							function sendFile(file, editor,welEditable) {
+								console.log("사진 ajax 들어옴");
+							 	var form_data = new FormData();
+								form_data.append('file', file);
+								$j3.ajax({
+									data: form_data,
+									type: "POST",
+									url: '${pageContext.servletContext.contextPath}/user/insert/reviewboardImg',
+									cache: false,
+									contentType: false,
+									enctype: 'multipart/form-data',
+									processData: false,
+									success: function(data) {
+										$j3('#summernote').summernote('editor.insertImage', data.url);
+										console.log(data.url);
+										$j3("#pictureName").val(data.pictureName);
+										$j3("#pictureURL").val(data.pictureURL);
+										$j3("#pictureNewName").val(data.pictureNewName);
+										$j3("#pictureUtilPath").val(data.pictureUtilPath);
+									}
+							    });
+							}
+						</script>
 			        </div>
 			        <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite">수정하기</button></div>
 				</form>
