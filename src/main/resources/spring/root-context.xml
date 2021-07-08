@@ -72,10 +72,8 @@
 					  com.nobanryeo.petpal.admin.report.dao,
 					  com.nobanryeo.petpal.admin.pay.dao,
 					  com.nobanryeo.petpal.admin.manage.dao,
-<<<<<<< HEAD
-					  com.nobanryeo.petpal.admin.review.dao"/>
-=======
+					  com.nobanryeo.petpal.admin.review.dao,
 					  com.nobanryeo.petpal.admin.mainpage.dao"/>
->>>>>>> refs/remotes/origin/haein
+
 	
 </beans>
