@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nobanryeo.petpal.admin.review.dao.AdminReviewMapper">
+<resultMap id="ReviewSet" type="AdminReviewDTO">
+		<id column="BOARD_CODE" property="boardCode" />
+		<result column="USER_CODE" property="userCode" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NAME" property="userName" />
+		<result column="BOARD_TITLE" property="boardTitle" />
+		<result column="BOARD_POST_DATE" property="postDate" />
+		<result column="STATE_NAME" property="state" />
+	</resultMap>
+
+<select id="selectReviewCount" resultType="int">
+	   SELECT COUNT(*) 
+	   	<if test='category == "0"'>
+		FROM INFO_BOARD A
+		</if>
+		<if test='category == "1"'>
+		FROM FRIENDLY_BOARD A
+		</if>
+		<if test='searchCondition == "userId"'>
+        JOIN USER_TABLE B ON(A.USER_CODE = B.USER_CODE)
+		WHERE B.USER_ID LIKE '%' || #{searchValue} || '%' 
+		
+		</if>
+		<if test='searchCondition == "boardTitle"'>
+		WHERE BOARD_TITLE LIKE '%' || #{searchValue} || '%' 
+		</if>
+		
+	</select>
+<select id="selectReview" resultMap="ReviewSet" parameterType="AdminReviewDTO">
+	SELECT
+        *
+        FROM( SELECT ROWNUM RNUM, G.*
+                    FROM (SELECT
+                    		A.BOARD_CODE,
+                            B.USER_CODE,
+                            B.USER_ID,
+                            B.USER_NAME,
+                            A.BOARD_TITLE,
+                            A.BOARD_POST_DATE,
+                            NVL2(A.DECISION_CODE,D.STATE_NAME,'대기중') AS STATE_NAME
+                            <if test='category == "0"'>
+							FROM INFO_BOARD A
+							</if>
+							<if test='category == "1"'>
+							FROM FRIENDLY_BOARD A
+							</if>
+							
+	                        JOIN USER_TABLE B ON(A.USER_CODE = B.USER_CODE)
+							LEFT OUTER JOIN DECISION_TABLE C ON(A.DECISION_CODE = C.DECISION_CODE)
+	                        LEFT OUTER JOIN STATE_TABLE D ON(C.STATE_CODE = D.STATE_CODE)
+	                        <if test='searchCondition == "userId"'>
+							WHERE B.USER_ID LIKE '%' || #{searchValue} || '%' 
+							
+							</if>
+							<if test='searchCondition == "boardTitle"'>
+							WHERE A.BOARD_TITLE LIKE '%' || #{searchValue} || '%' 
+							</if>
+							
+							
+							<choose>
+								<when test="sortValue == 1">
+									ORDER BY D.STATE_NAME DESC ,A.BOARD_CODE DESC
+											
+								</when>
+								<when test="sortValue == 2">
+									ORDER BY D.STATE_NAME ASC ,A.BOARD_CODE DESC
+								</when>
+								<otherwise>
+									ORDER BY A.BOARD_CODE DESC
+								</otherwise>
+							</choose>
+                            
+                        )G
+                )A 
+                WHERE RNUM BETWEEN #{start} AND #{end}
+	
+	
+	
+	</select>
+
+</mapper>
+

@@ -94,7 +94,7 @@
 				           	 </div>	                       
 								<div class="col-md-3"  style="float:left;">
 									<c:if test="${category != 7 }">
-									<button type="button" class="btn btn-outline-success text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px; width:200px; margin-top:100px">신고글 보기</button>
+									<button onclick="window.open('${pageContext.servletContext.contextPath }/user/adopt/detail/${reportDetail.boardCode}', 'test', 'width=#, height=#')"    type="button" class="btn btn-outline-success text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px; width:200px; margin-top:100px">신고글 보기</button>
 									</c:if>
 		                            
 					            </div>

@@ -6,53 +6,13 @@
 <meta charset="UTF-8">
 <title>블랙리스트</title>
 <style>
-.table > thead > tr > th{
-	 font-size:17px;
 
-}
-.table > tbody > tr > td{
+.table>tr>td{
 	text-align: center;
-	 padding-top: 15px !important;
-	 padding-bottom: -15px !important;
-	 font-size:17px;
-	 
 }
 
-select { -webkit-appearance: none; /* 네이티브 외형 감추기 */
--moz-appearance: none; appearance: none; 
-background: url(이미지 경로) no-repeat 95% 50%; /* 화살표 모양의 이미지 */ } 
-/* IE 10, 11의 네이티브 화살표 숨기기 */ 
 
-select::-ms-expand { display: none; }
-
-select { width: 150px; /* 원하는 너비설정 */
- padding: .8em .5em; /* 여백으로 높이 설정 */ 
- font-family: inherit; /* 폰트 상속 */ 
- background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%; /* 네이티브 화살표 대체 */ 
- border: 1px solid #999; 
- border-radius: 0px; /* iOS 둥근모서리 제거 */ 
- -webkit-appearance: none; /* 네이티브 외형 감추기 */ 
- -moz-appearance: none; 
- appearance: none; }
- 
-select option{
-  text-align:center;}
-
-  td > .send_btn {
-                background-color: red; 
-                height: 35px;
-                color: white;
-                border-color: #45B99C; 
-                border: 1px solid; 
-                font-size: 16px; 
-                font-weight: 500;
-                border-radius: 10px;
-            }
 </style>
- <!-- summerNote -->
-    	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
-    	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
-    	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
 </head>
 <body>
 	<jsp:include page="../../admin/common/header.jsp"></jsp:include> 
@@ -77,12 +37,12 @@ select option{
 	                                      							              	
 											<table class="table table-hover" style="text-align:center; padding-top:15px">
 												<thead>
-													<tr style="background-color: #F2FFF9;">
-														<th style="text-align:center;">글쓴이(유저아이디)</th>
-														<th style="text-align:center;">글 작성일자</th>
-														<th style="text-align:center;">신고일자</th>
-														<th style="text-align:center;">신고 횟수</th>
-														<th style="text-align:center;"></th>
+													<tr>
+														<th style="text-align:center;">유저이름(유저아이디)</th>
+														<th style="text-align:center;">가입일자</th>
+														<th style="text-align:center;">탈퇴여부</th>
+														<th style="text-align:center;">신고누적횟수</th>
+														<th style="text-align:center;">차단여부</th>
 													</tr>
 														
 												</thead>
@@ -92,23 +52,9 @@ select option{
 														<td>2021.05.21</td>
 														<td>2021.05.30</td>
 														<td>3</td>
-														<td><button type="button" class="send_btn">유저 차단하기</button></td>
-													</tr>
-													<tr>
-														<td>업나라(nara1)</td>
-														<td>2021.05.21</td>
-														<td>2021.05.30</td>
-														<td>1</td>
 														<td></td>
 													</tr>
-													<tr>
-														<td>킘킘해(inin1)</td>
-														<td>2021.05.21</td>
-														<td>2021.05.30</td>
-														<td>2</td>
-														<td></td>
-													</tr>
-													
+											
 												</tbody>
 											</table>
                                       			

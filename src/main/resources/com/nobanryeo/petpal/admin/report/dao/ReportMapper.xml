@@ -35,11 +35,11 @@
 	   	FROM REPLY_REPORT_TABLE A
 	   	<if test='searchCondition == "userId"'>
         JOIN USER_TABLE B ON(A.USER_CODE = B.USER_CODE)
-		WHERE B.USER_ID = #{searchValue}
+		WHERE B.USER_ID LIKE '%' || #{searchValue} || '%' 
 		
 		</if>
 		<if test='searchCondition == "boardTitle"'>
-		WHERE A.REPLY_REPORT_TITLE = #{searchValue}
+		WHERE A.REPLY_REPORT_TITLE LIKE '%' || #{searchValue} || '%' 
 		</if>
 	   	
 	   	
@@ -69,12 +69,12 @@
 		<if test='searchCondition == "userId"'>
 	   	JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
         JOIN USER_TABLE C ON(B.USER_CODE = C.USER_CODE)
-		WHERE C.USER_ID = #{searchValue}
+		WHERE C.USER_ID LIKE '%' || #{searchValue} || '%' 
 		
 		</if>
 		<if test='searchCondition == "boardTitle"'>
 		JOIN REPORT_MANAGE B ON(A.REPORT_CODE = B.REPORT_CODE)
-		WHERE B.REPORT_TITLE = #{searchValue}
+		WHERE B.REPORT_TITLE LIKE '%' || #{searchValue} || '%' 
 		</if>
 	   	</otherwise>
 	   	</choose>
