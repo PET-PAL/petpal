@@ -211,10 +211,12 @@
 							<td><c:out value="${ requestScope.review.boardPostDate }"/></td>
 						</tr>
 					</table>
-					<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px;">
+					<%-- <p style="margin-bottom: 50px; margin-left: 8px;">
 					<c:out value="${ requestScope.review.boardContent }"/>
-					</p>
+					</p> --%>
+					<div style="margin-bottom: 30px; text-align:center;">
+						<c:out value="${ requestScope.review.boardContent }" escapeXml="false"/>
+					</div>
 		        </div>
 		        
 				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>
