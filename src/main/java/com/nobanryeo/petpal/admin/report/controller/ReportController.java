@@ -17,6 +17,7 @@ import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
 import com.nobanryeo.petpal.admin.dto.DecisionDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDetailDTO;
+import com.nobanryeo.petpal.admin.dto.reportPopupDTO;
 import com.nobanryeo.petpal.admin.report.service.ReportService;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
@@ -191,5 +192,22 @@ public class ReportController {
        model.addAttribute("category",category);
 
        return "redirect:/admin/reportDetail?reportCode={reportCode}&category={category}";
+    }
+    
+    @RequestMapping("reportPopup")
+    public String reportPopup(Model model,
+            @RequestParam(value="boardCode", required=false) int boardCode,
+            @RequestParam(value="category", required=false)String category) {
+    	
+    	System.out.println(category+"////"+boardCode);
+    	Map param = new HashMap();
+        
+        param.put("boardCode", boardCode);
+        param.put("category", category);
+        
+        reportPopupDTO popUp = reportService.selectReportPopup(param);
+    	
+        model.addAttribute("popUp",popUp);
+    	return "admin/main/popUpDefault";
     }
 }

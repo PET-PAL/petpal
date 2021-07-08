@@ -11,6 +11,20 @@
 	text-align: center;
 }
 </style>
+<script>
+	function click_ad(){
+		var boardCode = document.getElementById('boardCode').value;
+		var category = ${category};
+		var url="${ pageContext.servletContext.contextPath }/admin/reportPopup?boardCode="+boardCode+"&category="+category;
+		var name= "PopUp";
+		var option= "width = 600, height = 500, left = 100, top = 50, location = no";
+		
+		window.open(url,name,option)
+		
+	}
+	
+	
+	</script>
 </head>
 <body>
 	<jsp:include page="../../admin/common/header.jsp"></jsp:include> 
@@ -94,7 +108,7 @@
 				           	 </div>	                       
 								<div class="col-md-3"  style="float:left;">
 									<c:if test="${category != 7 }">
-									<button onclick="window.open('${pageContext.servletContext.contextPath }/user/adopt/detail/${reportDetail.boardCode}', 'test', 'width=#, height=#')"    type="button" class="btn btn-outline-success text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px; width:200px; margin-top:100px">신고글 보기</button>
+									<button onclick="click_ad();" id="boardCode" value="${reportDetail.boardCode}"    type="button" class="btn btn-outline-success text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px; width:200px; margin-top:100px">신고글 보기</button>
 									</c:if>
 		                            
 					            </div>
