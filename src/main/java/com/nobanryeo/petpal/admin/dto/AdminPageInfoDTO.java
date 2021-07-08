@@ -35,6 +35,10 @@ public class AdminPageInfoDTO {
 		   setCategory(category);
 	}
 	
+	public AdminPageInfoDTO(int fullMonth) {
+		   setFullMonth(fullMonth);
+	}
+	
 	public AdminPageInfoDTO(String category, int fullMonth) {
 		   setCategory(category);
 		   setFullMonth(fullMonth);
