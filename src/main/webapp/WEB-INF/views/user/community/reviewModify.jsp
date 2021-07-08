@@ -50,10 +50,8 @@
           var $j3 = jQuery.noConflict();
         </script>
         
- <script>
+ <!-- <script>
 $(document).ready(function() {
-	
-	
 	  $('#summernote').summernote({
  	    	placeholder: 'boardContent',
 	        minHeight: 370,
@@ -62,9 +60,9 @@ $(document).ready(function() {
 	        lang : 'ko-KR'
 	  });
 	  // Summernote에 글 내용 추가하는 코드
-	  $("#summernote").summernote('code', 'boardContent');
+	  $("#summernote").summernote('code', '${ requestScope.review.boardContent }');
 	});
-</script>
+</script> -->
     	
     </head>
 
@@ -125,7 +123,7 @@ $(document).ready(function() {
 								</tr>
 							</table>
 							<textarea id="summernote" name="boardContent">
-								<%-- <c:out value="${ requestScope.review.boardContent }"/> --%>
+								${ requestScope.review.boardContent }
 							</textarea>
 	  						<script>
 	  						$j3('#summernote').summernote({

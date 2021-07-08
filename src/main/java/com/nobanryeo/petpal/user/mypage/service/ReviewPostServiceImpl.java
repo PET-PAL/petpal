@@ -1,9 +1,12 @@
 package com.nobanryeo.petpal.user.mypage.service;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
+import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
@@ -97,6 +100,29 @@ public class ReviewPostServiceImpl implements ReviewPostService {
 	@Override
 	public ReviewDTO selectWritedReview(int boardCode) {
 		return mapper.selectWritedReview(boardCode);
+	}
+
+	@Override
+	public int updateReviewBoard(ReviewDTO reviewDTO) {
+		return mapper.updateReviewBoard(reviewDTO);
+	}
+
+	@Override
+	public List<AdDTO> selectRandomAd() {
+		List<AdDTO> randomAd = new ArrayList<>();
+		randomAd = mapper.selectRandomAd();
+		
+		return randomAd;
+	}
+
+	@Override
+	public void insertAdViewsCount(Map<String, Object> codeMap) {
+		mapper.insertAdViewsCount(codeMap);
+	}
+
+	@Override
+	public AdDTO selectAd(int boardCode) {
+		return mapper.selectAd(boardCode);
 	}
 
 	

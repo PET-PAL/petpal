@@ -1,7 +1,9 @@
 package com.nobanryeo.petpal.user.mypage.service;
 
 import java.util.List;
+import java.util.Map;
 
+import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
@@ -36,6 +38,14 @@ public interface ReviewPostService {
 	int insertReviewReplyReport(ReviewReplyDTO replyDTO);
 
 	ReviewDTO selectWritedReview(int boardCode);
+
+	int updateReviewBoard(ReviewDTO reviewDTO);
+
+	List<AdDTO> selectRandomAd();
+
+	void insertAdViewsCount(Map<String, Object> codeMap);
+
+	AdDTO selectAd(int boardCode);
 
 
 }

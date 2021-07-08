@@ -3,7 +3,9 @@ package com.nobanryeo.petpal.user.mypage.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
@@ -12,6 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
@@ -39,8 +42,9 @@ import com.nobanryeo.petpal.user.mypage.service.ReviewPostService;
 @RequestMapping("/user/*")
 public class ReviewPostController {
 	
-	private ReviewPostService reviewService;
+	private final ReviewPostService reviewService;
 	
+	@Autowired
 	public ReviewPostController(ReviewPostService reviewService) {
 		this.reviewService = reviewService;
 	}
@@ -66,8 +70,15 @@ public class ReviewPostController {
     		
     		if(!(cookie.getName().equals("reviewboard"))) {
     			
-    			cookie = new Cookie("reviewboard",null); 			//freeboard라는 이름의 쿠키 생성
+    			cookie = new Cookie("reviewboard",null); 			//reviewboard라는 이름의 쿠키 생성
     			cookie.setComment("reviewboard 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
+    			
+    		}
+    		if(!(cookie.getName().equals("reviewAd"))) {
+    			
+    			cookie = new Cookie("reviewAd",null); 			//reviewAd라는 이름의 쿠키 생성
+    			cookie.setComment("reviewAd 광고 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
     			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
     			
     		}
@@ -86,9 +97,6 @@ public class ReviewPostController {
 		
 		page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
 		
-		System.out.println("문의 현재 페이지 : " + page.getNowPage());
-		System.out.println("문의 마지막 페이지 : " + page.getEnd());
-		System.out.println("문의 페이지당 글 갯수 : " + page.getCntPerPage());
 		
 		List<ReviewDTO> reviewList = reviewService.selectReviewPostList(page);
 		
@@ -96,6 +104,7 @@ public class ReviewPostController {
 		
 		model.addAttribute("paging", page);
 		model.addAttribute("reviewList", reviewList);
+		model.addAttribute("randomAd", reviewService.selectRandomAd());
 		
 		return "user/community/reviewList";
 	}
@@ -107,16 +116,16 @@ public class ReviewPostController {
 	 * @return
 	 */
 	@GetMapping("review/reviewDetail")
-	public String reviewDetail(@RequestParam int boardCode, Model model, @CookieValue(name = "reviewboard") String cookie, HttpServletResponse response) {
+	public String reviewDetail(@RequestParam int boardCode, Model model, @CookieValue(name = "reviewboard") String cookie
+			, HttpServletResponse response) {
+
 		
 		if(!(cookie.contains(String.valueOf(boardCode)))) {
 			cookie += boardCode + "/";
 			//조회수업
 			reviewService.updateViewsCount(boardCode);
 		}
-		
 		response.addCookie(new Cookie("reviewboard", cookie));
-		
 		
 		//게시"글"
 		model.addAttribute("review", reviewService.selectReviewDetail(boardCode));
@@ -124,10 +133,51 @@ public class ReviewPostController {
 		model.addAttribute("reply", reviewService.selectReviewReply(boardCode));
 		//사진
 		model.addAttribute("reviewImg", reviewService.selectReviewImg(boardCode));
-		
-		
+	
+			
+
 		return "user/community/reviewDetail";
 	}
+	
+	@GetMapping("review/reviewAd")
+	public String reviewAd(@RequestParam int boardCode, Model model, @CookieValue(name = "reviewAd") String cookie
+			, HttpServletResponse response, HttpSession session) {
+		
+		String id = (String)session.getAttribute("id");
+		System.out.println("userId : " + id);
+		
+		if(id != null) {
+			
+			if(!(cookie.contains(String.valueOf(boardCode)))) {
+				cookie += boardCode + "/";
+				System.out.println("들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+				//조회수업
+				Map<String, Object> codeMap = new HashMap<String, Object>();
+				codeMap.put("boardCode",boardCode);
+				codeMap.put("userId",id);
+				
+				reviewService.insertAdViewsCount(codeMap);
+			}
+			
+			response.addCookie(new Cookie("reviewboard", cookie));
+			
+			//광고"글"
+			model.addAttribute("review", reviewService.selectAd(boardCode));
+			//사진
+			model.addAttribute("reviewImg", reviewService.selectReviewImg(boardCode));
+			
+		} else {
+			//광고"글"
+			model.addAttribute("ad", reviewService.selectAd(boardCode));
+			//사진
+			model.addAttribute("reviewImg", reviewService.selectReviewImg(boardCode));
+			
+		}
+
+		return "user/community/reviewAd";
+	}
+	
+	
 	
 	/**
 	 * 글작성 페이지 띄우기
@@ -376,12 +426,9 @@ public class ReviewPostController {
 	@GetMapping("review/writeUpdate")
 	public String updateReviewWrite(@ModelAttribute ReviewDTO reviewDTO, Model model, @ModelAttribute PictureDTO picture
 			, @RequestParam(value = "boardCode", defaultValue = "0")int boardCode
+			, @RequestParam(required = false) String baordContent
 			, RedirectAttributes rttr) {
 		
-		String content = reviewDTO.getBoardContent();
-//		String content = reviewDTO.getBoardContent().substring(reviewDTO.getBoardContent().lastIndexOf(",")+1);
-//		reviewDTO.setBoardContent(content);
-		System.out.println(content);
 		
 //		reviewService.updateReviewBoard(reviewDTO);
 		
@@ -410,10 +457,23 @@ public class ReviewPostController {
 	
 	@PostMapping("review/writeUpdate/updateReview")
 	public String updateReviewBoard(@ModelAttribute ReviewDTO reviewDTO, Model model, @ModelAttribute PictureDTO picture
-			, @RequestParam(value = "boardCode", defaultValue = "0")int boardCode
 			, RedirectAttributes rttr) {
 		
 		System.out.println(reviewDTO);
+//		String content = reviewDTO.getBoardContent();
+//		content.substring(reviewDTO.getBoardContent().lastIndexOf(", ")+1);
+//		reviewDTO.setBoardContent(content);
+//		System.out.println("내용물들어옴?!?!?!!?!?!?!??!?! : "+content);
+		
+//		reviewDTO.setBoardContent(content);
+		
+		if(reviewService.updateReviewBoard(reviewDTO) > 0) {
+			System.out.println("업데이트 성공");
+			System.out.println(reviewDTO);
+		} else {
+			System.out.println("업데이트 실패");
+		}
+		
 		
 		return "";
 	}
