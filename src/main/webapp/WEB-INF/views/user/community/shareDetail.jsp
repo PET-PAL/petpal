@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -119,54 +120,19 @@
 			
         </style>
         
-       
-		
-        <meta charset="utf-8">
-        <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-        
-        <!-- summerNote -->
+		<!-- summerNote -->
     	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
+    	<script>
+		    const message = '${ requestScope.message }';
+		    if(message != null && message !== '') {
+		    	alert(message);
+		    }
+		</script>
     </head>
 
-    <body data-spy="scroll" data-target=".navbar-collapse">
+	<jsp:include page="../common/userHeader.jsp"/>
 
 
         <!-- Preloader -->
@@ -185,8 +151,6 @@
         <div class="culmn">
             <!--Home page style-->
 
-
-            <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
             
             <div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
@@ -194,7 +158,7 @@
 					<ul style="margin-left: 30%;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp" style="color: #979797;" >자유게시판</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/coupon/select" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">무료나눔</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/shareFree/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">무료나눔</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp" style="color: #979797;">용품리뷰</a></li>
 					</ul>
@@ -204,8 +168,10 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left;">커뮤니티</div>
+                <c:if test="${requestScope.shareInfo.stateCode eq 2 }">
                 <button style="margin-left:900px; background-color:rgb(175, 175, 175);">나눔 완료</button>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="width:50px; float: right;">
+                </c:if>
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/list'" style="width:50px; float: right;">
             </section> <!--End off Home Sections-->
 
             <section id="menutable" class="menutable">
@@ -213,9 +179,9 @@
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tbody><tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
-							<td>사료 나눔합니다</td>
+							<td>${requestScope.shareInfo.boardTitle }</td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
-							<td style="border-radius: 0px 21px 0px 0px;">204
+							<td style="border-radius: 0px 21px 0px 0px;">${requestScope.shareInfo.boardViews }
 							<span>
 							<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;">
 							</span>
@@ -224,15 +190,15 @@
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
 							<td>
-							업나라<button onclick="location.href='#directMessage'" style="float:right;">쪽지보내기</button>
+							${requestScope.shareInfo.userNickname }<button onclick="location.href='#directMessage'" style="float:right;">쪽지보내기</button>
 							</td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성일자</b></td>
-							<td>2021-06-17</td>
+							<td>${requestScope.shareInfo.boardDate }</td>
 						</tr>
 					</tbody></table>
-					<p style="font-size: 30px; text-align: center; margin-bottom: 50px; margin-left: 8px;">나눔 완료된 물품입니다.</p>
-					<img src="/petpal_front/resources/images/ccat.png"><br>
-					<p style="margin-bottom: 50px; margin-left: 8px;">나눔 중인 무료나눔 내용</p>
+					<div style="margin-bottom: 30px; text-align:center;">
+						<c:out value="${ requestScope.shareInfo.boardContent }" escapeXml="false"/>
+					</div>
 		        </div>
             </section>
             
@@ -293,7 +259,6 @@
                         <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
                     </div>
                 </div>
-            </div>
 
             
             <!-- 오른쪽 배너 -->
@@ -302,5 +267,5 @@
             <!-- 푸터 -->
             <jsp:include page="../common/footer.jsp"/>
         </div>
-        
+      </body>
 </html>
