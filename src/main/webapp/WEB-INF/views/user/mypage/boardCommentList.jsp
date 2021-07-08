@@ -334,13 +334,14 @@
 									</tr>
 									</c:forEach>
 			                        </c:if>
-			                        <c:if test="${ type eq 'F' }">
+			                        <c:if test="${ type eq 'F' }" >
 			                        <c:forEach items="${ fList }" var="list">
-									<tr id="stop">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/review/reviewDetail?boardCode=${ list.boardCode }'">
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
 										<input type="hidden" value="F" id="type">
+										<input type="hidden" value="F" id="type2">
 										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
 										</td>
 									</tr>

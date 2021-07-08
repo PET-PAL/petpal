@@ -51,6 +51,44 @@ public class BoardManagementController {
 			, @RequestParam(value="cntPerPage2", required = false)String cntPerPage2
 			, HttpServletResponse response, HttpServletRequest request) {
 		
+		Cookie[] cookies = request.getCookies();
+    	
+    	for(Cookie cookie: cookies) {
+    		
+    		if(!(cookie.getName().equals("freeboard"))) {
+    			
+    			cookie = new Cookie("freeboard",null); 			//freeboard라는 이름의 쿠키 생성
+    			cookie.setComment("freeboard 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
+    			
+    		}
+    		
+		
+			if(!(cookie.getName().equals("shareboard"))) {
+			
+			cookie = new Cookie("shareboard",null); 			//shareboard라는 이름의 쿠키 생성
+			cookie.setComment("shareboard 게시글 조회 확인"); 		//해당 쿠키가 어떤 용도인지 커멘트
+			response.addCookie(cookie); 						//사용자에게 해당 쿠키를 추가
+			}
+			
+			if(!(cookie.getName().equals("infoboard"))) {
+			
+			cookie = new Cookie("infoboard",null); 				//infoboard라는 이름의 쿠키 생성
+			cookie.setComment("infoboard 게시글 조회 확인"); 			//해당 쿠키가 어떤 용도인지 커멘트
+			response.addCookie(cookie); 						//사용자에게 해당 쿠키를 추가
+			}
+			
+			if(!(cookie.getName().equals("reviewboard"))) {
+			
+			cookie = new Cookie("reviewboard",null); 			//reviewboard라는 이름의 쿠키 생성
+			cookie.setComment("reviewboard 게시글 조회 확인"); 		//해당 쿠키가 어떤 용도인지 커멘트
+			response.addCookie(cookie); 						//사용자에게 해당 쿠키를 추가
+			
+		
+			}
+		}
+    	
+    	
 		bcDTO.setType(type);
 		
 		if(type.equals("A")) {
@@ -196,20 +234,7 @@ public class BoardManagementController {
 			
 		} else if(type.equals("D")) {
 			
-			Cookie[] cookies = request.getCookies();
-	    	
-	    	for(Cookie cookie: cookies) {
-	    		
-	    		if(!(cookie.getName().equals("freeboard"))) {
-	    			
-	    			cookie = new Cookie("freeboard",null); 			//freeboard라는 이름의 쿠키 생성
-	    			cookie.setComment("freeboard 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
-	    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
-	    			
-	    		}
-	    		System.out.println("쿠키확인!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-	    		System.out.println(cookie);
-	    	}
+			
 	    	
 			System.out.println("들어온 타입 : " + type);
 			bcDTO.setUserCode(loginUser.getCode());
@@ -368,7 +393,7 @@ public class BoardManagementController {
 			boolean value = boardService.deletePost(boardCode);
 			
 			if(value == true) {
-				result = "success";
+				result = "A";
 			} else {
 				result = "fail";
 			}
@@ -380,7 +405,7 @@ public class BoardManagementController {
 			boolean value = boardService.deletePostAdopt(boardCode);
 			
 			if(value == true) {
-				result = "success";
+				result = "B";
 			} else {
 				result = "fail";
 			}
@@ -389,7 +414,7 @@ public class BoardManagementController {
 			System.out.println("C들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			boolean value = boardService.deletePostInfo(boardCode);
 			if(value == true) {
-				result = "success";
+				result = "C";
 			} else {
 				result = "fail";
 			}
@@ -397,7 +422,7 @@ public class BoardManagementController {
 			System.out.println("D들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			boolean value = boardService.deletePostFree(boardCode);
 			if(value == true) {
-				result = "success";
+				result = "D";
 			} else {
 				result = "fail";
 			}
@@ -405,7 +430,7 @@ public class BoardManagementController {
 			System.out.println("E들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			boolean value = boardService.deletePostShare(boardCode);
 			if(value == true) {
-				result = "success";
+				result = "E";
 			} else {
 				result = "fail";
 			}
@@ -413,7 +438,7 @@ public class BoardManagementController {
 			System.out.println("F들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			boolean value = boardService.deletePostReview(boardCode);
 			if(value == true) {
-				result = "success";
+				result = "F";
 			} else {
 				result = "fail";
 			}

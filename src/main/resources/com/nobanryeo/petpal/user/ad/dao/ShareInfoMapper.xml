@@ -239,7 +239,7 @@
 		       , 0
 		       , SYSDATE
 		       , 'N'
-		       , 1
+		       , NULL
 		       , #{ userCode }	
 		       )
 		  INTO PICTURE_TABLE
@@ -410,7 +410,7 @@
 		       , 0
 		       , SYSDATE
 		       , 'N'
-		       , 1
+		       , NULL
 		       , #{ userCode }	
 		       , #{ placeName }
 		       , #{ placePhone }

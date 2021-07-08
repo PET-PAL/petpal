@@ -26,6 +26,8 @@ public interface UserAdService {
 
 	public int updateCancelAd(AdDTO adDTO);
 
+	public int updateAdMorePay(AdDTO adDTO);
+
 	
 
 }
