@@ -24,23 +24,57 @@
 
         <!-- xsslider slider css -->
 
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
         <!--Theme custom css -->
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
 
         <!--Theme Responsive css-->
         <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+   
+   		<!-- 구글 차트 호출을 위한 js 파일 -->
+		<script type="text/javascript" src="https://www.google.com/jsapi"></script>
+		
+		<script>
+			// 구글 차트 라이브러리 로딩
+			google.load('visualization','1',{
+				'packages' : ['corechart']
+			});
+		
+			// 로딩이 완료되면 drawChart함수를 호출
+			 google.setOnLoadCallback(drawChart); //라이브러리를 불러오는 작업이 완료되었으면 drawChart작업을 실행하라는 뜻.
+		    
+			 function drawChart() {
+		        var jsonData =
+		        
+		        $.ajax({ //비동기적 방식으로 호출한다는 의미이다.
+		        	url:"${ pageContext.servletContext.contextPath }/admin/adminMainPage/chart"
+		          , dataType:"json"
+		          , async: false
+		          , success : function(data){
+		        	
+		        	 var data = new google.visualization.DataTable(data);
+		        	 
+		        	 console.log(data);
+				      
+				      var chart = new google.visualization.LineChart(document.getElementById('chart_div')); //선 그래프 
+				      
+				      //데이터를 가지고 (타이틀, 높이, 너비) 차트를 그린다.
+		              chart.draw(data, {
+		                  title : "월별 매출액",
+		                  curveType : "function", //curveType는 차트의 모양이 곡선으로 바뀐다는 뜻
+		                  width : 600,
+		                  height : 400
+		              });
+				
+					 }
+		          })
+		        };
+		     
+		      
+		     
+		</script>
+		
     </head>
 
     
@@ -54,7 +88,7 @@
            
 
            <!--Business Section-->
-            <section id="business" class="business bg-grey roomy-70" style="margin-top: 50px; margin-bottom:100px; ">
+            <section id="business" class="business bg-grey roomy-30" style="margin-top: 50px; margin-bottom:0px; ">
                 <div class="container">
                     <div class="row">
                         <div class="main_business">
@@ -94,6 +128,13 @@
 
                         </div>
                     </div>
+                </div>
+            </section><!-- End off Business section -->
+            
+             <section id="business" class="business bg-grey roomy-70" style="height: 350px; margin-top: 0px; margin-bottom:100px; ">
+                <!-- 월매출액 그래프 그려주는 부분 -->
+                <div id="chart_div" class="container">
+                   
                 </div>
             </section><!-- End off Business section -->
 
