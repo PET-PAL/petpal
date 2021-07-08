@@ -364,10 +364,39 @@ public class ReviewPostController {
 		
 	}
 	
+	/**
+	 * 게시물 수정페이지 연결
+	 * @param reviewDTO
+	 * @param model
+	 * @param picture
+	 * @param boardCode
+	 * @param rttr
+	 * @return
+	 */
 	@GetMapping("review/writeUpdate")
-	public String writeUpdateReview(ReviewDTO reviewDTO, Model model
+	public String updateReviewWrite(@ModelAttribute ReviewDTO reviewDTO, Model model, @ModelAttribute PictureDTO picture
 			, @RequestParam(value = "boardCode", defaultValue = "0")int boardCode
 			, RedirectAttributes rttr) {
+		
+		String content = reviewDTO.getBoardContent();
+//		String content = reviewDTO.getBoardContent().substring(reviewDTO.getBoardContent().lastIndexOf(",")+1);
+//		reviewDTO.setBoardContent(content);
+		System.out.println(content);
+		
+//		reviewService.updateReviewBoard(reviewDTO);
+		
+//		// 이미지 insert. 단, 이미지 없을때 insert 안해준다
+//		if(picture.getPictureName().equals("")) {
+//			
+//		} else {
+//			
+//			if(reviewService.insertReviewBoardImg(picture) > 0) {
+//				System.out.println("이미지 넣기 성공!!!!!!!");
+//			} else {
+//				System.out.println("이미지 넣기 실패.............");
+//		}
+			
+		
 		
 		if(boardCode == 0) {
 			rttr.addFlashAttribute("message", "잘못된 경로로 접근하셨습니다!");
@@ -377,6 +406,16 @@ public class ReviewPostController {
 		model.addAttribute("review", reviewService.selectWritedReview(boardCode));
 		
 		return "user/community/reviewModify";
+	}
+	
+	@PostMapping("review/writeUpdate/updateReview")
+	public String updateReviewBoard(@ModelAttribute ReviewDTO reviewDTO, Model model, @ModelAttribute PictureDTO picture
+			, @RequestParam(value = "boardCode", defaultValue = "0")int boardCode
+			, RedirectAttributes rttr) {
+		
+		System.out.println(reviewDTO);
+		
+		return "";
 	}
 	
 

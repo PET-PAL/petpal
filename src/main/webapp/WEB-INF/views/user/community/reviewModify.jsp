@@ -49,7 +49,22 @@
     	<script>
           var $j3 = jQuery.noConflict();
         </script>
-
+        
+ <script>
+$(document).ready(function() {
+	
+	
+	  $('#summernote').summernote({
+ 	    	placeholder: 'boardContent',
+	        minHeight: 370,
+	        maxHeight: null,
+	        focus: true, 
+	        lang : 'ko-KR'
+	  });
+	  // Summernote에 글 내용 추가하는 코드
+	  $("#summernote").summernote('code', 'boardContent');
+	});
+</script>
     	
     </head>
 
@@ -93,20 +108,24 @@
 			</div>
 
             <section id="menutable" class="menutable">
-		    	<form method="post">
+		    	<form  action="${pageContext.servletContext.contextPath }/user/review/writeUpdate/updateReview" method="post">
 					<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 30px;">
 							<table class="table" style="border-collapse: separate;">
 								<tr>
 									<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
-									<td><input type="text" style="width:45%; border: 0px;" value="${ requestScope.review.boardTitle }"></td>
+									<td>
+										<input type="text" style="width:45%; border: 0px;" value="${ requestScope.review.boardTitle }" name="boardTitle">
+										<input type="hidden" style="width:45%; border: 0px;" value="${ requestScope.review.boardCode }" name="boardCode">
+										<input type="hidden" style="width:45%; border: 0px;" value="${ requestScope.review.boardContent }" name="boardContent">
+									</td>
 								</tr>
 								<tr>
 									<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
-									<td>킘유진</td>
+									<td><c:out value="${ requestScope.review.userNickName }"/></td>
 								</tr>
 							</table>
-							<textarea id="summernote">
-								<c:out value="${ requestScope.review.boardContent }" escapeXml="false"/>
+							<textarea id="summernote" name="boardContent">
+								<%-- <c:out value="${ requestScope.review.boardContent }"/> --%>
 							</textarea>
 	  						<script>
 	  						$j3('#summernote').summernote({
@@ -119,7 +138,7 @@
 	  	                    	}
 	  	                    });
 	  					
-							function sendFile(file, editor,welEditable) {
+							function sendFile(file, editorwelEditable) {
 								console.log("사진 ajax 들어옴");
 							 	var form_data = new FormData();
 								form_data.append('file', file);
@@ -143,8 +162,26 @@
 							}
 						</script>
 			        </div>
-			        <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite">수정하기</button></div>
+			        <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite" type="submit">수정하기</button></div>
 				</form>
+				<!-- <script>
+				function goModify(frm) {
+					
+					var title = frm.title.value;
+					var content = frm.content.value;
+					
+					if (title.trim() == ''){
+						alert("제목을 입력해주세요");
+						return false;
+					}
+					if (content.trim() == ''){
+						alert("내용을 입력해주세요");
+						return false;
+					}
+					frm.submit();
+					}
+				
+			</script> -->
             </section>
 
             
