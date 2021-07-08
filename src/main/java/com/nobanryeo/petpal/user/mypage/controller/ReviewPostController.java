@@ -218,9 +218,9 @@ public class ReviewPostController {
 		} else {
 			
 			if(reviewService.insertReviewBoardImg(picture) > 0) {
-				System.out.println("이미지 작성 성공!!!!!!!");
+				System.out.println("이미지 넣기 성공!!!!!!!");
 			} else {
-				System.out.println("이미지 작성 실패.............");
+				System.out.println("이미지 넣기 실패.............");
 			}
 			
 		}
