@@ -119,7 +119,7 @@
 			                </tr>
 			            </thead>
 			            <tbody>
-			                <c:forEach var="arr" items="${ freeBoardList }">
+			                <c:forEach var="arr" items="${ freeBoardList }" varStatus="status">
 			                	<c:if test="${ arr.category eq '일반' }">
 					                <tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?boardCode=${ arr.boardCode }'">
 					                	<td></td>
@@ -139,6 +139,36 @@
 					                    <td style="text-align: center;"><c:out value="${ arr.boardViews }"/></td>
 					                    <td style="text-align: center;"><c:out value="${ arr.boardPostDate }"/></td>
 					                </tr>
+				                </c:if>
+				                <!-- 광고 끼워넣기 -->
+				                <c:if test="${ status.index == 2 }">
+				                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
+				                		<c:if test="${ adStatus.index == 0 }">
+					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?adCode=${ arr.boardCode }'">
+							                	<td></td>
+							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
+							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
+							                    <td style="text-align: center;"><c:out value="${ adarr.companyName }"/></td>
+							                    <td style="text-align: center;"></td>
+							                    <td style="text-align: center;"></td>
+						                	</tr>
+					                	</c:if>
+				                	</c:forEach>
+				                </c:if>
+				                <!-- 광고 끼워넣기 -->
+				                <c:if test="${ status.index == 5 }">
+				                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
+				                		<c:if test="${ adStatus.index == 1 }">
+					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?adCode=${ arr.boardCode }'">
+							                	<td></td>
+							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
+							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
+							                    <td style="text-align: center;"><c:out value="${ adarr.companyName }"/></td>
+							                    <td style="text-align: center;"></td>
+							                    <td style="text-align: center;"></td>
+						                	</tr>
+					                	</c:if>
+				                	</c:forEach>
 				                </c:if>
 			                </c:forEach>
 			            </tbody>

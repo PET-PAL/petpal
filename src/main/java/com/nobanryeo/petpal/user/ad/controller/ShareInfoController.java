@@ -26,6 +26,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.ShareInfoService;
+import com.nobanryeo.petpal.user.ad.service.UserAdService;
+import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.FriendlyPlaceDTO;
@@ -43,12 +45,14 @@ import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 @RequestMapping("/user/*")
 public class ShareInfoController {
 
-private final ShareInfoService shareInfoService;
+	private final ShareInfoService shareInfoService;
+	private final UserAdService adService;
     
     @Autowired
-    public ShareInfoController(ShareInfoService shareInfoService) {
+    public ShareInfoController(ShareInfoService shareInfoService, UserAdService adService) {
        
         this.shareInfoService = shareInfoService;
+        this.adService = adService;
     }
     
     /**
@@ -89,6 +93,7 @@ private final ShareInfoService shareInfoService;
     	model.addAttribute("paging", page);
     	
         model.addAttribute("shareInfoList", shareInfoService.selectShareInfoList(page));
+        model.addAttribute("randomAdNonPlace", adService.selectRandomAdNonPlace());
     	
     	return "user/main/shareInfo";
     }
@@ -267,6 +272,40 @@ private final ShareInfoService shareInfoService;
 			}
 		}
 		rttr.addFlashAttribute("message", "글 작성 신청이 완료되었습니다. 검토에는 1~2일 소요 될 수 있습니다.");
+		
+		return "redirect:/user/select/shareInfo/list";
+	}
+	
+	/**
+	 * 정보공유 게시판 게시글 수정페이지로 이동
+	 */
+	@GetMapping("select/shareInfo/modify")
+	public String selectShareInfoModify(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, Model model) {
+		
+		model.addAttribute("modifyInfo", shareInfoService.selectShareInfoDetail(boardCode));
+		
+		return "user/main/shareInfoModify";
+	}
+	
+	/**
+	 * 정보공유 게시판 게시글 수정
+	 */
+	@PostMapping("update/modify/shareInfo")
+	public String updateModifyShareInfo(@ModelAttribute ShareInfoDTO shareInfo, RedirectAttributes rttr) {
+		
+		if(shareInfo.getPictureName().equals("")) { // 이미지없이 게시글 작성시
+			rttr.addFlashAttribute("message", "최소 한 개 이상의 이미지가 필요합니다.");
+			return "redirect:/user/select/shareInfo/modify";
+
+		} else { // 이미지가 있는 게시글 작성시
+			if(shareInfoService.updateModifyShareInfo(shareInfo) > 1) {
+				System.out.println("게시글 수정 성공");
+			} else {
+				System.out.println("게시글 수정 실패");
+			}
+		}
+		
+		rttr.addFlashAttribute("message", "글 수정 신청이 완료되었습니다. 검토에는 1~2일 소요 될 수 있습니다.");
 		
 		return "redirect:/user/select/shareInfo/list";
 	}
@@ -509,6 +548,40 @@ private final ShareInfoService shareInfoService;
 		}
 		
 		rttr.addFlashAttribute("message", "글 작성 신청이 완료되었습니다. 검토에는 1~2일 소요 될 수 있습니다.");
+		
+		return "redirect:/user/select/sharePlace/list";
+	}
+	
+	/**
+	 * 프렌들리플레이스 게시글 수정 페이지로 이동
+	 */
+	@GetMapping("select/sharePlace/modify")
+	public String selectSharePlaceModify(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, Model model) {
+		
+		model.addAttribute("modifyInfo", shareInfoService.selectSharePlaceDetail(boardCode));
+		
+		return "user/main/sharePlaceModify";
+	}
+	
+	/**
+	 * 프렌들리플레이스 게시글 수정
+	 */
+	@PostMapping("update/modify/sharePlace")
+	public String updateModifySharePlace(@ModelAttribute FriendlyPlaceDTO sharePlace, RedirectAttributes rttr) {
+		
+		if(sharePlace.getPictureName().equals("")) { // 이미지없이 게시글 작성시
+			rttr.addFlashAttribute("message", "최소 한 개 이상의 이미지가 필요합니다.");
+			return "redirect:/user/select/sharePlace/modify";
+
+		} else { // 이미지가 있는 게시글 작성시
+			if(shareInfoService.updateModifySharePlace(sharePlace) > 1) {
+				System.out.println("게시글 수정 성공");
+			} else {
+				System.out.println("게시글 수정 실패");
+			}
+		}
+		
+		rttr.addFlashAttribute("message", "글 수정 신청이 완료되었습니다. 검토에는 1~2일 소요 될 수 있습니다.");
 		
 		return "redirect:/user/select/sharePlace/list";
 	}

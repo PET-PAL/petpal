@@ -22,7 +22,6 @@
                 border-radius: 10px;
                 margin-left: 20px;
             }
-
 			section > button{
 			 	background-color: #B9062F; 
                 height: 35px;
@@ -168,6 +167,26 @@
                 border-color: #45B99C; 
                 border: 1px solid;
             }
+            #underline-btn {
+            	float: right;
+    			border: none;
+    			color: #45B99C;
+    			background: white;
+    			height: 40px;
+    			width: 100px;
+                font-size: 15px;
+            }
+            #underline-btn:hover {
+            	float: right;
+    			border-radius: 15px;
+    			background-color: white;
+                color: #45B99C;
+                border-color: #45B99C; 
+                border: 1px solid;
+                height: 40px;
+                width: 100px;
+                font-size: 15px;
+            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -255,7 +274,7 @@
 		        <!-- 게시글 작성자와 login 세션값 일치할 때 수정하기 버튼 보이기 -->
 		        <div style="width: 70%; margin: 0px auto; margin-bottom: 50px; text-align:right;">
 		        	<c:if test="${sessionScope.loginUser.code eq requestScope.freeBoardDetail.userCode}">
-		        		<button style="margin-right:10px;">수정하기</button>
+		        		<button id="underline-btn" style="margin-right:10px;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/modify?boardCode=${ requestScope.freeBoardDetail.boardCode }'">수정하기</button>
 		        	</c:if>
 		        </div>
             

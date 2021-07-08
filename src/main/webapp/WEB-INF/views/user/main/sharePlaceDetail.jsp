@@ -139,6 +139,26 @@
                 border-color: #45B99C; 
                 border: 1px solid;
             }
+            #underline-btn {
+            	float: right;
+    			border: none;
+    			color: #45B99C;
+    			background: white;
+    			height: 40px;
+    			width: 100px;
+                font-size: 15px;
+            }
+            #underline-btn:hover {
+            	float: right;
+    			border-radius: 15px;
+    			background-color: white;
+                color: #45B99C;
+                border-color: #45B99C; 
+                border: 1px solid;
+                height: 40px;
+                width: 100px;
+                font-size: 15px;
+            }
             .findpwd-content > div, .findpwd-content > form > div {
                 margin: 0px auto;
             }
@@ -269,9 +289,10 @@
 					</script>
 		       	</div>
 		       	
+		       	<!-- 게시글 작성자와 login 세션값 일치할 때 수정하기 버튼 보이기 -->
 		       	<div style="width: 70%; margin: 0px auto; margin-bottom: 50px; text-align:right;">
-		        	<c:if test="${sessionScope.loginUser.code eq requestScope.shareInfoDetail.userCode}">
-		        		<button style="margin-right:10px;">수정하기</button>
+		        	<c:if test="${sessionScope.loginUser.code eq requestScope.sharePlaceDetail.userCode}">
+		        		<button id="underline-btn" style="margin-right:10px;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/modify?boardCode=${ requestScope.sharePlaceDetail.boardCode }'">수정하기</button>
 		        	</c:if>
 		        </div>
 		        

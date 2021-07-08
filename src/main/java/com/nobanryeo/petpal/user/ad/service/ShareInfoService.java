@@ -33,7 +33,9 @@ public interface ShareInfoService {
 
 	public int inserWriteShreInfo(ShareInfoDTO shareInfo);
 
+	public int updateModifyShareInfo(ShareInfoDTO shareInfo);
 
+	
 
 	
 	public int selectSharePlaceCount();
@@ -51,6 +53,9 @@ public interface ShareInfoService {
 	public int insertSharePlaceReport(FreeBoardReportDTO report);
 
 	public int insertWriteShrePlace(FriendlyPlaceDTO sharePlace);
+
+	public int updateModifySharePlace(FriendlyPlaceDTO sharePlace);
+
 
 
 

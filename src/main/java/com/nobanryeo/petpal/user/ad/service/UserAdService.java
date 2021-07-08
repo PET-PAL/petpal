@@ -28,6 +28,8 @@ public interface UserAdService {
 
 	public int updateAdMorePay(AdDTO adDTO);
 
+	public List<AdDTO> selectRandomAdNonPlace();
+
 	
 
 }

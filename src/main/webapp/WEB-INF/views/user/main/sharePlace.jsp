@@ -165,7 +165,7 @@
                                 </c:if>
 		                    </div>
 		                	<div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
-		                    	<h4><strong><c:out value="${ arr.boardTitle }"/></strong></h4>
+		                    	<h4><strong style="font-size:20px;"><c:out value="${ arr.boardTitle }"/></strong></h4>
 		                    	<c:choose>
 							        <c:when test="${fn:length(arr.placeAddress) gt 10}">
 							        	<h5><c:out value="${fn:substring(arr.placeAddress, 0, 9)}"/> . . .</h5>
