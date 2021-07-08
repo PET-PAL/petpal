@@ -71,7 +71,7 @@
                                     <div class="container">
                                         <div class="row">
                                         <c:forEach var= "share" varStatus="status" items="${shareList }">
-                                            <div class="col-sm-3" href="${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/{${shareList.boardCode}}">
+                                            <div class="col-sm-3" href="${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/${shareList.boardCode}">
                                                 <div class="port_item xs-m-top-30">
                                                     <div class="port_img" style="position: relative;">
                                                     	<c:if test="${shareList.stateCode eq 1 }">
