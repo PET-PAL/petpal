@@ -121,4 +121,9 @@ public class FreeBoardServiceImpl implements FreeBoardService {
 		return result;
 	}
 
+	@Override
+	public int updateModifyFreeBoard(FreeBoardDTO freeBoard) {
+		return freeBoardMapper.updateModifyFreeBoare(freeBoard);
+	}
+
 }

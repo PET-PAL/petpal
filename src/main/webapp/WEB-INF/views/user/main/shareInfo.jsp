@@ -146,7 +146,7 @@
 		
 		<section>
 			<div class="carousel-inner" role="listbox" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
-                <c:forEach var="arr" items="${ shareInfoList }">
+                <c:forEach var="arr" items="${ shareInfoList }" varStatus="status">
                 	<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ arr.boardCode }'">
                         <div class="port_item xs-m-top-30">
                             <div class="port_img">
@@ -163,6 +163,29 @@
                             </div>
                         </div>
                     </div>
+                    <!-- 광고 끼워넣기 -->
+	                <c:if test="${ status.index == 1 }">
+	                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
+	                		<c:if test="${ adStatus.index == 0 }">
+		                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?adCode=${ arr.boardCode }'">
+			                        <div class="port_item xs-m-top-30">
+			                            <div class="port_img">
+			                            	<c:if test="${ empty adarr.pictureUtilPath }">
+			                                	<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/resources/images/noImg.PNG"/>
+			                                </c:if>
+			                                <c:if test="${ !empty adarr.pictureUtilPath }">
+			                                	<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>
+			                                </c:if>
+			                            </div>
+			                            <div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
+			                                <h4><strong style="font-size:20px;"><c:out value="${ adarr.adTitle }"/></strong></h4>
+			                                <h5><c:out value="${ adarr.companyName }"/></h5>
+			                            </div>
+			                        </div>
+			                    </div>
+		                	</c:if>
+	                	</c:forEach>
+	                </c:if>
                 </c:forEach>
            </div><!-- End off row -->
    		</section><!-- End off Product section -->

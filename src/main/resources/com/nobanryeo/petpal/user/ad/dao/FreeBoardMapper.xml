@@ -99,6 +99,7 @@
              , A.BOARD_CODE
              , A.USER_CODE
              , B.USER_NIKNAME
+             , A.CATEGORY
           FROM FREE_BOARD A
           JOIN USER_TABLE B ON (B.USER_CODE = A.USER_CODE)
          WHERE A.BOARD_DELETE_YN = 'N'
@@ -260,5 +261,13 @@
 		       , #{ pictureCode }
 		       )
 	</insert>
+	
+	<update id="updateModifyFreeBoare" parameterType="FreeBoardDTO">
+		UPDATE FREE_BOARD
+		   SET BOARD_TITLE = #{ boardTitle }
+		     , BOARD_CONTENT = #{ boardContent }
+		     , CATEGORY = #{ category }
+		 WHERE BOARD_CODE = #{ boardCode }
+	</update>
 	
 </mapper>
