@@ -5,10 +5,12 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.ReviewDTO;
 import com.nobanryeo.petpal.user.dto.ReviewReplyDTO;
+import com.nobanryeo.petpal.user.dto.ReviewReportDTO;
 import com.nobanryeo.petpal.user.mypage.dao.ReviewMapper;
 
 @Service
@@ -70,6 +72,31 @@ public class ReviewPostServiceImpl implements ReviewPostService {
 	@Override
 	public List<PictureDTO> selectReviewImg(int boardCode) {
 		return mapper.selectReviewImg(boardCode);
+	}
+
+	@Override
+	public int insertReviewBoardMessage(MessageTableDTO message) {
+		return mapper.insertReviewBoardMessage(message);
+	}
+
+	@Override
+	public int insertReviewBoardReport(ReviewReportDTO reportDTO) {
+		return mapper.insertReviewBoardReport(reportDTO);
+	}
+
+	@Override
+	public int insertReviewBoardReply(ReviewReplyDTO replyDTO) {
+		return mapper.insertReviewBoardReply(replyDTO);
+	}
+
+	@Override
+	public int insertReviewReplyReport(ReviewReplyDTO replyDTO) {
+		return mapper.insertReviewReplyReport(replyDTO);
+	}
+
+	@Override
+	public ReviewDTO selectWritedReview(int boardCode) {
+		return mapper.selectWritedReview(boardCode);
 	}
 
 	

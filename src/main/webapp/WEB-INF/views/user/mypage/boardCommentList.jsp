@@ -506,7 +506,7 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="A" id="type2">
 									<input type="hidden" value="A" id="type">
 									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
 									</td>
@@ -524,7 +524,7 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="B" id="type2">
 									<input type="hidden" value="B" id="type">
 									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
 									</td>
@@ -542,7 +542,7 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="C" id="type2">
 									<input type="hidden" value="C" id="type">
 									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
 									</td>
@@ -560,7 +560,7 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="D" id="type2">
 									<input type="hidden" value="D" id="type">
 									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
 									</td>
@@ -578,7 +578,7 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="E" id="type2">
 									<input type="hidden" value="E" id="type">
 									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
 									</td>
@@ -596,7 +596,7 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="F" id="type2">
 									<input type="hidden" value="F" id="type">
 									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
 									</td>
