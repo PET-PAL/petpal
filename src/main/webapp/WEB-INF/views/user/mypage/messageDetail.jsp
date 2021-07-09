@@ -115,7 +115,7 @@
 
             <section id="account" class="account" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="font-size: 20px; font-weight: 600; float: left; margin-left: 10px; float:left; margin-top:20px;">쪽지 상세보기</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/message'" style="width:50px; float: right;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/message?type=A'" style="width:50px; float: right;">
                 <br><br>
                 <hr style="border-color: rgb(175, 175, 175);">
             </section>
@@ -167,13 +167,17 @@
 					</div>
                 </div>
             
+            <c:if test="">
+            </c:if>
             <form action="${ pageContext.servletContext.contextPath }/user/mypage/message/messageSend" method="post">
             <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto;">
                 <input type="text" name="messageContent" placeholder="message">
-                <input type="hidden" value="${ oneList.receiveUserNick }" name="receiveUserNick">
+                <%-- <input type="hidden" value="${ oneList.receiveUserNick }" name="receiveUserNick">
                 <input type="hidden" value="${ oneList.sendUserNick }" name="sendUserNick">
                 <input type="hidden" value="${ oneList.userCode1 }" name="userCode1">
-                <input type="hidden" value="${ oneList.userCode }" name="userCode">
+                <input type="hidden" value="${ oneList.userCode }" name="userCode"> --%>
+                <input type="hidden" value="${ userCode1 }" name="userCode1">
+                <input type="hidden" value="${ userCode }" name="userCode">
                 <button class="sendmessagecontent">쪽지 보내기</button>
             </section>
            </form>

@@ -15,36 +15,65 @@
 	</resultMap>
 
 	<!-- 총 쪽지 수 출력 -->
-	<select id="selectMessageCount" resultType="int" parameterType="int">
-	    <!-- SELECT COUNT(*)
+	<select id="selectMessageCount" resultType="int" parameterType="hashmap">
+	     SELECT   
+	             COUNT(*)
+	      FROM(
+	      SELECT
+	             <if test='type.equals("A")'>
+	             ROW_NUMBER() OVER(PARTITION BY USER_CODE ORDER BY MESSAGE_DATE DESC ) AS RNUM
+	             </if>
+	             <if test='type.equals("B")'>
+	             ROW_NUMBER() OVER(PARTITION BY USER_CODE1 ORDER BY MESSAGE_DATE DESC ) AS RNUM
+	             </if>
+	           , MESSAGE_CODE
+	           , MESSAGE_CONTENT   
+	           , SEND_NICKNAME
+	           , RECEIVE_NICKNAME
+	           , USER_CODE1
+	           , USER_CODE
 	      FROM MESSAGE_TABLE
-	     WHERE USER_CODE1 = #{ userCode1 } -->
-	     SELECT COUNT(*)
-	      FROM (SELECT MAX(USER_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE)
-                FROM MESSAGE_TABLE
-                WHERE USER_CODE1 = #{ userCode1 } 
-                   OR USER_CODE = #{ userCode1 }
-                GROUP BY USER_CODE)
+	      WHERE USER_CODE = #{ code }) A
+	      WHERE RNUM = 1
 	</select> 
 	
 	<!-- 페이징 처리 후 쪽지 조회 -->
 	<select id="selectMessage" resultMap="messageResultSet" parameterType="hashmap">
 	    SELECT * 
-		  FROM (SELECT ROWNUM RN, A.* 
-		          FROM (SELECT 
-                       MAX(MESSAGE_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_CODE
-                     , MAX(MESSAGE_CONTENT) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_CONTENT
-                     , MAX(MESSAGE_DATE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS MESSAGE_DATE
-                     , MAX(USER_CODE) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS USER_CODE
-                     , MAX(USER_CODE1) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS USER_CODE1
-                     , MAX(SEND_NICKNAME) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS SEND_NICKNAME
-                     , MAX(RECEIVE_NICKNAME) KEEP (DENSE_RANK LAST ORDER BY MESSAGE_DATE) AS RECEIVE_NICKNAME
-                  FROM MESSAGE_TABLE
-                 WHERE USER_CODE1 = #{ msgDTO.userCode1 }
-                    OR USER_CODE = #{ msgDTO.userCode1 }
-                 GROUP BY USER_CODE) A)
-			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
-		      ORDER BY MESSAGE_DATE DESC
+		  FROM (SELECT ROWNUM RN, B.* 
+		          FROM (SELECT   A.MESSAGE_CODE
+                               , A.MESSAGE_CONTENT
+                               , A.SEND_NICKNAME
+                               , A.RECEIVE_NICKNAME
+                               , A.USER_CODE1
+                               , A.USER_CODE
+                               , MESSAGE_DATE
+                        FROM( 
+                              SELECT 
+                                       <if test='type.equals("A")'>
+                                       ROW_NUMBER() OVER(PARTITION BY USER_CODE ORDER BY MESSAGE_DATE DESC ) AS RNUM
+                                       </if>
+                                       <if test='type.equals("B")'>
+                                       ROW_NUMBER() OVER(PARTITION BY USER_CODE1 ORDER BY MESSAGE_DATE DESC ) AS RNUM
+                                       </if>
+                                     , MESSAGE_CODE
+                                     , MESSAGE_DATE
+                                     , MESSAGE_CONTENT   
+                                     , SEND_NICKNAME
+                                     , RECEIVE_NICKNAME
+                                     , USER_CODE1
+                                     , USER_CODE
+                                 FROM MESSAGE_TABLE
+                                 <if test='type.equals("A")'>
+                                 WHERE USER_CODE1 = #{ msgDTO.userCode1 }
+                                 ORDER BY MESSAGE_DATE DESC)A
+                                 </if>
+                                 <if test='type.equals("B")'>
+                                 WHERE USER_CODE = #{ msgDTO.userCode1 }
+                                 ORDER BY MESSAGE_DATE DESC)A
+                                 </if>
+                                 WHERE RNUM = 1) B)
+                        WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
 	</select>
 	
 	<!-- 총 상세 쪽지 수 출력 -->
@@ -75,11 +104,26 @@
 		      ORDER BY MESSAGE_DATE DESC
 	</select>
 	
+	<select id="selectSendUser" parameterType="int" resultType="string">
+		SELECT
+			       USER_NIKNAME
+			  FROM USER_TABLE
+			 WHERE USER_CODE = #{ userCode }
+	</select>
+	
+	<select id="selectreceiveUser" parameterType="int" resultType="string">
+		SELECT
+			       USER_NIKNAME
+			  FROM USER_TABLE
+			 WHERE USER_CODE = #{ userCode1 }
+	</select>
+	
 	<!-- 쪽지보내기 -->
 	<insert id="insertMessageFromMypage" parameterType="MessageTableDTO">
 		INSERT
 		  INTO MESSAGE_TABLE
-		VALUES ( MESSAGE_CODE_SEQ.NEXTVAL
+		VALUES (
+				 MESSAGE_CODE_SEQ.NEXTVAL
 		       , #{ messageContent }
 		       , SYSDATE
 		       , #{ userCode1 }

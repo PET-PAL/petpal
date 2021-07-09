@@ -241,6 +241,34 @@
 		      ORDER BY BOARD_POST_DATE DESC	
 	</select>
 	
+	<select id="selectFriendlyCount" resultType="int">
+		SELECT 
+		       COUNT(*)
+		  FROM FRIENDLY_BOARD
+		 WHERE USER_CODE = #{ userCode }
+		   AND BOARD_DELETE_YN = 'N'
+	</select>
+	
+	<select id="selectFriendlyList" resultMap="boardResultSet" parameterType="hashmap">
+		SELECT * 
+		  FROM (SELECT ROWNUM RN, A.* 
+		          FROM (SELECT 
+		                       BOARD_CODE
+                             , BOARD_TITLE
+                             , BOARD_CONTENT
+                             , BOARD_VIEWS
+                             , BOARD_POST_DATE
+                             , BOARD_DELETE_YN
+                             , USER_CODE
+                             , DECISION_CODE
+		          FROM FRIENDLY_BOARD
+		         WHERE USER_CODE = #{ bcDTO.userCode }
+		           AND BOARD_DELETE_YN = 'N'
+		      ORDER BY BOARD_POST_DATE DESC) A)
+			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
+		      ORDER BY BOARD_POST_DATE DESC	
+	</select>
+	
 	<update id="deleteMissingPost" parameterType="int" >
 		UPDATE MISSING_BOARD
            SET MISSING_DELETE_YN = 'Y'
@@ -326,6 +354,9 @@
           <if test='type.equals("F")'>
           JOIN REVIEW_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
           </if>
+          <if test='type.equals("H")'>
+          JOIN FRIENDLY_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
+          </if>
          WHERE B.USER_CODE = #{ userCode }	
            AND REPLY_DELETE_YN = 'N'
            AND REPORT_YN = 'N'
@@ -377,6 +408,10 @@
 		          <if test='bcDTO.type eq "F"'>
                   JOIN REVIEW_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
                   JOIN REVIEW_BOARD C ON(B.BOARD_CODE = C.BOARD_CODE)
+		          </if>
+		          <if test='bcDTO.type eq "H"'>
+                  JOIN FRIENDLY_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
+                  JOIN FRIENDLY_BOARD C ON(B.BOARD_CODE = C.BOARD_CODE)
 		          </if>
 		         WHERE B.USER_CODE = #{ bcDTO.userCode }	
 		           AND REPLY_DELETE_YN = 'N'

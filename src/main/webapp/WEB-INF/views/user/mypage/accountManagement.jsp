@@ -37,6 +37,7 @@
                 border-radius: 10px;
                 margin-left: 20px;
             }
+            
             td > input::placeholder {
                 font-size: 15px;
                 color:#a1a1a1;
@@ -278,7 +279,19 @@
 	                    	</td>
 	                    </tr>	
 					</table>
-                    <div style="margin: 0px auto; margin-bottom: 2%; text-align: center;"><input type="submit" id=btnSubmit value="수정하기"></div>
+                    <div style="margin: 0px auto; margin-bottom: 2%; text-align: center;">
+                    <input type="submit" id=btnSubmit 
+                    style="background-color: #45B99C; 
+			               height: 35px;
+			               color: white;
+			               border-color: #45B99C; 
+			               border: 1px solid;
+			               font-size: 16px; 
+			               font-weight: 500;
+			               border-radius: 10px;
+			               margin-left: 20px;"
+                    value="수정하기">
+                    </div>
 					</form>
 				</div>
             </section>
@@ -293,7 +306,7 @@
 								<h3 align="center">정말 탈퇴하시겠습니까?</h3>
 							</div>
 							<!-- 비밀번호 입력 -->
-							<form action="${ pageContext.servletContext.contextPath }/mypage/withdrawUser" method="post" id="withdrawUserForm" name="form">
+							<form action="${ pageContext.servletContext.contextPath }/user/mypage/withdrawUser" method="post" id="withdrawUserForm" name="form">
 							<div style="text-align: center; margin-top: 30px; display: block;" align="center">
 								<input type="text" name="id" value="${ sessionScope.loginUser.id }" style="display: none;">
 								<input type="text" name="code" value="${ sessionScope.loginUser.code }" style="display: none;">
@@ -511,7 +524,6 @@ function duplicationEmailCheck(){
 					
 				    $("#hiddenEmailMessage").html("사용 가능합니다.");
 				    $("#emailCheck").attr("value","success");
-				    console.log(emailCheck);
 				   
 				    return;
 				}

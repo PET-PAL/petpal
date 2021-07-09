@@ -7,7 +7,7 @@ import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 
 public interface MessageService {
 
-	public int selectMessageCount(int code);
+	public int selectMessageCount(HashMap<String, Object> map);
 	
 	public List<MessageTableDTO> selectMessage(HashMap<String, Object> map);
 

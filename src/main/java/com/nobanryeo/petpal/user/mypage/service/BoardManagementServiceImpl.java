@@ -144,6 +144,16 @@ public class BoardManagementServiceImpl implements BoardManagementService{
 		return mapper.selectReplyList(map);
 	}
 
+	@Override
+	public int selectFriendlyCount(BoradAndCommentDTO bcDTO) {
+		return mapper.selectFriendlyCount(bcDTO);
+	}
+
+	@Override
+	public List<BoradAndCommentDTO> selectFriendlyList(HashMap<String, Object> map) {
+		return mapper.selectFriendlyList(map);
+	}
+
 	
 }
 

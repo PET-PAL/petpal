@@ -18,8 +18,8 @@ public class MessageServiceImpl implements MessageService{
 	}
 
 	@Override
-	public int selectMessageCount(int code) {
-		return mapper.selectMessageCount(code);
+	public int selectMessageCount(HashMap<String, Object> map) {
+		return mapper.selectMessageCount(map);
 	}
 
 	@Override
@@ -41,6 +41,17 @@ public class MessageServiceImpl implements MessageService{
 
 	@Override
 	public boolean insertMessageFromMypage(MessageTableDTO messageDTO) {
+		
+		//보내는 사람
+		String sendUser = mapper.selectSendUser(messageDTO.getUserCode());
+		messageDTO.setSendUserNick(sendUser);
+		System.out.println("보내는 사람 : " + sendUser);
+		
+		//받는사람
+		String receiveUser = mapper.selectreceiveUser(messageDTO.getUserCode1());
+		messageDTO.setReceiveUserNick(receiveUser);
+		System.out.println("받는 사람 : " + receiveUser);
+		
 		return mapper.insertMessageFromMypage(messageDTO) > 0 ? true : false;
 	}
 
