@@ -151,5 +151,10 @@ public class UserAdServiceImpl implements UserAdService {
 		return adMapper.selectAdClick(adDTO);
 	}
 
+	@Override
+	public void insertAdClickNoUser(AdDTO adDTO) {
+		adMapper.insertAdClickNoUser(adDTO);
+	}
+
 
 }

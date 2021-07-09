@@ -43,6 +43,8 @@ public interface UserAdMapper {
 
 	int selectAdClick(AdDTO adDTO);
 
+	void insertAdClickNoUser(AdDTO adDTO);
+
 
 
 }

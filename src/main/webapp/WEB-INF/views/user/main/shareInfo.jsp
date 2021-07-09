@@ -173,6 +173,7 @@
 	                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
 	                		<c:if test="${ adStatus.index == 0 }">
 		                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
+		                			<input type="hidden" value="${ sessionScope.loginUser.code }" name="userCode">
 			                        <div class="port_item xs-m-top-30">
 			                            <div class="port_img" style="position: relative;">
 		                                	<img style="width:290px; height:250px; z-index: -1;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>

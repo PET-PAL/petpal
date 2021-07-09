@@ -286,6 +286,15 @@
 		       )
 	</insert>
 	
+	<insert id="insertAdClickNoUser" parameterType="AdDTO">
+		INSERT
+		  INTO AD_CLICK_COUNT
+		VALUES ( SYSDATE
+		       , DEFAULT
+		       , #{ adCode }
+		       )
+	</insert>
+	
 	<select id="selectAdClick" parameterType="AdDTO" resultType="int">
 		SELECT COUNT(*)
 		  FROM AD_CLICK_COUNT

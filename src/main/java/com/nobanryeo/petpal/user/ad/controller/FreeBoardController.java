@@ -67,11 +67,19 @@ public class FreeBoardController {
     	
     	for(Cookie cookie: cookies) {
     		
-    		if(!(cookie.getName().equals("freeboard"))) {
+    		if(!(cookie.getName().equals("freeboard"))) {		// 자유게시판 게시글
     			
-    			cookie = new Cookie("freeboard",null); 			//freeboard라는 이름의 쿠키 생성
-    			cookie.setComment("freeboard 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
-    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
+    			cookie = new Cookie("freeboard",null); 			// freeboard라는 이름의 쿠키 생성
+    			cookie.setComment("freeboard 게시글 조회 확인");		// 해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);						// 사용자에게 해당 쿠키를 추가
+    			
+    		}
+    		
+    		if(!(cookie.getName().equals("AdCookie"))) {		// 광고
+    			
+    			cookie = new Cookie("AdCookie",null); 			// AdCookie라는 이름의 쿠키 생성
+    			cookie.setComment("AdCookie 게시글 조회 확인");		// 해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);						// 사용자에게 해당 쿠키를 추가
     			
     		}
     	}
@@ -325,25 +333,5 @@ public class FreeBoardController {
 		
 		return "redirect:/user/select/freeboard/detail?boardCode="+boardCode;
 	}
-	
-	/**
-	 * 광고 상세내용 보기
-	 */
-	@GetMapping("select/ad/detail")
-	public String selectAdDetail(@ModelAttribute AdDTO adDTO, @RequestParam int adCode, @RequestParam int userCode, Model model, HttpSession session) {
-		
-		// 광고 클릭 횟수 추가하기
-		if(session.getAttribute("loginUser") == null) { // 로그인 안했을 때
-			adDTO.setUserCode(0);
-			adService.insertAdClick(adDTO);
-		} else { 										// 로그인 했을 떄
-			if(adService.selectAdClick(adDTO) <= 0) {
-				adService.insertAdClick(adDTO);
-			}
-		}
-		
-		model.addAttribute("adDetail", adService.selectAdDetail(adCode));
-		
-		return "user/community/adDetail";
-	}
+
 }
