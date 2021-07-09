@@ -48,6 +48,15 @@ public class DecisionDTO {
 		this.boardCode = boardCode;
 	}
 	
+	public DecisionDTO(String decisionReason, int stateCode, int code,  String category, String boardCode) {
+		super();
+		this.decisionReason = decisionReason;
+		this.stateCode = stateCode;
+		this.code = code;
+		this.category = category;
+		this.boardCode = boardCode;
+	}
+	
 	public String getCategory() {
 		return category;
 	}

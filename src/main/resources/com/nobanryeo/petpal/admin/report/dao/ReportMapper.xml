@@ -12,6 +12,19 @@
 		<result column="REPORT_DATE" property="reportDate" />
 		<result column="STATE" property="state" />
 	</resultMap>
+<resultMap id="ReportPopup" type="reportPopupDTO">
+		<id column="BOARD_CODE" property="boardCode" />
+		<result column="USER_ID" property="userId" />
+		<result column="USER_NAME" property="userName" />
+		<result column="BOARD_TITLE" property="boardTitle" />
+		<result column="BOARD_CONTENT" property="boardContent" />
+		<result column="PLACE_NAME" property="mapname" />
+		<result column="PLACE_ADDRESS" property="mapValue" />
+		<result column="PICTURE_DELETE_YN" property="pictureDeleteYN"/>
+		<result column="PICTURE_CODE" property="pictureCode"/>
+		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
+		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
+	</resultMap>
 <resultMap id="ReportDetailSet" type="ReportDetailDTO">
 		<id column="REPORT_CODE" property="reportCode" />
 		<result column="BOARD_CODE" property="boardCode" />
@@ -422,4 +435,37 @@
 			   REPORT_COUNT = REPORT_COUNT+1
 	     WHERE USER_CODE = #{ code }
 	 </update>
+	 
+	 
+<select id="selectReportPopup" resultMap="ReportPopup" parameterType="int">
+SELECT
+    A.BOARD_CODE
+    , A.BOARD_TITLE
+    , A.BOARD_CONTENT
+    , D.USER_ID
+    , D.USER_NAME
+    , C.PICTURE_UTIL_PATH
+    
+    <if test="category == 0">
+    FROM FREE_BOARD A
+    LEFT OUTER JOIN FREE_PICTURE_MANAGE B ON(B.BOARD_CODE = A.BOARD_CODE)
+    </if>
+    <if test="category == 1">
+    FROM INFO_BOARD A
+    LEFT OUTER JOIN INFO_PICTURE_MANAGE B ON(B.BOARD_CODE = A.BOARD_CODE)
+    </if>
+    <if test="category == 2">
+    FROM SHARE_BOARD A
+    LEFT OUTER JOIN SHARE_PICTURE_MANAGE B ON(B.BOARD_CODE = A.BOARD_CODE)
+    </if>
+    <if test="category == 3">
+    FROM REVIEW_BOARD A
+    LEFT OUTER JOIN REVIEW_PICTURE_MANAGE B ON(B.BOARD_CODE = A.BOARD_CODE)
+    </if>
+    
+    LEFT OUTER JOIN PICTURE_TABLE C ON (C.PICTURE_CODE = B.PICTURE_CODE)
+    JOIN USER_TABLE D ON (A.USER_CODE = D.USER_CODE)
+	WHERE A.BOARD_CODE = #{ boardCode }
+
+</select>
 </mapper>
