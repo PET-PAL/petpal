@@ -29,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
+import com.nobanryeo.petpal.user.ad.service.UserAdService;
+import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
@@ -44,10 +46,12 @@ import com.nobanryeo.petpal.user.mypage.service.ReviewPostService;
 public class ReviewPostController {
 	
 	private final ReviewPostService reviewService;
+	private final UserAdService adService;
 	
 	@Autowired
-	public ReviewPostController(ReviewPostService reviewService) {
+	public ReviewPostController(ReviewPostService reviewService, UserAdService adService) {
 		this.reviewService = reviewService;
+		this.adService = adService;
 	}
 	
 	/**
@@ -105,7 +109,7 @@ public class ReviewPostController {
 		
 		model.addAttribute("paging", page);
 		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("randomAd", reviewService.selectRandomAd());
+		model.addAttribute("randomAd", adService.selectRandomAdNonPlace());
 		
 		return "user/community/reviewList";
 	}
@@ -140,42 +144,41 @@ public class ReviewPostController {
 		return "user/community/reviewDetail";
 	}
 	
+	/**
+	 * 광고 출력하기
+	 * @param boardCode
+	 * @param model
+	 * @param cookie
+	 * @param response
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("review/reviewAd")
 	public String reviewAd(@RequestParam int boardCode, Model model, @CookieValue(name = "reviewAd") String cookie
-			, HttpServletResponse response, HttpSession session) {
+			, HttpServletResponse response, HttpSession session,
+			@ModelAttribute AdDTO adDTO, @RequestParam int adCode) {
 		
-		
-		String id = (String)session.getAttribute("id");
-		System.out.println("userId : " + id);
-		
-		if(id != null) {
+		// 광고 클릭 횟수 추가하기
+	      if(session.getAttribute("loginUser") == null) { // 로그인 안했을 때
+	         
+	         // 비로그인 회원은 쿠키로 광고 클릭 중복제어
+	         if(!(cookie.contains(String.valueOf(adCode)))) {
+	            cookie += adCode + "/";
+	            // 조회수 카운트
+//	            adService.insertAdClickNoUser(adDTO);
+	         }
+	         response.addCookie(new Cookie("freeboardAd", cookie));
+	         
+	      } else {                               // 로그인 했을 떄
+//	         adDTO.setUserCode(Integer.parseInt(request.getParameter("userCode")));
+	         if(adService.selectAdClick(adDTO) <= 0) {   // 해당 유저가 클릭 이력이 없을 떄
+	            adService.insertAdClick(adDTO);
+	         }
+	      }
+	      
+	    model.addAttribute("adDetail", adService.selectAdDetail(adCode));
 			
-			if(!(cookie.contains(String.valueOf(boardCode)))) {
-				cookie += boardCode + "/";
-				//조회수업
-				Map<String, Object> codeMap = new HashMap<String, Object>();
-				codeMap.put("boardCode",boardCode);
-				codeMap.put("userId",id);
-				
-				reviewService.insertAdViewsCount(codeMap);
-			}
-			
-			response.addCookie(new Cookie("reviewAd", cookie));
-			
-			//광고"글"
-			model.addAttribute("ad", reviewService.selectAd(boardCode));
-			//사진
-			model.addAttribute("reviewImg", reviewService.selectReviewImg(boardCode));
-			
-		} else {
-			//광고"글"
-			model.addAttribute("ad", reviewService.selectAd(boardCode));
-			//사진
-			model.addAttribute("reviewImg", reviewService.selectReviewImg(boardCode));
-			
-		}
-
-		return "user/community/reviewAd";
+		return "user/community/adDetail";
 	}
 	
 	

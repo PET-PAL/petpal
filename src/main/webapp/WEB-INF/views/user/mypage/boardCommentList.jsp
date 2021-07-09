@@ -349,7 +349,7 @@
 			                        </c:if>
 			                        <c:if test="${ type eq 'E' }">
 			                        <c:forEach items="${ eList }" var="list">
-									<tr id="stop">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/${ list.boardCode }'">
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
