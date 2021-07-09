@@ -79,7 +79,7 @@
 		<result column="DECISION_CODE" property="decisionCode"/>
 	</resultMap>
 	
-		<resultMap id="messageResultSet" type="MessageTableDTO">
+	<resultMap id="messageResultSet" type="MessageTableDTO">
 		<id column="MESSAGE_CODE" property="messageCode"/>
 		<result column="MESSAGE_CONTENT" property="messageContent"/>
 		<result column="MESSAGE_DATE" property="messageDate"/>
@@ -206,6 +206,7 @@
 			, M.MISSING_BREED
 			, M.MISSING_GENDER
 			, M.MISSING_COLOR
+			, M.DOG_OR_CAT
 			, M.MISSING_AGE
 			, M.MISSING_WEIGTH
 			, M.MISSING_CHARACTER

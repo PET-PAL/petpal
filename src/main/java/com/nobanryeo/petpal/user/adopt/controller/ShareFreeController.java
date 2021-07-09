@@ -31,6 +31,8 @@ import org.springframework.web.multipart.MultipartFile;
 import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.adopt.service.ShareFreeService;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.ShareFreeDTO;
@@ -130,7 +132,7 @@ public class ShareFreeController {
 			
 		}
 		
-		response.addCookie(new Cookie("freeboard", cookie));
+		response.addCookie(new Cookie("sharefree", cookie));
 		
 		ShareFreeDTO share = sharefreeService.selectBoardDetail(code);
 		
@@ -219,4 +221,68 @@ public class ShareFreeController {
 		return "redirect:/user/shareFree/list";
 		
 	}
+	
+	@GetMapping("sharefree/update/status/{boardCode}")
+	public String putMissingStatus(@PathVariable("boardCode") int code, HttpServletRequest request) {
+		System.out.println("board in update status: "+code);
+		
+		
+		int result = sharefreeService.putMissingStatus(code);
+		
+		System.out.println("controller in update status: " + result);
+		
+		return "redirect:/user/shareFree/detail/board/"+code;
+	}
+	
+	@PostMapping("sharefree/insert/message")
+	public String insertMissingMessage(Model model, HttpServletRequest request, HttpSession session, MessageTableDTO messageDTO) {
+		
+		String boardCode = request.getParameter("boardcode");
+		int senderCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+		int receiverCode = Integer.parseInt(request.getParameter("receivecode"));
+		String senderNickname = ((UserInfoDTO)session.getAttribute("loginUser")).getNikname();
+		String receiverNickname = request.getParameter("receiveUserNick");
+		String messageContent = request.getParameter("messageContent");
+		
+		messageDTO.setMessageContent(messageContent);
+		messageDTO.setReceiveUserNick(receiverNickname);
+		messageDTO.setSendUserNick(senderNickname);
+		messageDTO.setUserCode(senderCode);
+		messageDTO.setUserCode1(receiverCode);
+		
+		int messageResult = sharefreeService.insertMessage(messageDTO);
+		
+		return "redirect:/user/shareFree/detail/board/"+boardCode;
+	}
+	
+	@PostMapping("sharefree/insert/report")
+	public String insertReport(Model model, HttpServletRequest request, HttpSession session, FreeBoardReportDTO boardreportDTO) {
+		
+		String reportContent = request.getParameter("reportContent");
+		int contentCode = Integer.parseInt(request.getParameter("contentCode"));
+	
+		String boardTitle = request.getParameter("boardTitle");
+		
+		int boardreportResult = 0;
+		
+		int userCode = ((UserInfoDTO)session.getAttribute("loginUser")).getCode();
+	
+		boardreportDTO.setUserCode(userCode);
+		boardreportDTO.setReportContent(reportContent);
+		boardreportDTO.setReportTitle(boardTitle);
+		boardreportDTO.setBoardCode(contentCode);
+		
+		boardreportResult = sharefreeService.insertBoardReport(boardreportDTO);
+	
+	
+
+		if(boardreportResult >0) {
+			model.addAttribute("message", "success");
+		}else {
+			model.addAttribute("message", "fail");
+		}
+		
+		return "redirect:/user/missing/detail/"+contentCode;
+	}
+	
 }

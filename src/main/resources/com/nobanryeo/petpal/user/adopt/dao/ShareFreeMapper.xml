@@ -32,6 +32,25 @@
   		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
   	</resultMap>
   	
+  	<resultMap id="messageResultSet" type="MessageTableDTO">
+		<id column="MESSAGE_CODE" property="messageCode"/>
+		<result column="MESSAGE_CONTENT" property="messageContent"/>
+		<result column="MESSAGE_DATE" property="messageDate"/>
+		<result column="USER_CODE1" property="userCode1"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="SEND_NICKNAME" property="sendUserNick"/>
+		<result column="RECEIVE_NICKNAME" property="receiveUserNick"/>
+	</resultMap>
+	<resultMap id="reportResultSet" type="FreeBoardReportDTO">
+		<id column="REPORT_CODE" property="reportCode"/>
+		<result column="REPORT_TITLE" property="reportTitle"/>
+		<result column="REPORT_CONTENT" property="reportContent"/>
+		<result column="REPORT_DATE" property="reportDate"/>
+		<result column="DECISION_CODE" property="decisionCode"/>
+		<result column="USER_CODE" property="userCode"/>
+		<result column="BOARD_CODE" property="boardCode"/>
+	</resultMap>
+  	
  	
  	<select id="selectTotalCount" resultType="int">
  		SELECT
@@ -141,6 +160,7 @@
              , S.BOARD_DELETE_YN
              , S.BOARD_VIEWS
              , S.STATE_CODE
+             , S.USER_CODE
              , S.BOARD_POST_DATE
              , ST.STATE_NAME
              , U.USER_NIKNAME
@@ -154,5 +174,55 @@
            AND P.PICTURE_DELETE_YN = 'N' 
            AND S.BOARD_CODE = #{boardCode}
  	</select>
- 	
+ 	 <update id="putMissingStatus" parameterType="int">
+	  	  UPDATE SHARE_BOARD
+	         SET STATE_CODE = 2
+	       WHERE BOARD_CODE = #{boardCode}
+	  
+	 </update>
+	 
+	 <insert id="insertMessage" parameterType="MessageTableDTO">
+		  INSERT
+		  	  INTO MESSAGE_TABLE
+		  	VALUES
+		  	(
+			  MESSAGE_CODE_SEQ.NEXTVAL
+			, #{messageContent}
+			, SYSDATE
+			, #{userCode1}
+			, #{userCode}
+			, #{sendUserNick}
+			, #{receiveUserNick}
+		  	)
+	  
+	  </insert>
+	  
+	  	  <insert id="insertBoardReport" parameterType="FreeBoardReportDTO">
+	  	INSERT
+	  	  INTO REPORT_MANAGE
+	  	VALUES
+	  	(
+	  	 REPORT_MANAGE_SEQ.NEXTVAL
+	   , #{reportTitle}
+	   , #{reportContent}
+	   , SYSDATE
+	   , DEFAULT
+	   , #{userCode}
+	  	)
+	  
+	  </insert>
+	  <insert id="insertBoardReportMid" parameterType="FreeBoardReportDTO">
+	  	<selectKey keyProperty="reportCode" order="BEFORE" resultType="int">
+	  		SELECT
+		  	      REPORT_MANAGE_SEQ.CURRVAL
+		  	  FROM DUAL
+	  	</selectKey>
+	  	INSERT
+	  	  INTO SHARE_BOARD_REPORT
+	  	VALUES
+	  	(
+	  	 #{boardCode}
+	   , #{reportCode}
+	  	)
+	  </insert>
  </mapper>
