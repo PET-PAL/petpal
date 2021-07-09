@@ -21,6 +21,21 @@
 		
 		
        </style>
+       
+       <script>
+	function click_ad(){
+		var adCode = document.getElementById('adPopUpCode').value;
+		var url="${ pageContext.servletContext.contextPath }/admin/adPopUp?adCode="+adCode;
+		var name= "adPopUp";
+		var option= "width = 600, height = 500, left = 100, top = 50, location = no";
+		
+		window.open(url,name,option)
+		
+	}
+	
+	
+	</script>	
+       
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
@@ -112,9 +127,13 @@
                                      </c:choose>
                                     </td>
                                  </tr>
-                                 <tr>
-                                    <th style="border:none">광고 내용</th>
-                                    <td style="border:none"> <button class="btn text-center" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px;"">광고 내용 보기</button></td>
+                                <tr>
+                                    <th style="border: none; width: 150px;">광고 내용</th>
+                                    <td style="border: none;"> 
+                                    <button class="btn text-center" onclick="click_ad();" id="adPopUpCode" value="${adDetail.adCode}" style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px;">
+                                    	광고 내용 보기
+                                    </button>
+                                    </td>
                                  </tr>
                                  
                             </table>

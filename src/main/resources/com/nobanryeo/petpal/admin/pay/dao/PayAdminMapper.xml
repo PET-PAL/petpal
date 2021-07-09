@@ -69,11 +69,13 @@
            <![CDATA[
           AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
            ]]>
+          AND REFUND_YN = 'N'
          </when>
          <when test='category == "2"'>
           WHERE (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
           AND (A.PAY_DATE_1ST IS NOT NULL
            OR A.PAY_DATE_2ND IS NOT NULL))
+          AND REFUND_YN = 'N'
          </when>	
          <when test='category =="3"'>
           WHERE ( A.STATE_CODE = 2
@@ -87,6 +89,7 @@
           <![CDATA[
           AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
           ]]>
+          AND REFUND_YN = 'N'
          </when>
          <when test='category=="4"'>
          WHERE (A.STATE_CODE = 4 
@@ -94,6 +97,10 @@
           <![CDATA[
           AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
           ]]>
+          AND REFUND_YN = 'N'
+         </when>
+         <when test='category=="5"'>
+         WHERE REFUND_YN = 'Y'
          </when>
          <otherwise>
 		WHERE ((A.STATE_CODE = 2
@@ -180,11 +187,13 @@
            <![CDATA[
           AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
            ]]>
+          AND REFUND_YN = 'N'
          </when>
          <when test='category == "2"'>
           WHERE (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
           AND (A.PAY_DATE_1ST IS NOT NULL
            OR A.PAY_DATE_2ND IS NOT NULL))
+          AND REFUND_YN = 'N'
          </when>	
          <when test='category =="3"'>
           WHERE ( A.STATE_CODE = 2
@@ -198,6 +207,7 @@
           <![CDATA[
           AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
           ]]>
+          AND REFUND_YN = 'N'
          </when>
          <when test='category=="4"'>
          WHERE (A.STATE_CODE = 4 
@@ -205,6 +215,10 @@
           <![CDATA[
           AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
           ]]>
+          AND REFUND_YN = 'N'
+         </when>
+         <when test='category=="5"'>
+         WHERE REFUND_YN = 'Y'
          </when>
          <otherwise>
 		WHERE ((A.STATE_CODE = 2
@@ -298,11 +312,13 @@
            <![CDATA[
           AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
            ]]>
+          AND REFUND_YN = 'N'
          </when>
          <when test='category == "2"'>
           WHERE (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
           AND (A.PAY_DATE_1ST IS NOT NULL
            OR A.PAY_DATE_2ND IS NOT NULL))
+          AND REFUND_YN = 'N'
          </when>	
          <when test='category =="3"'>
           WHERE ( A.STATE_CODE = 2
@@ -316,6 +332,7 @@
           <![CDATA[
           AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
           ]]>
+          AND REFUND_YN = 'N'
          </when>
          <when test='category=="4"'>
          WHERE (A.STATE_CODE = 4 
@@ -323,6 +340,10 @@
           <![CDATA[
           AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
           ]]>
+          AND REFUND_YN = 'N'
+         </when>
+         <when test='category=="5"'>
+         WHERE REFUND_YN = 'Y'
          </when>
          <otherwise>
 		WHERE ((A.STATE_CODE = 2
@@ -357,6 +378,9 @@
           <![CDATA[
           AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3)))
           ]]>
+          <if test='searchValue != null'>
+           AND C.USER_NAME LIKE '%' ||  #{ searchValue } || '%'
+          </if>
          </otherwise>	
          </choose>
           ORDER BY A.AD_CODE DESC
@@ -422,11 +446,13 @@
            <![CDATA[
           AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
            ]]>
+          AND REFUND_YN = 'N'
          </when>
          <when test='category == "2"'>
           WHERE (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
           AND (A.PAY_DATE_1ST IS NOT NULL
            OR A.PAY_DATE_2ND IS NOT NULL))
+          AND REFUND_YN = 'N'
          </when>	
          <when test='category =="3"'>
           WHERE ( A.STATE_CODE = 2
@@ -440,6 +466,7 @@
           <![CDATA[
           AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
           ]]>
+          AND REFUND_YN = 'N'
          </when>
          <when test='category=="4"'>
          WHERE (A.STATE_CODE = 4 
@@ -447,6 +474,10 @@
           <![CDATA[
           AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
           ]]>
+          AND REFUND_YN = 'N'
+         </when>
+         <when test='category=="5"'>
+         WHERE REFUND_YN = 'Y'
          </when>
          <otherwise>
 		WHERE ((A.STATE_CODE = 2
@@ -520,7 +551,7 @@
 	  			 (SELECT AD_CODE, COUNT(*) CLICK
            		    FROM AD_CLICK_COUNT 
                     GROUP BY AD_CODE) B ON (A.AD_CODE = B.AD_CODE)
-				<choose>
+		<choose>
          <when test='category == "1"'>
          WHERE (A.STATE_CODE = 2
 		  AND (A.CANCEL_APPLY_DATE IS NULL
@@ -533,11 +564,13 @@
            <![CDATA[
           AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) <= 7))
            ]]>
+          AND REFUND_YN = 'N'
          </when>
          <when test='category == "2"'>
           WHERE (( A.STATE_CODE = 2 OR A.STATE_CODE = 4)
           AND (A.PAY_DATE_1ST IS NOT NULL
            OR A.PAY_DATE_2ND IS NOT NULL))
+          AND REFUND_YN = 'N'
          </when>	
          <when test='category =="3"'>
           WHERE ( A.STATE_CODE = 2
@@ -551,6 +584,7 @@
           <![CDATA[
           AND TRUNC(SYSDATE) - TRUNC(A.POST_END_DATE) > 7))
           ]]>
+          AND REFUND_YN = 'N'
          </when>
          <when test='category=="4"'>
          WHERE (A.STATE_CODE = 4 
@@ -558,6 +592,10 @@
           <![CDATA[
           AND (TRUNC(A.CANCEL_APPLY_DATE) - TRUNC(B.DECISION_DATE) <= 3))
           ]]>
+          AND REFUND_YN = 'N'
+         </when>
+         <when test='category=="5"'>
+         WHERE REFUND_YN = 'Y'
          </when>
          <otherwise>
 		WHERE ((A.STATE_CODE = 2

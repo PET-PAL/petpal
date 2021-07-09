@@ -107,6 +107,7 @@ select { width: 150px; /* 원하는 너비설정 */
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
+                                	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=5&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">환불</a></li>
                                  </c:if>
                                  <c:if test="${ category eq 1 }">
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
@@ -114,6 +115,7 @@ select { width: 150px; /* 원하는 너비설정 */
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=5&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">환불</a></li>
                                  </c:if>
                                  <c:if test="${ category eq 2 }">
                                  	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
@@ -121,6 +123,7 @@ select { width: 150px; /* 원하는 너비설정 */
 	                                <li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=5&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">환불</a></li>
                                  </c:if>
                                  <c:if test="${ category eq 3 }">
                                  	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
@@ -128,6 +131,7 @@ select { width: 150px; /* 원하는 너비설정 */
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
 	                                <li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=5&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">환불</a></li>
                                  </c:if>
                                  <c:if test="${ category eq 4 }">
                                  	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
@@ -135,7 +139,16 @@ select { width: 150px; /* 원하는 너비설정 */
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
                                 	<li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
-                                 </c:if>		
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=5&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">환불</a></li>
+                                 </c:if>
+                                 <c:if test="${ category eq 5 }">
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">납부 전</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">납부 완료</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 초과</a></li>
+                                	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">납부 취소</a></li>
+                                 	<li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/payList?category=5&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">환불</a></li>
+                                 </c:if>			
                                  <p style="float:right;">총 광고 수 : ${ requestScope.total }개</p>
                             </ul>   
                             
@@ -454,6 +467,53 @@ select { width: 150px; /* 원하는 너비설정 */
 											                    	250000
 											                    </c:when>
 									                          </c:choose>
+														</td>
+													</tr>
+												 </c:forEach>
+												 </c:when>
+												 
+												 <c:when test="${ category eq 5 }">
+												<c:forEach var="adApprove" items="${ requestScope.payList }">
+													<tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/paymentDetail/${ adApprove.adCode }'">
+														<th scope="row">${ adApprove.adCode }</th>
+	                                    				<td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+														<td>
+														<c:if test= "${ empty adApprove.payDate1st }">
+														1차
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st }">
+														2차
+														</c:if>
+														</td>
+														<td>
+															<c:out value="${ adApprove.payUntilDate }"/>
+														</td>
+														<td>
+															<c:out value="${ adApprove.payStatus }"/>
+														</td>
+														<td>
+														<c:if test= "${ empty adApprove.payDate1st }">
+															 <c:choose>
+											                    <c:when test="${adApprove.adTypeCode eq 1}">
+											                    	200000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 3}">
+											                    	100000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 2}">
+											                    	350000
+											                    </c:when>
+											                    <c:when test="${adApprove.adTypeCode eq 4}">
+											                    	250000
+											                    </c:when>
+									                          </c:choose>
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st and empty adApprove.payDate2nd }">
+															${ adApprove.price2nd }
+														</c:if>
+														<c:if test= "${ not empty adApprove.payDate1st and not empty adApprove.payDate2nd }">
+															${ adApprove.price2nd }
+														</c:if>
 														</td>
 													</tr>
 												 </c:forEach>
