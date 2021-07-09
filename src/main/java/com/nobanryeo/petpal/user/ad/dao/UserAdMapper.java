@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.user.ad.dao;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.nobanryeo.petpal.user.dto.AdDTO;
@@ -24,13 +25,24 @@ public interface UserAdMapper {
 
 	int updateFirstAdPayment(AdDTO adDTO);
 
+	Date selectToday();
+	
 	int updateCancelAd(AdDTO adDTO);
 
+	int updateCancelAd2(AdDTO adDTO);
+	
 	int updateAdMorePay(AdDTO adDTO);
 
 	List<AdDTO> selectRandomAdNonPlace();
 
 	List<AdDTO> selectRandomAdPlace();
+
+	AdDTO selectAdDetail(int adCode);
+
+	void insertAdClick(AdDTO adDTO);
+
+	int selectAdClick(AdDTO adDTO);
+
 
 
 }

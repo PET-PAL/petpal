@@ -3,13 +3,12 @@ package com.nobanryeo.petpal.user.ad.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.List;
 import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.FreeBoardService;
 import com.nobanryeo.petpal.user.ad.service.UserAdService;
+import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
@@ -81,11 +81,11 @@ public class FreeBoardController {
     	
     	if(nowPage == null && cntPerPage == null) {
 			nowPage = "1";
-			cntPerPage = "10";
+			cntPerPage = "8";
 		} else if(nowPage == null) {
 			nowPage = "1";
 		} else if(cntPerPage == null) {
-			cntPerPage = "10";
+			cntPerPage = "8";
 		}
     	
     	page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
@@ -324,5 +324,26 @@ public class FreeBoardController {
 		}
 		
 		return "redirect:/user/select/freeboard/detail?boardCode="+boardCode;
+	}
+	
+	/**
+	 * 광고 상세내용 보기
+	 */
+	@GetMapping("select/ad/detail")
+	public String selectAdDetail(@ModelAttribute AdDTO adDTO, @RequestParam int adCode, @RequestParam int userCode, Model model, HttpSession session) {
+		
+		// 광고 클릭 횟수 추가하기
+		if(session.getAttribute("loginUser") == null) { // 로그인 안했을 때
+			adDTO.setUserCode(0);
+			adService.insertAdClick(adDTO);
+		} else { 										// 로그인 했을 떄
+			if(adService.selectAdClick(adDTO) > 1) {
+				adService.insertAdClick(adDTO);
+			}
+		}
+		
+		model.addAttribute("adDetail", adService.selectAdDetail(adCode));
+		
+		return "user/community/adDetail";
 	}
 }
