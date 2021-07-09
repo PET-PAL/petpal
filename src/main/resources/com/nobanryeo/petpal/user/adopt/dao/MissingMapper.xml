@@ -387,4 +387,37 @@
 	       WHERE BOARD_CODE = #{boardCode}
 	  
 	  </update>
+	  
+	  <select id="selectPicture" parameterType="PictureDTO" resultMap="pictureInsertResultset">
+	        SELECT 
+			       PICTURE_CODE
+			  FROM MISSING_PICTURE_MANAGE
+			 WHERE BOARD_CODE = #{boardCode}
+	  </select>
+	  
+	  <update id="deletePicture" parameterType="PictureDTO">
+	  		UPDATE PICTURE_TABLE P
+   			   SET P.PICTURE_DELETE_YN = 'Y'
+   			 WHERE P.PICTURE_CODE = #{pictureCode}
+	  </update>
+	  
+	  <update id="updateMissingInfo" parameterType="MissingDTO">
+	       UPDATE MISSING_BOARD M
+	          SET 
+		          M.BOARD_DATE = #{missingDate}
+	            , M.MISSING_DATE = #{missingDate}
+				, M.MISSING_AREA = #{area}
+				, M.MISSING_PLACE = #{place}
+				, M.MISSING_PHONE = #{phone}
+				, M.MISSING_BREED = #{breed}
+				, M.MISSING_GENDER = #{gender}
+				, M.MISSING_AGE = #{age}
+				, M.MISSING_WEIGTH = #{weigth}
+				, M.MISSING_CHARACTER = #{character}
+				, M.MISSING_REQUEST = #{request}
+				, M.MISSING_COLOR = #{color}
+				, M.DOG_OR_CAT = #{dOc}
+		   WHERE M.BOARD_CODE = #{boardCode}
+	   
+	  </update>
  </mapper> 

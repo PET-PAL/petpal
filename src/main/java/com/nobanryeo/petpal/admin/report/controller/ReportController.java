@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.admin.report.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -19,16 +20,24 @@ import com.nobanryeo.petpal.admin.dto.ReportDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDetailDTO;
 import com.nobanryeo.petpal.admin.dto.reportPopupDTO;
 import com.nobanryeo.petpal.admin.report.service.ReportService;
+import com.nobanryeo.petpal.user.adopt.service.AdoptService;
+import com.nobanryeo.petpal.user.adopt.service.MissingService;
+import com.nobanryeo.petpal.user.dto.AdoptDTO;
+import com.nobanryeo.petpal.user.dto.MissingDTO;
+import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 @Controller
 @RequestMapping("/admin/*")  
 public class ReportController {
-	
+	private final AdoptService adoptService; 
+	private final MissingService missingService;
 	private final ReportService reportService;
 	
 	@Autowired
-	public ReportController(ReportService reportService) {
+	public ReportController(ReportService reportService,AdoptService adoptService,MissingService missingService) {
+		this.adoptService = adoptService;
+		this.missingService = missingService;
 		this.reportService = reportService;
 	}
 	
@@ -204,10 +213,58 @@ public class ReportController {
         
         param.put("boardCode", boardCode);
         param.put("category", category);
-        
-        reportPopupDTO popUp = reportService.selectReportPopup(param);
+        reportPopupDTO popUp;
     	
-        model.addAttribute("popUp",popUp);
-    	return "admin/main/popUpDefault";
+        String returnValue = "";
+        switch(category) {
+        case "0" :
+            popUp = reportService.selectReportPopup(param);
+            model.addAttribute("popUp",popUp);
+        	returnValue = "admin/main/popUpDefault";
+        	break;
+        case "1" :
+        	popUp = reportService.selectReportPopup(param);
+            model.addAttribute("popUp",popUp);
+        	returnValue = "admin/main/popUpDefault";
+        	break;
+        case "2" :
+        	popUp = reportService.selectReportPopup(param);
+            model.addAttribute("popUp",popUp);
+        	returnValue = "admin/main/popUpDefault";
+        	break;
+        	
+        case "3" :
+        	popUp = reportService.selectReportPopup(param);
+            model.addAttribute("popUp",popUp);
+        	returnValue = "admin/main/popUpDefault";
+        	break;
+        case "4" :
+        	MissingDTO missingDetail = new MissingDTO();
+        	missingDetail=reportService.selectMissingDetail(boardCode);
+        	List<PictureDTO> pictureMissingList = new ArrayList<>(); 
+    		pictureMissingList = missingService.selectMissingDetailPicture(boardCode);
+    		model.addAttribute("missingDetail",missingDetail);
+    		model.addAttribute("pictureMissingList",pictureMissingList);
+        	returnValue = "admin/main/popUpMissing";
+        	break;
+        case "5" :
+        	popUp = reportService.selectReportPopup(param);
+            model.addAttribute("popUp",popUp);
+        	returnValue = "admin/main/popUpMap";
+        	break;
+        case "6" :
+        	AdoptDTO adoptDetail = new AdoptDTO();
+    		adoptDetail=reportService.selectAdoptDetail(boardCode);
+    		
+    		
+    		List<PictureDTO> pictureList = new ArrayList<>();
+    		pictureList = adoptService.selectPictureList(boardCode);
+    		model.addAttribute("adoptDetail",adoptDetail);
+    		model.addAttribute("pictureList",pictureList);
+        	returnValue = "admin/main/popUpAdopt";
+        	break;
+        }
+        
+    	return returnValue;
     }
 }

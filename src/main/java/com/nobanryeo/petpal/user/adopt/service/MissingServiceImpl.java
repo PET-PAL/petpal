@@ -178,5 +178,49 @@ public class MissingServiceImpl implements MissingService {
 		return result;
 	}
 
+	@Override
+	public int deletePicture(PictureDTO pictureDTO) {
+		
+		List<PictureDTO> picCodeList = missingMapper.selectPicture(pictureDTO);
+		
+		int result = 0;
+		int finalResult = 0;
+		
+		for(PictureDTO picCode : picCodeList) {
+			
+			result += missingMapper.deletePicture(picCode);
+		}
+		if(result == picCodeList.size()) {
+			finalResult = 1;
+		}
+		return finalResult;
+	}
+
+	@Override
+	public int updateMissingWrite(MissingDTO missing, List<PictureDTO> pictureList) {
+		
+		int result1 = missingMapper.updateMissingInfo(missing);
+		
+		System.out.println("infoResult in service: "+result1);
+		
+		
+		int pictureResult = 0;
+		
+		for(PictureDTO picture : pictureList) {
+			
+			pictureResult += missingMapper.insertPicture(picture);
+			
+			int midTableResult = missingMapper.insertMidTab(picture);
+			
+		}
+		
+		int result = 0;
+		
+		if(result1>0 && pictureResult == pictureList.size()) {
+			result =1;
+		}
+		return result;
+	}
+
 	
 }

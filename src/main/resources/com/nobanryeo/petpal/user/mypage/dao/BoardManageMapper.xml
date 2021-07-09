@@ -323,9 +323,6 @@
           <if test='type.equals("D")'>
           JOIN FREE_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
           </if>
-          <if test='type.equals("E")'>
-          JOIN SHARE_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
-          </if>
           <if test='type.equals("F")'>
           JOIN REVIEW_BOARD_REPLY B ON(A.REPLY_CODE = B.REPLY_CODE)
           </if>

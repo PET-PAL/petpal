@@ -33,4 +33,8 @@ public interface MissingService {
 
 	int putMissingStatus(int boardCode);
 
+	int deletePicture(PictureDTO pictureDTO);
+
+	int updateMissingWrite(MissingDTO missing, List<PictureDTO> pictureList);
+
 }

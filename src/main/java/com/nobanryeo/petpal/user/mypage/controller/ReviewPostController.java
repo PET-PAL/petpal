@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
+import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
@@ -143,6 +144,7 @@ public class ReviewPostController {
 	public String reviewAd(@RequestParam int boardCode, Model model, @CookieValue(name = "reviewAd") String cookie
 			, HttpServletResponse response, HttpSession session) {
 		
+		
 		String id = (String)session.getAttribute("id");
 		System.out.println("userId : " + id);
 		
@@ -150,7 +152,6 @@ public class ReviewPostController {
 			
 			if(!(cookie.contains(String.valueOf(boardCode)))) {
 				cookie += boardCode + "/";
-				System.out.println("들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 				//조회수업
 				Map<String, Object> codeMap = new HashMap<String, Object>();
 				codeMap.put("boardCode",boardCode);
@@ -159,10 +160,10 @@ public class ReviewPostController {
 				reviewService.insertAdViewsCount(codeMap);
 			}
 			
-			response.addCookie(new Cookie("reviewboard", cookie));
+			response.addCookie(new Cookie("reviewAd", cookie));
 			
 			//광고"글"
-			model.addAttribute("review", reviewService.selectAd(boardCode));
+			model.addAttribute("ad", reviewService.selectAd(boardCode));
 			//사진
 			model.addAttribute("reviewImg", reviewService.selectReviewImg(boardCode));
 			
@@ -428,54 +429,35 @@ public class ReviewPostController {
 			, @RequestParam(value = "boardCode", defaultValue = "0")int boardCode
 			, @RequestParam(required = false) String baordContent
 			, RedirectAttributes rttr) {
-		
-		
-//		reviewService.updateReviewBoard(reviewDTO);
-		
-//		// 이미지 insert. 단, 이미지 없을때 insert 안해준다
-//		if(picture.getPictureName().equals("")) {
-//			
-//		} else {
-//			
-//			if(reviewService.insertReviewBoardImg(picture) > 0) {
-//				System.out.println("이미지 넣기 성공!!!!!!!");
-//			} else {
-//				System.out.println("이미지 넣기 실패.............");
-//		}
-			
-		
+
 		
 		if(boardCode == 0) {
 			rttr.addFlashAttribute("message", "잘못된 경로로 접근하셨습니다!");
 			return "redirect:/user/review";
 		}
 		
-		model.addAttribute("review", reviewService.selectWritedReview(boardCode));
+		model.addAttribute("review", reviewService.selectReviewDetail(boardCode));
 		
 		return "user/community/reviewModify";
 	}
 	
+	/**
+	 * 리뷰 수정
+	 * @param reviewDTO
+	 * @return
+	 */
 	@PostMapping("review/writeUpdate/updateReview")
-	public String updateReviewBoard(@ModelAttribute ReviewDTO reviewDTO, Model model, @ModelAttribute PictureDTO picture
-			, RedirectAttributes rttr) {
+	public String updateReviewBoard(@ModelAttribute ReviewDTO reviewDTO) {
 		
-		System.out.println(reviewDTO);
-//		String content = reviewDTO.getBoardContent();
-//		content.substring(reviewDTO.getBoardContent().lastIndexOf(", ")+1);
-//		reviewDTO.setBoardContent(content);
-//		System.out.println("내용물들어옴?!?!?!!?!?!?!??!?! : "+content);
-		
-//		reviewDTO.setBoardContent(content);
+		int boardCode = reviewDTO.getBoardCode();
 		
 		if(reviewService.updateReviewBoard(reviewDTO) > 0) {
-			System.out.println("업데이트 성공");
-			System.out.println(reviewDTO);
+			System.out.println("게시글 수정 성공");
 		} else {
-			System.out.println("업데이트 실패");
+			System.out.println("게시글 수정 실패");
 		}
 		
-		
-		return "";
+		return "redirect:/user/review/reviewDetail?boardCode="+boardCode;
 	}
 	
 

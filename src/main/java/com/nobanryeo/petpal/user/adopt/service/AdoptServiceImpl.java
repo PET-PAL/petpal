@@ -205,6 +205,48 @@ public class AdoptServiceImpl implements AdoptService {
 		return result;
 	}
 
+	@Override
+	public int deletePicture(PictureDTO pictureDTO) {
+		
+		List<PictureDTO> picCodeList = adoptMapper.selectPicture(pictureDTO);
+		
+		System.out.println("picCodeList: "+ picCodeList);
+		
+		int result = 0;
+		int finalResult = 0;
+		for(PictureDTO picCode : picCodeList) {
+			
+			result += adoptMapper.deletePicture(picCode);
+		}
+		if(result == picCodeList.size()) {
+			finalResult = 1;
+		}
+		return finalResult;
+	}
+
+	@Override
+	public int updatetAdopt(AdoptDTO adopt, List<PictureDTO> pictureList) {
+		
+		int adoptResult = adoptMapper.updateAdopt(adopt);
+		System.out.println("adoptResult in service:"+ adoptResult);
+		
+		
+		int pictureResult = 0;
+		
+		for(PictureDTO picture:pictureList) {
+			pictureResult += adoptMapper.registPicture(picture);
+			
+			int subresult = adoptMapper.registSubTable(picture);
+		}
+		
+		
+		int result = 0;
+		if(adoptResult>0 && pictureResult == pictureList.size()) {
+			result = 1;
+		}
+		return result;
+	}
+
 
 
 
