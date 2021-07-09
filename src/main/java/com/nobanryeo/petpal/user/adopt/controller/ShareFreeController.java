@@ -282,7 +282,23 @@ public class ShareFreeController {
 			model.addAttribute("message", "fail");
 		}
 		
-		return "redirect:/user/missing/detail/"+contentCode;
+		return "redirect:/shareFree/detail/board/"+contentCode;
+	}
+	
+	@GetMapping("sharefree/modify/{boardCode}")
+	public String updateShareFreeInfo(@PathVariable("boardCode") int code, Model model) {
+		
+		ShareFreeDTO share = sharefreeService.selectBoardDetail(code);
+		
+		model.addAttribute("shareInfo", share);
+		
+		return "user/community/shareRevised";
+	}
+	
+	@PostMapping("shareFree/updateBoard/{boardCode}")
+	public String updateShareFreeInfo(@PathVariable("boardCode") int code, Model model,HttpServletRequest request,HttpSession session, HttpServletResponse response, @ModelAttribute ShareFreeDTO shareDTO,@ModelAttribute PictureDTO picture) {
+		
+		return "redirect:/user/shareFree/detail/board/"+code;
 	}
 	
 }

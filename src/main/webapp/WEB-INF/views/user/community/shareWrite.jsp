@@ -108,7 +108,7 @@
 					      $j3('#summernote').summernote({
 					    	  placeholder: '무료 나눔 게시글을 작성해주세요',
 					          tabsize: 2,
-					          height: 300,
+					          height: 500,
 					          callbacks:{
 					        	  onImageUpload : function(files,editor,welEditable){
 					        		  for(var i=files.length-1; i>=0;i--){ 

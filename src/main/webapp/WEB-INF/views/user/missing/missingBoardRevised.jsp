@@ -89,7 +89,7 @@
             </section> <!--End off Home Sections-->
             <section id="menutable" class="menutable">
             
-                		<form action="${ pageContext.servletContext.contextPath }/user/missing/write" method="post" enctype="multipart/form-data" id="missingWrite">
+                		<form action="${ pageContext.servletContext.contextPath }/user/missing/update/${requestScope.missingDetail.boardCode}" method="post" enctype="multipart/form-data" id="missingWrite">
 						<div style="width: 55%;  margin: 0px auto;  margin-bottom: 50px; ">
 		                	<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px; ">
 		                	<div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left; ">언제 어디서 잃어버렸나요?
@@ -214,7 +214,7 @@
 								</tr>
 								<tr>
 									<td>색상</td>
-									<td><input type="text" id="color" name="color" style="width: 150px; background: #F1FAF8;" value="${requestScope.missingDetail.character }" ></td>
+									<td><input type="text" id="color" name="color" style="width: 150px; background: #F1FAF8;" value="${requestScope.missingDetail.color }" ></td>
 								</tr>
 								<tr>
 									<td>특징</td>
@@ -237,7 +237,7 @@
 									</td>
 								</tr>	
 						</table>
-                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button id="button" style=" width:200px;" type="submit"> 동물 신고 수정하기</button></div>
+                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button id="button" style=" width:250px;" type="submit"> 동물 신고 수정하기</button></div>
 	                </div>
 				</form>
             </section>

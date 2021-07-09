@@ -401,4 +401,103 @@ public class MissingController {
 		return "user/missing/missingBoardRevised";
 	}
 	
+	@PostMapping("missing/update/{boardCode}")
+	public String updateBoard(@ModelAttribute MissingDTO missing,@PathVariable("boardCode") int code, Model model,HttpServletRequest request,@RequestParam(name="picture",required=true) List<MultipartFile> picture, HttpSession session) throws ParseException {
+		int updateResult = 0;
+		PictureDTO pictureDTO = new PictureDTO();
+		pictureDTO.setBoardCode(code);
+		
+		// 게시글 수정전 사진 삭제 (N-> Y)
+		int deletePictureResult = missingService.deletePicture(pictureDTO);
+		System.out.println("사진 삭제 성공??? "+ deletePictureResult);
+		if(deletePictureResult>0) {
+			
+		// 게시글 수정 시작 (사진포함)
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilDate = dateFormat.parse(request.getParameter("missingDate"));
+		java.sql.Date missingDate = new java.sql.Date(utilDate.getTime());
+		
+		missing.setMissingDate(missingDate);
+		missing.setBoardCode(code);
+		
+		System.out.println("controller missing: "+missing);
+		System.out.println("controller picture: "+picture);
+		
+		String root = request.getSession().getServletContext().getRealPath("resources");
+		System.out.println("root in controller: "+ root);
+		
+		String filePath = root + "\\uploadFiles";
+		
+		File mkdir = new File(filePath);
+		if(!mkdir.exists()) {
+			mkdir.mkdirs();
+		}
+		
+		List<Map<String,String>> files = new ArrayList<>();
+		
+
+		for(int i=0; i<picture.size();i++) {
+			
+			/* 파일명 변경 처리*/
+			String originFileName = picture.get(i).getOriginalFilename();
+			String ext = originFileName.substring(originFileName.lastIndexOf("."));
+			String saveName = UUID.randomUUID().toString().replace("-", "")+ext;
+			
+			Map<String,String> file = new HashMap<String, String>();
+			file.put("originFileName", originFileName);
+			file.put("saveName", saveName);
+			file.put("filePath", filePath);
+			file.put("utilPath", "resources\\uploadFiles\\"+saveName);
+			
+			files.add(file);
+			
+		}
+		System.out.println(files);
+		/* 파일을 저장한다,*/
+		List<PictureDTO> pictureList = new ArrayList<>();
+		try {
+			for(int i =0; i<picture.size();i++) {
+				
+				Map<String,String> file= files.get(i);
+
+				picture.get(i).transferTo(new File(filePath +"\\"+file.get("saveName")));
+				System.out.println("for문안의 file: "+ file);
+
+				
+			
+				pictureDTO.setPictureName(file.get("originFileName"));
+				pictureDTO.setPictureDeleteYN("N");
+				pictureDTO.setPictureURL(file.get("filePath"));
+				pictureDTO.setPictureNewName(file.get("saveName"));
+				pictureDTO.setPictureUtilPath(file.get("utilPath"));
+				
+				pictureList.add(pictureDTO);
+			}
+			model.addAttribute("message", "파일업로드 성공!!!");
+		}catch(Exception e) {
+			e.printStackTrace();
+			
+			/* 실패시 파일 삭제 */
+			for(int i =0; i<picture.size();i++) {
+				System.out.println("실패인가?");
+				Map<String,String> file= files.get(i);
+				new File(filePath +"\\"+ file.get("saveName")).delete();
+
+		}
+		
+			model.addAttribute("message", "파일업로드 실패!!");
+		
+		}
+		
+		updateResult = missingService.updateMissingWrite(missing,pictureList);
+		}
+		
+		if(updateResult>0) {
+		
+			model.addAttribute("message", "sucess");
+		}else {
+			model.addAttribute("message", "fail");
+		}
+		return "redirect:/user/missing/detail/"+code;
+	}
 }

@@ -373,5 +373,35 @@
 	       STATE_CODE = 2
 	       WHERE BOARD_CODE = #{boardCode}
 	  </update>
+	  <select id="selectPicture" parameterType="PictureDTO" resultMap="pictureInsertResultset">
+	        SELECT 
+			       PICTURE_CODE
+			  FROM ADOPT_PICTURE_MANAGE
+			 WHERE BOARD_CODE = #{boardCode}
+	  </select>
+	  
+	   <update id="deletePicture" parameterType="PictureDTO">
+		  	
+	  		UPDATE PICTURE_TABLE P
+   			   SET P.PICTURE_DELETE_YN = 'Y'
+   			 WHERE P.PICTURE_CODE = #{pictureCode}
+   			 
+	  </update>
+	  
+	  <update id="updateAdopt" parameterType="AdoptDTO">
+	       UPDATE ADOPT_BOARD M
+	          SET 
+		          M.ADOPT_BREED = #{adoptBreed}
+	            , M.ADOPT_GENDER = #{adoptGender}
+				, M.ADOPT_AGE = #{adoptAge}
+				, M.ADOPT_COLOR = #{adoptColor}
+				, M.ADOPT_WEIGTH = #{adoptWeight}
+				, M.ADOPT_INTRODUCE = #{adoptIntroduce}
+				, M.ADOPT_PHONE = #{adoptPhone}
+				, M.ADOPT_CAUTION = #{adoptCaution}
+				, M.DOG_OR_CAT = #{dogOrcat}
+				, M.USER_LOCATION = #{address}
+		   WHERE M.BOARD_CODE = #{boardCode}
+	  </update>
 	  
   </mapper>
