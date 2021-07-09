@@ -139,6 +139,26 @@
                 border-color: #45B99C; 
                 border: 1px solid;
             }
+            #underline-btn {
+            	float: right;
+    			border: none;
+    			color: #45B99C;
+    			background: white;
+    			height: 40px;
+    			width: 100px;
+                font-size: 15px;
+            }
+            #underline-btn:hover {
+            	float: right;
+    			border-radius: 15px;
+    			background-color: white;
+                color: #45B99C;
+                border-color: #45B99C; 
+                border: 1px solid;
+                height: 40px;
+                width: 100px;
+                font-size: 15px;
+            }
             .findpwd-content > div, .findpwd-content > form > div {
                 margin: 0px auto;
             }
@@ -190,7 +210,7 @@
 			</div>
 
             <section id="menutable" class="menutable">
-				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 10px;">
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
@@ -226,50 +246,57 @@
 					</div>
 					
 					<div id="map" style="width:80%;height:400px; margin:0px auto; margin-bottom:30px;"></div>
-						<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b85791a0e7d027a11d7cf8b979f0fb14&libraries=services"></script>
-						<script>
-							var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
-							    mapOption = {
-							        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
-							        level: 2 // 지도의 확대 레벨
-							    };
-							var placeAddress = '<c:out value="${ requestScope.sharePlaceDetail.placeAddress }"/>';
-							var placeName = '<c:out value="${ requestScope.sharePlaceDetail.placeName }"/>';
-							
-							// 지도를 생성합니다    
-							var map = new kakao.maps.Map(mapContainer, mapOption); 
-							
-							// 주소-좌표 변환 객체를 생성합니다
-							var geocoder = new kakao.maps.services.Geocoder();
-							
-							// 주소로 좌표를 검색합니다
-							geocoder.addressSearch(placeAddress, function(result, status) {
-							
-							    // 정상적으로 검색이 완료됐으면 
-							     if (status === kakao.maps.services.Status.OK) {
-							
-							        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-							
-							        // 결과값으로 받은 위치를 마커로 표시합니다
-							        var marker = new kakao.maps.Marker({
-							            map: map,
-							            position: coords
-							        });
-							
-							        // 인포윈도우로 장소에 대한 설명을 표시합니다
-							        var infowindow = new kakao.maps.InfoWindow({
-							            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+placeName+'</div>'
-							        });
-							        infowindow.open(map, marker);
-							
-							        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
-							        map.setCenter(coords);
-							    } 
-							});    
-							</script>
-		       		</div>
+					<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b85791a0e7d027a11d7cf8b979f0fb14&libraries=services"></script>
+					<script>
+						var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+						    mapOption = {
+						        center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+						        level: 2 // 지도의 확대 레벨
+						    };
+						var placeAddress = '<c:out value="${ requestScope.sharePlaceDetail.placeAddress }"/>';
+						var placeName = '<c:out value="${ requestScope.sharePlaceDetail.placeName }"/>';
+						
+						// 지도를 생성합니다    
+						var map = new kakao.maps.Map(mapContainer, mapOption); 
+						
+						// 주소-좌표 변환 객체를 생성합니다
+						var geocoder = new kakao.maps.services.Geocoder();
+						
+						// 주소로 좌표를 검색합니다
+						geocoder.addressSearch(placeAddress, function(result, status) {
+						
+						    // 정상적으로 검색이 완료됐으면 
+						     if (status === kakao.maps.services.Status.OK) {
+						
+						        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+						
+						        // 결과값으로 받은 위치를 마커로 표시합니다
+						        var marker = new kakao.maps.Marker({
+						            map: map,
+						            position: coords
+						        });
+						
+						        // 인포윈도우로 장소에 대한 설명을 표시합니다
+						        var infowindow = new kakao.maps.InfoWindow({
+						            content: '<div style="width:150px;text-align:center;padding:6px 0;">'+placeName+'</div>'
+						        });
+						        infowindow.open(map, marker);
+						
+						        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+						        map.setCenter(coords);
+						    } 
+						});    
+					</script>
+		       	</div>
+		       	
+		       	<!-- 게시글 작성자와 login 세션값 일치할 때 수정하기 버튼 보이기 -->
+		       	<div style="width: 70%; margin: 0px auto; margin-bottom: 50px; text-align:right;">
+		        	<c:if test="${sessionScope.loginUser.code eq requestScope.sharePlaceDetail.userCode}">
+		        		<button id="underline-btn" style="margin-right:10px;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/modify?boardCode=${ requestScope.sharePlaceDetail.boardCode }'">수정하기</button>
+		        	</c:if>
+		        </div>
 		        
-				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>
+				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-top:40px; margin-bottom: 10px;">전체 댓글</div>
 				<div style="margin-bottom: 40px;">
 					<table class="table" style="margin-bottom: 50px; width: 70%; margin: 0px auto;">
 				    	<tbody>
@@ -308,6 +335,7 @@
 			    </div>
             </section>
             
+            <!-- 게시글 작성자와 login 세션값 일치할 때 수정하기 버튼 보이기 -->
             <form action="${ pageContext.servletContext.contextPath }/user/insert/sharePlace/reply" method="post">
 	            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
 	                <input type="text" name="replyContent" id="messagecontent" placeholder="  message">

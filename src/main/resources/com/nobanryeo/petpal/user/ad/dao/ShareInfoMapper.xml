@@ -272,6 +272,28 @@
 		       )
 	</insert>
 	
+	<update id="updateModifyShareInfo" parameterType="ShareInfoDTO">
+		UPDATE INFO_BOARD 
+		   SET BOARD_TITLE = #{ boardTitle }
+		     , BOARD_CONTENT = #{ boardContent }
+		     , DECISION_CODE = NULL
+		 WHERE BOARD_CODE = #{ boardCode }
+	</update>
+	
+	<update id="updateModifyShareInfo2" parameterType="ShareInfoDTO">
+		<selectKey keyProperty="pictureCode" order="BEFORE" resultType="int">
+			SELECT PICTURE_CODE
+	  	  	  FROM INFO_PICTURE_MANAGE
+	  	  	 WHERE BOARD_CODE = #{ boardCode }
+		</selectKey>
+		UPDATE PICTURE_TABLE 
+		   SET PICTURE_NAME = #{ pictureName }
+		     , PICTURE_URL = #{ pictureURL }
+		     , PICTURE_NEW_NAME = #{ pictureNewName }
+		     , PICTURE_UTIL_PATH = #{ pictureUtilPath }
+		 WHERE PICTURE_CODE = #{ pictureCode }
+	</update>
+	
 	
 	
 	
@@ -445,5 +467,30 @@
 		       , #{ pictureCode }
 		       )
 	</insert>
+	
+	<update id="updateModifySharePlace" parameterType="FriendlyPlaceDTO">
+		UPDATE FRIENDLY_BOARD 
+		   SET BOARD_TITLE = #{ boardTitle }
+		     , BOARD_CONTENT = #{ boardContent }
+		     , DECISION_CODE = NULL
+		     , PLACE_NAME = #{ placeName }
+		     , PLACE_PHONE = #{ placePhone }
+		     , PLACE_ADDRESS = #{ placeAddress }
+		 WHERE BOARD_CODE = #{ boardCode }
+	</update>
+	
+	<update id="updateModifySharePlace2" parameterType="FriendlyPlaceDTO">
+		<selectKey keyProperty="pictureCode" order="BEFORE" resultType="int">
+			SELECT PICTURE_CODE
+	  	  	  FROM FRIENDLY_PICTURE_MANAGE
+	  	  	 WHERE BOARD_CODE = #{ boardCode }
+		</selectKey>
+		UPDATE PICTURE_TABLE 
+		   SET PICTURE_NAME = #{ pictureName }
+		     , PICTURE_URL = #{ pictureURL }
+		     , PICTURE_NEW_NAME = #{ pictureNewName }
+		     , PICTURE_UTIL_PATH = #{ pictureUtilPath }
+		 WHERE PICTURE_CODE = #{ pictureCode }
+	</update>
 
 </mapper>

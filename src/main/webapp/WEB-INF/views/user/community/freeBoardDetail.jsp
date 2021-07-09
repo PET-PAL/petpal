@@ -22,7 +22,6 @@
                 border-radius: 10px;
                 margin-left: 20px;
             }
-
 			section > button{
 			 	background-color: #B9062F; 
                 height: 35px;
@@ -168,6 +167,26 @@
                 border-color: #45B99C; 
                 border: 1px solid;
             }
+            #underline-btn {
+            	float: right;
+    			border: none;
+    			color: #45B99C;
+    			background: white;
+    			height: 40px;
+    			width: 100px;
+                font-size: 15px;
+            }
+            #underline-btn:hover {
+            	float: right;
+    			border-radius: 15px;
+    			background-color: white;
+                color: #45B99C;
+                border-color: #45B99C; 
+                border: 1px solid;
+                height: 40px;
+                width: 100px;
+                font-size: 15px;
+            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -226,7 +245,7 @@
             </section> <!--End off Home Sections-->
 
             <section id="menutable" class="menutable">
-				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom:10px;">
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tbody>
 							<tr>
@@ -251,8 +270,15 @@
 						<c:out value="${ requestScope.freeBoardDetail.boardContent }" escapeXml="false"/>
 					</div>
 		        </div>
+		        
+		        <!-- 게시글 작성자와 login 세션값 일치할 때 수정하기 버튼 보이기 -->
+		        <div style="width: 70%; margin: 0px auto; margin-bottom: 50px; text-align:right;">
+		        	<c:if test="${sessionScope.loginUser.code eq requestScope.freeBoardDetail.userCode}">
+		        		<button id="underline-btn" style="margin-right:10px;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/modify?boardCode=${ requestScope.freeBoardDetail.boardCode }'">수정하기</button>
+		        	</c:if>
+		        </div>
             
-             	<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>
+             	<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-top:40px; margin-bottom: 10px;">전체 댓글</div>
             	<div style="margin-bottom: 40px;">
 	                <table class="table" style="margin-bottom: 50px; width: 70%; margin: 0px auto;">
 	                    <tbody>
@@ -318,6 +344,7 @@
 	                    </div>
 	                </div>
 	            </div>
+	            
 	            <!-- 신고 완료 팝업창 -->
 	            <div id="completeReport" class="overlay">
 	                <div class="popup">

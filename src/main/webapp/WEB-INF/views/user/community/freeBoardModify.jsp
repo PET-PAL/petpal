@@ -5,7 +5,7 @@
 <html>
     <head>
         <style>
-            .menutable > div > img, img {
+            .menutable > div > img {
                 margin-bottom: 20px;
 				width: 20%;
                 margin: 0px auto;
@@ -41,7 +41,6 @@
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
-        
         <!-- summerNote -->
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
@@ -49,12 +48,9 @@
     	<script>
           var $j3 = jQuery.noConflict();
         </script>
-
-    	
     </head>
 
     <body data-spy="scroll" data-target=".navbar-collapse">
-
 
         <!-- Preloader -->
         <div id="loading">
@@ -72,7 +68,6 @@
         <div class="culmn">
             <!--Home page style-->
 
-
             <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
 
@@ -83,33 +78,45 @@
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
 					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp" style="color: #979797;">자유게시판</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">자유게시판</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/coupon/select" style="color: #979797;">무료나눔</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">용품리뷰</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp" style="color: #979797;">용품리뷰</a></li>
 					</ul>
 				</nav>
 			</div>
 
             <section id="menutable" class="menutable">
-		    	<form method="post">
+		    	<form action="${ pageContext.servletContext.contextPath }/user/update/modify/freeboard" method="post" enctype="multipart/form-data">
 					<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 30px;">
-							<table class="table" style="border-collapse: separate;">
-								<tr>
-									<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
-									<td><input type="text" style="width:45%; border: 0px;" value="${ requestScope.review.boardTitle }"></td>
-								</tr>
-								<tr>
-									<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
-									<td>킘유진</td>
-								</tr>
-							</table>
-							<textarea id="summernote">
-								<c:out value="${ requestScope.review.boardContent }" escapeXml="false"/>
-							</textarea>
-	  						<script>
+						<table class="table" style="border-collapse: separate;">
+							<tr>
+								<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
+								<td style="border-radius: 0px 21px 0px 0px"><input type="text" value="${ requestScope.modifyInfo.boardTitle }" name="boardTitle" placeholder="제목을 입력하세요" style="border: none; width: 80%"></td>
+							</tr>
+							<tr>
+								<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
+								<td><c:out value="${ requestScope.modifyInfo.userNickName }"/></td>
+							</tr>
+							<tr>
+								<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>카테고리</b></td>
+								<td>
+									<c:if test="${ requestScope.modifyInfo.category eq '일반' }">
+										<label style="font-size: 15px; font-weight: normal; width:30%"><input name="category" type="radio" value="일반" checked> 일반</label>
+										<label style="font-size: 15px; font-weight: normal;"><input name="category" type="radio" value="질문"> 질문</label>
+									</c:if>
+									<c:if test="${ requestScope.modifyInfo.category eq '질문' }">
+										<label style="font-size: 15px; font-weight: normal; width:30%"><input name="category" type="radio" value="일반"> 일반</label>
+										<label style="font-size: 15px; font-weight: normal;"><input name="category" type="radio" value="질문" checked> 질문</label>
+									</c:if>
+								</td>
+							</tr>
+						</table>
+						<textarea id="summernote" name="boardContent">${ requestScope.modifyInfo.boardContent }</textarea>
+	  					<script>
 	  						$j3('#summernote').summernote({
+	  	                        placeholder: '자유게시판 게시물을 작성해주세요',
 	  	                        tabsize: 2,
 	  	                        height: 500,
 	  	                        callbacks: {
@@ -120,13 +127,12 @@
 	  	                    });
 	  					
 							function sendFile(file, editor,welEditable) {
-								console.log("사진 ajax 들어옴");
 							 	var form_data = new FormData();
 								form_data.append('file', file);
 								$j3.ajax({
 									data: form_data,
 									type: "POST",
-									url: '${pageContext.servletContext.contextPath}/user/insert/reviewboardImg',
+									url: '${pageContext.servletContext.contextPath}/user/insert/freeboardImg',
 									cache: false,
 									contentType: false,
 									enctype: 'multipart/form-data',
@@ -143,7 +149,12 @@
 							}
 						</script>
 			        </div>
-			        <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite">수정하기</button></div>
+			        <input type="hidden" id="pictureName" name="pictureName"/>
+                    <input type="hidden" id="pictureURL" name="pictureURL"/>
+                    <input type="hidden" id="pictureNewName" name="pictureNewName"/>
+                    <input type="hidden" id="pictureUtilPath" name="pictureUtilPath"/>
+                    <input type="hidden" id="boardCode" name="boardCode" value="${ requestScope.modifyInfo.boardCode }"/>
+			        <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite">게시글 수정</button></div>
 				</form>
             </section>
 

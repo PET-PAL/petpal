@@ -37,6 +37,10 @@ public interface ShareInfoMapper {
 
 	int insertShareInfoManage(ShareInfoDTO shareInfo);
 	
+	int updateModifyShareInfo(ShareInfoDTO shareInfo);
+	
+	int updateModifyShareInfo2(ShareInfoDTO shareInfo);
+	
 
 	
 	
@@ -61,8 +65,8 @@ public interface ShareInfoMapper {
 
 	int insertSharePlaceManage(FriendlyPlaceDTO sharePlace);
 
+	int updateModifySharePlace(FriendlyPlaceDTO sharePlace);
 
-
-
+	int updateModifySharePlace2(FriendlyPlaceDTO sharePlace);
 
 }

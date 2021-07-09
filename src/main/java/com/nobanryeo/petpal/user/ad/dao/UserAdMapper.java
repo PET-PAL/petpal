@@ -28,5 +28,7 @@ public interface UserAdMapper {
 
 	int updateAdMorePay(AdDTO adDTO);
 
+	List<AdDTO> selectRandomAdNonPlace();
+
 
 }

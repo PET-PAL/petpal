@@ -289,7 +289,7 @@
                             <p>문의 하기 기능은 회원만 이용하실 수 있습니다.<br>문의하기를 이용하시고 싶은 분들은 <b>회원가입 및 로그인</b>을 먼저 해주세요</p>
               
                             <form action="${ pageContext.servletContext.contextPath }/user/question" method="post"name="form" class="php-email-form">
-                              <div class="form-group">
+                              <div class="form-group" id="question">
                                 <input type="text" name="boardTitle" class="form-control" id="title" placeholder="문의 제목을 적어주세요" required>
                               </div>
                               <div class="form-group mt-3">

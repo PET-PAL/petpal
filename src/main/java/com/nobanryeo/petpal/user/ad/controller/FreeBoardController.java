@@ -28,6 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.FreeBoardService;
+import com.nobanryeo.petpal.user.ad.service.UserAdService;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
@@ -45,11 +46,13 @@ import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 public class FreeBoardController {
 
     private final FreeBoardService freeBoardService;
+    private final UserAdService adService;
     
     @Autowired
-    public FreeBoardController(FreeBoardService freeBoardService) {
+    public FreeBoardController(FreeBoardService freeBoardService, UserAdService adService) {
        
         this.freeBoardService = freeBoardService;
+        this.adService = adService;
     }
     
     /**
@@ -89,6 +92,7 @@ public class FreeBoardController {
     	
     	model.addAttribute("paging", page);
         model.addAttribute("freeBoardList", freeBoardService.selectFreeBoardList(page));
+        model.addAttribute("randomAdNonPlace", adService.selectRandomAdNonPlace());
        
         return "user/community/freeBoardList";
     }
@@ -292,5 +296,33 @@ public class FreeBoardController {
 		
 		return "redirect:/user/select/freeboard/list";
 		
+	}
+	
+	/**
+	 * 자유게시판 게시글 수정 페이지로 이동
+	 */
+	@GetMapping("select/freeboard/modify")
+	public String selectFreeBoardModify(@SessionAttribute UserInfoDTO loginUser, @RequestParam int boardCode, Model model) {
+		
+		model.addAttribute("modifyInfo", freeBoardService.selectFreeBoardDetail(boardCode));
+		
+		return "user/community/freeBoardModify";
+	}
+	
+	/**
+	 * 자유게시판 게시글 수정
+	 */
+	@PostMapping("update/modify/freeboard")
+	public String updateModifyFreeBoard(@ModelAttribute FreeBoardDTO freeBoard) {
+		
+		int boardCode = freeBoard.getBoardCode();
+		
+		if(freeBoardService.updateModifyFreeBoard(freeBoard) > 0) {
+			System.out.println("게시글 수정 성공");
+		} else {
+			System.out.println("게시글 수정 실패");
+		}
+		
+		return "redirect:/user/select/freeboard/detail?boardCode="+boardCode;
 	}
 }
