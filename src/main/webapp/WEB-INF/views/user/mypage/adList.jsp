@@ -140,6 +140,10 @@
 		<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     	<script>
     		var $j3 = jQuery.noConflict();
+    		const message = '${ requestScope.message }';
+		    if(message != null && message !== '') {
+		    	alert(message);
+		    }
     	</script>
     </head>
 
@@ -220,7 +224,6 @@
 													        var companyLocation = '<c:out value="${arr.companyLocation}"/>';
 													        var adCode = '<c:out value="${arr.adCode}"/>'
 													        alert(adPrice);
-													        alert(email);
 													        
 													        IMP.request_pay({
 													            pg : 'kakaopay',
@@ -393,7 +396,7 @@
 							                            </tr>
 						                            </c:if>
 					                            </c:if>
-					                            <c:if test="${ arr.postStartDate <= arr.cancelApplyDate && arr.cancelApplyDate <= arr.postEndDate && empty arr.payDate2nd }">
+					                            <c:if test="${ !empty arr.cancelApplyDate && arr.postStartDate <= arr.cancelApplyDate && arr.cancelApplyDate <= arr.postEndDate && empty arr.payDate2nd }">
 					                            	<c:if test="${ arr.adCode == arr2.adCode }">
 					                        			<c:if test="${ arr2.morePayAmount != '0' }">
 									                        <tr class="morepay">
@@ -417,7 +420,7 @@
 							                            </c:if>
 						                            </c:if>
 					                            </c:if>
-					                            <c:if test="${ arr.postStartDate <= arr.cancelApplyDate && arr.cancelApplyDate <= arr.postEndDate && !empty arr.payDate2nd }">
+					                            <c:if test="${ !empty arr.cancelApplyDate && arr.postStartDate <= arr.cancelApplyDate && arr.cancelApplyDate <= arr.postEndDate && !empty arr.payDate2nd }">
 					                            	<c:if test="${ arr.adCode == arr2.adCode }">
 								                        <tr class="completepay">
 								                            <td style="text-align: center;"><c:out value="${ arr.companyName }"/></td>

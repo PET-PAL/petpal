@@ -30,6 +30,8 @@ public interface UserAdService {
 
 	public List<AdDTO> selectRandomAdNonPlace();
 
+	public List<AdDTO> selectRandomAdPlace();
+
 	
 
 }

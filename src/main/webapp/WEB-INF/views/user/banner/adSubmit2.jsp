@@ -94,48 +94,48 @@
 							<tr>
 								<td>광고 대상</td>
 								<td>
-									<label style="font-size: 15px; font-weight: normal; width:30%"><input name="adTypeName" type="radio" value="장소"> 장소</label>
+									<label style="font-size: 15px; font-weight: normal; width:30%"><input name="adTypeName" type="radio" value="장소" required> 장소</label>
 									<label style="font-size: 15px; font-weight: normal;"><input name="adTypeName" type="radio" value="그 외"> 장소 이외</label>
 								</td>
 							</tr>
 							<tr>
 								<td>광고 기간</td>
 								<td>
-									<label style="font-size: 15px; font-weight: normal; width:30%"><input name="adWeek" type="radio" value="1"> 1주</label>
+									<label style="font-size: 15px; font-weight: normal; width:30%"><input name="adWeek" type="radio" value="1" required> 1주</label>
 									<label style="font-size: 15px; font-weight: normal;"><input name="adWeek" type="radio" value="2"> 2주</label>								
 								</td>
 							</tr>
 							<tr>
 								<td>기업/상호명</td>
-								<td><input type="text" name="companyName" id="userNickName" placeholder="기업/상호명을 입력하세요"></td>
+								<td><input type="text" name="companyName" id="userNickName" placeholder="기업/상호명을 입력하세요" required></td>
 							</tr>
 							<tr>
 								<td>대표자명</td>
-								<td><input type="text" name="leaderName" id="userPwd" placeholder="대표자명을 입력하세요"></td>
+								<td><input type="text" name="leaderName" id="userPwd" placeholder="대표자명을 입력하세요" required></td>
 							</tr>
 							<tr>
 								<td>사업자 번호</td>
-								<td><input type="text" name="companyNumber" id="userPwd" placeholder="예) 120-394-93388"></td>
+								<td><input type="text" name="companyNumber" id="userPwd" placeholder="예) 120-394-93388" required></td>
 							</tr>
 							<tr>
 								<td>상호 주소</td>
-								<td><input type="text" name="companyLocation" id="userPwd" placeholder="주소를 입력하세요"></td>
+								<td><input type="text" name="companyLocation" id="userPwd" placeholder="주소를 입력하세요" required></td>
 							</tr>
 							<tr>
 								<td>사업자 전화번호</td>
-								<td><input type="text" name="companyPhone" id="userPhone" placeholder="사업자 전화번호를 입력하세요"></td>
+								<td><input type="text" name="companyPhone" id="userPhone" placeholder="사업자 전화번호를 입력하세요" required></td>
 							</tr>
 							<tr>
 								<td>사업자 이메일</td>
-								<td><input type="text" name="companyEmail" id="userEmail" placeholder="사업자 이메일을 입력하세요"></td>
+								<td><input type="text" name="companyEmail" id="userEmail" placeholder="사업자 이메일을 입력하세요" required></td>
 							</tr>
 							<tr>
 								<td>업태</td>
-								<td><input type="text" name="industry" id="userEmail" placeholder="업태를 입력하세요"></td>
+								<td><input type="text" name="industry" id="userEmail" placeholder="업태를 입력하세요" required></td>
 							</tr>
 							<tr>
 								<td>업종</td>
-								<td><input type="text" name="industryDetail" id="userEmail" placeholder="업종을 입력하세요"></td>
+								<td><input type="text" name="industryDetail" id="userEmail" placeholder="업종을 입력하세요" required></td>
 							</tr>
 						</table>
 	                    <div style="margin: 0px auto; text-align: center; margin-bottom: 30px;">

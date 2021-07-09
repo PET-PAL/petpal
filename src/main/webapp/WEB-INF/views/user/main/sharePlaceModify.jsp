@@ -151,23 +151,23 @@
 					<table class="table" style="border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><p><strong>제목</strong></p></td>
-							<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="boardTitle" value="${ requestScope.modifyInfo.boardTitle }" placeholder="제목을 입력하세요" style="border: none; width: 80%"></td>
+							<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="boardTitle" value="${ requestScope.modifyInfo.boardTitle }" placeholder="제목을 입력하세요" required style="border: none; width: 80%"></td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; width:25%;"><p><strong>장소 이름</strong></p></td>
-							<td><input type="text" value="${ requestScope.modifyInfo.placeName }" name="placeName" placeholder="장소명을 입력하세요" style="border: none; width: 80%"></td>
+							<td><input type="text" value="${ requestScope.modifyInfo.placeName }" name="placeName" placeholder="장소명을 입력하세요" required style="border: none; width: 80%"></td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; width:25%;"><p><strong>장소 주소</strong></p></td>
 							<td>
-								<input type="text" id="address" value="${ requestScope.modifyInfo.placeAddress }" name="placeAddress" placeholder="장소 주소를 검색해주세요" readonly style="border: none; width: 80%">
+								<input type="text" id="address" value="${ requestScope.modifyInfo.placeAddress }" name="placeAddress" placeholder="장소 주소를 검색해주세요" readonly required style="border: none; width: 80%">
 								<input type="hidden" id="postcode" name="postCode" >
 								<img src="${ pageContext.servletContext.contextPath }/resources/images/location.png" onclick="searchAddress()" style="width:35px; margin-right:40px; float: right; cursor:pointer">									
 							</td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; width:25%;"><p><strong>장소 연락처</strong></p></td>
-							<td><input type="text" value="${ requestScope.modifyInfo.placePhone }" name="placePhone" placeholder="장소 연락처를 입력하세요" style="border: none; width: 80%"></td>
+							<td><input type="text" value="${ requestScope.modifyInfo.placePhone }" name="placePhone" placeholder="장소 연락처를 입력하세요" required style="border: none; width: 80%"></td>
 						</tr>
 					</table>
 					<textarea id="summernote" name="boardContent">${ requestScope.modifyInfo.boardContent }</textarea>

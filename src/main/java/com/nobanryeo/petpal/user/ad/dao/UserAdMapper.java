@@ -30,5 +30,7 @@ public interface UserAdMapper {
 
 	List<AdDTO> selectRandomAdNonPlace();
 
+	List<AdDTO> selectRandomAdPlace();
+
 
 }
