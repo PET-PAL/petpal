@@ -270,8 +270,8 @@
 										</c:if>
 										<td style="text-align: center;">${ list.missingDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="A" id="type">
-										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
+										<input type="hidden" value="A" id="type2">
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }" title="A">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -288,8 +288,8 @@
 										<td style="text-align: center;">${ list.boardDate }</td>
 										<c:if test="${ list.stateCode eq 1 }">
 										<td >
-										<input type="hidden" value="B" id="type">
-										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
+										<input type="hidden" value="B" id="type2">
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }" title="B">삭제</button>
 										</td>
 										</c:if>
 										<c:if test="${ list.stateCode eq 2 }">
@@ -304,8 +304,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td>
-										<input type="hidden" value="C" id="type">
-										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
+										<input type="hidden" value="C" id="type2">
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }" title="C">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -316,8 +316,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="D" id="type">
-										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
+										<input type="hidden" value="D" id="type2">
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }" title="D">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -328,8 +328,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="E" id="type">
-										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
+										<input type="hidden" value="E" id="type2">
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }" title="E">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -340,9 +340,8 @@
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
-										<input type="hidden" value="F" id="type">
 										<input type="hidden" value="F" id="type2">
-										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }">삭제</button>
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }" title="F">삭제</button>
 										</td>
 									</tr>
 									</c:forEach>
@@ -506,9 +505,9 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="A" id="type2">
+									<input type="hidden" value="G" id="type2">
 									<input type="hidden" value="A" id="type">
-									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }" title="G">삭제</button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -524,9 +523,9 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="B" id="type2">
+									<input type="hidden" value="G" id="type2">
 									<input type="hidden" value="B" id="type">
-									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }" title="G">삭제</button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -542,9 +541,9 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="C" id="type2">
+									<input type="hidden" value="G" id="type2">
 									<input type="hidden" value="C" id="type">
-									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }" title="G">삭제</button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -560,27 +559,9 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="D" id="type2">
+									<input type="hidden" value="G" id="type2">
 									<input type="hidden" value="D" id="type">
-									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
-									</td>
-								</tr>
-							</c:forEach>
-			            </c:if>
-			            <c:if test="${ type eq 'E' }">
-			                <c:forEach items="${ reply }" var="list">
-			                	<c:if test="${ list.deleteYn eq 'Y' }">
-									<tr id="stop" onclick="deletePosting();">
-				                </c:if>
-				                <c:if test="${ list.deleteYn eq 'N' }">
-									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
-				                </c:if>
-									<td style="text-align: center;">${ list.replyContent }</td>
-									<td style="text-align: center;">${ list.replyDate }</td>
-									<td style="text-align: center;">
-									<input type="hidden" value="E" id="type2">
-									<input type="hidden" value="E" id="type">
-									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }" title="G">삭제</button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -596,9 +577,9 @@
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
 									<td style="text-align: center;">
-									<input type="hidden" value="F" id="type2">
+									<input type="hidden" value="G" id="type2">
 									<input type="hidden" value="F" id="type">
-									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }">삭제</button>
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }" title="G">삭제</button>
 									</td>
 								</tr>
 							</c:forEach>
@@ -687,26 +668,6 @@
 						</c:if>
 						</li>
 				</c:if>
-				<c:if test="${ type eq 'E' }">
-					<li>
-						<c:if test="${paging2.startPage != 1 }">
-							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E&nowPage2=${paging2.startPage - 1 }&cntPerPage2=${paging2.cntPerPage}">&lt;</a></li>
-						</c:if>
-						<c:forEach begin="${paging2.startPage }" end="${paging2.endPage }" var="p">
-							<c:choose>
-								<c:when test="${p == paging2.nowPage }">
-									<li><a>${p }</a></li>
-								</c:when>
-								<c:when test="${p != paging2.nowPage }">
-									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E&nowPage2=${p }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
-								</c:when>
-							</c:choose>
-						</c:forEach>
-						<c:if test="${paging2.endPage != paging2.lastPage}">
-							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E&?nowPage2=${paging2.endPage+1 }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
-						</c:if>
-						</li>
-				</c:if>
 				<c:if test="${ type eq 'F' }">
 					<li>
 						<c:if test="${paging2.startPage != 1 }">
@@ -759,6 +720,7 @@
 							<h3 align="center">해당 글을 삭제하시겠습니까</h3>
 							<br>
 							<input type="hidden" name="boardCode" id="inputReplyCode">
+							<input type="hidden" name="type" id="type">
 							<button style="margin-left: 43%;" onclick="postDeleteA()">
 							삭제하기
 							</button>
@@ -772,24 +734,20 @@
 
 function deleteClick(test){
 	
-	/* let stop = document.getElementById('stop');
-	let del = document.getElementById('delete');
-	
-	stop.addEventListener('click', clicked);
-	del.addEventListener('click', clicked);
-	 */
 	event.stopPropagation();
 	 
 	let replyCode = test.className;
+	let type = test.title;
 	document.getElementById("inputReplyCode").value = replyCode;
+	document.getElementById("type").value = type;
 	location.href = '#deletePost';
 
 }
 
 function postDeleteA(){
 
-	var type = document.getElementById("type2").value;
-	var load = document.getElementById("type").value;
+	var type = document.getElementById("type").value;
+	var load = document.getElementById("type2").value;
 	var boardCode = document.getElementById("inputReplyCode").value;
 	console.log(type);
 	console.log(load);

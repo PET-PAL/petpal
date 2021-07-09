@@ -165,7 +165,7 @@
           JOIN REVIEW_BOARD C ON(C.BOARD_CODE = B.BOARD_CODE)
           JOIN USER_TABLE D ON(D.USER_CODE = B.USER_CODE)
          WHERE B.BOARD_CODE = #{ boardCode }
-         ORDER BY A.REPLY_DATE ASC
+         ORDER BY A.REPLY_DATE DESC
 	</select>
 	
 	<insert id="insertWriteReviewBoard" parameterType="ReviewDTO">

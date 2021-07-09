@@ -39,6 +39,23 @@ public class BoardManagementController {
 		this.boardService = boardService;
 	}
 	
+	/**
+	 * 게시물과 댓글 조회
+	 * @param model
+	 * @param bcDTO
+	 * @param type
+	 * @param loginUser
+	 * @param page
+	 * @param replyDTO
+	 * @param page2
+	 * @param nowPage
+	 * @param cntPerPage
+	 * @param nowPage2
+	 * @param cntPerPage2
+	 * @param response
+	 * @param request
+	 * @return
+	 */
 	@GetMapping("boardCommentList")
 	public String boardList(
 			Model model, BoradAndCommentDTO bcDTO
@@ -277,7 +294,6 @@ public class BoardManagementController {
 			bcDTO.setUserCode(loginUser.getCode());
 			
 			int total = boardService.selectShareCount(bcDTO);
-			int total2 = boardService.selectReplyCount(bcDTO);
 
 			
 			if(nowPage == null && cntPerPage == null) {
@@ -288,24 +304,13 @@ public class BoardManagementController {
 			} else if(cntPerPage == null) {
 				cntPerPage = "10";
 			}
-			
-			if(nowPage2 == null && cntPerPage2 == null) {
-				nowPage2 = "1";
-				cntPerPage2 = "10";
-			} else if(nowPage2 == null) {
-				nowPage2 = "1";
-			} else if(cntPerPage == null) {
-				cntPerPage2 = "10";
-			}
 
 			
 			page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-			page2 = new PageDTO(total2, Integer.parseInt(nowPage2), Integer.parseInt(cntPerPage2));
 			
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("bcDTO", bcDTO);
 			map.put("pageInfo", page);
-			map.put("pageInfo2", page2);
 
 			
 			List<BoradAndCommentDTO> eList = boardService.selectShareList(map);
@@ -314,8 +319,6 @@ public class BoardManagementController {
 			model.addAttribute("paging", page);
 			model.addAttribute("eList", eList);
 			model.addAttribute("type", "E");
-			model.addAttribute("reply", boardService.selectReplyList(map));
-			model.addAttribute("paging2", page2);
 			model.addAttribute("num", 4);
 			
 		} else if(type.equals("F")) {
@@ -370,11 +373,19 @@ public class BoardManagementController {
 		return "user/mypage/boardCommentList";
 	}
 	
+	/**
+	 * 게시물 삭제하기
+	 * @param boardCode
+	 * @param type
+	 * @param load
+	 * @return
+	 */
 	@PostMapping(value = "deletePost", produces = "application/json; charset=UTF-8")
 	@ResponseBody
 	public String deletePost(@RequestParam(value="boardCode", required = false) int boardCode
 			,@RequestParam(value="type", required = false) String type
 		,@RequestParam(value="load", required = false) String load) {
+		
 		System.out.println("boardCode : " + boardCode);
 		System.out.println("type : " + type);
 		System.out.println("load : " + load);
