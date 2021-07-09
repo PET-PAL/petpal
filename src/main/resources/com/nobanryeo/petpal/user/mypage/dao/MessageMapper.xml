@@ -75,6 +75,7 @@
 		      ORDER BY MESSAGE_DATE DESC
 	</select>
 	
+	<!-- 쪽지보내기 -->
 	<insert id="insertMessageFromMypage" parameterType="MessageTableDTO">
 		INSERT
 		  INTO MESSAGE_TABLE

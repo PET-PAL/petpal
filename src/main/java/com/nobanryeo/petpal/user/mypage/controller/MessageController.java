@@ -165,10 +165,12 @@ public class MessageController {
 			System.out.println("일반 if들어옴!");
 			
 			recevie = messageDTO.getReceiveUserNick(); //받는사람은 룹룽이 아닌 사람
-			recevieCode = messageDTO.getUserCode();
-			sendCode = messageDTO.getUserCode1();
+			recevieCode = messageDTO.getUserCode1();
+			System.out.println("recevieCode : " + recevieCode);
+			sendCode = messageDTO.getUserCode();
+			System.out.println("sendCode : " + sendCode);
 			
-			messageDTO.setSendUserNick(send); //보내는 사람: 룹룽이
+ 			messageDTO.setSendUserNick(send); //보내는 사람: 룹룽이
 			messageDTO.setReceiveUserNick(recevie); //받는 사람: 룹룽이x
 			messageDTO.setUserCode(recevieCode);
 			messageDTO.setUserCode1(sendCode);
@@ -183,13 +185,15 @@ public class MessageController {
 			System.out.println("else 들어옴!");
 			
 			recevie = messageDTO.getSendUserNick(); //받는사람은 보낸사람
-			recevieCode = messageDTO.getUserCode1();
-			sendCode = messageDTO.getUserCode();
+			recevieCode = messageDTO.getUserCode();
+			sendCode = messageDTO.getUserCode1();
 			
 			messageDTO.setSendUserNick(send);
 			messageDTO.setReceiveUserNick(recevie);
 			messageDTO.setUserCode1(recevieCode);
+			System.out.println("recevieCode : " + recevieCode);
 			messageDTO.setUserCode(sendCode);
+			System.out.println("sendCode : " + sendCode);
 			
 			System.out.println("보내는 사람 : " + messageDTO.getSendUserNick());
 			System.out.println("보내는 사람 코드 : " + messageDTO.getUserCode1());
