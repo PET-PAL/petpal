@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.admin.pay.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -98,6 +99,21 @@ public class PayAdminServiceImpl implements PayAdminService {
 	@Override
 	public int selectTaxMonthNumber(AdminPageInfoDTO paging) {
 		return payAdminMapper.selectTaxMonthNumber(paging);
+	}
+
+	@Override
+	public List<AdAdminDTO> selectPayAllForMonthList() {
+		return payAdminMapper.selectPayAllForMonthList();
+	}
+
+//	@Override
+//	public boolean updateAdPayDate(Date payUntilDate, int adCode) {
+//		return payAdminMapper.updateAdPayDate(payUntilDate, adCode) > 0 ? true : false;
+//	}
+
+	@Override
+	public boolean updateAdPayDate(AdAdminDTO adInfo) {
+		return payAdminMapper.updateAdPayDate(adInfo) > 0 ? true : false;
 	}
 	
 }

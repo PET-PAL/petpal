@@ -58,7 +58,7 @@ public class MainPageServiceImpl implements MainPageService{
 		// json 배열 객체, 배열에 저장할 때엔 JSONArray() 사용
 		JSONArray title = new JSONArray();
 		col1.put("label", "Month");
-		col1.put("type", "number");
+		col1.put("type", "string");
 		col2.put("label", "Revenue");
 		col2.put("type", "number");
 		
@@ -72,32 +72,62 @@ public class MainPageServiceImpl implements MainPageService{
 		
 		JSONArray body = new JSONArray(); // json 배열 사용하기 위해 객체 생성
 		
-		 // 월
-	    JSONObject month = new JSONObject();
 
-	         
-	    // 매출액
-	    JSONObject revenue = new JSONObject();
-	    for (int i = 0; i <= 3; i++) {
-	    	month.put("v", i+5);
-	    	
-	        revenue.put("v", revenues.get(i));
-	        
-	        System.out.println("revenue : " + revenue);
-	         
-	        JSONArray row = new JSONArray();
-	         
-	        row.add(month.get("v")); // 월을 row에 저장
-	        row.add(revenue.get("v")); // 매출엑을 row에 저장
-	         
-	        JSONObject cel1 = new JSONObject();
-	        cel1.put("c", row); // cel1 2개를 합쳐서 "c"라는 이름으로 추가
-	        body.add(cel1);
-	         
-	        data.put("rows", body); // data에 body를 저장하고 이름을 rows라고 함
-	    }
-		
-		
+	    JSONObject month01 = new JSONObject();
+	    JSONObject revenue01 = new JSONObject();
+
+	    month01.put("v","5월");
+	    revenue01.put("v",revenues.get(0));
+	    
+	    JSONObject month02 = new JSONObject();
+	    JSONObject revenue02 = new JSONObject();
+	 
+	    month02.put("v","6월");
+	    revenue02.put("v",revenues.get(1));
+	    
+	    JSONObject month03 = new JSONObject();
+	    JSONObject revenue03 = new JSONObject();
+	 
+	    month03.put("v","7월");
+	    revenue03.put("v",revenues.get(2));
+	    
+	    JSONObject month04 = new JSONObject();
+	    JSONObject revenue04 = new JSONObject();
+	    
+	    month04.put("v","8월");
+	    revenue04.put("v",revenues.get(3));
+	    
+	    JSONArray row1 = new JSONArray();
+	    JSONArray row2 = new JSONArray();	    
+	    JSONArray row3 = new JSONArray();	    
+	    JSONArray row4 = new JSONArray();	    
+	    
+	    row1.add(month01);
+	    row1.add(revenue01);
+	    row2.add(month02);
+	    row2.add(revenue02);
+	    row3.add(month03);
+	    row3.add(revenue03);
+	    row4.add(month04);
+	    row4.add(revenue04);
+
+	    JSONObject cel1 = new JSONObject();
+	    JSONObject cel2 = new JSONObject();
+	    JSONObject cel3 = new JSONObject();
+	    JSONObject cel4 = new JSONObject();
+	    
+	    cel1.put("c",row1); 
+	    cel2.put("c",row2); 
+	    cel3.put("c",row3); 
+	    cel4.put("c",row4); 
+	    
+	    body.add(cel1);
+	    body.add(cel2);
+	    body.add(cel3);
+	    body.add(cel4);
+	    
+	    data.put("rows",body);
+	    
 		System.out.println("data : " + data);
 		
 		return data;  // 이 데이터가 넘어가면  json 형식으로 넘어가서 json이 만들어짐

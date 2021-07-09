@@ -36,7 +36,7 @@ public class AdAdminDTO {
 	private String industryDetail;
 	private String leaderName;
 	
-	// 청구일자 (DTO엥만 존재함)
+	// 청구일자 (DTO에만 존재함)
 	private Date payUntilDate;
 	// 청구일자 (DB에 존재하는 컬럼)
 	private Date payDate;
@@ -102,7 +102,12 @@ public class AdAdminDTO {
 		this.calApplyDate = calApplyDate;
 	}
 
-
+	public AdAdminDTO(Date payUntilDate, int adCode) {
+		setPayUntilDate(payUntilDate);
+		setAdCode(adCode);
+	}
+	
+	
 	public int getAdCode() {
 		return adCode;
 	}

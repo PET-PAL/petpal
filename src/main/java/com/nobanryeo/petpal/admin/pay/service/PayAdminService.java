@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.admin.pay.service;
 
+import java.sql.Date;
 import java.util.List;
 
 import com.nobanryeo.petpal.admin.dto.AdAdminDTO;
@@ -38,5 +39,11 @@ public interface PayAdminService {
 	List<AdAdminDTO> selectTaxMonthAllList(AdminPageInfoDTO paging);
 
 	int selectTaxMonthNumber(AdminPageInfoDTO paging);
+
+	List<AdAdminDTO> selectPayAllForMonthList();
+
+	//boolean updateAdPayDate(Date payUntilDate, int adCode);
+
+	boolean updateAdPayDate(AdAdminDTO adInfo);
 
 }

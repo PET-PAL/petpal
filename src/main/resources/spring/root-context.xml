@@ -73,7 +73,7 @@
 					  com.nobanryeo.petpal.admin.pay.dao,
 					  com.nobanryeo.petpal.admin.manage.dao,
 					  com.nobanryeo.petpal.admin.review.dao,
-					  com.nobanryeo.petpal.admin.mainpage.dao"/>
-
+					  com.nobanryeo.petpal.admin.mainpage.dao
+					  com.nobanryeo.petpal.admin.blacklist.dao"/>
 	
 </beans>
