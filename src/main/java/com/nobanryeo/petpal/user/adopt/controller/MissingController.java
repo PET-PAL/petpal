@@ -389,4 +389,16 @@ public class MissingController {
 		return "redirect:/user/missing/detail/"+boardCode;
 	}
 	
+	@GetMapping("missing/update/{boardCode}")
+	public String updateBoard(@PathVariable("boardCode") int code, Model model ) {
+		MissingDTO missingDetail = new MissingDTO();
+		missingDetail = missingService.selectMissingDetail(code);
+
+		System.out.println("missingDetail"+missingDetail);
+		
+		model.addAttribute("missingDetail", missingDetail);
+		
+		return "user/missing/missingBoardRevised";
+	}
+	
 }

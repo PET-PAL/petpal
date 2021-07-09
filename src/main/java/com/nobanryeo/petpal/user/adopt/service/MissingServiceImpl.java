@@ -122,6 +122,9 @@ public class MissingServiceImpl implements MissingService {
 		return insertResult;
 	}
 
+	/**
+	 * 게시글 신고 메소드 
+	 */
 	@Override
 	public int insertBoardReport(FreeBoardReportDTO boardreportDTO) {
 		
@@ -138,6 +141,9 @@ public class MissingServiceImpl implements MissingService {
 		return result;
 	}
 
+	/**
+	 * 댓글 신고 메소드 
+	 */
 	@Override
 	public int insertReplyReport(AdoptReplyDTO adoptreplyDTO) {
 		

@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.nobanryeo.petpal.user.adopt.dao.ShareFreeMapper;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
+import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
+import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.ShareFreeDTO;
@@ -70,6 +72,34 @@ public class ShareFreeServiceImpl implements ShareFreeService {
 	@Override
 	public void updateShareBoardViews(int code) {
 		sharefreeMapper.updateShareBoardViews(code);
+	}
+
+	@Override
+	public int putMissingStatus(int code) {
+		
+		return sharefreeMapper.putMissingStatus(code);
+	}
+
+	@Override
+	public int insertMessage(MessageTableDTO messageDTO) {
+		
+		return sharefreeMapper.insertMessage(messageDTO);
+	}
+
+	@Override
+	public int insertBoardReport(FreeBoardReportDTO boardreportDTO) {
+		
+		int insertBoardreport = sharefreeMapper.insertBoardReport(boardreportDTO);
+		System.out.println("BoardReportresult in service: "+insertBoardreport );
+		
+		int insertBoardreportMid = sharefreeMapper.insertBoardReportMid(boardreportDTO);
+		
+		int result = 0;
+		
+		if(insertBoardreport>0 && insertBoardreportMid>0) {
+			result = 1;
+		}
+		return result;
 	}
 
 	

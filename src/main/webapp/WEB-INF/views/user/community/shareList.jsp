@@ -70,13 +70,13 @@
                                         <div class="row" style="margin-left: 20px;">
                                         <c:forEach var= "share" varStatus="status" items="${requestScope.shareList }">
                                             <div class="col-sm-3">
-                                                <div class="port_item xs-m-top-30" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/${share.boardCode}'">
+                                                <div class="port_item xs-m-top-30" style="cursor: pointer;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/${share.boardCode}'">
                                                     <div class="port_img" style="position: relative;">
                                                     	<c:if test="${share.stateCode == 1 }">
-                                                    		<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">나눔중</p>
+                                                    		<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">나눔중</p>
                                                     	</c:if>
                                                     	<c:if test="${share.stateCode eq 2 }">
-                                                    		<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">나눔 완료</p>
+                                                    		<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">나눔 완료</p>
                                                         </c:if>
                                                         <img src="${ pageContext.servletContext.contextPath }/${share.pictureUtilPath}" style="width:250px; height:250px;" alt="" />
                                                     </div>
