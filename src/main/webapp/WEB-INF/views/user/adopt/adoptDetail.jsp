@@ -253,12 +253,23 @@
 		                	</c:if>
 		                	<%-- <c:if test="${requestScope.adoptDetail.userCode eq sessionScope.loginUser.code }">  --%>
 			                	<div style="float:right;margin-right: -550px;">
-				                	<button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/update'">수정하기</button>
+				                	<button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;" type="button" onclick="revisedfn();">수정하기</button>
 				                	<c:if test="${requestScope.adoptDetail.stateCode eq '1'}">
 				                		<input type="button" class="btn btn-light" style="width:150px; color: green; font-weight: bolder; border:none; background-color:white;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/update/status?board=${requestScope.adoptDetail.boardCode}'" value ="입양 완료하기"/>
 									</c:if>
 			               		</div>
 			                <%-- </c:if> --%>
+			                
+		<!-- 수정진행 여부 alert창  -->	                
+		<script type="text/javascript">
+         
+         function revisedfn(){
+        	 
+         		if(confirm("게시글 수정시 사진을 필수로 재업로드 해주셔야합니다. 계속 진행하시겠습니까?")){
+         			location.href='${ pageContext.servletContext.contextPath }/user/adopt/update/${requestScope.adoptDetail.boardCode}';
+         		};
+         };
+         </script>
                 	<!-- 상태 값에 따른 c:if 처리 -->
 		                	<c:if test="${requestScope.adoptDetail.stateCode eq '2'}">
 			                	<h2 style="float:left; background-color: #FF6230; width: 130px; border-radius: 8px; height: 60px; color: white; font-weight: bold; padding-top: 10px;" align="center">

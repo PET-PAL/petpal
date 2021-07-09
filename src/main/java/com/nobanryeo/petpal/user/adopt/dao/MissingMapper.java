@@ -41,4 +41,10 @@ public interface MissingMapper {
 
 	int putMissingStatus(int boardCode);
 
+	int deletePicture(PictureDTO pictureDTO);
+
+	int updateMissingInfo(MissingDTO missing);
+
+	List<PictureDTO> selectPicture(PictureDTO pictureDTO);
+
 }

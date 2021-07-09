@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -66,49 +67,9 @@
 			  cursor:pointer;
 			}
         </style>
-        <meta charset="utf-8">
-        <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
-
-
-
-
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-
-        <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
     	
     </head>
-
-    <body data-spy="scroll" data-target=".navbar-collapse">
-
+   <jsp:include page="../common/userHeader.jsp"/>
 
         <!-- Preloader -->
         <div id="loading">
@@ -127,7 +88,7 @@
             <!--Home page style-->
 
 
-            <jsp:include page="../common/userHeader.jsp"/>
+         
             <!--Home Sections-->
 			                
 			
@@ -135,7 +96,7 @@
                 
             </section> <!--End off Home Sections-->
             <section id="menutable" class="menutable">
-	            		<form action="${ pageContext.servletContext.contextPath }/user/adopt/write" method="post" enctype="multipart/form-data" id="adoptWrite">
+	            		<form action="${ pageContext.servletContext.contextPath }/user/adopt/update/${requestScope.adoptDetail.boardCode}" method="post" enctype="multipart/form-data" id="adoptWrite">
 						<div style="width: 55%;  margin: 0px auto;  margin-bottom: 50px; ">
 		                	<table style="width: 80%; margin-left: 30px; margin-top: 20px; margin-bottom: 20px; ">
 		                	<div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left; ">동물의 정보는 어떻게 되나요?
@@ -145,9 +106,15 @@
 								<tr>
 									<td>품종</td>
 									<td>
+										<c:if test="${requestScope.adoptDetail.dogOrcat eq 'C' }">
 										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="dogOrcat" value="C" checked> 고양이</label>
 										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="dogOrcat" value="D" > 강아지</label>
-										<input type="text" id="ownerName" name ="adoptBreed" style="width: 130px; background: #F1FAF8;"placeholder=" 예시) 닥스훈트" required >								
+										</c:if>
+										<c:if test="${requestScope.adoptDetail.dogOrcat eq 'D' }">
+										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="dogOrcat" value="C" > 고양이</label>
+										<label style="font-size: 15px; font-weight: normal; padding-right: 30px;"><input type="radio" name="dogOrcat" value="D" checked> 강아지</label>
+										</c:if>
+										<input type="text" id="ownerName" name ="adoptBreed" style="width: 130px; background: #F1FAF8;" value = "${requestScope.adoptDetail.adoptBreed}" required >								
 									</td>
 								</tr>	
 								<tr>
@@ -159,25 +126,23 @@
 								</tr>
 								<tr>
 									<td>나이</td>
-									<td><input type="text" name="adoptAge" id="ownerName" style="width: 80px; background: #F1FAF8;" required>  살</td>
+									<td><input type="text" name="adoptAge" id="ownerName" style="width: 80px; background: #F1FAF8;" value = "${requestScope.adoptDetail.adoptAge}" required>  살</td>
 								</tr>
 								<tr>
 									<td>몸무게</td>
-									<td><input type="text" name="adoptWeight" id="ownerName" style="width: 80px; background: #F1FAF8;" required>  KG</td>
+									<td><input type="text" name="adoptWeight" id="ownerName" style="width: 80px; background: #F1FAF8;" value = "${requestScope.adoptDetail.adoptWeight}" required>  KG</td>
 								</tr>
 								<tr>
 									<td>색상</td>
-									<td><input type="text" name="adoptColor" id="ownerName" style="width: 80px; background: #F1FAF8;" required>  </td>
+									<td><input type="text" name="adoptColor" id="ownerName" style="width: 80px; background: #F1FAF8;" value = "${requestScope.adoptDetail.adoptColor}" required>  </td>
 								</tr>
 								<tr>
 									<td>사는곳</td>
-									<td><input type="text" name="address" id="ownerName" style="width: 180px; background: #F1FAF8;" placeholder="예시) 서울시 강남구" required></td>
+									<td><input type="text" name="address" id="ownerName" style="width: 180px; background: #F1FAF8;" value = "${requestScope.adoptDetail.address}" required></td>
 								</tr>
 								<tr>
 									<td>소개</td>
-									<td><textarea rows="3" name="adoptIntroduce" id="textArea" class="input-xlarge" style="background: #F1FAF8;"
-									placeholder=" 예시) 소심하지만 사람을 좋아하는 아이입니다. 부디 이 아이의 평생 가족을 찾을 수 있게 해주세요. 현재 곰팡이 질환을 앓고 있어요 지금 치료중이지만 피부가 약해진 아이니 꼭 유의해주셔야해요 &#13;&#10;입양신청때 제가 더 필요로 하는 서류가 있어서 모두 충족시킬 수 있는 책임감 있으신 분을 찾고있어요!"
-									required></textarea></td>
+									<td><textarea rows="3" name="adoptIntroduce" id="textArea" class="input-xlarge" style="background: #F1FAF8;" required><c:out value = "${requestScope.adoptDetail.adoptIntroduce}"/></textarea></td>
 									
 								</tr>
 								<tr>
@@ -197,15 +162,15 @@
 								
 								<tr>
 									<td>연락처</td>
-									<td><input type="text" name="adoptPhone" id="ownerPhone" style="width: 240px; background: #F1FAF8;" placeholder=" 예시) 010-1234-5678" required></td>
+									<td><input type="text" name="adoptPhone" id="ownerPhone" style="width: 240px; background: #F1FAF8;" value = "${requestScope.adoptDetail.adoptPhone}" required></td>
 								</tr>
 								<tr>
 									<td>주의사항</td>
-									<td><input type="text" name="adoptCaution" id="ownerPhone" style="width: 330px; background: #F1FAF8;" placeholder=" 예시) 밤 8시이후는 문자로 부탁드립니다." required></td>
+									<td><input type="text" name="adoptCaution" id="ownerPhone" style="width: 330px; background: #F1FAF8;" value = "${requestScope.adoptDetail.adoptCaution}" required></td>
 								</tr>
 									
 						</table>
-                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button type="submit" id="registAdopt">글 수정하기</button></div>
+                    	<div style="margin: 0px auto; text-align: center; margin-bottom: 50px"><button type="submit" id="registAdopt">입양글 수정하기</button></div>
 	                	</div>
 	                	</form>
             </section>
@@ -233,4 +198,5 @@
             <jsp:include page="../common/footer.jsp"/>
         </div>
         
+       </body>
 </html>

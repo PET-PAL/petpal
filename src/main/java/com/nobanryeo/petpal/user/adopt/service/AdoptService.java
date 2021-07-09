@@ -36,4 +36,8 @@ public interface AdoptService {
 
 	int putAdoptStatus(int status);
 
+	int deletePicture(PictureDTO pictureDTO);
+
+	int updatetAdopt(AdoptDTO adopt, List<PictureDTO> pictureList);
+
 }

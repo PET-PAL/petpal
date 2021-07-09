@@ -39,7 +39,7 @@
         
         
         <!-- summerNote -->
-        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     	<script>
@@ -87,12 +87,12 @@
 			</div>
 
             <section id="menutable" class="menutable">
-				<form action = "${ pageContext.servletContext.contextPath }/user/shareFree/insert/newBoard" method="post">
+				<form action = "${ pageContext.servletContext.contextPath }/user/shareFree/updateBoard/${requestScope.shareInfo.boardCode}" method="post">
 				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 20px;">
 					<table class="table" style="margin-bottom: 0px; border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
-							<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="boardTitle" placeholder="무슨 제품인지 알 수 있게 표시해주세요. 예시) 고양이 침대 나눔합니다" style="border: none; width: 80%"></td>
+							<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="boardTitle" value="${requestScope.shareInfo.boardTitle}" style="border: none; width: 80%"></td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
@@ -103,12 +103,12 @@
 						<input type="hidden" id = "saveName" name="pictureNewName"/>
 						<input type="hidden" id = "filePath" name="pictureURL"/>
 						<input type="hidden" id = "utilPath" name="pictureUtilPath"/>
-  						<textarea id="summernote" name="boardContent"></textarea>
+  						<textarea id="summernote" name="boardContent">${ requestScope.shareInfo.boardContent }</textarea>
   						 <script>
 					      $j3('#summernote').summernote({
 					    	  placeholder: '무료 나눔 게시글을 작성해주세요',
 					          tabsize: 2,
-					          height: 300,
+					          height: 500,
 					          callbacks:{
 					        	  onImageUpload : function(files,editor,welEditable){
 					        		  for(var i=files.length-1; i>=0;i--){ 

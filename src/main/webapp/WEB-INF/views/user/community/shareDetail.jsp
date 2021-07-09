@@ -117,7 +117,26 @@
                 font-weight: 500;
                 border-radius: 10px;
             }
-			
+			   #underline-btn {
+            	float: right;
+    			border: none;
+    			color: #45B99C;
+    			background: white;
+    			height: 40px;
+    			width: 100px;
+                font-size: 15px;
+            }
+            #underline-btn:hover {
+            	float: right;
+    			border-radius: 15px;
+    			background-color: white;
+                color: #45B99C;
+                border-color: #45B99C; 
+                border: 1px solid;
+                height: 40px;
+                width: 100px;
+                font-size: 15px;
+            }
         </style>
         
 		<!-- summerNote -->
@@ -129,6 +148,10 @@
 		    if(message != null && message !== '') {
 		    	alert(message);
 		    }
+		    
+	 
+	          var $j3 = jQuery.noConflict();
+	   
 		</script>
     </head>
 
@@ -202,6 +225,11 @@
 					<div style="margin-bottom: 30px; text-align:center;">
 						<c:out value="${ requestScope.shareInfo.boardContent }" escapeXml="false"/>
 					</div>
+		        <div style="margin: 0px auto; margin-bottom: 50px; text-align:right;">
+		        	<c:if test="${sessionScope.loginUser.code eq requestScope.shareInfo.userCode}">
+		        		<button id="underline-btn" style="margin-right:10px;margin-top: 40px;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/sharefree/modify/${ requestScope.shareInfo.boardCode }'">수정하기</button>
+		        	</c:if>
+		        </div> 
 		        </div>
             </section>
             
@@ -241,13 +269,14 @@
 	                    <input type="hidden" name="contentCode" id="contentCode">
 	                    <input type="hidden" name="boardTitle" id="boardTitle">
 	                    <div style="text-align: center; margin-top: 30px;"><button type = "submit" id = "btn_report_submit" class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                   		
                    		<script>
                    		
                    		 $j3("#btn_report_submit").click(function(){
 	                   			console.log("여기오나?");
 	                   			var content = $j3("#reportContent_board").val(); 
-	                   			var Bcode = ${requestScope.missingDetail.boardCode};
-	                   			var Btitle = ${requestScope.shareInfo.boardTitle};
+	                   			var Bcode = ${requestScope.shareInfo.boardCode};
+	                   			var Btitle = "${requestScope.shareInfo.boardTitle}";
 	                   			
 	                   			$j3("#reportContent").val(content);
                    				$j3("#contentCode").val(Bcode);

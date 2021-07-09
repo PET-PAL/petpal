@@ -1,6 +1,7 @@
 package com.nobanryeo.petpal.user.dto;
 
 import java.sql.Date;
+import java.util.List;
 
 public class PictureDTO {
 
@@ -13,11 +14,13 @@ public class PictureDTO {
 	private int boardCode;
 	private String pictureUtilPath;
 	private int userCode;
+	private List<PictureDTO> pictureCodeList;
 	
 	public PictureDTO() {}
 
 	public PictureDTO(int pictureCode, String pictureName, String pictureURL, Date pictureUploadDate,
-			String pictureDeleteYN, String pictureNewName, int boardCode, String pictureUtilPath, int userCode) {
+			String pictureDeleteYN, String pictureNewName, int boardCode, String pictureUtilPath, int userCode,
+			List<PictureDTO> pictureCodeList) {
 		super();
 		this.pictureCode = pictureCode;
 		this.pictureName = pictureName;
@@ -28,6 +31,7 @@ public class PictureDTO {
 		this.boardCode = boardCode;
 		this.pictureUtilPath = pictureUtilPath;
 		this.userCode = userCode;
+		this.pictureCodeList = pictureCodeList;
 	}
 
 	public int getPictureCode() {
@@ -102,12 +106,22 @@ public class PictureDTO {
 		this.userCode = userCode;
 	}
 
+	public List<PictureDTO> getPictureCodeList() {
+		return pictureCodeList;
+	}
+
+	public void setPictureCodeList(List<PictureDTO> pictureCodeList) {
+		this.pictureCodeList = pictureCodeList;
+	}
+
 	@Override
 	public String toString() {
 		return "PictureDTO [pictureCode=" + pictureCode + ", pictureName=" + pictureName + ", pictureURL=" + pictureURL
 				+ ", pictureUploadDate=" + pictureUploadDate + ", pictureDeleteYN=" + pictureDeleteYN
 				+ ", pictureNewName=" + pictureNewName + ", boardCode=" + boardCode + ", pictureUtilPath="
-				+ pictureUtilPath + ", userCode=" + userCode + "]";
+				+ pictureUtilPath + ", userCode=" + userCode + ", pictureCodeList=" + pictureCodeList + "]";
 	}
+
+
 
 }

@@ -43,5 +43,11 @@ public interface AdoptMapper {
 
 	int putAdoptStatus(int boardCode);
 
+	int deletePicture(PictureDTO pictureDTO);
+
+	int updateAdopt(AdoptDTO adopt);
+
+	List<PictureDTO> selectPicture(PictureDTO pictureDTO);
+
 	
 }

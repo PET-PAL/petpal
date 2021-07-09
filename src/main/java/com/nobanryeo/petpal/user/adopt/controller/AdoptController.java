@@ -2,6 +2,8 @@ package com.nobanryeo.petpal.user.adopt.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +44,7 @@ import com.nobanryeo.petpal.user.dto.AdoptPictureManageDTO;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
+import com.nobanryeo.petpal.user.dto.MissingDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
@@ -418,6 +421,117 @@ public class AdoptController {
 		System.out.println("controller in update status: " + result);
 		
 		return "redirect:/user/adopt/detail/"+baordCode;
+	}
+	@GetMapping("adopt/update/{boardCode}")
+	public String updateBoard(@PathVariable("boardCode") int code, Model model ) {
+		
+		AdoptDTO adoptDetail = new AdoptDTO();
+		adoptDetail=adoptService.selectAdoptDetail(code);
+		
+		
+		List<PictureDTO> pictureList = new ArrayList<>();
+		pictureList = adoptService.selectPictureList(code);
+		
+		System.out.println(adoptDetail);
+		
+		for(PictureDTO picture:pictureList) {
+			System.out.println(picture);
+		}
+		
+		model.addAttribute("adoptDetail", adoptDetail);
+		model.addAttribute("pictureList", pictureList);
+		return "user/adopt/adoptBoardRevised";
+	}
+	
+	@PostMapping("adopt/update/{boardCode}")
+	public String updateBoard(@ModelAttribute AdoptDTO adopt,@PathVariable("boardCode") int code, Model model,HttpServletRequest request,@RequestParam(name="picture",required=true) List<MultipartFile> picture, HttpSession session) throws ParseException {
+		int updateResult = 0;
+		System.out.println(" updateBoard여기오나???!?!?");
+		
+		PictureDTO pictureDTO = new PictureDTO();
+		pictureDTO.setBoardCode(code);
+		adopt.setBoardCode(code);
+		
+		
+		// 게시글 수정전 사진 삭제 (N-> Y)
+		int deletePictureResult = adoptService.deletePicture(pictureDTO);
+		System.out.println("사진 삭제 성공??? "+ deletePictureResult);
+		if(deletePictureResult>0) {
+			
+		// 게시글 수정 시작 (사진포함)
+			System.out.println("controller adopt: "+adopt);
+			System.out.println("controller picture: "+picture);
+			
+			String root = request.getSession().getServletContext().getRealPath("resources");
+			System.out.println("root in controller: "+ root);
+			
+			String filePath = root + "\\uploadFiles";
+			
+			File mkdir = new File(filePath);
+			if(!mkdir.exists()) {
+				mkdir.mkdirs();
+			}
+			
+			List<Map<String,String>> files = new ArrayList<>();
+			
+
+			for(int i=0; i<picture.size();i++) {
+				
+				/* 파일명 변경 처리*/
+				String originFileName = picture.get(i).getOriginalFilename();
+				String ext = originFileName.substring(originFileName.lastIndexOf("."));
+				String saveName = UUID.randomUUID().toString().replace("-", "")+ext;
+				
+				Map<String,String> file = new HashMap<String, String>();
+				file.put("originFileName", originFileName);
+				file.put("saveName", saveName);
+				file.put("filePath", filePath);
+				file.put("utilPath", "resources\\uploadFiles\\"+saveName);
+				
+				files.add(file);
+				
+			}
+			System.out.println(files);
+			/* 파일을 저장한다,*/
+			List<PictureDTO> pictureList = new ArrayList<>();
+			try {
+				for(int i =0; i<picture.size();i++) {
+					
+					Map<String,String> file= files.get(i);
+
+					picture.get(i).transferTo(new File(filePath +"\\"+file.get("saveName")));
+					System.out.println("for문안의 file: "+ file);
+
+					
+					pictureDTO.setPictureName(file.get("originFileName"));
+					pictureDTO.setPictureDeleteYN("N");
+					pictureDTO.setPictureURL(file.get("filePath"));
+					pictureDTO.setPictureNewName(file.get("saveName"));
+					pictureDTO.setPictureUtilPath(file.get("utilPath"));
+					
+					pictureList.add(pictureDTO);
+				}
+				model.addAttribute("message", "파일업로드 성공!!!");
+			}catch(Exception e) {
+				e.printStackTrace();
+				
+				/* 실패시 파일 삭제 */
+				for(int i =0; i<picture.size();i++) {
+					System.out.println("실패인가?");
+					Map<String,String> file= files.get(i);
+					new File(filePath +"\\"+ file.get("saveName")).delete();
+
+			}
+			
+				model.addAttribute("message", "파일업로드 실패!!");
+			
+			}
+		
+			updateResult = adoptService.updatetAdopt(adopt, pictureList);
+		}
+			System.out.println("controller result : "+ updateResult);
+			
+			return "redirect:/user/adopt/detail/"+code;
 	}
 	
 }
