@@ -12,6 +12,44 @@
 		<result column="REPORT_DATE" property="reportDate" />
 		<result column="STATE" property="state" />
 	</resultMap>
+	 <resultMap type="MissingDTO" id="missingResultset">
+  		<id column="BOARD_CODE" property="boardCode"/>
+  		<result column="BOARD_DATE" property="boardDate"/>
+  		<result column="MISSING_DATE" property="missingDate"/>
+  		<result column="MISSING_AREA" property="area"/>
+  		<result column="MISSING_PLACE" property="place"/>
+  		<result column="MISSING_PHONE" property="phone"/>
+  		<result column="MISSING_BREED" property="breed"/>
+  		<result column="MISSING_GENDER" property="gender"/>
+  		<result column="USER_NIKNAME" property="userNickname"/>
+  		<result column="MISSING_AGE" property="age"/>
+  		<result column="MISSING_WEIGTH" property="weigth"/>
+  		<result column="MISSING_CHARACTER" property="character"/>
+  		<result column="MISSING_REQUEST" property="request"/>
+  		<result column="MISSING_DELETE_YN" property="deleteYn"/>
+  		<result column="STATE_CODE" property="stateCode"/>
+  		<result column="USER_CODE" property="userCode"/>
+  		<result column="DOG_OR_CAT" property="dOc"/>
+  		<result column="MISSING_COLOR" property="color"/>
+  	</resultMap>
+<resultMap type="AdoptDTO" id="AdoptInsertResultset">
+  		<id column="BOARD_CODE" property="boardCode"/>
+  		<result column="ADOPT_BREED" property="adoptBreed"/>
+  		<result column="ADOPT_GENDER" property="adoptGender"/>
+  		<result column="ADOPT_AGE" property="adoptAge"/>
+  		<result column="ADOPT_WEIGTH" property="adoptWeight"/>
+  		<result column="ADOPT_COLOR" property="adoptColor"/>
+  		<result column="ADOPT_INTRODUCE" property="adoptIntroduce"/>
+  		<result column="ADOPT_PHONE" property="adoptPhone"/>
+  		<result column="ADOPT_CAUTION" property="adoptCaution"/>
+  		<result column="USER_NIKNAME" property="userNickname"/>
+  		<result column="ADOPT_DELETE_YN" property="deleteYN"/>
+  		<result column="STATE_CODE" property="stateCode"/>
+  		<result column="BOARD_DATE" property="boardDate"/>
+  		<result column="USER_CODE" property="userCode"/>
+  		<result column="DOG_OR_CAT" property="dogOrcat"/>
+  		<result column="USER_LOCATION" property="address"/>
+  	</resultMap>
 <resultMap id="ReportPopup" type="reportPopupDTO">
 		<id column="BOARD_CODE" property="boardCode" />
 		<result column="USER_ID" property="userId" />
@@ -462,10 +500,71 @@ SELECT
     FROM REVIEW_BOARD A
     LEFT OUTER JOIN REVIEW_PICTURE_MANAGE B ON(B.BOARD_CODE = A.BOARD_CODE)
     </if>
+    <if test="category == 5">
+    FROM FRIENDLY_BOARD A
+    LEFT OUTER JOIN FRIENDLY_PICTURE_MANAGE B ON(B.BOARD_CODE = A.BOARD_CODE)
+    </if>
+    <if test="category == 4">
+    FROM MISSING_BOARD A
+    LEFT OUTER JOIN MISSING_PICTURE_MANAGE B ON(B.BOARD_CODE = A.BOARD_CODE)
+    </if>
+    <if test="category == 6">
+    FROM ADOPT_BOARD A
+    LEFT OUTER JOIN ADOPT_PICTURE_MANAGE B ON(B.BOARD_CODE = A.BOARD_CODE)
+    </if>
     
     LEFT OUTER JOIN PICTURE_TABLE C ON (C.PICTURE_CODE = B.PICTURE_CODE)
     JOIN USER_TABLE D ON (A.USER_CODE = D.USER_CODE)
 	WHERE A.BOARD_CODE = #{ boardCode }
 
 </select>
+
+	  <select id="selectAdoptDetail" parameterType="_int" resultMap="AdoptInsertResultset">
+	  	SELECT
+		      A.BOARD_CODE
+			, A.ADOPT_BREED
+			, A.ADOPT_GENDER
+			, A.ADOPT_AGE
+			, A.ADOPT_WEIGTH
+			, A.ADOPT_COLOR
+			, A.ADOPT_INTRODUCE
+			, A.ADOPT_PHONE
+			, A.ADOPT_CAUTION
+			, A.ADOPT_DELETE_YN
+			, A.STATE_CODE
+			, A.BOARD_DATE
+			, A.USER_CODE
+			, A.DOG_OR_CAT
+			, A.USER_LOCATION
+			, U.USER_NIKNAME
+		FROM ADOPT_BOARD A
+		JOIN USER_TABLE U ON (U.USER_CODE = A.USER_CODE)
+	    WHERE  A.BOARD_CODE = #{boardCode}
+	  	
+	  </select>
+<select id="selectMissingDetail" parameterType="int" resultMap="missingResultset">
+ 		SELECT
+ 		      M.BOARD_CODE
+ 		    , M.BOARD_DATE
+            , M.MISSING_DATE
+			, M.MISSING_AREA
+			, M.MISSING_PLACE
+			, M.MISSING_PHONE
+			, M.MISSING_BREED
+			, M.MISSING_GENDER
+			, M.MISSING_COLOR
+			, M.DOG_OR_CAT
+			, M.MISSING_AGE
+			, M.MISSING_WEIGTH
+			, M.MISSING_CHARACTER
+			, M.MISSING_REQUEST
+			, M.MISSING_DELETE_YN
+			, M.STATE_CODE
+			, M.USER_CODE
+			, U.USER_NIKNAME
+		FROM MISSING_BOARD M
+		JOIN USER_TABLE U ON (U.USER_CODE = M.USER_CODE)
+	    WHERE M.BOARD_CODE = #{boardCode}
+ 	</select>
+
 </mapper>

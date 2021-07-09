@@ -106,6 +106,9 @@ public class AskController {
     	   System.out.println("업데이트 실패");
        }else {
     	   System.out.println("업데이트 성공");
+    	   if(askService.updateState(boardCode)) {
+    		   System.out.println("업데이트 ㄹㅇ성공");
+    	   }
        }
 
        

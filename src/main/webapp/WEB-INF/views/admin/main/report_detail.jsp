@@ -17,7 +17,7 @@
 		var category = ${category};
 		var url="${ pageContext.servletContext.contextPath }/admin/reportPopup?boardCode="+boardCode+"&category="+category;
 		var name= "PopUp";
-		var option= "width = 600, height = 500, left = 100, top = 50, location = no";
+		var option= "width = 700, height = 900, left = 100, top = 50, location = no";
 		
 		window.open(url,name,option)
 		

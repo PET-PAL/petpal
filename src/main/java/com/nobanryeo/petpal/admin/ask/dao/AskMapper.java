@@ -16,4 +16,6 @@ public interface AskMapper {
 	int selectSearchCount(AdminPageInfoDTO cat);
 	List<AskDTO> selectSearchAsk(AdminPageInfoDTO paging);
 	int updateReply(Map param);
+	int updateState(int boardCode);
+
 }
