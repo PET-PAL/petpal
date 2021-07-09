@@ -337,7 +337,7 @@ public class FreeBoardController {
 			adDTO.setUserCode(0);
 			adService.insertAdClick(adDTO);
 		} else { 										// 로그인 했을 떄
-			if(adService.selectAdClick(adDTO) > 1) {
+			if(adService.selectAdClick(adDTO) <= 0) {
 				adService.insertAdClick(adDTO);
 			}
 		}

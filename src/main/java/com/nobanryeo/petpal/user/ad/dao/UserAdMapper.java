@@ -25,7 +25,7 @@ public interface UserAdMapper {
 
 	int updateFirstAdPayment(AdDTO adDTO);
 
-	Date selectToday();
+	String selectToday();
 	
 	int updateCancelAd(AdDTO adDTO);
 

@@ -3,6 +3,8 @@ package com.nobanryeo.petpal.user.ad.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
@@ -25,7 +27,6 @@ import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.UserAdService;
 import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
-import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 /**
@@ -368,11 +369,20 @@ public class UserAdController {
 	
 	/**
 	 * 광고 취소
+	 * @throws ParseException 
 	 */
 	@PostMapping("update/cancel/ad")
-	public String updateCancelAd(@ModelAttribute AdDTO adDTO, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) {
+	public String updateCancelAd(HttpServletRequest request, @ModelAttribute AdDTO adDTO, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) throws ParseException {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilDate = dateFormat.parse(request.getParameter("payDate1st"));
+		java.sql.Date payDate1st = new java.sql.Date(utilDate.getTime());
 		
 		adDTO.setUserCode(loginUser.getCode());
+		adDTO.setPayDate1st(payDate1st);
+	      
+		
+		System.out.println("@#$%^&^$#@#$%^^&%$#컨트롤러러러ㅓ러ㅓ러ㅓ러러ㅓㅓㅓ러ㅓ");
 		
 		if(adService.updateCancelAd(adDTO) > 0) {
 			System.out.println("광고 취소 성공");
