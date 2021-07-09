@@ -163,7 +163,7 @@ public class ReviewPostController {
 			response.addCookie(new Cookie("reviewboard", cookie));
 			
 			//광고"글"
-			model.addAttribute("review", reviewService.selectAd(boardCode));
+			model.addAttribute("ad", reviewService.selectAd(boardCode));
 			//사진
 			model.addAttribute("reviewImg", reviewService.selectReviewImg(boardCode));
 			
