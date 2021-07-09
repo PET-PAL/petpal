@@ -241,33 +241,6 @@
 		      ORDER BY BOARD_POST_DATE DESC	
 	</select>
 	
-	<!-- <select id="selectReplyCount" resultType="int">
-		SELECT 
-		       COUNT(*)
-		  FROM REPLY_MANAGE
-		 WHERE USER_CODE = #{ userCode }
-		   AND REPLY_DELETE_YN = 'N'
-		   AND REPORT_YN = 'N'
-	</select> -->
-	
-	<!-- <select id="selectReplyList" resultMap="boardResultSet" parameterType="hashmap">
-		SELECT * 
-		  FROM (SELECT ROWNUM RN, A.* 
-		          FROM (SELECT 
-		                       REPLY_CODE
-                             , REPLY_CONTENT
-                             , REPLY_DATE
-                             , REPLY_DELETE_YN
-                             , REPORT_YN
-		          FROM REPLY_MANAGE
-		         WHERE USER_CODE = #{ bcDTO.userCode }
-		           AND REPLY_DELETE_YN = 'N'
-		           AND REPORT_YN = 'N'
-		      ORDER BY REPLY_DATE DESC) A)
-			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
-		      ORDER BY REPLY_DATE DESC	
-	</select> -->
-	
 	<update id="deleteMissingPost" parameterType="int" >
 		UPDATE MISSING_BOARD
            SET MISSING_DELETE_YN = 'Y'
