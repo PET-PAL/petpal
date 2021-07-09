@@ -23,8 +23,6 @@ public class MainPageController {
 	// 관리자 메인페이지
 	@RequestMapping("adminMainPage")
 	public ModelAndView adApproveListReturning() {
-	
-		//return "admin/main/manager_main";
 		
 		return new ModelAndView("admin/main/manager_main/chart");
 	}

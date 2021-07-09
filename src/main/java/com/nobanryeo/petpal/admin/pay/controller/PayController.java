@@ -53,6 +53,47 @@ public class PayController {
 			cntPerPage = "5";
 		}
 		
+		AdminPageInfoDTO cat2 = new AdminPageInfoDTO(category);
+		
+		// 전체 광고 갯수 조회
+		int realTotal = payAdminService.selectAdPayList(cat2);
+		
+		System.out.println("전체 광고 갯수 : " + realTotal);
+		// 전체 광고 조회
+		List<AdAdminDTO> selectPayAllForMonthList = payAdminService.selectPayAllForMonthList();
+		
+		System.out.println("전체 광고 조회 : " + selectPayAllForMonthList);
+		
+		// 청구일자
+    	for(int i = 0; i < realTotal; i++) {
+    		
+    		if( selectPayAllForMonthList.get(i).getPayDate1st() != null && selectPayAllForMonthList.get(i).getCancelApplyDate() == null) {
+    			selectPayAllForMonthList.get(i).setPayUntilDate(selectPayAllForMonthList.get(i).getPostEndDate());
+    		} else if( selectPayAllForMonthList.get(i).getPayDate1st() == null ) {
+    			selectPayAllForMonthList.get(i).setPayUntilDate(selectPayAllForMonthList.get(i).getDecision().getDecisionDate());
+    		} else if( selectPayAllForMonthList.get(i).getPayDate1st() != null && !selectPayAllForMonthList.get(i).getCancelApplyDate().equals(null)){
+    			selectPayAllForMonthList.get(i).setPayUntilDate(selectPayAllForMonthList.get(i).getCancelApplyDate());
+    		}
+    		
+    		System.out.println(selectPayAllForMonthList.get(i).getPayUntilDate());
+    	}
+		
+    	// 청구일자 업데이트
+    	for(int j = 0; j < realTotal; j++) {
+    		
+    	AdAdminDTO adInfo = new AdAdminDTO(selectPayAllForMonthList.get(j).getPayUntilDate(), selectPayAllForMonthList.get(j).getAdCode());
+    	
+    	boolean result = payAdminService.updateAdPayDate(adInfo);
+		
+	    	if (result) {
+	    		System.out.println("업데이트 성공!");
+	    	} else {
+	    		System.out.println("업데이트 실패!");
+	    	}
+    	
+    	}
+    	
+		
 		List<AdAdminDTO> selectAdPayAllList = null;
 		
 		// 검색 안 했을 떄
