@@ -98,11 +98,6 @@ public class ReviewPostServiceImpl implements ReviewPostService {
 	}
 
 	@Override
-	public ReviewDTO selectWritedReview(int boardCode) {
-		return mapper.selectWritedReview(boardCode);
-	}
-
-	@Override
 	public int updateReviewBoard(ReviewDTO reviewDTO) {
 		return mapper.updateReviewBoard(reviewDTO);
 	}
