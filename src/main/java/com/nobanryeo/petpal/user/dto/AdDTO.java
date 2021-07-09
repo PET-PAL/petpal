@@ -50,6 +50,7 @@ public class AdDTO {
 	private int lastPage;	//마지막페이지
 	private int start;		//쿼리에 쓸 start
 	private int end;		//쿼리에 쓸 end
+	private Date sysdate;
 	
 	private int cntPage = 5;
 
@@ -520,6 +521,14 @@ public class AdDTO {
 
 	public void setCntPage(int cntPage) {
 		this.cntPage = cntPage;
+	}
+
+	public Date getSysdate() {
+		return sysdate;
+	}
+
+	public void setSysdate(Date sysdate) {
+		this.sysdate = sysdate;
 	}
 
 	@Override

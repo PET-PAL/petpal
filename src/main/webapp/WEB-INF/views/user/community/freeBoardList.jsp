@@ -109,7 +109,7 @@
 
             <section id="menutable" class="menutable">
 				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
-		           	<table class="table table-hover" style="margin-bottom: 50px;">
+		           	<table class="table table-hover" style="margin-bottom: 5px;">
 			        	<thead>
 			                <tr style="background-color: #F1FAF8;">
 			                	<th style="border-radius: 21px 0px 0px 0px; width: 20px;"></th>
@@ -146,7 +146,7 @@
 				                <c:if test="${ status.index == 2 }">
 				                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
 				                		<c:if test="${ adStatus.index == 0 }">
-					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?adCode=${ arr.boardCode }'">
+					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }&userCode=${ sessionScope.loginUser.code }'">
 							                	<td></td>
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
@@ -161,7 +161,7 @@
 				                <c:if test="${ status.index == 5 }">
 				                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
 				                		<c:if test="${ adStatus.index == 1 }">
-					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/freeboard/detail?adCode=${ arr.boardCode }'">
+					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }&userCode=${ sessionScope.loginUser.code }'">
 							                	<td></td>
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
@@ -175,30 +175,30 @@
 			                </c:forEach>
 			            </tbody>
 			        </table>
-			        <!-- 페이징처리 -->
-			        <div class="text-center">
-						<ul class="pagination">
-							<li>
-								<c:if test="${paging.startPage != 1 }">
-									<li><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
-								</c:if>
-								<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-									<c:choose>
-										<c:when test="${p == paging.nowPage }">
-											<li><a>${p }</a></li>
-										</c:when>
-										<c:when test="${p != paging.nowPage }">
-											<li><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-										</c:when>
-									</c:choose>
-								</c:forEach>
-								<c:if test="${paging.endPage != paging.lastPage}">
-									<li><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
-								</c:if>
-							</li>
-						</ul>
-					</div>
 	            </div>
+		        <!-- 페이징처리 -->
+		        <div class="text-center">
+					<ul class="pagination">
+						<li>
+							<c:if test="${paging.startPage != 1 }">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+							</c:if>
+							<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+								<c:choose>
+									<c:when test="${p == paging.nowPage }">
+										<li><a>${p }</a></li>
+									</c:when>
+									<c:when test="${p != paging.nowPage }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+									</c:when>
+								</c:choose>
+							</c:forEach>
+							<c:if test="${paging.endPage != paging.lastPage}">
+								<li><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+							</c:if>
+						</li>
+					</ul>
+				</div>
             </section>
             
             

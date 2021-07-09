@@ -32,6 +32,10 @@ public interface UserAdService {
 
 	public List<AdDTO> selectRandomAdPlace();
 
-	
+	public AdDTO selectAdDetail(int adCode);
+
+	public void insertAdClick(AdDTO adDTO);
+
+	public int selectAdClick(AdDTO adDTO);
 
 }

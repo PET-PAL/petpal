@@ -1,5 +1,6 @@
 package com.nobanryeo.petpal.user.ad.service;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -91,7 +92,18 @@ public class UserAdServiceImpl implements UserAdService {
 	@Override
 	public int updateCancelAd(AdDTO adDTO) {
 		
-		return adMapper.updateCancelAd(adDTO);
+		int result = 0;
+		
+		java.sql.Date today = adMapper.selectToday();
+		java.sql.Date pay1st = adDTO.getPayDate1st();
+		
+		if(today.equals(pay1st)) {
+			result = adMapper.updateCancelAd2(adDTO);		// 1차결제일과 취소일이 같을 때(결제후 광고게시 대기중)
+		} else {
+			result = adMapper.updateCancelAd(adDTO);
+		}
+		
+		return result;
 	}
 
 	@Override
@@ -115,6 +127,21 @@ public class UserAdServiceImpl implements UserAdService {
 		randomAd = adMapper.selectRandomAdPlace();
 		
 		return randomAd;
+	}
+
+	@Override
+	public AdDTO selectAdDetail(int adCode) {
+		return adMapper.selectAdDetail(adCode);
+	}
+
+	@Override
+	public void insertAdClick(AdDTO adDTO) {
+		adMapper.insertAdClick(adDTO);
+	}
+
+	@Override
+	public int selectAdClick(AdDTO adDTO) {
+		return adMapper.selectAdClick(adDTO);
 	}
 
 

@@ -29,6 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.JsonObject;
+import com.nobanryeo.petpal.user.ad.service.UserAdService;
 import com.nobanryeo.petpal.user.adopt.service.ShareFreeService;
 import com.nobanryeo.petpal.user.dto.AdoptReplyDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardReportDTO;
@@ -47,10 +48,12 @@ import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 public class ShareFreeController {
 	
 	private ShareFreeService sharefreeService;
+	private final UserAdService adService;
 
 	@Autowired
-	public ShareFreeController(ShareFreeService sharefreeService) {
+	public ShareFreeController(ShareFreeService sharefreeService, UserAdService adService) {
 		this.sharefreeService = sharefreeService;
+		this.adService = adService;
 	}
 	
 	
@@ -108,6 +111,7 @@ public class ShareFreeController {
     	
     	model.addAttribute("paging", page);
     	model.addAttribute("shareList", shareList);
+    	model.addAttribute("randomAdNonPlace", adService.selectRandomAdNonPlace());
     	
 		return "user/community/shareList";
 	}
