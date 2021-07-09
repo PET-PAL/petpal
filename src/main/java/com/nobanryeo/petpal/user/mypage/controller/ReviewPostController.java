@@ -29,6 +29,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
+import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.PictureDTO;
@@ -428,54 +429,35 @@ public class ReviewPostController {
 			, @RequestParam(value = "boardCode", defaultValue = "0")int boardCode
 			, @RequestParam(required = false) String baordContent
 			, RedirectAttributes rttr) {
-		
-		
-//		reviewService.updateReviewBoard(reviewDTO);
-		
-//		// 이미지 insert. 단, 이미지 없을때 insert 안해준다
-//		if(picture.getPictureName().equals("")) {
-//			
-//		} else {
-//			
-//			if(reviewService.insertReviewBoardImg(picture) > 0) {
-//				System.out.println("이미지 넣기 성공!!!!!!!");
-//			} else {
-//				System.out.println("이미지 넣기 실패.............");
-//		}
-			
-		
+
 		
 		if(boardCode == 0) {
 			rttr.addFlashAttribute("message", "잘못된 경로로 접근하셨습니다!");
 			return "redirect:/user/review";
 		}
 		
-		model.addAttribute("review", reviewService.selectWritedReview(boardCode));
+		model.addAttribute("review", reviewService.selectReviewDetail(boardCode));
 		
 		return "user/community/reviewModify";
 	}
 	
+	/**
+	 * 리뷰 수정
+	 * @param reviewDTO
+	 * @return
+	 */
 	@PostMapping("review/writeUpdate/updateReview")
-	public String updateReviewBoard(@ModelAttribute ReviewDTO reviewDTO, Model model, @ModelAttribute PictureDTO picture
-			, RedirectAttributes rttr) {
+	public String updateReviewBoard(@ModelAttribute ReviewDTO reviewDTO) {
 		
-		System.out.println(reviewDTO);
-//		String content = reviewDTO.getBoardContent();
-//		content.substring(reviewDTO.getBoardContent().lastIndexOf(", ")+1);
-//		reviewDTO.setBoardContent(content);
-//		System.out.println("내용물들어옴?!?!?!!?!?!?!??!?! : "+content);
-		
-//		reviewDTO.setBoardContent(content);
+		int boardCode = reviewDTO.getBoardCode();
 		
 		if(reviewService.updateReviewBoard(reviewDTO) > 0) {
-			System.out.println("업데이트 성공");
-			System.out.println(reviewDTO);
+			System.out.println("게시글 수정 성공");
 		} else {
-			System.out.println("업데이트 실패");
+			System.out.println("게시글 수정 실패");
 		}
 		
-		
-		return "";
+		return "redirect:/user/review/reviewDetail?boardCode="+boardCode;
 	}
 	
 

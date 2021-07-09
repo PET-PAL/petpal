@@ -192,7 +192,7 @@
 					<span></span>
 				</c:otherwise>
                 </c:choose>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp'" style="width:50px; float: right; cursor: pointer !important;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/review'" style="width:50px; float: right; cursor: pointer !important;">
             </section>
 
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
