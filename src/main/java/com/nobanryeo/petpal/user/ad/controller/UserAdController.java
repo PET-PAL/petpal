@@ -370,7 +370,7 @@ public class UserAdController {
 	 * 광고 취소
 	 */
 	@PostMapping("update/cancel/ad")
-	public String updateCancelAd(@ModelAttribute AdDTO adDTO, @SessionAttribute UserInfoDTO loginUser) {
+	public String updateCancelAd(@ModelAttribute AdDTO adDTO, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) {
 		
 		adDTO.setUserCode(loginUser.getCode());
 		
@@ -379,6 +379,8 @@ public class UserAdController {
 		} else {
 			System.out.println("광고 취소 실패");			
 		}
+		
+		rttr.addFlashAttribute("message", "광고 취소가 완료되었습니다. 광고 중이었던 광고는 추가결제금액이 발생할 수 있습니다.");
 		
 		return "redirect:/user/select/ad/list";
 	}

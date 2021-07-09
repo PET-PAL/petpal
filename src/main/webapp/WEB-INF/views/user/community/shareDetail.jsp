@@ -168,8 +168,11 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left;">커뮤니티</div>
-                <c:if test="${requestScope.shareInfo.stateCode eq 2 }">
-                <button style="margin-left:900px; background-color:rgb(175, 175, 175);">나눔 완료</button>
+                <c:if test="${requestScope.shareInfo.stateCode == 1 && requestScope.shareInfo.userCode eq sessionScope.loginUser.code }">
+                	<button style="margin-left:900px; background-color:rgb(175, 175, 175);" onclick="location.href='${ pageContext.servletContext.contextPath }/user/sharefree/update/status/${requestScope.shareInfo.boardCode}'" >나눔 완료</button>
+                </c:if>
+                <c:if test="${requestScope.shareInfo.stateCode == 2 }">
+                	<button style="margin-left:900px; background-color:rgb(175, 175, 175);">나눔 완료</button>
                 </c:if>
                 <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/list'" style="width:50px; float: right;">
             </section> <!--End off Home Sections-->
@@ -203,6 +206,7 @@
             </section>
             
          <!-- 게시글 신고 팝업창 -->
+         <form action="${ pageContext.servletContext.contextPath }/user/sharefree/insert/report" method="POST">
             <div id="reportPost" class="overlay">
                 <div class="popup">
                     <a href="#none" class="close">&times;</a>
@@ -212,21 +216,65 @@
                             <hr style="border:0.5px solid #A8A8A8;">
                         </div>
                         <!-- 신고 내용 입력 -->
-                        <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" id="reportContent_board" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                         <c:if test="${!empty sessionScope.loginUser }">
+                        	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" type="button" onclick="location.href='#completeReport'">신고하기</button></div>
+                        </c:if>
+                         <c:if test="${empty sessionScope.loginUser }">
+                        	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit">로그인 후 신고가능합니다.</button></div>
+                    	</c:if>
                     </div>
                 </div>
             </div>
             
-                 <!-- 쪽지 팝업창 -->
+            <!-- 신고 완료 팝업창 -->
+	            <div id="completeReport" class="overlay">
+	                <div class="popup">
+	                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
+	                     	신고가 정상적으로 접수되었습니다.<br>
+	                    </p>
+	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
+	                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
+	                     	신고 내역에서 확인 가능합니다.
+	                    </p>
+	                    <input type="hidden" name="reportContent" id="reportContent">
+	                    <input type="hidden" name="contentCode" id="contentCode">
+	                    <input type="hidden" name="boardTitle" id="boardTitle">
+	                    <div style="text-align: center; margin-top: 30px;"><button type = "submit" id = "btn_report_submit" class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                   		<script>
+                   		
+                   		 $j3("#btn_report_submit").click(function(){
+	                   			console.log("여기오나?");
+	                   			var content = $j3("#reportContent_board").val(); 
+	                   			var Bcode = ${requestScope.missingDetail.boardCode};
+	                   			var Btitle = ${requestScope.shareInfo.boardTitle};
+	                   			
+	                   			$j3("#reportContent").val(content);
+                   				$j3("#contentCode").val(Bcode);
+                   				$j3("#boardTitle").val(Btitle);
+                   				
+                   			});
+                   		</script>
+                    </div>
+                </div>
+           </form>
+            
+            <!-- 쪽지 팝업창 -->
+           <form action="${pageContext.servletContext.contextPath }/user/sharefree/insert/message" method="post">
+          
             <div id="directMessage" class="overlay">
                 <div class="popup">
-                    <a href="#none" class="close">&times;</a>
-                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : 킘유진(kimyu)</p>
+                    <a href="" class="close">&times;</a>
+                    <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${requestScope.shareInfo.userNickname }"/></p>
                     <div class="findpwd-content" id="contStep02" style="display: block;">
                         <!-- 신고 내용 입력 -->
-                        <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+                        <div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                         <c:if test="${!empty sessionScope.loginUser }">
+                       	 <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+			           </c:if>
+ 						<c:if test="${empty sessionScope.loginUser }">
+                     	   <div style="text-align: center; margin-top: 30px;"><button type="button" style="background-color:red !important;"class="btn_submit">로그인 후 이용가능</button></div>
+         			  </c:if>
                     </div>
                 </div>
             </div>
@@ -240,26 +288,15 @@
                     <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
                      	보낸 쪽지는 마이페이지에서 확인 가능합니다.
                     </p>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
+                    		<input type="hidden" value="${ requestScope.shareInfo.userCode }" name="receivecode">
+                        	<input type="hidden" value="${ requestScope.shareInfo.boardCode }" name="boardcode">
+                        	<input type="hidden" value="${ requestScope.shareInfo.userNickname }" name="receiveUserNick">
+                        <div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit" >확인</button></div>
                     </div>
                 </div>
-            </div>
-            
-            
-             <!-- 신고 완료 팝업창 -->
-            <div id="completeReport" class="overlay">
-                <div class="popup">
-                    <p style="font-size: 30px; text-align: center; font-weight:bold; margin-top: 50px;">
-                     	신고가 정상적으로 접수되었습니다.<br>
-                    </p>
-                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 20px;">
-                     	신고에 대한 처리는 1~2일 소요될 수 있으며<br>
-                     	신고 내역에서 확인 가능합니다.
-                    </p>
-                        <div style="text-align: center; margin-top: 30px;"><button class="btn_submit" onclick="location.href='#none'">확인</button></div>
-                    </div>
-                </div>
-
+           </form>
+          </div>
+          
             
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>

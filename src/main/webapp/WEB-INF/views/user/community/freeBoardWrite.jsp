@@ -93,7 +93,7 @@
 						<table class="table" style="border-collapse: separate;">
 							<tr>
 								<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
-								<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="boardTitle" placeholder="제목을 입력하세요" style="border: none; width: 80%"></td>
+								<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="boardTitle" placeholder="제목을 입력하세요" required style="border: none; width: 80%"></td>
 							</tr>
 							<tr>
 								<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
@@ -102,12 +102,12 @@
 							<tr>
 								<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>카테고리</b></td>
 								<td>
-									<label style="font-size: 15px; font-weight: normal; width:30%"><input name="category" type="radio" value="일반"> 일반</label>
+									<label style="font-size: 15px; font-weight: normal; width:30%"><input name="category" type="radio" value="일반" required> 일반</label>
 									<label style="font-size: 15px; font-weight: normal;"><input name="category" type="radio" value="질문"> 질문</label>
 								</td>
 							</tr>
 						</table>
-						<textarea id="summernote" name="boardContent"></textarea>
+						<textarea id="summernote" name="boardContent" required></textarea>
 	  					<script>
 	  						$j3('#summernote').summernote({
 	  	                        placeholder: '자유게시판 게시물을 작성해주세요',

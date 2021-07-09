@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,25 +33,41 @@
 		                                 <table class="table">
 		                                 <tr>
 		                                    <th scope="col-md-3" style="border: none; width: 150px;">작성한 아이디</th>
-		                                    <td style="border: none;">judy123</td>
+		                                    <td style="border: none;">${ requestScope.reviewDetail.userId }</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">작성한 유저 이름</th>
-		                                    <td style="border: none;"></td>
+		                                    <td style="border: none;">${ requestScope.reviewDetail.userName }</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">작성 글제목</th>
-		                                    <td style="border: none;"></td>
+		                                    <td style="border: none;">${ requestScope.reviewDetail.boardTitle }</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">작성 일자</th>
-		                                    <td style="border: none;"></td>
+		                                    <td style="border: none;">${ requestScope.reviewDetail.postDate }</td>
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none; margin-top:10px">작성 내용</th>
 		                                    <td style="border: none;margin-top:10px"><button class="btn text-center" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 5px;background: #19A985;color:white;">작성글 상세 보기</button></td>
 		                                    
 		                                 </tr>
+		                                 <tr>
+		                                    <th scope="col" style=" color:black">처리 여부</th>
+		                                    <td style=" color:black">${requestScope.reviewDetail.state }</td>
+		                                 </tr>
+		                                 <c:if test="${requestScope.reviewDetail.state != '대기중' }">
+		                                 <tr>
+		                                    <th scope="col" style="border: none;">담당 관리자</th>
+		                                    <td style="border: none;">${requestScope.reviewDetail.adminName }(${requestScope.reviewDetail.adminId })</td>
+		                                 </tr>
+		                                 </c:if>
+		                                 <c:if test="${requestScope.reviewDetail.state eq '거절' }">
+		                                 <tr>
+		                                    <th scope="col" style="border: none;">거절 사유</th>
+		                                    <td style="border: none;">${requestScope.reviewDetail.reason }</td>
+		                                 </tr>
+		                                 </c:if>
 		                            	</table>
 				           	 		</div>	
 				           	 		<br>
@@ -69,10 +86,12 @@
 				           	 		<br>
 				           	 		<div class="container">
 				           	 			<div class="row">
+				           	 				<c:if test="${reviewDetail.state eq '대기중' }">
 						           	 		<div class="d-grid gap-2 d-md-flex justify-content-md-end">
 		  									  <button class="btn btn-outline-danger" type="button"  style="border-radius:10px; float:right; margin-right:10px; background: white; border:1px solid red; color:red;">게시글 반려</button>
-											  <button class="btn btn-outline-success" type="button" style="border-radius:10px; margin-right: 20px; float:right; background: white; border:1px solid green; color:green;">게시글 승인</button>
+											  <button onclick="location.href='${pageContext.servletContext.contextPath }/admin/updateReviewDecision?decision=2&category=${category}&boardCode=${boardCode}'" class="btn btn-outline-success" type="button" style="border-radius:10px; margin-right: 20px; float:right; background: white; border:1px solid green; color:green;">게시글 승인</button>
 											</div>
+											</c:if>
 										</div>
 										<hr style="border:1px solid #DDD; background-color:#DDD;">
 									</div>	
@@ -95,12 +114,15 @@
       	  <hr style="border:1px solid #A8A8A8;">
       	  
 	       <div class="time_list">
+	       <form action="${pageContext.servletContext.contextPath }/admin/updateReviewDecision" method="get">
+	       <input type="hidden" name="boardCode" value="${boardCode}"/>
+           <input type="hidden" name="decision" value="3"/>
+           <input type="hidden" name="category" value="${category}"/>
 			<textarea class="form-control" name="message" rows="10" placeholder="반려 사유를 입력해주세요 (필수)" style="margin-bottom:3%;" required></textarea>
-	            <input type="hidden" id="selection" name="selection">
-	            <input type="hidden" class ="code" name="code">
 	       </div>
 	       
        	  <button type="submit" class="time_btn btn-success" >이유 등록하기</button>
+       	  </form>
         <a class="modal_closebtn">
             <img src="${ pageContext.servletContext.contextPath }/resources/images/close.png" alt="닫기" width="50px" height="50px"></a>
     	</div>

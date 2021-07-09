@@ -11,6 +11,7 @@ import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
 import com.nobanryeo.petpal.admin.dto.DecisionDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDetailDTO;
+import com.nobanryeo.petpal.admin.dto.reportPopupDTO;
 import com.nobanryeo.petpal.admin.report.dao.ReportMapper;
 
 @Service
@@ -62,6 +63,12 @@ public class ReportServiceImpl implements  ReportService{
 	public boolean updateUserBan(DecisionDTO decisionData) {
 		// TODO Auto-generated method stub
 		return mapper.updateUserBan(decisionData)> 0 ? true : false;
+	}
+
+	@Override
+	public reportPopupDTO selectReportPopup(Map param) {
+		// TODO Auto-generated method stub
+		return mapper.selectReportPopup(param);
 	}
 
 }

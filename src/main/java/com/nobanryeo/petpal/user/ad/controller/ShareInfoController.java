@@ -367,6 +367,7 @@ public class ShareInfoController {
     	
     	model.addAttribute("paging", sharePlace);
         model.addAttribute("sharePlaceList", shareInfoService.selectSharePlaceList(sharePlace));
+        model.addAttribute("randomAdPlace", adService.selectRandomAdPlace());
     	
     	return "user/main/sharePlace";
     }

@@ -51,28 +51,38 @@
 		        	url:"${ pageContext.servletContext.contextPath }/admin/adminMainPage/chart"
 		          , dataType:"json"
 		          , async: false
-		          , success : function(data){
-		        	
-		        	 var data = new google.visualization.DataTable(data);
-		        	 
-		        	 console.log(data);
-				      
-				      var chart = new google.visualization.LineChart(document.getElementById('chart_div')); //선 그래프 
-				      
-				      //데이터를 가지고 (타이틀, 높이, 너비) 차트를 그린다.
-		              chart.draw(data, {
-		                  title : "월별 매출액",
-		                  curveType : "function", //curveType는 차트의 모양이 곡선으로 바뀐다는 뜻
-		                  width : 600,
-		                  height : 400
-		              });
-				
-					 }
-		          })
+		          }).responseText;
+		        
+		         console.log(jsonData);
+		          
+		         var data = new google.visualization.DataTable(jsonData);
+		         
+		         console.log(data);
+
+
+		         
+		         var chart
+		         = new google.visualization.LineChart(
+		                document.getElementById('chart_div')); //선 그래프 
+		          
+		         //데이터를 가지고 (타이틀, 높이, 너비) 차트를 그린다.
+	                chart.draw(data, {
+	                    title : "월별 매출액",
+	                    //curveType : "function", //curveType는 차트의 모양이 곡선으로 바뀐다는 뜻
+	                    width : 600,
+	                    height : 350,
+	                    hAxis: {
+		        	          title: 'Month'
+		        	    },
+		        	    vAxis: {
+		        	          title: 'Revenue(￦)'
+		        	    },
+		        	    backgroundColor: '#F1FAF8'
+	                }); 
+		                
+		          
 		        };
-		     
-		      
-		     
+	
 		</script>
 		
     </head>
@@ -88,7 +98,7 @@
            
 
            <!--Business Section-->
-            <section id="business" class="business bg-grey roomy-30" style="margin-top: 50px; margin-bottom:0px; ">
+            <section id="business" class="business roomy-30" style="margin-top:0px; margin-bottom:0px; ">
                 <div class="container">
                     <div class="row">
                         <div class="main_business">
@@ -131,9 +141,9 @@
                 </div>
             </section><!-- End off Business section -->
             
-             <section id="business" class="business bg-grey roomy-70" style="height: 350px; margin-top: 0px; margin-bottom:100px; ">
+             <section id="business" class="businessroomy-70" style="height: 350px; margin-top: 20px; margin-bottom:50px; padding-top:0px;">
                 <!-- 월매출액 그래프 그려주는 부분 -->
-                <div id="chart_div" class="container">
+                <div id="chart_div" class="container" style="margin-left: 200.222;">
                    
                 </div>
             </section><!-- End off Business section -->

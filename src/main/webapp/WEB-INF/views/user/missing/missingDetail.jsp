@@ -319,18 +319,27 @@
                 		<input type="button" class="btn btn-light"style= "background-color: #45B99C;border: 0px;border-radius: 10px; width: 250px; margin-left: 60px; color: white; font-size: 22px; height: 50px; padding-top: 10px; margin-bottom: 7px" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/update/status?board=${requestScope.missingDetail.boardCode}'" value ="찾았습니다!"/>
 	                   <br>
 	                   <div style="float:right;margin-top: 10px;">
-					       <button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/update'">수정하기</button>
+					       <button class="btn btn-light" id="revised_btn" style="width:100px; color: orange;border:none; background-color:white; type="button" onclick="revisedfn();" >수정하기</button>
 				       </div>
                     </c:if>
-			       
                    <!-- 찾았습니다 버튼이 눌릴시 아래의 h3이 나오면 된다. -> 상태에 따른 c:if처리 -->
-                   <c:if test="${requestScope.missingDetail.stateCode eq '2'}">
+                   <c:if test="${requestScope.missingDetail.stateCode == 2}">
 	                   <h3 style="background-color: #45B99C; width: 600px; border-radius: 8px; height: 50px; color: white; font-weight: bold; padding-top: 10px;">
 	                   찾았습니다! 많은 관심과 제보 감사합니다!
 	                   </h3>
                    </c:if>
                 </div>
          </section>
+         
+         <script type="text/javascript">
+         
+         function revisedfn(){
+        	 
+         		if(confirm("게시글 수정시 사진을 필수로 재업로드 해주셔야합니다. 계속 진행하시겠습니까?")){
+         			location.href='${ pageContext.servletContext.contextPath }/user/missing/update/${requestScope.missingDetail.boardCode}';
+         		}
+         }
+         </script>
             <section id="boradtable" class="boradtable">
                <div class="carousel-inner" role="listbox">
                    <div class="item active">
@@ -445,7 +454,7 @@
 				     		var code = ${requestScope.missingDetail.boardCode};
 			     			var content = $j3('#messagecontent').val();
 			     			
-			     			if(${sessionScope.loginUser ne null}){
+			     			if(${!empty sessionScope.loginUser}){
 					     		if(content.trim()==''){
 					     			alert('댓글을 입력하신 후 다시 눌러주시기 바랍니다.');
 
@@ -690,7 +699,7 @@
                         <div style="text-align: center; margin-top: 30px;"><button type="submit" class="btn_submit" >확인</button></div>
                     </div>
                 </div>
-                 </form>
+              </form>
             
            <script>
               function show(){
