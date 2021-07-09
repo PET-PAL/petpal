@@ -9,6 +9,8 @@ import com.nobanryeo.petpal.admin.dto.DecisionDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDetailDTO;
 import com.nobanryeo.petpal.admin.dto.reportPopupDTO;
+import com.nobanryeo.petpal.user.dto.AdoptDTO;
+import com.nobanryeo.petpal.user.dto.MissingDTO;
 
 public interface ReportMapper {
 	int selectReportCount (AdminPageInfoDTO cat);
@@ -19,5 +21,8 @@ public interface ReportMapper {
 	int updateBoardBlind(DecisionDTO decisionData);
 	int updateUserBan(DecisionDTO decisionData);
 	reportPopupDTO selectReportPopup(Map param);
+	AdoptDTO selectAdoptDetail(int boardCode);
+	MissingDTO selectMissingDetail(int boardCode);
+
 
 }

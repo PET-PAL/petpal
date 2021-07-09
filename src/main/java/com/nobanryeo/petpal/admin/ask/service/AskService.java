@@ -18,4 +18,6 @@ public interface AskService {
 	List<AskDTO> selectSearchAsk(AdminPageInfoDTO paging);
 	boolean updateReply(Map param);
 
+	boolean updateState(int boardCode);
+
 }
