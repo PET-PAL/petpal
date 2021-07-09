@@ -144,6 +144,7 @@ public class ReviewPostController {
 	public String reviewAd(@RequestParam int boardCode, Model model, @CookieValue(name = "reviewAd") String cookie
 			, HttpServletResponse response, HttpSession session) {
 		
+		
 		String id = (String)session.getAttribute("id");
 		System.out.println("userId : " + id);
 		
@@ -151,7 +152,6 @@ public class ReviewPostController {
 			
 			if(!(cookie.contains(String.valueOf(boardCode)))) {
 				cookie += boardCode + "/";
-				System.out.println("들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 				//조회수업
 				Map<String, Object> codeMap = new HashMap<String, Object>();
 				codeMap.put("boardCode",boardCode);
@@ -160,7 +160,7 @@ public class ReviewPostController {
 				reviewService.insertAdViewsCount(codeMap);
 			}
 			
-			response.addCookie(new Cookie("reviewboard", cookie));
+			response.addCookie(new Cookie("reviewAd", cookie));
 			
 			//광고"글"
 			model.addAttribute("ad", reviewService.selectAd(boardCode));
