@@ -1,6 +1,8 @@
 package com.nobanryeo.petpal.user.ad.service;
 
 import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -93,14 +95,19 @@ public class UserAdServiceImpl implements UserAdService {
 	public int updateCancelAd(AdDTO adDTO) {
 		
 		int result = 0;
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date today;
 		
-		java.sql.Date today = adMapper.selectToday();
-		java.sql.Date pay1st = adDTO.getPayDate1st();
-		
-		if(today.equals(pay1st)) {
-			result = adMapper.updateCancelAd2(adDTO);		// 1차결제일과 취소일이 같을 때(결제후 광고게시 대기중)
-		} else {
-			result = adMapper.updateCancelAd(adDTO);
+		try {
+			today = dateFormat.parse(adMapper.selectToday());
+			java.sql.Date todayy = new java.sql.Date(today.getTime());
+			if(adDTO.getPayDate1st().equals(todayy)) {
+				result = adMapper.updateCancelAd2(adDTO);		// 1차결제일과 취소일이 같을 때(결제후 광고게시 대기중)
+			} else {
+				result = adMapper.updateCancelAd(adDTO);
+			}
+		} catch (ParseException e) {
+			e.printStackTrace();
 		}
 		
 		return result;
@@ -142,6 +149,11 @@ public class UserAdServiceImpl implements UserAdService {
 	@Override
 	public int selectAdClick(AdDTO adDTO) {
 		return adMapper.selectAdClick(adDTO);
+	}
+
+	@Override
+	public void insertAdClickNoUser(AdDTO adDTO) {
+		adMapper.insertAdClickNoUser(adDTO);
 	}
 
 

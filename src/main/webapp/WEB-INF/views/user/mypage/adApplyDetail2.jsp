@@ -95,6 +95,7 @@
 			        	<c:if test="${ requestScope.adApplyDetail.stateCode ne '4' && !(today > requestScope.adApplyDetail.postEndDate) && !(requestScope.adApplyDetail.stateCode eq '3') && !(isToday-isDecisionDate > 3 && requestScope.adApplyDetail.postYn eq 'N') }">
 			        		<form action="${ pageContext.servletContext.contextPath }/user/update/cancel/ad" method="post">
 					        	<input type="hidden" value="${ requestScope.adApplyDetail.adCode }" name="adCode"/>
+					        	<input type="hidden" value="${ requestScope.adApplyDetail.payDate1st }" name="payDate1st"/>
 			        			<button style="float: right; margin-right: 10px;">광고 취소</button>
 			        		</form>
 			        	</c:if>
@@ -106,6 +107,7 @@
 			        	<c:if test="${ requestScope.adApplyDetail.stateCode ne '4' && !(today > requestScope.adApplyDetail.postEndDate) && !(requestScope.adApplyDetail.stateCode eq '3') }">
 			        		<form action="${ pageContext.servletContext.contextPath }/user/update/cancel/ad" method="post">
 					        	<input type="hidden" value="${ requestScope.adApplyDetail.adCode }" name="adCode"/>
+					        	<input type="hidden" value="${ requestScope.adApplyDetail.payDate1st }" name="payDate1st"/>
 			        			<button style="float: right; margin-right: 10px;">광고 취소</button>
 			        		</form>
 			        	</c:if>

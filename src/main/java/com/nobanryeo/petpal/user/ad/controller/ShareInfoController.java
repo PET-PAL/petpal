@@ -67,11 +67,19 @@ public class ShareInfoController {
     	
     	for(Cookie cookie: cookies) {
     		
-    		if(!(cookie.getName().equals("shareInfo"))) {
+    		if(!(cookie.getName().equals("shareInfo"))) {		// 정보공유게시판
     			
-    			cookie = new Cookie("shareInfo",null); 			//sharInfo라는 이름의 쿠키 생성
-    			cookie.setComment("shareInfo 게시글 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
-    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
+    			cookie = new Cookie("shareInfo",null); 			// sharInfo라는 이름의 쿠키 생성
+    			cookie.setComment("shareInfo 게시글 조회 확인");		// 해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);						// 사용자에게 해당 쿠키를 추가
+    			
+    		}
+    		
+    		if(!(cookie.getName().equals("AdCookie"))) {		// 광고
+    			
+    			cookie = new Cookie("AdCookie",null); 		// sharInfoAd라는 이름의 쿠키 생성
+    			cookie.setComment("AdCookie 게시글 조회 확인");	// 해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);						// 사용자에게 해당 쿠키를 추가
     			
     		}
     	}
@@ -335,6 +343,14 @@ public class ShareInfoController {
     			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
     			
     		}
+    		
+    		if(!(cookie.getName().equals("AdCookie"))) {		// 광고
+    			
+    			cookie = new Cookie("AdCookie",null); 			// AdCookie라는 이름의 쿠키 생성
+    			cookie.setComment("AdCookie 게시글 조회 확인");		// 해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);						// 사용자에게 해당 쿠키를 추가
+    			
+    		}
     	}
     	
     	// 페이징처리
@@ -586,4 +602,5 @@ public class ShareInfoController {
 		
 		return "redirect:/user/select/sharePlace/list";
 	}
+	
 }

@@ -3,14 +3,20 @@ package com.nobanryeo.petpal.user.ad.controller;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,7 +31,6 @@ import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.UserAdService;
 import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
-import com.nobanryeo.petpal.user.dto.PageDTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
 
 /**
@@ -368,12 +373,18 @@ public class UserAdController {
 	
 	/**
 	 * 광고 취소
+	 * @throws ParseException 
 	 */
 	@PostMapping("update/cancel/ad")
-	public String updateCancelAd(@ModelAttribute AdDTO adDTO, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) {
+	public String updateCancelAd(HttpServletRequest request, @ModelAttribute AdDTO adDTO, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) throws ParseException {
+		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilDate = dateFormat.parse(request.getParameter("payDate1st"));
+		java.sql.Date payDate1st = new java.sql.Date(utilDate.getTime());
 		
 		adDTO.setUserCode(loginUser.getCode());
-		
+		adDTO.setPayDate1st(payDate1st);
+	      
 		if(adService.updateCancelAd(adDTO) > 0) {
 			System.out.println("광고 취소 성공");
 		} else {
@@ -383,6 +394,41 @@ public class UserAdController {
 		rttr.addFlashAttribute("message", "광고 취소가 완료되었습니다. 광고 중이었던 광고는 추가결제금액이 발생할 수 있습니다.");
 		
 		return "redirect:/user/select/ad/list";
+	}
+	
+	/**
+	 * 광고 상세내용 보기(클릭 수 중복제거 및 카운트)
+	 */
+	@GetMapping("select/ad/detail")
+	public String selectAdDetail(@CookieValue(name = "AdCookie", defaultValue = "/") String cookie, HttpServletResponse response, HttpServletRequest request, @ModelAttribute AdDTO adDTO, @RequestParam int adCode, Model model, HttpSession session) {
+		
+		
+		
+		// 광고 클릭 횟수 추가하기
+		if(session.getAttribute("loginUser") == null) { // 로그인 안했을 때
+			
+			// 비로그인 회원은 쿠키로 광고 클릭 중복제어
+			if(!(cookie.contains(String.valueOf(adCode)))) {
+				cookie += adCode + "/";
+				// 조회수 카운트
+				adService.insertAdClickNoUser(adDTO);
+			}
+			response.addCookie(new Cookie("AdCookie", cookie));
+			
+		} else { 										// 로그인 했을 떄
+			
+			UserInfoDTO loginUser = new UserInfoDTO();
+			loginUser = (UserInfoDTO) session.getAttribute("loginUser");
+			
+			adDTO.setUserCode(loginUser.getCode());
+			if(adService.selectAdClick(adDTO) <= 0) {	// 해당 유저가 클릭 이력이 없을 떄
+				adService.insertAdClick(adDTO);
+			}
+		}
+		
+		model.addAttribute("adDetail", adService.selectAdDetail(adCode));
+		
+		return "user/community/adDetail";
 	}
 	
 }

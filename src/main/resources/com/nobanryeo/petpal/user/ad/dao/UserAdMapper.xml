@@ -132,6 +132,7 @@
 		     , A.DECISION_CODE
              , D.DECISION_DATE
              , A.POST_YN
+             , A.PAY_DATE_1ST
 		  FROM AD_APPLY_TABLE A
 		  JOIN AD_MANAGE_TABLE B ON(B.AD_TYPE_CODE = A.AD_TYPE_CODE)
 		  JOIN PICTURE_TABLE C ON(C.PICTURE_CODE = A.PICTURE_CODE)
@@ -215,7 +216,7 @@
 		 WHERE AD_CODE = #{ adCode }
 	</update>
 	
-	<select id="selectToday" resultType="date">
+	<select id="selectToday" resultType="string">
 		SELECT SYSDATE
 		  FROM DUAL
 	</select>
@@ -285,7 +286,16 @@
 		       )
 	</insert>
 	
-	<select id="selectAdClick" parameterType="AdDTO" resultMap="adResultSet">
+	<insert id="insertAdClickNoUser" parameterType="AdDTO">
+		INSERT
+		  INTO AD_CLICK_COUNT
+		VALUES ( SYSDATE
+		       , DEFAULT
+		       , #{ adCode }
+		       )
+	</insert>
+	
+	<select id="selectAdClick" parameterType="AdDTO" resultType="int">
 		SELECT COUNT(*)
 		  FROM AD_CLICK_COUNT
 		 WHERE USER_CODE = #{userCode}
