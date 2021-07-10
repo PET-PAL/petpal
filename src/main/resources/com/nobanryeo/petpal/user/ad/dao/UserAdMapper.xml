@@ -198,7 +198,6 @@
 		       , #{ industryDetail }
 		       , NULL
 		       , NULL
-		       , NULL
 		       )
 	</insert>
 	
