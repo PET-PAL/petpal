@@ -352,7 +352,19 @@
 					</table>
 					
                 <div style="margin: 0px auto; text-align: center; margin-bottom: 50px; margin-top: 10px;">
-	                <p><input type="submit" id="btnSubmit"  value="회원가입"></p>
+	                <p>
+	                <input type="submit" id="btnSubmit"
+	                style="background-color: #45B99C; 
+			               height: 35px;
+			               color: white;
+			               border-color: #45B99C; 
+			               border: 1px solid;
+			               font-size: 16px; 
+			               font-weight: 500;
+			               border-radius: 10px;
+			               margin-left: 20px;"
+	                  value="회원가입">
+	                </p>
                 </div>
 	           	</form>
      		</section>

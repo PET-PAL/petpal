@@ -36,18 +36,24 @@ public class MessageController {
 	
 	@GetMapping("message")
 	public String message(@ModelAttribute MessageTableDTO messageDTO, @SessionAttribute UserInfoDTO loginUser
-			, PageDTO page , Model model
+			, PageDTO page , Model model, @RequestParam String type
 			, @RequestParam(value="nowPage", required = false)String nowPage
 			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
 
+		System.out.println("타입 : " + type);
 		messageDTO.setUserCode1(loginUser.getCode());
 		
 		int code = loginUser.getCode();
 		
+		
 		System.out.println("쪽지 컨트롤러 도착");
 		System.out.println("현재 조회할 로그인중인 수신자 유저코드 : " + messageDTO.getUserCode1());
 		
-		int total = messageService.selectMessageCount(code);
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		map.put("code", code);
+		map.put("type", type);
+		
+		int total = messageService.selectMessageCount(map);
 		
 		System.out.println("토탈 카운트 : " + total);
 		System.out.println("nowPage : " + nowPage);
@@ -69,7 +75,6 @@ public class MessageController {
 		System.out.println("마지막 페이지 : " + page.getEnd());
 		System.out.println("페이지당 글 갯수 : " + page.getCntPerPage());
 		
-		HashMap<String, Object> map = new HashMap<String, Object>();
 		map.put("msgDTO", messageDTO);
 		map.put("pageInfo", page);
 		
@@ -78,8 +83,13 @@ public class MessageController {
 		
 		model.addAttribute("paging", page);
 		model.addAttribute("msgList", msgList);
+		model.addAttribute("type", type);
 		
-		
+		if(type.equals("A")) {
+			model.addAttribute("num", 0);
+		} else {
+			model.addAttribute("num", 1);
+		}
 		
 		return "user/mypage/message";
 	}
@@ -98,7 +108,8 @@ public class MessageController {
 	public String messageDetail(@ModelAttribute MessageTableDTO messageDTO
 			, PageDTO page , Model model
 			, @RequestParam(value="nowPage", required = false)String nowPage
-			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
+			, @RequestParam(value="cntPerPage", required = false)String cntPerPage
+			, @RequestParam int userCode1, @RequestParam int userCode) {
 		
 		System.out.println("쪽지 상세보기로 들어왔습니다.");
 		System.out.println(messageDTO);
@@ -144,73 +155,35 @@ public class MessageController {
 		model.addAttribute("msgList", msgList);
 		
 		model.addAttribute("oneList", oneList);
+		model.addAttribute("userCode1", userCode1);
+		model.addAttribute("userCode", userCode);
 		
 		return"user/mypage/messageDetail";
 	}
 	
 	
 	@PostMapping("message/messageSend")
-	public String messageSend(@ModelAttribute MessageTableDTO messageDTO, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) {
+	public String messageSend(@ModelAttribute MessageTableDTO messageDTO
+			, @RequestParam int userCode1, @RequestParam int userCode, RedirectAttributes rttr) {
 		
-		System.out.println("보내는 쪽지 내용 : " + messageDTO);
-
-		String send = loginUser.getNikname(); //룹룽이
-		String recevie = "";
-		
-		int sendCode = 0;
-		int recevieCode = 0;
-		
-		if(loginUser.getNikname().equals(messageDTO.getSendUserNick())){ //보낸 사람이 룹룽이와 룹룽이
+			messageDTO.setUserCode(userCode);
+			messageDTO.setUserCode1(userCode1);
 			
-			System.out.println("일반 if들어옴!");
+			System.out.println("아아아악!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
 			
-			recevie = messageDTO.getReceiveUserNick(); //받는사람은 룹룽이 아닌 사람
-			recevieCode = messageDTO.getUserCode1();
-			System.out.println("recevieCode : " + recevieCode);
-			sendCode = messageDTO.getUserCode();
-			System.out.println("sendCode : " + sendCode);
+			System.out.println("보내는 사람!!!!!!!!!!!!!!!!!!!!!! : "+messageDTO.getUserCode());
+			System.out.println("받는 사람!!!!!!!!!!!!!!!!!!!!!!! :"+messageDTO.getUserCode1());
 			
- 			messageDTO.setSendUserNick(send); //보내는 사람: 룹룽이
-			messageDTO.setReceiveUserNick(recevie); //받는 사람: 룹룽이x
-			messageDTO.setUserCode(recevieCode);
-			messageDTO.setUserCode1(sendCode);
 			
-			System.out.println("보내는 사람 : " + messageDTO.getSendUserNick());
-			System.out.println("보내는 사람 코드 : " + messageDTO.getUserCode());
-			System.out.println("받는 사람 : " + messageDTO.getReceiveUserNick());
-			System.out.println("받는 사람 : " + messageDTO.getUserCode1());
+			if(messageService.insertMessageFromMypage(messageDTO)) {
+				System.out.println("쪽지 보내기 성공!");
+			} else {
+				System.out.println("쪽지 보내기 실패...");
+				rttr.addFlashAttribute("message", "쪽지 전송에 실패했습니다. 관련 오류 문의는 문의게시판 이용부탁드립니다.");
+				return "user/mypage/message/messageDetail?userCode1="+messageDTO.getUserCode()+"&userCode="+messageDTO.getUserCode1();
+			}
 			
-		} else { 
-			
-			System.out.println("else 들어옴!");
-			
-			recevie = messageDTO.getSendUserNick(); //받는사람은 보낸사람
-			recevieCode = messageDTO.getUserCode();
-			sendCode = messageDTO.getUserCode1();
-			
-			messageDTO.setSendUserNick(send);
-			messageDTO.setReceiveUserNick(recevie);
-			messageDTO.setUserCode1(recevieCode);
-			System.out.println("recevieCode : " + recevieCode);
-			messageDTO.setUserCode(sendCode);
-			System.out.println("sendCode : " + sendCode);
-			
-			System.out.println("보내는 사람 : " + messageDTO.getSendUserNick());
-			System.out.println("보내는 사람 코드 : " + messageDTO.getUserCode1());
-			System.out.println("받는 사람 : " + messageDTO.getReceiveUserNick());
-			System.out.println("받는 사람 : " + messageDTO.getUserCode());
-			
-		}
-		
-		if(messageService.insertMessageFromMypage(messageDTO)) {
-			System.out.println("쪽지 보내기 성공!");
-		} else {
-			System.out.println("쪽지 보내기 실패...");
-			rttr.addFlashAttribute("message", "쪽지 전송에 실패했습니다. 관련 오류 문의는 문의게시판 이용부탁드립니다.");
-			
-		}
-		
-		return "redirect:/user/mypage/message/messageDetail?userCode1="+messageDTO.getUserCode1()+"&userCode="+messageDTO.getUserCode();
+		return "redirect:/user/mypage/message/messageDetail?userCode1="+messageDTO.getUserCode()+"&userCode="+messageDTO.getUserCode1();
 	}
 	
 	

@@ -29,6 +29,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
+import com.nobanryeo.petpal.user.ad.service.UserAdService;
+import com.nobanryeo.petpal.user.dto.AdDTO;
 import com.nobanryeo.petpal.user.dto.FreeBoardDTO;
 import com.nobanryeo.petpal.user.dto.MessageTableDTO;
 import com.nobanryeo.petpal.user.dto.PageDTO;
@@ -44,10 +46,12 @@ import com.nobanryeo.petpal.user.mypage.service.ReviewPostService;
 public class ReviewPostController {
 	
 	private final ReviewPostService reviewService;
+	private final UserAdService adService;
 	
 	@Autowired
-	public ReviewPostController(ReviewPostService reviewService) {
+	public ReviewPostController(ReviewPostService reviewService, UserAdService adService) {
 		this.reviewService = reviewService;
+		this.adService = adService;
 	}
 	
 	/**
@@ -76,13 +80,13 @@ public class ReviewPostController {
     			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
     			
     		}
-    		if(!(cookie.getName().equals("reviewAd"))) {
-    			
-    			cookie = new Cookie("reviewAd",null); 			//reviewAd라는 이름의 쿠키 생성
-    			cookie.setComment("reviewAd 광고 조회 확인");		//해당 쿠키가 어떤 용도인지 커멘트
-    			response.addCookie(cookie);						//사용자에게 해당 쿠키를 추가
-    			
-    		}
+    		if(!(cookie.getName().equals("AdCookie"))) {      // 광고
+                
+                cookie = new Cookie("AdCookie",null);       // AdCookie라는 이름의 쿠키 생성
+                cookie.setComment("AdCookie 게시글 조회 확인");   // 해당 쿠키가 어떤 용도인지 커멘트
+                response.addCookie(cookie);                  // 사용자에게 해당 쿠키를 추가
+                
+             }
     	}
 		
 		int total = reviewService.selectReviewPostCount();
@@ -105,7 +109,7 @@ public class ReviewPostController {
 		
 		model.addAttribute("paging", page);
 		model.addAttribute("reviewList", reviewList);
-		model.addAttribute("randomAd", reviewService.selectRandomAd());
+		model.addAttribute("randomAd", adService.selectRandomAdNonPlace());
 		
 		return "user/community/reviewList";
 	}
@@ -139,45 +143,6 @@ public class ReviewPostController {
 
 		return "user/community/reviewDetail";
 	}
-	
-	@GetMapping("review/reviewAd")
-	public String reviewAd(@RequestParam int boardCode, Model model, @CookieValue(name = "reviewAd") String cookie
-			, HttpServletResponse response, HttpSession session) {
-		
-		
-		String id = (String)session.getAttribute("id");
-		System.out.println("userId : " + id);
-		
-		if(id != null) {
-			
-			if(!(cookie.contains(String.valueOf(boardCode)))) {
-				cookie += boardCode + "/";
-				//조회수업
-				Map<String, Object> codeMap = new HashMap<String, Object>();
-				codeMap.put("boardCode",boardCode);
-				codeMap.put("userId",id);
-				
-				reviewService.insertAdViewsCount(codeMap);
-			}
-			
-			response.addCookie(new Cookie("reviewAd", cookie));
-			
-			//광고"글"
-			model.addAttribute("ad", reviewService.selectAd(boardCode));
-			//사진
-			model.addAttribute("reviewImg", reviewService.selectReviewImg(boardCode));
-			
-		} else {
-			//광고"글"
-			model.addAttribute("ad", reviewService.selectAd(boardCode));
-			//사진
-			model.addAttribute("reviewImg", reviewService.selectReviewImg(boardCode));
-			
-		}
-
-		return "user/community/reviewAd";
-	}
-	
 	
 	
 	/**

@@ -38,4 +38,6 @@ public interface UserAdService {
 
 	public int selectAdClick(AdDTO adDTO);
 
+	public void insertAdClickNoUser(AdDTO adDTO);
+
 }

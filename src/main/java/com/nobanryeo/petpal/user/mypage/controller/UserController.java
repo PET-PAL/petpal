@@ -20,6 +20,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.nobanryeo.petpal.user.dto.AdQnADTO;
 import com.nobanryeo.petpal.user.dto.UserInfoDTO;
+import com.nobanryeo.petpal.user.mypage.dao.UserMapper;
 import com.nobanryeo.petpal.user.mypage.service.UserService;
 
 @Controller
@@ -179,7 +180,7 @@ public class UserController {
 		UserInfoDTO loginUser = userService.selectUser(userInfo);
 		
 		
-		System.out.println("로그인 성공!!!!!!!!!");
+		System.out.println("로그인한 유저의 정보  : " + loginUser);
 		
 		if(loginUser == null) {
 			System.out.println("정보 불일치 조건문에 들어왔습니다.");
@@ -200,7 +201,6 @@ public class UserController {
 				
 				HttpSession session = request.getSession();
 				session.setAttribute("loginUser", loginUser);
-				session.setAttribute("id", loginUser.getId());
 				
 				return "redirect:/";
 				
@@ -257,6 +257,12 @@ public class UserController {
 		
 	}
 	
+	/**
+	 * 문의하기
+	 * @param qnaDTO
+	 * @param rttr
+	 * @return
+	 */
 	@PostMapping("question")
 	public String questionSend(@ModelAttribute AdQnADTO qnaDTO, RedirectAttributes rttr) {
 		
@@ -277,7 +283,6 @@ public class UserController {
 		
 		return "redirect:/";
 	}
-	
 	
 	
 

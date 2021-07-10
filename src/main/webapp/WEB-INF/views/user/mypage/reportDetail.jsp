@@ -87,7 +87,7 @@
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>신고한 게시물</b></td>
 							<td>${ report.title }</td>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>접수 상태</b></td>
-							<c:if test="${ report.stateCode eq 1 }">
+							<c:if test="${ report.stateCode eq 0 }">
 							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="대기중"/></td>
 							</c:if>
 							<c:if test="${ report.stateCode eq 2 }">
@@ -130,10 +130,22 @@
 					<img src="${ pageContext.servletContext.contextPath }/resources/images/ccat.png"><br>
 					<p style="margin-bottom: 50px; margin-left: 8px;">${ replyContent }</p>
 		        </div>
-                <div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">관리자 답변</div>
-				<div>
-					<textarea class="form-control textarea-layer" style="resize:none; width: 70%; height: 120px; margin-top: 10px; margin: 0px auto; border-radius: 20px; margin-bottom: 50px;" disabled>${ decision.dReason }</textarea>
-				</div>
+				<c:if test="${ report.stateCode eq 3 }">
+	                <div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">관리자 답변</div>
+					<div>
+						<pre class="form-control textarea-layer" style="resize:none; width: 70%; height: 120px; margin-top: 10px; margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+						<c:out value="${ report.dReason }"/>
+						</pre>
+					</div>
+				</c:if>
+				<c:if test="${ decision.stateCode eq 3 }">
+	                <div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">관리자 답변</div>
+					<div>
+						<pre class="form-control textarea-layer" style="resize:none; width: 70%; height: 120px; margin-top: 10px; margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+						<c:out value="${ decision.dReason }"/>
+						</pre>
+					</div>
+				</c:if>
             </section>
 
             

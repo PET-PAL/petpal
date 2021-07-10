@@ -146,7 +146,8 @@
 				                <c:if test="${ status.index == 2 }">
 				                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
 				                		<c:if test="${ adStatus.index == 0 }">
-					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }&userCode=${ sessionScope.loginUser.code }'">
+					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
+					                			<input type="hidden" value="${ sessionScope.loginUser.code }" name="userCode">
 							                	<td></td>
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
@@ -161,7 +162,7 @@
 				                <c:if test="${ status.index == 5 }">
 				                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
 				                		<c:if test="${ adStatus.index == 1 }">
-					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }&userCode=${ sessionScope.loginUser.code }'">
+					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
 							                	<td></td>
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>

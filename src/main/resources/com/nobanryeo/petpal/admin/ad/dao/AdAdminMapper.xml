@@ -35,15 +35,16 @@
 		SELECT COUNT(*) FROM AD_APPLY_TABLE
 		<if test='category == "1"'>
 		 WHERE STATE_CODE = 1
-		    OR STATE_CODE = 4
 		</if>
 		<if test='category == "2"'>
 		 WHERE STATE_CODE = 2
-		    OR STATE_CODE = 4
 		</if>
 		<if test='category == "3"'>
 		 WHERE STATE_CODE = 3
 		</if>		
+		<if test='category == "4"'>
+		 WHERE STATE_CODE = 4
+		</if>
 	  </select>
 	  
 	  <!-- 광고 심사 리스트 -->
@@ -66,14 +67,15 @@
 						   <where>
 		                    <if test='category == "1"'>
 						     	A.STATE_CODE = 1
-						     OR A.STATE_CODE = 4
 						    </if>
 						    <if test='category == "2"'>
 						     	A.STATE_CODE = 2
-						     OR A.STATE_CODE = 4
 						    </if>
 						    <if test='category == "3"'>
 						     	A.STATE_CODE = 3
+						    </if>
+						    <if test='category == "4"'>
+						     	A.STATE_CODE = 4
 						    </if>
 						   </where>
 		               ORDER BY A.AD_CODE DESC
@@ -99,14 +101,15 @@
 		</if>
 	    <if test='category != null and category == "1"'>
 		  AND A.STATE_CODE = 1
-		   OR STATE_CODE = 4
 		</if>
 		<if test='category != null and category == "2"'>
 		  AND A.STATE_CODE = 2
-		   OR STATE_CODE = 4
 		</if>
 		<if test='category != null and category == "3"'>
 		  AND A.STATE_CODE = 3
+		</if>
+		<if test='category != null and category == "4"'>
+		  AND A.STATE_CODE = 4
 		</if>		
 	   </where>
 	  </select>
@@ -140,14 +143,15 @@
 							</if>
 						  	 <if test='category != null and category == "1"'>
 							  AND A.STATE_CODE = 1
-							   OR STATE_CODE = 4
 							</if>
 							<if test='category != null and category == "2"'>
 							  AND A.STATE_CODE = 2
-							   OR STATE_CODE = 4
 							</if>
 							<if test='category != null and category == "3"'>
 							  AND A.STATE_CODE = 3
+							</if>
+							<if test='category != null and category == "4"'>
+							  AND A.STATE_CODE = 4
 							</if>		
 						   </where>
 		               ORDER BY A.AD_CODE DESC

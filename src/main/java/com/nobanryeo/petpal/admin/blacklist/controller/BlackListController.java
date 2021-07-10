@@ -90,6 +90,7 @@ public class BlackListController {
 			model.addAttribute("userList", searchUserList);
 			model.addAttribute("category", category);
 			model.addAttribute("total", total);
+			model.addAttribute("searchValue", searchValue);
 			
 		}
 		

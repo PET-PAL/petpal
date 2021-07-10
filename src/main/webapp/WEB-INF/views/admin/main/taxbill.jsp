@@ -612,10 +612,6 @@
 </tr>
 </table>
          <!------------------- body table 놓이는곳 -------------------->
-      <div style="margin-left: 30%;">
-	      <button class="btn btn-primary" style="width: 200px; height:50px; margin-right: 15px; border-radius: 5px; font-size: larger;">발행 완료</button>
-	     <!--  <button id="create_pdf" style="width: 200px; height:50px; border-radius: 5px; font-size: larger;">pdf 생성</button> -->
-      </div>
       </div>
       </div>
       </div>

@@ -25,7 +25,7 @@ public interface UserAdMapper {
 
 	int updateFirstAdPayment(AdDTO adDTO);
 
-	Date selectToday();
+	String selectToday();
 	
 	int updateCancelAd(AdDTO adDTO);
 
@@ -42,6 +42,8 @@ public interface UserAdMapper {
 	void insertAdClick(AdDTO adDTO);
 
 	int selectAdClick(AdDTO adDTO);
+
+	void insertAdClickNoUser(AdDTO adDTO);
 
 
 

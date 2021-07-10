@@ -183,7 +183,7 @@
 		                </div>
 		            </div>
 		            <!-- 광고 끼워넣기 -->
-	                <c:if test="${ status.index == 2 }">
+	                <c:if test="${ status.index == 0 }">
 	                	<c:forEach var="adarr" items="${ randomAdPlace }" varStatus="adStatus">
 	                		<c:if test="${ adStatus.index == 0 }">
 		                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">

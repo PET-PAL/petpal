@@ -156,15 +156,15 @@ select { width: 150px; /* 원하는 너비설정 */
 							 <div class="container-fluid" style="float:left;">
 									<select id="monthChange" name="month" onchange="monthChange()" class="ui search dropdown" style="font-size:15px; text-align:center !important; width:150px;">
 												  <option value ="0">월별 조회</option>
-												  <option value="1">1월</option>
-												  <option value="2">2월</option>
-												  <option value="3">3월</option>
-												  <option value="4">4월</option>
-												  <option value="5">5월</option>
-												  <option value="6">6월</option>
-												  <option value="7">7월</option>
-												  <option value="8">8월</option>
-												  <option value="9">9월</option>
+												  <option value="01">1월</option>
+												  <option value="02">2월</option>
+												  <option value="03">3월</option>
+												  <option value="04">4월</option>
+												  <option value="05">5월</option>
+												  <option value="06">6월</option>
+												  <option value="07">7월</option>
+												  <option value="08">8월</option>
+												  <option value="09">9월</option>
 												  <option value="10">10월</option>
 												  <option value="11">11월</option>
 												  <option value="12">12월</option>
@@ -190,7 +190,9 @@ select { width: 150px; /* 원하는 너비설정 */
 									<c:choose>
 									    <c:when test="${ !empty requestScope.searchValue }">
 											<!-- input 값도 넘겨줌 -->
-									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
+									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }"
+									         aria-label="Search"  class="form-control me-2" type="search" 
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:90px;">
 									    </c:when>
 									    <c:otherwise>
 									        <input id="searchValue" name="searchValue" placeholder="유저명을 입력하세요" 
@@ -256,10 +258,10 @@ select { width: 150px; /* 원하는 너비설정 */
 														</c:if>
 														</td>
 														<td>
-															<c:out value="${ adApprove.payUntilDate }"/>
+															<c:out value="${ adApprove.payDate }"/>
 														</td>
 														<td>
-															<c:out value="${ adApprove.payStatus }"/>
+															<c:out value="${ adApprove.payNewStatus }"/>
 														</td>
 														<td>
 														<c:if test= "${ empty adApprove.payDate1st }">
@@ -486,10 +488,10 @@ select { width: 150px; /* 원하는 너비설정 */
 														</c:if>
 														</td>
 														<td>
-															<c:out value="${ adApprove.payUntilDate }"/>
+															<c:out value="${ adApprove.payDate }"/>
 														</td>
 														<td>
-															<c:out value="${ adApprove.payStatus }"/>
+															<c:out value="${ adApprove.payNewStatus }"/>
 														</td>
 														<td>
 														<c:if test= "${ empty adApprove.payDate1st }">
@@ -542,22 +544,64 @@ select { width: 150px; /* 원하는 너비설정 */
                             	
 						<!-- 페이징 버튼 -->
 						<ul class="pagination">
-	                        <c:if test="${paging.startPage != 1 }">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+							<c:if test="${ empty requestScope.month and empty requestScope.searchValue }">
+		                        <c:if test="${paging.startPage != 1 }">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+		                        </c:if>
+		                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+		                           <c:choose>
+		                              <c:when test="${p == paging.nowPage }">
+		                                 <li><a>${p }</a></li>
+		                              </c:when>
+		                              <c:when test="${p != paging.nowPage }">
+		                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+		                              </c:when>
+		                           </c:choose>
+		                        </c:forEach>
+		                        <c:if test="${paging.endPage != paging.lastPage}">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+		                        </c:if>
 	                        </c:if>
-	                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-	                           <c:choose>
-	                              <c:when test="${p == paging.nowPage }">
-	                                 <li><a>${p }</a></li>
-	                              </c:when>
-	                              <c:when test="${p != paging.nowPage }">
-	                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-	                              </c:when>
-	                           </c:choose>
-	                        </c:forEach>
-	                        <c:if test="${paging.endPage != paging.lastPage}">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+	                        
+	                        <c:if test="${ not empty requestScope.month }">
+		                        <c:if test="${paging.startPage != 1 }">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&month=${requestScope.month}">&lt;</a></li>
+		                        </c:if>
+		                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+		                           <c:choose>
+		                              <c:when test="${p == paging.nowPage }">
+		                                 <li><a>${p }</a></li>
+		                              </c:when>
+		                              <c:when test="${p != paging.nowPage }">
+		                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}&month=${requestScope.month}">${p }</a></li>
+		                              </c:when>
+		                           </c:choose>
+		                        </c:forEach>
+		                        <c:if test="${paging.endPage != paging.lastPage}">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&month=${requestScope.month}">&gt;</a></li>
+		                        </c:if>
 	                        </c:if>
+	                        
+	                        <c:if test="${ not empty requestScope.searchValue }">
+		                        <c:if test="${paging.startPage != 1 }">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&searchValue=${requestScope.searchValue}">&lt;</a></li>
+		                        </c:if>
+		                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+		                           <c:choose>
+		                              <c:when test="${p == paging.nowPage }">
+		                                 <li><a>${p }</a></li>
+		                              </c:when>
+		                              <c:when test="${p != paging.nowPage }">
+		                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}&searchValue=${requestScope.searchValue}">${p }</a></li>
+		                              </c:when>
+		                           </c:choose>
+		                        </c:forEach>
+		                        <c:if test="${paging.endPage != paging.lastPage}">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/payList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&searchValue=${requestScope.searchValue}">&gt;</a></li>
+		                        </c:if>
+	                        </c:if>
+	                        
+	                        
 	                       </ul>
 								
 							</div>

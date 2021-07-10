@@ -124,6 +124,8 @@ public class AdAdminController {
 			model.addAttribute("adApproveList", searchAdApproveList);
 			model.addAttribute("category", category);
 			model.addAttribute("total", total);
+			model.addAttribute("searchCondition", searchCondition);
+			model.addAttribute("searchValue", searchValue);
 		
 		}
 
@@ -308,6 +310,8 @@ public class AdAdminController {
 		    		model.addAttribute("adList", searchClickAdList);
 		    		model.addAttribute("category", category);
 		    		model.addAttribute("total", total);
+		    		model.addAttribute("searchCondition", searchCondition);
+					model.addAttribute("searchValue", searchValue);
 		    		
 		    	} else {
 		    		// model 객체에 view로 전달할 결과값을 key, value 형태로 넣어줌
@@ -315,6 +319,8 @@ public class AdAdminController {
 		    		model.addAttribute("adList", searchAdAllList);
 		    		model.addAttribute("category", category);
 		    		model.addAttribute("total", total);
+		    		model.addAttribute("searchCondition", searchCondition);
+					model.addAttribute("searchValue", searchValue);
 		    	}
 		    	
 	    	
