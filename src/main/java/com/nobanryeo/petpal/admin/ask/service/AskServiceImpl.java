@@ -62,4 +62,11 @@ public class AskServiceImpl implements AskService{
 		return mapper.updateReply(param)> 0 ? true : false;
 	}
 
+
+	@Override
+	public boolean updateState(int boardCode) {
+		// TODO Auto-generated method stub
+		return mapper.updateState(boardCode)> 0 ? true : false;
+	}
+
 }

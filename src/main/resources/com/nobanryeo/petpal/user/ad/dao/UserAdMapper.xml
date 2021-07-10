@@ -43,6 +43,7 @@
 		<result column="PICTURE_NEW_NAME" property="pictureNewName"/>
 		<result column="PICTURE_UTIL_PATH" property="pictureUtilPath"/>
 		<result column="DECISION_DATE" property="decisionDate"/>
+		<result column="AA" property="sysdate"/>
 	</resultMap>
 	
 	<resultMap id="adQnAResultSet" type="AdQnADTO">
@@ -214,10 +215,24 @@
 		 WHERE AD_CODE = #{ adCode }
 	</update>
 	
+	<select id="selectToday" resultType="date">
+		SELECT SYSDATE
+		  FROM DUAL
+	</select>
+	
 	<update id="updateCancelAd" parameterType="AdDTO">
 		UPDATE AD_APPLY_TABLE
 		   SET STATE_CODE = '4'
 		     , CANCEL_APPLY_DATE = SYSDATE
+		 WHERE AD_CODE = #{ adCode }
+		   AND USER_CODE = #{ userCode }
+	</update>
+	
+	<update id="updateCancelAd2" parameterType="AdDTO">
+		UPDATE AD_APPLY_TABLE
+		   SET STATE_CODE = '4'
+		     , CANCEL_APPLY_DATE = SYSDATE
+		     , REFUND_YN = 'Y'
 		 WHERE AD_CODE = #{ adCode }
 		   AND USER_CODE = #{ userCode }
 	</update>
@@ -259,6 +274,28 @@
            AND POST_START_DATE <= SYSDATE
            AND POST_END_DATE >= SYSDATE
          ]]>
+	</select>
+	
+	<insert id="insertAdClick" parameterType="AdDTO">
+		INSERT
+		  INTO AD_CLICK_COUNT
+		VALUES ( SYSDATE
+		       , #{ userCode }
+		       , #{ adCode }
+		       )
+	</insert>
+	
+	<select id="selectAdClick" parameterType="AdDTO" resultMap="adResultSet">
+		SELECT COUNT(*)
+		  FROM AD_CLICK_COUNT
+		 WHERE USER_CODE = #{userCode}
+		   AND AD_CODE = #{adCode}
+	</select>
+	
+	<select id="selectAdDetail" parameterType="AdDTO" resultMap="adResultSet">
+		SELECT *
+          FROM AD_APPLY_TABLE
+         WHERE AD_CODE = #{ adCode }
 	</select>
 	
 </mapper>

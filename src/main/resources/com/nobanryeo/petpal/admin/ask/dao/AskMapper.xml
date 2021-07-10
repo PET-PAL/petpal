@@ -191,5 +191,13 @@
 			   ADMIN_REPLY_CONTENT = #{ message }
 	     WHERE BOARD_CODE = #{ boardCode }
 	 </update>
+	 <update id="updateState">
+	 	UPDATE QUESTION_BOARD 
+		   SET 
+			   STATE_CODE = 2
+	     WHERE BOARD_CODE = #{ boardCode }
+	 
+	 
+	 </update>
 	
 </mapper>

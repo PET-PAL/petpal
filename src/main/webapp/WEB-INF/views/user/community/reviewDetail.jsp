@@ -149,6 +149,26 @@
                 border-color: #45B99C; 
                 border: 1px solid;
             }
+            #underline-btn {
+            	float: right;
+    			border: none;
+    			color: #45B99C;
+    			background: white;
+    			height: 40px;
+    			width: 100px;
+                font-size: 15px;
+            }
+            #underline-btn:hover {
+            	float: right;
+    			border-radius: 15px;
+    			background-color: white;
+                color: #45B99C;
+                border-color: #45B99C; 
+                border: 1px solid;
+                height: 40px;
+                width: 100px;
+                font-size: 15px;
+            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -184,15 +204,7 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float: left">커뮤니티</div>
-                <c:choose>
-                <c:when test="${ requestScope.review.userNickName eq sessionScope.loginUser.nikname }">
-                	<span style="margin-left: 30px;"><button onclick="location.href='${ pageContext.servletContext.contextPath }/user/review/writeUpdate?boardCode=${ requestScope.review.boardCode }'">수정하기</button></span>
-				</c:when>
-				<c:otherwise>
-					<span></span>
-				</c:otherwise>
-                </c:choose>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp'" style="width:50px; float: right; cursor: pointer !important;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/review'" style="width:50px; float: right; cursor: pointer !important;">
             </section>
 
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
@@ -208,7 +220,7 @@
 			</div>
 
             <section id="menutable" class="menutable">
-				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
+				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px;">
 		            <table class="table" style="margin-bottom: 50px; border-collapse: separate;">
 						<tr>
 							<td style="width:15%; text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
@@ -236,6 +248,13 @@
 					<div style="margin-bottom: 30px; text-align:center;">
 						<c:out value="${ requestScope.review.boardContent }" escapeXml="false"/>
 					</div>
+		        </div>
+		        
+		        <!-- 수정하기 버튼 -->
+		        <div style="width: 70%; margin: 0px auto; margin-bottom: 50px; text-align:right;">
+		        	<c:if test="${ requestScope.review.userNickName eq sessionScope.loginUser.nikname }">
+		        		<button id="underline-btn" style="margin-right:10px;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/review/writeUpdate?boardCode=${ requestScope.review.boardCode }'">수정하기</button>
+		        	</c:if>
 		        </div>
 		        
 				<div style="color: #45B99C; width: 70%; margin: 0px auto; font-weight: 550; margin-bottom: 10px;">전체 댓글</div>

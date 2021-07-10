@@ -11,6 +11,26 @@
 	text-align: center;
 }
 </style>
+<script>
+	function click_ad(){
+		var boardCode = document.getElementById('boardCode').value;
+		var category1 = 0;
+		if(${category} == 0){
+			category1 = 1
+			
+		}else{
+			category1 = 5
+		}
+		var url="${ pageContext.servletContext.contextPath }/admin/reportPopup?boardCode="+boardCode+"&category="+category1;
+		var name= "PopUp";
+		var option= "width = 700, height = 900, left = 100, top = 50, location = no";
+		
+		window.open(url,name,option)
+		
+	}
+	
+	
+	</script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>
@@ -25,7 +45,7 @@
                              <ul class="nav nav-tabs" role="tablist">
                                 <li role="presentation" style="font-weight:800; margin-bottom:12px; font-size:30px; color:black">정보공유 상세 페이지</li>
                              </ul>
-                               <a href="${pageContext.servletContext.contextPath }/admin/reviewList"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
+                               <a href="${pageContext.servletContext.contextPath }/admin/reviewList?category=${category}"><img src="${ pageContext.servletContext.contextPath }/resources/images/goback.png" 
                                			style="width:40px;height:42px; margin-right:30px; margin-top:-50px; float:right;"></a>
                             <div class="tab-content" style="padding-top: 15px;">
                                 <div role="tabpanel" class="tab-pane active" id="profile">	
@@ -49,7 +69,7 @@
 		                                 </tr>
 		                                 <tr>
 		                                    <th scope="col" style="border: none; margin-top:10px">작성 내용</th>
-		                                    <td style="border: none;margin-top:10px"><button class="btn text-center" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 5px;background: #19A985;color:white;">작성글 상세 보기</button></td>
+		                                    <td  style="border: none;margin-top:10px"><button onclick="click_ad();" id="boardCode" value="${boardCode}" class="btn text-center" style="padding-left: 25px;padding-right: 25px;padding-top: 10px;padding-bottom: 5px;background: #19A985;color:white;">작성글 상세 보기</button></td>
 		                                    
 		                                 </tr>
 		                                 <tr>

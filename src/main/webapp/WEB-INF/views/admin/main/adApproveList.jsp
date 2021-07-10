@@ -166,7 +166,7 @@
                                     			거절
                                     		</c:when>
                                     		<c:when test="${ adApprove.stateCode eq 4}">
-                                    			취소
+                                    			승인
                                     		</c:when>
                                     	</c:choose>
                                     </td>
@@ -200,7 +200,7 @@
                                 
                                  <c:when test="${ category eq 2 }">
                             	 <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
-                                 <c:if test="${ adApprove.stateCode eq 2 }">
+                                 <c:if test="${ adApprove.stateCode eq 2 or adApprove.stateCode eq 4}">
 	                                 <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveDetail/${ adApprove.adCode }'">
 		                                    <th scope="row">${ adApprove.adCode }</th>
 		                                    <td>${ adApprove.user.name }(${ adApprove.user.id })</td>

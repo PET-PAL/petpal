@@ -132,6 +132,9 @@
                 border-radius: 10px;
                 width: 20%;
             }
+			.pagination > li > a, .pagination > li > span {
+            	color: #19A985 !important;
+            }
         </style>
         <meta charset="utf-8">
         <title>PET-PAL</title>
@@ -189,7 +192,7 @@
 	                <div id="menu0" class="tab-pane fade in active">
 	                	<c:if test="${ type eq 'A' }">
 							<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
-			                	<table class="table table-hover" style="margin-bottom: 50px;">
+			                	<table class="table table-hover" style="margin-bottom: 5px;">
 				                    <thead>
 				                        <tr style="background-color: #F1FAF8;">
 				                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>기업 / 상호명</b></th>
@@ -318,35 +321,35 @@
 				                        </c:forEach>
 				                    </tbody>
 				                </table>
-				                <!-- 페이징처리 -->
-								<div class="text-center">
-									<ul class="pagination">
-										<li>
-											<c:if test="${paging.startPage != 1 }">
-												<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
-											</c:if>
-											<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-												<c:choose>
-													<c:when test="${p == paging.nowPage }">
-														<li><a>${p }</a></li>
-													</c:when>
-													<c:when test="${p != paging.nowPage }">
-														<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-													</c:when>
-												</c:choose>
-											</c:forEach>
-											<c:if test="${paging.endPage != paging.lastPage}">
-												<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
-											</c:if>
-										</li>
-									</ul>
-								</div>
 		                	</div>
+			                <!-- 페이징처리 -->
+							<div class="text-center">
+								<ul class="pagination">
+									<li>
+										<c:if test="${paging.startPage != 1 }">
+											<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+										</c:if>
+										<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+											<c:choose>
+												<c:when test="${p == paging.nowPage }">
+													<li><a>${p }</a></li>
+												</c:when>
+												<c:when test="${p != paging.nowPage }">
+													<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+												</c:when>
+											</c:choose>
+										</c:forEach>
+										<c:if test="${paging.endPage != paging.lastPage}">
+											<li><a href="${ pageContext.servletContext.contextPath }/user/select/ad/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+										</c:if>
+									</li>
+								</ul>
+							</div>
 	                	</c:if>
 	                	
 	                	<c:if test="${ type eq 'B' }">
 		                	<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
-			                	<table class="table" id="paytable" style="margin-bottom: 50px;">
+			                	<table class="table" id="paytable" style="margin-bottom: 5px;">
 				                    <thead>
 				                        <tr style="background-color: #F1FAF8;">
 				                            <th style="width:16%; text-align: center; border-radius: 21px 0px 0px 0px;"><b>기업 / 상호명</b></th>

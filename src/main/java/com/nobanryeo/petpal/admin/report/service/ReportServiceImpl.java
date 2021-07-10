@@ -13,6 +13,8 @@ import com.nobanryeo.petpal.admin.dto.ReportDTO;
 import com.nobanryeo.petpal.admin.dto.ReportDetailDTO;
 import com.nobanryeo.petpal.admin.dto.reportPopupDTO;
 import com.nobanryeo.petpal.admin.report.dao.ReportMapper;
+import com.nobanryeo.petpal.user.dto.AdoptDTO;
+import com.nobanryeo.petpal.user.dto.MissingDTO;
 
 @Service
 public class ReportServiceImpl implements  ReportService{
@@ -69,6 +71,18 @@ public class ReportServiceImpl implements  ReportService{
 	public reportPopupDTO selectReportPopup(Map param) {
 		// TODO Auto-generated method stub
 		return mapper.selectReportPopup(param);
+	}
+
+	@Override
+	public AdoptDTO selectAdoptDetail(int boardCode) {
+		// TODO Auto-generated method stub
+		return mapper.selectAdoptDetail(boardCode);
+	}
+
+	@Override
+	public MissingDTO selectMissingDetail(int boardCode) {
+		// TODO Auto-generated method stub
+		return mapper.selectMissingDetail(boardCode);
 	}
 
 }

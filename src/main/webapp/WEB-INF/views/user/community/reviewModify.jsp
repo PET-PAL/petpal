@@ -113,8 +113,6 @@ $(document).ready(function() {
 									<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
 									<td>
 										<input type="text" style="width:45%; border: 0px;" value="${ requestScope.review.boardTitle }" name="boardTitle">
-										<input type="hidden" style="width:45%; border: 0px;" value="${ requestScope.review.boardCode }" name="boardCode">
-										<input type="hidden" style="width:45%; border: 0px;" value="${ requestScope.review.boardContent }" name="boardContent">
 									</td>
 								</tr>
 								<tr>
@@ -122,7 +120,7 @@ $(document).ready(function() {
 									<td><c:out value="${ requestScope.review.userNickName }"/></td>
 								</tr>
 							</table>
-							<textarea id="summernote" name="boardContent">
+							<textarea id="summernote" name="boardContent" required>
 								${ requestScope.review.boardContent }
 							</textarea>
 	  						<script>
@@ -160,7 +158,12 @@ $(document).ready(function() {
 							}
 						</script>
 			        </div>
-			        <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite" type="submit">수정하기</button></div>
+			         <input type="hidden" id="pictureName" name="pictureName"/>
+                    <input type="hidden" id="pictureURL" name="pictureURL"/>
+                    <input type="hidden" id="pictureNewName" name="pictureNewName"/>
+                    <input type="hidden" id="pictureUtilPath" name="pictureUtilPath"/>
+                    <input type="hidden" id="boardCode" name="boardCode" value="${ requestScope.review.boardCode }"/>
+			        <div style="margin: 0px auto; text-align: center; margin-bottom: 50px;"><button class="reviewWrite">수정하기</button></div>
 				</form>
 				<!-- <script>
 				function goModify(frm) {

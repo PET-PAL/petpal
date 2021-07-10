@@ -24,7 +24,7 @@ public class MainPageController {
 	@RequestMapping("adminMainPage")
 	public ModelAndView adApproveListReturning() {
 		
-		return new ModelAndView("admin/main/manager_main/chart");
+		return new ModelAndView("admin/main/manager_main");
 	}
 	
 	@RequestMapping("adminMainPage/chart")
