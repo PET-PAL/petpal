@@ -226,8 +226,14 @@
 							<td style="width:15%; text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px;"><b>제목</b></td>
 							<td style="width:45%;"><c:out value="${ requestScope.review.boardTitle }"/>
 							</td>
+							<c:if test="${ review.userCode != sessionScope.loginUser.code }">
 							<td style="width:15%; text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
 							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="${ requestScope.review.boardViews }"/><span><img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;"></span></td>
+							</c:if>
+							<c:if test="${ review.userCode == sessionScope.loginUser.code }">
+							<td style="width:15%; text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
+							<td style="border-radius: 0px 21px 0px 0px;"><c:out value="${ requestScope.review.boardViews }"/><span></td>
+							</c:if>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
@@ -271,26 +277,30 @@
 		                            	<%-- <input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
 			                            <input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/> --%>
 		                            	</td>
+		                            	
+		                            	<c:if test="${ arr.userCode != sessionScope.loginUser.code }">
 		                            	<td><img onclick="replyReport(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+		                            	</c:if>
+		                            	<c:if test="${ arr.userCode == sessionScope.loginUser.code }">
+		                            	<td></td>
+		                            	</c:if>
 		                        	</tr>
 	                        	</c:if>
-	                        	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
-	                        		<c:if test="${ arr.reportYN eq 'Y' }">
+	                        	<c:if test="${ arr.reportYN eq 'Y' }">
 			                        	<tr>
 			                            	<td><c:out value="${ arr.userNickName }"/></td>
 			                            	<td><del>신고에 의해 삭제된 댓글입니다.</del></td>
 			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
 			                            	<td></td>
 			                        	</tr>
-	                        		</c:if>
-	                        		<c:if test="${ arr.reportYN eq 'N' }">
-			                        	<tr>
-			                            	<td><c:out value="${ arr.userNickName }"/></td>
-			                            	<td><del>삭제된 댓글입니다.</del></td>
-			                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
-			                            	<td></td>
-			                        	</tr>
-		                        	</c:if>
+	                        	</c:if>
+	                        	<c:if test="${ arr.replyDeleteYN eq 'Y' }">
+		                        	<tr>
+		                            	<td><c:out value="${ arr.userNickName }"/></td>
+		                            	<td><del>삭제된 댓글입니다.</del></td>
+		                            	<td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
+		                            	<td></td>
+		                        	</tr>
 	                        	</c:if>
 	                    	</c:forEach>
 				        </tbody>

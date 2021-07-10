@@ -19,6 +19,8 @@ public class BoradAndCommentDTO {
 	private String replyDeleteYn; //댓글삭제여부
 	private String reportYn; //신고여부
 	private String type;
+	private int state; 		//심사코드에 따른 상태코드
+	private String dReason;
 
 	public BoradAndCommentDTO() {
 		
@@ -26,7 +28,7 @@ public class BoradAndCommentDTO {
 
 	public BoradAndCommentDTO(int boardCode, String boardTitle, String boardContent, int views, Date postDate,
 			String deleteYn, int dicisionCode, String boardMap, int userCode, int replyCode, String replyContent,
-			Date replyDate, String replyDeleteYn, String reportYn, String type) {
+			Date replyDate, String replyDeleteYn, String reportYn, String type, int state, String dReason) {
 		super();
 		this.boardCode = boardCode;
 		this.boardTitle = boardTitle;
@@ -43,6 +45,8 @@ public class BoradAndCommentDTO {
 		this.replyDeleteYn = replyDeleteYn;
 		this.reportYn = reportYn;
 		this.type = type;
+		this.state = state;
+		this.dReason = dReason;
 	}
 
 	public int getBoardCode() {
@@ -165,15 +169,34 @@ public class BoradAndCommentDTO {
 		this.type = type;
 	}
 
+	public int getState() {
+		return state;
+	}
+
+	public void setState(int state) {
+		this.state = state;
+	}
+
+	public String getdReason() {
+		return dReason;
+	}
+
+	public void setdReason(String dReason) {
+		this.dReason = dReason;
+	}
+
 	@Override
 	public String toString() {
 		return "BoradAndCommentDTO [boardCode=" + boardCode + ", boardTitle=" + boardTitle + ", boardContent="
 				+ boardContent + ", views=" + views + ", postDate=" + postDate + ", deleteYn=" + deleteYn
 				+ ", dicisionCode=" + dicisionCode + ", boardMap=" + boardMap + ", userCode=" + userCode
 				+ ", replyCode=" + replyCode + ", replyContent=" + replyContent + ", replyDate=" + replyDate
-				+ ", replyDeleteYn=" + replyDeleteYn + ", reportYn=" + reportYn + ", type=" + type + "]";
+				+ ", replyDeleteYn=" + replyDeleteYn + ", reportYn=" + reportYn + ", type=" + type + ", state=" + state
+				+ ", dReason=" + dReason + "]";
 	}
 
+	
+	
 	
 	
 	

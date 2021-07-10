@@ -67,25 +67,36 @@
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">대기</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">승인</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">거절</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">취소</a></li>
                                  </c:if>
                                  <c:if test="${ category eq 1 }">
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
 	                                <li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">대기</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">승인</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">거절</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">취소</a></li>
                                  </c:if>
                                  <c:if test="${ category eq 2 }">
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">대기</a></li>
 	                                <li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">승인</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">거절</a></li>
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">취소</a></li>
                                  </c:if>
                                  <c:if test="${ category eq 3 }">
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">대기</a></li>
 	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">승인</a></li>
 	                                <li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">거절</a></li>
-                                 </c:if>		
+                                 	<li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">취소</a></li>
+                                 </c:if>
+                                  <c:if test="${ category eq 4 }">
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="all" role="tab" data-toggle="tab">All</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="profile" role="tab" data-toggle="tab">대기</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=2&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="messages" role="tab" data-toggle="tab">승인</a></li>
+	                                <li role="presentation"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=3&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">거절</a></li>
+                                 	<li role="presentation" class="active"><a onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveList?category=4&nowPage=1&cntPerPage=${paging.cntPerPage}'"  aria-controls="messages" role="tab" data-toggle="tab">취소</a></li>
+                                 </c:if>			
                                  <p style="float:right;">총 광고 수 : ${ requestScope.total }개</p>
                             </ul>
                             
@@ -98,7 +109,7 @@
 							        <input type="hidden" name="category" value="${ requestScope.category }"/>
 									<c:choose>
 									    <c:when test="${ !empty requestScope.searchValue }">
-					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
+					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -560px; margin-top: 10px;">
 					   					    <!-- select 박스 -->
 					   					    <!-- ~를 선택했을 때 value를 넘겨줌 -->
 												<option value="menu" <c:if test="${requestScope.searchCondition eq 'menu'}">selected</c:if>>카테고리</option>
@@ -107,7 +118,9 @@
 												<option value="name" <c:if test="${requestScope.searchCondition eq 'name'}">selected</c:if>>신청자이름</option>
 											</select>
 											<!-- input 값도 넘겨줌 -->
-									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
+									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }"
+									        aria-label="Search"  class="form-control me-2" type="search" 
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:90px;">
 									    </c:when>
 									    <c:otherwise>
 										    <select id="searchCondition" name="searchCondition" style="margin-left: -560px; margin-top: 10px;">
@@ -166,7 +179,7 @@
                                     			거절
                                     		</c:when>
                                     		<c:when test="${ adApprove.stateCode eq 4}">
-                                    			승인
+                                    			취소
                                     		</c:when>
                                     	</c:choose>
                                     </td>
@@ -188,9 +201,7 @@
 		                                    		<c:when test="${ adApprove.stateCode eq 1}">
 		                                    			대기
 		                                    		</c:when>
-		                                    		<c:when test="${ adApprove.stateCode eq 4}">
-		                                    			취소
-		                                    		</c:when>
+		                                    	
 		                                    	</c:choose> 
 		                                    </td>
 	                                  </tr>
@@ -200,7 +211,7 @@
                                 
                                  <c:when test="${ category eq 2 }">
                             	 <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
-                                 <c:if test="${ adApprove.stateCode eq 2 or adApprove.stateCode eq 4}">
+                   
 	                                 <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveDetail/${ adApprove.adCode }'">
 		                                    <th scope="row">${ adApprove.adCode }</th>
 		                                    <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
@@ -212,13 +223,9 @@
 		                                    		<c:when test="${ adApprove.stateCode eq 2}">
 		                                    			승인
 		                                    		</c:when>
-		                                    		<c:when test="${ adApprove.stateCode eq 4}">
-		                                    			취소
-		                                    		</c:when>
 		                                    	</c:choose> 
 		                                    </td>
 	                                  </tr>
-                                </c:if> 
                                  </c:forEach>
                                 </c:when>
                                  
@@ -246,6 +253,26 @@
                                  </c:forEach>
                                 </c:when>
                                  
+                                  <c:when test="${ category eq 4 }">
+                            	 <c:forEach var="adApprove" items="${ requestScope.adApproveList }">
+                                 <c:if test="${adApprove.stateCode eq 4}">
+	                                 <tr onclick="location.href='${ pageContext.servletContext.contextPath }/admin/adApproveDetail/${ adApprove.adCode }'">
+		                                    <th scope="row">${ adApprove.adCode }</th>
+		                                    <td>${ adApprove.user.name }(${ adApprove.user.id })</td>
+		                                    <td>${ adApprove.adTitle }</td>
+		                                    <td>${ adApprove.companyNumber }</td>
+		                                    <td>${ adApprove.applyDate }</td>
+		                                    <td>
+		                                    	<c:choose>
+		                                    		<c:when test="${ adApprove.stateCode eq 4}">
+		                                    			취소
+		                                    		</c:when>
+		                                    	</c:choose> 
+		                                    </td>
+	                                  </tr>
+                                </c:if> 
+                                 </c:forEach>
+                                </c:when>
                               
                               
                                  
@@ -273,22 +300,44 @@
                             	
 						<!-- 페이징 버튼 -->
 						<ul class="pagination">
-	                        <c:if test="${paging.startPage != 1 }">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adApproveList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
-	                        </c:if>
-	                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-	                           <c:choose>
-	                              <c:when test="${p == paging.nowPage }">
-	                                 <li><a>${p }</a></li>
-	                              </c:when>
-	                              <c:when test="${p != paging.nowPage }">
-	                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/adApproveList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-	                              </c:when>
-	                           </c:choose>
-	                        </c:forEach>
-	                        <c:if test="${paging.endPage != paging.lastPage}">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adApproveList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
-	                        </c:if>
+							<c:if test="${empty requestScope.searchValue and empty requestScope.searchCondition }">
+		                        <c:if test="${paging.startPage != 1 }">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adApproveList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+		                        </c:if>
+		                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+		                           <c:choose>
+		                              <c:when test="${p == paging.nowPage }">
+		                                 <li><a>${p }</a></li>
+		                              </c:when>
+		                              <c:when test="${p != paging.nowPage }">
+		                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/adApproveList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+		                              </c:when>
+		                           </c:choose>
+		                        </c:forEach>
+		                        <c:if test="${paging.endPage != paging.lastPage}">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adApproveList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+		                        </c:if>
+		                     </c:if>   
+		                     
+		                     <c:if test="${not empty requestScope.searchValue and not empty requestScope.searchCondition }">
+		                        <c:if test="${paging.startPage != 1 }">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adApproveList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&searchCondition=${ requestScope.searchCondition }&searchValue=${requestScope.searchValue}">&lt;</a></li>
+		                        </c:if>
+		                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+		                           <c:choose>
+		                              <c:when test="${p == paging.nowPage }">
+		                                 <li><a>${p }</a></li>
+		                              </c:when>
+		                              <c:when test="${p != paging.nowPage }">
+		                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/adApproveList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}&searchCondition=${ requestScope.searchCondition }&searchValue=${requestScope.searchValue}">${p }</a></li>
+		                              </c:when>
+		                           </c:choose>
+		                        </c:forEach>
+		                        <c:if test="${paging.endPage != paging.lastPage}">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adApproveList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&searchCondition=${ requestScope.searchCondition }&searchValue=${requestScope.searchValue}">&gt;</a></li>
+		                        </c:if>
+		                     </c:if>   
+		                        
 	                       </ul>
 									
 								

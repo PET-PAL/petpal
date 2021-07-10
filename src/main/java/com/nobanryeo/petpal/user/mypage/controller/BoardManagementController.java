@@ -92,7 +92,7 @@ public class BoardManagementController {
     			
     			cookie = new Cookie("sharefree",null); 				//sharefree라는 이름의 쿠키 생성
     			cookie.setComment("sharefree 게시글 조회 확인");			//해당 쿠키가 어떤 용도인지 커멘트
-    			response.addCookie(cookie);								//사용자에게 해당 쿠키를 추가
+    			response.addCookie(cookie);							//사용자에게 해당 쿠키를 추가
     			
     		}
 		}
@@ -105,9 +105,10 @@ public class BoardManagementController {
 			
 			System.out.println("들어온 타입 : " + type);
 			System.out.println(bcDTO);
+			
+			bcDTO.setUserCode(loginUser.getCode());
 	
 			int total = boardService.selectMissingCount(bcDTO);
-			
 			int total2 = boardService.selectReplyCount(bcDTO);
 			
 			if(nowPage == null && cntPerPage == null) {
@@ -368,7 +369,54 @@ public class BoardManagementController {
 			model.addAttribute("paging2", page2);
 			model.addAttribute("num", 5);
 			
-		} 
+		} else if(type.equals("H")) {
+			
+			System.out.println("들어온 타입 : " + type);
+			
+			bcDTO.setUserCode(loginUser.getCode());
+			System.out.println(bcDTO);
+			
+			int total = boardService.selectFriendlyCount(bcDTO);
+			int total2 = boardService.selectReplyCount(bcDTO);
+			
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "10";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "10";
+			}
+			
+			if(nowPage2 == null && cntPerPage2 == null) {
+				nowPage2 = "1";
+				cntPerPage2 = "10";
+			} else if(nowPage2 == null) {
+				nowPage2 = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage2 = "10";
+			}
+			
+			page = new PageDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+			page2 = new PageDTO(total2, Integer.parseInt(nowPage2), Integer.parseInt(cntPerPage2));
+			
+			
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("bcDTO", bcDTO);
+			map.put("pageInfo", page);
+			map.put("pageInfo2", page2);
+
+			
+			List<BoradAndCommentDTO> hList = boardService.selectFriendlyList(map);
+			System.out.println(hList);
+			
+			model.addAttribute("paging", page);
+			model.addAttribute("hList", hList);
+			model.addAttribute("type", "H");
+			model.addAttribute("reply", boardService.selectReplyList(map));
+			model.addAttribute("paging2", page2);
+			model.addAttribute("num", 6);
+		}
 		
 		return "user/mypage/boardCommentList";
 	}
@@ -446,6 +494,14 @@ public class BoardManagementController {
 			} else {
 				result = "fail";
 			}
+		} else if(type.equals("H")) {
+			System.out.println("H들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			boolean value = boardService.deletePostFriendly(boardCode);
+			if(value == true) {
+				result = "H";
+			} else {
+				result = "fail";
+			}
 		} else if(type.equals("G")) {
 			
 			System.out.println("G들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
@@ -460,6 +516,7 @@ public class BoardManagementController {
 				case "D":result = "D"; break;
 				case "E":result = "E"; break;
 				case "F":result = "F"; break;
+				case "H":result = "H"; break;
 				}
 				
 			} else {

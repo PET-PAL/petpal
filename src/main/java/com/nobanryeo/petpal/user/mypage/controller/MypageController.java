@@ -180,7 +180,7 @@ public class MypageController {
          rttr.addFlashAttribute("message", "이메일 변경에 실패했습니다.");
       }
       
-      return "redirect:/mypage/account";
+      return "redirect:/user/mypage/account";
    }
    
    @PostMapping("withdrawUser")

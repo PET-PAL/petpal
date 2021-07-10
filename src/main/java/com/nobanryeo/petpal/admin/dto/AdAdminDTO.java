@@ -40,8 +40,10 @@ public class AdAdminDTO {
 	private Date payUntilDate;
 	// 청구일자 (DB에 존재하는 컬럼)
 	private Date payDate;
-	// 납부상태
+	// 납부상태 (DTO에만 존재함)
 	private String payStatus;
+	// 납부상태 (DB에 존재하는 컬럼)
+	private String payNewStatus;
 	// 세금계산서 발행일
 	private Date taxBillDate;
 	// 세금액
@@ -56,13 +58,15 @@ public class AdAdminDTO {
 		super();
 	}
 
+	
+
 	public AdAdminDTO(int adCode, String companyName, Date applyDate, String companyNumber, String companyPhone,
 			String companyEmail, String adContent, String postYn, String refundYn, Date payDate2nd, int pictureCode,
 			Date payDate1st, int decisionCode, int userCode, int adTypeCode, String adTitle, String payMethod,
 			Date cancelApplyDate, Date postStartDate, Date postEndDate, int stateCode, UserInfoDTO user,
 			DecisionDTO decision, int clickNum, int price2nd, String companyLocation, String industry,
 			String industryDetail, String leaderName, Date payUntilDate, Date payDate, String payStatus,
-			Date taxBillDate, int taxPrice, int calEndDate, int calApplyDate) {
+			String payNewStatus, Date taxBillDate, int taxPrice, int calEndDate, int calApplyDate) {
 		super();
 		this.adCode = adCode;
 		this.companyName = companyName;
@@ -96,14 +100,17 @@ public class AdAdminDTO {
 		this.payUntilDate = payUntilDate;
 		this.payDate = payDate;
 		this.payStatus = payStatus;
+		this.payNewStatus = payNewStatus;
 		this.taxBillDate = taxBillDate;
 		this.taxPrice = taxPrice;
 		this.calEndDate = calEndDate;
 		this.calApplyDate = calApplyDate;
 	}
 
-	public AdAdminDTO(Date payUntilDate, int adCode) {
+	// db에 청구일자, 납부상태 업데이트
+	public AdAdminDTO(Date payUntilDate, String payNewStatus, int adCode) {
 		setPayUntilDate(payUntilDate);
+		setPayNewStatus(payNewStatus);
 		setAdCode(adCode);
 	}
 	
@@ -397,6 +404,15 @@ public class AdAdminDTO {
 		this.payDate = payDate;
 	}
 
+	public String getPayNewStatus() {
+		return payNewStatus;
+	}
+
+	public void setPayNewStatus(String payNewStatus) {
+		this.payNewStatus = payNewStatus;
+	}
+
+
 	@Override
 	public String toString() {
 		return "AdAdminDTO [adCode=" + adCode + ", companyName=" + companyName + ", applyDate=" + applyDate
@@ -409,8 +425,9 @@ public class AdAdminDTO {
 				+ ", user=" + user + ", decision=" + decision + ", clickNum=" + clickNum + ", price2nd=" + price2nd
 				+ ", companyLocation=" + companyLocation + ", industry=" + industry + ", industryDetail="
 				+ industryDetail + ", leaderName=" + leaderName + ", payUntilDate=" + payUntilDate + ", payDate="
-				+ payDate + ", payStatus=" + payStatus + ", taxBillDate=" + taxBillDate + ", taxPrice=" + taxPrice
-				+ ", calEndDate=" + calEndDate + ", calApplyDate=" + calApplyDate + "]";
+				+ payDate + ", payStatus=" + payStatus + ", payNewStatus=" + payNewStatus + ", taxBillDate="
+				+ taxBillDate + ", taxPrice=" + taxPrice + ", calEndDate=" + calEndDate + ", calApplyDate="
+				+ calApplyDate + "]";
 	}
 
 

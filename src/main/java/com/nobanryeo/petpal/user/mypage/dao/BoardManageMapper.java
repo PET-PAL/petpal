@@ -65,5 +65,11 @@ public interface BoardManageMapper {
 
 	List<ReviewReplyDTO> selectReplyList(HashMap<String, Object> map);
 
+	int selectFriendlyCount(BoradAndCommentDTO bcDTO);
+
+	List<BoradAndCommentDTO> selectFriendlyList(HashMap<String, Object> map);
+
+	boolean deletePostFriendly(int boardCode);
+
 
 }

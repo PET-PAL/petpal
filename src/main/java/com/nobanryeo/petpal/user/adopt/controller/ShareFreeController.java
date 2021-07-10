@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.google.gson.JsonObject;
 import com.nobanryeo.petpal.user.ad.service.UserAdService;
@@ -294,15 +295,34 @@ public class ShareFreeController {
 		
 		ShareFreeDTO share = sharefreeService.selectBoardDetail(code);
 		
-		model.addAttribute("shareInfo", share);
+		model.addAttribute("shareDetail", share);
 		
 		return "user/community/shareRevised";
 	}
 	
 	@PostMapping("shareFree/updateBoard/{boardCode}")
-	public String updateShareFreeInfo(@PathVariable("boardCode") int code, Model model,HttpServletRequest request,HttpSession session, HttpServletResponse response, @ModelAttribute ShareFreeDTO shareDTO,@ModelAttribute PictureDTO picture) {
-		
-		return "redirect:/user/shareFree/detail/board/"+code;
+	public String updateShareFreeInfo(@PathVariable("boardCode") int code, RedirectAttributes rttr,Model model, @ModelAttribute ShareFreeDTO shareDTO,@ModelAttribute PictureDTO picture) {
+		 
+		System.out.println("꼬오오오온트로로롤로러 여기오나?@?@?@?@?@?");
+		shareDTO.setBoardCode(code);
+		picture.setBoardCode(code);
+		 
+		if(picture.getPictureName().equals("")) {
+			
+			rttr.addFlashAttribute("message", "최소 한 개 이상의 이미지가 필요합니다.");
+			return "redirect:/user/sharefree/modify/"+code;
+			
+		} else {
+			int totalResult = sharefreeService.updateBoth(shareDTO,picture);
+			
+			if(totalResult > 0) {
+				System.out.println("이미지 & 게시글 작성 성공");
+			} else {
+				System.out.println("이미지 작성 실패");
+			}
+			
+		}
+		return "redirect:/user/shareFree/list";
 	}
 	
 }
