@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,13 +38,19 @@
 
         </style>
         
-        
+      <script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
     	    <!-- summerNote -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     	<script>
           var $j3 = jQuery.noConflict();
+          
+          const message = '${ requestScope.message }';
+		    if(message != null && message !== '') {
+		    	alert(message);
+		    }
+		    
         </script>
     </head>
 
@@ -126,7 +133,7 @@
 									$j3.ajax({
 										data : data,
 										type : "POST",
-										url : "shareImg",
+										url : "${pageContext.servletContext.contextPath}/user/shareFree/insert/shareImg",
 										contentType : false,
 										processData : false,
 										enctype:'multipart/form-data',
@@ -159,5 +166,5 @@
             <jsp:include page="../common/footer.jsp"/>
         </div>
         
-      </body>
+     </body>
 </html>
