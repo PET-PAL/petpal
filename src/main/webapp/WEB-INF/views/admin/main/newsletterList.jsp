@@ -176,5 +176,12 @@ $(document).ready(function(){
 
 
 </script>
+<script type="text/javascript">
+var message = "${message}"
+if(message == "뉴스레터 발송 성공"){
+	alert(message)
+}
+
+</script>
 </body>
 </html>

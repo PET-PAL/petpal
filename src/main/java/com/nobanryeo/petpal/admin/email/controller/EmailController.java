@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.nobanryeo.petpal.admin.dto.EmailDTO;
 import com.nobanryeo.petpal.admin.email.service.EmailService;
@@ -32,7 +33,8 @@ public class EmailController {
     }
  
     @RequestMapping("send.do") // 확인 (메일발송) 버튼을 누르면 맵핑되는 메소드
-    public String send(@RequestParam("file") MultipartFile multipartFile,@ModelAttribute EmailDTO dto, Model model, HttpServletRequest request) {
+    public String send(@RequestParam("file") MultipartFile multipartFile,@ModelAttribute EmailDTO dto, Model model, HttpServletRequest request,
+    		RedirectAttributes rttr) {
 		
 		/*
 		 * multipart로 전송된 request에 대한 인코딩 처리를 해주어야 하는데 일반 인코딩 필터보다 구현하기 힘들다.
@@ -80,13 +82,12 @@ public class EmailController {
     	
         try {
         		emailService.sendMail(dto,path,mailList); // dto (메일관련 정보)를 sendMail에 저장함
-                
-        	model.addAttribute("message", "이메일이 발송되었습니다."); // 이메일이 발송되었다는 메시지를 출력시킨다.
+        		model.addAttribute("message", "뉴스레터 발송 성공");
  
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("message", "이메일 발송 실패..."); // 이메일 발송이 실패되었다는 메시지를 출력
         }
-        return "/email/write"; // 실패했으므로 다시 write jsp 페이지로 이동함
+        return "/admin/main/newsletterList"; 
     }
 }
