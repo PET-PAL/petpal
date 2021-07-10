@@ -144,44 +144,6 @@ public class ReviewPostController {
 		return "user/community/reviewDetail";
 	}
 	
-	/**
-	 * 광고 출력하기
-	 * @param boardCode
-	 * @param model
-	 * @param cookie
-	 * @param response
-	 * @param session
-	 * @return
-	 */
-	@GetMapping("review/reviewAd")
-	public String reviewAd(@RequestParam int boardCode, Model model, @CookieValue(name = "reviewAd") String cookie
-			, HttpServletResponse response, HttpSession session,
-			@ModelAttribute AdDTO adDTO, @RequestParam int adCode) {
-		
-		// 광고 클릭 횟수 추가하기
-	      if(session.getAttribute("loginUser") == null) { // 로그인 안했을 때
-	         
-	         // 비로그인 회원은 쿠키로 광고 클릭 중복제어
-	         if(!(cookie.contains(String.valueOf(adCode)))) {
-	            cookie += adCode + "/";
-	            // 조회수 카운트
-//	            adService.insertAdClickNoUser(adDTO);
-	         }
-	         response.addCookie(new Cookie("freeboardAd", cookie));
-	         
-	      } else {                               // 로그인 했을 떄
-//	         adDTO.setUserCode(Integer.parseInt(request.getParameter("userCode")));
-	         if(adService.selectAdClick(adDTO) <= 0) {   // 해당 유저가 클릭 이력이 없을 떄
-	            adService.insertAdClick(adDTO);
-	         }
-	      }
-	      
-	    model.addAttribute("adDetail", adService.selectAdDetail(adCode));
-			
-		return "user/community/adDetail";
-	}
-	
-	
 	
 	/**
 	 * 글작성 페이지 띄우기
