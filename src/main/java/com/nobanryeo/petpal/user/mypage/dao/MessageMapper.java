@@ -11,7 +11,7 @@ public interface MessageMapper {
 	 * 쪽지 갯수 카운트
 	 * @return
 	 */
-	public int selectMessageCount(int code);
+	public int selectMessageCount(HashMap<String, Object> map);
 	
 	/**
 	 * 쪽지 리스트
@@ -39,6 +39,10 @@ public interface MessageMapper {
 	 * @return
 	 */
 	public int insertMessageFromMypage(MessageTableDTO messageDTO);
+
+	public String selectSendUser(int userCode);
+
+	public String selectreceiveUser(int userCode1);
 	
 
 }

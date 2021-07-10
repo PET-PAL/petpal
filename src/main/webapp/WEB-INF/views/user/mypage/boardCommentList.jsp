@@ -242,6 +242,7 @@
 					<span id="sp3" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=D';">자유 게시판</span>
 					<span id="sp4" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=E';">무료나눔 게시판</span>
 					<span id="sp5" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=F';">용품리뷰 게시판</span>
+					<span id="sp5" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=H';">프렌들리 게시판</span>
 					<%-- <span id="sp7" class="tab_btn" data-toggle="tab" onclick="location.href='${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=G';">댓글목록</span> --%>
 				</div>
             </section>
@@ -252,11 +253,25 @@
 						<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 50px;">
 		                	<table class="table table-hover" style="margin-bottom: 50px;">
 			                    <thead>
-			                        <tr style="background-color: #F1FAF8;">
-			                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>제목</b></th>
-	                                    <th style="text-align: center;"><b>날짜</b></th>
-			                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
-			                        </tr>
+			                    	<c:choose>
+			                    		<c:when test="${ type eq 'H' || type eq 'C' }">
+			                    		<tr style="background-color: #F1FAF8;">
+			                            	<th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>제목</b></th>
+	                                    	<th style="text-align: center;"><b>날짜</b></th>
+	                                    	<th style="text-align: center;"><b>승인상태</b></th>
+	                                    	<th style="text-align: center;"><b>거절사유</b></th>
+			                            	<th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
+			                        	</tr>
+			                    		</c:when>
+			                    		<c:otherwise>
+				                        <tr style="background-color: #F1FAF8;">
+				                            <th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>제목</b></th>
+		                                    <th style="text-align: center;"><b>날짜</b></th>
+				                            <th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
+				                        </tr>
+			                    		</c:otherwise>
+			                    	</c:choose>
+			                    	
 			                    </thead>
 			                    <tbody>
 			                    <c:if test="${ type eq 'A' }">
@@ -299,11 +314,31 @@
 									</c:forEach>
 			                        </c:if>
 			                        <c:if test="${ type eq 'C' }">
-			                        <c:forEach items="${ cList }" var="list">	
-									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
-										<td style="text-align: center;">${ list.boardTitle }</td>
-										<td style="text-align: center;">${ list.postDate }</td>
-										<td>
+									<c:forEach items="${ cList }" var="list">
+										<c:choose>
+											<c:when test="${ list.dicisionCode eq 0 }">
+												<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
+												<td style="text-align: center;"><c:out value="승인대기" /></td>
+												<td style="text-align: center;"></td>
+											</c:when>
+											<c:when test="${ list.state eq 2 }">
+												<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
+												<td style="text-align: center;"><c:out value="승인" /></td>
+												<td style="text-align: center;"></td>
+											</c:when>
+											<c:when test="${ list.state eq 3 }">
+												<tr id="stop" onclick="backPosting(this);">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
+												<td style="text-align: center;"><c:out value="거절" /></td>
+												<td style="text-align: center;"><c:out value="${ list.dReason }" /></td>
+											</c:when>
+										</c:choose>
+										<td style="text-align: center;">
 										<input type="hidden" value="C" id="type2">
 										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }" title="C">삭제</button>
 										</td>
@@ -324,7 +359,7 @@
 			                        </c:if>
 			                        <c:if test="${ type eq 'E' }">
 			                        <c:forEach items="${ eList }" var="list">
-									<tr id="stop">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/${ list.boardCode }'">
 										<td style="text-align: center;">${ list.boardTitle }</td>
 										<td style="text-align: center;">${ list.postDate }</td>
 										<td style="text-align: center;">
@@ -346,8 +381,52 @@
 									</tr>
 									</c:forEach>
 			                        </c:if>
+			                        <c:if test="${ type eq 'H' }" >
+			                        <c:forEach items="${ hList }" var="list">
+										<c:choose>
+											<c:when test="${ list.dicisionCode eq 0 }">
+												<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/detail?boardCode=${ list.boardCode }'">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
+												<td style="text-align: center;"><c:out value="승인대기" /></td>
+												<td style="text-align: center;"></td>
+											</c:when>
+											<c:when test="${ list.state eq 2 }">
+												<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/detail?boardCode=${ list.boardCode }'">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
+												<td style="text-align: center;"><c:out value="승인" /></td>
+												<td style="text-align: center;"></td>
+											</c:when>
+											<c:when test="${ list.state eq 3 }">
+												<tr id="stop" onclick="backPosting(this);">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
+												<td style="text-align: center;"><c:out value="거절" /></td>
+												<td style="text-align: center;"><c:out value="${ list.dReason }" /></td>
+											</c:when>
+										</c:choose>
+										<td style="text-align: center;">
+										<input type="hidden" value="H" id="type2">
+										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }" title="H">삭제</button>
+										</td>
+									</tr>
+									</c:forEach>
+			                        </c:if>
 			                    </tbody>
 			                </table>
+			                <!-- <script>
+								function backPosting(test){
+									
+									let reason = test.className;
+									let boardCode = test.title;
+									
+									console.log(reason);
+									console.log(boardCode);
+									
+									alert("거절 사유 : " + reason);
+								}
+							</script> -->
 			                <div class="text-center">
 								<ul class="pagination">
 								<!-- A타입일때 하단 -->
@@ -476,6 +555,27 @@
 									</c:if>
 									</li>
 								</c:if>
+								<!-- H타입일때 하단 -->
+								<c:if test="${ type eq 'H' }">
+								<li>
+									<c:if test="${paging.startPage != 1 }">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=H&nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+									</c:if>
+									<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+										<c:choose>
+											<c:when test="${p == paging.nowPage }">
+												<li><a>${p }</a></li>
+											</c:when>
+											<c:when test="${p != paging.nowPage }">
+												<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=H&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+											</c:when>
+										</c:choose>
+									</c:forEach>
+									<c:if test="${paging.endPage != paging.lastPage}">
+										<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=H&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+									</c:if>
+									</li>
+								</c:if>
 								</ul>
 							</div>
 	                	</div>
@@ -584,6 +684,24 @@
 								</tr>
 							</c:forEach>
 			            </c:if>
+			            <c:if test="${ type eq 'H' }">
+			                <c:forEach items="${ reply }" var="list">
+			                	<c:if test="${ list.deleteYn eq 'Y' }">
+									<tr id="stop" onclick="deletePosting();">
+				                </c:if>
+				                <c:if test="${ list.deleteYn eq 'N' }">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/detail?boardCode=${ list.boardCode }'">
+				                </c:if>
+									<td style="text-align: center;">${ list.replyContent }</td>
+									<td style="text-align: center;">${ list.replyDate }</td>
+									<td style="text-align: center;">
+									<input type="hidden" value="G" id="type2">
+									<input type="hidden" value="H" id="type">
+									<button onclick="deleteClick(this)" id="delete" class="${ list.replyCode }" title="G">삭제</button>
+									</td>
+								</tr>
+							</c:forEach>
+			            </c:if>
 			            </tbody>
 			         </table>
 			  <div class="text-center">
@@ -685,6 +803,26 @@
 						</c:forEach>
 						<c:if test="${paging2.endPage != paging2.lastPage}">
 							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=F&?nowPage2=${paging2.endPage+1 }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+						</c:if>
+						</li>
+				</c:if>
+				<c:if test="${ type eq 'H' }">
+					<li>
+						<c:if test="${paging2.startPage != 1 }">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=H&nowPage2=${paging2.startPage - 1 }&cntPerPage2=${paging2.cntPerPage}">&lt;</a></li>
+						</c:if>
+						<c:forEach begin="${paging2.startPage }" end="${paging2.endPage }" var="p">
+							<c:choose>
+								<c:when test="${p == paging2.nowPage }">
+									<li><a>${p }</a></li>
+								</c:when>
+								<c:when test="${p != paging2.nowPage }">
+									<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=H&nowPage2=${p }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
+								</c:when>
+							</c:choose>
+						</c:forEach>
+						<c:if test="${paging2.endPage != paging2.lastPage}">
+							<li><a href="${ pageContext.servletContext.contextPath }/user/mypage/boardCommentList?type=H&?nowPage2=${paging2.endPage+1 }&cntPerPage2=${paging2.cntPerPage}">${p }</a></li>
 						</c:if>
 						</li>
 				</c:if>

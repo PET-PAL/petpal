@@ -238,14 +238,19 @@ li>img {
 						style="margin-top: 30px; margin-left: 35%; background-color: #19A985; color: white; width: 300px; height: 50px; border: 0px; border-radius: 10px; font-size: 20px;">
 						로그인</button>
 					<br>
-				</div>
-			</form>
-		</section>
+	<button class="join" type="button"
+		onclick="location.href='${ pageContext.servletContext.contextPath }/user/regist'"
+		style="margin-top: 15px; margin-left: 35%; background-color: #19A985; color: white; width: 300px; height: 50px; border: 0px; border-radius: 10px; font-size: 20px;
+		 position: relative; ">
+		회원가입</button>
 		<p style="text-align: center; margin-top: 10px;">
 			<a href="#findId"
 				style="color: rgb(175, 175, 175); padding-right: 100px;">아이디 찾기</a>
 			<a href="#findPwd" style="color: rgb(175, 175, 175);">비밀번호 찾기</a>
 		</p>
+				</div>
+			</form>
+		</section>
 	</div>
 	<div>
 	<c:if test="${ sessionScope.userInfo.permisson == 2 || sessionScope.userInfo.permisson == 3 }">
@@ -256,10 +261,6 @@ li>img {
 	</c:if>
 	</div>
 
-	<button class="join"
-		onclick="location.href='${ pageContext.servletContext.contextPath }/user/regist'"
-		style="margin-top: 15px; margin-left: 42.5%; background-color: #19A985; color: white; width: 300px; height: 50px; border: 0px; border-radius: 10px; font-size: 20px;">
-		회원가입</button>
 
 	<!-- 아이디찾기 팝업창 -->
 	<div id="findId" class="overlay">
@@ -401,6 +402,7 @@ $(function(){
 				},
 				success : function(result) {
 					alert(result);
+					location.href="${pageContext.servletContext.contextPath}/user/login"
 				},
 			})
 		}
