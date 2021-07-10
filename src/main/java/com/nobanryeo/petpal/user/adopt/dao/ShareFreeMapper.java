@@ -33,6 +33,10 @@ public interface ShareFreeMapper {
 
 	int insertBoardReportMid(FreeBoardReportDTO boardreportDTO);
 
+	int updateBoard(ShareFreeDTO shareDTO);
+
+	int updatePicture(PictureDTO picture);
+
 
 
 

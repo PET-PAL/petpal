@@ -30,6 +30,8 @@ public interface ShareFreeService {
 
 	int insertBoardReport(FreeBoardReportDTO boardreportDTO);
 
+	int updateBoth(ShareFreeDTO shareDTO, PictureDTO picture);
+
 
 
 }
