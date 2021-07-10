@@ -225,4 +225,25 @@
 	   , #{reportCode}
 	  	)
 	  </insert>
+	  
+	  <update id="updateBoard" parameterType="ShareFreeDTO">
+	      UPDATE SHARE_BOARD
+	         SET BOARD_TITLE = #{boardTitle}
+	           , BOARD_CONTENT = #{boardContent}
+	       WHERE BOARD_CODE = #{boardCode}
+	  </update>
+	  
+	  <update id="updatePicture" parameterType="PictureDTO">
+	      <selectKey keyProperty="pictureCode" order="BEFORE" resultType="int">
+	          SELECT PICTURE_CODE
+	            FROM SHARE_PICTURE_MANAGE
+	           WHERE BOARD_CODE = #{boardCode}
+	      </selectKey>
+	  	  UPDATE PICTURE_TABLE
+	  	    SET PICTURE_NAME =#{pictureName}
+			  , PICTURE_URL = #{pictureURL}
+			  , PICTURE_NEW_NAME = #{pictureNewName}
+			  , PICTURE_UTIL_PATH = #{pictureUtilPath}
+	      WHERE PICTURE_CODE = #{pictureCode}
+	  </update>
  </mapper>

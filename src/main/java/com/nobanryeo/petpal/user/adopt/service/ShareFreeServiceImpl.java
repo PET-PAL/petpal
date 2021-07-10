@@ -102,6 +102,23 @@ public class ShareFreeServiceImpl implements ShareFreeService {
 		return result;
 	}
 
+	@Override
+	public int updateBoth(ShareFreeDTO shareDTO, PictureDTO picture) {
+		
+		int result = 0;
+		
+		int updateBoardResult = sharefreeMapper.updateBoard(shareDTO);
+		
+		int updatePictureResult = sharefreeMapper.updatePicture(picture);
+		
+		if(updateBoardResult>0 && updatePictureResult>0) {
+			System.out.println("###################$$$$$$$$$$ shareFree 보드 성공!!!");
+			result = 1;
+			
+		}
+		return result;
+	}
+
 	
 	
 	

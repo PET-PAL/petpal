@@ -38,8 +38,8 @@
         </style>
         
         
-        <!-- summerNote -->
-        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+    	    <!-- summerNote -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     	<script>
@@ -71,7 +71,7 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left;">커뮤니티</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/views/user/mypage/adApplyDetail.jsp'" style="width:50px; float: right;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/list'" style="width:50px; float: right;">
             </section> <!--End off Home Sections-->
             
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
@@ -87,25 +87,25 @@
 			</div>
 
             <section id="menutable" class="menutable">
-				<form action = "${ pageContext.servletContext.contextPath }/user/shareFree/updateBoard/${requestScope.shareInfo.boardCode}" method="post">
+				<form action = "${ pageContext.servletContext.contextPath }/user/shareFree/updateBoard/${requestScope.shareDetail.boardCode}" method="post" enctype="multipart/form-data">
 				<div style="width: 70%; border: 1px solid rgba(175, 175, 175, 0.616); margin: 0px auto; border-radius: 20px; margin-bottom: 20px;">
 					<table class="table" style="margin-bottom: 0px; border-collapse: separate;">
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; border-radius: 21px 0px 0px 0px; width:25%;"><b>제목</b></td>
-							<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="boardTitle" value="${requestScope.shareInfo.boardTitle}" style="border: none; width: 80%"></td>
+							<td style="border-radius: 0px 21px 0px 0px"><input type="text" name="boardTitle" value="${requestScope.shareDetail.boardTitle}" style="border: none; width: 80%"></td>
 						</tr>
 						<tr>
 							<td style="text-align: center; background-color: #F1FAF8; width:25%;"><b>작성자</b></td>
-							<td><input type="text" name="userNickname" value="${sessionScope.loginUser.nikname }" style="border: none; width: 80%" readonly></td>
+							<td><input type="text" name="userNickname" value="${requestScope.shareDetail.userNickname }" style="border: none; width: 80%" readonly></td>
 						</tr>
 					</table>
 						<input type="hidden" id = "originFileName" name="pictureName"/>
 						<input type="hidden" id = "saveName" name="pictureNewName"/>
 						<input type="hidden" id = "filePath" name="pictureURL"/>
 						<input type="hidden" id = "utilPath" name="pictureUtilPath"/>
-  						<textarea id="summernote" name="boardContent">${ requestScope.shareInfo.boardContent }</textarea>
+  						<textarea id="summernote" name="boardContent">${ requestScope.shareDetail.boardContent }</textarea>
   						 <script>
-					      $j3('#summernote').summernote({
+  						$j3('#summernote').summernote({
 					    	  placeholder: '무료 나눔 게시글을 작성해주세요',
 					          tabsize: 2,
 					          height: 500,
