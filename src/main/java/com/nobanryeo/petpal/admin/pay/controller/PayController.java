@@ -483,6 +483,7 @@ public class PayController {
 //			selectPayAdminDetail.get(0).setPayStatus("납부초과");
 //		}
 		
+		// test
 		
 		if(selectPayAdminDetail.get(0).getPayDate1st() == null && Math.abs((today.getTime() - de2.getTime())/ (24*60*60*1000)) <= 3
 				&& selectPayAdminDetail.get(0).getCancelApplyDate() == null ) {
