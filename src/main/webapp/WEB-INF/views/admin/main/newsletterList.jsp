@@ -78,87 +78,60 @@ select>option{
 					 		
                              <!-- Nav tabs -->
                   
-                          <ul class="nav nav-tabs" role="tablist">
-                                         <li role="presentation" class="active"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">All</a></li>
-                                        <li role="presentation"><a href="#messages" aria-controls="messages" role="tab" data-toggle="tab">작성하기</a></li>
-                          </ul>
 							
 							
                                     <!-- Tab panes -->
-                                    <div class="tab-content" style="padding:0px;">
-                                        <div role="tabpanel" class="tab-pane active" id="profile">	
-	                                        <div class="container-fluid" style="margin-left:20px; margin-bottom:20px">
-													<select class="ui search dropdown" style="font-size:15px; text-align:center !important;">
-													  <option value ="0" selected>월별 선택</option>
-													  <option value="1">1월</option>
-													  <option value="2">2월</option>
-													  <option value="3">3월</option>
-													  <option value="4">4월</option>
-													  <option value="5">5월</option>
-													  <option value="6">6월</option>
-													  <option value="7">7월</option>
-													  <option value="8">8월</option>
-													  <option value="9">9월</option>
-													  <option value="10">10월</option>
-													  <option value="11">11월</option>
-													  <option value="12">12월</option>
-													
-													</select>
-											</div>							              	
-											<table class="table table-hover" style="text-align:center; padding-top:15px">
-												<thead>
-													<tr style="background-color: #F2FFF9;">
-														<th style="text-align:center;">뉴스레터 발행번호</th>
-														<th style="text-align:center;">뉴스레터 제목</th>
-														<th style="text-align:center;">글 최종 검토일자</th>
-														<th style="text-align:center;">글 배포일자</th>
-														<th style="text-align:center;"></th>
-													</tr>
-														
-												</thead>
-												<tbody>
-													<tr>
-														<td>PP-210611</td>
-														<td>강아지 고양이 한배를 타다!!</td>
-														<td>2021.06.08</td>
-														<td>2021.06.11</td>
-														<td><button type="button" class="send_btn">전송 하기</button></td>
-													</tr>
-													<tr>
-														<td>PP-210511</td>
-														<td>조용한 강아지가 붓두막을?!??</td>
-														<td>2021.05.08</td>
-														<td>2021.05.11</td>
-														<td><button type="button" class="complete_btn">전송 완료</button></td>
-													</tr>
-													<tr>
-														<td>PP-210611</td>
-														<td>강아지 고양이 한배를 타다!!</td>
-														<td>2021.06.08</td>
-														<td>2021.06.11</td>
-														<td><button class="complete_btn">전송 완료</button></td>
-													</tr>
-													
-													
-												</tbody>
-											</table>
-													<div class="text-center">
-														<ul class="pagination">
-															<li><a href="#">1</a></li>
-															<li><a href="#">2</a></li>
-															<li><a href="#">3</a></li>
-															<li><a href="#">4</a></li>
-														</ul>
-													</div>			
-                                      			</div>
+	                                        							              	
+											
+											
+											 <div class="box box-primary">
+								           <form action="${pageContext.servletContext.contextPath }/admin/send.do" method="post" enctype="multipart/form-data" name="form1">
+								            <div class="box-header with-border">
+								            </div>
+								            <!-- /.box-header -->
+								            <div class="box-body">
+								           
+								           
+								          
+								              
+								              <div class="form-group">
+								                <label>제목 </label>
+								                <input class="form-control" placeholder="Subject:" name="subject">
+								              </div>
+								             
+								             
+								              <div class="form-group">
+								                 <label>내용 </label>
+								                    <textarea id="message" class="form-control" style="height: 300px" name="message"></textarea>
+								
+								              
+								              
+								              </div>
+								              <div class="form-group">
+								                <div class="form-group">
+								                  <i class="fa fa-paperclip"></i> 파일첨부
+								                  <input type="file" name="file"  class="form-control" > 
+								                </div>
+								               <!--  <p class="help-block">Max. 32MB</p> -->
+								              </div>
+								             
+								            
+								            
+								            </div>
+								            <!-- /.box-body -->
+								            <div class="box-footer">
+								              <div class="pull-right">
+								                <button type="reset" class="btn btn-primary" id="reset"><i class="fa fa-pencil"></i> 리셋</button>
+								                <button type="submit" class="btn btn-primary"><i class="fa fa-envelope-o"></i>보내기</button>
+								              </div>
+								  <!--             <button type="reset" class="btn btn-default"><i class="fa fa-times"></i> Discard</button> -->
+								            </div>
+								            <!-- /.box-footer -->
+								            
+								             </form>
+								          </div>
                                       			
-                                      	<div role="tabpanel" class="tab-pane" id="messages">
-                                        	<form method="post">
-	                                        	<input type="file">
-	                                        	<button type="submit" class="btn btn-success" style="margin-left:42%;" >작성하기</button>
-											</form>
-                                        	</div>	
-                                        	</div>
+                                      	
                                    		</div>
                     </div>
        		  </div>		
@@ -166,6 +139,42 @@ select>option{
 	
 
 	<jsp:include page="../../admin/common/footer.jsp"></jsp:include> 
+<script src="/resources/admin/plugins/ckeditor/ckeditor.js"></script>
+  
+<script>
 
+$(document).ready(function(){
+	
+	$("#reset").click(function(){
+		
+		
+		document.form1.senderName.value("");
+		document.form1.senderMail.value("");
+		document.form1.receiveMail.value("");
+		document.form1.subject.value("");
+		
+		
+		
+	});
+	
+	 // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+	  CKEDITOR.replace( 'message', {//해당 이름으로 된 textarea에 에디터를 적용 <-- 이거 이름 부분입니다.
+          width:'100%',
+          height:'600px',
+      //    extraPlugins : 'youtube',
+         //여기 경로로 파일을 전달하여 업로드 시킨다. 
+          // JSP, PHP 공통입니다. 경로를 적당히 적어줍니다.
+        
+         filebrowserImageUploadUrl: '/admin/mail/ckeditorupload'	
+          	
+      });
+    
+    
+	
+});
+
+
+</script>
 </body>
 </html>

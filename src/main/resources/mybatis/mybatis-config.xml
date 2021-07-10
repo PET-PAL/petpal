@@ -49,7 +49,7 @@
  		<typeAlias alias="reportPopupDTO" type="com.nobanryeo.petpal.admin.dto.reportPopupDTO"/>
  		
  		<typeAlias alias="AdminReviewDetailDTO" type="com.nobanryeo.petpal.admin.dto.AdminReviewDetailDTO"/>
- 		
+ 		<typeAlias alias="EmailDTO" type="com.nobanryeo.petpal.admin.dto.EmailDTO"/>
  		<!-- <typeAlias alias="SearchCriteria" type="com.nobanryeo.petpal.admin.dto.SearchCriteria"/> -->
  		
  	</typeAliases>
