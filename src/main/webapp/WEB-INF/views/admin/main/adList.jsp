@@ -111,7 +111,7 @@
 							        <input type="hidden" name="category" value="${ requestScope.category }"/>
 									<c:choose>
 									    <c:when test="${ !empty requestScope.searchValue }">
-					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -540px; margin-top: 10px;">
+					   					    <select id="searchCondition" name="searchCondition" style="margin-left: -560px; margin-top: 10px;">
 					   					    <!-- select 박스 -->
 					   					    <!-- ~를 선택했을 때 value를 넘겨줌 -->
 												<option value="menu" <c:if test="${requestScope.searchCondition eq 'menu'}">selected</c:if>>카테고리</option>
@@ -120,7 +120,9 @@
 												<option value="name" <c:if test="${requestScope.searchCondition eq 'name'}">selected</c:if>>신청자이름</option>
 											</select>
 											<!-- input 값도 넘겨줌 -->
-									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
+									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }"
+									        aria-label="Search"  class="form-control me-2" type="search" 
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left:90px;">
 									    </c:when>
 									    <c:otherwise>
 										    <select id="searchCondition" name="searchCondition" style="margin-left: -560px; margin-top: 10px;">
@@ -212,6 +214,9 @@
 	                                    <c:when test="${ empty adApprove.postStartDate }">
 	                                   	 -
 	                                    </c:when>
+	                                    <c:when test="${ not empty adApprove.cancelApplyDate }">
+	                                   	 -
+	                                    </c:when>
 	                                    <c:otherwise>
 	                                    ${adApprove.postStartDate} ~ ${adApprove.postEndDate}
 	                                    </c:otherwise>
@@ -258,7 +263,7 @@
                                     		<c:when test="${(startday > day or empty adApprove.postStartDate) and empty adApprove.cancelApplyDate }">
                                     			게시전
                                     		</c:when>
-                                    		<c:when test="${ startday <= day and day <= endday}">
+                                    		<c:when test="${ startday <= day and day <= endday and empty adApprove.cancelApplyDate}">
                                     			게시중
                                     		</c:when>
                                     		<c:when test="${ startday < day and empty adApprove.cancelApplyDate }">
@@ -523,23 +528,45 @@
                             	
 						<!-- 페이징 버튼 -->
 						<ul class="pagination">
-	                        <c:if test="${paging.startPage != 1 }">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
-	                        </c:if>
-	                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-	                           <c:choose>
-	                              <c:when test="${p == paging.nowPage }">
-	                                 <li><a>${p }</a></li>
-	                              </c:when>
-	                              <c:when test="${p != paging.nowPage }">
-	                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-	                              </c:when>
-	                           </c:choose>
-	                        </c:forEach>
-	                        <c:if test="${paging.endPage != paging.lastPage}">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
-	                        </c:if>
-	                       </ul>
+						<c:if test="${empty requestScope.searchValue and empty requestScope.searchCondition }">
+		                        <c:if test="${paging.startPage != 1 }">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+		                        </c:if>
+		                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+		                           <c:choose>
+		                              <c:when test="${p == paging.nowPage }">
+		                                 <li><a>${p }</a></li>
+		                              </c:when>
+		                              <c:when test="${p != paging.nowPage }">
+		                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+		                              </c:when>
+		                           </c:choose>
+		                        </c:forEach>
+		                        <c:if test="${paging.endPage != paging.lastPage}">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+		                        </c:if>
+	                       </c:if> 
+	                        
+	                        <c:if test="${not empty requestScope.searchValue and not empty requestScope.searchCondition }">
+		                        <c:if test="${paging.startPage != 1 }">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&searchCondition=${requestScope.searchCondition}&searchValue=${requestScope.searchValue}">&lt;</a></li>
+		                        </c:if>
+		                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+		                           <c:choose>
+		                              <c:when test="${p == paging.nowPage }">
+		                                 <li><a>${p }</a></li>
+		                              </c:when>
+		                              <c:when test="${p != paging.nowPage }">
+		                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}&searchCondition=${requestScope.searchCondition}&searchValue=${requestScope.searchValue}">${p }</a></li>
+		                              </c:when>
+		                           </c:choose>
+		                        </c:forEach>
+		                        <c:if test="${paging.endPage != paging.lastPage}">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/adList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&searchCondition=${requestScope.searchCondition}&searchValue=${requestScope.searchValue}">&gt;</a></li>
+		                        </c:if>
+	                       </c:if> 
+	                        
+	                      </ul>
 									
 								
 								

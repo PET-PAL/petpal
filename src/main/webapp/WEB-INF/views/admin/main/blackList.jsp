@@ -66,7 +66,9 @@ function selChange() {
 									<c:choose>
 									    <c:when test="${ !empty requestScope.searchValue }">
 											<!-- input 값도 넘겨줌 -->
-									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }">
+									        <input type="search" id="searchValue" name="searchValue" value="${ requestScope.searchValue }"
+									        aria-label="Search"  class="form-control me-2" type="search" 
+									        style="width: 300px; border-radius: 15px; background-color: #F1FAF8; float:left; height:40px; margin-left: 0px;">
 									    </c:when>
 									    <c:otherwise>
 									        <input id="searchValue" name="searchValue" placeholder="유저명을 입력하세요" 
@@ -185,22 +187,44 @@ function selChange() {
                             	
 						<!-- 페이징 버튼 -->
 						<ul class="pagination">
-	                        <c:if test="${paging.startPage != 1 }">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/blackList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
-	                        </c:if>
-	                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
-	                           <c:choose>
-	                              <c:when test="${p == paging.nowPage }">
-	                                 <li><a>${p }</a></li>
-	                              </c:when>
-	                              <c:when test="${p != paging.nowPage }">
-	                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/blackList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
-	                              </c:when>
-	                           </c:choose>
-	                        </c:forEach>
-	                        <c:if test="${paging.endPage != paging.lastPage}">
-	                           <li><a href="${ pageContext.servletContext.contextPath }/admin/blackList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
-	                        </c:if>
+							<c:if test="${ empty requestScope.searchValue }">
+		                        <c:if test="${paging.startPage != 1 }">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/blackList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+		                        </c:if>
+		                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+		                           <c:choose>
+		                              <c:when test="${p == paging.nowPage }">
+		                                 <li><a>${p }</a></li>
+		                              </c:when>
+		                              <c:when test="${p != paging.nowPage }">
+		                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/blackList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+		                              </c:when>
+		                           </c:choose>
+		                        </c:forEach>
+		                        <c:if test="${paging.endPage != paging.lastPage}">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/blackList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+		                        </c:if>
+		                     </c:if>
+		                     
+		                     <c:if test="${ not empty requestScope.searchValue }">
+		                        <c:if test="${paging.startPage != 1 }">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/blackList?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}&searchValue=${requestScope.searchValue}">&lt;</a></li>
+		                        </c:if>
+		                        <c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
+		                           <c:choose>
+		                              <c:when test="${p == paging.nowPage }">
+		                                 <li><a>${p }</a></li>
+		                              </c:when>
+		                              <c:when test="${p != paging.nowPage }">
+		                                 <li><a href="${ pageContext.servletContext.contextPath }/admin/blackList?category=${category}&nowPage=${p }&cntPerPage=${paging.cntPerPage}&searchValue=${requestScope.searchValue}">${p }</a></li>
+		                              </c:when>
+		                           </c:choose>
+		                        </c:forEach>
+		                        <c:if test="${paging.endPage != paging.lastPage}">
+		                           <li><a href="${ pageContext.servletContext.contextPath }/admin/blackList?category=${category}&nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}&searchValue=${requestScope.searchValue}">&gt;</a></li>
+		                        </c:if>
+		                     </c:if>
+		                     
 	                       </ul>
 					</div>
 									

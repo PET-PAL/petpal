@@ -50,7 +50,7 @@
 									      	<c:if test= "${ not empty adApprove.payDate1st }">
 									    	2차
 										    </c:if>
-    								<c:out value="${ adApprove.payStatus }"/>
+    								<c:out value="${ adApprove.payNewStatus }"/>
     								</button>
     								</c:forEach>
                                 </div>
@@ -257,7 +257,7 @@
 		                                 <tr>
 		                                    <th scope="col" style="border: none;">청구 일자</th>
 		                                    <td style="border: none;">
-											<c:out value="${ adApprove.payUntilDate }"/>
+											<c:out value="${ adApprove.payDate }"/>
 		                                    </td>
 		                                 </tr>
 		                              <%--    <tr>
