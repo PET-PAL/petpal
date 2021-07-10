@@ -259,6 +259,7 @@
 			                            	<th style="text-align: center; border-radius: 21px 0px 0px 0px;"><b>제목</b></th>
 	                                    	<th style="text-align: center;"><b>날짜</b></th>
 	                                    	<th style="text-align: center;"><b>승인상태</b></th>
+	                                    	<th style="text-align: center;"><b>거절사유</b></th>
 			                            	<th style="text-align: center; border-radius: 0px 21px 0px 0px;"><b>삭제</b></th>
 			                        	</tr>
 			                    		</c:when>
@@ -313,22 +314,31 @@
 									</c:forEach>
 			                        </c:if>
 			                        <c:if test="${ type eq 'C' }">
-			                        <c:forEach items="${ cList }" var="list">	
-									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
-										<td style="text-align: center;">${ list.boardTitle }</td>
-										<td style="text-align: center;">${ list.postDate }</td>
+									<c:forEach items="${ cList }" var="list">
 										<c:choose>
 											<c:when test="${ list.dicisionCode eq 0 }">
+												<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
 												<td style="text-align: center;"><c:out value="승인대기" /></td>
+												<td style="text-align: center;"></td>
 											</c:when>
-											<c:when test="${ list.dicisionCode eq 2 }">
+											<c:when test="${ list.state eq 2 }">
+												<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/shareInfo/detail?boardCode=${ list.boardCode }'">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
 												<td style="text-align: center;"><c:out value="승인" /></td>
+												<td style="text-align: center;"></td>
 											</c:when>
-											<c:when test="${ list.dicisionCode eq 3 }">
+											<c:when test="${ list.state eq 3 }">
+												<tr id="stop" onclick="backPosting(this);">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
 												<td style="text-align: center;"><c:out value="거절" /></td>
+												<td style="text-align: center;"><c:out value="${ list.dReason }" /></td>
 											</c:when>
 										</c:choose>
-										<td>
+										<td style="text-align: center;">
 										<input type="hidden" value="C" id="type2">
 										<button onclick="deleteClick(this)" id="delete" class="${ list.boardCode }" title="C">삭제</button>
 										</td>
@@ -373,18 +383,27 @@
 			                        </c:if>
 			                        <c:if test="${ type eq 'H' }" >
 			                        <c:forEach items="${ hList }" var="list">
-									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/detail?boardCode=${ list.boardCode }'">
-										<td style="text-align: center;">${ list.boardTitle }</td>
-										<td style="text-align: center;">${ list.postDate }</td>
 										<c:choose>
 											<c:when test="${ list.dicisionCode eq 0 }">
+												<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/detail?boardCode=${ list.boardCode }'">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
 												<td style="text-align: center;"><c:out value="승인대기" /></td>
+												<td style="text-align: center;"></td>
 											</c:when>
-											<c:when test="${ list.dicisionCode eq 2 }">
+											<c:when test="${ list.state eq 2 }">
+												<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/detail?boardCode=${ list.boardCode }'">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
 												<td style="text-align: center;"><c:out value="승인" /></td>
+												<td style="text-align: center;"></td>
 											</c:when>
-											<c:when test="${ list.dicisionCode eq 3 }">
+											<c:when test="${ list.state eq 3 }">
+												<tr id="stop" onclick="backPosting(this);">
+												<td style="text-align: center;">${ list.boardTitle }</td>
+												<td style="text-align: center;">${ list.postDate }</td>
 												<td style="text-align: center;"><c:out value="거절" /></td>
+												<td style="text-align: center;"><c:out value="${ list.dReason }" /></td>
 											</c:when>
 										</c:choose>
 										<td style="text-align: center;">
@@ -396,6 +415,18 @@
 			                        </c:if>
 			                    </tbody>
 			                </table>
+			                <!-- <script>
+								function backPosting(test){
+									
+									let reason = test.className;
+									let boardCode = test.title;
+									
+									console.log(reason);
+									console.log(boardCode);
+									
+									alert("거절 사유 : " + reason);
+								}
+							</script> -->
 			                <div class="text-center">
 								<ul class="pagination">
 								<!-- A타입일때 하단 -->

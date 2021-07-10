@@ -494,6 +494,14 @@ public class BoardManagementController {
 			} else {
 				result = "fail";
 			}
+		} else if(type.equals("H")) {
+			System.out.println("H들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+			boolean value = boardService.deletePostFriendly(boardCode);
+			if(value == true) {
+				result = "H";
+			} else {
+				result = "fail";
+			}
 		} else if(type.equals("G")) {
 			
 			System.out.println("G들어옴!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");

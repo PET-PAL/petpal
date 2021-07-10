@@ -64,4 +64,6 @@ public interface BoardManagementService {
 
 	List<BoradAndCommentDTO> selectFriendlyList(HashMap<String, Object> map);
 
+	boolean deletePostFriendly(int boardCode);
+
 }

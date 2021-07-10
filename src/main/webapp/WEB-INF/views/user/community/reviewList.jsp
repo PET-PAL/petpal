@@ -164,7 +164,7 @@
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.companyName }"/></td>
-							                    <td style="text-align: center;"></td>
+					                			<td><input type="hidden" value="${ sessionScope.loginUser.code }" name="userCode"></td>
 							                    <td style="text-align: center;"></td>
 						                	</tr>
 					                	</c:if>
@@ -178,7 +178,7 @@
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.companyName }"/></td>
-							                    <td style="text-align: center;"></td>
+					                			<td><input type="hidden" value="${ sessionScope.loginUser.code }" name="userCode"></td>
 							                    <td style="text-align: center;"></td>
 						                	</tr>
 					                	</c:if>

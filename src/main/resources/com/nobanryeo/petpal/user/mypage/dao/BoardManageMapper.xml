@@ -19,6 +19,8 @@
 		<result column="REPLY_DATE" property="replyDate"/>
 		<result column="REPLY_DELETE_YN" property="replyDeleteYn"/>
 		<result column="REPORT_YN" property="reportYn"/>
+		<result column="STATE_CODE" property="state"/>
+		<result column="DECISION_REASON" property="dReason"/>
 	</resultMap>
 
 	
@@ -144,18 +146,21 @@
 		SELECT * 
 		  FROM (SELECT ROWNUM RN, A.* 
 		          FROM (SELECT 
-		                       BOARD_CODE
-                             , BOARD_TITLE
-                             , BOARD_CONTENT
-                             , BOARD_VIEWS
-                             , BOARD_POST_DATE
-                             , BOARD_DELETE_YN
-                             , DECISION_CODE
-                             , USER_CODE
-		          FROM INFO_BOARD
-		         WHERE USER_CODE = #{ bcDTO.userCode }
-		           AND BOARD_DELETE_YN = 'N'
-		      ORDER BY BOARD_POST_DATE DESC) A)
+		                       A.BOARD_CODE
+                             , A.BOARD_TITLE
+                             , A.BOARD_CONTENT
+                             , A.BOARD_VIEWS
+                             , A.BOARD_POST_DATE
+                             , A.BOARD_DELETE_YN
+                             , A.DECISION_CODE
+                             , A.USER_CODE
+                             , B.STATE_CODE
+                             , B.DECISION_REASON
+		          FROM INFO_BOARD A
+		          LEFT JOIN DECISION_TABLE B ON(A.DECISION_CODE = B.DECISION_CODE)
+		         WHERE A.USER_CODE = #{ bcDTO.userCode }
+		           AND A.BOARD_DELETE_YN = 'N'
+		      ORDER BY A.BOARD_POST_DATE DESC) A)
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
 		      ORDER BY BOARD_POST_DATE DESC	
 	</select>
@@ -253,17 +258,20 @@
 		SELECT * 
 		  FROM (SELECT ROWNUM RN, A.* 
 		          FROM (SELECT 
-		                       BOARD_CODE
-                             , BOARD_TITLE
-                             , BOARD_CONTENT
-                             , BOARD_VIEWS
-                             , BOARD_POST_DATE
-                             , BOARD_DELETE_YN
-                             , USER_CODE
-                             , DECISION_CODE
-		          FROM FRIENDLY_BOARD
-		         WHERE USER_CODE = #{ bcDTO.userCode }
-		           AND BOARD_DELETE_YN = 'N'
+		                       A.BOARD_CODE
+                             , A.BOARD_TITLE
+                             , A.BOARD_CONTENT
+                             , A.BOARD_VIEWS
+                             , A.BOARD_POST_DATE
+                             , A.BOARD_DELETE_YN
+                             , A.USER_CODE
+                             , A.DECISION_CODE
+                             , B.STATE_CODE
+                             , B.DECISION_REASON
+		          FROM FRIENDLY_BOARD A
+		          LEFT JOIN DECISION_TABLE B ON(A.DECISION_CODE = B.DECISION_CODE)
+		         WHERE A.USER_CODE = #{ bcDTO.userCode }
+		           AND A.BOARD_DELETE_YN = 'N'
 		      ORDER BY BOARD_POST_DATE DESC) A)
 			WHERE RN BETWEEN #{ pageInfo.start } AND #{ pageInfo.end }
 		      ORDER BY BOARD_POST_DATE DESC	
@@ -297,6 +305,11 @@
 	</update>
 	<update id="deletePostReview" parameterType="int" >
 		UPDATE REVIEW_BOARD
+           SET BOARD_DELETE_YN = 'Y'
+         WHERE BOARD_CODE = #{ boardCode }
+	</update>
+	<update id="deletePostFriendly" parameterType="int" >
+		UPDATE FRIENDLY_BOARD
            SET BOARD_DELETE_YN = 'Y'
          WHERE BOARD_CODE = #{ boardCode }
 	</update>

@@ -154,6 +154,11 @@ public class BoardManagementServiceImpl implements BoardManagementService{
 		return mapper.selectFriendlyList(map);
 	}
 
+	@Override
+	public boolean deletePostFriendly(int boardCode) {
+		return mapper.deletePostFriendly(boardCode);
+	}
+
 	
 }
 
