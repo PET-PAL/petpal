@@ -127,7 +127,6 @@
     		}
 	    </script>
 	</head>
-	<body data-spy="scroll" data-target=".navbar-collapse">
 	
 		<jsp:include page="../common/userHeader.jsp"/>
 	
@@ -283,5 +282,4 @@
         <jsp:include page="../../common/banner.jsp"/>
 
   		<jsp:include page="../common/footer.jsp"/>
-	</body>
 </html>

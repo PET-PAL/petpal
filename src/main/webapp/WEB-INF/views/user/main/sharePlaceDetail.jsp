@@ -175,7 +175,6 @@
 		    }
 		</script>
     </head>
-    <body>
         <jsp:include page="../common/userHeader.jsp"/>
 
         <!-- Preloader -->
@@ -463,5 +462,4 @@
             <!-- 푸터 -->
             <jsp:include page="../common/footer.jsp"/>
         </div>
-    </body>   
 </html>
