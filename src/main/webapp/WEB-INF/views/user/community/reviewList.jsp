@@ -160,7 +160,7 @@
 				                <c:if test="${ num.index == 2 }">
 				                	<c:forEach var="adarr" items="${ randomAd }" varStatus="adNum">
 				                		<c:if test="${ adNum.index == 0 }">
-					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/review/reviewAd?boardCode=${ adarr.adCode }'">
+					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.companyName }"/></td>
@@ -174,7 +174,7 @@
 				                <c:if test="${ num.index == 5 }">
 				                	<c:forEach var="adarr" items="${ randomAd }" varStatus="adNum">
 				                		<c:if test="${ adNum.index == 1 }">
-					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/review/reviewAd?boardCode=${ adarr.adCode }'">
+					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.companyName }"/></td>
