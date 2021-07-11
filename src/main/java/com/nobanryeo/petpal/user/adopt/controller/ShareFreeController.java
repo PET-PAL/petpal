@@ -72,7 +72,12 @@ public class ShareFreeController {
 	@GetMapping("shareFree/list")
 	public String shareFreeList(@ModelAttribute ShareFreeDTO shareDTO, Model model, HttpServletResponse response, HttpServletRequest request, PageDTO page
     		, @RequestParam(value="nowPage", required = false)String nowPage
-			, @RequestParam(value="cntPerPage", required = false)String cntPerPage) {
+			, @RequestParam(value="cntPerPage", required = false)String cntPerPage
+			, @RequestParam(value="category", required=false) String category
+			, @RequestParam(value="keyword", required = false) String keyword) {
+		
+		System.out.println("+!@!@!!@!@@!@!@+++++++++++++++  category 값은 무엇인교?!?!?" + category);
+		System.out.println("+!@!@!!@!@@!@!@+++++++++++++++  keyword 값은 무엇인교?!?!?" + keyword);
 		
 		Cookie[] cookies = request.getCookies();
 		
@@ -85,34 +90,144 @@ public class ShareFreeController {
 				response.addCookie(cookie);
 				
 			}
+			if(!(cookie.getName().equals("AdCookie"))) {		// 광고
+    			
+    			cookie = new Cookie("AdCookie",null); 		// sharInfoAd라는 이름의 쿠키 생성
+    			cookie.setComment("AdCookie 게시글 조회 확인");	// 해당 쿠키가 어떤 용도인지 커멘트
+    			response.addCookie(cookie);						// 사용자에게 해당 쿠키를 추가
+    			
+    		}
 		}
-		int totalCount = sharefreeService.selectTotalCount();
-		
-		if(nowPage == null && cntPerPage == null) {
-			nowPage = "1";
-			cntPerPage = "12";
-		} else if(nowPage == null) {
-			nowPage = "1";
-		} else if(cntPerPage == null) {
-			cntPerPage = "12";
-		}
-    	
-    	page = new PageDTO(totalCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-    	System.out.println("현재 페이지 : " + page.getNowPage());
-		System.out.println("마지막 페이지 : " + page.getEnd());
-		System.out.println("페이지당 글 갯수 : " + page.getCntPerPage());
-		
+		//전체 리스트 호출
+		if(category == null) {
+			int totalCount = sharefreeService.selectTotalCount();
+			
+			if(nowPage == null && cntPerPage == null) {
+				nowPage = "1";
+				cntPerPage = "12";
+			} else if(nowPage == null) {
+				nowPage = "1";
+			} else if(cntPerPage == null) {
+				cntPerPage = "12";
+			}
+	    	
+	    	page = new PageDTO(totalCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+	    	System.out.println("현재 페이지 : " + page.getNowPage());
+			System.out.println("마지막 페이지 : " + page.getEnd());
+			System.out.println("페이지당 글 갯수 : " + page.getCntPerPage());
+			
+	
+			HashMap<String, Object> map = new HashMap<String, Object>();
+			map.put("sharefreeDTO", shareDTO);
+			map.put("pageInfo", page);
+			
+	    	
+	    	List<ShareFreeDTO> shareList = sharefreeService.selectShareFreeList(map);
+	    	
+	    	model.addAttribute("paging", page);
+	    	model.addAttribute("shareList", shareList);
+	    	model.addAttribute("category", null);
+	    	model.addAttribute("keyword", null);
+	    	model.addAttribute("randomAdNonPlace", adService.selectRandomAdNonPlace());
+	    	
+		} else if(category.equals("S")) { // 무료 나눔중 리스트 호출
+    		int totalIngCount = sharefreeService.selectTotalIngCount();
+    		
+    		if(nowPage == null && cntPerPage == null) {
+    			nowPage = "1";
+    			cntPerPage = "12";
+    		} else if(nowPage == null) {
+    			nowPage = "1";
+    		} else if(cntPerPage == null) {
+    			cntPerPage = "12";
+    		}
+    		
+    		page = new PageDTO(totalIngCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+        	System.out.println("현재 페이지 : " + page.getNowPage());
+    		System.out.println("마지막 페이지 : " + page.getEnd());
+    		System.out.println("페이지당 글 갯수 : " + page.getCntPerPage());
+    		
 
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		map.put("sharefreeDTO", shareDTO);
-		map.put("pageInfo", page);
-		
-    	
-    	List<ShareFreeDTO> shareList = sharefreeService.selectShareFreeList(map);
-    	
-    	model.addAttribute("paging", page);
-    	model.addAttribute("shareList", shareList);
-    	model.addAttribute("randomAdNonPlace", adService.selectRandomAdNonPlace());
+    		HashMap<String, Object> map1 = new HashMap<String, Object>();
+    		map1.put("sharefreeDTO", shareDTO);
+    		map1.put("pageInfo", page);
+    		
+        	
+        	List<ShareFreeDTO> shareIngList = sharefreeService.selectIngList(map1);
+        	
+        	model.addAttribute("paging", page);
+        	model.addAttribute("category", "S");
+        	model.addAttribute("shareIngList", shareIngList);
+        	model.addAttribute("randomAdNonPlace", adService.selectRandomAdNonPlace());
+    		
+    	} else if(category.equals("C")) {  // 무료 나눔 리스트 호출
+    		
+    		int totalComCount = sharefreeService.selectTotalComCount();
+    		
+    		if(nowPage == null && cntPerPage == null) {
+    			nowPage = "1";
+    			cntPerPage = "12";
+    		} else if(nowPage == null) {
+    			nowPage = "1";
+    		} else if(cntPerPage == null) {
+    			cntPerPage = "12";
+    		}
+    		
+    		page = new PageDTO(totalComCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+        	System.out.println("현재 페이지 : " + page.getNowPage());
+    		System.out.println("마지막 페이지 : " + page.getEnd());
+    		System.out.println("페이지당 글 갯수 : " + page.getCntPerPage());
+    		
+
+    		HashMap<String, Object> map2 = new HashMap<String, Object>();
+    		map2.put("sharefreeDTO", shareDTO);
+    		map2.put("pageInfo", page);
+    		
+        	
+        	List<ShareFreeDTO> shareComList = sharefreeService.selectComList(map2);
+        	
+        	model.addAttribute("paging", page);
+        	model.addAttribute("category", "C");
+        	model.addAttribute("shareComList", shareComList);
+        	model.addAttribute("randomAdNonPlace", adService.selectRandomAdNonPlace());
+        	
+    	} 
+		if(category == null && keyword != null) {
+    			
+    			int totalkeywordCount = sharefreeService.selectTotalSearchCount(keyword);
+	    		
+	    		if(nowPage == null && cntPerPage == null) {
+	    			nowPage = "1";
+	    			cntPerPage = "12";
+	    		} else if(nowPage == null) {
+	    			nowPage = "1";
+	    		} else if(cntPerPage == null) {
+	    			cntPerPage = "12";
+	    		}
+	    		
+	    		page = new PageDTO(totalkeywordCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
+	        	System.out.println("현재 페이지 : " + page.getNowPage());
+	    		System.out.println("마지막 페이지 : " + page.getEnd());
+	    		System.out.println("페이지당 글 갯수 : " + page.getCntPerPage());
+	    		
+	
+	    		HashMap<String, Object> map3 = new HashMap<String, Object>();
+	    		map3.put("sharefreeDTO", shareDTO);
+	    		map3.put("pageInfo", page);
+	    		map3.put("keyword", keyword);
+	    		
+	        	
+	        	List<ShareFreeDTO> shareSearchList = sharefreeService.selectSearchList(map3);
+	        	System.out.println(shareSearchList);
+	        	
+	        	model.addAttribute("paging", page);
+	        	model.addAttribute("category", null);
+	        	model.addAttribute("keyword", keyword);
+	        	model.addAttribute("shareSearchList", shareSearchList);
+	        	model.addAttribute("randomAdNonPlace", adService.selectRandomAdNonPlace());
+	    	}
+	    	
+    		
     	
 		return "user/community/shareList";
 	}
@@ -193,7 +308,7 @@ public class ShareFreeController {
 	}
 	
 	@PostMapping("shareFree/insert/newBoard")
-	public String insertNewBoard(HttpServletRequest request, Model model,HttpSession session, HttpServletResponse response, @ModelAttribute ShareFreeDTO shareDTO,@ModelAttribute PictureDTO picture) {
+	public String insertNewBoard(HttpServletRequest request, Model model,RedirectAttributes rttr,HttpSession session, HttpServletResponse response, @ModelAttribute ShareFreeDTO shareDTO,@ModelAttribute PictureDTO picture) {
 		
 		shareDTO.setUserCode(((UserInfoDTO)session.getAttribute("loginUser")).getCode());
 		picture.setUserCode(((UserInfoDTO)session.getAttribute("loginUser")).getCode());
@@ -205,13 +320,9 @@ public class ShareFreeController {
 		// 이미지 insert -> 이미지 없을때 insert 안해줌
 		if(picture.getPictureName().equals("")) {
 			
-			int boardResult = sharefreeService.insertNewBoard(shareDTO);
-			// 게시글 insert
-			if(boardResult > 0) {
-				System.out.println("게시글 작성 성공");
-			} else {
-				System.out.println("게시글 작성 실패");
-			}
+			rttr.addFlashAttribute("message", "최소 한 개 이상의 이미지가 필요합니다.");
+			return "redirect:/user/shareFree/insert/newBoard";
+			
 		} else {
 			int totalResult = sharefreeService.insertNewBoth(shareDTO,picture);
 			
@@ -279,15 +390,7 @@ public class ShareFreeController {
 		
 		boardreportResult = sharefreeService.insertBoardReport(boardreportDTO);
 	
-	
-
-		if(boardreportResult >0) {
-			model.addAttribute("message", "success");
-		}else {
-			model.addAttribute("message", "fail");
-		}
-		
-		return "redirect:/shareFree/detail/board/"+contentCode;
+		return "redirect:/user/shareFree/detail/board/"+contentCode;
 	}
 	
 	@GetMapping("sharefree/modify/{boardCode}")

@@ -236,9 +236,9 @@
                            		<i class="fas fa-arrow-circle-right fa-3x" style="margin-left:-100px;"></i>
                                 <span class="sr-only">Next</span>
                             </a>
-                                </div>
-                                </div>
-                                </section>
+                         </div>
+                      </div>
+                   </section>
                                 
             <section id="boradtable" class="boradtable">
             <div class="carousel-inner" role="listbox">
@@ -251,14 +251,14 @@
 			                	대기중
 			                	</h2>
 		                	</c:if>
-		                	<%-- <c:if test="${requestScope.adoptDetail.userCode eq sessionScope.loginUser.code }">  --%>
+		                	<c:if test="${requestScope.adoptDetail.userCode eq sessionScope.loginUser.code }">  
 			                	<div style="float:right;margin-right: -550px;">
 				                	<button class="btn btn-light" style="width:100px; color: orange;border:none; background-color:white;" type="button" onclick="revisedfn();">수정하기</button>
 				                	<c:if test="${requestScope.adoptDetail.stateCode eq '1'}">
 				                		<input type="button" class="btn btn-light" style="width:150px; color: green; font-weight: bolder; border:none; background-color:white;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/update/status?board=${requestScope.adoptDetail.boardCode}'" value ="입양 완료하기"/>
 									</c:if>
 			               		</div>
-			                <%-- </c:if> --%>
+			                </c:if> 
 			                
 		<!-- 수정진행 여부 alert창  -->	                
 		<script type="text/javascript">
@@ -377,25 +377,26 @@
 								     					
 								     					
 								     					if(deleteYN == 'N'){
+								     						if(reportYN == 'N'){
 								     						output += '<tr id="tr'+i+'">';
 									     					output += '<td class="col-md-3" style="text-align: center;">'+this.userNickname+'</td>';
 								     						output += '<td>'+this.replyContent+'</td>';
 								     						output += '<td style="text-align: center;">'+this.replyDate+'</td>';
 									     					output += '<td><img onclick="test1(this)" class="'+ this.replyCode +'" title="'+this.replyUserCode +'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; height: 25px; margin-bottom: 0px; cursor:pointer;">'+'</td>';
 									     					output += '</tr>';
+								     						}else if(reportYN =='Y'){
+									     						output += '<tr id="tr'+i+'">';
+										     					output += '<td style="text-align: center;">'+' '+'</td>';
+									     						output += '<td><del>'+'신고에 의해 삭제 된 댓글입니다.'+'</del></td>';
+									     						output += '<td style="text-align: center;">'+' '+'</td>';
+										     					output += '<td>'+'</td>';
+										     					output += '</tr>';
+									     					}
 								     					}
-								     					if(deleteYN == 'Y'&& reportYN =='N'){
+								     					if(deleteYN == 'Y'){
 								     						output += '<tr id="tr'+i+'">';
 									     					output += '<td style="text-align: center;">'+' '+'</td>';
 								     						output += '<td><del>'+'삭제 된 댓글입니다.'+'</del></td>';
-								     						output += '<td style="text-align: center;">'+' '+'</td>';
-									     					output += '<td>'+'</td>';
-									     					output += '</tr>';
-								     					}
-								     					if(deleteYN == 'Y'&& reportYN =='Y'){
-								     						output += '<tr id="tr'+i+'">';
-									     					output += '<td style="text-align: center;">'+' '+'</td>';
-								     						output += '<td>'+'신고에 의해 삭제 된 댓글입니다.'+'</td>';
 								     						output += '<td style="text-align: center;">'+' '+'</td>';
 									     					output += '<td>'+'</td>';
 									     					output += '</tr>';
@@ -415,26 +416,22 @@
 				               		});
 				                
 				                    	</script>
-				                <div class="text-center">
-									<ul class="pagination">
-										<li><a href="#"><</a></li>
-										<li><a href="#">1</a></li>
-										<li><a href="#">2</a></li>
-										<li><a href="#">3</a></li>
-										<li><a href="#">4</a></li>
-										<li><a href="#">></a></li>
-									</ul>
-								</div>
                             </div>
                         </div>
                     </div>
                 </div>
                 
-                
-	             	<p style="margin-left: 200px;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
-	             	삐비디딕
-	             	</p>
 		             <section id="sendmessage" class="sendmessage">
+                	<c:if test="${ !empty sessionScope.loginUser}">
+		             	<p style="margin-left: 14%;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
+		             	${sessionScope.loginUser.nikname }
+		             	</p>
+		            </c:if>
+                	<c:if test="${ empty sessionScope.loginUser}">
+		             	<p style="margin-left: 14%;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
+		             	비회원
+		             	</p>
+		            </c:if>
 		                <input type="text" id="messagecontent" placeholder="  댓글로 임시보호자님을 응원해주세요!" style="width: 850px; float: left;" >
 		                <button class="sendmessagecontent" id="replySubmit" style="float:left;">댓글 작성</button>
 		            </section>
@@ -445,7 +442,7 @@
 				     		var code = ${requestScope.adoptDetail.boardCode};
 			     			var content = $j3('#messagecontent').val();
 
-			     			if(${sessionScope.loginUser ne null}){
+			     			if(${ !empty sessionScope.loginUser}){
 					     		if(content.trim()==''){
 					     			alert('댓글을 입력하신 후 다시 눌러주시기 바랍니다.');
 					     			return;
@@ -483,7 +480,7 @@
              <form action="${ pageContext.servletContext.contextPath }/user/adopt/insert/report" method="POST">
 	            <div id="reportPost" class="overlay">
 	                <div class="popup">
-	                    <a href="#none" class="close">&times;</a>
+	                    <a href="" class="close">&times;</a>
 	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
 	                    <div class="findpwd-content" id="contStep02" style="display: block;">
 	                        <div class="cont-step_preface">
@@ -491,7 +488,12 @@
 	                        </div>
 	                        <!-- 신고 내용 입력 -->
 	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" id="reportContent_board" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                        <c:if test="${!empty sessionScope.loginUser }"> 
+	                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                   		</c:if>
+	                   		 <c:if test="${empty sessionScope.loginUser }">
+	                        	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" disabled>로그인 후 신고가능합니다.</button></div>
+	                   		</c:if>
 	                    </div>
 	                </div>
 	            </div> 
@@ -499,7 +501,7 @@
             <!-- 댓글 신고 팝업창 -->
 	            <div id="reportComment" class="overlay">
 	                <div class="popup">
-	                    <a href="#none" class="close">&times;</a>
+	                    <a href="" class="close">&times;</a>
 	                    <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">댓글 신고</p>
 	                    <div class="findpwd-content" id="contStep02" style="display: block;">
 	                        <div class="cont-step_preface">
@@ -507,7 +509,12 @@
 	                        </div>
 	                        <!-- 신고 내용 입력 -->
 	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input id="reportContent_reply" type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                        <c:if test="${!empty sessionScope.loginUser }"> 
+	                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                   		</c:if>
+	                   		 <c:if test="${empty sessionScope.loginUser }">
+	                        	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" disabled>로그인 후 신고가능합니다.</button></div>
+	                   		</c:if>
 	                    </div>
 	                </div>
 	            </div> 
@@ -573,7 +580,7 @@
             <!-- 입양약관 팝업창 -->
             <div id="agreeAction" class="overlay">
                 <div class="popup">
-                    <a href="#none" class="close">&times;</a>
+                    <a href="" class="close">&times;</a>
                     <h3 style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px; color: #19A985; font-weight: bold;">입양하기로 결정하셨나요?</h3>
                     <h3 style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px; color: #19A985; font-weight: bold;">아래의 약관 동의를 <b style="color: red;">반드시 읽어주세요!</b></h3>
                     <h3 style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px; color: #19A985; font-weight: bold;">읽지 않은 불이익은 책임지지 않습니다.</h3>
@@ -657,14 +664,17 @@
           <form action="${pageContext.servletContext.contextPath }/user/insert/adopt/message" method="post">
             <div id="directMessage" class="overlay">
                 <div class="popup">
-                    <a href="#none" class="close">&times;</a>
+                    <a href="" class="close">&times;</a>
                     <p style="font-size: 20px; text-align: left; padding-bottom: 10px; margin-top: 10px;">받는이 : <c:out value="${ requestScope.adoptDetail.userNickname }"/></p>
                     <div class="findpwd-content" id="contStep02" style="display: block;">
                         <!-- 쪽지 내용 입력 -->
-                        	<div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
-                        	
-                        
+                       	<div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
+                       	 <c:if test="${!empty sessionScope.loginUser }"> 
+                   			<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+                   		</c:if>
+                   		 <c:if test="${empty sessionScope.loginUser }">
+                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" disabled>로그인 후 이용가능합니다.</button></div>
+                   		</c:if>
                     </div>
                 </div>
             </div>

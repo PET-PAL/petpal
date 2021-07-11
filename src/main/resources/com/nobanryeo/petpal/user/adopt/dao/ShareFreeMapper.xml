@@ -62,7 +62,94 @@
 		 WHERE S.BOARD_DELETE_YN = 'N'
 		   AND P.PICTURE_DELETE_YN = 'N'
  	</select>
+ 	<select id="selectTotalIngCount" resultType="int">
+ 		SELECT
+		       COUNT(*)
+		  FROM SHARE_BOARD S
+		  JOIN USER_TABLE U ON (U.USER_CODE = S.USER_CODE)
+		  JOIN SHARE_PICTURE_MANAGE SM ON(S.BOARD_CODE = SM.BOARD_CODE)
+		  JOIN PICTURE_TABLE P ON(P.PICTURE_CODE = SM.PICTURE_CODE)
+		 WHERE S.BOARD_DELETE_YN = 'N'
+		   AND P.PICTURE_DELETE_YN = 'N'
+		   AND S.STATE_CODE = 1
+ 	</select>
+ 	<select id="selectTotalComCount" resultType="int">
+ 		SELECT
+		       COUNT(*)
+		  FROM SHARE_BOARD S
+		  JOIN USER_TABLE U ON (U.USER_CODE = S.USER_CODE)
+		  JOIN SHARE_PICTURE_MANAGE SM ON(S.BOARD_CODE = SM.BOARD_CODE)
+		  JOIN PICTURE_TABLE P ON(P.PICTURE_CODE = SM.PICTURE_CODE)
+		 WHERE S.BOARD_DELETE_YN = 'N'
+		   AND P.PICTURE_DELETE_YN = 'N'
+		   AND S.STATE_CODE = 2
+ 	</select>
+ 	<select id="selectSearchCount" parameterType="string" resultType="int">
+ 		SELECT
+		       COUNT(*)
+		  FROM SHARE_BOARD S
+		  JOIN USER_TABLE U ON (U.USER_CODE = S.USER_CODE)
+		  JOIN SHARE_PICTURE_MANAGE SM ON(S.BOARD_CODE = SM.BOARD_CODE)
+		  JOIN PICTURE_TABLE P ON(P.PICTURE_CODE = SM.PICTURE_CODE)
+		 WHERE S.BOARD_DELETE_YN = 'N'
+		   AND P.PICTURE_DELETE_YN = 'N'
+		   AND S.BOARD_TITLE LIKE '%' ||#{keyword}|| '%'
+ 	</select>
  	
+ 	<select id="selectShareFreeIngList" parameterType="hashmap" resultMap="sharefreeResultMap">
+ 		SELECT *
+		  FROM(
+		        SELECT ROWNUM RN, R.*
+		          FROM(
+		                SELECT S.BOARD_CODE
+		                     , S.BOARD_TITLE
+		                     , S.BOARD_CONTENT
+		                     , S.BOARD_DELETE_YN
+		                     , S.BOARD_VIEWS
+		                     , S.STATE_CODE
+		                     , ST.STATE_NAME
+		                     , U.USER_NIKNAME
+		                     , P.PICTURE_UTIL_PATH
+		                  FROM SHARE_BOARD S
+		                  JOIN STATE_TABLE ST ON (ST.STATE_CODE = S.STATE_CODE)
+		                  JOIN USER_TABLE U ON (U.USER_CODE = S.USER_CODE)
+		                  JOIN SHARE_PICTURE_MANAGE SM ON(S.BOARD_CODE = SM.BOARD_CODE)
+		                  JOIN PICTURE_TABLE P ON(P.PICTURE_CODE = SM.PICTURE_CODE)
+		                 WHERE S.BOARD_DELETE_YN = 'N'
+		                   AND P.PICTURE_DELETE_YN = 'N'
+		                   AND S.STATE_CODE = 1
+		                 ORDER BY S.BOARD_POST_DATE DESC
+		                 )R
+		            )
+		    WHERE RN BETWEEN  #{pageInfo.start} AND #{pageInfo.end}
+ 	</select>
+ 	<select id="selectShareFreeComList" parameterType="hashmap" resultMap="sharefreeResultMap">
+ 		SELECT *
+		  FROM(
+		        SELECT ROWNUM RN, R.*
+		          FROM(
+		                SELECT S.BOARD_CODE
+		                     , S.BOARD_TITLE
+		                     , S.BOARD_CONTENT
+		                     , S.BOARD_DELETE_YN
+		                     , S.BOARD_VIEWS
+		                     , S.STATE_CODE
+		                     , ST.STATE_NAME
+		                     , U.USER_NIKNAME
+		                     , P.PICTURE_UTIL_PATH
+		                  FROM SHARE_BOARD S
+		                  JOIN STATE_TABLE ST ON (ST.STATE_CODE = S.STATE_CODE)
+		                  JOIN USER_TABLE U ON (U.USER_CODE = S.USER_CODE)
+		                  JOIN SHARE_PICTURE_MANAGE SM ON(S.BOARD_CODE = SM.BOARD_CODE)
+		                  JOIN PICTURE_TABLE P ON(P.PICTURE_CODE = SM.PICTURE_CODE)
+		                 WHERE S.BOARD_DELETE_YN = 'N'
+		                   AND P.PICTURE_DELETE_YN = 'N'
+		                   AND S.STATE_CODE = 1
+		                 ORDER BY S.BOARD_POST_DATE DESC
+		                 )R
+		            )
+		    WHERE RN BETWEEN  #{pageInfo.start} AND #{pageInfo.end}
+ 	</select>
  	<select id="selectShareFreeList" parameterType="hashmap" resultMap="sharefreeResultMap">
  		SELECT *
 		  FROM(
@@ -84,6 +171,33 @@
 		                  JOIN PICTURE_TABLE P ON(P.PICTURE_CODE = SM.PICTURE_CODE)
 		                 WHERE S.BOARD_DELETE_YN = 'N'
 		                   AND P.PICTURE_DELETE_YN = 'N'
+		                 ORDER BY S.BOARD_POST_DATE DESC
+		                 )R
+		            )
+		    WHERE RN BETWEEN  #{pageInfo.start} AND #{pageInfo.end}
+ 	</select>
+ 	<select id="selectShareFreeSearchList" parameterType="hashmap" resultMap="sharefreeResultMap">
+ 		SELECT *
+		  FROM(
+		        SELECT ROWNUM RN, R.*
+		          FROM(
+		                SELECT S.BOARD_CODE
+		                     , S.BOARD_TITLE
+		                     , S.BOARD_CONTENT
+		                     , S.BOARD_DELETE_YN
+		                     , S.BOARD_VIEWS
+		                     , S.STATE_CODE
+		                     , ST.STATE_NAME
+		                     , U.USER_NIKNAME
+		                     , P.PICTURE_UTIL_PATH
+		                  FROM SHARE_BOARD S
+		                  JOIN STATE_TABLE ST ON (ST.STATE_CODE = S.STATE_CODE)
+		                  JOIN USER_TABLE U ON (U.USER_CODE = S.USER_CODE)
+		                  JOIN SHARE_PICTURE_MANAGE SM ON(S.BOARD_CODE = SM.BOARD_CODE)
+		                  JOIN PICTURE_TABLE P ON(P.PICTURE_CODE = SM.PICTURE_CODE)
+		                 WHERE S.BOARD_DELETE_YN = 'N'
+		                   AND P.PICTURE_DELETE_YN = 'N'
+		                   AND  S.BOARD_TITLE LIKE '%' ||#{keyword}|| '%'
 		                 ORDER BY S.BOARD_POST_DATE DESC
 		                 )R
 		            )

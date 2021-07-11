@@ -179,11 +179,11 @@
             <div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
 					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/freeBoardList.jsp" style="color: #979797;" >자유게시판</a></li>
-						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list" style="color: #979797;" >자유게시판</a></li>
+							<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/shareFree/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">무료나눔</a></li>
-						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp" style="color: #979797;">용품리뷰</a></li>
+							<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/review" style="color: #979797;">용품리뷰</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -197,7 +197,7 @@
                 <c:if test="${requestScope.shareInfo.stateCode == 2 }">
                 	<button style="margin-left:900px; background-color:rgb(175, 175, 175);">나눔 완료</button>
                 </c:if>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/list'" style="width:50px; float: right;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/list'" style="width:50px; cursor:pointer; float: right;">
             </section> <!--End off Home Sections-->
 
             <section id="menutable" class="menutable">
@@ -237,7 +237,7 @@
          <form action="${ pageContext.servletContext.contextPath }/user/sharefree/insert/report" method="POST">
             <div id="reportPost" class="overlay">
                 <div class="popup">
-                    <a href="#none" class="close">&times;</a>
+                    <a href="" class="close">&times;</a>
                     <p style="font-size: 20px; text-align: center; padding-bottom: 10px; margin-top: 10px;">게시글 신고</p>
                     <div class="findpwd-content" id="contStep02" style="display: block;">
                         <div class="cont-step_preface">
@@ -249,7 +249,7 @@
                         	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" type="button" onclick="location.href='#completeReport'">신고하기</button></div>
                         </c:if>
                          <c:if test="${empty sessionScope.loginUser }">
-                        	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit">로그인 후 신고가능합니다.</button></div>
+                        	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" disabled>로그인 후 신고가능합니다.</button></div>
                     	</c:if>
                     </div>
                 </div>
