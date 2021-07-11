@@ -399,10 +399,10 @@
 									     					output += '<td>'+'</td>';
 									     					output += '</tr>';
 								     					}
-								     					if(deleteYN == 'Y'&& reportYN =='Y'){
+								     					if(deleteYN == 'N'&& reportYN =='Y'){
 								     						output += '<tr id="tr'+i+'">';
 									     					output += '<td style="text-align: center;">'+' '+'</td>';
-								     						output += '<td>'+'신고에 의해 삭제 된 댓글입니다.'+'</td>';
+								     						output += '<td><del>'+'신고에 의해 삭제 된 댓글입니다.'+'</del></td>';
 								     						output += '<td style="text-align: center;">'+' '+'</td>';
 									     					output += '<td>'+'</td>';
 									     					output += '</tr>';
@@ -423,14 +423,6 @@
 				                
 				                    	</script>
                             <div class="text-center">
-                           <ul class="pagination">
-                              <li><a href="#"><</a></li>
-                              <li><a href="#">1</a></li>
-                              <li><a href="#">2</a></li>
-                              <li><a href="#">3</a></li>
-                              <li><a href="#">4</a></li>
-                              <li><a href="#">></a></li>
-                           </ul>
                         </div>
                             </div>
                         </div>
@@ -438,9 +430,16 @@
                 </div>
                 
                <!-- 댓글 작성 부분 -->
-              	 <p style="margin-left: 200px;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
-	             	쥬디
+               	<c:if test="${ !empty sessionScope.loginUser}">
+              	 <p style="margin-left: 14%;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
+	             	${sessionScope.loginUser.nikname }
 	             </p>
+	             </c:if>
+               	<c:if test="${ empty sessionScope.loginUser}">
+              	 <p style="margin-left: 14%;font-weight: bold;font-size: 20px;float: left;margin-right: -35px;margin-top: 10px;">
+	             	비회원
+	             </p>
+	             </c:if>
 	             <section id="sendmessage" class="sendmessage">
                			<input style="width:850px; float:left;" type="text" id="messagecontent" placeholder="  혹시 이 아이를 보셨나요? 댓글로 목격 제보를 남겨보세요." >
 		                <button class="sendmessagecontent" id="replySubmit" style="float:left;">댓글 작성</button>
@@ -590,7 +589,12 @@
 	                        </div>
 	                        <!-- 신고 내용 입력 -->
 	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input type="text" id="reportContent_board" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                       	 <c:if test="${!empty sessionScope.loginUser }"> 
+	                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                   		</c:if>
+	                   		 <c:if test="${empty sessionScope.loginUser }">
+	                        	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" disabled>로그인 후 신고가능합니다.</button></div>
+	                   		</c:if>
 	                    </div>
 	                </div>
 	            </div> 
@@ -606,7 +610,12 @@
 	                        </div>
 	                        <!-- 신고 내용 입력 -->
 	                        <div style="text-align: center; margin-top: 30px; width: 80%;"><input id="reportContent_reply" type="text" placeholder="신고내용을 입력하세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-	                        <div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                        <c:if test="${!empty sessionScope.loginUser }"> 
+	                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeReport'">신고하기</button></div>
+	                   		</c:if>
+	                   		 <c:if test="${empty sessionScope.loginUser }">
+	                        	<div style="text-align: center; margin-top: 30px;"><button class="btn_submit" disabled>로그인 후 신고가능합니다.</button></div>
+	                   		</c:if>
 	                    </div>
 	                </div>
 	            </div> 
@@ -677,7 +686,14 @@
                     <div class="findpwd-content" id="contStep02" style="display: block;">
                         <!-- 쪽지 내용 입력 -->
                         	<div style="text-align: center; margin-top: 30px; width: 100%;"><input type="text" name="messageContent" placeholder="   내용을 적어주세요" style="height: 200px; width: 100%; border-radius: 10px; border: 1px solid;"></div>
-                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+                        	
+                        	
+                        	 <c:if test="${!empty sessionScope.loginUser }"> 
+	                   			<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" onclick="location.href='#completeMessage'">보내기</button></div>
+	                   		</c:if>
+	                   		 <c:if test="${empty sessionScope.loginUser }">
+	                        	<div style="text-align: center; margin-top: 30px;"><button type="button" class="btn_submit" disabled>로그인 후 이용가능합니다.</button></div>
+	                   		</c:if>
                         	
                        
                     </div>
