@@ -3,16 +3,16 @@ package com.nobanryeo.petpal.admin.dto;
 public class BoardTotalViewsDTO {
 
 	private String boardType;
-	private int boartTotalViews;
+	private int boardTotalViews;
 	
 	public BoardTotalViewsDTO() {
 		super();
 	}
 
-	public BoardTotalViewsDTO(String boardType, int boartTotalViews) {
+	public BoardTotalViewsDTO(String boardType, int boardTotalViews) {
 		super();
 		this.boardType = boardType;
-		this.boartTotalViews = boartTotalViews;
+		this.boardTotalViews = boardTotalViews;
 	}
 
 	public String getBoardType() {
@@ -23,18 +23,19 @@ public class BoardTotalViewsDTO {
 		this.boardType = boardType;
 	}
 
-	public int getBoartTotalViews() {
-		return boartTotalViews;
+	public int getBoardTotalViews() {
+		return boardTotalViews;
 	}
 
-	public void setBoartTotalViews(int boartTotalViews) {
-		this.boartTotalViews = boartTotalViews;
+	public void setBoardTotalViews(int boardTotalViews) {
+		this.boardTotalViews = boardTotalViews;
 	}
 
 	@Override
 	public String toString() {
-		return "BoardTotalViewsDTO [boardType=" + boardType + ", boartTotalViews=" + boartTotalViews + "]";
+		return "BoardTotalViewsDTO [boardType=" + boardType + ", boardTotalViews=" + boardTotalViews + "]";
 	}
-	
+
+
 	
 }

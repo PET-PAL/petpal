@@ -8,6 +8,7 @@ import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.nobanryeo.petpal.admin.dto.AdminPageInfoDTO;
+import com.nobanryeo.petpal.admin.dto.BoardTotalViewsDTO;
 import com.nobanryeo.petpal.admin.mainpage.dao.AdminMainMapper;
 
 @Service
@@ -132,6 +133,65 @@ public class MainPageServiceImpl implements MainPageService{
 		
 		return data;  // 이 데이터가 넘어가면  json 형식으로 넘어가서 json이 만들어짐
 	}
+
+	@Override
+	public JSONObject getChartData2() {
+		
+		// 게시판별 조회수  db에서 가져오기
+		List<BoardTotalViewsDTO> items = adminMainMapper.selectBoardTotalViews();
+		
+		// 리턴할 json 객체
+		JSONObject data = new JSONObject();
+		
+		// json의 컬럼 객체
+		JSONObject col1 = new JSONObject(); // 게시판
+		JSONObject col2 = new JSONObject(); // 총조회수
+		
+		// json 배열 객체, 배열에 저장할 땐 JSONArray() 사용
+		JSONArray title = new JSONArray();
+		col1.put("label", "게시판");
+		col1.put("type", "string");
+		col2.put("label", "Total Views");
+		col2.put("type", "number");
+		
+		// 테이블행에 컬럼 추가
+		title.add(col1);
+		title.add(col2);
+		
+		// json 객체에 타이틀행 추가
+		data.put("cols", title);
+		
+		JSONArray body = new JSONArray();
+		for (BoardTotalViewsDTO views : items) {
+			
+			JSONObject board = new JSONObject();
+			board.put("v", views.getBoardType());
+			
+			System.out.println("board : " + board);
+			
+			JSONObject totalViews = new JSONObject();
+			totalViews.put("v", views.getBoardTotalViews());
+			
+			JSONArray row = new JSONArray();
+			row.add(board);
+			row.add(totalViews);
+			
+			System.out.println("row : " + row);
+			
+			JSONObject cel1 = new JSONObject();
+			cel1.put("c", row);
+			body.add(cel1);
+			
+		}
+
+		data.put("rows", body);
+		
+		System.out.println("게시판별 총 조회수 : " + data);
+		
+		return data;
+	}
+	
+	
 	
 	
 	
