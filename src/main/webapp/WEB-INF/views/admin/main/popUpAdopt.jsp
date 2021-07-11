@@ -90,7 +90,7 @@
 								</td>
 							</tr>
 							<tr>
-								<td style="text-align: center; background-color: #F1FAF8;"><b>광고 신청자</b></td>
+								<td style="text-align: center; background-color: #F1FAF8;"><b>작성자</b></td>
 								<td>
 								<c:out value="${requestScope.adoptDetail.userNickname}"/>
 								</td>

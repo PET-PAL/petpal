@@ -37,6 +37,18 @@ public interface ShareFreeMapper {
 
 	int updatePicture(PictureDTO picture);
 
+	int selectTotalIngCount();
+
+	List<ShareFreeDTO> selectShareFreeIngList(HashMap<String, Object> map1);
+
+	int selectTotalComCount();
+
+	List<ShareFreeDTO> selectShareFreeComList(HashMap<String, Object> map2);
+
+	int selectSearchCount(String keyword);
+
+	List<ShareFreeDTO> selectShareFreeSearchList(HashMap<String, Object> map3);
+
 
 
 

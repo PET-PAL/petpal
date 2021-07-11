@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+        <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -37,13 +38,19 @@
 
         </style>
         
-        
+      <script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
     	    <!-- summerNote -->
         <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     	<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.css" rel="stylesheet">
     	<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote-lite.min.js"></script>
     	<script>
           var $j3 = jQuery.noConflict();
+          
+          const message = '${ requestScope.message }';
+		    if(message != null && message !== '') {
+		    	alert(message);
+		    }
+		    
         </script>
     </head>
 
@@ -71,17 +78,17 @@
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
                 <div style="color: #45B99C; font-size: 25px; font-weight: 600; float:left;">커뮤니티</div>
-                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/list'" style="width:50px; float: right;">
+                <img src="${ pageContext.servletContext.contextPath }/resources/images/back.png" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/list'" style="width:50px; cursor:pointer; float: right;">
             </section> <!--End off Home Sections-->
             
 			<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
 				<nav>
 					<ul style="margin-left: 30%;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list" style="color: #979797;">자유게시판</a></li>
-						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list" style="color: #979797;" >자유게시판</a></li>
+							<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/shareFree/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">무료나눔</a></li>
-						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/views/user/community/reviewList.jsp" style="color: #979797;">용품리뷰</a></li>
+							<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/review" style="color: #979797;">용품리뷰</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -126,7 +133,7 @@
 									$j3.ajax({
 										data : data,
 										type : "POST",
-										url : "shareImg",
+										url : "${pageContext.servletContext.contextPath}/user/shareFree/insert/shareImg",
 										contentType : false,
 										processData : false,
 										enctype:'multipart/form-data',
@@ -159,5 +166,5 @@
             <jsp:include page="../common/footer.jsp"/>
         </div>
         
-      </body>
+     </body>
 </html>

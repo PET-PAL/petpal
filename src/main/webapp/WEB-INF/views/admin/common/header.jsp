@@ -63,7 +63,7 @@
                     margin-bottom: -100px;
                     margin-top: -20px;">
                         <ul style="margin-right:-100px;">
-                            <li class="mypage"><a href="#"><img src="${ pageContext.servletContext.contextPath }/resources/images/user.png" alt="profile" style="height: 50px;width: 50px;margin-top: 7px;margin-left: 15px;"></a></li>
+                            <li class="mypage"><a href="${pageContext.servletContext.contextPath }/main"><img src="${ pageContext.servletContext.contextPath }/resources/images/user.png" alt="profile" style="height: 50px;width: 50px;margin-top: 7px;margin-left: 15px;"></a></li>
                         	<li style="height: 50px;width: 70px;margin-top: 40px; text-align:center;'">${ sessionScope.loginUser.name }<br>
                         	<c:if test="${ sessionScope.loginUser.permisson eq 2 }">서브관리자</c:if>
                         	<c:if test="${ sessionScope.loginUser.permisson eq 3 }">대표관리자</c:if>

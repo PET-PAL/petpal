@@ -119,6 +119,48 @@ public class ShareFreeServiceImpl implements ShareFreeService {
 		return result;
 	}
 
+	@Override
+	public int selectTotalIngCount() {
+		
+		return sharefreeMapper.selectTotalIngCount();
+	}
+
+	@Override
+	public List<ShareFreeDTO> selectIngList(HashMap<String, Object> map1) {
+		
+		List<ShareFreeDTO> shareAllIngList = sharefreeMapper.selectShareFreeIngList(map1);
+		
+		return shareAllIngList;
+	}
+
+	@Override
+	public int selectTotalComCount() {
+		
+		return sharefreeMapper.selectTotalComCount();
+	}
+
+	@Override
+	public List<ShareFreeDTO> selectComList(HashMap<String, Object> map2) {
+		
+		List<ShareFreeDTO> shareAllComList = sharefreeMapper.selectShareFreeComList(map2);
+		
+		return shareAllComList;
+	}
+
+	@Override
+	public int selectTotalSearchCount(String keyword) {
+		
+		return sharefreeMapper.selectSearchCount(keyword);
+	}
+
+	@Override
+	public List<ShareFreeDTO> selectSearchList(HashMap<String, Object> map3) {
+		
+		List<ShareFreeDTO> shareAllSearchList = sharefreeMapper.selectShareFreeSearchList(map3);
+		
+		return shareAllSearchList;
+	}
+
 	
 	
 	

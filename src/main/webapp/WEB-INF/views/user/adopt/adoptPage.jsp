@@ -14,43 +14,11 @@
                 text-align: center;
             }
         </style>
-        <meta charset="utf-8">
-        <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
-
-        <!--Google Font link-->
-        <link href="https://fonts.googleapis.com/css?family=Raleway:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
-
-
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick.css"> 
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/slick/slick-theme.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/animate.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/iconfont.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/font-awesome.min.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootstrap.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/magnific-popup.css">
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/bootsnav.css">
-
-        <!-- xsslider slider css -->
-
-
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/xsslider.css">-->
+        
 
 
 
 
-        <!--For Plugins external css-->
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/plugins.css" />-->
-
-        <!--Theme custom css -->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/style.css">
-        <!--<link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/colors/maron.css">-->
-
-        <!--Theme Responsive css-->
-        <link rel="stylesheet" href="${ pageContext.servletContext.contextPath }/resources/css/responsive.css" />
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
   		<script src='https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js'></script>
@@ -186,7 +154,9 @@
                                             <script>
                                             
                                             var adoptList1;
-                                            var category = 0;
+                                            var totalCount = 0;
+                                            var adoptList;
+                                            var outputPage;
                                             
                                             $j3(document).ready(function(){
 										     		console.log("adoptPage select script");
@@ -195,46 +165,55 @@
 										     			url:"/petpal/user/adoptData",
 										     			success:function(data,status,xhr){
 										     				adoptList1 = JSON.parse(data.adoptList);
-										     				var adoptList = _.uniq(adoptList1, 'boardCode');
-										     			
+										     				adoptList = _.uniq(adoptList1, 'boardCode');
+										     				totalCount = Math.ceil(adoptList.length/12);
+										     				console.log(totalCount);
 										     				
 										     				console.table(adoptList);
 										     				output='';
-										     				$j3.each(adoptList,function(){
-											     				var statusName = this.stateName;
-											     				var gender = this.adoptGender;
-											     				console.log(statusName);
-											     				
+										     				var i;
+										     				for(i=0; i< adoptList.length; i++){
+										     					if( i < 12){
+										     					console.log(adoptList);
+										     					console.log(adoptList[0]);
+										     					console.log(adoptList[0].boardCode);
+										     					console.log(adoptList[i].boardCode);
+										     		
 										     					output += '<div class="col-sm-3">';
 										     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-										     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + this.boardCode +'\''+'">';
-										     					output += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
-										     					if(statusName == '대기'){
+										     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptList[0].boardCode +'\''+'">';
+										     					output += '<input type="hidden" id="boardCode" value="'+adoptList[i].boardCode+'"/>';
+										     					if(adoptList[i].stateName == '대기'){
 										     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius:0px 5px 5px 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
 										     					}
-										     					if(statusName == '승인'){
+										     					if(adoptList[i].stateName == '승인'){
 										     						output+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
 										     					}
-										     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
+										     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptList[i].pictureUtilPath+'" alt="" />';
 										     					output += '</div>';
 										     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
-										     					if(gender == 'M'){
-										     						output += '<h4>'+this.adoptBreed+'/남아/'+this.adoptColor+'</h4>';
+										     					if(adoptList[i].adoptGender == 'M'){
+										     						output += '<h4>'+adoptList[i].adoptBreed+'/남아/'+adoptList[i].adoptColor+'</h4>';
 										     					}
-										     					if(gender == 'F'){
-										     						output += '<h4>'+this.adoptBreed+'/여아/'+this.adoptColor+'</h4>';
+										     					if(adoptList[i].adoptGender == 'F'){
+										     						output += '<h4>'+adoptList[i].adoptBreed+'/여아/'+adoptList[i].adoptColor+'</h4>';
 										     					}
-										     					output += '<h6>'+this.userAddress+'</h6>';
+										     					output += '<h6>'+adoptList[i].userAddress+'</h6>';
 										     					output += '</div>';
 										     					output += '</div>';
 										     					output += '</div>';
-								                                    
+										     					}
 								                             
-										     				});
-										     				
+										     				}
 										     				$j3('#adoptlistList').append(output);
 										                
+										     				for(j=0; j< adoptList.length; j++){
+										     					if(j<totalCount){
+										     					outputPage += '<li><a onclick="pageClick(this);">'+(j+1)+'</a></li>';
+										     				}
+										     				}
 										     				
+										     				$j3('#pagination').append(outputPage);
 										     			},error:function(xhr,status,error){
 										     				alert("에러 발생~삐뽀~");
 										     				console.log(error);
@@ -346,13 +325,8 @@
                           </div>
                           
                     <div class="text-center">
-						<ul class="pagination">
-							<li><a href="#"><</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">></a></li>
+						<ul class="pagination" id="pagination">
+							
 						</ul>
 					</div>
 					<script>

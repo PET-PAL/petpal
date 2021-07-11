@@ -237,7 +237,7 @@
 		  JOIN ADOPT_BOARD A ON (A.BOARD_CODE =  AB.BOARD_CODE)
 		  JOIN USER_TABLE U ON (U.USER_CODE = R.USER_CODE)
 		 WHERE A.BOARD_CODE = #{boardCode}
-		   AND R.REPLY_DELETE_YN = 'N'
+		 ORDER BY R.REPLY_DATE DESC
 	  </select>
 	  
 	  <insert id="insertReply" parameterType="AdoptReplyDTO">

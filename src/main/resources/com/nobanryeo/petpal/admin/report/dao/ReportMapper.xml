@@ -162,14 +162,14 @@
 							
 							<choose>
 								<when test="sortValue == 1">
-									ORDER BY E.STATE_NAME DESC ,A.REPLY_CODE DESC
+									ORDER BY E.STATE_NAME DESC ,A.REPLY_REPORT_DATE DESC
 											
 								</when>
 								<when test="sortValue == 2">
-									ORDER BY E.STATE_NAME ASC ,A.REPLY_CODE DESC
+									ORDER BY E.STATE_NAME ASC ,A.REPLY_REPORT_DATE DESC
 								</when>
 								<otherwise>
-									ORDER BY A.REPLY_CODE DESC
+									ORDER BY A.REPLY_REPORT_DATE DESC
 								</otherwise>
 							</choose>
                     		
@@ -483,6 +483,10 @@ SELECT
     , D.USER_ID
     , D.USER_NAME
     , C.PICTURE_UTIL_PATH
+    <if test="category == 5">
+    , A.PLACE_ADDRESS
+    , A.PLACE_NAME
+    </if>
     
     <if test="category == 0">
     FROM FREE_BOARD A
