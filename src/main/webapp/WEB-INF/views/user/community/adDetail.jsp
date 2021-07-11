@@ -40,9 +40,6 @@
         <title>PET-PAL</title>
     </head>
 
-    <body data-spy="scroll" data-target=".navbar-collapse">
-
-
         <!-- Preloader -->
         <div id="loading">
             <div id="loading-center">

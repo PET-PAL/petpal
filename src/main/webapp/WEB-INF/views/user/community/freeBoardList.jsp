@@ -64,9 +64,7 @@
         <meta charset="utf-8">
         <title>PET-PAL</title>
     </head>
-
-    <body data-spy="scroll" data-target=".navbar-collapse">
-
+            <jsp:include page="../common/userHeader.jsp"/>
 
         <!-- Preloader -->
         <div id="loading"> 
@@ -80,12 +78,6 @@
             </div>
         </div><!--End off Preloader -->
 
-
-        <div class="culmn">
-            <!--Home page style-->
-
-
-            <jsp:include page="../common/userHeader.jsp"/>
             <!--Home Sections-->
 
             <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
@@ -100,7 +92,7 @@
 					<ul style="margin-left: 30%;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">자유게시판</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/coupon/select" style="color: #979797;">무료나눔</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/shareFree/list" style="color: #979797;">무료나눔</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/review" style="color: #979797;">용품리뷰</a></li>
 					</ul>
@@ -146,7 +138,7 @@
 				                <c:if test="${ status.index == 2 }">
 				                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
 				                		<c:if test="${ adStatus.index == 0 }">
-					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
+					                		<tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
 					                			<input type="hidden" value="${ sessionScope.loginUser.code }" name="userCode">
 							                	<td></td>
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
@@ -230,6 +222,4 @@
 
             <!-- 푸터 -->
             <jsp:include page="../common/footer.jsp"/>
-        </div>
-        
 </html>

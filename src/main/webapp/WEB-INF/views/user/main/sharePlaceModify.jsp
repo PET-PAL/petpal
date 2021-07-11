@@ -127,8 +127,6 @@
     		}
 	    </script>
 	</head>
-	<body data-spy="scroll" data-target=".navbar-collapse">
-	
 		<jsp:include page="../common/userHeader.jsp"/>
 	
         <section id="board" class="board" style="width: 70%; margin: 0px auto;  margin-bottom: 20px;">
@@ -284,5 +282,4 @@
         <jsp:include page="../../common/banner.jsp"/>
 
   		<jsp:include page="../common/footer.jsp"/>
-	</body>
 </html>

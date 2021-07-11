@@ -131,7 +131,6 @@
 			}
 		</script>
 	</head>
-	<body data-spy="scroll" data-target=".navbar-collapse">
 		<jsp:include page="../common/userHeader.jsp"/>
 
 		<div class="blog-list" style="position: absolute; top:25%; width: 15%; margin-top: 45px;">
@@ -170,7 +169,7 @@
                                 <img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/${ arr.pictureUtilPath }"/>
 		                    </div>
 		                	<div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
-		                    	<h4><strong style="font-size:20px;"><c:out value="${ arr.boardTitle }"/></strong></h4>
+		                    	<h4><strong style="font-size:18px;"><c:out value="${ arr.boardTitle }"/></strong></h4>
 		                    	<c:choose>
 							        <c:when test="${fn:length(arr.placeAddress) gt 10}">
 							        	<h5><c:out value="${fn:substring(arr.placeAddress, 0, 9)}"/> . . .</h5>
@@ -183,7 +182,7 @@
 		                </div>
 		            </div>
 		            <!-- 광고 끼워넣기 -->
-	                <c:if test="${ status.index == 0 }">
+	                <c:if test="${ status.index == 1 }">
 	                	<c:forEach var="adarr" items="${ randomAdPlace }" varStatus="adStatus">
 	                		<c:if test="${ adStatus.index == 0 }">
 		                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
@@ -193,7 +192,7 @@
 		                                	<div class="blink" style="position:absolute; left:5px; top:5px; font-weight: 600; font-size: 1.3em; color:red;">AD</div>
 			                            </div>
 			                            <div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
-			                                <h4><strong style="font-size:20px;"><c:out value="${ adarr.adTitle }"/></strong></h4>
+			                                <h4><strong style="font-size:18px;"><c:out value="${ adarr.adTitle }"/></strong></h4>
 			                                <h5><c:out value="${ adarr.companyName }"/></h5>
 			                            </div>
 			                        </div>
@@ -202,7 +201,7 @@
 	                	</c:forEach>
 	                </c:if>
 	                <!-- 광고 끼워넣기 -->
-	                <c:if test="${ status.index == 5 }">
+	                <c:if test="${ status.index == 7 }">
 	                	<c:forEach var="adarr" items="${ randomAdPlace }" varStatus="adStatus">
 	                		<c:if test="${ adStatus.index == 1 }">
 		                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
@@ -212,7 +211,7 @@
 		                                	<div class="blink" style="position:absolute; left:5px; top:5px; font-weight: 600; font-size: 1.3em; color:red;">AD</div>
 			                            </div>
 			                            <div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
-			                                <h4><strong style="font-size:20px;"><c:out value="${ adarr.adTitle }"/></strong></h4>
+			                                <h4><strong style="font-size:18px;"><c:out value="${ adarr.adTitle }"/></strong></h4>
 			                                <h5><c:out value="${ adarr.companyName }"/></h5>
 			                            </div>
 			                        </div>
@@ -266,5 +265,4 @@
         </div>
 
   		<jsp:include page="../common/footer.jsp"/>
-	</body>
 </html>
