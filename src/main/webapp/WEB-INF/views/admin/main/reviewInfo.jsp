@@ -47,13 +47,14 @@ input {
                   
                                     <ul class="nav nav-tabs" role="tablist">
                                     <c:if test="${ empty category or category eq 0 }">
-                                    	<li role="presentation" class="active"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reviewList&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">정보공유게시판</a></li>
+                                    	<li role="presentation" class="active"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reviewList?nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">정보공유게시판</a></li>
                                         <li role="presentation"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reviewList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="info" role="tab" data-toggle="tab">프렌들리게시판</a></li>
                                     </c:if>
                                     <c:if test="${ category eq 1 }">
                                     	<li role="presentation" ><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reviewList?&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="free" role="tab" data-toggle="tab">정보공유게시판</a></li>
                                         <li role="presentation" class="active"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reviewList?category=1&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="info" role="tab" data-toggle="tab">프렌들리</a></li>
                                     </c:if>
+                                    <p style="float:right;">총 건의글 :${total}개</p>
                                     </ul>
 							<div class="container-fluid" style="margin-top: 15px;">
 								<form action="${pageContext.servletContext.contextPath }/admin/reviewList" method="get" class="d-flex">	

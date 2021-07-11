@@ -75,6 +75,8 @@ public class ReportController {
             
             List<ReportDTO> reportList = reportService.selectReport(paging);
         	System.out.println(reportList);
+        	model.addAttribute("total",total);
+
             model.addAttribute("reportList", reportList);
     	}else {
     		int total = 0;
@@ -90,6 +92,8 @@ public class ReportController {
             
             List<ReportDTO> reportList = reportService.selectReport(paging);
         	System.out.println(reportList);
+        	model.addAttribute("total",total);
+
             model.addAttribute("reportList", reportList);
     		
     		

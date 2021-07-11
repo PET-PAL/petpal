@@ -62,6 +62,8 @@ public class AdminReviewController {
             
             List<AdminReviewDTO> reviewList = reviewService.selectReview(paging);
         	System.out.println(reviewList);
+        	model.addAttribute("total",total);
+
             model.addAttribute("reviewList", reviewList);
     	}else {
     		int total = 0;
@@ -78,6 +80,8 @@ public class AdminReviewController {
             List<AdminReviewDTO> reviewList = reviewService.selectReview(paging);
         	System.out.println(reviewList);
             model.addAttribute("reviewList", reviewList);
+        	model.addAttribute("total",total);
+
     		
     		
     	}
