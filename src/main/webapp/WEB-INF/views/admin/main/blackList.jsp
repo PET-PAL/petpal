@@ -101,6 +101,7 @@ function selChange() {
 												<tbody>
 												<c:choose>
 												<c:when test="${ empty category }">
+											
 												<c:forEach var="user" items="${ requestScope.userList }">
 													<tr>
 														<td>${ user.name }(${ user.id })</td>
@@ -118,6 +119,7 @@ function selChange() {
 														    </c:choose>
 														</td>
 													</tr>
+													
 												</c:forEach>
 												</c:when>
 												
@@ -167,6 +169,10 @@ function selChange() {
 											
 												</tbody>
 											</table>
+											
+									  <c:if test="${ requestScope.total  eq 0}">
+										<p style="text-align:center;">검색 결과가 없습니다</p>
+									</c:if>
 											
 							<!-- 페이징 몇 개씩 볼지 선택 -->
                             <div style="display: block; text-align: center;">	

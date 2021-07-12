@@ -893,23 +893,23 @@
          WHERE NVL2(CANCEL_APPLY_DATE, LAST_DAY(CANCEL_APPLY_DATE), LAST_DAY(POST_END_DATE)) IS NOT NULL
         <choose>
         <when test='category == "2"'>
-          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
           <![CDATA[
           AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) > 7)
            ]]>
            OR (A.CANCEL_APPLY_DATE IS NULL
            <![CDATA[
-          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7)
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) > 7))
            ]]>
         </when>
         <when test='category == "1"'>
-          AND (A.CANCEL_APPLY_DATE IS NOT NULL
+          AND ((A.CANCEL_APPLY_DATE IS NOT NULL
           	  <![CDATA[
           AND TRUNC(SYSDATE) - TO_DATE(CANCEL_APPLY_DATE) <= 7)
           ]]>
            OR (A.CANCEL_APPLY_DATE IS NULL
            	  <![CDATA[
-          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7)
+          AND TRUNC(SYSDATE) - TO_DATE(POST_END_DATE) <= 7))
           ]]>
         </when>
        </choose>
