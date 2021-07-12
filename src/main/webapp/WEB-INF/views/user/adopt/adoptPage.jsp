@@ -51,7 +51,7 @@
             <!--Home Sections-->
 
             <section id="borad" class="borad" style="width: 80%; margin: 0px auto;">
-                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 5%;">입양홍보
+                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 5%;"><a style="color: #45B99C;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt'">입양홍보</a>
                 <button id="adopt_wait_btn" 
                 style="color: white; background-color: #FFA800; border-color: white; border: 1px solid; 
                 border-radius:10px; width:180px; margin-left:30px;">
@@ -76,14 +76,13 @@
 				</div>
 			
 			<script>
-			
+			var adoptSearchList;
+			var outputPage4;
 			$j3('#search_btn').click(function(){
 					
 					console.log("search ajax");
 					var rsearch = $j3('#search').val();
 					console.log(rsearch);
-					/* var search = decodeURIComponent(rsearch,"UTF-8");
-					console.log(search); */
 					
 					$j3("#adoptlistList").empty();
 					
@@ -92,47 +91,58 @@
 						type:"GET",
 						success: function(data,status,xhr){
 							const adoptSearchList1 = JSON.parse(data.adoptSearchList);
-		     				var adoptSearchList = _.uniq(adoptSearchList1, 'boardCode');
+		     				adoptSearchList = _.uniq(adoptSearchList1, 'boardCode');
 							
-		     				console.table(adoptSearchList);
+
+                        	$j3("#adoptlistList").empty();
+                        	$j3("#pagination").empty();
+                        	
+                        	totalCount = Math.ceil(adoptSearchList.length/12);
+                        	console.table(adoptSearchList);
 		     				
 		     				output1='';
 		     				
-		     				$j3.each(adoptSearchList,function(){
-		     					
-		     					var statusName1 = this.stateName;
-			     				var gender1 = this.adoptGender;
+		     				var i;
+		     				for(i=0; i< adoptSearchList.length; i++){
+		     					if( i < 12){
 			     				
 		     					output1 += '<div class="col-sm-3">';
 		     					output1 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-		     					output1 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + this.boardCode +'\''+'">';
-		     					output1 += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
+		     					output1 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptSearchList[i].boardCode +'\''+'">';
+		     					output1 += '<input type="hidden" id="boardCode" value='+adoptSearchList[i].boardCode+'/>';
 		     					
-		     					if(statusName1 == '대기'){
+		     					if(adoptSearchList[i].stateName == '대기'){
 		     						output1 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
 		     					}
-		     					if(statusName1 == '승인'){
+		     					if(adoptSearchList[i].stateName == '승인'){
 		     						output1+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
 		     					}
-		     					output1 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
+		     					output1 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptSearchList[i].pictureUtilPath+'" alt="" />';
 		     					output1 += '</div>';
 		     					output1 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
-		     					if(gender1 == 'M'){
-		     						output1 += '<h4>'+this.adoptBreed+'/남아/'+this.adoptColor+'</h4>';
+		     					if(adoptSearchList[i].adoptGender == 'M'){
+		     						output1 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptSearchList[i].adoptBreed+'/남아/'+adoptSearchList[i].adoptColor+'</p>';
 		     					}
-		     					if(gender1 == 'F'){
-		     						output1 += '<h4>'+this.adoptBreed+'/여아/'+this.adoptColor+'</h4>';
+		     					if(adoptSearchList[i].adoptGender == 'F'){
+		     						output1 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptSearchList[i].adoptBreed+'/여아/'+adoptSearchList[i].adoptColor+'</p>';
 		     					}
-		     					output1 += '<h6>'+this.userAddress+'</h6>';
+		     					output1 += '<h6>'+adoptSearchList[i].userAddress+'</h6>';
 		     					output1 += '</div>';
 		     					output1 += '</div>';
 		     					output1 += '</div>';
                                     
-                             
-		     				});
+		     					}
+		     				}
 		     				
 		     				$j3('#adoptlistList').append(output1);
 		     				
+		     				for(j=0; j< adoptSearchList.length; j++){
+		     					if(j<totalCount){
+		     					outputPage4 += '<li><a onclick="pageSearchClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+		     				}
+		     				}
+		     				
+		     				$j3('#pagination').append(outputPage4);
 		     				
 						},error: function(xhr,status,error){
 							
@@ -156,11 +166,13 @@
                                             var adoptList1;
                                             var totalCount = 0;
                                             var adoptList;
+                                            var adoptWaitingList;
                                             var outputPage;
+                                            var output = '';
+                                            var outfil = '';
                                             
                                             $j3(document).ready(function(){
 										     		console.log("adoptPage select script");
-										     		
 										     		$j3.ajax({
 										     			url:"/petpal/user/adoptData",
 										     			success:function(data,status,xhr){
@@ -170,14 +182,9 @@
 										     				console.log(totalCount);
 										     				
 										     				console.table(adoptList);
-										     				output='';
 										     				var i;
 										     				for(i=0; i< adoptList.length; i++){
 										     					if( i < 12){
-										     					console.log(adoptList);
-										     					console.log(adoptList[0]);
-										     					console.log(adoptList[0].boardCode);
-										     					console.log(adoptList[i].boardCode);
 										     		
 										     					output += '<div class="col-sm-3">';
 										     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
@@ -193,10 +200,10 @@
 										     					output += '</div>';
 										     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
 										     					if(adoptList[i].adoptGender == 'M'){
-										     						output += '<h4>'+adoptList[i].adoptBreed+'/남아/'+adoptList[i].adoptColor+'</h4>';
+										     						output += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptList[i].adoptBreed+'/남아/'+adoptList[i].adoptColor+'</p>';
 										     					}
 										     					if(adoptList[i].adoptGender == 'F'){
-										     						output += '<h4>'+adoptList[i].adoptBreed+'/여아/'+adoptList[i].adoptColor+'</h4>';
+										     						output += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptList[i].adoptBreed+'/여아/'+adoptList[i].adoptColor+'</p>';
 										     					}
 										     					output += '<h6>'+adoptList[i].userAddress+'</h6>';
 										     					output += '</div>';
@@ -209,11 +216,12 @@
 										                
 										     				for(j=0; j< adoptList.length; j++){
 										     					if(j<totalCount){
-										     					outputPage += '<li><a onclick="pageClick(this);">'+(j+1)+'</a></li>';
+										     					outputPage += '<li><a onclick="pageClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
 										     				}
 										     				}
 										     				
 										     				$j3('#pagination').append(outputPage);
+										     				
 										     			},error:function(xhr,status,error){
 										     				alert("에러 발생~삐뽀~");
 										     				console.log(error);
@@ -221,51 +229,217 @@
 										     		});
 										     	}); 
                                             
+                                            /* 페이징 클릭시 나오는 함수 */
+                                          	function pageClick(p){
+                                          		$j3("#adoptlistList").empty();
+                                          		console.log("여기오나?? pageclick");
+                                          		let value = p.innerText;
+                                          		
+                                          		output='';
+                                          		for(i=12*(value-1); i< adoptList.length; i++){
+                                          		if(i<=(value*10)+(value*2-1)){
+                        	     					output += '<div class="col-sm-3">';
+							     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+							     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptList[0].boardCode +'\''+'">';
+							     					output += '<input type="hidden" id="boardCode" value="'+adoptList[i].boardCode+'"/>';
+							     					if(adoptList[i].stateName == '대기'){
+							     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius:0px 5px 5px 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
+							     					}
+							     					if(adoptList[i].stateName == '승인'){
+							     						output+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
+							     					}
+							     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptList[i].pictureUtilPath+'" alt="" />';
+							     					output += '</div>';
+							     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+							     					if(adoptList[i].adoptGender == 'M'){
+							     						output += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptList[i].adoptBreed+'/남아/'+adoptList[i].adoptColor+'</p>';
+							     					}
+							     					if(adoptList[i].adoptGender == 'F'){
+							     						output += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptList[i].adoptBreed+'/여아/'+adoptList[i].adoptColor+'</p>';
+							     					}
+							     					output += '<h6>'+adoptList[i].userAddress+'</h6>';
+							     					output += '</div>';
+							     					output += '</div>';
+							     					output += '</div>';
+							     					}
+                                          		}
+					                             
+							     				$j3('#adoptlistList').append(output);
+							     				
+							     				
+                                          		};
+                                            
+                                            /* 입양중 페이징*/
+                                          	function pageIngClick(p){
+                                          		$j3("#adoptlistList").empty();
+                                          		console.log("여기오나?? pageclick");
+                                          		let value = p.innerText;
+                                          		
+                                          		output2='';
+                                          		for(i=12*(value-1); i< adoptWaitingList.length; i++){
+                                          		if(i<=(value*10)+(value*2-1)){
+                                          			output2 += '<div class="col-sm-3">';
+							     					output2 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+							     					output2 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptWaitingList[i].boardCode +'\''+'">';
+							     					output2 += '<input type="hidden" id="boardCode" value="'+adoptWaitingList[i].boardCode+'"/>';
+							     					output2 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius:0px 5px 5px 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
+							     					output2 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
+							     					output2 += '</div>';
+							     					output2 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+							     					if(adoptWaitingList[i].adoptGender == 'M'){
+							     						output2 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptWaitingList[i].adoptBreed+'/남아/'+adoptWaitingList[i].adoptColor+'</p>';
+							     					}
+							     					if(adoptWaitingList[i].adoptGender == 'F'){
+							     						output2 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptWaitingList[i].adoptBreed+'/여아/'+adoptWaitingList[i].adoptColor+'</p>';
+							     					}
+							     					output2 += '<h6>'+adoptWaitingList[i].userAddress+'</h6>';
+							     					output2 += '</div>';
+							     					output2 += '</div>';
+							     					output2 += '</div>';
+							     					}
+                                          		}
+					                             
+							     				$j3('#adoptlistList').append(output2);
+							     				
+							     				
+                                          		};
+                                            
+                                            /* 입양완료 페이징 버튼*/
+                                          	function pageComClick(p){
+                                          		$j3("#adoptlistList").empty();
+                                          		console.log("여기오나?? pageclick");
+                                          		let value = p.innerText;
+                                          		
+                                          		output3='';
+                                          		for(i=12*(value-1); i< adoptWaitingList.length; i++){
+                                          		if(i<=(value*10)+(value*2-1)){
+                                          			output3 += '<div class="col-sm-3">';
+							     					output3 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+							     					output3 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptWaitingList[i].boardCode +'\''+'">';
+							     					output3 += '<input type="hidden" id="boardCode" value='+adoptWaitingList[i].boardCode+'/>';
+							     					output3 +='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
+							     					output3 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
+							     					output3 += '</div>';
+							     					output3 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+							     					if(adoptWaitingList[i].adoptGender == 'M'){
+							     						output3 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptWaitingList[i].adoptBreed+'/남아/'+adoptWaitingList[i].adoptColor+'</p>';
+							     					}
+							     					if(adoptWaitingList[i].adoptGender == 'F'){
+							     						output3 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptWaitingList[i].adoptBreed+'/여아/'+adoptWaitingList[i].adoptColor+'</p>';
+							     					}
+							     					output3 += '<h6>'+adoptWaitingList[i].userAddress+'</h6>';
+							     					output3 += '</div>';
+							     					output3 += '</div>';
+							     					output3 += '</div>';
+					                                    
+							     					}
+                                          		}
+					                             
+							     				$j3('#adoptlistList').append(output3);
+							     				
+							     				
+                                          		};
+                                            /* 입양 검색 페이징 버튼*/
+                                          	function pageSearchClick(p){
+                                          		$j3("#adoptlistList").empty();
+                                          		console.log("여기오나?? pageclick");
+                                          		let value = p.innerText;
+                                          		
+                                          		output1='';
+                                          		for(i=12*(value-1); i< adoptSearchList.length; i++){
+                                          		if(i<=(value*10)+(value*2-1)){
+                                          			output1 += '<div class="col-sm-3">';
+                    		     					output1 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+                    		     					output1 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptSearchList[i].boardCode +'\''+'">';
+                    		     					output1 += '<input type="hidden" id="boardCode" value='+adoptSearchList[i].boardCode+'/>';
+                    		     					
+                    		     					if(adoptSearchList[i].stateName == '대기'){
+                    		     						output1 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
+                    		     					}
+                    		     					if(adoptSearchList[i].stateName == '승인'){
+                    		     						output1+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
+                    		     					}
+                    		     					output1 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptSearchList[i].pictureUtilPath+'" alt="" />';
+                    		     					output1 += '</div>';
+                    		     					output1 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+                    		     					if(adoptSearchList[i].adoptGender == 'M'){
+                    		     						output1 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptSearchList[i].adoptBreed+'/남아/'+adoptSearchList[i].adoptColor+'</p>';
+                    		     					}
+                    		     					if(adoptSearchList[i].adoptGender == 'F'){
+                    		     						output1 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptSearchList[i].adoptBreed+'/여아/'+adoptSearchList[i].adoptColor+'</p>';
+                    		     					}
+                    		     					output1 += '<h6>'+adoptSearchList[i].userAddress+'</h6>';
+                    		     					output1 += '</div>';
+                    		     					output1 += '</div>';
+                    		     					output1 += '</div>';
+					                                    
+							     					}
+                                          		}
+					                             
+							     				$j3('#adoptlistList').append(output1);
+							     				
+							     				
+                                          		};
+                                            
+                                            
+                                            
                                             /* 입양 대기중 버튼 클릭시 필터  */
                                             $j3('#adopt_wait_btn').click(function(){
                                             	console.log("adopt_wait_btn 들어오나?");
                                             	
                                             	console.table(adoptList1);
                                             	var adoptWaitingList1 = _.uniq(adoptList1, 'boardCode');
-                                            	$j3("#adoptlistList").empty();
+                                            	
                                             	function isWaiting(w){
                                             		if(w.stateName == '대기'){
                                             			return true;
                                             		};
                                             	};
                                             	
+                                            	$j3("#adoptlistList").empty();
+                                            	$j3("#pagination").empty();
                                             	
-                                            	var adoptWaitingList = adoptWaitingList1.filter(isWaiting);
+                                            	adoptWaitingList = adoptWaitingList1.filter(isWaiting);
+                                            	totalCount = Math.ceil(adoptWaitingList.length/12);
                                             	console.table(adoptWaitingList);
                                             	
                                             	output2='';
-							     				$j3.each(adoptWaitingList,function(){
-								     				var gender = this.adoptGender;
+                                            	outputPage1 = '';
+                                            	for(i=0; i< adoptWaitingList.length; i++){
+							     					if( i < 12){
 								     				
 							     					output2 += '<div class="col-sm-3">';
 							     					output2 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-							     					output2 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + this.boardCode +'\''+'">';
-							     					output2 += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
+							     					output2 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptWaitingList[i].boardCode +'\''+'">';
+							     					output2 += '<input type="hidden" id="boardCode" value="'+adoptWaitingList[i].boardCode+'"/>';
 							     					output2 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius:0px 5px 5px 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
-							     					output2 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
+							     					output2 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
 							     					output2 += '</div>';
 							     					output2 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
-							     					if(gender == 'M'){
-							     						output2 += '<h4>'+this.adoptBreed+'/남아/'+this.adoptColor+'</h4>';
+							     					if(adoptWaitingList[i].adoptGender == 'M'){
+							     						output2 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptWaitingList[i].adoptBreed+'/남아/'+adoptWaitingList[i].adoptColor+'</p>';
 							     					}
-							     					if(gender == 'F'){
-							     						output2 += '<h4>'+this.adoptBreed+'/여아/'+this.adoptColor+'</h4>';
+							     					if(adoptWaitingList[i].adoptGender == 'F'){
+							     						output2 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptWaitingList[i].adoptBreed+'/여아/'+adoptWaitingList[i].adoptColor+'</p>';
 							     					}
-							     					output2 += '<h6>'+this.userAddress+'</h6>';
+							     					output2 += '<h6>'+adoptWaitingList[i].userAddress+'</h6>';
 							     					output2 += '</div>';
 							     					output2 += '</div>';
 							     					output2 += '</div>';
 					                                    
-					                             
-							     				});
+							     					}
+							     				}
 							     				
 							     				$j3('#adoptlistList').append(output2);
-                                            })
+
+							     				for(j=0; j< adoptWaitingList.length; j++){
+							     					if(j<totalCount){
+							     					outputPage1 += '<li><a onclick="pageIngClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+							     				}
+							     				}
+							     				
+							     				$j3('#pagination').append(outputPage1);
+                                            });
                                             
                                             /* 입양완료 버튼 클릭시 필터 적용 코드 */
                                             
@@ -274,46 +448,58 @@
                                             	
                                             	console.table(adoptList1);
                                             	var adoptWaitingList1 = _.uniq(adoptList1, 'boardCode');
-                                            	$j3("#adoptlistList").empty();
+                                            	
                                             	function isWaiting(w){
                                             		if(w.stateName == '승인'){
                                             			return true;
+                                            		}
                                             		};
-                                            	};
+                                            		
+                                            	$j3("#adoptlistList").empty();
+                                            	$j3("#pagination").empty();
                                             	
-                                            	url:
-                                            	var adoptWaitingList = adoptWaitingList1.filter(isWaiting);
+                                            	adoptWaitingList = adoptWaitingList1.filter(isWaiting);
+                                            	totalCount = Math.ceil(adoptWaitingList.length/12);
                                             	console.table(adoptWaitingList);
                                             	
                                             	output3='';
-							     				$j3.each(adoptWaitingList,function(){
-								     				var gender = this.adoptGender;
+                                            	outputPage2='';
+                                            	for(i=0; i< adoptWaitingList.length; i++){
+							     					if( i < 12){
 								     				
 							     					output3 += '<div class="col-sm-3">';
 							     					output3 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-							     					output3 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + this.boardCode +'\''+'">';
-							     					output3 += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
+							     					output3 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptWaitingList[i].boardCode +'\''+'">';
+							     					output3 += '<input type="hidden" id="boardCode" value='+adoptWaitingList[i].boardCode+'/>';
 							     					output3 +='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
-							     					output3 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
+							     					output3 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
 							     					output3 += '</div>';
 							     					output3 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
-							     					if(gender == 'M'){
-							     						output3 += '<h4>'+this.adoptBreed+'/남아/'+this.adoptColor+'</h4>';
+							     					if(adoptWaitingList[i].adoptGender == 'M'){
+							     						output3 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptWaitingList[i].adoptBreed+'/남아/'+adoptWaitingList[i].adoptColor+'</p>';
 							     					}
-							     					if(gender == 'F'){
-							     						output3 += '<h4>'+this.adoptBreed+'/여아/'+this.adoptColor+'</h4>';
+							     					if(adoptWaitingList[i].adoptGender == 'F'){
+							     						output3 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+adoptWaitingList[i].adoptBreed+'/여아/'+adoptWaitingList[i].adoptColor+'</p>';
 							     					}
-							     					output3 += '<h6>'+this.userAddress+'</h6>';
+							     					output3 += '<h6>'+adoptWaitingList[i].userAddress+'</h6>';
 							     					output3 += '</div>';
 							     					output3 += '</div>';
 							     					output3 += '</div>';
 					                                    
-					                             
-							     				});
+							     					}
+                                            	}
 							     				
 							     				$j3('#adoptlistList').append(output3);
 							     				
-                                            })
+							     				for(j=0; j< adoptWaitingList.length; j++){
+							     					if(j<totalCount){
+							     					outputPage2 += '<li><a onclick="pageComClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+							     					}
+							     				}
+							     				
+							     				$j3('#pagination').append(outputPage2);
+							     				
+                                            });
                                             
                                             
 										     	

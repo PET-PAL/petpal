@@ -43,8 +43,9 @@
 
 
             <!--Home Sections-->
-            <section id="borad" class="borad" style="width: 80%; margin: 0px auto;  margin-bottom: 10px;">
-                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 7%;">실종신고
+            <section id="borad" class="borad" style="width: 80%; margin: 0px auto;">
+                <div style="color: #45B99C; font-size: 25px; font-weight: 600; margin-left: 7%;">
+                <a style="color: #45B99C;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing'">실종신고</a>
                 <button id="miss_wait_btn"
                 style="color: white; background-color: #FFA800; border-color: white; border: 1px solid; 
                 border-radius:10px; width:180px; margin-left:30px;">
@@ -58,7 +59,7 @@
                 </div>
                 <hr style="border-color: rgb(175, 175, 175); width: 90%;">
             </section> <!--End off Home Sections-->
-            <div style="width: 370px; position: relative; left: 60%;">
+            <div style="width: 370px; position: relative; left: 60%; margin-bottom:15px;">
 				<input type="search" id="search1" placeholder="지역 키워드를 입력해주세요" aria-label="Search"
 				style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;">
 				<span>
@@ -68,7 +69,8 @@
 				</span>
 			</div>
 			<script>
-			
+			var missingSearchList;
+			var outputPage4;
 			$j3('#search_btn1').click(function(){
 					
 					console.log("search Missing ajax");
@@ -76,51 +78,59 @@
 					console.log(rsearch);
 					
 					$j3("#missingTotalList").empty();
+					$j3("#pagination").empty();
 					
 					$j3.ajax({
 						url:"missing/search/"+decodeURIComponent(rsearch,"UTF-8"),
 						type:"GET",
 						success: function(data,status,xhr){
 							const missingSearchList1 = JSON.parse(data.missingSearchList);
-		     				var missingSearchList = _.uniq(missingSearchList1, 'boardCode');
+		     				missingSearchList = _.uniq(missingSearchList1, 'boardCode');
 							
 		     				console.table(missingSearchList);
 		     				
 		     				output1='';
 		     				
-		     				$j3.each(missingSearchList,function(){
-		     					
-		     					var statusName1 = this.stateName;
-			     				var gender1 = this.missingGender;
+		     				var i;
+		     				for(i=0; i< missingSearchList.length; i++){
+		     					if( i < 12){
 			     				
-		     					output1 += '<div class="col-sm-3">';
-		     					output1 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-		     					output1 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + this.boardCode +'\''+'">';
-		     					output1 += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
-		     					if(statusName1 == '대기'){
-		     						output1 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">실종</p>';
-		     					}
-		     					if(statusName1 == '승인'){
-		     						output1 +='<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">집 도착</p>'
-		     					}
-		     					output1 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
-		     					output1 += '</div>';
-		     					output1 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
-		     					if(gender1 == 'M'){
-		     						output1 += '<h4>'+this.missingBreed+'/남아/'+this.missingColor+'</h4>';
-		     					}
-		     					if(gender1 == 'F'){
-		     						output1 += '<h4>'+this.missingBreed+'/여아/'+this.missingColor+'</h4>';
-		     					}
-		     					output1 += '<h6>'+this.missingArea+'</h6>';
-		     					output1 += '</div>';
-		     					output1 += '</div>';
-		     					output1 += '</div>';
+			     					output1 += '<div class="col-sm-3">';
+			     					output1 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+			     					output1 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + missingSearchList[i].boardCode +'\''+'">';
+			     					output1 += '<input type="hidden" id="boardCode" value='+missingSearchList[i].boardCode+'/>';
+			     					if(missingSearchList[i].stateName == '대기'){
+			     						output1 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">실종</p>';
+			     					}
+			     					if(missingSearchList[i].stateName == '승인'){
+			     						output1 +='<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">집 도착</p>'
+			     					}
+			     					output1 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+missingSearchList[i].pictureUtilPath+'" alt="" />';
+			     					output1 += '</div>';
+			     					output1 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+			     					if(missingSearchList[i].missingGender == 'M'){
+			     						output1 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missingSearchList[i].missingBreed+'/남아/'+missingSearchList[i].missingColor+'</p>';
+			     					}
+			     					if(missingSearchList[i].missingGender == 'F'){
+			     						output1 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missingSearchList[i].missingBreed+'/여아/'+missingSearchList[i].missingColor+'</p>';
+			     					}
+			     					output1 += '<h6>'+missingSearchList[i].missingArea+'</h6>';
+			     					output1 += '</div>';
+			     					output1 += '</div>';
+			     					output1 += '</div>';
                                     
-                             
-		     				});
+		     					}
+		     				}
 		     				
 		     				$j3('#missingTotalList').append(output1);
+		     				
+		     				for(j=0; j< missingSearchList.length; j++){
+		     					if(j<totalCount){
+		     					outputPage4 += '<li><a onclick="pageSearchClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+		     				}
+		     				}
+		     				
+		     				$j3('#pagination').append(outputPage4);
 		     				
 		     				
 						},error: function(xhr,status,error){
@@ -143,6 +153,12 @@
                                         <script>
                                             /* 전역변수로 쓸 전체리스트 */
                                             var missingList1;
+                                            var missingList;
+                                            var totalCount = 0;
+                                            var output = '';
+                                            var outputPage;
+                                            var missList;
+                                            var completeList;
                                             
                                             /* 전체 조회용 json 호출 */
                                             $j3(document).ready(function(){
@@ -152,44 +168,50 @@
 										     			url:"/petpal/user/missingList",
 										     			success:function(data,status,xhr){
 										     				missingList1 = JSON.parse(data.missingList);
-										     				var missingList = _.uniq(missingList1, 'boardCode');
+										     				missingList = _.uniq(missingList1, 'boardCode');
 										     			
-										     				
+										     				totalCount = Math.ceil(missingList.length/12);
 										     				console.table(missingList);
 										     				output='';
-										     				$j3.each(missingList,function(){
-											     				var statusName = this.stateName;
-											     				var gender = this.missingGender;
-											     				console.log(statusName);
-											     				
+										     				outputPage='';
+										     				for(i=0; i< missingList.length; i++){
+										     					if( i < 12){
 										     					output += '<div class="col-sm-3">';
 										     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-										     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + this.boardCode +'\''+'">';
-										     					output += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
-										     					if(statusName == '대기'){
+										     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + missingList[i].boardCode +'\''+'">';
+										     					output += '<input type="hidden" id="boardCode" value='+missingList[i].boardCode+'/>';
+										     					if(missingList[i].stateName == '대기'){
 										     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">실종</p>';
 										     					}
-										     					if(statusName == '승인'){
+										     					if(missingList[i].stateName == '승인'){
 										     						output+='<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">집 도착</p>'
 										     					}
-										     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
+										     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+missingList[i].pictureUtilPath+'" alt="" />';
 										     					output += '</div>';
 										     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
-										     					if(gender == 'M'){
-										     						output += '<h4>'+this.missingBreed+'/남아/'+this.missingColor+'</h4>';
+										     					if(missingList[i].missingGender == 'M'){
+										     						output += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missingList[i].missingBreed+'/남아/'+missingList[i].missingColor+'</p>';
 										     					}
-										     					if(gender == 'F'){
-										     						output += '<h4>'+this.missingBreed+'/여아/'+this.missingColor+'</h4>';
+										     					if(missingList[i].missingGender == 'F'){
+										     						output += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missingList[i].missingBreed+'/여아/'+missingList[i].missingColor+'</p>';
 										     					}
-										     					output += '<h6>'+this.missingArea+'</h6>';
+										     					output += '<h6>'+missingList[i].missingArea+'</h6>';
 										     					output += '</div>';
 										     					output += '</div>';
 										     					output += '</div>';
 								                                    
-								                             
-										     				});
+										     					}
+										     				}
 										     				
 										     				$j3('#missingTotalList').append(output);
+										     				
+										     				for(j=0; j< missingList.length; j++){
+										     					if(j<totalCount){
+										     					outputPage += '<li><a onclick="pageAllClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+										     				}
+										     				}
+										     				
+										     				$j3('#pagination').append(outputPage);
 										                
 										     				
 										     			},error:function(xhr,status,error){
@@ -199,6 +221,162 @@
 										     		});
 										     	}); 
                                             
+                                            /* 전체 페이징 함수*/
+                                            function pageSearchClick(p){
+                                          		$j3("#missingTotalList").empty();
+                                          		console.log("여기오나?? pageclick");
+                                          		let value = p.innerText;
+                                          		
+                                          		output='';
+                                          		for(i=12*(value-1); i< missingList.length; i++){
+                                          		if(i<=(value*10)+(value*2-1)){
+                                          			output += '<div class="col-sm-3">';
+							     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+							     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + missingList[i].boardCode +'\''+'">';
+							     					output += '<input type="hidden" id="boardCode" value='+missingList[i].boardCode+'/>';
+							     					if(missingList[i].stateName == '대기'){
+							     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">실종</p>';
+							     					}
+							     					if(missingList[i].stateName == '승인'){
+							     						output+='<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">집 도착</p>'
+							     					}
+							     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+missingList[i].pictureUtilPath+'" alt="" />';
+							     					output += '</div>';
+							     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+							     					if(missingList[i].missingGender == 'M'){
+							     						output += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missingList[i].missingBreed+'/남아/'+missingList[i].missingColor+'</p>';
+							     					}
+							     					if(missingList[i].missingGender == 'F'){
+							     						output += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missingList[i].missingBreed+'/여아/'+missingList[i].missingColor+'</p>';
+							     					}
+							     					output += '<h6>'+missingList[i].missingArea+'</h6>';
+							     					output += '</div>';
+							     					output += '</div>';
+							     					output += '</div>';
+					                                    
+							     					}
+							     				}
+							     				
+							     				$j3('#missingTotalList').append(output);
+							     				
+                                          		};
+                                          		
+                                          		/* 검색 페이징 함수 */
+                                            function pageAllClick(p){
+                                          		$j3("#missingTotalList").empty();
+                                          		console.log("여기오나?? pageclick");
+                                          		let value = p.innerText;
+                                          		
+                                          		output='';
+                                          		for(i=12*(value-1); i< missingList.length; i++){
+                                          		if(i<=(value*10)+(value*2-1)){
+                                          			output += '<div class="col-sm-3">';
+							     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+							     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + missingList[i].boardCode +'\''+'">';
+							     					output += '<input type="hidden" id="boardCode" value='+missingList[i].boardCode+'/>';
+							     					if(missingList[i].stateName == '대기'){
+							     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">실종</p>';
+							     					}
+							     					if(missingList[i].stateName == '승인'){
+							     						output+='<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">집 도착</p>'
+							     					}
+							     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+missingList[i].pictureUtilPath+'" alt="" />';
+							     					output += '</div>';
+							     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+							     					if(missingList[i].missingGender == 'M'){
+							     						output += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missingList[i].missingBreed+'/남아/'+missingList[i].missingColor+'</p>';
+							     					}
+							     					if(missingList[i].missingGender == 'F'){
+							     						output += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missingList[i].missingBreed+'/여아/'+missingList[i].missingColor+'</p>';
+							     					}
+							     					output += '<h6>'+missingList[i].missingArea+'</h6>';
+							     					output += '</div>';
+							     					output += '</div>';
+							     					output += '</div>';
+					                                    
+							     					}
+							     				}
+							     				
+							     				$j3('#missingTotalList').append(output);
+							     				
+                                          		};
+                                          	
+                                          	/* 실종 페이징 함수*/
+                                            function pageMissClick(p){
+                                          		$j3("#missingTotalList").empty();
+                                          		console.log("여기오나?? pageclick");
+                                          		let value = p.innerText;
+                                          		
+                                          		output2='';
+                                          		for(i=12*(value-1); i< missList.length; i++){
+                                          		if(i<=(value*10)+(value*2-1)){
+                                          			output2 += '<div class="col-sm-3">';
+							     					output2 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+							     					output2 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + missList[i].boardCode +'\''+'">';
+							     					output2 += '<input type="hidden" id="boardCode" value='+missList[i].boardCode+'/>';
+							     					output2 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">실종</p>';
+							     					output2 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+missList[i].pictureUtilPath+'" alt="" />';
+							     					output2 += '</div>';
+							     					output2 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+							     					if(missList[i].missingGender == 'M'){
+							     						output2 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missList[i].missingBreed+'/남아/'+missList[i].missingColor+'</p>';
+							     					}
+							     					if(missList[i].missingGender == 'F'){
+							     						output2 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missList[i].missingBreed+'/여아/'+missList[i].missingColor+'</p>';
+							     					}
+							     					output2 += '<h6>'+missList[i].missingArea+'</h6>';
+							     					output2 += '</div>';
+							     					output2 += '</div>';
+							     					output2 += '</div>';
+					                                    
+							     					}
+							     				}
+							     				
+							     				$j3('#missingTotalList').append(output2);
+							     				
+                                          		};
+                                          	
+                                          	/* 찾기완료 페이징 */
+                                            function pageComClick(p){
+                                          		$j3("#missingTotalList").empty();
+                                          		console.log("여기오나?? pageclick");
+                                          		let value = p.innerText;
+                                          		
+                                          		output1='';
+                                          		for(i=12*(value-1); i< completeList.length; i++){
+                                          		if(i<=(value*10)+(value*2-1)){
+                                          			output1 += '<div class="col-sm-3">';
+                			     					output1 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+                			     					output1 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + missingSearchList[i].boardCode +'\''+'">';
+                			     					output1 += '<input type="hidden" id="boardCode" value='+missingSearchList[i].boardCode+'/>';
+                			     					if(missingSearchList[i].stateName == '대기'){
+                			     						output1 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">실종</p>';
+                			     					}
+                			     					if(missingSearchList[i].stateName == '승인'){
+                			     						output1 +='<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">집 도착</p>'
+                			     					}
+                			     					output1 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+missingSearchList[i].pictureUtilPath+'" alt="" />';
+                			     					output1 += '</div>';
+                			     					output1 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
+                			     					if(missingSearchList[i].missingGender == 'M'){
+                			     						output1 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missingSearchList[i].missingBreed+'/남아/'+missingSearchList[i].missingColor+'</p>';
+                			     					}
+                			     					if(missingSearchList[i].missingGender == 'F'){
+                			     						output1 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missingSearchList[i].missingBreed+'/여아/'+missingSearchList[i].missingColor+'</p>';
+                			     					}
+                			     					output1 += '<h6>'+missingSearchList[i].missingArea+'</h6>';
+                			     					output1 += '</div>';
+                			     					output1 += '</div>';
+                			     					output1 += '</div>';
+					                                    
+							     					}
+							     				}
+							     				
+							     				$j3('#missingTotalList').append(output1);
+							     				
+							     			
+                                          		};
+                                            
                                             /* 실종 버튼 클릭시 필터  */
                                             $j3('#miss_wait_btn').click(function(){
                                             	console.log("miss_wait_btn 들어오나?");
@@ -207,6 +385,7 @@
                                             	var missWaitingList1 = _.uniq(missingList1, 'boardCode');
                                             	
                                             	$j3("#missingTotalList").empty();
+                                            	$j3('#pagination').empty();
                                             	
                                             	function isWaiting(w){
                                             		if(w.stateName == '대기'){
@@ -215,36 +394,47 @@
                                             	};
                                             	
                                             	
-                                            	var missList = missWaitingList1.filter(isWaiting);
+                                            	missList = missWaitingList1.filter(isWaiting);
+                                            	totalCount = Math.ceil(missList.length/12);
                                             	console.table(missList);
                                             	
                                             	output2='';
-							     				$j3.each(missList,function(){
-							     					var gender2 = this.missingGender;
+                                            	outputPage2='';
+                                            	for(i=0; i< missList.length; i++){
+							     					if( i < 12){
 								     				
 								     				output2 += '<div class="col-sm-3">';
 							     					output2 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-							     					output2 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + this.boardCode +'\''+'">';
-							     					output2 += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
+							     					output2 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + missList[i].boardCode +'\''+'">';
+							     					output2 += '<input type="hidden" id="boardCode" value='+missList[i].boardCode+'/>';
 							     					output2 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">실종</p>';
-							     					output2 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
+							     					output2 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+missList[i].pictureUtilPath+'" alt="" />';
 							     					output2 += '</div>';
 							     					output2 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
-							     					if(gender2 == 'M'){
-							     						output2 += '<h4>'+this.missingBreed+'/남아/'+this.missingColor+'</h4>';
+							     					if(missList[i].missingGender == 'M'){
+							     						output2 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missList[i].missingBreed+'/남아/'+missList[i].missingColor+'</p>';
 							     					}
-							     					if(gender2 == 'F'){
-							     						output2 += '<h4>'+this.missingBreed+'/여아/'+this.missingColor+'</h4>';
+							     					if(missList[i].missingGender == 'F'){
+							     						output2 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+missList[i].missingBreed+'/여아/'+missList[i].missingColor+'</p>';
 							     					}
-							     					output2 += '<h6>'+this.missingArea+'</h6>';
+							     					output2 += '<h6>'+missList[i].missingArea+'</h6>';
 							     					output2 += '</div>';
 							     					output2 += '</div>';
 							     					output2 += '</div>';
 					                                    
-					                             
-							     				});
+                                              		}
+                                              	}
 							     				
 							     				$j3('#missingTotalList').append(output2);
+							     				
+							     				for(j=0; j< missingList.length; j++){
+							     					if(j<totalCount){
+							     						outputPage2 += '<li><a onclick="pageMissClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+							     					}
+							     				}
+							     				
+							     				$j3('#pagination').append(outputPage2);
+							     				
                                             })
                                             
                                             /* 찾기완료 버튼 클릭시 필터 적용 코드 */
@@ -254,44 +444,55 @@
                                             	
                                             	console.table(missingList1);
                                             	var completeList1 = _.uniq(missingList1, 'boardCode');
-                                            	$j3("#missingTotalList").empty();
                                             	function isWaiting(w){
                                             		if(w.stateName == '승인'){
                                             			return true;
                                             		};
                                             	};
                                             	
+                                            	$j3("#missingTotalList").empty();
+                                            	$j3('#pagination').empty();
                                             	
-                                            	var completeList = completeList1.filter(isWaiting);
+                                            	completeList = completeList1.filter(isWaiting);
+                                            	totalCount = Math.ceil(completeList.length/12);
                                             	console.table(completeList);
                                             	
                                             	output3='';
-							     				$j3.each(completeList,function(){
-							     					var gender3 = this.missingGender
+                                            	outputPage4='';
+                                            	for(i=0; i< completeList.length; i++){
+							     					if( i < 12){
 								     				
 								     				output3 += '<div class="col-sm-3">';
 							     					output3 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-							     					output3 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + this.boardCode +'\''+'">';
-							     					output3 += '<input type="hidden" id="boardCode" value='+this.boardCode+'/>';
+							     					output3 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/missing/detail/' + completeList[i].boardCode +'\''+'">';
+							     					output3 += '<input type="hidden" id="boardCode" value='+completeList[i].boardCode+'/>';
 							     					output3 +='<p style="position: absolute; font-size: 20px; background-color: #45B99C; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">집 도착</p>'
-							     					output3 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+this.pictureUtilPath+'" alt="" />';
+							     					output3 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+completeList[i].pictureUtilPath+'" alt="" />';
 							     					output3 += '</div>';
 							     					output3 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
-							     					if(gender3 == 'M'){
-							     						output3 += '<h4>'+this.missingBreed+'/남아/'+this.missingColor+'</h4>';
+							     					if(completeList[i].missingGender == 'M'){
+							     						output3 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+completeList[i].missingBreed+'/남아/'+completeList[i].missingColor+'</p>';
 							     					}
-							     					if(gender3 == 'F'){
-							     						output3 += '<h4>'+this.missingBreed+'/여아/'+this.missingColor+'</h4>';
+							     					if(completeList[i].missingGender == 'F'){
+							     						output3 += '<p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 19px;">'+completeList[i].missingBreed+'/여아/'+completeList[i].missingColor+'</p>';
 							     					}
-							     					output3 += '<h6>'+this.missingArea+'</h6>';
+							     					output3 += '<h6>'+completeList[i].missingArea+'</h6>';
 							     					output3 += '</div>';
 							     					output3 += '</div>';
 							     					output3 += '</div>';
 					                                    
-					                             
-							     				});
+                                              		}
+                                            	}
 							     				
 							     				$j3('#missingTotalList').append(output3);
+							     				
+							     				for(j=0; j< completeList.length; j++){
+							     					if(j<totalCount){
+							     						outputPage4 += '<li><a onclick="pageComClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+							     					}
+							     				}
+							     				
+							     				$j3('#pagination').append(outputPage4);
                                             })
                                             
                                             </script>
@@ -300,13 +501,8 @@
                                 </div>
                              </div>
                     <div class="text-center">
-						<ul class="pagination">
-							<li><a href="#"><</a></li>
-							<li><a href="#">1</a></li>
-							<li><a href="#">2</a></li>
-							<li><a href="#">3</a></li>
-							<li><a href="#">4</a></li>
-							<li><a href="#">></a></li>
+						<ul class="pagination" id="pagination">
+							
 						</ul>
 					</div>
             </section>

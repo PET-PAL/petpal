@@ -377,7 +377,7 @@
 			WHERE M.MISSING_DELETE_YN = 'N'
 			  AND P.PICTURE_DELETE_YN = 'N'
 			  AND M.MISSING_AREA LIKE '%' ||#{keyword}|| '%'
-			  AND M.MISSING_PLACE LIKE '%' ||#{keyword}|| '%'
+			  OR M.MISSING_PLACE LIKE '%' ||#{keyword}|| '%'
 	        ORDER BY M.BOARD_DATE DESC
 	  
 	  </select>
