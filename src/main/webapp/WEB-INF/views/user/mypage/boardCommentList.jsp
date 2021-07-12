@@ -596,10 +596,10 @@
 			            <tbody>
 			            <c:if test="${ type eq 'A' }">
 			                <c:forEach items="${ reply }" var="list">
-				                <c:if test="${ list.deleteYn eq 'Y' }">
+				                <c:if test="${ list.missingDeleteYn eq 'Y' }">
 									<tr id="stop" onclick="deletePosting();">
 				                </c:if>
-				                <c:if test="${ list.deleteYn eq 'N' }">
+				                <c:if test="${ list.missingDeleteYn eq 'N' }">
 									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
 				                </c:if>
 									<td style="text-align: center;">${ list.replyContent }</td>
@@ -614,10 +614,10 @@
 			            </c:if>
 			            <c:if test="${ type eq 'B' }">
 			                <c:forEach items="${ reply }" var="list">
-				                <c:if test="${ list.deleteYn eq 'Y' }">
+				                <c:if test="${ list.adoptDeleteYn eq 'Y' }">
 									<tr id="stop" onclick="deletePosting();">
 				                </c:if>
-				                <c:if test="${ list.deleteYn eq 'N' }">
+				                <c:if test="${ list.adoptDeleteYn eq 'N' }">
 									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/detail/${ list.boardCode }'">
 				                </c:if>
 									<td style="text-align: center;">${ list.replyContent }</td>

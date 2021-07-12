@@ -140,7 +140,7 @@ public class BoardManagementServiceImpl implements BoardManagementService{
 	}
 
 	@Override
-	public List<ReviewReplyDTO> selectReplyList(HashMap<String, Object> map) {
+	public List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map) {
 		return mapper.selectReplyList(map);
 	}
 

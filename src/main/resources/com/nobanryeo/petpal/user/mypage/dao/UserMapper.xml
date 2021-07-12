@@ -136,6 +136,7 @@
            SET EMAIL_YN = #{ emailYn }
              , REPLY_YN = #{ replyYn }
              , USER_PWD = #{ pwd } 
+             , USER_PHONE = #{ phone }
          WHERE USER_ID  = #{ id }
 	</update>
 	
