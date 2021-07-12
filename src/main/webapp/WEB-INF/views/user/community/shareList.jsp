@@ -72,9 +72,7 @@
                                 <div class="item active">
                                     <div class="container">
                                         <div class="row" style="margin-left: 20px;">
-                                        <c:if test="${requestScope.category eq null }">
-                                        	<c:choose>
-                                        		<c:when test="${requestScope.keyword eq null }">
+                                        <c:if test="${requestScope.category eq null && requestScope.keyword eq null }">
 		                                      	  <c:forEach var= "share" varStatus="status" items="${requestScope.shareList }">
 			                                            <div class="col-sm-3">
 			                                                <div class="port_item xs-m-top-30" style="cursor: pointer;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/${share.boardCode}'">
@@ -88,14 +86,51 @@
 			                                                        <img src="${ pageContext.servletContext.contextPath }/${share.pictureUtilPath}" style="width:250px; height:250px;" alt="" />
 			                                                    </div>
 			                                                    <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-			                                                        <h4><a style="color:black;">${share.boardTitle }</a></h4>
+			                                                        <p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 20px;">${share.boardTitle }</p>
 			                                                    </div>
 			                                                </div>
 			                                            </div>
+			                                                <!-- 광고 끼워넣기 -->
+									                <c:if test="${ status.index == 0 }">
+									                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
+									                		<c:if test="${ adStatus.index == 0 }">
+										                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
+											                        <div class="port_item xs-m-top-30">
+											                            <div class="port_img" style="position: relative;">
+										                                	<img style="width:290px; height:250px; z-index: -1;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>
+										                                	<div class="blink" style="position:absolute; left:5px; top:5px; font-weight: 600; font-size: 1.3em; color:red;">AD</div>
+											                            </div>
+											                            <div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
+											                                <h4><strong style="font-size:20px;"><c:out value="${ adarr.adTitle }"/></strong></h4>
+											                            </div>
+											                        </div>
+											                    </div>
+										                	</c:if>
+									                	</c:forEach>
+									                </c:if>
+									                <!-- 광고 끼워넣기 -->
+									                <c:if test="${ status.index == 5 }">
+									                	<c:forEach var="adarr" items="${ randomAdNonPlace }" varStatus="adStatus">
+									                		<c:if test="${ adStatus.index == 1 }">
+										                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
+											                        <div class="port_item xs-m-top-30">
+											                            <div class="port_img" style="position: relative;">
+										                                	<img style="width:290px; height:250px; z-index: -1;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>
+										                                	<div class="blink" style="position:absolute; left:5px; top:5px; font-weight: 600; font-size: 1.3em; color:red;">AD</div>
+											                            </div>
+											                            <div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
+											                                <h4><strong style="font-size:20px;"><c:out value="${ adarr.adTitle }"/></strong></h4>
+											                            </div>
+											                        </div>
+											                    </div>
+										                	</c:if>
+									                	</c:forEach>
+									                </c:if>
 			                                          </c:forEach>
-		                                        </c:when>
-                                        		<c:when test="${! requestScope.keyword eq null }">
-		                                        	<c:forEach var= "share" varStatus="status" items="${requestScope.shareSearchList }">
+		                                       
+                                         	</c:if>
+                                        		<c:if test="${requestScope.keyword ne null }">
+		                                        	<c:forEach var="share" varStatus="status" items="${requestScope.shareSearchList }">
 			                                            <div class="col-sm-3">
 			                                                <div class="port_item xs-m-top-30" style="cursor: pointer;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/detail/board/${share.boardCode}'">
 			                                                    <div class="port_img" style="position: relative;">
@@ -108,15 +143,12 @@
 			                                                        <img src="${ pageContext.servletContext.contextPath }/${share.pictureUtilPath}" style="width:250px; height:250px;" alt="" />
 			                                                    </div>
 			                                                    <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-			                                                        <h4><a style="color:black;">${share.boardTitle }</a></h4>
+			                                                       <p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 20px;">${share.boardTitle }</p>
 			                                                    </div>
 			                                                </div>
 			                                            </div>
 			                                          </c:forEach>
-		                                        </c:when>
-                                          </c:choose>
-                                         </c:if>
-                                        
+                                        </c:if>
                                           <c:if test="${requestScope.category eq 'S' }">
 	                                        <c:forEach var= "shareIng" varStatus="status" items="${requestScope.shareIngList }">
 	                                            <div class="col-sm-3">
@@ -126,7 +158,7 @@
 	                                                        <img src="${ pageContext.servletContext.contextPath }/${shareIng.pictureUtilPath}" style="width:250px; height:250px;" alt="" />
 	                                                    </div>
 	                                                    <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-	                                                        <h4><a style="color:black;">${shareIng.boardTitle }</a></h4>
+	                                                        <p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 20px;">${shareIng.boardTitle }</p>
 	                                                    </div>
 	                                                </div>
 	                                            </div>
@@ -141,7 +173,7 @@
 	                                                        <img src="${ pageContext.servletContext.contextPath }/${shareCom.pictureUtilPath}" style="width:250px; height:250px;" alt="" />
 	                                                    </div>
 	                                                    <div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">
-	                                                        <h4><a style="color:black;">${shareCom.boardTitle }</a></h4>
+	                                                        <p style="color: black; font-weight: bolder; margin-bottom: 10px; font-size: 20px;">${shareCom.boardTitle }</p>
 	                                                    </div>
 	                                                </div>
 	                                            </div>
