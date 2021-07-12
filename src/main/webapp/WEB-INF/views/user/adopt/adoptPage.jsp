@@ -554,7 +554,7 @@
 					if(${empty sessionScope.loginUser}){
 						alert("로그인 후 이용가능합니다.");
 					}else{
-						location.href='${ pageContext.servletContext.contextPath }/user/adopt/terms'
+						location.href='${ pageContext.servletContext.contextPath }/user/adopt/terms';
 					};
 				};
 			</script>

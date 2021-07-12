@@ -524,11 +524,20 @@
 					</div>
             </section>
             <div style="position: fixed; top: 310px; left: 200px;">
-	            <button style="border: 0px; background-color: red; width: 50px; height: 200px; border-radius: 10px;" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/write'" >
+	            <button style="border: 0px; background-color: red; width: 50px; height: 200px; border-radius: 10px;" onclick="sessionCheck();" >
 	            <h4 style="writing-mode: vertical-rl; color: white; font-weight: bold;" align="center">실종 알리기</h4>
 	            </button>
 			</div>
-            
+			
+            <script type="text/javascript">
+				function sessionCheck(){
+					if(${empty sessionScope.loginUser}){
+						alert("로그인 후 이용가능합니다.");
+					}else{
+						location.href='${ pageContext.servletContext.contextPath }/user/missing/write';
+					};
+				};
+			</script>
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
         </div>
