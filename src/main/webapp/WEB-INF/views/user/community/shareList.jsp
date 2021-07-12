@@ -58,7 +58,7 @@
             	<form action="${ pageContext.servletContext.contextPath }/user/shareFree/list" method="get">
             		<div style="width: 370px; margin-bottom:10px; position: relative; left: 60%;">
 						<input type="search" name="keyword" placeholder=" 검색 키워드를 입력해주세요" aria-label="Search"
-						style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;">
+						style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;" required>
 						<span>
 						<button type="submit" style="background-color: white; height: 40px; width: 50px; float: right; border: solid 1px; border-color: black; border-radius: 5px;"onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/list/{keyword}'">
 							검색
@@ -273,10 +273,20 @@
 			</div>
             </section>
             <div style="position: fixed; top: 310px; left: 200px;">
-	            <button onclick="location.href='${ pageContext.servletContext.contextPath }/user/shareFree/insert/newcontent'" style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
+	            <button onclick="sessionCheck();" style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
 	            <h4 style="writing-mode: vertical-rl; color: white; font-weight: bold;" align="center">글 작성하기</h4>
 	            </button>
 			</div>
+			
+			<script type="text/javascript">
+				function sessionCheck(){
+					if(${empty sessionScope.loginUser}){
+						alert("로그인 후 이용가능합니다.");
+					}else{
+						location.href='${ pageContext.servletContext.contextPath }/user/shareFree/insert/newcontent';
+					};
+				};
+			</script>
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
         </div>

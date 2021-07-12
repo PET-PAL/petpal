@@ -67,7 +67,7 @@
             </section> <!--End off Home Sections-->
 				<div style="width: 370px; position: relative; left: 60%; margin-bottom:20px;">
 						<input type="search" id="search" name="search" placeholder="지역 키워드를 입력해주세요" aria-label="Search"
-						style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;" autofocus/>
+						style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;" required/>
 						<span>
 							<button id="search_btn" type="submit" style="background-color: white; height: 40px; width: 50px; float: right; border: solid 1px; border-color: black; border-radius: 5px;">
 								검색
@@ -77,11 +77,16 @@
 			
 			<script>
 			var adoptSearchList;
-			var outputPage4;
+			var outputPage4='';
+			var rsearch = '';
 			$j3('#search_btn').click(function(){
-					
 					console.log("search ajax");
-					var rsearch = $j3('#search').val();
+					rsearch = $j3('#search').val();
+					if(!rsearch){
+						alert("검색어 입력해주세요");
+						return false;
+					};
+					
 					console.log(rsearch);
 					
 					$j3("#adoptlistList").empty();
@@ -103,6 +108,10 @@
 		     				output1='';
 		     				
 		     				var i;
+		     				if(adoptSearchList.length == 0){
+		     					output1 +='<h1></h1>';
+		     					output1 += '<h1 style="text-align:center;">검색 결과가 없습니다</h1>';
+		     				}
 		     				for(i=0; i< adoptSearchList.length; i++){
 		     					if( i < 12){
 			     				
@@ -138,11 +147,12 @@
 		     				
 		     				for(j=0; j< adoptSearchList.length; j++){
 		     					if(j<totalCount){
-		     					outputPage4 += '<li><a onclick="pageSearchClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+		     						
+		     					outputPage4 = '<li><a onclick="pageSearchClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+			     				$j3('#pagination').append(outputPage4);
 		     				}
 		     				}
 		     				
-		     				$j3('#pagination').append(outputPage4);
 		     				
 						},error: function(xhr,status,error){
 							
@@ -171,6 +181,7 @@
                                             var output = '';
                                             var outfil = '';
                                             
+                                            
                                             $j3(document).ready(function(){
 										     		console.log("adoptPage select script");
 										     		$j3.ajax({
@@ -182,8 +193,8 @@
 										     				console.log(totalCount);
 										     				
 										     				console.table(adoptList);
-										     				var i;
-										     				for(i=0; i< adoptList.length; i++){
+										     				/* let i; */
+										     				for(let i=0; i< adoptList.length; i++){
 										     					if( i < 12){
 										     		
 										     					output += '<div class="col-sm-3">';
@@ -213,14 +224,16 @@
 								                             
 										     				}
 										     				$j3('#adoptlistList').append(output);
-										                
-										     				for(j=0; j< adoptList.length; j++){
+										                	
+										     				for( let j=0; j<adoptList.length; j++){
 										     					if(j<totalCount){
-										     					outputPage += '<li><a onclick="pageClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
-										     				}
+										     					outputPage = '<li><a onclick="pageClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+										     					console.log(outputPage);
+										     					
+										     				$j3('#pagination').append(outputPage);
+										     					}
 										     				}
 										     				
-										     				$j3('#pagination').append(outputPage);
 										     				
 										     			},error:function(xhr,status,error){
 										     				alert("에러 발생~삐뽀~");
@@ -434,11 +447,11 @@
 
 							     				for(j=0; j< adoptWaitingList.length; j++){
 							     					if(j<totalCount){
-							     					outputPage1 += '<li><a onclick="pageIngClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+							     					outputPage1 = '<li><a onclick="pageIngClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+							     				$j3('#pagination').append(outputPage1);
 							     				}
 							     				}
 							     				
-							     				$j3('#pagination').append(outputPage1);
                                             });
                                             
                                             /* 입양완료 버튼 클릭시 필터 적용 코드 */
@@ -493,11 +506,12 @@
 							     				
 							     				for(j=0; j< adoptWaitingList.length; j++){
 							     					if(j<totalCount){
-							     					outputPage2 += '<li><a onclick="pageComClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+							     					outputPage2 = '<li><a onclick="pageComClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+								     				$j3('#pagination').append(outputPage2);
 							     					}
 							     				}
 							     				
-							     				$j3('#pagination').append(outputPage2);
+							     				
 							     				
                                             });
                                             
@@ -512,7 +526,7 @@
                           
                     <div class="text-center">
 						<ul class="pagination" id="pagination">
-							
+						
 						</ul>
 					</div>
 					<script>
@@ -527,13 +541,23 @@
             
 										     					
             
-            <div style="position: fixed; top: 310px; left: 7%;">
-	            <button onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/terms'" style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
+            <div style="position: fixed; top: 310px; left: 10%;">
+	            <button onclick="sessionCheck();" style="border: 0px; background-color: #19A985; width: 50px; height: 200px; border-radius: 10px;">
 	            <h4 style="writing-mode: vertical-rl; color: white; font-weight: bold;" align="center">글 작성하기</h4>
 	            </button>
 			</div>
 
         </div>
+        
+        	<script type="text/javascript">
+				function sessionCheck(){
+					if(${empty sessionScope.loginUser}){
+						alert("로그인 후 이용가능합니다.");
+					}else{
+						location.href='${ pageContext.servletContext.contextPath }/user/adopt/terms'
+					};
+				};
+			</script>
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>
          <jsp:include page="../common/footer.jsp"/>    

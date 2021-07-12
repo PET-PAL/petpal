@@ -158,6 +158,13 @@
             .findpwd-content > div {
                 margin: 0px auto;
             }
+            @media print{
+            .screen{
+            display:none !important;
+            
+            }
+            @page{maring:0;}
+            }
         </style>
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
         <script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>
@@ -312,7 +319,7 @@
                 </table>
                 </div>
                 <div style="float: left; width: 600px; margin-left: 30px;" align="center">
-                   <button onclick="show();" id="make_pdf" style="background-color: red; border: 0px; border-radius:10px; width: 250px; margin-left:10px;">
+                   <button onclick="show();" style="background-color: red; border: 0px; border-radius:10px; width: 250px; margin-left:10px;">
                          <h3 style="color: white; padding-top: 10px; font-weight: bold;">전단지 생성하기</h3>
                    </button>
                    	<c:if test="${sessionScope.loginUser.code eq requestScope.missingDetail.userCode}">
@@ -528,16 +535,16 @@
                    <div align="center">
                       <hr style="border: soild 1px; border-color: black;">
                       <div>
-                         <h2 style="color: #19A985; font-weight: bold; width: 200px; float: left; padding-top: 20px;">PET-PAL</h2>
+                         <h2 style="color: #19A985; font-weight: bold; width: 200px; float: left;">PET-PAL</h2>
                          <h2 style="color: red; font-weight: bold; width: 500px;">TEL) ${requestScope.missingDetail.phone}</h2>
                          <p style="font-size: 15px; width: 500px; padding-left: 35px;">반려동물 입양/실종동물 찾기는 '펫팔'을 검색해보세요!</p>
                       </div>
                       <hr style="border: soild 1px; border-color: black;">
                    </div>
-                   	<div align="center" >
-                      <!-- <button id="pdf_make" style="background-color: #19A985; width: 250px; height: 60px; font-size: 20px; color: white;">
+                   	<div align="center" id="screen">
+                      <button id="pdf_print" onclick="print();" style="background-color: #19A985; width: 250px; height: 60px; font-size: 20px; color: white;">
                          PDF 생성하기
-                      </button> -->
+                      </button> 
                       <!-- 카카오톡 버튼 -->
                		<a id="create-kakao-link-btn" href="javascript:;">
 					  <img style = "width:60px;height:60px; margin-left:100px;" src="https://developers.kakao.com/assets/img/about/logos/kakaolink/kakaolink_btn_small.png"/>
@@ -726,36 +733,14 @@
             	  $j3('#flyerModal').hide();
               };
               
-              $j3("#make_pdf").click(function(){
-            	  html2canvas($j3('#pdfDiv')[0]).then(function(canvas){
-            		  // 캔버스를 이미지로 변환
-            		    var imgData = canvas.toDataURL('image/jpeg', 1.0);
-            			     
-            		    var imgWidth = 190; // 이미지 가로 길이(mm) / A4 기준 210mm
-            		    var pageHeight = imgWidth * 2;  // 출력 페이지 세로 길이 계산 A4 기준
-            		    var imgHeight = canvas.height * imgWidth / canvas.width;
-            		    var heightLeft = imgHeight;
-            		    var margin = 5; // 출력 페이지 여백설정
-            		    var doc = new jsPDF('p', 'mm');
-            		    var position = 0;
-            		       
-            		    // 첫 페이지 출력
-            		    doc.addImage(imgData, 'PNG', margin, position, imgWidth, imgHeight);
-            		    heightLeft -= pageHeight;
-            		         
-            		    // 한 페이지 이상일 경우 루프 돌면서 출력
-            		    while (heightLeft >= 20) {
-            		        position = heightLeft - imgHeight;
-            		        doc.addPage();
-            		        doc.addImage(imgData, 'PNG', 0, position, imgWidth, imgHeight);
-            		        heightLeft -= pageHeight;
-            		    }
-            			  
-            		  doc.save('${requestScope.missingDetail.userNickname}.pdf');
-            		
-
-            	  });
-              });
+              function print(){
+            	  let printModal = $j3('#pdfDiv').html();
+            	  let win = window.open('','_blank','fullscreen');
+            	  win.document.write(printModal);
+            	  win.focus();
+            	  win.print();
+              };
+              
            </script>
 
             <!-- 오른쪽 배너 -->

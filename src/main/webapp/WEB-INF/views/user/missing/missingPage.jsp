@@ -61,7 +61,7 @@
             </section> <!--End off Home Sections-->
             <div style="width: 370px; position: relative; left: 60%; margin-bottom:15px;">
 				<input type="search" id="search1" placeholder="지역 키워드를 입력해주세요" aria-label="Search"
-				style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;">
+				style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: black;" required>
 				<span>
 					<button id="search_btn1" type="submit" style="background-color: white; height: 40px; width: 50px; float: right; border: solid 1px; border-color: black; border-radius: 5px;">
 						검색
@@ -75,6 +75,10 @@
 					
 					console.log("search Missing ajax");
 					var rsearch = $j3('#search1').val();
+					if(!rsearch){
+						alert("검색어 입력해주세요");
+						return false;
+					};
 					console.log(rsearch);
 					
 					$j3("#missingTotalList").empty();
@@ -92,7 +96,16 @@
 		     				output1='';
 		     				
 		     				var i;
+		     				
+		     				if(missingSearchList.length == 0){
+		     					output1 +='<h1></h1>';
+		     					output1 += '<h1 style="text-align:center;">검색 결과가 없습니다</h1>';
+		     				}
+		     				
 		     				for(i=0; i< missingSearchList.length; i++){
+		     					if(missingSearchList.length <1){
+		     						output1 +='<h1> 조회된 게시글이 없습니다. </h1>';
+		     					}
 		     					if( i < 12){
 			     				
 			     					output1 += '<div class="col-sm-3">';
@@ -125,12 +138,14 @@
 		     				$j3('#missingTotalList').append(output1);
 		     				
 		     				for(j=0; j< missingSearchList.length; j++){
+		     					
 		     					if(j<totalCount){
-		     					outputPage4 += '<li><a onclick="pageSearchClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+		     						
+			     					outputPage4 = '<li><a onclick="pageSearchClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+				     				$j3('#pagination').append(outputPage4);
 		     				}
 		     				}
 		     				
-		     				$j3('#pagination').append(outputPage4);
 		     				
 		     				
 						},error: function(xhr,status,error){
@@ -206,13 +221,13 @@
 										     				$j3('#missingTotalList').append(output);
 										     				
 										     				for(j=0; j< missingList.length; j++){
+										     					
 										     					if(j<totalCount){
-										     					outputPage += '<li><a onclick="pageAllClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+										     						
+											     					outputPage = '<li><a onclick="pageAllClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+												     				$j3('#pagination').append(outputPage);
+										     					}
 										     				}
-										     				}
-										     				
-										     				$j3('#pagination').append(outputPage);
-										                
 										     				
 										     			},error:function(xhr,status,error){
 										     				alert("에러 발생~삐뽀~");
@@ -429,11 +444,12 @@
 							     				
 							     				for(j=0; j< missingList.length; j++){
 							     					if(j<totalCount){
-							     						outputPage2 += '<li><a onclick="pageMissClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+							     						
+							     						outputPage2 = '<li><a onclick="pageMissClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+									     				$j3('#pagination').append(outputPage2);
 							     					}
 							     				}
 							     				
-							     				$j3('#pagination').append(outputPage2);
 							     				
                                             })
                                             
@@ -488,11 +504,12 @@
 							     				
 							     				for(j=0; j< completeList.length; j++){
 							     					if(j<totalCount){
-							     						outputPage4 += '<li><a onclick="pageComClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+							     						
+							     						outputPage4 = '<li><a onclick="pageComClick(this);" value="'+(j+1)+'">'+(j+1)+'</a></li>';
+									     				$j3('#pagination').append(outputPage4);
 							     					}
 							     				}
 							     				
-							     				$j3('#pagination').append(outputPage4);
                                             })
                                             
                                             </script>

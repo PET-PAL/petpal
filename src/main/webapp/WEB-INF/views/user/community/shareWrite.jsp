@@ -48,7 +48,7 @@
           const message = '${ requestScope.message }';
 		    if(message != null && message !== '') {
 		    	alert(message);
-		    }
+		    };
         </script>
     </head>
 

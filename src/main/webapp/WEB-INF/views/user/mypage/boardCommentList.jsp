@@ -600,7 +600,7 @@
 									<tr id="stop" onclick="deletePosting();">
 				                </c:if>
 				                <c:if test="${ list.deleteYn eq 'N' }">
-									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${ list.boardCode }'">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/missing/detail/${list.boardCode}'">
 				                </c:if>
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
@@ -618,7 +618,7 @@
 									<tr id="stop" onclick="deletePosting();">
 				                </c:if>
 				                <c:if test="${ list.deleteYn eq 'N' }">
-									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/detail/${ list.boardCode }'">
+									<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/adopt/detail/${list.boardCode}'">
 				                </c:if>
 									<td style="text-align: center;">${ list.replyContent }</td>
 									<td style="text-align: center;">${ list.replyDate }</td>
