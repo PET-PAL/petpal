@@ -399,7 +399,7 @@
 												<td style="text-align: center;"></td>
 											</c:when>
 											<c:when test="${ list.state eq 3 }">
-												<tr id="stop" onclick="backPosting(this);">
+												<tr id="stop" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/detail?boardCode=${ list.boardCode }'">
 												<td style="text-align: center;">${ list.boardTitle }</td>
 												<td style="text-align: center;">${ list.postDate }</td>
 												<td style="text-align: center;"><c:out value="거절" /></td>

@@ -45,6 +45,10 @@ public class UserController {
 	public String registForm() {
 		return "common/regist";
 	}
+	@GetMapping("main/usefulLinks")
+	public String usefulLinks() {
+		return "user/main/usefulLinks";
+	}
 
 
 	/**

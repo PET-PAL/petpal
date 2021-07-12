@@ -268,8 +268,8 @@
                               <div class="footer-links" style="margin-left: 20px;">
                                 <h4>Useful Links</h4>
                                 <ul>
-                                  <li><a href="${ pageContext.servletContext.contextPath }/views/user/main/usefulLinks.jsp">이용약관</a></li>
-                                  <li><a href="${ pageContext.servletContext.contextPath }/views/user/main/usefulLinks.jsp">개인정보처리방침</a></li>
+                                  <li><a href="${ pageContext.servletContext.contextPath }/user/main/usefulLinks">이용약관</a></li>
+                                  <li><a href="${ pageContext.servletContext.contextPath }/user/main/usefulLinks">개인정보처리방침</a></li>
                                 </ul>
                               </div>
               

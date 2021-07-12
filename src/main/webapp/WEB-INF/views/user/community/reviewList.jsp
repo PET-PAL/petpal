@@ -128,7 +128,7 @@
 					<ul style="margin-left: 30%;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/select/freeboard/list" style="color: #979797;">자유게시판</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
-						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/coupon/select" style="color: #979797;">무료나눔</a></li>
+						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/shareFree/list" style="color: #979797;">무료나눔</a></li>
 						<hr style="margin-right: 10%; margin-left: 10%; border-color: lightgray;">
 						<li style="text-align: center;" class="blog-list"><a href="${ pageContext.servletContext.contextPath }/user/review" style="color: #45B99C; font-size: 1.3em; font-weight: 600;">용품리뷰</a></li>
 					</ul>
@@ -160,7 +160,7 @@
 				                <c:if test="${ num.index == 2 }">
 				                	<c:forEach var="adarr" items="${ randomAd }" varStatus="adNum">
 				                		<c:if test="${ adNum.index == 0 }">
-					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
+					                		<tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.companyName }"/></td>
@@ -174,7 +174,7 @@
 				                <c:if test="${ num.index == 5 }">
 				                	<c:forEach var="adarr" items="${ randomAd }" varStatus="adNum">
 				                		<c:if test="${ adNum.index == 1 }">
-					                		<tr class="question" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
+					                		<tr class="general" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
 							                	<td class="blink" style="color:red; text-align: center; font-weight: 600; font-size: 1.2em;">AD</td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.adTitle }"/></td>
 							                    <td style="text-align: center;"><c:out value="${ adarr.companyName }"/></td>
