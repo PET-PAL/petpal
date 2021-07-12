@@ -378,6 +378,7 @@ public class UserAdController {
 	@PostMapping("update/cancel/ad")
 	public String updateCancelAd(HttpServletRequest request, @ModelAttribute AdDTO adDTO, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) throws ParseException {
 		
+		// 포맷 맞추기
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date utilDate = dateFormat.parse(request.getParameter("payDate1st"));
 		java.sql.Date payDate1st = new java.sql.Date(utilDate.getTime());
@@ -401,8 +402,6 @@ public class UserAdController {
 	 */
 	@GetMapping("select/ad/detail")
 	public String selectAdDetail(@CookieValue(name = "AdCookie", defaultValue = "/") String cookie, HttpServletResponse response, HttpServletRequest request, @ModelAttribute AdDTO adDTO, @RequestParam int adCode, Model model, HttpSession session) {
-		
-		
 		
 		// 광고 클릭 횟수 추가하기
 		if(session.getAttribute("loginUser") == null) { // 로그인 안했을 때
