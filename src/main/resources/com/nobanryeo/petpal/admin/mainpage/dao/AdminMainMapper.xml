@@ -50,8 +50,13 @@
        </association>
 	  </resultMap>
 
+ <resultMap id="boardTotalViews" type="com.nobanryeo.petpal.admin.dto.BoardTotalViewsDTO">
+	  	<result property="boardType" column="BOARD_TYPE"/>
+	  	<result property="boardTotalViews" column="BOARD_TOTAL_VIEWS"/>
+ </resultMap>
 
-	  <!-- 매출액 조회 -->
+
+	  <!-- 월별 매출액 조회 -->
 	  <select id="selectMonthRevenue" resultType="int" parameterType="AdminPageInfoDTO">
 	  SELECT
        SUM(S.MONTH_REVENUE)
@@ -100,8 +105,33 @@ UNION ALL
                   HAVING  A.PAY_DATE_1ST BETWEEN TRUNC(to_date(#{ fullMonth },'YYYYMMDD'),'MM')
           AND LAST_DAY(to_DATE(#{ fullMonth },'YYYYMMDD')+ 0.99999) ) F) )S
 	  </select>
-
-
-
+	  
+	  <!-- 게시판별 조회수 조회 -->
+	  <select id="selectBoardTotalViews" resultMap="boardTotalViews">
+		SELECT NVL2(BOARD_CODE, '일반정보','N') BOARD_TYPE
+		     , SUM(BOARD_VIEWS) BOARD_TOTAL_VIEWS
+		  FROM INFO_BOARD
+		 GROUP BY NVL2(BOARD_CODE, '일반정보','N')
+		 UNION
+		SELECT NVL2(BOARD_CODE, '프렌들리플레이스','N') BOARD_TYPE
+		     , SUM(BOARD_VIEWS) BOARD_TOTAL_VIEWS
+		  FROM FRIENDLY_BOARD
+		 GROUP BY NVL2(BOARD_CODE, '프렌들리플레이스','N')
+		 UNION
+		SELECT NVL2(BOARD_CODE, '자유게시판','N') BOARD_TYPE
+		     , SUM(BOARD_VIEWS) BOARD_TOTAL_VIEWS
+		  FROM FREE_BOARD
+		 GROUP BY NVL2(BOARD_CODE, '자유게시판','N')
+		 UNION
+		SELECT NVL2(BOARD_CODE, '무료나눔','N') BOARD_TYPE
+		     , SUM(BOARD_VIEWS) BOARD_TOTAL_VIEWS
+		  FROM SHARE_BOARD
+		 GROUP BY NVL2(BOARD_CODE, '무료나눔','N')
+		 UNION 
+		SELECT NVL2(BOARD_CODE, '용품리뷰','N') BOARD_TYPE
+		     , SUM(BOARD_VIEWS) BOARD_TOTAL_VIEWS
+		  FROM REVIEW_BOARD
+		 GROUP BY NVL2(BOARD_CODE, '용품리뷰','N')
+	  </select>
 
 </mapper>

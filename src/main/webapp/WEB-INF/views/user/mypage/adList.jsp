@@ -150,9 +150,6 @@
     	</script>
     </head>
 
-    <body data-spy="scroll" data-target=".navbar-collapse">
-    
-
         <!-- Preloader -->
         <div id="loading">
             <div id="loading-center">
@@ -219,14 +216,12 @@
 													        var IMP = window.IMP; // 생략가능
 													        IMP.init('imp27572898'); 
 													        var msg;
-													        /* var adPrice = ${arr.adPrice}; */
-													        var adPrice = 100;
+													        var adPrice = ${arr.adPrice};
 													        var email = '<c:out value="${arr.companyEmail}"/>';
 													        var name = '<c:out value="${arr.companyName}"/>';
 													        var phone = '<c:out value="${arr.companyPhone}"/>';
 													        var companyLocation = '<c:out value="${arr.companyLocation}"/>';
 													        var adCode = '<c:out value="${arr.adCode}"/>'
-													        alert(adPrice);
 													        
 													        IMP.request_pay({
 													            pg : 'kakaopay',
@@ -309,7 +304,7 @@
 				                          			<td style="text-align: center; color: blue;">광고중</td>
 				                          		</c:if>
 				                          		<c:if test="${ today > arr.postEndDate && arr.stateCode eq '2' && arr.postYn eq 'Y' }">
-				                          			<td style="text-align: center; color: yellow;">광고만료</td>
+				                          			<td style="text-align: center; color: #fedd00;">광고만료</td>
 				                          		</c:if>
 				                          		<c:if test="${ arr.stateCode eq '3' }">
 				                          			<td style="text-align: center; color: lightgray;">승인거절</td>

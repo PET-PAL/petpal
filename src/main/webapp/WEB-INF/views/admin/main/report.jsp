@@ -146,7 +146,7 @@ input {
                                         <li role="presentation" class="active"><a onclick="location.href='${pageContext.servletContext.contextPath }/admin/reportList?category=7&nowPage=1&cntPerPage=${paging.cntPerPage}'" aria-controls="comment" role="tab" data-toggle="tab">댓글</a></li>
                                     </c:if>
                                         
-                                    	<p style="float:right;">총 신고글 : 00개</p>
+                                    	<p style="float:right;">총 신고글 :${total}개</p>
                                     </ul>
 							<div class="container-fluid" style="margin-top: 15px;">
 						        <form action="${pageContext.servletContext.contextPath }/admin/reportList" method="get" class="d-flex">	

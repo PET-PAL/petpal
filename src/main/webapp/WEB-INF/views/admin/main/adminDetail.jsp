@@ -151,21 +151,21 @@
                               <div class="form-group">
                                 <label for="cname" class="col-lg-2">아이디</label>
                               	<div class="col-lg-10">
-	                                  <input class="form-control" id="name" name="name"  type="text"  value="" style="margin-bottom:3%; background-color:white;" readonly="readonly"></input>
+	                                  <input class="form-control" id="name" name="name"  type="text"  value="${adminList.id}" style="margin-bottom:3%; background-color:white;" readonly="readonly"></input>
 	                            </div>
                               </div>
                               
                               <div class="form-group">
 	                              <label for="cname" class="col-lg-2">이름</label>
 	                                <div class="col-lg-10">
-	                                  <input class="form-control" id="name" name="name"  type="text"  value="" style="margin-bottom:3%; background-color:white;" readonly="readonly"></input>
+	                                  <input class="form-control" id="name" name="name"  type="text"  value="${adminList.name}" style="margin-bottom:3%; background-color:white;" readonly="readonly"></input>
 	                                </div>
                                </div>
                                
                                <div class="form-group">
 	                              <label for="cname" class="col-lg-2">이메일</label>
 	                                <div class="col-lg-10">
-	                                  <input type="email" class="form-control" id="email" name="email"  type="text"  value="" style="margin-bottom:3%; background-color:white;" readonly="readonly"></input>
+	                                  <input type="email" class="form-control" id="email" name="email"  type="text"  value="${adminList.email}" style="margin-bottom:3%; background-color:white;" readonly="readonly"></input>
 	                                </div>
                                </div>
                               
@@ -173,18 +173,38 @@
 	                              <label for="cname" class="col-lg-2">권한</label>
 	                                <div class="col-lg-10">
 		                                <ul>
+		                                <c:choose>
+		                                <c:when test="${adminList.permisson eq 2 }">
 		                                <li class="col-lg-6">
 		                                  	<label for="priv" class="col-lg-3">
 										    	대표관리자
 										  	</label>
-		                              		<input class="radio-inline" type="radio" name="priv" id="priv" style="margin-bottom:6%; background-color:white;" readonly="readonly">
+		                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="3" style="margin-bottom:6%" disabled>
 		                              	</li>
 		                              	<li class="col-lg-6">
 		                              		<label for="priv" class="col-lg-3">
 										    	서브관리자
 										  	</label>
-		                              		<input class="radio-inline" type="radio" name="priv" id="priv" style="margin-bottom:6%; background-color:white;" readonly="readonly">
+		                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="2" style="margin-bottom:6%" checked disabled>
 		                              	</li>
+		                                </c:when>
+		                                
+		                                <c:otherwise>
+		                                <li class="col-lg-6">
+		                                  	<label for="priv" class="col-lg-3">
+										    	대표관리자
+										  	</label>
+		                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="3" style="margin-bottom:6%" checked disabled>
+		                              	</li>
+		                              	<li class="col-lg-6">
+		                              		<label for="priv" class="col-lg-3">
+										    	서브관리자
+										  	</label>
+		                              		<input class="radio-inline" type="radio" name="permisson" id="permisson" value="2" style="margin-bottom:6%" disabled>
+		                              	</li>
+		                                </c:otherwise>
+		                                </c:choose>
+		                                
 		                              	</ul>
 	                                </div>
                               	</div>
@@ -193,7 +213,7 @@
                                <div class="form-group">
 	                              <label for="cname" class="control-label col-lg-2">휴대폰번호</label>
 	                                <div class="col-lg-10">
-	                                  <input class="form-control" id="phoneNum" name="phoneNum"  type="text"  value="" style="margin-bottom:3%; background-color:white;"  readonly="readonly"></input>
+	                                  <input class="form-control" id="phoneNum" name="phoneNum"  type="text"  value="${adminList.phone}" style="margin-bottom:3%; background-color:white;"  readonly="readonly"></input>
 	                                </div>
                                </div>
                                                

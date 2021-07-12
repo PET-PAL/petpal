@@ -29,6 +29,21 @@
       <property name="defaultAutoCommit" value="false" />
    </bean>
 
+	  <bean id="mailSender" 
+					class="org.springframework.mail.javamail.JavaMailSenderImpl">
+        <property name="host" value="smtp.gmail.com" /> <!-- gmail을 사용 -->
+        <property name="port" value="587" />
+        <property name="username" value="tjdgns8482@gmail.com" />
+        <property name="password" value="knitchan1!" />
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.transport.protocol">smtp</prop>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+                <prop key="mail.debug">true</prop>
+            </props>
+        </property>
+    </bean>
    <bean id="dataSource"
       class="net.sf.log4jdbc.Log4jdbcProxyDataSource">
       <constructor-arg ref="rdataSource"></constructor-arg>
@@ -73,7 +88,8 @@
 					  com.nobanryeo.petpal.admin.pay.dao,
 					  com.nobanryeo.petpal.admin.manage.dao,
 					  com.nobanryeo.petpal.admin.review.dao,
-					  com.nobanryeo.petpal.admin.mainpage.dao
-					  com.nobanryeo.petpal.admin.blacklist.dao"/>
+					  com.nobanryeo.petpal.admin.mainpage.dao,
+					  com.nobanryeo.petpal.admin.blacklist.dao,
+					  com.nobanryeo.petpal.admin.email.dao"/>
 	
 </beans>
