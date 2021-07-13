@@ -81,7 +81,7 @@ public class EmailController {
     	 
     	
         try {
-        		emailService.sendMail(dto,path,mailList); // dto (메일관련 정보)를 sendMail에 저장함
+        		emailService.sendMail(dto,path,mailList); 
         		model.addAttribute("message", "뉴스레터 발송 성공");
  
         } catch (Exception e) {

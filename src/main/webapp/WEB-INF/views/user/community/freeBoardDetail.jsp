@@ -251,7 +251,9 @@
 								<td style="text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
 								<td style="border-radius: 0px 21px 0px 0px;"><c:out value="${ requestScope.freeBoardDetail.boardViews }"/>
 								<span>
-								<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;">
+									<c:if test="${ requestScope.freeBoardDetail.userCode != sessionScope.loginUser.code && !empty sessionScope.loginUser.code }">
+										<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;">
+									</c:if>
 								</span>
 								</td>
 							</tr>
@@ -289,7 +291,11 @@
 			                            	<input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
 			                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/>
 			                            	<%-- <td><img onclick="location.href='#reportComment'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px" class="replyReport"></td> --%>
-			                            	<td><img onclick="test1(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+			                            	<td>
+			                            		<c:if test="${ arr.userCode != sessionScope.loginUser.code && !empty sessionScope.loginUser.code }">
+			                            			<img onclick="test1(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px">
+			                            		</c:if>
+			                            	</td>
 			                        	</tr>
 			                        </c:if>
 			                        <c:if test="${ arr.reportYN eq 'Y' }">
@@ -315,13 +321,15 @@
             	</div>
             </section>
             
-            <form action="${ pageContext.servletContext.contextPath }/user/insert/freeboard/reply" method="post">
-	            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
-	                <input type="text" id="replyContent" name="replyContent" placeholder="  message" required>
-	                <input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
-	                <button type="submit" class="sendmessagecontent">댓글 작성</button>
-	            </section>
-            </form>
+            <c:if test="${ !empty sessionScope.loginUser.code }">
+	            <form action="${ pageContext.servletContext.contextPath }/user/insert/freeboard/reply" method="post">
+		            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
+		                <input type="text" id="replyContent" name="replyContent" placeholder="  message" required>
+		                <input type="hidden" value="${ requestScope.freeBoardDetail.boardCode }" name="code">
+		                <button type="submit" class="sendmessagecontent">댓글 작성</button>
+		            </section>
+	            </form>
+            </c:if>
             
 
 			<!-- 게시글 신고 팝업창 -->
