@@ -21,6 +21,8 @@ public class BoradAndCommentDTO {
 	private String type;
 	private int state; 		//심사코드에 따른 상태코드
 	private String dReason;
+	private String adoptDeleteYn;
+	private String missingDeleteYn;
 
 	public BoradAndCommentDTO() {
 		
@@ -28,7 +30,8 @@ public class BoradAndCommentDTO {
 
 	public BoradAndCommentDTO(int boardCode, String boardTitle, String boardContent, int views, Date postDate,
 			String deleteYn, int dicisionCode, String boardMap, int userCode, int replyCode, String replyContent,
-			Date replyDate, String replyDeleteYn, String reportYn, String type, int state, String dReason) {
+			Date replyDate, String replyDeleteYn, String reportYn, String type, int state, String dReason,
+			String adoptDeleteYn, String missingDeleteYn) {
 		super();
 		this.boardCode = boardCode;
 		this.boardTitle = boardTitle;
@@ -47,6 +50,8 @@ public class BoradAndCommentDTO {
 		this.type = type;
 		this.state = state;
 		this.dReason = dReason;
+		this.adoptDeleteYn = adoptDeleteYn;
+		this.missingDeleteYn = missingDeleteYn;
 	}
 
 	public int getBoardCode() {
@@ -185,6 +190,22 @@ public class BoradAndCommentDTO {
 		this.dReason = dReason;
 	}
 
+	public String getAdoptDeleteYn() {
+		return adoptDeleteYn;
+	}
+
+	public void setAdoptDeleteYn(String adoptDeleteYn) {
+		this.adoptDeleteYn = adoptDeleteYn;
+	}
+
+	public String getMissingDeleteYn() {
+		return missingDeleteYn;
+	}
+
+	public void setMissingDeleteYn(String missingDeleteYn) {
+		this.missingDeleteYn = missingDeleteYn;
+	}
+
 	@Override
 	public String toString() {
 		return "BoradAndCommentDTO [boardCode=" + boardCode + ", boardTitle=" + boardTitle + ", boardContent="
@@ -192,10 +213,10 @@ public class BoradAndCommentDTO {
 				+ ", dicisionCode=" + dicisionCode + ", boardMap=" + boardMap + ", userCode=" + userCode
 				+ ", replyCode=" + replyCode + ", replyContent=" + replyContent + ", replyDate=" + replyDate
 				+ ", replyDeleteYn=" + replyDeleteYn + ", reportYn=" + reportYn + ", type=" + type + ", state=" + state
-				+ ", dReason=" + dReason + "]";
+				+ ", dReason=" + dReason + ", adoptDeleteYn=" + adoptDeleteYn + ", missingDeleteYn=" + missingDeleteYn
+				+ "]";
 	}
 
-	
 	
 	
 	

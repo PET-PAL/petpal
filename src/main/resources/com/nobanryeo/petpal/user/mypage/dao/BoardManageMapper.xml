@@ -21,6 +21,8 @@
 		<result column="REPORT_YN" property="reportYn"/>
 		<result column="STATE_CODE" property="state"/>
 		<result column="DECISION_REASON" property="dReason"/>
+		<result column="ADOPT_DELETE_YN" property="adoptDeleteYn"/>
+		<result column="MISSING_DELETE_YN" property="missingDeleteYn"/>
 	</resultMap>
 
 	

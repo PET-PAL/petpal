@@ -63,7 +63,7 @@ public interface BoardManageMapper {
 
 	int selectReplyCount(BoradAndCommentDTO bcDTO);
 
-	List<ReviewReplyDTO> selectReplyList(HashMap<String, Object> map);
+	List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map);
 
 	int selectFriendlyCount(BoradAndCommentDTO bcDTO);
 
