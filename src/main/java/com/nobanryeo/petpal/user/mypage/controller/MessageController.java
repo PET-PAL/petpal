@@ -144,17 +144,10 @@ public class MessageController {
 		List<MessageTableDTO> msgList = messageService.selectDetailMessage(map);
 		System.out.println("쪽지 리스트 : " + msgList);
 		
-		MessageTableDTO oneList = new MessageTableDTO();
-		
-		for(int i = 0; i < 1; i++) {
-			oneList  = msgList.get(i);
-			System.out.println("oneList : " + oneList);
-		}
 		
 		model.addAttribute("paging", page);
 		model.addAttribute("msgList", msgList);
 		
-		model.addAttribute("oneList", oneList);
 		model.addAttribute("userCode1", userCode1);
 		model.addAttribute("userCode", userCode);
 		
