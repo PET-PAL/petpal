@@ -217,7 +217,9 @@
 							<td style="text-align: center; background-color: #F1FAF8;"><b>조회수</b></td>
 							<td style="border-radius: 0px 21px 0px 0px;"><c:out value=" ${requestScope.sharePlaceDetail.boardViews }"/>
 							<span>
-							<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;">
+								<c:if test="${ requestScope.sharePlaceDetail.userCode != sessionScope.loginUser.code && !empty sessionScope.loginUser.code }">
+									<img onclick="location.href='#reportPost'" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px; float:right; margin-right: 10px;">
+								</c:if>
 							</span>
 							</td>
 						</tr>
@@ -308,7 +310,11 @@
 							                <td style="text-align: center;"><c:out value="${ arr.replyDate }"/></td>
 							                <input type="hidden" value="${ arr.replyCode }" name="replyCode" class="replyCode"/>
 				                            	<input type="hidden" value="${ arr.userCode }" name="userCode1" class="userCode1"/>
-							                <td><img onclick="report(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px"></td>
+							                <td>
+							                	<c:if test="${ arr.userCode != sessionScope.loginUser.code && !empty sessionScope.loginUser.code }">
+							                		<img onclick="report(this)" class="${ arr.replyCode }" title="${ arr.userCode }" src="${ pageContext.servletContext.contextPath }/resources/images/report.jpg" style="width: 25px">
+							                	</c:if>
+							                </td>
 							            </tr>
 						            </c:if>
 						            <c:if test="${ arr.reportYN eq 'Y' }">
@@ -334,14 +340,15 @@
 			    </div>
             </section>
             
-            <!-- 게시글 작성자와 login 세션값 일치할 때 수정하기 버튼 보이기 -->
-            <form action="${ pageContext.servletContext.contextPath }/user/insert/sharePlace/reply" method="post">
-	            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
-	                <input type="text" name="replyContent" id="messagecontent" placeholder="  message" required>
-	                <input type="hidden" name="boardCode" value="${ requestScope.sharePlaceDetail.boardCode }">
-	                <button class="sendmessagecontent">댓글 작성</button>
-	            </section>
-            </form>
+            <c:if test="${ !empty sessionScope.loginUser.code }">
+	            <form action="${ pageContext.servletContext.contextPath }/user/insert/sharePlace/reply" method="post">
+		            <section id="sendmessage" class="sendmessage" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
+		                <input type="text" name="replyContent" id="messagecontent" placeholder="  message" required>
+		                <input type="hidden" name="boardCode" value="${ requestScope.sharePlaceDetail.boardCode }">
+		                <button class="sendmessagecontent">댓글 작성</button>
+		            </section>
+	            </form>
+            </c:if>
 
             <!-- 오른쪽 배너 -->
             <jsp:include page="../../common/banner.jsp"/>

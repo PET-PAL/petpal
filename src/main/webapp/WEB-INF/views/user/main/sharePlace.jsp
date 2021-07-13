@@ -152,7 +152,7 @@
 					</c:if>
 				</div>	
 	            <form method="get" action="${ pageContext.servletContext.contextPath }/user/select/sharePlace/list" style="float: right;">
-					<input type="search" placeholder="지역 키워드를 입력해주세요" name="keyWord" aria-label="Search" style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: gray;">
+					<input type="search" placeholder="지역 키워드를 입력해주세요" name="keyWord" aria-label="Search" required style="width: 300px; border-radius: 5px; background-color: #F1FAF8; height:40px; border: solid 1px; border-color: gray;">
 					<span>
 						<button type="submit" style="background-color: white; height: 40px; width: 50px; border: solid 1px; border-color: gray; border-radius: 5px;">검색</button>
 					</span>
@@ -220,6 +220,9 @@
 	                	</c:forEach>
 	                </c:if>
 		        </c:forEach>
+		        <c:if test="${ empty rquestScope.sharePlaceList.boardCode }">
+                	<p style="text-align:center; margin-top: 50px; font-size: 18px;">검색 결과가 없습니다</p>
+                </c:if>
        		</div><!-- End off container -->
    		</section><!-- End off Product section -->
    
