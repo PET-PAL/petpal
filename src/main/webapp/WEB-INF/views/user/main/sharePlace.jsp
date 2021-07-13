@@ -164,9 +164,9 @@
 			<div class="carousel-inner" role="listbox" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
 		    	<c:forEach var="arr" items="${ sharePlaceList }" varStatus="status">        
 		            <div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/detail?boardCode=${ arr.boardCode }'">
-		            	<div class="port_item xs-m-top-30">
+		            	<div class="port_item xs-m-top-30" style="text-align: center; height: 400px;">
 		                	<div class="port_img">
-                                <img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/${ arr.pictureUtilPath }"/>
+                                <img style="width:100%; height:250px;" src="${ pageContext.servletContext.contextPath }/${ arr.pictureUtilPath }"/>
 		                    </div>
 		                	<div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
 		                    	<h4><strong style="font-size:18px;"><c:out value="${ arr.boardTitle }"/></strong></h4>
@@ -186,9 +186,9 @@
 	                	<c:forEach var="adarr" items="${ randomAdPlace }" varStatus="adStatus">
 	                		<c:if test="${ adStatus.index == 0 }">
 		                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
-			                        <div class="port_item xs-m-top-30">
+			                        <div class="port_item xs-m-top-30" style="text-align: center; height: 400px;">
 			                            <div class="port_img" style="position: relative;">
-		                                	<img style="width:290px; height:250px; z-index: -1;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>
+		                                	<img style="width:100%; height:250px; z-index: -1;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>
 		                                	<div class="blink" style="position:absolute; left:5px; top:5px; font-weight: 600; font-size: 1.3em; color:red;">AD</div>
 			                            </div>
 			                            <div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
@@ -205,9 +205,9 @@
 	                	<c:forEach var="adarr" items="${ randomAdPlace }" varStatus="adStatus">
 	                		<c:if test="${ adStatus.index == 1 }">
 		                		<div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/ad/detail?adCode=${ adarr.adCode }'">
-			                        <div class="port_item xs-m-top-30">
+			                        <div class="port_item xs-m-top-30" style="text-align: center; height: 400px;">
 			                            <div class="port_img" style="position: relative;">
-		                                	<img style="width:290px; height:250px; z-index: -1;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>
+		                                	<img style="width:100%; height:250px; z-index: -1;" src="${ pageContext.servletContext.contextPath }/${ adarr.pictureUtilPath }"/>
 		                                	<div class="blink" style="position:absolute; left:5px; top:5px; font-weight: 600; font-size: 1.3em; color:red;">AD</div>
 			                            </div>
 			                            <div class="port_caption m-top-20" align="center" style="margin-bottom:20px;">
