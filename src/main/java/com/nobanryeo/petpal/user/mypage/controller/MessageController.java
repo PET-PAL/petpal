@@ -162,6 +162,14 @@ public class MessageController {
 	}
 	
 	
+	/**
+	 * 쪽지 보내기
+	 * @param messageDTO
+	 * @param userCode1
+	 * @param userCode
+	 * @param rttr
+	 * @return
+	 */
 	@PostMapping("message/messageSend")
 	public String messageSend(@ModelAttribute MessageTableDTO messageDTO
 			, @RequestParam int userCode1, @RequestParam int userCode, RedirectAttributes rttr) {
