@@ -68,7 +68,7 @@ public class EmailController {
 			model.addAttribute("message", "파일 업로드 실패!!!!");
 		}
         try {
-        		emailService.sendMail(dto,path,mailList); 
+        		emailService.sendMail(dto,path,mailList,ext); 
         		model.addAttribute("message", "뉴스레터 발송 성공");
         } catch (Exception e) {
             e.printStackTrace();
