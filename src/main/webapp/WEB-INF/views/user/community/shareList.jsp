@@ -14,6 +14,20 @@
                 margin-right: 15px;
                 text-align: center;
             }
+            @keyframes blink-effect {
+                50% {
+                    opacity: 0;
+                }
+            }
+            .blink {
+                animation: blink-effect 1s step-end infinite;
+            }
+			.filtering {
+				cursor: pointer;
+			}
+			.pagination > li > a, .pagination > li > span {
+            	color: #19A985 !important;
+            }
         </style>
 
     </head>

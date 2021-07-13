@@ -16,10 +16,6 @@
         </style>
         
 
-
-
-
-
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
   		<script src='https://cdn.jsdelivr.net/npm/underscore@1.12.0/underscore-min.js'></script>
   		<script type="text/javascript"src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -117,7 +113,7 @@
 			     				
 		     					output1 += '<div class="col-sm-3">';
 		     					output1 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-		     					output1 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptSearchList[i].boardCode +'\''+'">';
+		     					output1 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/'+ adoptSearchList[i].boardCode +'\''+'">';
 		     					output1 += '<input type="hidden" id="boardCode" value='+adoptSearchList[i].boardCode+'/>';
 		     					
 		     					if(adoptSearchList[i].stateName == '대기'){
@@ -199,7 +195,7 @@
 										     		
 										     					output += '<div class="col-sm-3">';
 										     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-										     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptList[0].boardCode +'\''+'">';
+										     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptList[i].boardCode +'\''+'">';
 										     					output += '<input type="hidden" id="boardCode" value="'+adoptList[i].boardCode+'"/>';
 										     					if(adoptList[i].stateName == '대기'){
 										     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius:0px 5px 5px 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';

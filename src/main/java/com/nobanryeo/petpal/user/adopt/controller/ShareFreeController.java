@@ -76,11 +76,7 @@ public class ShareFreeController {
 			, @RequestParam(value="category", required=false) String category
 			, @RequestParam(value="keyword", required = false) String keyword) {
 		
-		System.out.println("+!@!@!!@!@@!@!@+++++++++++++++  category 값은 무엇인교?!?!?" + category);
-		System.out.println("+!@!@!!@!@@!@!@+++++++++++++++  keyword 값은 무엇인교?!?!?" + keyword);
-		
 		Cookie[] cookies = request.getCookies();
-		
 		
 		for(Cookie cookie : cookies) {
 			if(!cookie.getName().equals("sharefree")) {
@@ -112,15 +108,10 @@ public class ShareFreeController {
 			}
 	    	
 	    	page = new PageDTO(totalCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-	    	System.out.println("현재 페이지 : " + page.getNowPage());
-			System.out.println("마지막 페이지 : " + page.getEnd());
-			System.out.println("페이지당 글 갯수 : " + page.getCntPerPage());
-			
 	
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put("sharefreeDTO", shareDTO);
 			map.put("pageInfo", page);
-			
 	    	
 	    	List<ShareFreeDTO> shareList = sharefreeService.selectShareFreeList(map);
 	    	
@@ -143,15 +134,10 @@ public class ShareFreeController {
     		}
     		
     		page = new PageDTO(totalIngCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-        	System.out.println("현재 페이지 : " + page.getNowPage());
-    		System.out.println("마지막 페이지 : " + page.getEnd());
-    		System.out.println("페이지당 글 갯수 : " + page.getCntPerPage());
     		
-
     		HashMap<String, Object> map1 = new HashMap<String, Object>();
     		map1.put("sharefreeDTO", shareDTO);
     		map1.put("pageInfo", page);
-    		
         	
         	List<ShareFreeDTO> shareIngList = sharefreeService.selectIngList(map1);
         	
@@ -174,10 +160,6 @@ public class ShareFreeController {
     		}
     		
     		page = new PageDTO(totalComCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-        	System.out.println("현재 페이지 : " + page.getNowPage());
-    		System.out.println("마지막 페이지 : " + page.getEnd());
-    		System.out.println("페이지당 글 갯수 : " + page.getCntPerPage());
-    		
 
     		HashMap<String, Object> map2 = new HashMap<String, Object>();
     		map2.put("sharefreeDTO", shareDTO);
@@ -206,17 +188,12 @@ public class ShareFreeController {
 	    		}
 	    		
 	    		page = new PageDTO(totalkeywordCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
-	        	System.out.println("현재 페이지 : " + page.getNowPage());
-	    		System.out.println("마지막 페이지 : " + page.getEnd());
-	    		System.out.println("페이지당 글 갯수 : " + page.getCntPerPage());
-	    		
 	
 	    		HashMap<String, Object> map3 = new HashMap<String, Object>();
 	    		map3.put("sharefreeDTO", shareDTO);
 	    		map3.put("pageInfo", page);
 	    		map3.put("keyword", keyword);
 	    		
-	        	
 	        	List<ShareFreeDTO> shareSearchList = sharefreeService.selectSearchList(map3);
 	        	System.out.println(shareSearchList);
 	        	
@@ -227,8 +204,6 @@ public class ShareFreeController {
 	        	model.addAttribute("randomAdNonPlace", adService.selectRandomAdNonPlace());
 	    	}
 	    	
-    		
-    	
 		return "user/community/shareList";
 	}
 	
@@ -406,7 +381,6 @@ public class ShareFreeController {
 	@PostMapping("shareFree/updateBoard/{boardCode}")
 	public String updateShareFreeInfo(@PathVariable("boardCode") int code, RedirectAttributes rttr,Model model, @ModelAttribute ShareFreeDTO shareDTO,@ModelAttribute PictureDTO picture) {
 		 
-		System.out.println("꼬오오오온트로로롤로러 여기오나?@?@?@?@?@?");
 		shareDTO.setBoardCode(code);
 		picture.setBoardCode(code);
 		 
