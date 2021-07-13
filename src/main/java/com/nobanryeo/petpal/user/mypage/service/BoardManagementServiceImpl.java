@@ -79,16 +79,6 @@ public class BoardManagementServiceImpl implements BoardManagementService{
 		return mapper.selectReviewList(map);
 	}
 
-	/*
-	 * @Override public int selectReplyCount(BoradAndCommentDTO bcDTO) { return
-	 * mapper.selectReplyCount(bcDTO); }
-	 */
-
-//	@Override
-//	public List<BoradAndCommentDTO> selectReplyList(HashMap<String, Object> map) {
-//		return mapper.selectReplyList(map);
-//	}
-
 	@Override
 	public boolean deletePost(int boardCode) {
 		return mapper.deleteMissingPost(boardCode) > 0? true : false;
