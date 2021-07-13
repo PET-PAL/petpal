@@ -95,7 +95,6 @@
 					          
 				                chart2.draw(data2, {
 				                    title : "게시판별 조회 수",
-				                    //curveType : "function", //curveType는 차트의 모양이 곡선으로 바뀐다는 뜻
 				                    width : 700,
 				                    height : 450,
 				                    hAxis: {

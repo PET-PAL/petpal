@@ -634,7 +634,7 @@ $('#create_pdf').click(function() {
 	 
 	   
 
-	    doc.save('baekguTax' + '${ requestScope.tax.now }' + '${ requestScope.tax.bName }' + '.pdf'); //pdf저장
+	    doc.save('petpalTax' + '${ requestScope.tax.now }' + '${ requestScope.tax.bName }' + '.pdf'); //pdf저장
 	    
 	  });
 	});
