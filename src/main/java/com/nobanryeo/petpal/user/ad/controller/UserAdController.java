@@ -227,12 +227,13 @@ public class UserAdController {
 	 * 광고문의 작성
 	 */
 	@PostMapping("insert/adQnA")
-	public String insertAdQnA(@ModelAttribute AdQnADTO adQnA, @SessionAttribute UserInfoDTO loginUser) {
+	public String insertAdQnA(@ModelAttribute AdQnADTO adQnA, @SessionAttribute UserInfoDTO loginUser, RedirectAttributes rttr) {
 		
 		adQnA.setUserCode(loginUser.getCode());
 		
 		if(adService.insertAdQnA(adQnA) > 0) {
 			System.out.println("광고 문의 작성 성공");
+			rttr.addFlashAttribute("message", "문의 처리 예상 기간은 문의하고 난 후, 3일 이내입니다. 문의내역은 마이페이지에서 조회가 가능합니다!");
 		} else {
 			System.out.println("광고 문의 작성 실패");
 		}
