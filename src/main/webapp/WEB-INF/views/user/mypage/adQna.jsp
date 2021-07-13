@@ -97,7 +97,7 @@
 	  						 <textarea id="summernote" name="boardContent" required></textarea>
 	  						 <script>
 	  						$j3('#summernote').summernote({
-		  	                    placeholder: '정보공유 게시글을 작성해주세요',
+		  	                    placeholder: '광고 문의를 작성해주세요',
 		  	                    tabsize: 2,
 		  	                    height: 500,
 		  	                    callbacks: {

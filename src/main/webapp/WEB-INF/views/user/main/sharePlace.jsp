@@ -220,9 +220,6 @@
 	                	</c:forEach>
 	                </c:if>
 		        </c:forEach>
-		        <c:if test="${ empty rquestScope.sharePlaceList.boardCode }">
-                	<p style="text-align:center; margin-top: 50px; font-size: 18px;">검색 결과가 없습니다</p>
-                </c:if>
        		</div><!-- End off container -->
    		</section><!-- End off Product section -->
    
