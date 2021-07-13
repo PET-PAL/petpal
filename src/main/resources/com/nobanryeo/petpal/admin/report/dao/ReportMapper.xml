@@ -145,25 +145,20 @@
 						    A.REPLY_REPORT_DATE AS REPORT_DATE,
 						    NVL2(A.DECISION_CODE,E.STATE_NAME,'대기중') AS STATE
 						    
-						    
 						    FROM REPLY_REPORT_TABLE A
 						    JOIN USER_TABLE B ON(A.USER_CODE1 = B.USER_CODE)
 						    JOIN USER_TABLE C ON(A.USER_CODE = C.USER_CODE)
 						    LEFT OUTER JOIN DECISION_TABLE D ON(A.DECISION_CODE = D.DECISION_CODE)
 						    LEFT OUTER JOIN STATE_TABLE E ON(D.STATE_CODE = E.STATE_CODE)
-						    
                     		<if test='searchCondition == "userId"'>
 							WHERE C.USER_ID LIKE '%' || #{searchValue} || '%' 
-							
 							</if>
 							<if test='searchCondition == "boardTitle"'>
 							WHERE A.REPLY_REPORT_TITLE LIKE '%' || #{searchValue} || '%' 
 							</if>
-							
 							<choose>
 								<when test="sortValue == 1">
 									ORDER BY E.STATE_NAME DESC ,A.REPLY_REPORT_DATE DESC
-											
 								</when>
 								<when test="sortValue == 2">
 									ORDER BY E.STATE_NAME ASC ,A.REPLY_REPORT_DATE DESC
@@ -172,11 +167,7 @@
 									ORDER BY A.REPLY_REPORT_DATE DESC
 								</otherwise>
 							</choose>
-                    		
                     		</when>
-                    		
-                    		
-                    		
                     		<otherwise>
                     		A.REPORT_CODE,
                             D.USER_ID,
@@ -220,16 +211,13 @@
 	                        
 	                        <if test='searchCondition == "userId"'>
 							WHERE D.USER_ID LIKE '%' || #{searchValue} || '%' 
-							
 							</if>
 							<if test='searchCondition == "boardTitle"'>
 							WHERE B.REPORT_TITLE LIKE '%' || #{searchValue} || '%' 
 							</if>
-							
 							<choose>
 								<when test="sortValue == 1">
 									ORDER BY F.STATE_NAME DESC ,A.REPORT_CODE DESC
-											
 								</when>
 								<when test="sortValue == 2">
 									ORDER BY F.STATE_NAME ASC ,A.REPORT_CODE DESC
@@ -240,13 +228,9 @@
 							</choose>
                     		</otherwise>
                     		</choose>
-                            
                         )G
                 )A 
                 WHERE RNUM BETWEEN #{start} AND #{end}
-	
-	
-	
 	</select>
 	<select id="selectReportDetail" resultMap="ReportDetailSet" parameterType="ReportDetailDTO">
 	SELECT

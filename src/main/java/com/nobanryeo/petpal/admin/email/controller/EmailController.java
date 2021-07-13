@@ -35,21 +35,12 @@ public class EmailController {
     @RequestMapping("send.do") // 확인 (메일발송) 버튼을 누르면 맵핑되는 메소드
     public String send(@RequestParam("file") MultipartFile multipartFile,@ModelAttribute EmailDTO dto, Model model, HttpServletRequest request,
     		RedirectAttributes rttr) {
-		
-		/*
-		 * multipart로 전송된 request에 대한 인코딩 처리를 해주어야 하는데 일반 인코딩 필터보다 구현하기 힘들다.
-		 * 스프링에서 인코딩 필터를 제공한다. --> web.xml에 필터를 등록
-		 * */
 		System.out.println("singleFile : " + multipartFile);
-		
 		
 		/* 파일을 저장할 경로 설정 */
 		String root = request.getSession().getServletContext().getRealPath("resources");
-		
 		System.out.println("root : " + root);
-		
 		String filePath = root + "\\uploadFiles";
-		
 		File mkdir = new File(filePath);
 		if(!mkdir.exists()) {
 			mkdir.mkdir();
@@ -72,18 +63,13 @@ public class EmailController {
 			model.addAttribute("message", "파일 업로드 성공!!!!");
 		}catch (Exception e) {
 			e.printStackTrace();
-			
 			/* 실패시 파일 삭제 */
 			new File(filePath + "\\" + saveName).delete();
 			model.addAttribute("message", "파일 업로드 실패!!!!");
 		}
-		
-    	 
-    	
         try {
         		emailService.sendMail(dto,path,mailList); 
         		model.addAttribute("message", "뉴스레터 발송 성공");
- 
         } catch (Exception e) {
             e.printStackTrace();
             model.addAttribute("message", "이메일 발송 실패..."); // 이메일 발송이 실패되었다는 메시지를 출력
