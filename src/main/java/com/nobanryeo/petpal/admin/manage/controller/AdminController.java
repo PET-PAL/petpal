@@ -68,18 +68,17 @@ public class AdminController {
 	           model.addAttribute("adminList", adminList);
 	       }else {
 	       System.out.println("카테고리 : "+category);
-	       //글 카운트 
 	       AdminPageInfoDTO cat = new AdminPageInfoDTO(category,searchCondition,searchValue);
 	       System.out.println("카테고리 2 : "+cat.getCategory());
 	       int total = adminService.selectListCount(cat);
 	       
-	      paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category,searchCondition,searchValue,sortValue);
-	      model.addAttribute("paging", paging);
-	      model.addAttribute("total",total);
-	      model.addAttribute("category", category);
-	      model.addAttribute("searchCondition", searchCondition);
-	      model.addAttribute("searchValue", searchValue);
-	      model.addAttribute("sortValue",sortValue);
+	       paging = new AdminPageInfoDTO(total, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage),category,searchCondition,searchValue,sortValue);
+	       model.addAttribute("paging", paging);
+	       model.addAttribute("total",total);
+	       model.addAttribute("category", category);
+	       model.addAttribute("searchCondition", searchCondition);
+	       model.addAttribute("searchValue", searchValue);
+	       model.addAttribute("sortValue",sortValue);
 
 	       List<UserInfoDTO> adminList = adminService.selectAdminList(paging);
 	       System.out.println(adminList);
@@ -118,6 +117,7 @@ public class AdminController {
 		boolean insertUser = userService.insertUser(userInfo);
 		boolean insertAdmin = adminService.insertAdmin(userInfo);
 		System.out.println("유저 insert 결과 : " + insertUser);
+		System.out.println("adminUpdate 결과 : " + insertAdmin);
 		
 		return "admin/main/adminAdd";
 	}
@@ -134,6 +134,7 @@ public class AdminController {
 		
 		param.put("permissonCode", Integer.parseInt(permissonCode));
 		param.put("userCode", userCode);
+		
 		boolean updateAdmin = adminService.updateAdmin(param);
 		System.out.println(updateAdmin);
 		return adminListReturning(model, null, null, null, null, null, null, null);
@@ -147,6 +148,7 @@ public class AdminController {
 		Map param = new HashMap();
 		param.put("permissonCode", permissonCode);
 		param.put("userCode", userCode);
+		
 		boolean updateAdmin = adminService.updateAdmin(param);
 		boolean updateAdminTable = adminService.updateAdminTable(userCode);
 		
