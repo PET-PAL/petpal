@@ -177,18 +177,14 @@
                                             
                                             /* 전체 조회용 json 호출 */
                                             $j3(document).ready(function(){
-										     		console.log("MissingPage select script");
 										     		
 										     		$j3.ajax({
 										     			url:"/petpal/user/missingList",
 										     			success:function(data,status,xhr){
 										     				missingList1 = JSON.parse(data.missingList);
 										     				missingList = _.uniq(missingList1, 'boardCode');
-										     			
 										     				totalCount = Math.ceil(missingList.length/12);
-										     				console.table(missingList);
-										     				output='';
-										     				outputPage='';
+										     				
 										     				for(i=0; i< missingList.length; i++){
 										     					if( i < 12){
 										     					output += '<div class="col-sm-3">';
@@ -214,10 +210,8 @@
 										     					output += '</div>';
 										     					output += '</div>';
 										     					output += '</div>';
-								                                    
 										     					}
 										     				}
-										     				
 										     				$j3('#missingTotalList').append(output);
 										     				
 										     				for(j=0; j< missingList.length; j++){
@@ -228,7 +222,6 @@
 												     				$j3('#pagination').append(outputPage);
 										     					}
 										     				}
-										     				
 										     			},error:function(xhr,status,error){
 										     				alert("에러 발생~삐뽀~");
 										     				console.log(error);
@@ -239,9 +232,7 @@
                                             /* 전체 페이징 함수*/
                                             function pageSearchClick(p){
                                           		$j3("#missingTotalList").empty();
-                                          		console.log("여기오나?? pageclick");
                                           		let value = p.innerText;
-                                          		
                                           		output='';
                                           		for(i=12*(value-1); i< missingList.length; i++){
                                           		if(i<=(value*10)+(value*2-1)){

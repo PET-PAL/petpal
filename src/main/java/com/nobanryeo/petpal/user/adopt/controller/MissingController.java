@@ -80,15 +80,13 @@ public class MissingController {
 		List<MissingPictureDTO> missingList = new ArrayList<>();
 		missingList=missingService.selectMissingList();
 		
-		System.out.println("controller: "+missingList);
-		
 		Gson gson = new GsonBuilder().setPrettyPrinting()
 				.setFieldNamingPolicy(FieldNamingPolicy.IDENTITY)
 				.serializeNulls().disableHtmlEscaping().create();
 	
 		mv.addObject("missingList", gson.toJson(missingList));
 		mv.setViewName("jsonView");
-		
+
 		return mv;
 	}
 	

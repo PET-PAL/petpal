@@ -152,13 +152,7 @@
     background: none !important;
 }
         </style>
-        
 
-        <meta charset="utf-8">
-        <title>PET-PAL</title>
-        <meta name="description" content="">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="icon" type="image/png" href="favicon.ico">
 
         <script src="${ pageContext.servletContext.contextPath }/resources/js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
        	<script src="https://kit.fontawesome.com/4978ce16d0.js" crossorigin="anonymous"></script>

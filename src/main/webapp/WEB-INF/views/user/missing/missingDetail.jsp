@@ -199,7 +199,7 @@
          <section>
        <!--      <div class="port_img" style="float: left; width: 600px;"> -->
                    <%-- <img src="${ pageContext.servletContext.contextPath }/resources/images/work-img1.jpg" style="float: left; margin-left: 50px;"alt="" /> --%>
-				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="float: left;margin-left: 20px;">
+				<div id="carousel-example-generic" class="carousel slide" data-ride="carousel" style="float: left;margin-left: 180px;">
                             <!-- Indicators -->
                             <ol class="carousel-indicators">
                                 <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
@@ -259,7 +259,7 @@
                       </li>
                    </ul>
                 </div>
-                <div style="float: left;margin-left:30px; margin-top: 15px;">
+                <div style="float: left;margin-left:-22%; margin-top: 15px;">
                    <h1 id="h1_itm" style="font-weight: bold;"><c:out value="${requestScope.missingDetail.breed}"/>/ 
                    <c:if test="${requestScope.missingDetail.gender eq 'M'}">
                    	남아  <br> 
