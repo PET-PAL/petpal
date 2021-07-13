@@ -156,6 +156,9 @@ input {
 												</c:forEach>
 												</tbody>
 											</table>
+											<c:if test="${ requestScope.total  eq 0}">
+                              <p style="text-align:center;">검색 결과가 없습니다</p>
+                           </c:if>
 											<div style="display: block; text-align: center;">	
 				                              <div style="float: right;">
 				        <c:choose>

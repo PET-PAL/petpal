@@ -153,6 +153,7 @@ select { width: 150px; /* 원하는 너비설정 */
                             </ul>   
                             
 							<div class="container-fluid" style="margin-top: 15px;">
+                            <c:if test="${ empty category }">
 							 <div class="container-fluid" style="float:left;">
 									<select id="monthChange" name="month" onchange="monthChange()" class="ui search dropdown" style="font-size:15px; text-align:center !important; width:150px;">
 												  <option value ="0">월별 조회</option>
@@ -171,17 +172,9 @@ select { width: 150px; /* 원하는 너비설정 */
 												
 									</select>
 								</div>
-								
+								</c:if>
 					
-									
-									
-								    <!-- <form class="d-flex" style="float:right;">
-									     <div class="search">
-									      <input type="text" placeholder="유저명으로 검색해주세요.">
-									      <i class="fas fa-search fa-2x"></i>
-									   	</div>
-								    </form> -->
-								    
+						    
 								    <!-- 검색폼 시작 -->
 								    <form action="${ pageContext.servletContext.contextPath }/admin/payList" method="get" class="d-flex">
 								  	<input type="hidden" name="cntPerPage" value="${ paging.cntPerPage }"/>
@@ -524,6 +517,10 @@ select { width: 150px; /* 원하는 너비설정 */
 												 </c:choose>
 												</tbody>
 											</table>
+											
+									<c:if test="${ requestScope.total  eq 0}">
+										<p style="text-align:center;">검색 결과가 없습니다</p>
+									</c:if>
 											
                             <!-- 페이징 몇 개씩 볼지 선택 -->
                             <div style="display: block; text-align: center;">	
