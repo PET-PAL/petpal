@@ -294,7 +294,7 @@
                 	<c:out value="${requestScope.adoptDetail.adoptWeight}"/>KG / <c:out value="${requestScope.adoptDetail.adoptColor}"/></h1>
                 </div>
                 <div align="center">
-                <pre style="width: 900px; white-space: pre-wrap; background-color: white; border: 0px; font-size: 20px;">
+                <pre style="width: 900px; white-space: pre-wrap; background-color: white; border: 0px; overflow-x: hidden; font-size: 20px;">
 <c:out value="${requestScope.adoptDetail.adoptIntroduce}"/>
                 </pre>
                 </div>

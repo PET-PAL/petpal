@@ -105,14 +105,13 @@
 		     				
 		     				var i;
 		     				if(adoptSearchList.length == 0){
-		     					output1 +='<h1></h1>';
-		     					output1 += '<h1 style="text-align:center;">검색 결과가 없습니다</h1>';
+		     					output1 += '<h3 style="text-align:center;">검색 결과가 없습니다.</h3>';
 		     				}
 		     				for(i=0; i< adoptSearchList.length; i++){
 		     					if( i < 12){
 			     				
 		     					output1 += '<div class="col-sm-3">';
-		     					output1 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+		     					output1 += '<div class="port_item xs-m-top-30" style="cursor:pointer;height:400px">';
 		     					output1 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/'+ adoptSearchList[i].boardCode +'\''+'">';
 		     					output1 += '<input type="hidden" id="boardCode" value='+adoptSearchList[i].boardCode+'/>';
 		     					
@@ -122,7 +121,7 @@
 		     					if(adoptSearchList[i].stateName == '승인'){
 		     						output1+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
 		     					}
-		     					output1 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptSearchList[i].pictureUtilPath+'" alt="" />';
+		     					output1 += '<img style="width:100%; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptSearchList[i].pictureUtilPath+'" alt="" />';
 		     					output1 += '</div>';
 		     					output1 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
 		     					if(adoptSearchList[i].adoptGender == 'M'){
@@ -176,6 +175,7 @@
                                             var outputPage;
                                             var output = '';
                                             var outfil = '';
+                                            var i;
                                             
                                             
                                             $j3(document).ready(function(){
@@ -186,15 +186,12 @@
 										     				adoptList1 = JSON.parse(data.adoptList);
 										     				adoptList = _.uniq(adoptList1, 'boardCode');
 										     				totalCount = Math.ceil(adoptList.length/12);
-										     				console.log(totalCount);
 										     				
-										     				console.table(adoptList);
-										     				/* let i; */
-										     				for(let i=0; i< adoptList.length; i++){
+										     				for(i=0; i< adoptList.length; i++){
 										     					if( i < 12){
 										     		
 										     					output += '<div class="col-sm-3">';
-										     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+										     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer; height:400px;">';
 										     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptList[i].boardCode +'\''+'">';
 										     					output += '<input type="hidden" id="boardCode" value="'+adoptList[i].boardCode+'"/>';
 										     					if(adoptList[i].stateName == '대기'){
@@ -203,7 +200,7 @@
 										     					if(adoptList[i].stateName == '승인'){
 										     						output+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
 										     					}
-										     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptList[i].pictureUtilPath+'" alt="" />';
+										     					output += '<img style="width:100%; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptList[i].pictureUtilPath+'" alt="" />';
 										     					output += '</div>';
 										     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
 										     					if(adoptList[i].adoptGender == 'M'){
@@ -248,8 +245,8 @@
                                           		for(i=12*(value-1); i< adoptList.length; i++){
                                           		if(i<=(value*10)+(value*2-1)){
                         	     					output += '<div class="col-sm-3">';
-							     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
-							     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptList[0].boardCode +'\''+'">';
+							     					output += '<div class="port_item xs-m-top-30" style="cursor:pointer;height:400px;">';
+							     					output += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptList[i].boardCode +'\''+'">';
 							     					output += '<input type="hidden" id="boardCode" value="'+adoptList[i].boardCode+'"/>';
 							     					if(adoptList[i].stateName == '대기'){
 							     						output += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius:0px 5px 5px 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
@@ -257,7 +254,7 @@
 							     					if(adoptList[i].stateName == '승인'){
 							     						output+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
 							     					}
-							     					output += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptList[i].pictureUtilPath+'" alt="" />';
+							     					output += '<img style="width:100%; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptList[i].pictureUtilPath+'" alt="" />';
 							     					output += '</div>';
 							     					output += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
 							     					if(adoptList[i].adoptGender == 'M'){
@@ -288,11 +285,11 @@
                                           		for(i=12*(value-1); i< adoptWaitingList.length; i++){
                                           		if(i<=(value*10)+(value*2-1)){
                                           			output2 += '<div class="col-sm-3">';
-							     					output2 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+							     					output2 += '<div class="port_item xs-m-top-30" style="cursor:pointer;height:400px;">';
 							     					output2 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptWaitingList[i].boardCode +'\''+'">';
 							     					output2 += '<input type="hidden" id="boardCode" value="'+adoptWaitingList[i].boardCode+'"/>';
 							     					output2 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius:0px 5px 5px 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
-							     					output2 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
+							     					output2 += '<img style="width:100%; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
 							     					output2 += '</div>';
 							     					output2 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
 							     					if(adoptWaitingList[i].adoptGender == 'M'){
@@ -323,11 +320,11 @@
                                           		for(i=12*(value-1); i< adoptWaitingList.length; i++){
                                           		if(i<=(value*10)+(value*2-1)){
                                           			output3 += '<div class="col-sm-3">';
-							     					output3 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+							     					output3 += '<div class="port_item xs-m-top-30" style="cursor:pointer;height:400px">';
 							     					output3 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptWaitingList[i].boardCode +'\''+'">';
 							     					output3 += '<input type="hidden" id="boardCode" value='+adoptWaitingList[i].boardCode+'/>';
 							     					output3 +='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
-							     					output3 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
+							     					output3 += '<img style="width:100%; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
 							     					output3 += '</div>';
 							     					output3 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
 							     					if(adoptWaitingList[i].adoptGender == 'M'){
@@ -358,7 +355,7 @@
                                           		for(i=12*(value-1); i< adoptSearchList.length; i++){
                                           		if(i<=(value*10)+(value*2-1)){
                                           			output1 += '<div class="col-sm-3">';
-                    		     					output1 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+                    		     					output1 += '<div class="port_item xs-m-top-30" style="cursor:pointer;height:400px;">';
                     		     					output1 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptSearchList[i].boardCode +'\''+'">';
                     		     					output1 += '<input type="hidden" id="boardCode" value='+adoptSearchList[i].boardCode+'/>';
                     		     					
@@ -368,7 +365,7 @@
                     		     					if(adoptSearchList[i].stateName == '승인'){
                     		     						output1+='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
                     		     					}
-                    		     					output1 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptSearchList[i].pictureUtilPath+'" alt="" />';
+                    		     					output1 += '<img style="width:100%; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptSearchList[i].pictureUtilPath+'" alt="" />';
                     		     					output1 += '</div>';
                     		     					output1 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
                     		     					if(adoptSearchList[i].adoptGender == 'M'){
@@ -418,11 +415,11 @@
 							     					if( i < 12){
 								     				
 							     					output2 += '<div class="col-sm-3">';
-							     					output2 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+							     					output2 += '<div class="port_item xs-m-top-30" style="cursor:pointer;height:400px;">';
 							     					output2 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptWaitingList[i].boardCode +'\''+'">';
 							     					output2 += '<input type="hidden" id="boardCode" value="'+adoptWaitingList[i].boardCode+'"/>';
 							     					output2 += '<p style="position: absolute; font-size: 20px; background-color: orange; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius:0px 5px 5px 5px; font-weight: bold;" align="center">'+'대기중'+'</p>';
-							     					output2 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
+							     					output2 += '<img style="width:100%; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
 							     					output2 += '</div>';
 							     					output2 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
 							     					if(adoptWaitingList[i].adoptGender == 'M'){
@@ -477,11 +474,11 @@
 							     					if( i < 12){
 								     				
 							     					output3 += '<div class="col-sm-3">';
-							     					output3 += '<div class="port_item xs-m-top-30" style="cursor:pointer;">';
+							     					output3 += '<div class="port_item xs-m-top-30" style="cursor:pointer; height:400px;">';
 							     					output3 += '<div class="port_img" style="position: relative;" onclick="location.href='+'\'' + '${ pageContext.servletContext.contextPath }/user/adopt/detail/' + adoptWaitingList[i].boardCode +'\''+'">';
 							     					output3 += '<input type="hidden" id="boardCode" value='+adoptWaitingList[i].boardCode+'/>';
 							     					output3 +='<p style="position: absolute; font-size: 20px; background-color: #FF6230; color: white; height: 30px; width: 100px; padding-top: 6px; border-radius: 0px 5px 5px 5px; font-weight: bold;" align="center">'+'완료'+'</p>'
-							     					output3 += '<img style="width:290px; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
+							     					output3 += '<img style="width:100%; height:250px;" src="${ pageContext.servletContext.contextPath }/'+adoptWaitingList[i].pictureUtilPath+'" alt="" />';
 							     					output3 += '</div>';
 							     					output3 += '<div class="port_caption m-top-20" align="center" style="margin-bottom: 30px;">';
 							     					if(adoptWaitingList[i].adoptGender == 'M'){

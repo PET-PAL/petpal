@@ -271,8 +271,6 @@
                    <c:out value="${requestScope.missingDetail.age}"/>살 / 
                    <c:out value="${requestScope.missingDetail.weigth}"/>KG / 
                    <c:out value="${requestScope.missingDetail.color}"/></h1>
-                </div>
-                <div style="float: left; width: 600px; margin-left: 20px;margin-top: 20px;">
                    <table style="margin-bottom: 50px;width: 600px;">
                     <tbody>
                         <tr>
@@ -319,6 +317,7 @@
                 </table>
                 </div>
                 <div style="float: left; width: 600px; margin-left: 30px;" align="center">
+                <c:if test="${requestScope.missingDetail.stateCode == 1}">
                    <button onclick="show();" style="background-color: red; border: 0px; border-radius:10px; width: 250px; margin-left:10px;">
                          <h3 style="color: white; padding-top: 10px; font-weight: bold;">전단지 생성하기</h3>
                    </button>
@@ -328,6 +327,7 @@
 	                   <div style="float:right;margin-top: 10px;">
 					       <button class="btn btn-light" id="revised_btn" style="width:100px; color: orange;border:none; background-color:white; type="button" onclick="revisedfn();" >수정하기</button>
 				       </div>
+                    </c:if>
                     </c:if>
                    <!-- 찾았습니다 버튼이 눌릴시 아래의 h3이 나오면 된다. -> 상태에 따른 c:if처리 -->
                    <c:if test="${requestScope.missingDetail.stateCode == 2}">
