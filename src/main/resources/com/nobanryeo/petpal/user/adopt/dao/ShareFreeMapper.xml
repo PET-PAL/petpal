@@ -144,7 +144,7 @@
 		                  JOIN PICTURE_TABLE P ON(P.PICTURE_CODE = SM.PICTURE_CODE)
 		                 WHERE S.BOARD_DELETE_YN = 'N'
 		                   AND P.PICTURE_DELETE_YN = 'N'
-		                   AND S.STATE_CODE = 1
+		                   AND S.STATE_CODE = 2
 		                 ORDER BY S.BOARD_POST_DATE DESC
 		                 )R
 		            )
