@@ -100,11 +100,11 @@ public class ShareFreeController {
 			
 			if(nowPage == null && cntPerPage == null) {
 				nowPage = "1";
-				cntPerPage = "12";
+				cntPerPage = "10";
 			} else if(nowPage == null) {
 				nowPage = "1";
 			} else if(cntPerPage == null) {
-				cntPerPage = "12";
+				cntPerPage = "10";
 			}
 	    	
 	    	page = new PageDTO(totalCount, Integer.parseInt(nowPage), Integer.parseInt(cntPerPage));
