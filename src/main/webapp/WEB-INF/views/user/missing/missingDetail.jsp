@@ -271,8 +271,6 @@
                    <c:out value="${requestScope.missingDetail.age}"/>살 / 
                    <c:out value="${requestScope.missingDetail.weigth}"/>KG / 
                    <c:out value="${requestScope.missingDetail.color}"/></h1>
-                </div>
-                <div style="float: left; width: 600px; margin-left: 20px;margin-top: 20px;">
                    <table style="margin-bottom: 50px;width: 600px;">
                     <tbody>
                         <tr>

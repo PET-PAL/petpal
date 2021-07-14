@@ -104,7 +104,7 @@
 		     				
 		     				for(i=0; i< missingSearchList.length; i++){
 		     					if(missingSearchList.length <1){
-		     						output1 +='<h1> 조회된 게시글이 없습니다. </h1>';
+		     						output1 +='<h3> 검색 결과가 없습니다. </h3>';
 		     					}
 		     					if( i < 12){
 			     				
