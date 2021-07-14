@@ -162,6 +162,10 @@
 		
 		<section>
 			<div class="carousel-inner" role="listbox" style="width: 70%; margin: 0px auto; margin-bottom: 50px;">
+				<c:if test="${ empty requestScope.sharePlaceList }">
+		            <br><br>
+		            <h3 align="center">검색결과가 없습니다.</h3>
+	         	</c:if>
 		    	<c:forEach var="arr" items="${ sharePlaceList }" varStatus="status">        
 		            <div class="col-sm-3" onclick="location.href='${ pageContext.servletContext.contextPath }/user/select/sharePlace/detail?boardCode=${ arr.boardCode }'">
 		            	<div class="port_item xs-m-top-30" style="text-align: center; height: 400px;">
