@@ -36,12 +36,10 @@ public class MissingServiceImpl implements MissingService {
 
 	@Override
 	public int insertMissingWrite(MissingDTO missing, List<PictureDTO> pictureList) {
+		
 		int result1 = missingMapper.insertMissingInfo(missing);
 		
-		System.out.println("infoResult in service: "+result1);
-		
 		int boardCode = missing.getBoardCode();
-		System.out.println("boardCode in service: "+boardCode);
 		
 		int pictureResult = 0;
 		
