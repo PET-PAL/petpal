@@ -232,7 +232,7 @@
 			<ul class="pagination">
 				<li>
 					<c:if test="${paging.startPage != 1 }">
-						<li><a href="${ pageContext.servletContext.contextPath }/user/select/shareInfo/list?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
+						<li><a href="${ pageContext.servletContext.contextPath }/user/select/sharePlace/list?nowPage=${paging.startPage - 1 }&cntPerPage=${paging.cntPerPage}">&lt;</a></li>
 					</c:if>
 					<c:forEach begin="${paging.startPage }" end="${paging.endPage }" var="p">
 						<c:choose>
@@ -240,12 +240,12 @@
 								<li><a>${p }</a></li>
 							</c:when>
 							<c:when test="${p != paging.nowPage }">
-								<li><a href="${ pageContext.servletContext.contextPath }/user/select/shareInfo/list?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
+								<li><a href="${ pageContext.servletContext.contextPath }/user/select/sharePlace/list?nowPage=${p }&cntPerPage=${paging.cntPerPage}">${p }</a></li>
 							</c:when>
 						</c:choose>
 					</c:forEach>
 					<c:if test="${paging.endPage != paging.lastPage}">
-						<li><a href="${ pageContext.servletContext.contextPath }/user/select/shareInfo/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
+						<li><a href="${ pageContext.servletContext.contextPath }/user/select/sharePlace/list?nowPage=${paging.endPage+1 }&cntPerPage=${paging.cntPerPage}">&gt;</a></li>
 					</c:if>
 				</li>
 			</ul>
