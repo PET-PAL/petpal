@@ -109,7 +109,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping("insertAdmin")
-	public String insertAdmin(@ModelAttribute UserInfoDTO userInfo) {
+	public String insertAdmin(Model model,@ModelAttribute UserInfoDTO userInfo) {
 		System.out.println(userInfo);
 		
 		//비밀번호 암호화 작업
@@ -119,7 +119,7 @@ public class AdminController {
 		System.out.println("유저 insert 결과 : " + insertUser);
 		System.out.println("adminUpdate 결과 : " + insertAdmin);
 		
-		return "admin/main/adminAdd";
+		return adminListReturning(model, null, null, null, null, null, null, null);
 	}
 	
 	
