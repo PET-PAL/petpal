@@ -30,7 +30,7 @@ public class EmailServiceImpl implements EmailService{
 	}
 
 	@Override
-	public void sendMail(EmailDTO dto, String path,List<String> mailList) {
+	public void sendMail(EmailDTO dto, String path,List<String> mailList, String ext) {
 		try {
             // 이메일 객체
             MimeMessage msg = mailSender.createMimeMessage();
@@ -48,7 +48,7 @@ public class EmailServiceImpl implements EmailService{
             helper.setSubject(dto.getSubject());
             helper.setText(dto.getMessage());
             DataSource dataSource = new FileDataSource(path);
-            helper.addAttachment(MimeUtility.encodeText("test.pdf","utf-8", "B"), dataSource);
+            helper.addAttachment(MimeUtility.encodeText("petpalNewsLetter"+ext,"utf-8", "B"), dataSource);
             // 이메일 보내기
             mailSender.send(msg);
         } catch (Exception e) {
