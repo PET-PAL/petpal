@@ -228,7 +228,7 @@
 													            pay_method : 'card',
 													            merchant_uid : 'merchant_' + new Date().getTime(),
 													            name : '광고 1차 선결제',
-													            amount : 100,
+													            amount : adPrice,
 													            buyer_email : email,
 													            buyer_name : name,
 													            buyer_tel : phone,
